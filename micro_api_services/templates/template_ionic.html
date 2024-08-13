@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React with Ionic and Material UI</title>
+
+    <!-- Ionic Framework CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/@ionic/core/css/ionic.bundle.css" />
+
+    <!-- React -->
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+
+    <!-- Material UI CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/@material-ui/core@latest/umd/material-ui.production.min.js" />
+
+    <!-- Babel for JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+
+    <!-- Ionic Root -->
+    <ion-app id="root"></ion-app>
+
+    <!-- React and JS Code -->
+    <script type="text/babel">
+
+        const { useState, useEffect } = React;
+        const { IonApp, IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonInput, IonItem } = window.Ionic;
+
+        const App = () => {
+            const [message, setMessage] = useState('');
+            const [inputValue, setInputValue] = useState('');
+
+            // Fetch data from Flask API on load
+            useEffect(() => {
+                fetch('/api/data')
+                    .then(response => response.json())
+                    .then(data => setMessage(data.message));
+            }, []);
+
+            // Update data using Flask API
+            const updateMessage = () => {
+                fetch('/api/data', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ message: inputValue }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data.message);
+                    setMessage(inputValue);
+                    setInputValue('');
+                });
+            };
+
+            return (
+                <IonApp>
+                    <IonHeader>
+                        <IonToolbar>
+                            <IonTitle>React with Ionic & Material UI</IonTitle>
+                        </IonToolbar>
+                    </IonHeader>
+                    <IonContent class="ion-padding">
+                        <h1>{message}</h1>
+                        <IonItem>
+                            <IonInput 
+                                value={inputValue}
+                                placeholder="Enter new message"
+                                onIonChange={e => setInputValue(e.detail.value)} 
+                            />
+                        </IonItem>
+                        <IonButton onClick={updateMessage}>Update Message</IonButton>
+                    </IonContent>
+                </IonApp>
+            );
+        };
+
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+</html>
