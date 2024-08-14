@@ -8,6 +8,8 @@ GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 
 key = "AIzaSyDdlYV9sOWpkSAGX8DhlNCCeHdRoZksPp0"
 
+new_key = "AIzaSyDAPQnsTQxOL5HJ0zpjdYZKxbQ-ekmi3S0"
+
 class ResearchCrew:
     """
     Classe para gerenciar uma equipe de pesquisa com agentes de IA.
@@ -82,7 +84,7 @@ class ResearchCrew:
         except OSError as e:
             print("Erro na tripulação ",e)
 if __name__ == "__main__":
-    crew_manager = ResearchCrew(api_key=GOOGLE_API_KEY)
+    crew_manager = ResearchCrew(api_key=new_key)
 
     tarefa_pesquisa = """Realize uma análise abrangente dos últimos avanços em IA em 2024.
     Identifique as principais tendências, tecnologias inovadoras e potenciais impactos na indústria."""

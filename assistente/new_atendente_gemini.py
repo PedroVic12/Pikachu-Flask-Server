@@ -57,20 +57,27 @@ class GeminiModelManager:
 
 # Substitua 'SUA_API_KEY' pela sua chave de API do Google Cloud
 api_key = "AIzaSyDdlYV9sOWpkSAGX8DhlNCCeHdRoZksPp0"
+new_key = "AIzaSyDAPQnsTQxOL5HJ0zpjdYZKxbQ-ekmi3S0"
+c3po_key = "AIzaSyDVufkW23RIvdiTrUY3_ql67cnyVTMMIq8"
 
-# Criar um gerenciador de modelos Gemini
-gerenciador = GeminiModelManager(api_key)
+try:
+    # Criar um gerenciador de modelos Gemini
+    gerenciador = GeminiModelManager(c3po_key)
 
-# Carregar os modelos
-gerenciador.carregar_modelo_texto()
-gerenciador.carregar_modelo_visao()
+    # Carregar os modelos
+    gerenciador.carregar_modelo_texto()
+    gerenciador.carregar_modelo_visao()
 
-# Definir o prompt
-gerenciador.definir_prompt("Sing a ballad of LangChain.")
+    # Definir o prompt
+    gerenciador.definir_prompt("Sing a ballad of LangChain.")
 
-# Executar a tarefa
-gerenciador.executar_tarefa()
+    # Executar a tarefa
+    gerenciador.executar_tarefa()
 
-# Mudar o prompt e executar a tarefa com o outro modelo
-gerenciador.definir_prompt("Write a story about a magic backpack.")
-gerenciador.executar_tarefa()
+    # Mudar o prompt e executar a tarefa com o outro modelo
+    gerenciador.definir_prompt("Write a story about a magic backpack.")
+    gerenciador.executar_tarefa()
+
+
+except:
+    print("erro google")
