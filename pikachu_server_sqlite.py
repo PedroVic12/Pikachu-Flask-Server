@@ -1,5 +1,5 @@
-from database.BancoSqlite import BancoSqlite
-from api.FlaskServerApp import FlaskServerApp
+from micro_api_services.database.BancoSqlite import BancoSqlite
+from micro_api_services.api.FlaskServerApp import FlaskServerApp
 
 if __name__ == "__main__":
     # Inicializa o banco de dados e cria as tabelas

@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, request
-from database.BancoSqlite import BancoSqlite
+from ..database.BancoSqlite import BancoSqlite
 
 
 class PikachuRoutes:
