@@ -12,6 +12,8 @@ class PikachuRoutes:
         @self.app.route("/", methods=["GET"])
         def index():
             return "<h1> Pikachu 2024 rodando! </h1>"
+            #return render_template('index.html')
+
 
 
         @self.app.route('/clientes', methods=['GET'])
@@ -33,6 +35,22 @@ class PikachuRoutes:
             ]
             return jsonify(clientes)
 
+        @self.app.route('/add_cliente', methods=['POST'])
+        def add_cliente():
+            data = request.json
+            valores = f"NULL, '{data['RG']}', '{data['Nome']}', '{data['Sobrenome']}', '{data['Telefone']}', '{data['Rua']}', '{data['Numero']}', '{data['Bairro']}'"
+            banco.inserir_dados('Cliente', valores)
+            return jsonify({"status": "success"})
+
+        @self.app.route('/delete_cliente', methods=['POST'])
+        def delete_cliente():
+            data = request.json
+            query = f"DELETE FROM Cliente WHERE ID_Cliente = {data['ID_Cliente']}"
+            banco.consulta_dados(query)
+            return jsonify({"status": "deleted"})
+
+
+        #! Produtos
         @self.app.route('/produtos', methods=['GET'])
         def get_produtos():
             query = "SELECT * FROM Produto"
