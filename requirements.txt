@@ -1,1 +1,4 @@
 flask
+assemblyai
+crewai
+langchain_google_genai
