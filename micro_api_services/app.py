@@ -49,10 +49,13 @@ def setup_routes(app):
 
 
 def app():
+    pass
 
 def setup_routes():
+    pass
 
 def main():
+    pass
 
 
 
