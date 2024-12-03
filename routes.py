@@ -20,8 +20,8 @@ try:
     print("Cardapio database connected successfully!")
 
     # Service Orders database
-    db_service_orders = SqliteController('./database/service_orders.db')
-    db_service_orders.connect()
+    db_service_orders = BancoSqlite('./database/service_orders.db')
+    db_service_orders.conecta()
     print("Service Orders database connected successfully!")
 except Exception as e:
     print(f"Error connecting to databases: {str(e)}")
@@ -112,6 +112,10 @@ def setup_routes(app, session_local):
     @app.route('/cardapio', methods=['GET'])
     def get_cardapio():
         try:
+            # Create a new connection for each request
+            db_cardapio = SqliteController('./database/cardapio.db')
+            db_cardapio.connect()
+            
             items = db_cardapio.read('Items')
             if not items:
                 return jsonify({"error": "No menu items found"}), 404
@@ -133,9 +137,30 @@ def setup_routes(app, session_local):
     @app.route('/api/service-orders', methods=['GET'])
     def get_service_orders():
         try:
-            service = get_service()
-            orders = service.get_all_service_orders()
-            return jsonify([order.to_dict() for order in orders])
+            # Correct usage of BancoSqlite
+            db_service_orders = BancoSqlite('./database/service_orders.db')
+            db_service_orders.conecta()
+
+            # Assuming there's a table named ServiceOrders
+            orders = db_service_orders.consulta_dados('ServiceOrders')
+            if not orders:
+                return jsonify({"error": "No service orders found"}), 404
+
+            service_orders = [
+                {
+                    'id': order[0],
+                    'rebocador': order[1],
+                    'responsavel': order[2],
+                    'dataAbertura': order[3],
+                    'oficina': order[4],
+                    'manutencao': order[5],
+                    'equipamento': order[6],
+                    'descricaoFalha': order[7],
+                    'servicoExecutado': order[8]
+                }
+                for order in orders
+            ]
+            return jsonify(service_orders)
         except Exception as e:
             return jsonify({"error": str(e)}), 500
 
