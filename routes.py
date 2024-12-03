@@ -51,8 +51,8 @@ class GooglePlanilhasController:
             print(response.text)
             return jsonify({'error': 'Failed to fetch data from Google Sheets'}), 500
 
-        print("### DATA ###")
-        print(data)
+        #print("### DATA ###")
+        #print(data)
 
         # Sync with local database (optional)
         for entry in data:

@@ -19,7 +19,7 @@ class FlaskServerApp:
         self.db.criar_tabelas()
         print("All databases initialized successfully!")
 
-    def run(self, host='0.0.0.0', port=2000):
+    def run(self, host='0.0.0.0', port=5000):
         # Setup routes with database connection
         setup_routes(self.app, self.db)
         # Run the Flask app
