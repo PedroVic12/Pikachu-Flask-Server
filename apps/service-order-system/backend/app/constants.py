@@ -1,0 +1,33 @@
+MANUTENCAO_CHOICES = [
+    "PREVENTIVA",
+    "CORRETIVA",
+    "PREDITIVA",
+    "DETECTIVA"
+]
+
+OFICINA_CHOICES = [
+    "MECÂNICA",
+    "ELÉTRICA",
+    "HIDRÁULICA",
+    "INSTRUMENTAÇÃO",
+    "CALDEIRARIA",
+    "USINAGEM"
+]
+
+EQUIPAMENTO_CHOICES = [
+    "MOTOR",
+    "BOMBA",
+    "VÁLVULA",
+    "COMPRESSOR",
+    "TURBINA",
+    "GERADOR",
+    "TRANSFORMADOR"
+]
+
+REBOCADOR_CHOICES = [
+    "RB-01",
+    "RB-02",
+    "RB-03",
+    "RB-04",
+    "RB-05"
+]
