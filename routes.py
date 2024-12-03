@@ -5,6 +5,7 @@ import json
 import os
 from database.BancoSqlite import BancoSqlite
 from database.sqlite_controller import SqliteController
+import requests
 
 # Initialize database connections
 try:
@@ -23,8 +24,67 @@ try:
     db_service_orders = BancoSqlite('./database/service_orders.db')
     db_service_orders.conecta()
     print("Service Orders database connected successfully!")
+
+    # Google Planilhas database
+    db_planilhas = BancoSqlite('./database/planilhas.db')
+    db_planilhas.conecta()
+    db_planilhas.criar_tabelas()
+    print("Google Planilhas database connected successfully!")
 except Exception as e:
     print(f"Error connecting to databases: {str(e)}")
+
+class GooglePlanilhasController:
+    def __init__(self, db):
+        self.db = db
+        self.google_script_url = 'https://script.googleusercontent.com/macros/echo?user_content_key=_SbuJavmd8GVa5YuIJlezZ4QYaN-GcR7bgY_QIDNm6t5r_EcUDnEaVTWfiApWREAEGOZGmcz5OoxM69_vBbD9zd8yalm620Jm5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnAOQyAu3J0pgt2VCGulS5w8imbI838rlwibGFXE33fHTu2oJiqw6U5ivl46C-t8zfz_w-5UDalqjAlt85is3_lIFYLQzr2ZuXtz9Jw9Md8uu&lib=MpFR3aDjpNEEl3D_WuvT0p5ryw3v7gu6W'
+
+    def get_data(self):
+        # Fetch data from Google Sheets
+        response = requests.get(self.google_script_url)
+
+        # Check if the response is JSON
+        try:
+            data = response.json()
+        except ValueError:
+            # Log non-JSON response for debugging
+            print("Non-JSON response received:")
+            print(response.text)
+            return jsonify({'error': 'Failed to fetch data from Google Sheets'}), 500
+
+        print("### DATA ###")
+        print(data)
+
+        # Sync with local database (optional)
+        for entry in data:
+            # Assuming a table named 'Planilhas' exists
+            self.db.cursor.execute('''
+                INSERT OR IGNORE INTO Planilhas (PROJETOS, PRAZOS, PRECOS, TECNOLOGIAS, LIVE_DEMO)
+                VALUES (?, ?, ?, ?, ?)
+            ''', (entry['PROJETOS'], entry['PRAZOS'], entry['PRECOS'], entry['TECNOLOGIAS'], entry['LIVE DEMO']))
+        self.db.conn.commit()
+
+        return jsonify(data)
+
+    def post_data(self):
+        # Get data from request
+        data = request.json
+
+        # Add data to Google Sheets
+        response = requests.post(self.google_script_url, json=data)
+        result = response.json()
+
+        print("### RESULTADO ###")
+        #print(result)
+
+        # Sync with local database
+        self.db.cursor.execute('''
+            INSERT INTO Planilhas (PROJETOS, PRAZOS, PRECOS, TECNOLOGIAS, LIVE_DEMO)
+            VALUES (?, ?, ?, ?, ?)
+        ''', (data['PROJETOS'], data['PRAZOS'], data['PRECOS'], data['TECNOLOGIAS'], data['LIVE DEMO']))
+        self.db.conn.commit()
+
+        return jsonify(result)
+
 
 def setup_routes(app, session_local):
     # Helper function to get service
@@ -190,6 +250,17 @@ def setup_routes(app, session_local):
         except Exception as e:
             print(f"Error creating service order: {str(e)}")
             return jsonify({"error": str(e)}), 400
+
+    # Google Planilhas routes
+    planilhas_controller = GooglePlanilhasController(db_planilhas)
+
+    @app.route('/api/planilhas', methods=['GET'])
+    def get_planilhas():
+        return planilhas_controller.get_data()
+
+    @app.route('/api/planilhas', methods=['POST'])
+    def post_planilhas():
+        return planilhas_controller.post_data()
 
     # File download routes
     @app.route('/api/service-orders/excel', methods=['GET'])
