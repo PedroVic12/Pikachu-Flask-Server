@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema Astronômico - NASA, Pokémon e Astrologia</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .section h2 {
+            color: #ffd700;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        button {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .result {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            min-height: 100px;
+            border-left: 4px solid #ffd700;
+        }
+
+        .loading {
+            text-align: center;
+            font-style: italic;
+            color: #ffd700;
+        }
+
+        .error {
+            color: #ff6b6b;
+            font-weight: bold;
+        }
+
+        .nasa-image {
+            max-width: 100%;
+            border-radius: 10px;
+            margin-top: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .pokemon-sprite {
+            width: 150px;
+            height: 150px;
+            margin: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            padding: 10px;
+        }
+
+        input {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 25px;
+            margin: 5px;
+            font-size: 16px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+        }
+
+        select {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 25px;
+            margin: 5px;
+            font-size: 16px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .section {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>🌟 Sistema Astronômico 🌟</h1>
+
+        <div class="grid">
+            <!-- Seção NASA -->
+            <div class="section">
+                <h2>🚀 NASA - Foto do Dia</h2>
+                <button onclick="getNasaAPOD()">Obter Foto Astronômica do Dia</button>
+                <div id="nasa-result" class="result"></div>
+            </div>
+
+            <!-- Seção Pokémon -->
+            <div class="section">
+                <h2>🎮 Pokémon</h2>
+                <input type="text" id="pokemon-name" placeholder="Nome do Pokémon" />
+                <button onclick="getPokemon()">Buscar Pokémon</button>
+                <button onclick="getRandomPokemon()">Pokémon Aleatório</button>
+                <div id="pokemon-result" class="result"></div>
+            </div>
+
+            <!-- Seção Horóscopo -->
+            <div class="section">
+                <h2>🔮 Horóscopo</h2>
+                <select id="zodiac-sign">
+                    <option value="aries">Áries</option>
+                    <option value="taurus">Touro</option>
+                    <option value="gemini">Gêmeos</option>
+                    <option value="cancer">Câncer</option>
+                    <option value="leo">Leão</option>
+                    <option value="virgo">Virgem</option>
+                    <option value="libra">Libra</option>
+                    <option value="scorpio">Escorpião</option>
+                    <option value="sagittarius">Sagitário</option>
+                    <option value="capricorn">Capricórnio</option>
+                    <option value="aquarius">Aquário</option>
+                    <option value="pisces">Peixes</option>
+                </select>
+                <button onclick="getHoroscope()">Ver Horóscopo</button>
+                <div id="horoscope-result" class="result"></div>
+            </div>
+
+            <!-- Seção Astronomia -->
+            <div class="section">
+                <h2>🌙 Astronomia</h2>
+                <button onclick="getMoonPhase()">Fase da Lua</button>
+                <button onclick="getISSLocation()">Localização da ISS</button>
+                <button onclick="getPeopleInSpace()">Pessoas no Espaço</button>
+                <div id="astronomy-result" class="result"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function makeRequest(url, resultElementId) {
+            const resultElement = document.getElementById(resultElementId);
+            resultElement.innerHTML = '<div class="loading">Carregando...</div>';
+
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.error || 'Erro na requisição');
+                }
+
+                return data;
+            } catch (error) {
+                resultElement.innerHTML = `<div class="error">Erro: ${error.message}</div>`;
+                throw error;
+            }
+        }
+
+        async function getNasaAPOD() {
+            try {
+                const data = await makeRequest('/api/nasa/apod', 'nasa-result');
+                const resultElement = document.getElementById('nasa-result');
+
+                resultElement.innerHTML = `
+                    <h3>${data.title}</h3>
+                    <p><strong>Data:</strong> ${data.date}</p>
+                    <p>${data.explanation}</p>
+                    ${data.media_type === 'image' ? `<img src="${data.url}" alt="${data.title}" class="nasa-image">` : `<a href="${data.url}" target="_blank">Ver vídeo</a>`}
+                    ${data.copyright ? `<p><small>© ${data.copyright}</small></p>` : ''}
+                `;
+            } catch (error) {
+                console.error('Erro ao obter APOD:', error);
+            }
+        }
+
+        async function getPokemon() {
+            const pokemonName = document.getElementById('pokemon-name').value.trim();
+            if (!pokemonName) {
+                alert('Por favor, digite o nome de um Pokémon');
+                return;
+            }
+
+            try {
+                const data = await makeRequest(`/api/pokemon/${pokemonName}`, 'pokemon-result');
+                const resultElement = document.getElementById('pokemon-result');
+
+                resultElement.innerHTML = `
+                    <h3>${data.name.charAt(0).toUpperCase() + data.name.slice(1)} (#${data.id})</h3>
+                    <img src="${data.sprite}" alt="${data.name}" class="pokemon-sprite">
+                    <p><strong>Altura:</strong> ${data.height / 10} m</p>
+                    <p><strong>Peso:</strong> ${data.weight / 10} kg</p>
+                    <p><strong>Tipos:</strong> ${data.types.join(', ')}</p>
+                    <p><strong>Habilidades:</strong> ${data.abilities.join(', ')}</p>
+                `;
+            } catch (error) {
+                console.error('Erro ao obter Pokémon:', error);
+            }
+        }
+
+        async function getRandomPokemon() {
+            try {
+                const data = await makeRequest('/api/pokemon/random', 'pokemon-result');
+                const resultElement = document.getElementById('pokemon-result');
+
+                resultElement.innerHTML = `
+                    <h3>${data.name.charAt(0).toUpperCase() + data.name.slice(1)} (#${data.id})</h3>
+                    <img src="${data.sprite}" alt="${data.name}" class="pokemon-sprite">
+                    <p><strong>Altura:</strong> ${data.height / 10} m</p>
+                    <p><strong>Peso:</strong> ${data.weight / 10} kg</p>
+                    <p><strong>Tipos:</strong> ${data.types.join(', ')}</p>
+                    <p><strong>Habilidades:</strong> ${data.abilities.join(', ')}</p>
+                `;
+            } catch (error) {
+                console.error('Erro ao obter Pokémon aleatório:', error);
+            }
+        }
+
+        async function getHoroscope() {
+            const sign = document.getElementById('zodiac-sign').value;
+
+            try {
+                const data = await makeRequest(`/api/horoscope/${sign}`, 'horoscope-result');
+                const resultElement = document.getElementById('horoscope-result');
+
+                resultElement.innerHTML = `
+                    <h3>Horóscopo para ${sign.charAt(0).toUpperCase() + sign.slice(1)}</h3>
+                    <p><strong>Data:</strong> ${data.data.date}</p>
+                    <p><strong>Previsão:</strong> ${data.data.horoscope_data}</p>
+                `;
+            } catch (error) {
+                console.error('Erro ao obter horóscopo:', error);
+            }
+        }
+
+        async function getMoonPhase() {
+            try {
+                const data = await makeRequest('/api/astronomy/moon-phase', 'astronomy-result');
+                const resultElement = document.getElementById('astronomy-result');
+
+                resultElement.innerHTML = `
+                    <h3>🌙 Fase da Lua</h3>
+                    <p><strong>Fase:</strong> ${data.phase}</p>
+                    <p><strong>Data:</strong> ${data.date}</p>
+                    <p><strong>Horário:</strong> ${data.time}</p>
+                `;
+            } catch (error) {
+                console.error('Erro ao obter fase da lua:', error);
+            }
+        }
+
+        async function getISSLocation() {
+            try {
+                const data = await makeRequest('/api/astronomy/iss-location', 'astronomy-result');
+                const resultElement = document.getElementById('astronomy-result');
+
+                resultElement.innerHTML = `
+                    <h3>🛰️ Localização da ISS</h3>
+                    <p><strong>Latitude:</strong> ${data.iss_position.latitude}°</p>
+                    <p><strong>Longitude:</strong> ${data.iss_position.longitude}°</p>
+                    <p><strong>Timestamp:</strong> ${new Date(data.timestamp * 1000).toLocaleString('pt-BR')}</p>
+                `;
+            } catch (error) {
+                console.error('Erro ao obter localização da ISS:', error);
+            }
+        }
+
+        async function getPeopleInSpace() {
+            try {
+                const data = await makeRequest('/api/astronomy/people-in-space', 'astronomy-result');
+                const resultElement = document.getElementById('astronomy-result');
+
+                const peopleList = data.people.map(person =>
+                    `<li><strong>${person.name}</strong> - ${person.craft}</li>`
+                ).join('');
+
+                resultElement.innerHTML = `
+                    <h3>👨‍🚀 Pessoas no Espaço</h3>
+                    <p><strong>Total:</strong> ${data.number} pessoas</p>
+                    <ul>${peopleList}</ul>
+                `;
+            } catch (error) {
+                console.error('Erro ao obter pessoas no espaço:', error);
+            }
+        }
+    </script>
+</body>
+
+</html>
