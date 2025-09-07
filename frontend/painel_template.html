@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Painel PV — Batcaverna</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <style>
+    body { background: #060914; }
+    .neon { text-shadow: 0 0 8px rgba(0,255,200,0.3); }
+    .card { background: radial-gradient(1200px 600px at 0% 0%, rgba(0,255,200,0.05), transparent), #0b1020; }
+    .panel { border: 1px solid rgba(0,255,200,0.08); box-shadow: 0 0 20px rgba(0,255,200,0.05) inset; }
+  </style>
+</head>
+<body class="text-gray-100">
+  <header class="p-6 border-b border-cyan-900/30">
+    <h1 class="text-2xl lg:text-3xl font-bold neon">⚡ Painel PV — Batcaverna</h1>
+    <p class="text-cyan-300/80 mt-1">Frontend autônomo (CRUD + IoT simulado)</p>
+  </header>
+
+  <main class="p-6 grid lg:grid-cols-2 gap-6">
+    <!-- Tarefas -->
+    <section class="panel card rounded-2xl p-5">
+      <h2 class="text-xl font-semibold mb-3">🗂️ Tarefas</h2>
+      <form id="form-tarefa" class="flex flex-col lg:flex-row gap-3 mb-4">
+        <input id="titulo" class="flex-1 bg-gray-900/70 border border-cyan-900/50 rounded-xl px-4 py-2"
+               placeholder="Título da tarefa" />
+        <input id="descricao" class="flex-1 bg-gray-900/70 border border-cyan-900/50 rounded-xl px-4 py-2"
+               placeholder="Descrição" />
+        <button class="bg-cyan-500/80 hover:bg-cyan-400 text-black font-semibold rounded-xl px-4 py-2">
+          Adicionar
+        </button>
+      </form>
+      <ul id="lista" class="space-y-2"></ul>
+    </section>
+
+    <!-- IoT -->
+    <section class="panel card rounded-2xl p-5">
+      <h2 class="text-xl font-semibold mb-3">🔭 IoT (Simulação)</h2>
+      <div class="grid lg:grid-cols-3 gap-3 mb-4">
+        <div class="bg-black/30 rounded-xl p-3"><p>Temp (°C)</p><p id="lastTemp" class="text-2xl font-bold">--</p></div>
+        <div class="bg-black/30 rounded-xl p-3"><p>LDR</p><p id="lastLdr" class="text-2xl font-bold">--</p></div>
+        <div class="bg-black/30 rounded-xl p-3"><p>Botão</p><p id="lastBtn" class="text-2xl font-bold">--</p></div>
+      </div>
+      <canvas id="iotChart" height="140"></canvas>
+    </section>
+
+    <!-- Markdown explicação -->
+    <section class="panel card rounded-2xl p-5 lg:col-span-2">
+      <h2 class="text-xl font-semibold mb-3">📖 Explicação</h2>
+      <div id="markdown" class="prose prose-invert max-w-none"></div>
+    </section>
+  </main>
+
+  <script>
+    // ---------- CRUD de Tarefas ----------
+    let tarefas = JSON.parse(localStorage.getItem("tarefas") || "[]");
+
+    function salvar() { localStorage.setItem("tarefas", JSON.stringify(tarefas)); }
+
+    function renderTarefas() {
+      const ul = document.getElementById("lista");
+      ul.innerHTML = "";
+      tarefas.forEach((t, i) => {
+        const li = document.createElement("li");
+        li.className = "flex items-center justify-between bg-black/30 rounded-xl px-4 py-3";
+        li.innerHTML = `
+          <div><p class="font-semibold">${t.titulo}</p>
+          <p class="text-sm text-cyan-300/70">${t.descricao}</p></div>
+          <div class="flex gap-2">
+            <button class="px-3 py-1 rounded bg-amber-500/80 text-black font-semibold" onclick="editar(${i})">Editar</button>
+            <button class="px-3 py-1 rounded bg-rose-500/80 text-black font-semibold" onclick="remover(${i})">Del</button>
+          </div>`;
+        ul.appendChild(li);
+      });
+    }
+
+    function editar(i) {
+      const novoTitulo = prompt("Novo título:", tarefas[i].titulo);
+      const novaDesc = prompt("Nova descrição:", tarefas[i].descricao);
+      if (novoTitulo) tarefas[i].titulo = novoTitulo;
+      if (novaDesc) tarefas[i].descricao = novaDesc;
+      salvar(); renderTarefas();
+    }
+
+    function remover(i) { tarefas.splice(i, 1); salvar(); renderTarefas(); }
+
+    document.getElementById("form-tarefa").onsubmit = (e) => {
+      e.preventDefault();
+      const titulo = document.getElementById("titulo").value.trim();
+      const descricao = document.getElementById("descricao").value.trim();
+      if (!titulo) return;
+      tarefas.push({ titulo, descricao });
+      salvar(); renderTarefas();
+      document.getElementById("titulo").value = "";
+      document.getElementById("descricao").value = "";
+    };
+    renderTarefas();
+
+    // ---------- Simulação IoT ----------
+    const ctx = document.getElementById('iotChart').getContext('2d');
+    const iotChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: [],
+        datasets: [
+          { label: 'Temperatura (°C)', data: [], borderColor: 'cyan', borderWidth: 2 },
+          { label: 'LDR', data: [], borderColor: 'lime', borderWidth: 2 },
+          { label: 'Botão', data: [], borderColor: 'magenta', borderWidth: 2 },
+        ]
+      },
+      options: { animation: false, responsive: true, scales: { y: { beginAtZero: true } } }
+    });
+
+    function simularIoT() {
+      const temp = (20 + Math.random() * 10).toFixed(1);
+      const ldr = (Math.random() * 100).toFixed(1);
+      const btn = Math.random() > 0.7 ? 1 : 0;
+      const time = new Date().toLocaleTimeString();
+
+      iotChart.data.labels.push(time);
+      iotChart.data.datasets[0].data.push(temp);
+      iotChart.data.datasets[1].data.push(ldr);
+      iotChart.data.datasets[2].data.push(btn);
+
+      if (iotChart.data.labels.length > 20) {
+        iotChart.data.labels.shift();
+        iotChart.data.datasets.forEach(d => d.data.shift());
+      }
+      iotChart.update();
+
+      document.getElementById("lastTemp").textContent = temp;
+      document.getElementById("lastLdr").textContent = ldr;
+      document.getElementById("lastBtn").textContent = btn;
+    }
+    setInterval(simularIoT, 2000);
+
+    // ---------- Markdown ----------
+    const explicacao = `
+# 🦇 Painel Batcaverna Minimal
+
+- **Tarefas**: CRUD salvo em \`localStorage\` (sem backend).
+- **IoT**: Simulação de sensores (temperatura, LDR e botão).
+- **Estilo**: Tailwind + tema escuro + neon sutil.
+- **Gráficos**: Chart.js em tempo real.
+
+> Próximos passos: conectar este frontend a um backend real em **FastAPI ou Drogon** para dados persistentes e integração IoT real com ESP32/Arduino.
+`;
+    document.getElementById("markdown").innerHTML = marked.parse(explicacao);
+  </script>
+</body>
+</html>

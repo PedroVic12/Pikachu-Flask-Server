@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BatDashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Fira+Code&display=swap"
+    rel="stylesheet">
+  <script type="importmap">
+        {
+            "imports": {
+                "react": "https://esm.sh/react@18.2.0",
+                "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
+                "htm": "https://esm.sh/htm@3.1.1",
+                "three": "https://cdn.jsdelivr.net/npm/three@0.148.0/build/three.module.js",
+                "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.148.0/examples/jsm/",
+                "chart.js": "https://esm.sh/chart.js@4.4.0",
+                "chart.js/auto": "https://esm.sh/chart.js@4.4.0/auto"
+            }
+        }
+    </script>
+  <style>
+    :root {
+      --bg-dark: #000000;
+      --bg-panel: rgba(1, 1, 16, 0.948);
+      --border-color: rgba(0, 221, 255, 0.5);
+      --neon-cyan: #00e5ff;
+      --text-primary: #e6f7ff;
+      --text-secondary: #8b949e;
+      --kanban-backlog: #4a5568;
+      --kanban-todo: #4299e1;
+      --kanban-progress: #f6ad55;
+      --kanban-completed: #48bb78;
+    }
+
+    html,
+    body,
+    #root {
+      height: 100%;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-primary);
+      font-family: 'Inter', sans-serif;
+      overflow: hidden;
+    }
+
+    .glass-panel {
+      background: var(--bg-panel);
+      border: 1px solid var(--border-color);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25), inset 0 0 20px rgba(0, 229, 255, 0.05);
+      backdrop-filter: blur(12px);
+      border-radius: 0.9rem;
+    }
+
+    .neon-text {
+      text-shadow: 0 0 4px var(--neon-cyan), 0 0 8px var(--neon-cyan), 0 0 15px rgba(0, 229, 255, 0.4);
+    }
+
+    .tab-btn {
+      background-color: transparent;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s ease-in-out;
+      padding: 0.5rem 1.2rem;
+      color: var(--text-secondary);
+      font-weight: 600;
+    }
+
+    .tab-btn:hover {
+      background-color: rgba(0, 229, 255, 0.05);
+      color: var(--text-primary);
+    }
+
+    .tab-btn.active {
+      color: var(--neon-cyan);
+      border-bottom-color: var(--neon-cyan);
+      text-shadow: 0 0 5px var(--neon-cyan);
+    }
+
+    .markdown-editor {
+      background-color: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(0, 255, 204, 0.1);
+      font-family: 'Fira Code', monospace;
+      font-size: 0.9rem;
+      line-height: 1.8;
+    }
+
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--border-color);
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--neon-cyan);
+    }
+
+    .kanban-column-drag-over {
+      background-color: rgba(0, 229, 255, 0.1);
+    }
+  </style>
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module">
+    import React, { useState, useEffect, useRef, useMemo } from 'react';
+    import ReactDOM from 'react-dom/client';
+    import htm from 'htm';
+    import * as THREE from 'three';
+    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+    import Chart from 'chart.js/auto';
+
+    const html = htm.bind(React.createElement);
+
+    // =======================================================
+    // DATA & STATE MANAGEMENT (Controllers & Models)
+    // =======================================================
+
+    const TASK_STORAGE_KEY = 'dashboard-tasks-v3';
+    const DEFAULT_TASKS_MD = `# 🦇 Projetos Bat-Caverna __IN_PROGRESS\n- [x] Iniciar BatDashboard\n- [x] Integrar simulação orbital\n- [ ] Calibrar sensores do Batmóvel\n\n# 📚 Pesquisa e Inteligência __TODO\n- [x] Analisar padrões do Coringa\n- [ ] Mapear atividades do Pinguim\n- [ ] Investigar roubo no museu de Gotham\n\n# ✅ Manutenção de Equipamentos __COMPLETED\n- [x] Polir o Bat-sinal\n- [x] Recarregar Batarangues\n- [x] Testar gancho de escalada\n\n# 🏃 Treinamento Físico\n- [ ] 100 Flexões\n- [ ] 10km de corrida\n\n# 🕵️‍♂️ Casos Abertos (Backlog) __BACKLOG\n- [ ] O mistério do Charada\n- [ ] A conspiração da Corte das Corujas`;
+
+    class StorageController {
+      static get(key, defaultValue) {
+        const storedValue = localStorage.getItem(key);
+        return storedValue ? JSON.parse(storedValue) : defaultValue;
+      }
+      static set(key, value) {
+        localStorage.setItem(key, JSON.stringify(value));
+      }
+    }
+
+    class DashboardModel {
+      parseTasksFromMarkdown(markdown) {
+        if (!markdown) return [];
+        const categories = markdown.split(/^#\s+/m).slice(1);
+        const KANBAN_TAGS = ['BACKLOG', 'TODO', 'IN_PROGRESS', 'COMPLETED'];
+
+        return categories.map(cat => {
+          const lines = cat.trim().split('\n');
+          const header = lines[0].trim();
+
+          let label = header;
+          let explicitStatus = null;
+
+          const tagMatch = header.match(/__([A-Z_]+)$/);
+          if (tagMatch && KANBAN_TAGS.includes(tagMatch[1])) {
+            explicitStatus = tagMatch[1];
+            label = header.replace(tagMatch[0], '').trim();
+          }
+
+          const taskLines = lines.slice(1).filter(line => line.match(/^\s*-\s*\[[ x]\]/));
+          const items = taskLines.map(line => ({
+            completed: !!line.match(/^\s*-\s*\[x\]/i),
+            text: line.replace(/^\s*-\s*\[[ x]\]\s*/, '').trim()
+          }));
+
+          const hasTasks = items.length > 0;
+          if (!hasTasks) return null;
+
+          const completedCount = items.filter(item => item.completed).length;
+          const progress = hasTasks ? Math.round((completedCount / items.length) * 100) : 0;
+
+          const status = explicitStatus || (progress === 100 ? 'COMPLETED' : progress > 0 ? 'IN_PROGRESS' : 'TODO');
+
+          const color = progress > 70 ? '#39ff14' : progress > 40 ? '#00e5ff' : progress > 10 ? '#ffab00' : '#f44336';
+
+          return { label, progress, color, items, status };
+        }).filter(Boolean);
+      }
+
+      getAstroData() {
+        const now = new Date();
+        const knownNewMoon = new Date('2000-01-06T18:14:00Z');
+        const daysSinceNewMoon = (now - knownNewMoon) / 86400000;
+        const LUNAR_CYCLE = 29.53058867;
+        const currentCyclePos = (daysSinceNewMoon / LUNAR_CYCLE) % 1;
+        const phaseIndex = Math.floor(currentCyclePos * 8 + 0.5) % 8;
+        const moonPhases = [{ name: "Lua Nova", emoji: "🌑" }, { name: "Crescente", emoji: "🌒" }, { name: "Quarto Crescente", emoji: "🌓" }, { name: "Gibosa Crescente", emoji: "🌔" }, { name: "Lua Cheia", emoji: "🌕" }, { name: "Gibosa Minguante", emoji: "🌖" }, { name: "Quarto Minguante", emoji: "🌗" }, { name: "Minguante", emoji: "🌘" }];
+
+        const hour = now.getHours();
+        let score = 50;
+        if ((hour >= 5 && hour <= 8) || (hour >= 17 && hour <= 20)) { score += 40; }
+        if ((hour >= 11 && hour <= 14) || (hour >= 23 || hour <= 2)) { score += 20; }
+        if (phaseIndex === 0 || phaseIndex === 4) { score += 30; }
+        else if (phaseIndex === 2 || phaseIndex === 6) { score += 15; }
+        score = Math.min(100, score);
+        let fishingForecast;
+        if (score > 85) fishingForecast = { text: "Excelente", color: "text-cyan-400" };
+        else if (score > 65) fishingForecast = { text: "Bom", color: "text-green-400" };
+        else if (score > 40) fishingForecast = { text: "Regular", color: "text-yellow-400" };
+        else fishingForecast = { text: "Fraco", color: "text-red-400" };
+
+        const constellationsByMonth = { 0: [{ name: "Órion", emoji: "🏹" }, { name: "Cão Maior", emoji: "🐕" }], 1: [{ name: "Gêmeos", emoji: "♊" }, { name: "Carina", emoji: "⛵️" }], 2: [{ name: "Leão", emoji: "🦁" }, { name: "Cruzeiro do Sul", emoji: "✝️" }], 3: [{ name: "Cruzeiro do Sul", emoji: "✝️" }, { name: "Virgem", emoji: "♍" }], 4: [{ name: "Centauro", emoji: "🐎" }, { name: "Balança", emoji: "⚖️" }], 5: [{ name: "Escorpião", emoji: "🦂" }, { name: "Sagitário", emoji: "♐" }], 6: [{ name: "Escorpião", emoji: "🦂" }, { name: "Águia", emoji: "🦅" }], 7: [{ name: "Sagitário", emoji: "♐" }, { name: "Capricórnio", emoji: "♑" }], 8: [{ name: "Aquário", emoji: "♒" }, { name: "Grou", emoji: "🐦" }], 9: [{ name: "Peixes", emoji: "♓" }, { name: "Fênix", emoji: "🔥" }], 10: [{ name: "Áries", emoji: "♈" }, { name: "Baleia", emoji: "🐳" }], 11: [{ name: "Touro", emoji: "🐂" }, { name: "Órion", emoji: "🏹" }] };
+
+        return {
+          moonPhase: moonPhases[phaseIndex],
+          fishingForecast,
+          constellations: constellationsByMonth[now.getMonth()] || []
+        };
+      }
+    }
+
+    function useDashboardController() {
+      const model = useMemo(() => new DashboardModel(), []);
+      const [activeView, setActiveView] = useState('kanban');
+      const [currentTime, setCurrentTime] = useState('');
+      const [astroData, setAstroData] = useState({ moonPhase: {}, fishingForecast: {}, constellations: [] });
+      const [tasksMarkdown, setTasksMarkdown] = useState(() => StorageController.get(TASK_STORAGE_KEY, DEFAULT_TASKS_MD));
+      const tasks = useMemo(() => model.parseTasksFromMarkdown(tasksMarkdown), [tasksMarkdown, model]);
+
+      useEffect(() => {
+        const intervalId = setInterval(() => {
+          setCurrentTime(new Date().toLocaleTimeString('pt-BR'));
+          setAstroData(model.getAstroData());
+        }, 1000);
+        setCurrentTime(new Date().toLocaleTimeString('pt-BR'));
+        setAstroData(model.getAstroData());
+        return () => clearInterval(intervalId);
+      }, [model]);
+
+      const handleMarkdownChange = (e) => {
+        const newMarkdown = e.target.value;
+        setTasksMarkdown(newMarkdown);
+        StorageController.set(TASK_STORAGE_KEY, newMarkdown);
+      };
+
+      const handleKanbanUpdate = (cardLabel, newStatus) => {
+        const KANBAN_TAGS_REGEX = /__([A-Z_]+)$/;
+        const lines = tasksMarkdown.split('\n');
+        const categoryIndex = lines.findIndex(line => line.trim().startsWith(`# ${cardLabel}`));
+
+        if (categoryIndex !== -1) {
+          let headerLine = lines[categoryIndex];
+          headerLine = headerLine.replace(KANBAN_TAGS_REGEX, '').trim();
+          lines[categoryIndex] = `${headerLine} __${newStatus}`;
+
+          const newMarkdown = lines.join('\n');
+          setTasksMarkdown(newMarkdown);
+          StorageController.set(TASK_STORAGE_KEY, newMarkdown);
+        }
+      };
+
+      return { activeView, setActiveView, currentTime, ...astroData, tasks, tasksMarkdown, handleMarkdownChange, handleKanbanUpdate };
+    }
+
+    // =======================================================
+    // UI COMPONENTS
+    // =======================================================
+
+    const Header = ({ currentTime }) => {
+      const now = new Date();
+      const DataAtual = `${now.toLocaleDateString('pt-BR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}`;
+      return html`
+                <header>
+                    <h1 className="text-3xl font-bold neon-text">Bat Caverna Dashboard 🦇</h1>
+                    <p className="text-sm text-gray-400">${DataAtual}</p>
+                    <div className="flex justify-between items-center mt-4">
+                        <h2 className="font-semibold text-gray-300">Horário Local</h2>
+                        <span className="font-mono text-lg bg-black/20 px-2 rounded">${currentTime}</span>
+                    </div>
+                </header>`;
+    };
+
+    const WeeklyFocus = ({ tasks }) => html`
+            <section className="bg-black/20 p-3 rounded-lg flex-1">
+                <h2 className="font-semibold text-gray-300 mb-2">🎯 Foco da Semana</h2>
+                <ul className="space-y-2">${tasks.map(task => html`
+                    <li key=${task.label} className="text-sm">
+                        <div className="flex justify-between mb-1">
+                            <span className="text-gray-300">${task.label}</span>
+                            <span className="text-gray-400">${task.progress}%</span>
+                        </div>
+                        <div className="w-full bg-black/30 rounded-full h-1.5">
+                            <div className="h-1.5 rounded-full" style=${{ width: `${task.progress}%`, backgroundColor: task.color }}></div>
+                        </div>
+                    </li>`)}
+                </ul>
+            </section>`;
+
+    const AstroInfo = ({ moonPhase, fishingForecast, constellations }) => html`
+            <section className="bg-black/20 p-3 rounded-lg space-y-3">
+                <div className="flex justify-between items-center">
+                    <h2 className="font-semibold text-gray-300">🌙 Fase da Lua</h2>
+                    <div className="text-right">
+                        <span className="text-2xl">${moonPhase.emoji}</span><p className="text-xs text-gray-400 font-mono">${moonPhase.name}</p>
+                    </div>
+                </div>
+                <div className="flex justify-between items-center">
+                    <h2 className="font-semibold text-gray-300">🎣 Atividade de Pesca</h2>
+                    <span className=${`font-bold ${fishingForecast.color}`}>${fishingForecast.text}</span>
+                </div>
+                <div>
+                    <h2 className="font-semibold text-gray-300 mb-2">🔭 Constelações Visíveis (RJ)</h2>
+                    <ul className="text-sm space-y-1">${constellations.map(c => html`
+                        <li key=${c.name} className="flex items-center space-x-2">
+                            <span className="text-lg">${c.emoji}</span><span className="text-gray-400">${c.name}</span>
+                        </li>`)}
+                    </ul>
+                </div>
+            </section>`;
+
+    const LinksPanel = () => html`
+            <div className="bg-black/20 p-3 rounded-lg">
+                <h2 className="font-semibold text-gray-300 mb-3">🔗 Painel de Links</h2>
+                <div className="flex flex-col gap-3">
+                    <a href="https://github.com/PedroVic12" target="_blank" rel="noopener noreferrer" className="w-full text-center px-4 py-2 bg-gray-700 text-white rounded-lg shadow hover:bg-gray-600 transition">🌍 GitHub</a>
+                    <button onClick=${() => alert("Função React executada!")} className="w-full px-4 py-2 bg-purple-600 text-white rounded-lg shadow hover:bg-purple-700 transition">⚡ Executar Ação</button>
+                </div>
+            </div>`;
+
+    const KanbanCard = ({ card, onDragStart }) => html`
+            <div 
+                draggable="true"
+                onDragStart=${e => onDragStart(e, card.label)}
+                className="bg-black/40 p-3 rounded-lg border border-gray-700 hover:border-cyan-400 transition cursor-grab active:cursor-grabbing">
+                <h4 className="font-bold text-gray-200">${card.label}</h4>
+                <p className="text-xs text-gray-400 mt-1">${card.items.filter(i => i.completed).length} / ${card.items.length} tarefas concluídas</p>
+                <div className="w-full bg-black/30 rounded-full h-1.5 mt-2">
+                    <div className="h-1.5 rounded-full" style=${{ width: `${card.progress}%`, backgroundColor: card.color }}></div>
+                </div>
+            </div>`;
+
+    const KanbanColumn = ({ title, cards, status, color, onDrop, onDragStart }) => {
+      const [isOver, setIsOver] = useState(false);
+      const handleDragOver = (e) => { e.preventDefault(); setIsOver(true); };
+      const handleDragLeave = () => setIsOver(false);
+      const handleDrop = (e) => { onDrop(e, status); setIsOver(false); };
+
+      return html`
+                <div 
+                    onDragOver=${handleDragOver}
+                    onDragLeave=${handleDragLeave}
+                    onDrop=${handleDrop}
+                    className=${`flex-1 min-w-[280px] bg-black/20 rounded-lg p-3 flex flex-col transition-colors ${isOver ? 'kanban-column-drag-over' : ''}`}>
+                    <h3 className="font-bold text-lg px-2 pb-2 border-b-2" style=${{ borderColor: color }}>${title}</h3>
+                    <div className="flex-1 pt-3 space-y-3 overflow-y-auto">
+                        ${cards.map(card => html`<${KanbanCard} key=${card.label} card=${card} onDragStart=${onDragStart} />`)}
+                    </div>
+                </div>`;
+    };
+
+    const KanbanProView = ({ tasks, onUpdate }) => {
+      const onDragStart = (e, cardLabel) => {
+        e.dataTransfer.setData("cardLabel", cardLabel);
+      };
+
+      const onDrop = (e, newStatus) => {
+        const cardLabel = e.dataTransfer.getData("cardLabel");
+        onUpdate(cardLabel, newStatus);
+      };
+
+      const columns = {
+        BACKLOG: tasks.filter(t => t.status === 'BACKLOG'),
+        TODO: tasks.filter(t => t.status === 'TODO'),
+        IN_PROGRESS: tasks.filter(t => t.status === 'IN_PROGRESS'),
+        COMPLETED: tasks.filter(t => t.status === 'COMPLETED')
+      };
+      const columnMeta = {
+        BACKLOG: { title: 'BACKLOG', color: 'var(--kanban-backlog)' },
+        TODO: { title: 'TODO', color: 'var(--kanban-todo)' },
+        IN_PROGRESS: { title: 'IN PROGRESS', color: 'var(--kanban-progress)' },
+        COMPLETED: { title: 'COMPLETED', color: 'var(--kanban-completed)' }
+      };
+
+      return html`
+                <div className="w-full h-full p-4 flex gap-4 overflow-x-auto">
+                    ${Object.entries(columnMeta).map(([status, meta]) => html`
+                        <${KanbanColumn} 
+                            key=${status} 
+                            title=${meta.title} 
+                            cards=${columns[status] || []} 
+                            status=${status}
+                            color=${meta.color}
+                            onDragStart=${onDragStart}
+                            onDrop=${onDrop}
+                        />
+                    `)}
+                </div>`;
+    };
+
+    const Checklist = ({ tasks }) => {
+      if (!tasks || tasks.length === 0) {
+        return html`<div className="flex items-center justify-center h-full text-gray-400">Nenhuma tarefa encontrada.</div>`;
+      }
+      return html`
+                <div className="w-full h-full p-4 md:p-6 overflow-y-auto">
+                    <div className="space-y-6 max-w-4xl mx-auto">
+                        ${tasks.map(category => html`
+                            <div key=${category.label} className="glass-panel !p-4 !bg-black/20">
+                                <h3 className="text-lg font-semibold text-cyan-300 border-b-2 border-cyan-500/20 pb-2 mb-3">${category.label}</h3>
+                                <ul className="space-y-2">${category.items.map((item, index) => html`
+                                    <li key=${index} className="flex items-center bg-black/30 p-3 rounded-md transition-all hover:bg-black/50">
+                                        <input type="checkbox" readOnly checked=${item.completed} className="h-5 w-5 rounded bg-gray-700 border-gray-600 text-cyan-500 focus:ring-cyan-600 cursor-not-allowed" />
+                                        <label className=${`ml-3 text-gray-300 ${item.completed ? 'line-through text-gray-500' : ''}`}>
+                                            ${item.text}
+                                        </label>
+                                    </li>
+                                `)}</ul>
+                            </div>
+                        `)}
+                    </div>
+                </div>
+            `;
+    };
+
+    const TasksChart = ({ data }) => {
+      const canvasRef = useRef(null);
+      useEffect(() => {
+        if (!canvasRef.current || !data || data.length === 0) return;
+        const chartInstance = new Chart(canvasRef.current, {
+          type: 'doughnut',
+          data: {
+            labels: data.map(d => d.label),
+            datasets: [{
+              data: data.map(d => d.progress),
+              backgroundColor: data.map(d => d.color),
+              borderColor: 'rgba(10, 10, 25, 0.8)',
+              borderWidth: 4,
+              hoverOffset: 8
+            }]
+          },
+          options: {
+            responsive: true, maintainAspectRatio: false, cutout: '70%',
+            plugins: { legend: { display: false } }
+          }
+        });
+        return () => chartInstance.destroy();
+      }, [data]);
+      return html`<canvas ref=${canvasRef}></canvas>`;
+    };
+
+    const OrbitalView = () => {
+      const simRef = useRef(null);
+      const [target, setTarget] = useState('sun');
+      useEffect(() => {
+        const container = document.getElementById('simulation-container');
+        if (container) simRef.current = mountPhysicsOrbitSystem(container);
+        return () => { if (simRef.current?.stop) simRef.current.stop(); };
+      }, []);
+      useEffect(() => {
+        if (simRef.current?.setCameraTarget) simRef.current.setCameraTarget(target);
+      }, [target]);
+      return html`
+                <div className="w-full h-full relative">
+                    <div id="simulation-container" className="w-full h-full absolute top-0 left-0"></div>
+                    <div className="absolute top-4 left-4 glass-panel !p-2 flex gap-2">
+                        <button onClick=${() => setTarget('sun')} className=${`px-3 py-1 rounded-md text-sm transition ${target === 'sun' ? 'bg-cyan-500 text-black font-semibold' : 'bg-black/40 hover:bg-black/60'}`}>Visão: Sol ☀️</button>
+                        <button onClick=${() => setTarget('earth')} className=${`px-3 py-1 rounded-md text-sm transition ${target === 'earth' ? 'bg-cyan-500 text-black font-semibold' : 'bg-black/40 hover:bg-black/60'}`}>Visão: Terra 🌍</button>
+                    </div>
+                </div>`;
+    };
+
+    // =======================================================
+    // MAIN APP STRUCTURE
+    // =======================================================
+
+    function App() {
+      const { activeView, setActiveView, currentTime, moonPhase, fishingForecast, constellations, tasks, tasksMarkdown, handleMarkdownChange, handleKanbanUpdate } = useDashboardController();
+      const TABS = useMemo(() => [
+        { id: 'kanban', label: '🗂️ KanbanPro' }, { id: 'orbit', label: '🛰️ Sistema Orbital' }, { id: 'checklist', label: '✅ Checklist' }, { id: 'tasks', label: '📊 Gráfico' }, { id: 'manage-tasks', label: '📝 Editor' },
+      ], []);
+
+      const renderActiveView = () => {
+        switch (activeView) {
+          case 'orbit': return html`<${OrbitalView} />`;
+          case 'kanban': return html`<${KanbanProView} tasks=${tasks} onUpdate=${handleKanbanUpdate} />`;
+          case 'checklist': return html`<${Checklist} tasks=${tasks} />`;
+          case 'tasks': return html`<div className="w-full h-full p-4 md:p-8 flex items-center justify-center"><div className="w-full max-w-md aspect-square"><${TasksChart} data=${tasks} /></div></div>`;
+          case 'manage-tasks': return html`<div className="w-full h-full p-4 flex flex-col"><h3 className="text-lg font-semibold text-gray-300 mb-2">📝 Editor de Tarefas (Markdown)</h3><p className="text-sm text-gray-400 mb-4">Adicione tags como __TODO ou __IN_PROGRESS no final dos títulos (#) para organizar o Kanban.</p><textarea className="w-full h-full flex-1 p-3 rounded-md markdown-editor focus:outline-none focus:ring-2 focus:ring-[var(--neon-cyan)]" value=${tasksMarkdown} onChange=${handleMarkdownChange}></textarea></div>`;
+          default: return null;
+        }
+      };
+
+      return html`
+                <div className="h-screen w-screen p-2 md:p-4 grid grid-cols-1 lg:grid-cols-12 gap-4">
+                    <aside className="lg:col-span-4 glass-panel p-4 flex flex-col space-y-4 overflow-y-auto">
+                        <${Header} currentTime=${currentTime} />
+                        <${WeeklyFocus} tasks=${tasks} />
+                        <${AstroInfo} moonPhase=${moonPhase} fishingForecast=${fishingForecast} constellations=${constellations} />
+                        <${LinksPanel} />
+                    </aside>
+                    <main className="lg:col-span-8 glass-panel flex flex-col p-0">
+                        <nav className="flex-shrink-0 border-b border-[var(--border-color)] px-2">
+                            <div className="flex space-x-2 overflow-x-auto">${TABS.map(tab => html`
+                                <button key=${tab.id} onClick=${() => setActiveView(tab.id)} className=${`tab-btn ${activeView === tab.id ? 'active' : ''}`}>${tab.label}</button>
+                            `)}</div>
+                        </nav>
+                        <div className="flex-1 relative min-h-0">${renderActiveView()}</div>
+                    </main>
+                </div>`;
+    }
+
+    // =======================================================
+    // SIMULATION LOGIC (REFACTORED)
+    // =======================================================
+
+    const SOLAR_SYSTEM_DATA = new Map([
+      ['sun', { name: 'Sol', radius: 4.5, color: 0xffcc33, isStar: true }],
+      ['earth', { name: 'Terra', radius: 0.8, color: 0x2288ff, orbit: { radius: 25.0, period: 365 } }],
+      ['mars', { name: 'Marte', radius: 0.45, color: 0xff5733, orbit: { radius: 38.0, period: 687 } }],
+      ['moon', { name: 'Lua', radius: 0.25, color: 0xaaaaaa, orbit: { radius: 2.5, period: 27, center: 'earth' } }]
+    ]);
+
+    class OrbitalMechanics {
+      static calculateSpeed(period, timeScale = 0.005) {
+        if (!period) return 0;
+        return timeScale * (365 / period);
+      }
+      static calculatePosition(angle, radius) {
+        const x = Math.cos(angle) * radius;
+        const z = Math.sin(angle) * radius;
+        return new THREE.Vector3(x, 0, z);
+      }
+    }
+
+    function mountPhysicsOrbitSystem(container) {
+      const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+      renderer.setSize(container.clientWidth, container.clientHeight);
+      renderer.setPixelRatio(window.devicePixelRatio);
+      container.appendChild(renderer.domElement);
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 2000);
+      camera.position.set(0, 40, 70);
+
+      const controls = new OrbitControls(camera, renderer.domElement);
+      controls.enableDamping = true; controls.minDistance = 10; controls.maxDistance = 200;
+
+      new THREE.TextureLoader().load('https://s3-us-west-2.amazonaws.com/s.cdpn.io/17271/star-field.png', texture => {
+        scene.background = texture;
+      });
+      const starVertices = Array.from({ length: 15000 }, () => THREE.MathUtils.randFloatSpread(2000));
+      const starGeometry = new THREE.BufferGeometry();
+      starGeometry.setAttribute('position', new THREE.Float32BufferAttribute(starVertices, 3));
+      scene.add(new THREE.Points(starGeometry, new THREE.PointsMaterial({ color: 0xffffff, size: 0.7 })));
+
+      scene.add(new THREE.AmbientLight(0xffffff, 0.2));
+
+      const celestialObjects = new Map();
+      const orbitalStates = new Map();
+
+      SOLAR_SYSTEM_DATA.forEach((data, id) => {
+        const material = data.isStar
+          ? new THREE.MeshBasicMaterial({ color: data.color })
+          : new THREE.MeshStandardMaterial({ color: data.color, roughness: 0.6 });
+        const mesh = new THREE.Mesh(new THREE.SphereGeometry(data.radius, 32, 32), material);
+        scene.add(mesh);
+        celestialObjects.set(id, mesh);
+
+        if (data.isStar) {
+          scene.add(new THREE.PointLight(0xffddaa, 2.5, 1000));
+        }
+
+        if (data.orbit) {
+          orbitalStates.set(id, { angle: Math.random() * Math.PI * 2, speed: OrbitalMechanics.calculateSpeed(data.orbit.period) });
+          const orbitLine = new THREE.Line(
+            new THREE.BufferGeometry().setFromPoints(
+              Array.from({ length: 129 }, (_, i) => {
+                const theta = (i / 128) * Math.PI * 2;
+                return new THREE.Vector3(Math.cos(theta) * data.orbit.radius, 0, Math.sin(theta) * data.orbit.radius);
+              })
+            ),
+            new THREE.LineBasicMaterial({ color: data.color, transparent: true, opacity: 0.4 })
+          );
+          if (data.orbit.center) {
+            celestialObjects.get(data.orbit.center).add(orbitLine);
+          } else {
+            scene.add(orbitLine);
+          }
+        }
+      });
+
+      let running = true;
+      let targetObject = celestialObjects.get('sun');
+
+      function animate() {
+        if (!running) return;
+        requestAnimationFrame(animate);
+
+        orbitalStates.forEach((state, id) => {
+          state.angle += state.speed;
+          const data = SOLAR_SYSTEM_DATA.get(id);
+          const object = celestialObjects.get(id);
+          let position = OrbitalMechanics.calculatePosition(state.angle, data.orbit.radius);
+          if (data.orbit.center) {
+            position.add(celestialObjects.get(data.orbit.center).position);
+          }
+          object.position.copy(position);
+        });
+
+        celestialObjects.forEach(obj => { obj.rotation.y += 0.005; });
+        controls.target.lerp(targetObject.position, 0.1);
+        controls.update();
+        renderer.render(scene, camera);
+      }
+      animate();
+
+      const onResize = () => {
+        camera.aspect = container.clientWidth / container.clientHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(container.clientWidth, container.clientHeight);
+      };
+      window.addEventListener('resize', onResize);
+
+      return {
+        stop: () => {
+          running = false;
+          window.removeEventListener('resize', onResize);
+          if (container && renderer.domElement.parentNode === container) container.removeChild(renderer.domElement);
+          renderer.dispose(); controls.dispose();
+        },
+        setCameraTarget: (targetName) => {
+          targetObject = celestialObjects.get(targetName);
+        }
+      };
+    }
+
+    // --- RENDER APPLICATION ---
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(html`<${App} />`);
+  </script>
+</body>
+
+</html>
