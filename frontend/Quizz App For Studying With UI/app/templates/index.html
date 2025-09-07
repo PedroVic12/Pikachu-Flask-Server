@@ -1,0 +1,176 @@
+{% extends "layout.html" %}
+{% block title %}Sessão de Quiz{% endblock %}
+
+{% block styles %}
+<style>
+    .quiz-container { max-width: 800px; margin: auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
+    .stats-component { display: flex; justify-content: space-between; font-size: 1.2em; font-weight: bold; color: #333; }
+    .options-component .btn { width: 100%; margin-bottom: 10px; }
+    .feedback-component { margin-top: 20px; font-weight: bold; text-align: center; }
+    #next-btn { display: none; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="quiz-container">
+        <!-- Header Component -->
+        <div class="header-component">
+            <h2>Jedi CyberPunk - The Witcher Mode</h2>
+            <div class="stats-component">
+            <span id="score">Score: 0</span>
+            <span id="timer" class="fw-bold text-danger">Tempo: 30</span>
+            <span id="xp">XP: 0</span>
+        </div>
+        </div>
+
+        <!-- Question Component -->
+        <div id="question-area">
+            <div class="question-component">
+                <h3 id="question-text">Carregando...</h3>
+            </div>
+            <div class="options-component" id="options-buttons">
+                <!-- Opções de resposta serão inseridas aqui -->
+            </div>
+        </div>
+
+        <!-- Feedback Component -->
+        <div class="feedback-component" id="feedback"></div>
+
+        <!-- Solution Component -->
+        <div id="solution-area" class="p-3 mt-3 border rounded bg-light" style="display: none;">
+            <h5>Resolução:</h5>
+            <p id="solution-text"></p>
+        </div>
+
+        <!-- Navigation Component -->
+        <div class="d-grid gap-2">
+             <button class="btn btn-primary" id="next-btn">Próxima Questão</button>
+        </div>
+    </div>
+
+    </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // This function will be called when MathJax is fully loaded and ready
+        function initializeQuizApp() {
+            const questionText = document.getElementById('question-text');
+            const optionsButtons = document.getElementById('options-buttons');
+            const scoreEl = document.getElementById('score');
+            const xpEl = document.getElementById('xp');
+            const feedbackEl = document.getElementById('feedback');
+            const nextBtn = document.getElementById('next-btn');
+            const timerEl = document.getElementById('timer');
+            const solutionArea = document.getElementById('solution-area');
+            const solutionText = document.getElementById('solution-text');
+
+            let countdown;
+            let timerInterval;
+
+            function startTimer() {
+                countdown = 30; // Valor padrão inicial
+                timerEl.textContent = `Tempo: ${countdown}`;
+                timerInterval = setInterval(() => {
+                    countdown--;
+                    timerEl.textContent = `Tempo: ${countdown}`;
+                    if (countdown <= 0) {
+                        clearInterval(timerInterval);
+                        checkAnswer("TIMEOUT", true);
+                    }
+                }, 1000);
+            }
+
+            async function getNextQuestion() {
+                const response = await fetch('/next_question');
+                const data = await response.json();
+
+                // Atualiza o countdown com o valor do servidor, se disponível
+                countdown = data.time_per_question || 30;
+
+                clearInterval(timerInterval);
+                scoreEl.textContent = `Score: ${data.score}`;
+                xpEl.textContent = `XP: ${data.xp}`;
+                feedbackEl.innerHTML = '';
+                solutionArea.style.display = 'none'; // Esconde a resolução
+                nextBtn.style.display = 'none';
+
+                if (data.has_more_questions) {
+                    startTimer();
+                    const question = data.question;
+                    console.log("Question Text:", question.text); // Keep for debugging
+                    questionText.innerHTML = question.text; // innerHTML para renderizar LaTeX
+                    optionsButtons.innerHTML = '';
+                    question.options.forEach(option => {
+                        console.log("Option:", option); // Keep for debugging
+                        const button = document.createElement('button');
+                        button.innerHTML = option; // Usar innerHTML para renderizar o LaTeX
+                        button.classList.add('btn', 'btn-outline-primary');
+                        button.onclick = () => checkAnswer(option);
+                        optionsButtons.appendChild(button);
+                    });
+                    // Avisa ao MathJax para renderizar o novo conteúdo
+                    MathJax.typesetPromise();
+                } else {
+                    document.getElementById('question-area').innerHTML = `<h2>${data.final_message}</h2>`;
+                    nextBtn.textContent = 'Voltar ao Dashboard';
+                    nextBtn.onclick = () => { window.location.href = "/"; };
+                    nextBtn.style.display = 'block';
+                }
+            }
+
+            async function checkAnswer(selectedOption, timedOut = false) {
+                clearInterval(timerInterval);
+                const response = await fetch(`/check_answer/${encodeURIComponent(selectedOption)}`);
+                const data = await response.json();
+
+                Array.from(optionsButtons.children).forEach(button => {
+                    button.disabled = true;
+                    if (button.textContent === data.correct_answer) {
+                        button.classList.remove('btn-outline-primary');
+                        button.classList.add('btn-success');
+                    } else if (button.textContent === selectedOption) {
+                        button.classList.remove('btn-outline-primary');
+                        button.classList.add('btn-danger');
+                    } else if (timedOut) { // Highlight correct answer on timeout
+                        button.classList.remove('btn-outline-primary');
+                        button.classList.add('btn-warning');
+                    }
+                });
+
+                if (timedOut) {
+                    feedbackEl.textContent = `Tempo esgotado! A resposta correta é: ${data.correct_answer}`;
+                    feedbackEl.style.color = 'orange';
+                } else if (data.is_correct) {
+                    feedbackEl.textContent = "Resposta Correta!";
+                    feedbackEl.style.color = 'green';
+                } else {
+                    feedbackEl.innerHTML = `Errado! A resposta correta é: ${data.correct_answer}`; // Use innerHTML for LaTeX
+                    feedbackEl.style.color = 'red';
+                }
+                // Exibe a resolução
+                solutionText.innerHTML = data.solution;
+                solutionArea.style.display = 'block';
+
+                MathJax.typesetPromise();
+                nextBtn.style.display = 'block';
+            }
+
+            nextBtn.onclick = getNextQuestion;
+
+            // Initial call to load the first question
+            getNextQuestion();
+        }
+
+        // Ensure MathJax is ready before initializing the quiz app
+        if (window.MathJax) {
+            MathJax.startup.promise.then(initializeQuizApp);
+        } else {
+            // Fallback if MathJax is not defined (e.g., network error for polyfill.io)
+            console.error("MathJax not loaded. Equations will not render.");
+            initializeQuizApp(); // Still try to run the app without MathJax
+        }
+    });
+</script>
+{% endblock %}

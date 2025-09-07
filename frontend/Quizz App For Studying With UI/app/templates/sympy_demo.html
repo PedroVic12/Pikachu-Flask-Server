@@ -1,0 +1,38 @@
+
+{% extends "layout.html" %}
+{% block title %}Sympy Demo{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Demonstração Sympy</h1>
+    <p>Esta página demonstra a integração do Sympy para gerar e exibir equações matemáticas.</p>
+
+    <div class="card mb-3">
+        <div class="card-header">Integral</div>
+        <div class="card-body">
+            <p>Expressão: <code>{{ integral_expr }}</code></p>
+            <p>Resultado (LaTeX): <code>{{ integral_latex }}</code></p>
+            <p>Renderizado: ${{ integral_latex }}$</p>
+        </div>
+    </div>
+
+    <div class="card mb-3">
+        <div class="card-header">Derivada</div>
+        <div class="card-body">
+            <p>Expressão: <code>{{ diff_expr }}</code></p>
+            <p>Resultado (LaTeX): <code>{{ diff_latex }}</code></p>
+            <p>Renderizado: ${{ diff_latex }}$</p>
+        </div>
+    </div>
+
+    <div class="card mb-3">
+        <div class="card-header">Solução de Equação</div>
+        <div class="card-body">
+            <p>Equação: <code>{{ solve_eq }}</code></p>
+            <p>Resultado (LaTeX): <code>{{ solve_latex }}</code></p>
+            <p>Renderizado: ${{ solve_latex }}$</p>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
