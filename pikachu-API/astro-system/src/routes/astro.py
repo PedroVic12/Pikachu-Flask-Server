@@ -3,10 +3,37 @@ import requests
 from datetime import datetime
 import os
 
+from deep_translator import GoogleTranslator
+from langdetect import detect
+
 astro_bp = Blueprint('astro', __name__)
 
 # NASA API Key - você pode obter uma em https://api.nasa.gov/
 NASA_API_KEY = os.environ.get('NASA_API_KEY', 'DEMO_KEY')
+
+
+#! Metodos de tradução
+def traduzirTexto(self, texto_em_ingles):
+    texto_traduzido = GoogleTranslator(source='en', target='pt').translate(texto_em_ingles) # use translate_text here
+    return texto_traduzido
+
+def is_english(self, text):
+    try:
+        # Se detectar que o idioma é inglês, retorna True
+        return detect(text) == 'en'
+    except:
+        return False
+
+def maybe_translate(self, text):
+    # Verifica se o texto é em inglês
+    if self.is_english(text):
+        
+        # Traduz o texto
+        print('\n\n\nTraduzindo texto...')
+        return self.traduzirTexto(text)
+        
+    # Retorna o texto original se não for inglês
+    return text
 
 @astro_bp.route('/nasa/apod', methods=['GET'])
 def get_nasa_apod():
