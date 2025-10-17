@@ -96,17 +96,7 @@
             padding: 10px;
         }
 
-        input {
-            padding: 10px 15px;
-            border: none;
-            border-radius: 25px;
-            margin: 5px;
-            font-size: 16px;
-            background: rgba(255, 255, 255, 0.9);
-            color: #333;
-        }
-
-        select {
+        input, select {
             padding: 10px 15px;
             border: none;
             border-radius: 25px;
@@ -120,6 +110,23 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 20px;
+        }
+
+        .astronomy-section {
+            grid-column: span 2;
+        }
+
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 900px) {
+            .astronomy-section {
+                grid-column: span 1;
+            }
         }
 
         @media (max-width: 768px) {
@@ -181,17 +188,85 @@
             </div>
 
             <!-- Seção Astronomia -->
-            <div class="section">
+            <div class="section astronomy-section">
                 <h2>🌙 Astronomia</h2>
-                <button onclick="getMoonPhase()">Fase da Lua</button>
-                <button onclick="getISSLocation()">Localização da ISS</button>
-                <button onclick="getPeopleInSpace()">Pessoas no Espaço</button>
+                <div class="button-group">
+                    <button onclick="getMoonPhase()">Fase da Lua</button>
+                    <button onclick="getISSLocation()">Localização da ISS</button>
+                    <button onclick="getPeopleInSpace()">Pessoas no Espaço</button>
+                    <button onclick="getKeplerExoplanets()">Exoplanetas (Kepler)</button>
+                    <button onclick="getTransitingExoplanets()">Exoplanetas (Trânsito)</button>
+                    <button onclick="getCandidateExoplanets()">Candidatos a Planetas</button>
+                    <button onclick="getMarsWeather()">Clima em Marte</button>
+                </div>
                 <div id="astronomy-result" class="result"></div>
+
+                <h3>Fotos de Marte</h3>
+                <div class="button-group">
+                    <select id="rover-name" onchange="updateCameraOptions()">
+                        <option value="curiosity">Curiosity</option>
+                        <option value="opportunity">Opportunity</option>
+                        <option value="spirit">Spirit</option>
+                    </select>
+                    <input type="number" id="rover-sol" placeholder="Sol" value="1000" />
+                    <select id="rover-camera"></select>
+                    <button onclick="getMarsRoverPhotos()">Buscar Fotos</button>
+                </div>
+                <div id="mars-photos-result" class="result" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px;"></div>
             </div>
         </div>
     </div>
 
     <script>
+        const cameraOptions = {
+            curiosity: [
+                { value: 'FHAZ', text: 'Front Hazard Avoidance Camera' },
+                { value: 'RHAZ', text: 'Rear Hazard Avoidance Camera' },
+                { value: 'MAST', text: 'Mast Camera' },
+                { value: 'CHEMCAM', text: 'Chemistry and Camera Complex' },
+                { value: 'MAHLI', text: 'Mars Hand Lens Imager' },
+                { value: 'MARDI', text: 'Mars Descent Imager' },
+                { value: 'NAVCAM', text: 'Navigation Camera' }
+            ],
+            opportunity: [
+                { value: 'FHAZ', text: 'Front Hazard Avoidance Camera' },
+                { value: 'RHAZ', text: 'Rear Hazard Avoidance Camera' },
+                { value: 'NAVCAM', text: 'Navigation Camera' },
+                { value: 'PANCAM', text: 'Panoramic Camera' },
+                { value: 'MINITES', text: 'Miniature Thermal Emission Spectrometer' }
+            ],
+            spirit: [
+                { value: 'FHAZ', text: 'Front Hazard Avoidance Camera' },
+                { value: 'RHAZ', text: 'Rear Hazard Avoidance Camera' },
+                { value: 'NAVCAM', text: 'Navigation Camera' },
+                { value: 'PANCAM', text: 'Panoramic Camera' },
+                { value: 'MINITES', text: 'Miniature Thermal Emission Spectrometer' }
+            ]
+        };
+
+        function updateCameraOptions() {
+            const rover = document.getElementById('rover-name').value;
+            const cameraSelect = document.getElementById('rover-camera');
+            cameraSelect.innerHTML = '';
+
+            const cameras = cameraOptions[rover];
+            if (cameras) {
+                const allOption = document.createElement('option');
+                allOption.value = '';
+                allOption.text = 'All Cameras';
+                cameraSelect.appendChild(allOption);
+
+                cameras.forEach(camera => {
+                    const option = document.createElement('option');
+                    option.value = camera.value;
+                    option.text = `${camera.text} (${camera.value})`;
+                    cameraSelect.appendChild(option);
+                });
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', updateCameraOptions);
+
         async function makeRequest(url, resultElementId) {
             const resultElement = document.getElementById(resultElementId);
             resultElement.innerHTML = '<div class="loading">Carregando...</div>';
@@ -201,6 +276,9 @@
                 const data = await response.json();
 
                 if (!response.ok) {
+                    if (data.content) {
+                         throw new Error(`${data.error}. Response: ${data.content}`);
+                    }
                     throw new Error(data.error || 'Erro na requisição');
                 }
 
@@ -335,6 +413,119 @@
                 `;
             } catch (error) {
                 console.error('Erro ao obter pessoas no espaço:', error);
+            }
+        }
+
+        async function getKeplerExoplanets() {
+            try {
+                const data = await makeRequest('/api/astronomy/exoplanets/kepler', 'astronomy-result');
+                const resultElement = document.getElementById('astronomy-result');
+                const planets = data.slice(0, 10); // Limitar a 10 para não sobrecarregar a UI
+                const planetList = planets.map(planet => `<li>${planet.pl_name}</li>`).join('');
+                resultElement.innerHTML = `
+                    <h3>🪐 Exoplanetas (Kepler)</h3>
+                    <p>Mostrando os 10 primeiros de ${data.length} planetas encontrados.</p>
+                    <ul>${planetList}</ul>
+                `;
+            } catch (error) {
+                console.error('Erro ao obter exoplanetas Kepler:', error);
+            }
+        }
+
+        async function getTransitingExoplanets() {
+            try {
+                const data = await makeRequest('/api/astronomy/exoplanets/transiting', 'astronomy-result');
+                const resultElement = document.getElementById('astronomy-result');
+                const planets = data.slice(0, 10); // Limitar a 10
+                const planetList = planets.map(planet => `<li>${planet.pl_name}</li>`).join('');
+                resultElement.innerHTML = `
+                    <h3>🪐 Exoplanetas (Trânsito)</h3>
+                    <p>Mostrando os 10 primeiros de ${data.length} planetas encontrados.</p>
+                    <ul>${planetList}</ul>
+                `;
+            } catch (error) {
+                console.error('Erro ao obter exoplanetas em trânsito:', error);
+            }
+        }
+
+        async function getCandidateExoplanets() {
+            try {
+                const data = await makeRequest('/api/astronomy/exoplanets/candidates', 'astronomy-result');
+                const resultElement = document.getElementById('astronomy-result');
+                const planets = data.slice(0, 10); // Limitar a 10
+                const planetList = planets.map(planet => `<li>${planet.kepoi_name} (KOI)</li>`).join('');
+                resultElement.innerHTML = `
+                    <h3>🪐 Candidatos a Planetas</h3>
+                    <p>Mostrando os 10 primeiros de ${data.length} candidatos encontrados.</p>
+                    <ul>${planetList}</ul>
+                `;
+            } catch (error) {
+                console.error('Erro ao obter candidatos a exoplanetas:', error);
+            }
+        }
+
+        async function getMarsWeather() {
+            try {
+                const data = await makeRequest('/api/astronomy/mars-weather', 'astronomy-result');
+                const resultElement = document.getElementById('astronomy-result');
+
+                if (data.sol_keys && data.sol_keys.length > 0) {
+                    const latestSol = data.sol_keys[data.sol_keys.length - 1];
+                    const weather = data[latestSol];
+                    resultElement.innerHTML = `
+                        <h3>🌦️ Clima em Marte (InSight)</h3>
+                        <p><strong>Sol:</strong> ${latestSol}</p>
+                        <p><strong>Temperatura Média:</strong> ${weather.AT.av.toFixed(2)} °C</p>
+                        <p><strong>Vento Horizontal Médio:</strong> ${weather.HWS.av.toFixed(2)} m/s</p>
+                        <p><strong>Pressão Média:</strong> ${weather.PRE.av.toFixed(2)} Pa</p>
+                        <p><strong>Estação:</strong> ${weather.Season}</p>
+                    `;
+                } else {
+                     resultElement.innerHTML = `
+                        <h3>🌦️ Clima em Marte (InSight)</h3>
+                        <p>Dados de clima não disponíveis no momento.</p>
+                        <p>A missão InSight foi concluída em 2022, então novos dados não são esperados. Esta API pode estar desativada ou sem dados recentes.</p>
+                     `;
+                }
+            } catch (error) {
+                const resultElement = document.getElementById('astronomy-result');
+                resultElement.innerHTML = `
+                        <h3>🌦️ Clima em Marte (InSight)</h3>
+                        <p>Erro ao buscar dados de clima. A API pode estar desativada.</p>
+                        <p>A missão InSight foi concluída em 2022.</p>
+                     `;
+                console.error('Erro ao obter clima em Marte:', error);
+            }
+        }
+
+        async function getMarsRoverPhotos() {
+            const rover = document.getElementById('rover-name').value.trim();
+            const sol = document.getElementById('rover-sol').value.trim();
+            const camera = document.getElementById('rover-camera').value.trim();
+
+            let url = `/api/astronomy/mars-rover/photos?rover=${rover}&sol=${sol}`;
+            if (camera) {
+                url += `&camera=${camera}`;
+            }
+
+            try {
+                const data = await makeRequest(url, 'mars-photos-result');
+                const resultElement = document.getElementById('mars-photos-result');
+
+                if (data.photos && data.photos.length > 0) {
+                    const photosHTML = data.photos.map(photo => `
+                        <div>
+                            <img src="${photo.img_src}" style="width: 100%; border-radius: 10px;" alt="Foto de Marte pelo rover ${photo.rover.name}">
+                            <p style="font-size: 12px; margin-top: 5px;">${photo.camera.full_name} (Sol ${photo.sol})</p>
+                        </div>
+                    `).join('');
+                    resultElement.innerHTML = photosHTML;
+                } else {
+                    resultElement.innerHTML = '<p>Nenhuma foto encontrada para esta combinação de rover, sol e câmera.</p>';
+                }
+                
+            } catch (error) {
+                console.error('Erro ao obter fotos de Marte:', error);
             }
         }
     </script>

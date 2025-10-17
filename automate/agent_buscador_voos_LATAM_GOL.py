@@ -1,60 +1,94 @@
 import os
 import asyncio
 from dotenv import load_dotenv
-from browser_use import Agent, Browser, ChatBrowserUse, BrowserUse
+from browser_use import Agent, Browser, ChatBrowserUse, BrowserProfile
 
-# === Carregar variáveis do arquivo .env ===
+# === Carregar variáveis de ambiente ===
 load_dotenv()
-API_KEY = os.getenv("BROWSER_USE_API_KEY")
+API_KEY = os.getenv("API_KEY")
 
-API_KEY = "bu_qUl4Rj1HfpO2BQ4hFjFCWZnvrAJprwm8fcShTXkt1gs"
+#API_KEY = "bu_qUl4Rj1HfpO2BQ4hFjFCWZnvrAJprwm8fcShTXkt1gs"
 
-# === Configurações globais ===
-TODAY = "2025-10-17"
 
+browser_profile = BrowserProfile(
+    headless=False,  # Mostra o navegador na tela
+    minimum_wait_page_load_time=1.0,
+    wait_between_actions=0.5,
+)
+
+
+# === Dados do Pedro Victor ===
 PERSON = {
     "name": "Pedro Victor Veras",
     "location": "Rio de Janeiro, Brasil",
-    "loves": "Explorar novos lugares como Fortaleza, Ceará. Pesquisar passagens LATAM e VOEGOL de 20/12/2025 a 04/01/2026.",
+    "destination": "Fortaleza, Ceará, Brasil",
+    "dates": {
+        "departure": "20/12/2025",
+        "return": "04/01/2026"
+    },
+    "goal": "viajar no fim do ano para curtir, relaxar e explorar o Nordeste",
 }
 
-# === Inicializar o navegador ===
-browser = Browser(use_cloud=True)  # usa navegador remoto (headless e isolado)
+# === Data de hoje ===
+TODAY = "2025-10-17"
 
-# === Definição da tarefa ===
+# === Construindo prompt da tarefa ===
 TAREFA = f"""
-Você é um assistente de planejamento de viagem.
+Você é um assistente de planejamento de viagens do mestre Pedro Victor Veras.
 
-Encontre passagens aéreas de {PERSON['location']} para Fortaleza (CE),
-entre os dias 20/12/2025 e 04/01/2026,
-para {PERSON['name']} que ama {PERSON['loves']}.
+➡️ Dados da viagem:
+- Origem: {PERSON['location']}
+- Destino: {PERSON['destination']}
+- Ida: {PERSON['dates']['departure']}
+- Volta: {PERSON['dates']['return']}
+- Data de hoje: {TODAY}
 
-Liste as 5 melhores opções de voos das companhias LATAM e VOEGOL,
-incluindo:
-- Preço em R$ (reais)
-- Link direto da oferta
-- Horário de ida e volta
-- Duração do voo
+🎯 Objetivo:
+Encontrar os **melhores voos** de ida e volta para o Pedro Victor, que ama explorar o Nordeste e quer voar com **LATAM** e **VOEGOL**.
+
+🧭 Instruções:
+1. Acesse os sites oficiais da LATAM e GOL (https://www.voegol.com.br/ e https://www.latamairlines.com/br/pt), respectivamente).
+2. Pesquise os voos entre {PERSON['location']} e {PERSON['destination']}.
+3. Liste os **5 melhores resultados** (menor preço ou menor tempo de voo).
+4. Retorne em formato limpo:
+   - Companhia aérea
+   - Horário de ida e volta
+   - Preço em R$
+   - Link direto da página do voo
+   
+   
+depois faça um dataframe com pandas com os resultados encontrados.
+
+e exporte esse dataframe para um arquivo csv chamado 'voos_encontrados.xlsx'.
+
+e atualize um simlples html mostrando os resultados encontrados em cards com tailwindcss.
 """
 
-# === Função principal ===
-async def main():
-    # Inicializa o LLM com acesso ao navegador
-    llm = ChatBrowserUse(api_key=API_KEY)
+# === Execução principal ===
+async def main(cloud = True):
+    # Criar navegador na nuvem (usa cloud browser automaticamente)
+    browser = Browser(use_cloud=cloud, headless=False)
 
-    # Cria o agente e associa o navegador
+    # Inicializar modelo de navegação com LLM nativo do BrowserUse
+    llm = ChatBrowserUse()
+
+    # Criar agente de viagem
     agent = Agent(
         task=TAREFA,
         llm=llm,
         browser=browser,
     )
 
-    print("🔍 Executando o agente de busca de voos...")
+    # Executar tarefa
+    print("🚀 Buscando voos para Fortaleza no fim do ano...\n")
     result = await agent.run()
-    print("\n✅ Resultado:")
+
+    print("\n✅ Resultado final:\n")
     print(result)
 
-# === Executar o agente ===
+# === Ponto de entrada ===
 if __name__ == "__main__":
-    asyncio.run(main())
+    asyncio.run(main(
+        cloud=False,
+    ))
 
