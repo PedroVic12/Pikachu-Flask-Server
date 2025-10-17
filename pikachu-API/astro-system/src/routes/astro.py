@@ -9,8 +9,9 @@ from langdetect import detect
 astro_bp = Blueprint('astro', __name__)
 
 # NASA API Key - você pode obter uma em https://api.nasa.gov/
-NASA_API_KEY = os.environ.get('NASA_API_KEY', 'DEMO_KEY')
-
+#NASA_API_KEY = os.environ.get('NASA_API_KEY', 'DEMO_KEY')
+# https://api.nasa.gov/#gibs
+NASA_API_KEY = "SqO4btBXshwmDO8tZTbfOxIKLpeShuX3d4SdCJbH"
 
 #! Metodos de tradução
 def traduzirTexto(self, texto_em_ingles):
