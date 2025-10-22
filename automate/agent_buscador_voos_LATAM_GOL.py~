@@ -10,12 +10,6 @@ API_KEY = os.getenv("API_KEY")
 #API_KEY = "bu_qUl4Rj1HfpO2BQ4hFjFCWZnvrAJprwm8fcShTXkt1gs"
 
 
-# Sites importantes:
-
-# https://github.com/browser-use/web-ui
-
-# https://cloud.browser-use.com/billing
-
 browser_profile = BrowserProfile(
     headless=False,  # Mostra o navegador na tela
     minimum_wait_page_load_time=1.0,

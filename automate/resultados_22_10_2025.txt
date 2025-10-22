@@ -1,0 +1,13 @@
+<result>
+Os 5 melhores voos de volta da GOL para 04/01/2026 (Rio de Janeiro para Fortaleza) com o menor preço a partir de R$:
+
+| Companhia Aérea | Horário de ida | Horário de chegada | Duração do voo | Preço a partir de R$ |
+| :--- | :--- | :--- | :--- | :--- |
+| GOL (G3 2027) | 01:45 (FOR) | 05:05 (GIG) | 03:20 | 2.095,78 |
+| GOL (G3 2031) | 09:35 (FOR) | 12:55 (GIG) | 03:20 | 2.095,78 |
+| GOL (G3 1975) | 18:20 (FOR) | 21:40 (GIG) | 03:20 | 2.095,78 |
+| GOL (G3 9141) | 00:35 (FOR) | 06:00 (GIG) | 05:25 | 2.095,78 |
+| GOL (G3 1529) | 03:55 (FOR) | 09:55 (GIG) | 06:00 | 2.550,78 |
+</result>
+
+
