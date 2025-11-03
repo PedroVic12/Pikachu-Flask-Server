@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sistema de Produtividade Integrado</title>
+
+    <!-- React via CDN -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <!-- Babel para transpilar JSX no navegador -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- Material-UI (MUI) via CDN -->
+    <script src="https://unpkg.com/@mui/material@5/umd/material-ui.development.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+
+    <!-- Chart.js via CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Tailwind CSS para utilidades de layout -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        /* Estilos para a animação de virar o flashcard */
+        .flashcard-scene {
+            perspective: 1000px;
+        }
+
+        .flashcard {
+            width: 100%;
+            height: 100%;
+            min-height: 200px;
+            position: relative;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+
+        .flashcard.is-flipped {
+            transform: rotateY(180deg);
+        }
+
+        .flashcard-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+        }
+
+        .flashcard-face--back {
+            transform: rotateY(180deg);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        // --- DESTRUTURAÇÃO DE LIBS GLOBAIS ---
+        const { useState, useEffect, useRef, Fragment } = React;
+        const {
+            AppBar, Toolbar, IconButton, Typography, Drawer, List, ListItem, ListItemButton, ListItemText,
+            Container, Paper, Button, Box, TextField, Select, MenuItem, InputLabel, FormControl,
+            Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Chip, Alert,
+            Card, CardContent, LinearProgress, Checkbox, FormControlLabel, Modal, CssBaseline, Divider,
+            Radio, RadioGroup, FormLabel, Grid, ButtonGroup, Tabs, Tab, Collapse, CardActionArea, Autocomplete
+        } = MaterialUI;
+        const { createTheme, ThemeProvider } = MaterialUI;
+        const { createRoot } = ReactDOM;
+
+        // --- DADOS MOCKADOS INICIAIS ---
+        const MOCK_DATA = {
+            "markdownText": `# Estágio ONS __BACKLOG\n- [ ] Relatório + Reunião Semanal @U-I\n- [ ] Banco de Dados com SQL e relacionamentos com Dashboard Streamlit\n\n# Eng. Elétrica UFF 2025 __BACKLOG\n- [ ] Minicurso CC + CD @NU-I\n- [x] Leitura Orante do livo Teoria e controle moderno`,
+            "pomodoroLogs": [],
+            "flashcards": [
+                { "ID": "ee1", "Frente": "O que é a Lei de Ohm?", "Verso": "V = I * R (Tensão = Corrente * Resistência)", "Anotacoes": "Fundamental para análise de circuitos. Descreve a relação entre tensão, corrente e resistência em um condutor." },
+                { "ID": "ee2", "Frente": "Qual a função de um capacitor?", "Verso": "Armazenar energia em um campo elétrico.", "Anotacoes": "Usado em filtros, temporizadores e para suavizar fontes de tensão." },
+                { "ID": "ee3", "Frente": "O que enuncia a Primeira Lei de Kirchhoff (Lei dos Nós)?", "Verso": "A soma das correntes que entram em um nó é igual à soma das correntes que saem.", "Anotacoes": "Baseada no princípio da conservação da carga elétrica." },
+                { "ID": "ee4", "Frente": "Qual a diferença entre Corrente Contínua (CC) e Alternada (AC)?", "Verso": "CC tem fluxo constante em um sentido. AC inverte o sentido periodicamente.", "Anotacoes": "AC é usada para transmissão de energia a longas distâncias. CC é comum em baterias e eletrônicos." },
+                { "ID": "ee5", "Frente": "O que é um transformador?", "Verso": "Dispositivo que aumenta ou diminui a tensão e a corrente em um circuito AC.", "Anotacoes": "Funciona pelo princípio da indução eletromagnética. Essencial para a rede elétrica." },
+                { "ID": "ee6", "Frente": "Qual a função de um indutor?", "Verso": "Armazenar energia em um campo magnético quando uma corrente elétrica passa por ele.", "Anotacoes": "Opoe-se a variações de corrente. Usado em filtros e conversores de energia." },
+                { "ID": "ee7", "Frente": "O que é um motor de indução trifásico?", "Verso": "Um tipo de motor elétrico AC cujo rotor gira a uma velocidade diferente do campo magnético do estator.", "Anotacoes": "É o motor mais utilizado na indústria devido à sua robustez, baixo custo e simplicidade de partida." }
+            ],
+            "calisthenicsWorkouts": {
+                push: [
+                    {
+                        treino: 'Push Básico',
+                        exercises: [
+                            { id: 'p1', treino: 'Push Básico', name: 'Flexões (Push-ups)', sets: 3, reps: '10-15', difficulty: 'Normal', youtubeUrl: 'https://www.youtube.com/watch?v=IODxDxX7oi4' },
+                            { id: 'p2', treino: 'Push Básico', name: 'Flexões Diamante', sets: 3, reps: '8-12', difficulty: 'Normal', youtubeUrl: 'https://www.youtube.com/watch?v=J0DnG1_S-oQ' },
+                            { id: 'p3', treino: 'Push Básico', name: 'Mergulho no Banco (Dips)', sets: 3, reps: '12-15', difficulty: 'Normal', youtubeUrl: 'https://www.youtube.com/watch?v=0326dy_-CzM' }
+                        ]
+                    },
+                    {
+                        treino: 'Push Intermediário',
+                        exercises: [
+                            { id: 'p4', treino: 'Push Intermediário', name: 'Flexões Inclinadas', sets: 4, reps: '15-20', difficulty: 'Hard', youtubeUrl: 'https://www.youtube.com/watch?v=4dF1DOWzf20' },
+                            { id: 'p5', treino: 'Push Intermediário', name: 'Handstand Push-up (parede)', sets: 3, reps: '5-8', difficulty: 'Hard', youtubeUrl: 'https://www.youtube.com/watch?v=3P9_s4Xk_pg' }
+                        ]
+                    }
+                ],
+                pull: [{
+                    treino: 'Pull Básico',
+                    exercises: [
+                        { id: 'pu1', treino: 'Pull Básico', name: 'Barra Fixa (Pull-ups)', sets: 3, reps: 'Até a falha', difficulty: 'Hard', youtubeUrl: 'https://www.youtube.com/watch?v=eGo4IYlbE5g' },
+                        { id: 'pu2', treino: 'Pull Básico', name: 'Remada Australiana', sets: 3, reps: '10-12', difficulty: 'Normal', youtubeUrl: 'https://www.youtube.com/watch?v=b04_i_e4M4M' }
+                    ]
+                }],
+                legs: [{
+                    treino: 'Legs Básico',
+                    exercises: [
+                        { id: 'l1', treino: 'Legs Básico', name: 'Agachamento (Squats)', sets: 4, reps: '15-20', difficulty: 'Normal', youtubeUrl: 'https://www.youtube.com/watch?v=xqvCmoLULNY' },
+                        { id: 'l2', treino: 'Legs Básico', name: 'Afundo (Lunges)', sets: 3, reps: '10-12 por perna', difficulty: 'Normal', youtubeUrl: 'https://www.youtube.com/watch?v=QOVaHwm-Q6U' }
+                    ]
+                }],
+                abs: [{
+                    treino: 'Abs Essencial',
+                    exercises: [
+                        { id: 'a1', treino: 'Abs Essencial', name: 'Elevação de Pernas (Leg Raises)', sets: 3, reps: '15-20', difficulty: 'Normal', youtubeUrl: 'https://www.youtube.com/watch?v=l4kQd9eWJkE' },
+                        { id: 'a2', treino: 'Abs Essencial', name: 'Prancha (Plank)', sets: 3, reps: '30-60 seg', difficulty: 'Normal', youtubeUrl: 'https://www.youtube.com/watch?v=pD3b_e_p2Zo' }
+                    ]
+                }]
+            },
+            "pomodoroSettings": { "pomodoroDuration": 25, "shortBreakDuration": 5 }
+        };
+
+        // --- ARQUITETURA DE DADOS (POO) ---
+        class Repository {
+            constructor(dbName = 'produtividadeIntegradaDB_v6') { this.dbName = dbName; }
+            load() {
+                const data = localStorage.getItem(this.dbName);
+                if (data) {
+                    const parsedData = JSON.parse(data);
+                    return { ...MOCK_DATA, ...parsedData };
+                }
+                this.commit(MOCK_DATA);
+                return MOCK_DATA;
+            }
+            commit(data) { localStorage.setItem(this.dbName, JSON.stringify(data)); }
+        }
+
+        class DatabaseController {
+            constructor(repository) { this.repo = repository; this.db = this.repo.load(); }
+            _commit() { this.repo.commit(this.db); }
+            getState() { return this.db; }
+            updateState(newState) { this.db = newState; this._commit(); }
+        }
+
+        const repo = new Repository();
+        const dbController = new DatabaseController(repo);
+
+        // --- CONFIGURAÇÃO ---
+        const NAV_ITEMS = [
+            { name: "🏠 Início", href: "home" }, { name: "📖 Checklist", href: "checklist" }, { name: "⏳ Matriz Eisenhower", href: "matriz" },
+            { name: "⏱️ Pomodoro", href: "pomodoro" }, { name: "📊 Dashboard", href: "dashboard" }, { name: "🧠 Estudo", href: "study" }, { name: "💪 Calistenia", href: "calistenia" },
+        ];
+
+        function PageContainer({ title, children }) { return (<Box className="space-y-6"><Typography variant="h4" component="h1" gutterBottom>{title}</Typography>{children}</Box>); }
+
+        // --- COMPONENTES DE PÁGINA ---
+
+        function HomePage() {
+            return (
+                <Grid container spacing={3}>
+                    {NAV_ITEMS.filter(item => item.href !== "home").map(item => (
+                        <Grid item xs={12} sm={6} md={4} key={item.href}>
+                            <a href={`#${item.href}`} style={{ textDecoration: 'none' }}>
+                                <Paper elevation={2} sx={{ p: 3, textAlign: 'center', '&:hover': { boxShadow: 6, transform: 'translateY(-4px)' }, transition: 'all 0.2s ease-in-out' }}>
+                                    <Typography variant="h3">{item.name.split(' ')[0]}</Typography>
+                                    <Typography variant="h6">{item.name}</Typography>
+                                    <Typography variant="body2" color="text.secondary">Clique para acessar</Typography>
+                                </Paper>
+                            </a>
+                        </Grid>
+                    ))}
+                </Grid>
+            );
+        }
+
+        function ChecklistPage({ markdownText, tasks, updateMarkdown, toggleTask, inputMode, setInputMode, githubUrl, setGithubUrl, handleFetch, loading, error }) {
+            const [isEditing, setIsEditing] = useState(false);
+            const groupedTasks = tasks.reduce((acc, task) => { (acc[task.category] = acc[task.category] || []).push(task); return acc; }, {});
+
+            return (
+                <PageContainer title="📖 Checklist Central">
+                    <Paper elevation={2} sx={{ p: 3 }}>
+                        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3, flexWrap: 'wrap', gap: 2 }}>
+                            <Typography variant="h6">Fonte de Tarefas</Typography>
+                            <Button variant="outlined" onClick={() => setIsEditing(!isEditing)}>{isEditing ? 'Ver Checklist' : 'Editar Markdown'}</Button>
+                        </Box>
+
+               
+
+                        <div> 
+                            Voce pode usar seus dados da notas da bat_caverna ou do Kanban de 2025 para se organizar!
+                            https://github.com/PedroVic12/Jedi-CyberPunk/blob/main/PVRV/KANBAN2025.md
+                        </div>
+
+                        <FormControl component="fieldset" sx={{ mb: 2 }}>
+                            <RadioGroup row value={inputMode} onChange={(e) => setInputMode(e.target.value)}>
+                                <FormControlLabel value="text" control={<Radio />} label="Digitar" />
+                                <FormControlLabel value="url" control={<Radio />} label="Buscar de URL" />
+                            </RadioGroup>
+                        </FormControl>
+
+                        {inputMode === 'url' && (
+                            <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
+                                <TextField fullWidth size="small" value={githubUrl} onChange={(e) => setGithubUrl(e.target.value)} placeholder="Cole a URL RAW do arquivo .md do GitHub" />
+                                <Button variant="contained" onClick={handleFetch} disabled={loading}>{loading ? 'Buscando...' : 'Buscar'}</Button>
+                            </Box>
+                        )}
+                        {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
+
+                        {isEditing ? (
+                            <TextField multiline fullWidth rows={15} value={markdownText} onChange={(e) => updateMarkdown(e.target.value)} variant="outlined" sx={{ fontFamily: 'monospace', bgcolor: 'action.hover' }} />
+                        ) : (
+                            <Box className="space-y-4">
+                                {Object.entries(groupedTasks).map(([category, items]) => (
+                                    <div key={category}>
+                                        <Typography variant="h6" component="h3" sx={{ mb: 1 }}>{category}</Typography>
+                                        <Paper variant="outlined">
+                                            <List disablePadding>
+                                                {items.map((task, index) => (
+                                                    <ListItem key={task.id} divider={index < items.length - 1} secondaryAction={<Checkbox edge="end" checked={task.done} onChange={() => toggleTask(task.id)} />}>
+                                                        <ListItemText primary={task.item} sx={{ textDecoration: task.done ? 'line-through' : 'none', color: task.done ? 'text.disabled' : 'text.primary' }} />
+                                                    </ListItem>
+                                                ))}
+                                            </List>
+                                        </Paper>
+                                    </div>
+                                ))}
+                            </Box>
+                        )}
+                    </Paper>
+                </PageContainer>
+            );
+        }
+
+        function MatrizPage({ tasks, moveTask }) {
+            const Quadrant = ({ title, items, quadrantId, color, onDrop }) => {
+                const handleDragStart = (e, taskId) => e.dataTransfer.setData("taskId", taskId);
+                const handleDragOver = (e) => e.preventDefault();
+
+                const quadrantStyles = {
+                    'U-I': { bgcolor: 'error.light', titleColor: 'error.dark' },
+                    'NU-I': { bgcolor: 'success.light', titleColor: 'success.dark' },
+                    'U-NI': { bgcolor: 'warning.light', titleColor: 'warning.dark' },
+                    'NU-NI': { bgcolor: 'grey.200', titleColor: 'grey.800' }
+                };
+
+                const styles = quadrantStyles[quadrantId];
+
+                return (
+                    <Paper
+                        elevation={3}
+                        onDrop={(e) => onDrop(e, quadrantId)}
+                        onDragOver={handleDragOver}
+                        sx={{ p: 2, bgcolor: styles.bgcolor, borderTop: `4px solid ${color}` }}
+                    >
+                        <Typography variant="h6" sx={{ color: styles.titleColor, mb: 2 }}>{title}</Typography>
+                        <Box className="space-y-2" sx={{ minHeight: 150 }}>
+                            {items.map(t => (
+                                <Paper
+                                    key={t.id}
+                                    draggable
+                                    onDragStart={(e) => handleDragStart(e, t.id)}
+                                    variant="outlined"
+                                    sx={{ p: 1.5, cursor: 'move', bgcolor: 'background.paper', '&:hover': { boxShadow: 3 } }}
+                                >
+                                    <Typography variant="body2">{t.item}</Typography>
+                                </Paper>
+                            ))}
+                            {items.length === 0 && <Typography variant="body2" color="text.secondary" sx={{ pt: 2 }}>Arraste tarefas para cá.</Typography>}
+                        </Box>
+                    </Paper>
+                );
+            };
+            const handleDrop = (e, toQuadrant) => moveTask(e.dataTransfer.getData("taskId"), toQuadrant);
+            return (
+                <PageContainer title="⏳ Matriz Eisenhower">
+                    <Grid container spacing={3}>
+                        <Grid item xs={12} md={6}><Quadrant title="🔥 Urgente & Importante" items={tasks.filter(t => t.quadrant === 'U-I' && !t.done)} quadrantId="U-I" color="error.main" onDrop={handleDrop} /></Grid>
+                        <Grid item xs={12} md={6}><Quadrant title="✅ Não Urgente & Importante" items={tasks.filter(t => t.quadrant === 'NU-I' && !t.done)} quadrantId="NU-I" color="success.main" onDrop={handleDrop} /></Grid>
+                        <Grid item xs={12} md={6}><Quadrant title="⚠️ Urgente & Não Importante" items={tasks.filter(t => t.quadrant === 'U-NI' && !t.done)} quadrantId="U-NI" color="warning.main" onDrop={handleDrop} /></Grid>
+                        <Grid item xs={12} md={6}><Quadrant title="🗑️ Não Urgente & Não Importante" items={tasks.filter(t => t.quadrant === 'NU-NI' && !t.done)} quadrantId="NU-NI" color="grey.600" onDrop={handleDrop} /></Grid>
+                    </Grid>
+                </PageContainer>
+            );
+        }
+
+        function PomodoroPage({ tasks, logSession, settings, updateSettings }) {
+            const [time, setTime] = useState(settings.pomodoroDuration * 60);
+            const [running, setRunning] = useState(false);
+            const [mode, setMode] = useState('pomodoro');
+            const [selectedTaskId, setSelectedTaskId] = useState('');
+
+            useEffect(() => {
+                setTime(settings.pomodoroDuration * 60);
+                setRunning(false);
+            }, [settings.pomodoroDuration]);
+
+            useEffect(() => { if ('Notification' in window && Notification.permission !== 'granted') Notification.requestPermission(); }, []);
+
+            const playNotificationSound = () => { try { const audioContext = new (window.AudioContext || window.webkitAudioContext)(); const o = audioContext.createOscillator(); const g = audioContext.createGain(); o.connect(g); g.connect(audioContext.destination); o.type = 'sine'; o.frequency.setValueAtTime(600, audioContext.currentTime); o.start(); o.stop(audioContext.currentTime + 0.4); } catch (e) { console.error(e); } };
+            const showNotification = (title, body) => { if ('Notification' in window && Notification.permission === 'granted') new Notification(title, { body }); };
+
+            useEffect(() => {
+                let interval;
+                if (running && time > 0) { document.title = `${formatTime(time)} - Foco`; interval = setInterval(() => setTime(t => t - 1), 1000); }
+                else if (running && time === 0) {
+                    setRunning(false); document.title = "Produtividade"; playNotificationSound();
+                    if (mode === 'pomodoro' && selectedTaskId) { logSession(settings.pomodoroDuration * 60, selectedTaskId); const task = tasks.find(t => t.id === selectedTaskId); showNotification('Pomodoro Finalizado!', `Foco em "${task?.item || 'tarefa'}" concluído.`); setSelectedTaskId(''); }
+                    else { showNotification('Pausa Finalizada!', 'Hora de voltar ao foco!'); }
+                }
+                return () => { clearInterval(interval); document.title = "Produtividade"; };
+            }, [running, time]);
+
+            const selectMode = (newMode) => { setMode(newMode); setRunning(false); setTime(newMode === 'pomodoro' ? settings.pomodoroDuration * 60 : settings.shortBreakDuration * 60); };
+            const startPause = () => setRunning(!running);
+            const formatTime = (t) => `${String(Math.floor(t / 60)).padStart(2, "0")}:${String(t % 60).padStart(2, "0")}`;
+
+            const handleDurationChange = (duration) => {
+                updateSettings('pomodoroDuration', duration);
+            };
+
+            return (
+                <PageContainer title="⏱️ Pomodoro Timer">
+                    <Box sx={{ maxWidth: 500, mx: 'auto' }}>
+                        <Paper elevation={3} sx={{ p: 3, textAlign: 'center', transition: 'background-color 0.3s', bgcolor: (running && mode === 'pomodoro') ? 'error.light' : 'background.paper' }}>
+                            <Box sx={{ mb: 2 }}>
+                                <Typography variant="overline">Duração do Foco</Typography>
+                                <ButtonGroup variant="outlined" fullWidth>
+                                    <Button onClick={() => handleDurationChange(15)} variant={settings.pomodoroDuration === 15 ? 'contained' : 'outlined'}>15 min</Button>
+                                    <Button onClick={() => handleDurationChange(25)} variant={settings.pomodoroDuration === 25 ? 'contained' : 'outlined'}>25 min</Button>
+                                    <Button onClick={() => handleDurationChange(50)} variant={settings.pomodoroDuration === 50 ? 'contained' : 'outlined'}>50 min</Button>
+                                </ButtonGroup>
+                            </Box>
+                            <Divider sx={{ my: 2 }} />
+                            <Box sx={{ mb: 3 }}><Button onClick={() => selectMode('pomodoro')} variant={mode === 'pomodoro' ? 'contained' : 'outlined'}>Pomodoro</Button> <Button onClick={() => selectMode('short')} variant={mode === 'short' ? 'contained' : 'outlined'}>Pausa Curta</Button></Box>
+                            <Typography variant="h2" component="div" sx={{ fontFamily: 'monospace', my: 3 }}>{formatTime(time)}</Typography>
+                            <FormControl fullWidth sx={{ mb: 3 }}>
+                                <InputLabel>Selecione uma Tarefa para Focar</InputLabel>
+                                <Select value={selectedTaskId} onChange={e => setSelectedTaskId(e.target.value)} label="Selecione uma Tarefa para Focar">
+                                    {tasks.filter(t => !t.done).map(t => <MenuItem key={t.id} value={t.id}>{t.item}</MenuItem>)}
+                                </Select>
+                            </FormControl>
+                            <Button variant="contained" size="large" onClick={startPause} disabled={mode === 'pomodoro' && !selectedTaskId}>{running ? 'Pausar' : 'Iniciar'}</Button>
+                        </Paper>
+                    </Box>
+                </PageContainer>
+            );
+        }
+
+        function DashboardPage({ logs, tasks, exportReport }) {
+            const dailyChartRef = useRef(null);
+            const weeklyChartRef = useRef(null);
+            useEffect(() => {
+                const taskMap = new Map(tasks.map(t => [t.id, t]));
+                const logsWithCategories = logs.map(log => ({ ...log, category: taskMap.get(log.taskId)?.category })).filter(l => l.category);
+                const allCategories = [...new Set(logsWithCategories.map(l => l.category))];
+                const getCategoryColor = (category) => { let hash = 0; for (let i = 0; i < category.length; i++) hash = category.charCodeAt(i) + ((hash << 5) - hash); let color = '#'; for (let i = 0; i < 3; i++) { let value = (hash >> (i * 8)) & 0xFF; color += ('00' + value.toString(16)).substr(-2); } return color; };
+                const categoryColors = allCategories.reduce((acc, cat) => ({ ...acc, [cat]: getCategoryColor(cat) }), {});
+                // Diário
+                const today = new Date().setHours(0, 0, 0, 0);
+                const todayLogs = logsWithCategories.filter(l => new Date(l.timestamp).setHours(0, 0, 0, 0) === today);
+                const dailyCategoryData = todayLogs.reduce((acc, log) => { acc[log.category] = (acc[log.category] || 0) + log.duration; return acc; }, {});
+                // Semanal
+                const labels = []; const weeklyCategoryData = {};
+                for (let i = 6; i >= 0; i--) { const d = new Date(); d.setDate(d.getDate() - i); d.setHours(0, 0, 0, 0); labels.push(d.toLocaleDateString('pt-BR', { weekday: 'short' })); const dayLogs = logsWithCategories.filter(l => new Date(l.timestamp).setHours(0, 0, 0, 0) === d.getTime()); allCategories.forEach(cat => { if (!weeklyCategoryData[cat]) weeklyCategoryData[cat] = Array(7).fill(0); weeklyCategoryData[cat][6 - i] = dayLogs.filter(l => l.category === cat).reduce((sum, l) => sum + l.duration, 0) / 3600; }); }
+
+                let dailyChart = new Chart(dailyChartRef.current.getContext('2d'), { type: 'doughnut', data: { labels: Object.keys(dailyCategoryData), datasets: [{ data: Object.values(dailyCategoryData).map(d => (d / 3600).toFixed(2)), backgroundColor: Object.keys(dailyCategoryData).map(cat => categoryColors[cat] || '#cccccc') }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } } });
+                let weeklyChart = new Chart(weeklyChartRef.current.getContext('2d'), { type: 'bar', data: { labels, datasets: Object.entries(weeklyCategoryData).map(([category, data]) => ({ label: category, data, backgroundColor: categoryColors[category] })) }, options: { scales: { x: { stacked: true }, y: { stacked: true, beginAtZero: true, title: { display: true, text: 'Horas' } } }, responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } } });
+                return () => { dailyChart.destroy(); weeklyChart.destroy(); };
+            }, [logs, tasks]);
+
+            return (
+                <PageContainer title="📊 Dashboard & Analytics">
+                    <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 2 }}><Button variant="outlined" onClick={exportReport}>Exportar Relatório</Button></Box>
+                    <Grid container spacing={3}>
+                        <Grid item xs={12} md={5}><Paper elevation={3} sx={{ p: 2, height: '100%' }}><Typography variant="h6" align="center" gutterBottom>Foco por Categoria (Hoje)</Typography><Box sx={{ height: 300, position: 'relative' }}><canvas ref={dailyChartRef}></canvas></Box></Paper></Grid>
+                        <Grid item xs={12} md={7}><Paper elevation={3} sx={{ p: 2, height: '100%' }}><Typography variant="h6" align="center" gutterBottom>Foco Semanal</Typography><Box sx={{ height: 300, position: 'relative' }}><canvas ref={weeklyChartRef}></canvas></Box></Paper></Grid>
+                    </Grid>
+                </PageContainer>
+            );
+        }
+
+        function StudyPage({ flashcards, onSave }) {
+            const [currentIndex, setCurrentIndex] = useState(0); const [isFlipped, setIsFlipped] = useState(false); const [formState, setFormState] = useState({ Frente: '', Verso: '', Anotacoes: '' });
+            const currentCard = flashcards.length > 0 ? flashcards[currentIndex] : null;
+            const handleNext = () => { if (flashcards.length === 0) return; setIsFlipped(false); setCurrentIndex((prev) => (prev + 1) % flashcards.length); };
+            const handleChange = (e) => setFormState({ ...formState, [e.target.name]: e.target.value });
+            const handleSubmit = (e) => { e.preventDefault(); if (!formState.Frente || !formState.Verso) return; onSave(formState); setFormState({ Frente: '', Verso: '', Anotacoes: '' }); };
+            return (
+                <PageContainer title="🧠 Estudo - Flashcards">
+                    <div className="flashcard-scene" onClick={() => setIsFlipped(!isFlipped)}>
+                        <div className={`flashcard ${isFlipped ? 'is-flipped' : ''}`}>
+                            <Paper elevation={4} className="flashcard-face flashcard-face--front"><Typography variant="h5" align="center">{currentCard ? currentCard.Frente : "Adicione um card!"}</Typography></Paper>
+                            <Paper elevation={4} className="flashcard-face flashcard-face--back"><CardContent><Typography variant="h5" align="center" gutterBottom>{currentCard?.Verso}</Typography>{currentCard?.Anotacoes && <Divider sx={{ my: 2 }} />}<Typography variant="body1">{currentCard?.Anotacoes}</Typography></CardContent></Paper>
+                        </div>
+                    </div>
+                    {flashcards.length > 0 && <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2, mt: 3 }}><Button variant="outlined" onClick={(e) => { e.stopPropagation(); setIsFlipped(!isFlipped); }}>Virar</Button><Button variant="contained" onClick={(e) => { e.stopPropagation(); handleNext(); }}>Próximo</Button></Box>}
+                    <Paper elevation={3} sx={{ p: 2, mt: 3 }}>
+                        <Typography variant="h6" gutterBottom>Criar Novo Flashcard</Typography>
+                        <form onSubmit={handleSubmit} className="space-y-4">
+                            <TextField name="Frente" label="Frente" value={formState.Frente} onChange={handleChange} fullWidth required />
+                            <TextField name="Verso" label="Verso" value={formState.Verso} onChange={handleChange} fullWidth required />
+                            <TextField name="Anotacoes" label="Anotações" value={formState.Anotacoes} onChange={handleChange} fullWidth multiline rows={2} />
+                            <Button type="submit" variant="contained">Adicionar Card</Button>
+                        </form>
+                    </Paper>
+                </PageContainer>
+            );
+        }
+
+        const TimerModal = ({ isOpen, onClose }) => {
+            const [timerValue, setTimerValue] = useState(45);
+            const [timeRemaining, setTimeRemaining] = useState(45);
+            const [isRunning, setIsRunning] = useState(false);
+            const audioRef = useRef(null);
+
+            useEffect(() => {
+                let interval;
+                if (isRunning) {
+                    interval = setInterval(() => {
+                        setTimeRemaining(prev => {
+                            if (prev <= 1) {
+                                clearInterval(interval);
+                                setIsRunning(false);
+                                if (audioRef.current) audioRef.current.play();
+                                return 0;
+                            }
+                            return prev - 1;
+                        });
+                    }, 1000);
+                }
+                return () => { if (interval) clearInterval(interval); };
+            }, [isRunning]);
+
+            const handleStartTimer = () => { setTimeRemaining(timerValue); setIsRunning(true); };
+            const handleReset = () => { setIsRunning(false); setTimeRemaining(timerValue); };
+
+            return (
+                <Modal open={isOpen} onClose={onClose}>
+                    <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: 300, bgcolor: 'background.paper', boxShadow: 24, p: 4, textAlign: 'center' }}>
+                        <Typography variant="h6" gutterBottom>Timer de Descanso</Typography>
+                        {isRunning ? (
+                            <Typography variant="h2" sx={{ my: 2 }}>{timeRemaining}s</Typography>
+                        ) : (
+                            <TextField label="Segundos" type="number" value={timerValue} onChange={(e) => setTimerValue(Number(e.target.value))} fullWidth sx={{ my: 2 }} />
+                        )}
+                        <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center' }}>
+                            <Button variant="contained" onClick={handleStartTimer} disabled={isRunning}>Iniciar</Button>
+                            <Button variant="outlined" onClick={handleReset}>Resetar</Button>
+                        </Box>
+                        <audio ref={audioRef} src="https://assets.mixkit.co/sfx/preview/mixkit-clear-announce-tones-2861.mp3" preload="auto" style={{ display: 'none' }} />
+                    </Box>
+                </Modal>
+            );
+        };
+
+        const ExerciseCard = ({ exercise, onToggleCheck, checkedSets = [] }) => {
+            const [isExpanded, setIsExpanded] = useState(false);
+            const [showVideo, setShowVideo] = useState(false);
+
+            const exerciseChecks = checkedSets || [];
+            let checkedCount = 0;
+            for (let i = 0; i < exercise.sets; i++) {
+                if (exerciseChecks[i]) {
+                    checkedCount++;
+                }
+            }
+            const allSetsChecked = checkedCount === exercise.sets;
+
+            return (
+                <Card variant="outlined" sx={{ mb: 2, bgcolor: allSetsChecked ? 'success.light' : 'background.default' }}>
+                    <CardActionArea onClick={() => setIsExpanded(!isExpanded)}>
+                        <CardContent>
+                            <Typography variant="h6">{exercise.name}</Typography>
+                            <Box sx={{ display: 'flex', gap: 3, my: 1 }}>
+                                <Chip label={`Sets: ${exercise.sets}`} size="small" />
+                                <Chip label={`Reps: ${exercise.reps}`} size="small" />
+                                <Chip label={exercise.difficulty} size="small" color={exercise.difficulty === 'Sayajin' ? 'error' : 'info'} />
+                            </Box>
+                        </CardContent>
+                    </CardActionArea>
+                    <Collapse in={isExpanded} timeout="auto" unmountOnExit>
+                        <CardContent sx={{ pt: 0 }}>
+                            <Typography variant="subtitle2" gutterBottom>Progresso das Séries:</Typography>
+                            <Box>
+                                {Array.from({ length: exercise.sets }).map((_, setIndex) => (
+                                    <FormControlLabel key={setIndex} control={<Checkbox checked={checkedSets[setIndex] || false} onChange={(e) => onToggleCheck(exercise.id, setIndex, e.target.checked)} />} label={`Set ${setIndex + 1}`} />
+                                ))}
+                            </Box>
+                            {exercise.youtubeUrl && <Button size="small" onClick={() => setShowVideo(!showVideo)} sx={{ mt: 1 }}>{showVideo ? 'Ocultar Vídeo' : 'Mostrar Vídeo'}</Button>}
+                            {showVideo && (
+                                <Box sx={{ mt: 2, position: 'relative', paddingTop: '56.25%' }}>
+                                    <iframe src={`https://www.youtube.com/embed/${exercise.youtubeUrl.split('v=')[1]}`} frameBorder="0" allowFullScreen style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }} />
+                                </Box>
+                            )}
+                        </CardContent>
+                    </Collapse>
+                </Card>
+            );
+        };
+
+        function CalisteniaPage({ initialWorkouts, onSave }) {
+            const [workouts, setWorkouts] = useState(initialWorkouts);
+            const [selectedCategory, setSelectedCategory] = useState('push');
+            const [selectedTreino, setSelectedTreino] = useState(null);
+            const [showAddForm, setShowAddForm] = useState(false);
+            const [newExercise, setNewExercise] = useState({ category: 'push', treino: '', name: '', sets: 3, reps: '10', difficulty: 'Normal', youtubeUrl: '' });
+            const [checkedExercises, setCheckedExercises] = useState({});
+            const [isTimerModalOpen, setIsTimerModalOpen] = useState(false);
+
+            useEffect(() => { onSave(workouts); }, [workouts]);
+
+            useEffect(() => {
+                const categoryWorkouts = workouts[selectedCategory] || [];
+                setSelectedTreino(categoryWorkouts.length > 0 ? categoryWorkouts[0].treino : null);
+            }, [selectedCategory, workouts]);
+
+            const handleAddExercise = (e) => {
+                e.preventDefault();
+                if (!newExercise.name || !newExercise.treino) return;
+                const newId = crypto.randomUUID();
+                const updatedWorkouts = JSON.parse(JSON.stringify(workouts));
+                const { category } = newExercise;
+
+                const categoryWorkouts = updatedWorkouts[category] || [];
+                let treino = categoryWorkouts.find(t => t.treino === newExercise.treino);
+
+                if (!treino) {
+                    treino = { treino: newExercise.treino, exercises: [] };
+                    categoryWorkouts.push(treino);
+                }
+
+                treino.exercises.push({ ...newExercise, id: newId, sets: Number(newExercise.sets) });
+                updatedWorkouts[category] = categoryWorkouts;
+
+                setWorkouts(updatedWorkouts);
+                setShowAddForm(false);
+                setNewExercise({ category: newExercise.category, treino: newExercise.treino, name: '', sets: 3, reps: '10', difficulty: 'Normal', youtubeUrl: '' });
+            };
+
+            const handleToggleCheck = (exerciseId, setIndex, isChecked) => {
+                setCheckedExercises(prev => {
+                    const updatedChecks = { ...prev };
+                    if (!updatedChecks[exerciseId]) updatedChecks[exerciseId] = Array(5).fill(false); // Assume max 5 sets for simplicity
+                    updatedChecks[exerciseId][setIndex] = isChecked;
+                    return updatedChecks;
+                });
+            };
+
+            const selectedWorkout = (workouts[selectedCategory] || []).find(w => w.treino === selectedTreino);
+            const treinoOptions = (workouts[newExercise.category] || []).map(w => w.treino);
+
+            return (
+                <PageContainer title="💪 Calistenia - Registro de Treinos">
+                    <Grid container spacing={3}>
+                        <Grid item xs={12} md={4}>
+                            <Paper elevation={3} sx={{ p: 2 }}>
+                                <Typography variant="h6" gutterBottom>Treinos</Typography>
+                                <Tabs value={selectedCategory} onChange={(e, newValue) => setSelectedCategory(newValue)} variant="fullWidth">
+                                    <Tab label="Push" value="push" />
+                                    <Tab label="Pull" value="pull" />
+                                    <Tab label="Legs" value="legs" />
+                                    <Tab label="Abs" value="abs" />
+                                </Tabs>
+                                <List>
+                                    {(workouts[selectedCategory] || []).map(workout => (
+                                        <ListItemButton key={workout.treino} selected={selectedTreino === workout.treino} onClick={() => setSelectedTreino(workout.treino)}>
+                                            <ListItemText primary={workout.treino} secondary={`${workout.exercises.length} exercícios`} />
+                                        </ListItemButton>
+                                    ))}
+                                </List>
+                                <Button fullWidth variant="outlined" onClick={() => setShowAddForm(true)} sx={{ mt: 2 }}>Adicionar Exercício</Button>
+                                <Button fullWidth variant="contained" color="secondary" onClick={() => setIsTimerModalOpen(true)} sx={{ mt: 1 }}>Timer de Descanso</Button>
+                            </Paper>
+                        </Grid>
+                        <Grid item xs={12} md={8}>
+                            {selectedWorkout ? (
+                                <Paper elevation={3} sx={{ p: 2 }}>
+                                    <Typography variant="h5">{selectedWorkout.treino}</Typography>
+                                    <Box sx={{ mt: 2, maxHeight: '60vh', overflowY: 'auto', p: 1 }}>
+                                        {selectedWorkout.exercises.map(ex => (
+                                            <ExerciseCard key={ex.id} exercise={ex} onToggleCheck={handleToggleCheck} checkedSets={checkedExercises[ex.id]} />
+                                        ))}
+                                    </Box>
+                                </Paper>
+                            ) : (
+                                <Typography>Nenhum treino selecionado. Adicione um exercício para começar!</Typography>
+                            )}
+                        </Grid>
+                    </Grid>
+
+                    <Modal open={showAddForm} onClose={() => setShowAddForm(false)}>
+                        <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: 400, bgcolor: 'background.paper', boxShadow: 24, p: 4, display: 'flex', flexDirection: 'column', gap: 2 }}>
+                            <Typography variant="h6" component="h2">Adicionar Exercício</Typography>
+                            <FormControl fullWidth>
+                                <InputLabel>Categoria</InputLabel>
+                                <Select value={newExercise.category} onChange={e => setNewExercise({ ...newExercise, category: e.target.value, treino: '' })}>
+                                    <MenuItem value="push">Push</MenuItem><MenuItem value="pull">Pull</MenuItem>
+                                    <MenuItem value="legs">Legs</MenuItem><MenuItem value="abs">Abs</MenuItem>
+                                </Select>
+                            </FormControl>
+                            <Autocomplete
+                                freeSolo
+                                options={treinoOptions}
+                                value={newExercise.treino}
+                                onChange={(event, newValue) => { setNewExercise({ ...newExercise, treino: newValue }); }}
+                                onInputChange={(event, newInputValue) => { setNewExercise({ ...newExercise, treino: newInputValue }); }}
+                                renderInput={(params) => <TextField {...params} label="Treino (Selecione ou crie um novo)" />}
+                            />
+                            <TextField label="Nome do Exercício" value={newExercise.name} onChange={e => setNewExercise({ ...newExercise, name: e.target.value })} fullWidth required />
+                            <TextField label="Sets" type="number" value={newExercise.sets} onChange={e => setNewExercise({ ...newExercise, sets: e.target.value })} fullWidth required />
+                            <TextField label="Reps" value={newExercise.reps} onChange={e => setNewExercise({ ...newExercise, reps: e.target.value })} fullWidth required />
+                            <FormControl fullWidth><InputLabel>Dificuldade</InputLabel><Select value={newExercise.difficulty} onChange={e => setNewExercise({ ...newExercise, difficulty: e.target.value })}><MenuItem value="Normal">Normal</MenuItem><MenuItem value="Hard">Difícil</MenuItem><MenuItem value="Sayajin">Sayajin</MenuItem></Select></FormControl>
+                            <TextField label="URL YouTube" value={newExercise.youtubeUrl} onChange={e => setNewExercise({ ...newExercise, youtubeUrl: e.target.value })} fullWidth />
+                            <Button onClick={handleAddExercise} variant="contained">Salvar Exercício</Button>
+                        </Box>
+                    </Modal>
+                    <TimerModal isOpen={isTimerModalOpen} onClose={() => setIsTimerModalOpen(false)} />
+                </PageContainer>
+            );
+        }
+
+        // --- COMPONENTE PRINCIPAL (APP) ---
+        function App() {
+            const [menuOpen, setMenuOpen] = useState(false);
+            const [currentPage, setCurrentPage] = useState(window.location.hash.substring(1) || 'home');
+            const [state, setState] = useState(() => {
+                const loadedState = dbController.getState();
+                const defaults = { inputMode: 'text', githubUrl: '' };
+                return { ...defaults, ...loadedState };
+            });
+            const [tasks, setTasks] = useState([]);
+            const [loading, setLoading] = useState(false);
+            const [error, setError] = useState(null);
+
+            useEffect(() => { dbController.updateState(state); }, [state]);
+
+            useEffect(() => {
+                const quadrantTags = ['@U-I', '@U-NI', '@NU-I', '@NU-NI'];
+                const lines = state.markdownText.trim().split("\n"); let category = "Geral";
+                const parsed = lines.map((line, index) => {
+                    const trimmedLine = line.trim();
+                    if (trimmedLine.startsWith("#")) { category = trimmedLine.replace(/#/g, "").trim(); return null; }
+                    if (trimmedLine.startsWith("- [")) {
+                        const done = trimmedLine.includes("- [x]");
+                        let item = trimmedLine.substring(trimmedLine.indexOf("]") + 1).trim();
+                        let quadrant = 'NU-I'; // Default
+                        for (const tag of quadrantTags) { if (item.includes(tag)) { quadrant = tag.substring(1); item = item.replace(tag, '').trim(); break; } }
+                        return { id: `task-${index}`, category, item, done, quadrant, originalLine: line };
+                    } return null;
+                }).filter(Boolean);
+                setTasks(parsed);
+            }, [state.markdownText]);
+
+            const updateState = (key, value) => setState(s => ({ ...s, [key]: value }));
+            const toggleTask = (taskId) => { const task = tasks.find(t => t.id === taskId); if (!task) return; const newLine = task.done ? task.originalLine.replace('- [x]', '- [ ]') : task.originalLine.replace('- [ ]', '- [x]'); updateState('markdownText', state.markdownText.replace(task.originalLine, newLine)); };
+            const moveTask = (taskId, newQuadrant) => { const task = tasks.find(t => t.id === taskId); if (!task) return; let newLine = task.originalLine.replace(/@U-I|@U-NI|@NU-I|@NU-NI/g, '').trim(); updateState('markdownText', state.markdownText.replace(task.originalLine, `${newLine} @${newQuadrant}`)); };
+            const logSession = (duration, taskId) => { const newLog = { taskId, duration, timestamp: new Date().toISOString() }; setState(s => ({ ...s, pomodoroLogs: [...s.pomodoroLogs, newLog] })); const task = tasks.find(t => t.id === taskId); if (task && !task.done) { toggleTask(taskId); } };
+            const handleFetch = async () => { /* ... */ };
+            const exportReport = () => { /* ... */ };
+
+            const [themeMode, setThemeMode] = useState(localStorage.getItem('themeMode') || 'light');
+            const theme = createTheme({ palette: { mode: themeMode } });
+            const toggleTheme = () => { const newTheme = themeMode === 'light' ? 'dark' : 'light'; setThemeMode(newTheme); localStorage.setItem('themeMode', newTheme); };
+
+            const handleSaveCalisthenicsWorkouts = (newWorkouts) => {
+                setState(s => ({ ...s, calisthenicsWorkouts: newWorkouts }));
+            };
+
+            useEffect(() => { const handleHashChange = () => setCurrentPage(window.location.hash.substring(1) || 'home'); window.addEventListener('hashchange', handleHashChange); return () => window.removeEventListener('hashchange', handleHashChange); }, []);
+
+            const renderPage = () => {
+                switch (currentPage) {
+                    case 'checklist': return <ChecklistPage markdownText={state.markdownText} tasks={tasks} updateMarkdown={(v) => updateState('markdownText', v)} toggleTask={toggleTask} inputMode={state.inputMode} setInputMode={(v) => updateState('inputMode', v)} githubUrl={state.githubUrl} setGithubUrl={(v) => updateState('githubUrl', v)} handleFetch={handleFetch} loading={loading} error={error} />;
+                    case 'matriz': return <MatrizPage tasks={tasks} moveTask={moveTask} />;
+                    case 'pomodoro': return <PomodoroPage tasks={tasks} logSession={logSession} settings={state.pomodoroSettings} updateSettings={(key, value) => setState(s => ({ ...s, pomodoroSettings: { ...s.pomodoroSettings, [key]: value } }))} />;
+                    case 'dashboard': return <DashboardPage logs={state.pomodoroLogs} tasks={tasks} exportReport={exportReport} />;
+                    case 'study': return <StudyPage flashcards={state.flashcards} onSave={(card) => updateState('flashcards', [...state.flashcards, { ...card, ID: crypto.randomUUID() }])} />;
+                    case 'calistenia': return <CalisteniaPage initialWorkouts={state.calisthenicsWorkouts} onSave={handleSaveCalisthenicsWorkouts} />;
+                    default: return <HomePage />;
+                }
+            };
+
+            return (
+                <ThemeProvider theme={theme}>
+                    <CssBaseline />
+                    <AppBar position="static"><Toolbar>
+                        <IconButton edge="start" color="inherit" onClick={() => setMenuOpen(true)}><i className="material-icons">menu</i></IconButton>
+                        <Typography variant="h6" sx={{ flexGrow: 1 }}>Sistema de Produtividade</Typography>
+                        <IconButton color="inherit" onClick={toggleTheme}><i className="material-icons">{themeMode === 'light' ? 'dark_mode' : 'light_mode'}</i></IconButton>
+                    </Toolbar></AppBar>
+                    <Drawer anchor="left" open={menuOpen} onClose={() => setMenuOpen(false)}>
+                        <Box sx={{ width: 250 }} role="presentation"><List>{NAV_ITEMS.map(item => (<ListItem key={item.name} disablePadding><ListItemButton component="a" href={`#${item.href}`} onClick={() => setMenuOpen(false)}><ListItemText primary={item.name} /></ListItemButton></ListItem>))}</List></Box>
+                    </Drawer>
+                    <Container component="main" sx={{ py: 4 }}>{renderPage()}</Container>
+                </ThemeProvider>
+            );
+        }
+
+        // --- RENDERIZAÇÃO DA APLICAÇÃO ---
+        const root = createRoot(document.getElementById('root'));
+        root.render(<App />);
+
+    </script>
+</body>
+
+</html>
