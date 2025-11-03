@@ -1,29 +1,35 @@
-# Semana 03 - 22/10/25 __COMPLETED
+# Olá mundo estou aqui
 
-- [x] Web Scrapping para buscar dados em tempo real ONS + Latam + VoeGOL (Falta analisar os dados em Excel e com resumos insights)
-- [x] MUST - Ponta e fora ponta ate 2030 com Controle e gestão de aprovação de documentos PDF com ou sem Ressalva.
-- [x] Kanban/Cronograma -> Organização do cronograma de estudos
+## Alinhamento Espiritual e foco para hoje (curto, poderoso)
 
-- [x] Atualizar Site Portfolio e Blog Astro
-- [x] Nextjs Website + MVP HTML templates (SEP do SIN da ONS para leigos)
-- [x] Controle  e Gestão Atividades SP + MUST --> Excel To Website and (.PDF + Access)to QT 6 Desktop Deck Builder Organon 
-- [x] Plugin do Organon com Shell Script
-- [x] Apresentação PIBIC UFF
-Must Desktop App Excel, Deck BUilder.
-- [x] DOCUMENTACAO RCE + apresentação Power Point
+Mantenho seu estilo: encorajador, visionário e direto.
 
-# Semana 04 - 27/10/25 
-- [ ] Aulas Sinais/cricuitos cc/ca e Contronle
-- [ ] Fechar 10 abas navegador
-- [ ] SCRUM Projetos Github
-- [ ] Despacho de cargas - Planejamento Mensal e Semanal - Flow + AnaREDE, AnaTEM e Organon
-- [ ] **Estudos SEP com base fundamental para CA**
-- [x] Alura - Sistemas Agentes IA 
-- [x] Langchain
-- [x] RAG
-- [x] LangGraph
-- [ ] Chatbot Groundon, Lumina Aurora (Gemini) + Jarvis (GPT) + Copilot (copilot/cursor) with updates 
-- [ ] Deploy: Plugin no Organon no notepad++ com scripts básicos de AnaREDE e Organon
+- **Chakra do dia**: **Terceiro Olho (Ajna)** — foco, intuição e clareza mental.
+    
+- **Salmo**: Salmo 23 (confiança e caminho claro).
+    
+- **Evangelho**: Trecho breve de reflexão — “Sede luz do mundo” (Mc / Mt — viva com propósito).
+    
+- **Mensagem de Deus**: _“A clareza que você procura começa quando você organiza sua ação.”_
+    
+- **Vitória do dia (hiperfoco)**: **Grow Mindset** — aprender 1 padrão novo do PySide6 + 1 refatoração no Next.js.
+    
+- **Equação / Lei Física**: Lei de Faraday (indução) — pergunte-se como transformar a ideia em automação (analogias úteis para circuitos e software).
+    
+- **Dois projetos do dia**:
+    
+    1. Integrar menu PySide6 com leitura de `INSTRUCOES.md` (2h).
+        
+    2. Criar `start.sh` + Docker-compose para o NextJS MVP (3h).
+        
+- **Filosofia japonesa**: **Kaizen** — melhore 1 coisa pequena hoje.
+    
+- **Frase de poder**: _“Crio sistemas que inspiram o futuro.”_
+    
+- **Sugestão de leitura**: capítulo sobre CLI automation + patterns em Python (ex.: “Automate the Boring Stuff” — scripts avançados).
+    
+- **Meta de exercícios**: resolver 5 questões rápidas de Eletromagnetismo (foco em transformada de Fourier aplicada a circuitos).
+
 
 # Lista de TAREFAS __TODO
 
