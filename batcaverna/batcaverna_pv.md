@@ -1,4 +1,8 @@
-# Olá mundo estou aqui
+# BatCaverna Editor:
+
+Salve esses dados em:
+https://github.com/PedroVic12/Pikachu-Flask-Server/tree/main/batcaverna
+
 
 ## Alinhamento Espiritual e foco para hoje (curto, poderoso)
 
@@ -138,7 +142,7 @@ Mantenho seu estilo: encorajador, visionário e direto.
     
 
 
-# Eng. Elétrica UFF 2025 __TODO
+# Eng. Elétrica UFF 2025 __IN_PROGRESS
 
 - [x] Mátematica aplicada a Eng. Elétrica, ONS, Ciencia de Dados / ML, Provas Antigas
 - [x] Estudos UFF com modelagem e prototipação/simulação de circuitos digitais e eletricos CC/CA com arduino e esp32. Eletronica para makers
@@ -179,7 +183,7 @@ Mantenho seu estilo: encorajador, visionário e direto.
 # ROTINA
 --- 
 
-# Treinos e Rotina Pessoal __TODO
+# Treinos e Rotina Pessoal __BACKLOG
 - [x] Alongamento + Calistenia + Rotina de treinos com saúde em boa forma
 - [ ] Meditação e alinhamento espiritual
 - [ ] Treino gym
@@ -220,7 +224,7 @@ Mantenho seu estilo: encorajador, visionário e direto.
 # PROGRAMAÇÂO
 --- 
 
-# Programação FullStack  (Github) __TODO
+# Programação FullStack  (Github) __BACKLOG
 - [ ] Astro blog pedrov12
 - [ ] DASHBOARD + PalkiaGUI - MUST - ONS (Controle e Gestão Atividades SP e MUST)
 - [ ] Backend: Charizard (Drogon), Pikachu (Flask), Raichu ( FastAPI), Dragonite (Tornado)
