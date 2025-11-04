@@ -3,19 +3,16 @@
 Salve esses dados em:
 https://github.com/PedroVic12/Pikachu-Flask-Server/tree/main/batcaverna
 
+## Alinhamento Espiritual Template
 
-## Alinhamento Espiritual e foco para hoje (curto, poderoso)
-
-Mantenho seu estilo: encorajador, visionário e direto.
+encorajador, visionário e direto.
 
 - **Chakra do dia**: **Terceiro Olho (Ajna)** — foco, intuição e clareza mental.
     
 - **Salmo**: Salmo 23 (confiança e caminho claro).
     
 - **Evangelho**: Trecho breve de reflexão — “Sede luz do mundo” (Mc / Mt — viva com propósito).
-    
-- **Mensagem de Deus**: _“A clareza que você procura começa quando você organiza sua ação.”_
-    
+        
 - **Vitória do dia (hiperfoco)**: **Grow Mindset** — aprender 1 padrão novo do PySide6 + 1 refatoração no Next.js.
     
 - **Equação / Lei Física**: Lei de Faraday (indução) — pergunte-se como transformar a ideia em automação (analogias úteis para circuitos e software).
@@ -35,15 +32,28 @@ Mantenho seu estilo: encorajador, visionário e direto.
 - **Meta de exercícios**: resolver 5 questões rápidas de Eletromagnetismo (foco em transformada de Fourier aplicada a circuitos).
 
 
-# Lista de TAREFAS __TODO
+# Lista de TAREFAS Pendentes __TODO
 
 - [ ] Estudos CA para SEP usando GPT e Python
-- [ ] 
-
-
+- [ ] MUST - Ponta e fora ponta ate 2030 com Controle e gestão de aprovação de documentos PDF com ou sem Ressalva.
+- [ ] Kanban/Cronograma -> Organização do cronograma de estudos
+- [ ] Treino de calistenia e calistenia app
+- [ ] Aulas Sinais/cricuitos CC/CA e Eng. Controle + SEP Fundamentals + Metodos numericos com Python
+- [ ] Despacho de cargas - Planejamento Mensal e Semanal - Flow + AnaREDE, AnaTEM e Organon
+- [ ] **Estudos SEP com base fundamental para CA**
+- [ ] Chatbot Groundon, Lumina Aurora (Gemini) + Jarvis (GPT) + Copilot (copilot/cursor) with updates 
+- [ ] Deploy: Plugin no Organon no notepad++ com scripts básicos de AnaREDE e Organon
+- [ ] Corpo x Mente x Espirito -> Jobs, Coding, Studying, Creative, In Shape
+- [ ] Todos websistes unificados a Pikachu Flask API Server
+- [ ] Grondon Chabtot, Jarvis Chatbot, Lumina Aurora Chatbot
+- [ ] N8N x Node-Red + webhook + MQQT + Esp32
+- [ ] Pyside6 - Eng. Controle com EDO e Equações de SEP
+- [ ] Pyside6 com modelagem de dados (Sqlite3 + Microsoft Access) + Análise de Contigencias + Controle Atividades SP
+- [ ] Nextjs Website + MVP HTML templates (SEP do SIN da ONS para leigos)
+- [ ] Controle  e Gestão Atividades SP + MUST --> Excel To Website and (.PDF + Access)to QT 6 Desktop Deck Builder Organon 
+- [ ] Must Desktop App Excel, Deck BUilder.
 - [ ] Teoria de controle de engenharia moderno
 - [ ] Proteção de SEP e monitoramento area SP
-
 - [ ] Processamento de imagens de satélites com Python
 - [ ] Bots e RPA com Python
 - [ ] Estudos de IA, ML, DL, Chatbots, N8N, AI agentes frameworks (Agno/Langchain)
@@ -57,7 +67,6 @@ Mantenho seu estilo: encorajador, visionário e direto.
 
 # Estágio ONS __IN_PROGRESS
 
-
 - [ ] TAREFAS ONS
 
 - [x] Relatório + Reunião Semanal
@@ -67,10 +76,8 @@ Mantenho seu estilo: encorajador, visionário e direto.
   - [ ] Controle atividades SP e RJ com planilha 2025
   - [ ] Limpeza de dados do Excel para utilizar os dados de SP 2025 e 2024 _inicio 22-10-25_
 
-
   - [ ] Criação do Sistema do Pyside6 para gestão de MUST, aprovação com ou sem ressalva e geração do Deck da solicitação
   - [ ] Criação de word template para entrega de documentos 
-
 
 - [ ] Simulações de SEP básicos do SIN (RJ/SP) no AnaREDE e Organon
 
@@ -92,7 +99,6 @@ Mantenho seu estilo: encorajador, visionário e direto.
 - [ ] 2 dashboards Streamlit - Asimov
 
 - [ ] SIMULAÇÕES, ESTUDOS, ANALISE DE DADOS E MODELAGEM DE SEP com ASP (Organon, AnaREDE e PandaPower)
-
   - Curto circuito e onda de alta frequencia entre os ramos
   - Transformador em Fase
   - Reator Shunt
@@ -134,12 +140,7 @@ Mantenho seu estilo: encorajador, visionário e direto.
    - [ ] Correção VD - Caso 8 -> Convergente e passagem de decks correto com script em python. Validar com Caso 10 -> Bruninho corrigiu com novos decks convergentes
    - [ ] Montagem VE - AnaTEM ->
 
-
-         
-
-
-
-    
+ 
 
 
 # Eng. Elétrica UFF 2025 __IN_PROGRESS
@@ -190,7 +191,7 @@ Mantenho seu estilo: encorajador, visionário e direto.
 - [x] Fechar 10 abas
 - [x] Limpeza no apartametno (seg/sex)
 - [x] Lavar a louça e passar pano na casa
-- [x] Limpeza de banheiro de cozinha
+- [ ] Limpeza de banheiro de cozinha
 - [x] 4 Refeições por dia (Café da manha, Almoço, Lanche (pré-treino) e Jantar)
 - [ ] 
 
@@ -205,11 +206,11 @@ Mantenho seu estilo: encorajador, visionário e direto.
 - [x] Visualização KANBAN e gerar 5 tarefas do dia (MANHA)
 - [ ] Organização mental e preparação para novo Ciclo JEDI CYBERPUNK com resolução de provas, tutorial de 10 min de programação, modelagem e simulações de eng eletrica junto com automações com N8N
 - [x] Alinhamento Espiritual    
-	- [ ] Segunda - Chakra: Cardiacosssssssss
+	- [ ] Segunda - Chakra: Solar
 	- [x] Terça - Chakra: Garganta
-	- [x] Quarta - Chakra: Solar
+	- [x] Quarta - Chakra: Cardiaco
 	- [ ] Quinta: Chakra: 3º Olho
-	- [x] Sexta: Root Chakra
+	- [x] Sexta: Chakra: Root
 
 
 - [ ] You Only Need 5 Hobbies (Money, Study, Mindset, In Shape, Creative)
@@ -254,7 +255,6 @@ Mantenho seu estilo: encorajador, visionário e direto.
 - [ ] Dados ONS 
 - [ ] Dados Kaggle
 - [ ] Dados imagens de Satélitesm
-- [ ] 
 - [ ] Sistemas de CRUD e api usando python com flask e FastAPI com docker e boas práticas
 
 - [ ] Estudos de frontend com Astro/React, Flutter e MVP em HTML + Bootstrap
