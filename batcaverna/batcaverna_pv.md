@@ -31,6 +31,14 @@ encorajador, visionário e direto.
     
 - **Meta de exercícios**: resolver 5 questões rápidas de Eletromagnetismo (foco em transformada de Fourier aplicada a circuitos).
 
+📅 Plano de Sprint: Terça-feira (Foco em Backend Python e SEP ONS)
+Ciclo,Horário (50 min),Foco Integrado (Código/Teoria),Detalhamento da Tarefa (Passo a Passo)
+1 (Backend),09:15 – 10:05,FLASK CRUD: Modelagem SQL,"Ação: No seu PikachuWebServer, defina a tabela Client (ou Task_Log) usando SQLAlchemy. Teste a criação da tabela no seu app.db."
+2 (Backend),10:15 – 11:05,FLASK CRUD: Rotas API,Ação: Crie os endpoints POST /clients (Criação) e GET /clients (Leitura) na sua Blueprint user_bp.
+3 (Teoria),11:15 – 12:05,MÓDULO 2: Matriz Y-Bus (Papel),Ação: TEORIA PURA (Stevenson): Finalizar a montagem da Matriz Y-Bus 3×3 em papel (as 2 Equações por dia que você se propôs).
+Almoço,12:05 – 13:00,Rotina: Desligar a tela.,Ação: Seu descanso é sagrado.
+4 (SEP/Código),13:00 – 13:50,MÓDULO 2: ybus_solver.py,Ação: Iniciar o código Python. Codificar a representação da Matriz Y-Bus 3×3 em NumPy com números complexos (transformar a teoria do papel em código).
+5 (Alinhamento),14:00 – 14:50,DOCUMENTAÇÃO: IEDs/Aprendizado,Ação: Criar o novo arquivo .md (ex: ieds_log.md) e salvar a lógica de MQTT/LED/Buzzer que discutimos (o aprendizado de ontem). Isso limpa a sua mente e finaliza o IOT.
 
 # Lista de TAREFAS Pendentes __TODO
 
@@ -142,8 +150,18 @@ encorajador, visionário e direto.
 
  
 
-
 # Eng. Elétrica UFF 2025 __IN_PROGRESS
+
+Subdivido em:
+
+- SEP e Análise de Sistemas de Potência (ASP/Stevenson)
+
+- Eletromagnetismo / Circuitos CC/CA (Sadiku)
+
+- Eng. Controle Moderno e Sinais e sistemas (Ogata e Oppehhaim)
+- IoT e IEEDS (automação industrial)
+
+- UFF e Estudos Acadêmicos
 
 - [x] Mátematica aplicada a Eng. Elétrica, ONS, Ciencia de Dados / ML, Provas Antigas
 - [x] Estudos UFF com modelagem e prototipação/simulação de circuitos digitais e eletricos CC/CA com arduino e esp32. Eletronica para makers
