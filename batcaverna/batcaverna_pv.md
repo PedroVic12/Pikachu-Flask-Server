@@ -202,7 +202,14 @@ Subdivido em:
 # ROTINA
 --- 
 
-# Treinos e Rotina Pessoal __BACKLOG
+# VIDA PESSOAL E ROTINA __BACKLOG
+
+Subdivido em:
+
+- Corpo, Mente (Treino, Calistenia, Saúde) e Espirito (Alinhamento, Chakras, Meditação)
+
+- Hábitos e Organização (Limpeza, Planejamento)
+
 - [x] Alongamento + Calistenia + Rotina de treinos com saúde em boa forma
 - [ ] Meditação e alinhamento espiritual
 - [ ] Treino gym
@@ -240,11 +247,29 @@ Subdivido em:
 
 
 ---
-# PROGRAMAÇÂO
+# PROGRAMAÇÂO 
 --- 
 
 # Programação FullStack  (Github) __BACKLOG
+
+- Frontend (HTML/CSS/JS, React, NextJS, Flutter, Astro)
+
+- Backend (FastAPI, Flask, Django, Tornado, SQL, NodeJS, N8N, Drogon C++)
+
+- Desktop (PySide6, QT Designer, Access Microsoft DB, SQL)
+
+- IA e Agentes (Chatbots, N8N, ML, DL, Langchain)
+  
+- Modelos de Machine Learning x Deep Learning
+  
+- Dashbaords (HTML/React, Streamlit)
+
+- IoT e Automação (ESP32, MQTT, Node-RED, Arduino, Eletronica para Makers)
+  
+- Algoritimos de Otimização + Métodos Numéricos + Modelagem Matemática
+
 - [ ] Astro blog pedrov12
+- [ ] Blog SEP para Leigos
 - [ ] DASHBOARD + PalkiaGUI - MUST - ONS (Controle e Gestão Atividades SP e MUST)
 - [ ] Backend: Charizard (Drogon), Pikachu (Flask), Raichu ( FastAPI), Dragonite (Tornado)
 - [ ] Frontend: HTML + JS, React, Flutter, Astro, Pyside6, Streamlit
@@ -268,30 +293,41 @@ Subdivido em:
 - [ ] Boas práticas com SQLAlchemy e Python e Pyside6 - MVC desktop Apps com C++ Dragon Web Server
 
 
-# Projetos Portfolio (React + Python + SQL) __BACKLOG
-- [ ] dados publicos gov br
-- [ ] Dados ONS 
-- [ ] Dados Kaggle
-- [ ] Dados imagens de Satélitesm
-- [ ] Sistemas de CRUD e api usando python com flask e FastAPI com docker e boas práticas
+# Projetos Portfolio/SAAS (React + Python + SQL) __BACKLOG
 
+- Projetos Pessoais e Portfólio
 - [ ] Estudos de frontend com Astro/React, Flutter e MVP em HTML + Bootstrap
-
-- [ ] API REST com Django ninja, FastAPI, Flask, Tornado, Drogon C++
-
 - [ ] Data Driven com metodos SCRUM com organização e planner de projetos PVRV como freelancer e suas tecnologias
 
+- ONS, Pesquisa Científica e Cientista de dados
 - [ ] Projetos Visão Computacional
     - Contador de embaixadinhas
     - Contador de rolinhas (webcam)
     - Calistenia App
     - Analise de futebol com tic tac toe com projetor e bola na parede
-
-- [ ] Dashboard analise distribuição energético ONS + SIN - Website para leigos
-
 - [ ] Projeto Visão computacional com cancer de mamas + Contador de embaixadinhass
 - [ ] IOT E ARDUINO COM WEBSOCKET COM HTML ANALISANDO SERIES TEMPORAIS
 - [ ] CIENTISTA DE DADOS - ML E DATASET ENERGY + CLASSIFICATION + REGRESSION + KMEANS
+    
+- Freelancer / Negócios / Monetização
+- [ ] API REST com Django ninja, FastAPI, Flask, Tornado, Drogon C++
+- [ ] Sistemas de CRUD  (Cadastro de Clientes) e api usando python com Flask/FastAPI com docker e boas práticas de modelagem de banco de dados
+
+- Projetos com Datasets de orgãos publicos
+- [ ] Dashboard analise distribuição energético ONS + SIN - Website para leigos
+- [ ] dados publicos gov br
+- [ ] Dados ONS 
+- [ ] Dados Kaggle
+- [ ] Dados imagens de Satélites
+      
+
+
+
+
+
+
+
+
 
 
 ---
