@@ -43,6 +43,8 @@ Almoço,12:05 – 13:00,Rotina: Desligar a tela.,Ação: Seu descanso é sagrado
 # Lista de TAREFAS Pendentes __TODO
 
 - [ ] Estudos CA para SEP usando GPT e Python
+- [ ] Automação Outlook + Teams + N8N = Relatorios automatizados por email e Whatsapp
+- [ ] Planejamento e Metas (Segunda/Sexta)
 - [ ] MUST - Ponta e fora ponta ate 2030 com Controle e gestão de aprovação de documentos PDF com ou sem Ressalva.
 - [ ] Kanban/Cronograma -> Organização do cronograma de estudos
 - [ ] Treino de calistenia e calistenia app
@@ -76,7 +78,19 @@ Almoço,12:05 – 13:00,Rotina: Desligar a tela.,Ação: Seu descanso é sagrado
 # Estágio ONS __IN_PROGRESS
 
 - [ ] TAREFAS ONS
-
+      
+- [ ] Despacho de cargas (Flow, Anarede, Organon)
+- [ ] Análise de contingências e relatório PDF
+- [ ] Controle Casos 2025-2030 e dashboard atividades SP
+- [ ] MUST Controle e Gestão - Desktop Software
+- [ ] Estudo VSC e LCC em redes HVDC
+- [ ] Micro e Minigeração Distribuída (MGD)
+- [ ] Dashboard MUST (Palkia GUI)
+- [ ] Integração com Banco Access
+- [ ] Automação de aprovações PDF
+- [ ] Análises Operacionais e Casos convergentes
+- [ ] Template Word + Geração automática
+      
 - [x] Relatório + Reunião Semanal
       
 - [ ] Dashboard MUST (Palkia GUI Desktop) ONS - Despacho + MUST PDF extractor ->  Banco de Dados com SQL/Access e relacionamentos com Dashboard final - Projeto Final rodando com .Exe usando banco de dados
@@ -121,12 +135,6 @@ Almoço,12:05 – 13:00,Rotina: Desligar a tela.,Ação: Seu descanso é sagrado
   - Inercia de SEP
 
 
-- [ ] Estudos de ASP com Python
-
-- [ ] Estudar o que são VSC e LCC em Redes Eletricas para o SIN (google)
-
-- [ ] Estudar o que é MGD para Rede Elétrica (Micro e Minigeração Distribuida) (google)
-
 - [ ] Controle de Casos 2030 - PLanilha Flow despacho (SEMANAL) + DASHBOARD usinas GEO BR
 - [ ] Montagem de decks para caso 8 - VD e VE (AnaTEM)
 
@@ -152,47 +160,46 @@ Almoço,12:05 – 13:00,Rotina: Desligar a tela.,Ação: Seu descanso é sagrado
 
 # Eng. Elétrica UFF 2025 __IN_PROGRESS
 
-Subdivido em:
-
 - SEP e Análise de Sistemas de Potência (ASP/Stevenson)
+- [ ] Estudos CA e Fluxo de Potência no PandaPower e AnaREDE
+- [ ] Estudos de ASP com Python
+- [ ] Estudar o que são VSC e LCC em Redes Eletricas para o SIN (google)
+- [ ] Estudar o que é MGD para Rede Elétrica (Micro e Minigeração Distribuida) (google)
+- [ ] Modelagem do Fluxo de Potencia - prof luciano
 
 - Eletromagnetismo / Circuitos CC/CA (Sadiku)
-
+- [ ] Modelagem de Circuitos Elétricos com Laplace ou Resposta completa da EDO usando casos de uso RLC e RC e usando análise Nodal e Malhas para CC e CA
+- [ ] Caso de Uso Sympy - para resolver integral e derivada e fazer calculo na mão.
+- [ ] Lei de Coulomb, Lei de Gauss, Eq. Laplace/Poisson, Lei de Ampare, Lei de Faraday
+- [ ] Circuitos RL e RLC (1ª e 2ª ordem)
+- [ ] Resposta completa em regime transitório
+- [ ] Cálculo nodal e malhas em CA
+- [ ] Provas antigas + simulações Python
+- [ ] Vetor de Poyting
+- [ ] Fasores
+- [ ] 4 Equações de Maxwell
+- [ ] Análise de circuitos elétricos 2 - Segurança operacional ONS - Fluxo de Potencia, Barra Swing, Reator Shunt e Transformador em Fase
+            
 - Eng. Controle Moderno e Sinais e sistemas (Ogata e Oppehhaim)
+- [ ] Sinais e Sistemas - Transformada de Laplace
+- [ ] Leitura de capítulos 6-13 Eng. de Controle Moderno (Ogata)
+- [ ] Projeto PID com Python e PyQt
+- [ ] Processamento Digital de Sinais
+- [ ] Leitura Orante do livo Teoria e controle moderno nos capitulos principais como: Cap 6,7,8 e 9 (metodos old - Lugar das Raízes e Resposta em Frequencia) e cap 11 e 13 (moderno com váriavaveis de estado)
+- [ ] Estudar conteúdo de Sinais e Sistemas e Circuitos Digitais passando a limpo as anotações
+    
 - IoT e IEEDS (automação industrial)
-
-- UFF e Estudos Acadêmicos
-
+- [ ] Projeto Final de IoT com Arduino + MQTT + Python Rest API + WebServer em C++ com Tela em index.html com análise de dados de séries temporais de Sensores de Luz, LDR e acionamento de LEDS e Buzzer.
+- [ ]  Circuito Contador JK com arduino
+- [ ] IOT E ARDUINO COM WEBSOCKET COM HTML ANALISANDO SERIES TEMPORAIS
+     
+- UFF, Estudos Acadêmicos e Provas Antigas
 - [x] Mátematica aplicada a Eng. Elétrica, ONS, Ciencia de Dados / ML, Provas Antigas
 - [x] Estudos UFF com modelagem e prototipação/simulação de circuitos digitais e eletricos CC/CA com arduino e esp32. Eletronica para makers
-
 - [ ] Minicurso CC + CD
 - [ ] Minicurso Matemática básica ENEM - Geometria Espacial, Logaritmos e Questões matemáticas de ITA e IME
 - [ ] Jedi Cyberpunk - Python com Métodos Numéricos + Otimização e uso de Redes Neurais (pegar exemplos de eng dos códigos de matlab)
-
-- [ ] Modelagem de Circuitos Elétricos com Laplace ou Resposta completa da EDO usando casos de uso RLC e RC e usando análise Nodal e Malhas para CC e CA
-- [ ] Caso de Uso Sympy - para resolver integral e derivada e fazer calculo na mão.
-
 - [ ] AstroML - Machine learning
-      
-- [ ] IOT E ARDUINO COM WEBSOCKET COM HTML ANALISANDO SERIES TEMPORAIS
-
-- [ ] Processamento Digital de Sinais
-
-- [ ] Leitura Orante do livo Teoria e controle moderno nos capitulos principais como: Cap 6,7,8 e 9 (metodos old - Lugar das Raízes e Resposta em Frequencia) e cap 11 e 13 (moderno com váriavaveis de estado)
-- [ ] Exercicios e Simulação de circuitos CC 1 e 2 ordem em regime permanente
-- [ ] Provas antigas e Exercícios de Circuitos e Eletromag
-
-- [ ] Projeto Final de IoT com Arduino + MQTT + Python Rest API + WebServer em C++ com Tela em index.html com análise de dados de séries temporais de Sensores de Luz, LDR e acionamento de LEDS e Buzzer.
-- [ ]  Circuito Contador JK com arduino
-- [ ] Estudar conteúdo de Sinais e Sistemas e Circuitos Digitais passando a limpo as anotações
-
-- [ ] Aulas UFF de forma autodidata usando Livros de Sistemas de Controle I, Analise de sistemas Elétricos I, DISP. Inteligentes, Circuitos CA - Sadiku
-
-- [ ] Aulas Circuitos Eletricos CA - Sadiku
-- [ ] Aulas IEDs 
-- [ ] Análise de circuitos elétricos 2 - Segurança operacional ONS - Fluxo de Potencia, Barra Swing, Reator Shunt e Transformador em Fase
-- [ ] Sistema de Controle 2 - Ogata
 - [x] 1 cap. de um livro de matemática e física por dia
 - [ ] 2 Equações do dia 
 
@@ -202,13 +209,24 @@ Subdivido em:
 # ROTINA
 --- 
 
-# VIDA PESSOAL E ROTINA __BACKLOG
-
-Subdivido em:
+# VIDA PESSOAL E ROTINA __IN_PROGRESS
 
 - Corpo, Mente (Treino, Calistenia, Saúde) e Espirito (Alinhamento, Chakras, Meditação)
+- [ ] Treino de calistenia
+- [ ] Alongamento diário
+- [ ] Alimentação 4x/dia
 
-- Hábitos e Organização (Limpeza, Planejamento)
+## Espiritualidade
+- [ ] Alinhamento diário (chakra + salmo + equação do dia)
+- [ ] Meditação e leitura bíblica
+- [ ] Diário de evolução espiritual
+
+## Hábitos, Organização e PLanejamento
+- [ ] Fechar 10 abas
+- [ ] Limpeza semanal do apartamento
+- [ ] Planejamento seg/sex + Kanban pessoal
+
+
 
 - [x] Alongamento + Calistenia + Rotina de treinos com saúde em boa forma
 - [ ] Meditação e alinhamento espiritual
@@ -253,26 +271,41 @@ Subdivido em:
 # Programação FullStack  (Github) __BACKLOG
 
 - Frontend (HTML/CSS/JS, React, NextJS, Flutter, Astro)
+- [ ] Astro blog pedrov12
+- [ ] Blog SEP para Leigos NextJS
+- [ ] Websites HTML + Flask Pikachu API
+- [ ] React Components e Dashboard ONS
+- [ ] Flutter Apps (Calistenia App, App Financeiro, Gohan Treinamentos)
+- [ ] DASHBOARD + PalkiaGUI - MUST - ONS (Controle e Gestão Atividades SP e MUST)
+- [ ] Frontend: HTML + JS, React, Flutter, Astro, Pyside6, Streamlit      
 
 - Backend (FastAPI, Flask, Django, Tornado, SQL, NodeJS, N8N, Drogon C++)
-
+- [ ] FastAPI Auth + CRUD Supabase
+- [ ] Flask API - Pikachu Server
+- [ ] Django Ninja / Tornado Server
+- [ ] Backend: Charizard (Drogon), Pikachu (Flask), Raichu ( FastAPI), Dragonite (Tornado)
+      
 - Desktop (PySide6, QT Designer, Access Microsoft DB, SQL)
-
+- [ ] Pyside6 - Eng. Controle + Deck Builder
+- [ ] Qt MVC + SQLAlchemy + Access Integration
+      
 - IA e Agentes (Chatbots, N8N, ML, DL, Langchain)
-  
+- [ ] Jarvis GPT + Lumina Aurora + Groundon
+- [ ] Langchain + Agno + Streamlit Oráculo
+- [ ] ML com dados ONS e Kaggle 
+
 - Modelos de Machine Learning x Deep Learning
   
 - Dashbaords (HTML/React, Streamlit)
 
-- IoT e Automação (ESP32, MQTT, Node-RED, Arduino, Eletronica para Makers)
-  
+- IoT e Automação
+- [ ] Node-RED + N8N + MQTT
+- [ ] ESP32 com API Python
+- [ ] Dashboard IoT em HTML/Flask
+- [ ] Eletronica para Makers
+      
 - Algoritimos de Otimização + Métodos Numéricos + Modelagem Matemática
 
-- [ ] Astro blog pedrov12
-- [ ] Blog SEP para Leigos
-- [ ] DASHBOARD + PalkiaGUI - MUST - ONS (Controle e Gestão Atividades SP e MUST)
-- [ ] Backend: Charizard (Drogon), Pikachu (Flask), Raichu ( FastAPI), Dragonite (Tornado)
-- [ ] Frontend: HTML + JS, React, Flutter, Astro, Pyside6, Streamlit
 - [ ] Electrical-System-Simulator
 - [ ] meu-react-app-template (Gohan-Treinamentos, Quizz App, Habits tracker - Iconic)
 - [ ] my-flutter-getx-app (Kyogre App, SCRUM Planner App, TodoList App, Controle Financeiro App, Controle Estoque App)
