@@ -70,6 +70,8 @@ Almoço,12:05 – 13:00,Rotina: Desligar a tela.,Ação: Seu descanso é sagrado
 - [x] Análise por empresa (query SQL)
 - [x] Launcher (Palkia GUI) para script run.py rodando na mesma tela do dashboard_desktop_GUI.py
 - [x] Conexão com SQLite e Microsoft Access
+- [ ] Análise de dados usando Flow e anaREDE (Controle de casos, Usinas SIN, despacho, Inequacoões)
+
 
 - [ ] QUAIS PONTOS SERÃO ANALISADOS, QUANTO O AGENTE ESTÁ PEDINDO, 	QUEM É O ID PROBLEMA ,	QUEM É O ID SOLUÇÃO
 - [ ] Ajustar caminho relativo dentro do repositorio sem caminho Global do banco de dados
