@@ -40,25 +40,70 @@ Almoço,12:05 – 13:00,Rotina: Desligar a tela.,Ação: Seu descanso é sagrado
 4 (SEP/Código),13:00 – 13:50,MÓDULO 2: ybus_solver.py,Ação: Iniciar o código Python. Codificar a representação da Matriz Y-Bus 3×3 em NumPy com números complexos (transformar a teoria do papel em código).
 5 (Alinhamento),14:00 – 14:50,DOCUMENTAÇÃO: IEDs/Aprendizado,Ação: Criar o novo arquivo .md (ex: ieds_log.md) e salvar a lógica de MQTT/LED/Buzzer que discutimos (o aprendizado de ontem). Isso limpa a sua mente e finaliza o IOT.
 
+
+# Alinhamento PVRV - Novembro: ONS, UFF, Sáude mental e emocional - Corpo, Mente, Espirito
+
+- MUST Software Desktop (Pyside6 + Access DB + modelagem SQL) - 11/11/25
+- Palkia GUI + Console + Backend flask integrado com Dashboard HTML atividades SP 
+- Plugin Organon - Deck Builder + AnaREDE scripts + Fluxo de potencia Organon
+- Flow despacho de cargas
+- Flow Inequações
+- Flow Elos CC
+- Análise de contigencias PandaPower SIN 45
+- Potencia Ativa x Reativa
+- Equações P e Q e 7 principais
+- Minicurso CC + Provas atingas circuitos 1 e 2 ordem EDO
+- Estudos de Sistemas Elétricos de Potencia (SEP) (Fundamentos)
+  - Potencia Ativa/ Reativa/ Aparente
+  - Conceitos básicos de circuitos CA
+  - Capacitores / Indxutores
+  - Impedância, Indutância
+  - Tap de transformadores na região de SP para controle de tensão
+  - Equações principais para fluxo de potencia em diagrama unifilar
+- Elementos do Eletromagnetismo
+- Processamento digital de Sinais com Relés digitais e Series temporais de cargas de Substações
+
+
+# Atividades MUST 28/10/25
+- [x] Agrupação de paginas por tab no menu lateral
+- [x] App Template Windows Desktop (Bloco de notas sobre)
+- [x] Análise por empresa (query SQL)
+- [x] Launcher (Palkia GUI) para script run.py rodando na mesma tela do dashboard_desktop_GUI.py
+- [x] Conexão com SQLite e Microsoft Access
+
+- [ ] QUAIS PONTOS SERÃO ANALISADOS, QUANTO O AGENTE ESTÁ PEDINDO, 	QUEM É O ID PROBLEMA ,	QUEM É O ID SOLUÇÃO
+- [ ] Ajustar caminho relativo dentro do repositorio sem caminho Global do banco de dados
+- [x] Deck Builder com Plugin do Organon - Testes de casos de uso SEP 16 barras, SEP 5 Barras, IEEE 14 e SIN 45
+      - Fundamentação teorica: Barra Swing, Reator Shunt e Transformador em fase
+      - Fluxo de potencia x Curto Circuito
+      - Despacho de Cargas
+      
+- [ ] incluir no banco de dados de MUST a relação ponto de MUST x barras/circuitos do Fluxo de potência
+- [ ] "régua" para inclusão de LTs e Trafos via script do Organon
+
+
 # Lista de TAREFAS Pendentes __TODO
 
-- [ ] Estudos CA para SEP usando GPT e Python
+- [x] Estudos CA para SEP usando GPT e Python
+- [ ] Pyside6 com modelagem de dados (Sqlite3 + Microsoft Access) + Análise de Contigencias + Controle Atividades SP
 - [ ] Automação Outlook + Teams + N8N = Relatorios automatizados por email e Whatsapp
-- [ ] Planejamento e Metas (Segunda/Sexta)
+- [x] Planejamento e Metas (Segunda/Sexta)
+- [x] Análise de contigencias - Perdas Duplas
 - [ ] MUST - Ponta e fora ponta ate 2030 com Controle e gestão de aprovação de documentos PDF com ou sem Ressalva.
-- [ ] Kanban/Cronograma -> Organização do cronograma de estudos
+- [x] Kanban/Cronograma -> Organização do cronograma de estudos
 - [ ] Treino de calistenia e calistenia app
 - [ ] Aulas Sinais/cricuitos CC/CA e Eng. Controle + SEP Fundamentals + Metodos numericos com Python
 - [ ] Despacho de cargas - Planejamento Mensal e Semanal - Flow + AnaREDE, AnaTEM e Organon
 - [ ] **Estudos SEP com base fundamental para CA**
 - [ ] Chatbot Groundon, Lumina Aurora (Gemini) + Jarvis (GPT) + Copilot (copilot/cursor) with updates 
 - [ ] Deploy: Plugin no Organon no notepad++ com scripts básicos de AnaREDE e Organon
+- [x] App Template Pyside6 + SQL - MUST Controle e Gestão de Atividades com Chatbot AI com .EXE
+
 - [ ] Corpo x Mente x Espirito -> Jobs, Coding, Studying, Creative, In Shape
-- [ ] Todos websistes unificados a Pikachu Flask API Server
+- [x] Todos websistes unificados a Pikachu Flask API Server + github batcaverna
 - [ ] Grondon Chabtot, Jarvis Chatbot, Lumina Aurora Chatbot
-- [ ] N8N x Node-Red + webhook + MQQT + Esp32
+- [x] N8N x Node-Red + webhook + MQQT + Esp32
 - [ ] Pyside6 - Eng. Controle com EDO e Equações de SEP
-- [ ] Pyside6 com modelagem de dados (Sqlite3 + Microsoft Access) + Análise de Contigencias + Controle Atividades SP
 - [ ] Nextjs Website + MVP HTML templates (SEP do SIN da ONS para leigos)
 - [ ] Controle  e Gestão Atividades SP + MUST --> Excel To Website and (.PDF + Access)to QT 6 Desktop Deck Builder Organon 
 - [ ] Must Desktop App Excel, Deck BUilder.
@@ -67,7 +112,7 @@ Almoço,12:05 – 13:00,Rotina: Desligar a tela.,Ação: Seu descanso é sagrado
 - [ ] Processamento de imagens de satélites com Python
 - [ ] Bots e RPA com Python
 - [ ] Estudos de IA, ML, DL, Chatbots, N8N, AI agentes frameworks (Agno/Langchain)
-- [ ] PROGRAMAÇÃO FRONTEND
+- [x] PROGRAMAÇÃO FRONTEND
 - [ ] PROGRAMAÇÃO BACKEND
 
 
@@ -76,24 +121,36 @@ Almoço,12:05 – 13:00,Rotina: Desligar a tela.,Ação: Seu descanso é sagrado
 ---
 
 # Estágio ONS __IN_PROGRESS
-
-- [ ] TAREFAS ONS
-      
-- [ ] Despacho de cargas (Flow, Anarede, Organon)
-- [ ] Análise de contingências e relatório PDF
-- [ ] Controle Casos 2025-2030 e dashboard atividades SP
-- [ ] MUST Controle e Gestão - Desktop Software
-- [ ] Estudo VSC e LCC em redes HVDC
-- [ ] Micro e Minigeração Distribuída (MGD)
-- [ ] Dashboard MUST (Palkia GUI)
+- [x] Análise e Leitura do plano de Montagem de Quadros Mensal - dezembro com Organon, Flow e AnaREDE
+- [ ] 
+- [ ] Dashboard MUST (Palkia GUI Desktop) ONS - Despacho + MUST PDF extractor ->  Banco de Dados com SQL/Access e relacionamentos com Dashboard final - Projeto Final rodando com .Exe usando banco de dados
+- [x] Deploy: Plugin no Organon no notepad++ com .EXE
+- [x] NextJS - SEP para Leigos Website
+- [x] TAREFAS ONS
 - [ ] Integração com Banco Access
 - [ ] Automação de aprovações PDF
-- [ ] Análises Operacionais e Casos convergentes
-- [ ] Template Word + Geração automática
+- [ ] Template Word + Geração automática      
+- [ ] Despacho de cargas (Flow, Anarede, Organon)
+- [ ] Análise de contingências e relatório PDF
+- [ ] Controle Casos 2025-2030 e dashboard atividades SP HTML com Excel Online
+- [x] MUST Controle e Gestão - Desktop Software
+- [x] Dashboard MUST (Palkia GUI)
+- [ ] Simulações de SEP básicos do SIN (RJ/SP) no AnaREDE e Organon
+
+- [ ] Análise de Contingências com PandaPower, AnaREDE e Organon (SEMANAL) -> Resultados em dashboard ou PDF
+
+- [ ] Langchain Agent - Asimov
+- [ ] 2 dashboards Streamlit - Asimov
+
+- [ ] Chatbot Streamlit com PDF da ONS (Bot Oráculo)
+
       
+- [ ] Estudo VSC e LCC em redes HVDC
+- [ ] Micro e Minigeração Distribuída (MGD)
+
+	  
 - [x] Relatório + Reunião Semanal
       
-- [ ] Dashboard MUST (Palkia GUI Desktop) ONS - Despacho + MUST PDF extractor ->  Banco de Dados com SQL/Access e relacionamentos com Dashboard final - Projeto Final rodando com .Exe usando banco de dados
 - [ ] **Upgrades** e Levantametno de requisitos MUST Dashboard GUI Desktop (Controle e Gestão atividades SP)
   - [ ] Controle atividades SP e RJ com planilha 2025
   - [ ] Limpeza de dados do Excel para utilizar os dados de SP 2025 e 2024 _inicio 22-10-25_
@@ -101,24 +158,8 @@ Almoço,12:05 – 13:00,Rotina: Desligar a tela.,Ação: Seu descanso é sagrado
   - [ ] Criação do Sistema do Pyside6 para gestão de MUST, aprovação com ou sem ressalva e geração do Deck da solicitação
   - [ ] Criação de word template para entrega de documentos 
 
-- [ ] Simulações de SEP básicos do SIN (RJ/SP) no AnaREDE e Organon
-
-- [ ] Análise de Contingências com PandaPower, AnaREDE e Organon (SEMANAL) -> Resultados em dashboard ou PDF
-
-- [ ] Estudos de Sistemas Elétricos de Potencia (SEP)
-  - Potencia Ativa/ Reativa/ Aparente
-  - Conceitos básicos de circuitos CA
-  - Capacitores / Indxutores
-  - Impedância, Indutância
-  - Tap de transformadores na região de SP para controle de tensão
-  - Equações principais para fluxo de potencia em diagrama unifilar
 
 
-
-- [ ] Chatbot Streamlit com PDF da ONS (Bot Oráculo)
-  
-- [ ] Langchain Agent - Asimov
-- [ ] 2 dashboards Streamlit - Asimov
 
 - [ ] SIMULAÇÕES, ESTUDOS, ANALISE DE DADOS E MODELAGEM DE SEP com ASP (Organon, AnaREDE e PandaPower)
   - Curto circuito e onda de alta frequencia entre os ramos
@@ -159,13 +200,12 @@ Almoço,12:05 – 13:00,Rotina: Desligar a tela.,Ação: Seu descanso é sagrado
  
 
 # Eng. Elétrica UFF 2025 __IN_PROGRESS
-
-- SEP e Análise de Sistemas de Potência (ASP/Stevenson)
-- [ ] Estudos CA e Fluxo de Potência no PandaPower e AnaREDE
+- [ ] Modelagem do Fluxo de Potencia - prof luciano
+- [ ]  SEP e Análise de Sistemas de Potência (ASP/Stevenson)
+- [x] Estudos CA e Fluxo de Potência / Curto Circuito no PandaPower, AnaREDE, Organon. 
 - [ ] Estudos de ASP com Python
 - [ ] Estudar o que são VSC e LCC em Redes Eletricas para o SIN (google)
 - [ ] Estudar o que é MGD para Rede Elétrica (Micro e Minigeração Distribuida) (google)
-- [ ] Modelagem do Fluxo de Potencia - prof luciano
 
 - Eletromagnetismo / Circuitos CC/CA (Sadiku)
 - [ ] Modelagem de Circuitos Elétricos com Laplace ou Resposta completa da EDO usando casos de uso RLC e RC e usando análise Nodal e Malhas para CC e CA
@@ -214,18 +254,19 @@ Almoço,12:05 – 13:00,Rotina: Desligar a tela.,Ação: Seu descanso é sagrado
 - Corpo, Mente (Treino, Calistenia, Saúde) e Espirito (Alinhamento, Chakras, Meditação)
 - [ ] Treino de calistenia
 - [ ] Alongamento diário
-- [ ] Alimentação 4x/dia
+- [x] Alimentação 4x/dia
 
 ## Espiritualidade
-- [ ] Alinhamento diário (chakra + salmo + equação do dia)
+- [x] Alinhamento diário (chakra + salmo + equação do dia)
 - [ ] Meditação e leitura bíblica
-- [ ] Diário de evolução espiritual
+- [x] Diário de evolução espiritual
 
 ## Hábitos, Organização e PLanejamento
 - [ ] Fechar 10 abas
 - [ ] Limpeza semanal do apartamento
 - [ ] Planejamento seg/sex + Kanban pessoal
 
+- [x] Terapia
 
 
 - [x] Alongamento + Calistenia + Rotina de treinos com saúde em boa forma
@@ -272,16 +313,16 @@ Almoço,12:05 – 13:00,Rotina: Desligar a tela.,Ação: Seu descanso é sagrado
 
 - Frontend (HTML/CSS/JS, React, NextJS, Flutter, Astro)
 - [ ] Astro blog pedrov12
-- [ ] Blog SEP para Leigos NextJS
-- [ ] Websites HTML + Flask Pikachu API
-- [ ] React Components e Dashboard ONS
+- [x] Blog SEP para Leigos NextJS
+- [x] Websites HTML + Flask Pikachu API
+- [x] React Components e Dashboard ONS
 - [ ] Flutter Apps (Calistenia App, App Financeiro, Gohan Treinamentos)
-- [ ] DASHBOARD + PalkiaGUI - MUST - ONS (Controle e Gestão Atividades SP e MUST)
-- [ ] Frontend: HTML + JS, React, Flutter, Astro, Pyside6, Streamlit      
+- [x] DASHBOARD + PalkiaGUI - MUST - ONS (Controle e Gestão Atividades SP e MUST)
+- [x] Frontend: HTML + JS, React, Flutter, Astro, Pyside6, Streamlit      
 
 - Backend (FastAPI, Flask, Django, Tornado, SQL, NodeJS, N8N, Drogon C++)
 - [ ] FastAPI Auth + CRUD Supabase
-- [ ] Flask API - Pikachu Server
+- [x] Flask API - Pikachu Server
 - [ ] Django Ninja / Tornado Server
 - [ ] Backend: Charizard (Drogon), Pikachu (Flask), Raichu ( FastAPI), Dragonite (Tornado)
       
@@ -299,14 +340,14 @@ Almoço,12:05 – 13:00,Rotina: Desligar a tela.,Ação: Seu descanso é sagrado
 - Dashbaords (HTML/React, Streamlit)
 
 - IoT e Automação
-- [ ] Node-RED + N8N + MQTT
+- [x] Node-RED + N8N + MQTT
 - [ ] ESP32 com API Python
 - [ ] Dashboard IoT em HTML/Flask
 - [ ] Eletronica para Makers
       
 - Algoritimos de Otimização + Métodos Numéricos + Modelagem Matemática
 
-- [ ] Electrical-System-Simulator
+- [x] Electrical-System-Simulator
 - [ ] meu-react-app-template (Gohan-Treinamentos, Quizz App, Habits tracker - Iconic)
 - [ ] my-flutter-getx-app (Kyogre App, SCRUM Planner App, TodoList App, Controle Financeiro App, Controle Estoque App)
 - [ ] Planilha e Controle financeiro Flutter
