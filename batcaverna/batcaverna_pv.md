@@ -83,7 +83,8 @@ Almoço,12:05 – 13:00,Rotina: Desligar a tela.,Ação: Seu descanso é sagrado
 
 
 # Lista de TAREFAS Pendentes __TODO
-
+- [ ] Deploy: Plugin no Organon no notepad++ com scripts básicos de AnaREDE e Organon
+- [x] App Template Pyside6 + SQL - MUST Controle e Gestão de Atividades com Chatbot AI com .EXE
 - [x] Estudos CA para SEP usando GPT e Python
 - [ ] Pyside6 com modelagem de dados (Sqlite3 + Microsoft Access) + Análise de Contigencias + Controle Atividades SP
 - [ ] Automação Outlook + Teams + N8N = Relatorios automatizados por email e Whatsapp
@@ -96,8 +97,7 @@ Almoço,12:05 – 13:00,Rotina: Desligar a tela.,Ação: Seu descanso é sagrado
 - [ ] Despacho de cargas - Planejamento Mensal e Semanal - Flow + AnaREDE, AnaTEM e Organon
 - [ ] **Estudos SEP com base fundamental para CA**
 - [ ] Chatbot Groundon, Lumina Aurora (Gemini) + Jarvis (GPT) + Copilot (copilot/cursor) with updates 
-- [ ] Deploy: Plugin no Organon no notepad++ com scripts básicos de AnaREDE e Organon
-- [x] App Template Pyside6 + SQL - MUST Controle e Gestão de Atividades com Chatbot AI com .EXE
+
 
 - [ ] Corpo x Mente x Espirito -> Jobs, Coding, Studying, Creative, In Shape
 - [x] Todos websistes unificados a Pikachu Flask API Server + github batcaverna
