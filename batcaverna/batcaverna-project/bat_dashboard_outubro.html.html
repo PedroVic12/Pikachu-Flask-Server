@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Painel Batcaverna</title>
+
+    <!-- IMPORT Tailwind and Google Fonts -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Fira+Code&display=swap"
+        rel="stylesheet">
+
+    <!-- IMPORT DEPEDENCES in NPM -->
+    <script type="importmap">
+        {
+            "imports": {
+                "react": "https://esm.sh/react@18.2.0",
+                "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
+                "htm": "https://esm.sh/htm@3.1.1",
+                "three": "https://cdn.jsdelivr.net/npm/three@0.148.0/build/three.module.js",
+                "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.148.0/examples/jsm/",
+                "chart.js": "https://esm.sh/chart.js@4.4.0",
+                "chart.js/auto": "https://esm.sh/chart.js@4.4.0/auto"
+            }
+        }
+    </script>
+
+</head>
+<body class="bg-gray-900 text-white font-['Inter']">
+  <div id="root" class="h-screen w-full flex flex-col"></div>
+
+  <script type="module">
+    import { Checklist } from './views/UI/tailwind_componets_dashboard_template.js';
+    import { useDashboardController } from './controllers/dashboard_controller.js';
+
+    import React, { useState, useEffect, useRef, useMemo } from 'react';
+    import ReactDOM from 'react-dom/client';
+    import htm from 'htm';
+    import * as THREE from 'three';
+    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+    import Chart from 'chart.js/auto';
+
+    const html = htm.bind(React.createElement);
+
+    function App() {
+      const {
+        activeView,
+        setActiveView,
+        currentTime,
+        moonPhase,
+        fishingForecast,
+        constellations,
+        tasks,
+        tasksMarkdown,
+        handleMarkdownChange,
+        handleKanbanUpdate
+      } = useDashboardController();
+
+      function handleToggleItem(label, index) {
+        const category = tasks.find(c => c.label === label);
+        if (category) {
+          category.items[index].completed = !category.items[index].completed;
+          render();
+        }
+      }
+
+      const tabs = [
+        { id: 'checklist', label: '✅ Checklist' },
+        { id: 'kanban', label: '🗂️ Kanban' },
+        { id: 'tasks', label: '📊 Gráfico' }
+        ];
+
+        const tabButtons = html`
+        <div class="flex space-x-2 p-4 border-b border-gray-700">
+            ${tabs.map(tab => html`
+            <button
+                class=${`px-4 py-2 rounded ${activeView === tab.id ? 'bg-cyan-600 text-white' : 'bg-gray-800 text-gray-300'}`}
+                onClick=${() => setActiveView(tab.id)}
+            >
+                ${tab.label}
+            </button>
+            `)}
+        </div>
+        `;
+
+
+      function renderActiveView() {
+        switch (activeView) {
+          case 'checklist':
+            return html`<${Checklist} tasks=${tasks} onToggleItem=${handleToggleItem} />`;
+          default:
+            return html`<div class="p-4">Selecione uma aba para visualizar.</div>`;
+        }
+      }
+
+        return html`
+        <div class="flex-1 overflow-y-auto">
+            ${tabButtons}
+            ${renderActiveView()}
+        </div>
+        `;
+
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(html`<${App} />`);
+  </script>
+</body>
+</html>
