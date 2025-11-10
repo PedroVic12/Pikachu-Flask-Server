@@ -55,6 +55,10 @@ Almoço,12:05 – 13:00,Rotina: Desligar a tela.,Ação: Seu descanso é sagrado
 - Elementos do Eletromagnetismo
 - Processamento digital de Sinais com Relés digitais e Series temporais de cargas de Substações
 
+
+# Tarefas Concluidas - Outubro/Novembro
+
+
 # Atividades MUST 28/10/25
 
 - [X] Agrupação de paginas por tab no menu lateral
@@ -74,6 +78,13 @@ Almoço,12:05 – 13:00,Rotina: Desligar a tela.,Ação: Seu descanso é sagrado
 
 # Lista de TAREFAS Pendentes __TODO
 
+- [ ] Dashboard SP com HTML + app template Pyside6 + MUST Controle e Gestão + Lancher AG (RCE) - Arquitetura de Software
+- [ ] Lista de ferramentas para automação, AI, Eng. Elétrica
+- [ ] ONS Inspra - Análise e gravação da apresentação os Slides e Minha fala na parte de Desafios e Soluções com Storytelling
+    - Desafios -> Soluções -> 
+- [ ] MUST Modelagem de Dados SQL + Streamlit
+- [ ] Flow ONS V9 - Datasets + Notebooks com análise de dados de carga MW em Horas pelas usinas limpas e renovaveis do BR 
+- [ ] Atividade ML de IEEEDs e principais modelo de AI de Supevisionado x Não Supervisionado (Com Rótulos x Sem Rótulos)
 - [ ] Deploy: Plugin no Organon no notepad++ com scripts básicos de AnaREDE e Organon
 - [X] App Template Pyside6 + SQL - MUST Controle e Gestão de Atividades com Chatbot AI com .EXE
 - [X] Estudos CA para SEP usando GPT e Python
