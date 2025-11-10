@@ -39,53 +39,7 @@ _Data gerado: 10/11/2025_
 | **Almoço** | 12:05 – 13:00 | **Rotina: Desligar a tela** | 🍽️ Seu descanso é sagrado. Respire e recarregue a mente. |
 | **4 (SEP/Código)** | 13:00 – 13:50 | **MÓDULO 2: ybus_solver.py** | ⚙️ Inicie o código Python. Modele a matriz **Y-Bus 3×3 em NumPy** (números complexos) — transforme teoria em código. |
 | **5 (Alinhamento)** | 14:00 – 14:50 | **DOCUMENTAÇÃO: IEDs/Aprendizado** | 📝 Crie o arquivo `ieds_log.md` e registre a lógica de **MQTT/LED/Buzzer** (aprendizado de IoT). Isso fecha o ciclo do dia. |
-
-
-# Alinhamento PVRV - Novembro: ONS, UFF, Sáude mental e emocional - Corpo, Mente, Espirito
-
-- MUST Software Desktop (Pyside6 + Access DB + modelagem SQL) - 11/11/25
-- Palkia GUI + Console + Backend flask integrado com Dashboard HTML atividades SP
-- Plugin Organon - Deck Builder + AnaREDE scripts + Fluxo de potencia Organon
-- Flow despacho de cargas
-- Flow Inequações
-- Flow Elos CC
-- Análise de contigencias PandaPower SIN 45
-- Potencia Ativa x Reativa
-- Equações P e Q e 7 principais
-- Minicurso CC + Provas atingas circuitos 1 e 2 ordem EDO
-- Estudos de Sistemas Elétricos de Potencia (SEP) (Fundamentos)
-  - Potencia Ativa/ Reativa/ Aparente
-  - Conceitos básicos de circuitos CA
-  - Capacitores / Indxutores
-  - Impedância, Indutância
-  - Tap de transformadores na região de SP para controle de tensão
-  - Equações principais para fluxo de potencia em diagrama unifilar
-- Elementos do Eletromagnetismo
-- Processamento digital de Sinais com Relés digitais e Series temporais de cargas de Substações
-
-
-# Tarefas Concluidas - Outubro/Novembro
-- [X] NextJS - SEP para Leigos Website
-- [X] TAREFAS ONS
-- [X] Agrupação de paginas por tab no menu lateral
-- [X] App Template Windows Desktop (Bloco de notas sobre)
-- [X] Análise por empresa (query SQL)
-- [X] Launcher (Palkia GUI) para script run.py rodando na mesma tela do dashboard_desktop_GUI.py
-- [X] Conexão com SQLite e Microsoft Access
-
-
-# Atividades MUST 28/10/25
-
-
-- [ ] Análise de dados usando Flow e anaREDE (Controle de casos, Usinas SIN, despacho, Inequacoões)
-- [ ] QUAIS PONTOS SERÃO ANALISADOS, QUANTO O AGENTE ESTÁ PEDINDO, 	QUEM É O ID PROBLEMA ,	QUEM É O ID SOLUÇÃO
-- [ ] Ajustar caminho relativo dentro do repositorio sem caminho Global do banco de dados
-- [X] Deck Builder com Plugin do Organon - Testes de casos de uso SEP 16 barras, SEP 5 Barras, IEEE 14 e SIN 45
-  - Fundamentação teorica: Barra Swing, Reator Shunt e Transformador em fase
-  - Fluxo de potencia x Curto Circuito
-  - Despacho de Cargas
-- [ ] incluir no banco de dados de MUST a relação ponto de MUST x barras/circuitos do Fluxo de potência
-- [ ] "régua" para inclusão de LTs e Trafos via script do Organon
+---
 
 # Lista de TAREFAS Pendentes __TODO
 
@@ -134,6 +88,59 @@ _Data gerado: 10/11/2025_
 - [ ] Estudos de IA, ML, DL, Chatbots, N8N, AI agentes frameworks (Agno/Langchain)
 - [X] PROGRAMAÇÃO FRONTEND
 - [ ] PROGRAMAÇÃO BACKEND
+- [ ] Atividade IEEEDs = Esp32 + Senoides de corrente em series temporais para modelos de IA (como entrada de dado)
+  - Solver ML/DL para cada X,Y de conjunto de dado
+
+
+
+---
+
+# Alinhamento PVRV - Novembro: ONS, UFF, Sáude mental e emocional - Corpo, Mente, Espirito
+
+- MUST Software Desktop (Pyside6 + Access DB + modelagem SQL) - 11/11/25
+- Palkia GUI + Console + Backend flask integrado com Dashboard HTML atividades SP
+- Plugin Organon - Deck Builder + AnaREDE scripts + Fluxo de potencia Organon
+- Flow despacho de cargas
+- Flow Inequações
+- Flow Elos CC
+- Análise de contigencias PandaPower SIN 45
+- Potencia Ativa x Reativa
+- Equações P e Q e 7 principais
+- Minicurso CC + Provas atingas circuitos 1 e 2 ordem EDO
+- Estudos de Sistemas Elétricos de Potencia (SEP) (Fundamentos)
+  - Potencia Ativa/ Reativa/ Aparente
+  - Conceitos básicos de circuitos CA
+  - Capacitores / Indxutores
+  - Impedância, Indutância
+  - Tap de transformadores na região de SP para controle de tensão
+  - Equações principais para fluxo de potencia em diagrama unifilar
+- Elementos do Eletromagnetismo
+- Processamento digital de Sinais com Relés digitais e Series temporais de cargas de Substações
+
+
+# Tarefas Concluidas - Outubro/Novembro
+- [X] NextJS - SEP para Leigos Website
+- [X] TAREFAS ONS
+- [X] Agrupação de paginas por tab no menu lateral
+- [X] App Template Windows Desktop (Bloco de notas sobre)
+- [X] Análise por empresa (query SQL)
+- [X] Launcher (Palkia GUI) para script run.py rodando na mesma tela do dashboard_desktop_GUI.py
+- [X] Conexão com SQLite e Microsoft Access
+
+
+# Atividades MUST 28/10/25
+
+
+- [ ] Análise de dados usando Flow e anaREDE (Controle de casos, Usinas SIN, despacho, Inequacoões)
+- [ ] QUAIS PONTOS SERÃO ANALISADOS, QUANTO O AGENTE ESTÁ PEDINDO, 	QUEM É O ID PROBLEMA ,	QUEM É O ID SOLUÇÃO
+- [ ] Ajustar caminho relativo dentro do repositorio sem caminho Global do banco de dados
+- [X] Deck Builder com Plugin do Organon - Testes de casos de uso SEP 16 barras, SEP 5 Barras, IEEE 14 e SIN 45
+  - Fundamentação teorica: Barra Swing, Reator Shunt e Transformador em fase
+  - Fluxo de potencia x Curto Circuito
+  - Despacho de Cargas
+- [ ] incluir no banco de dados de MUST a relação ponto de MUST x barras/circuitos do Fluxo de potência
+- [ ] "régua" para inclusão de LTs e Trafos via script do Organon
+
 
 ---
 
