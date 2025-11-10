@@ -26,7 +26,12 @@ encorajador, visionário e direto.
 - **Sugestão de leitura**: capítulo sobre CLI automation + patterns em Python (ex.: “Automate the Boring Stuff” — scripts avançados).
 - **Meta de exercícios**: resolver 5 questões rápidas de Eletromagnetismo (foco em transformada de Fourier aplicada a circuitos).
 
+Para um Software Limpo e mais "profissional", a sugestão é organizar o conteúdo de uma forma mais estruturada, separando claramente:
 
+1.  **O quê** (O que o projeto faz)
+2.  **Porquê** (O contexto)
+3.  **Como** (Como instalar e usar)
+4.  **O que tem dentro** (Arquitetura e galeria)
 
 # 📅 Sprint - Terça-feira (Foco: Backend Python e SEP ONS)
 _Data gerado: 10/11/2025_
