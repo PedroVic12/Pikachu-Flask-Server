@@ -3,6 +3,8 @@
 Salve esses dados em:
 https://github.com/PedroVic12/Pikachu-Flask-Server/tree/main/batcaverna
 
+DATA ATUAL = 10/11/2025
+
 
 ![alt text - ciencia de dados ONS](image-1.png)
 
@@ -24,14 +26,20 @@ encorajador, visionário e direto.
 - **Sugestão de leitura**: capítulo sobre CLI automation + patterns em Python (ex.: “Automate the Boring Stuff” — scripts avançados).
 - **Meta de exercícios**: resolver 5 questões rápidas de Eletromagnetismo (foco em transformada de Fourier aplicada a circuitos).
 
-📅 Plano de Sprint: Terça-feira (Foco em Backend Python e SEP ONS)
-Ciclo,Horário (50 min),Foco Integrado (Código/Teoria),Detalhamento da Tarefa (Passo a Passo)
-1 (Backend),09:15 – 10:05,FLASK CRUD: Modelagem SQL,"Ação: No seu PikachuWebServer, defina a tabela Client (ou Task_Log) usando SQLAlchemy. Teste a criação da tabela no seu app.db."
-2 (Backend),10:15 – 11:05,FLASK CRUD: Rotas API,Ação: Crie os endpoints POST /clients (Criação) e GET /clients (Leitura) na sua Blueprint user_bp.
-3 (Teoria),11:15 – 12:05,MÓDULO 2: Matriz Y-Bus (Papel),Ação: TEORIA PURA (Stevenson): Finalizar a montagem da Matriz Y-Bus 3×3 em papel (as 2 Equações por dia que você se propôs).
-Almoço,12:05 – 13:00,Rotina: Desligar a tela.,Ação: Seu descanso é sagrado.
-4 (SEP/Código),13:00 – 13:50,MÓDULO 2: ybus_solver.py,Ação: Iniciar o código Python. Codificar a representação da Matriz Y-Bus 3×3 em NumPy com números complexos (transformar a teoria do papel em código).
-5 (Alinhamento),14:00 – 14:50,DOCUMENTAÇÃO: IEDs/Aprendizado,Ação: Criar o novo arquivo .md (ex: ieds_log.md) e salvar a lógica de MQTT/LED/Buzzer que discutimos (o aprendizado de ontem). Isso limpa a sua mente e finaliza o IOT.
+
+
+# 📅 Sprint - Terça-feira (Foco: Backend Python e SEP ONS)
+_Data gerado: 10/11/2025_
+
+| 🌀 Ciclo | ⏰ Horário (50 min) | 🎯 Foco Integrado (Código/Teoria) | 🧠 Detalhamento da Tarefa (Passo a Passo) |
+|:--------:|:------------------:|:----------------------------------|:------------------------------------------|
+| **1 (Backend)** | 09:15 – 10:05 | **FLASK CRUD: Modelagem SQL** | 🧩 No seu **PikachuWebServer**, defina a tabela `Client` (ou `Task_Log`) usando **SQLAlchemy**. Teste a criação da tabela no `app.db`. |
+| **2 (Backend)** | 10:15 – 11:05 | **FLASK CRUD: Rotas API** | 🚀 Crie os endpoints **POST /clients** (Criação) e **GET /clients** (Leitura) na sua **Blueprint `user_bp`**. |
+| **3 (Teoria)** | 11:15 – 12:05 | **MÓDULO 2: Matriz Y-Bus (Papel)** | 📘 Teoria pura (**Stevenson**): finalize a montagem da matriz **Y-Bus 3×3** em papel (as **2 equações do dia**). |
+| **Almoço** | 12:05 – 13:00 | **Rotina: Desligar a tela** | 🍽️ Seu descanso é sagrado. Respire e recarregue a mente. |
+| **4 (SEP/Código)** | 13:00 – 13:50 | **MÓDULO 2: ybus_solver.py** | ⚙️ Inicie o código Python. Modele a matriz **Y-Bus 3×3 em NumPy** (números complexos) — transforme teoria em código. |
+| **5 (Alinhamento)** | 14:00 – 14:50 | **DOCUMENTAÇÃO: IEDs/Aprendizado** | 📝 Crie o arquivo `ieds_log.md` e registre a lógica de **MQTT/LED/Buzzer** (aprendizado de IoT). Isso fecha o ciclo do dia. |
+
 
 # Alinhamento PVRV - Novembro: ONS, UFF, Sáude mental e emocional - Corpo, Mente, Espirito
 
@@ -57,15 +65,18 @@ Almoço,12:05 – 13:00,Rotina: Desligar a tela.,Ação: Seu descanso é sagrado
 
 
 # Tarefas Concluidas - Outubro/Novembro
-
-
-# Atividades MUST 28/10/25
-
+- [X] NextJS - SEP para Leigos Website
+- [X] TAREFAS ONS
 - [X] Agrupação de paginas por tab no menu lateral
 - [X] App Template Windows Desktop (Bloco de notas sobre)
 - [X] Análise por empresa (query SQL)
 - [X] Launcher (Palkia GUI) para script run.py rodando na mesma tela do dashboard_desktop_GUI.py
 - [X] Conexão com SQLite e Microsoft Access
+
+
+# Atividades MUST 28/10/25
+
+
 - [ ] Análise de dados usando Flow e anaREDE (Controle de casos, Usinas SIN, despacho, Inequacoões)
 - [ ] QUAIS PONTOS SERÃO ANALISADOS, QUANTO O AGENTE ESTÁ PEDINDO, 	QUEM É O ID PROBLEMA ,	QUEM É O ID SOLUÇÃO
 - [ ] Ajustar caminho relativo dentro do repositorio sem caminho Global do banco de dados
@@ -78,14 +89,23 @@ Almoço,12:05 – 13:00,Rotina: Desligar a tela.,Ação: Seu descanso é sagrado
 
 # Lista de TAREFAS Pendentes __TODO
 
+- SOFTWARE DEVELOPER
+- [X] Análise e Leitura do plano de Montagem de Quadros Mensal - dezembro com Organon, Flow e AnaREDE
+- [ ] Deploy: Plugin no Organon no notepad++ com scripts básicos de AnaREDE e Organon
+- [ ] Dashboard MUST (Palkia GUI Desktop) ONS - Despacho + MUST PDF extractor ->  Banco de Dados com SQL/Access e relacionamentos com Dashboard final - Projeto Final rodando com .Exe usando banco de dados
+- [ ] Deploy: Plugin no Organon no notepad++ com .EXE + Manual de casos de uso de deck builer com pastas com arquivos .py, .ipynb e .PDF
+
+- ONS 2025
 - [ ] Dashboard SP com HTML + app template Pyside6 + MUST Controle e Gestão + Lancher AG (RCE) - Arquitetura de Software
 - [ ] Lista de ferramentas para automação, AI, Eng. Elétrica
 - [ ] ONS Inspra - Análise e gravação da apresentação os Slides e Minha fala na parte de Desafios e Soluções com Storytelling
     - Desafios -> Soluções -> 
 - [ ] MUST Modelagem de Dados SQL + Streamlit
+- [ ] ONS Inspira - Local e fala na apresentação + solução e google forms com grafico do dados coletados dos bancos de talento e uma clasificaicao de cada perfil com chatbot online ou software
+
+
 - [ ] Flow ONS V9 - Datasets + Notebooks com análise de dados de carga MW em Horas pelas usinas limpas e renovaveis do BR 
 - [ ] Atividade ML de IEEEDs e principais modelo de AI de Supevisionado x Não Supervisionado (Com Rótulos x Sem Rótulos)
-- [ ] Deploy: Plugin no Organon no notepad++ com scripts básicos de AnaREDE e Organon
 - [X] App Template Pyside6 + SQL - MUST Controle e Gestão de Atividades com Chatbot AI com .EXE
 - [X] Estudos CA para SEP usando GPT e Python
 - [ ] Pyside6 com modelagem de dados (Sqlite3 + Microsoft Access) + Análise de Contigencias + Controle Atividades SP
@@ -123,12 +143,7 @@ Almoço,12:05 – 13:00,Rotina: Desligar a tela.,Ação: Seu descanso é sagrado
 
 # Estágio ONS __IN_PROGRESS
 
-- [X] Análise e Leitura do plano de Montagem de Quadros Mensal - dezembro com Organon, Flow e AnaREDE
-- [ ]
-- [ ] Dashboard MUST (Palkia GUI Desktop) ONS - Despacho + MUST PDF extractor ->  Banco de Dados com SQL/Access e relacionamentos com Dashboard final - Projeto Final rodando com .Exe usando banco de dados
-- [X] Deploy: Plugin no Organon no notepad++ com .EXE
-- [X] NextJS - SEP para Leigos Website
-- [X] TAREFAS ONS
+
 - [ ] Integração com Banco Access
 - [ ] Automação de aprovações PDF
 - [ ] Template Word + Geração automática
@@ -186,6 +201,8 @@ Almoço,12:05 – 13:00,Rotina: Desligar a tela.,Ação: Seu descanso é sagrado
   - [ ] Montagem VE - AnaTEM ->
 
 # Eng. Elétrica UFF 2025 __IN_PROGRESS
+
+- UFF 2025
 
 - [ ] Modelagem do Fluxo de Potencia - prof luciano
 - [ ] SEP e Análise de Sistemas de Potência (ASP/Stevenson)
@@ -259,7 +276,8 @@ Almoço,12:05 – 13:00,Rotina: Desligar a tela.,Ação: Seu descanso é sagrado
 - [ ] Fechar 10 abas
 - [ ] Limpeza semanal do apartamento
 - [ ] Planejamento seg/sex + Kanban pessoal
-- [X] Terapia
+- [x] Planejamento de terapia e limpeza de pensamentos
+- [ ] Terapia
 - [X] Alongamento + Calistenia + Rotina de treinos com saúde em boa forma
 - [ ] Meditação e alinhamento espiritual
 - [ ] Treino gym
@@ -332,6 +350,23 @@ Almoço,12:05 – 13:00,Rotina: Desligar a tela.,Ação: Seu descanso é sagrado
 - [ ] ML com dados ONS e Kaggle
 
 - Modelos de Machine Learning x Deep Learning
+  - Supervisionado
+    - Classificação
+    - Recomendação
+    - Previsão
+    - 
+  - Não Supervisionado
+    - KNN
+    - CNN
+    - Kmeans
+    - Cluster
+  - Métricas de SCORE
+    - Matriz de confusão
+    - F1 Score
+    - ROC
+    - Acuracia
+    - Precisão
+      
 - Dashbaords (HTML/React, Streamlit)
 - IoT e Automação
 
@@ -346,13 +381,13 @@ Almoço,12:05 – 13:00,Rotina: Desligar a tela.,Ação: Seu descanso é sagrado
 - [ ] meu-react-app-template (Gohan-Treinamentos, Quizz App, Habits tracker - Iconic)
 - [ ] my-flutter-getx-app (Kyogre App, SCRUM Planner App, TodoList App, Controle Financeiro App, Controle Estoque App)
 - [ ] Planilha e Controle financeiro Flutter
-- [ ] Pikachu-Flask-Server
+- [x] Pikachu-Flask-Server
 - [ ] Raichu-django-Server (Charizard Drogon C++)
 - [ ] Raichu-Server (FastAPI / Tornado)
 - [ ] Rayquaza Web Server (FastAPI)
 - [ ] RCE - AG DEAP + Streamlit | Simulator de Redes Elétricas PandaPower + PySide6
 - [ ] Simulações de Ciencia (Circuito RLC, Buraco Negro, Orbitas da Terra)
-- [ ] sistemas-web-template
+- [x] sistemas-web-template
 - [ ] virtual-shop-Modas Veras
 - [ ] Gohan Treinamentos
 - [ ] Calistenia App + Goku IA trainer
