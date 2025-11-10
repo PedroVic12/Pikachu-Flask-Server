@@ -5,7 +5,6 @@ https://github.com/PedroVic12/Pikachu-Flask-Server/tree/main/batcaverna
 
 DATA ATUAL = 10/11/2025
 
-
 ![alt text - ciencia de dados ONS](image-1.png)
 
 ## Alinhamento Espiritual Template
@@ -47,6 +46,13 @@ _Data gerado: 10/11/2025_
 ---
 
 # Lista de TAREFAS Pendentes __TODO
+- [ ] Blogpedrov12
+      - [x] SEP para leigos
+      - [ ] COP30 + Transição Enérgetca no BR
+      - [ ] Análise de contigencias com SN 45 com pandapower + Deckbuiler para o AnaREDE
+      - [ ] Matriz admtancia + Geração x Tranmião e Distrbuição SIN pelo ONS
+      - [ ] Mincurso CC + arduino + python
+      - [ ]  Metods númericos em Matlab para engenharia usando Python
 
 - SOFTWARE DEVELOPER
 - [X] Análise e Leitura do plano de Montagem de Quadros Mensal - dezembro com Organon, Flow e AnaREDE
@@ -96,8 +102,15 @@ _Data gerado: 10/11/2025_
 - [ ] Atividade IEEEDs = Esp32 + Senoides de corrente em series temporais para modelos de IA (como entrada de dado)
   - Solver ML/DL para cada X,Y de conjunto de dado
 
+- Engenharia Elétrica
+- [ ] Aulas CC/ CA - Sadiku
+- [ ] Eng. Controle Moderno - Ogata
+- [ ] Elementos do eletromag - Sadiku + Jorge
+- [ ] Sinais e sistemas
+- [ ] Eletronica para makers
+- [ ] Edge impulse + Series Temporais + IoT + ML para Eng Eletrica
 
-
+      
 ---
 
 # Alinhamento PVRV - Novembro: ONS, UFF, Sáude mental e emocional - Corpo, Mente, Espirito
