@@ -63,8 +63,7 @@ _Data gerado: 10/11/2025_
 - ONS 2025
 - [ ] Dashboard SP com HTML + app template Pyside6 + MUST Controle e Gestão + Lancher AG (RCE) - Arquitetura de Software
 - [ ] Lista de ferramentas para automação, AI, Eng. Elétrica
-- [ ] ONS Inspra - Análise e gravação da apresentação os Slides e Minha fala na parte de Desafios e Soluções com Storytelling
-    - Desafios -> Soluções -> 
+
 - [ ] MUST Modelagem de Dados SQL + Streamlit
 - [ ] ONS Inspira - Local e fala na apresentação + solução e google forms com grafico do dados coletados dos bancos de talento e uma clasificaicao de cada perfil com chatbot online ou software
 
