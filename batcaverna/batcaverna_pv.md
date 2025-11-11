@@ -89,8 +89,12 @@ Base para o cálculo de potência ativa (P), reativa (Q) e aparente (S).
 ---
 
 # Lista de TAREFAS Pendentes __TODO
-
+- [ ] Dashboard de graficos de Office Forms (ONS Inspira)
 - [ ] ONS INSPIRA - Apresentação + Esboço
+- [ ] Tarefa 1: Mensal -> Desligar linhas de transmissão com obras na coluna 18 dos decks
+    - EditCepel -> F1 -> Consulta
+      <img width="1042" height="429" alt="image" src="https://github.com/user-attachments/assets/beabb530-d94f-48bc-b105-9684f88abd36" />
+
 - [ ] Deploy: Plugin no Organon no notepad++ com scripts básicos de AnaREDE e Organon 
 - [ ] Testes de casos de uso com AnaREDE e Organon com controle mensal de dados com o novo deckbuilder em notepad++
 - [ ] Deploy: **Plugin no Organon no notepad++ com .EXE** + Manual de casos de uso de deck builer com pastas com arquivos .py, .ipynb e .PDF
@@ -204,32 +208,7 @@ Base para o cálculo de potência ativa (P), reativa (Q) e aparente (S).
 - Elementos do Eletromagnetismo
 - Processamento digital de Sinais com Relés digitais e Series temporais de cargas de Substações
 
-# Tarefas Concluidas - Outubro/Novembro
 
-- [x] NextJS - SEP para Leigos Website
-- [x] TAREFAS ONS
-- [x] Agrupação de paginas por tab no menu lateral
-- [x] App Template Windows Desktop (Bloco de notas sobre)
-- [x] Análise por empresa (query SQL)
-- [x] Launcher (Palkia GUI) para script run.py rodando na mesma tela do dashboard_desktop_GUI.py
-- [x] Conexão com SQLite e Microsoft Access
-
-# Atividades MUST 28/10/25
-
-- [ ] Análise de dados usando Flow e anaREDE (Controle de casos, Usinas SIN, despacho, Inequacoões)
-- [ ] QUAIS PONTOS SERÃO ANALISADOS, QUANTO O AGENTE ESTÁ PEDINDO, 	QUEM É O ID PROBLEMA ,	QUEM É O ID SOLUÇÃO
-- [ ] Ajustar caminho relativo dentro do repositorio sem caminho Global do banco de dados
-- [x] Deck Builder com Plugin do Organon - Testes de casos de uso SEP 16 barras, SEP 5 Barras, IEEE 14 e SIN 45
-  - Fundamentação teorica: Barra Swing, Reator Shunt e Transformador em fase
-  - Fluxo de potencia x Curto Circuito
-  - Despacho de Cargas
-- [ ] incluir no banco de dados de MUST a relação ponto de MUST x barras/circuitos do Fluxo de potência
-- [ ] "régua" para inclusão de LTs e Trafos via script do Organon
-
-- [ ] MUST Controle e Gestão - Desktop Software
-- [ ] Dashboard MUST (Palkia GUI)
-- [ ] Simulações de SEP básicos do SIN (RJ/SP) no AnaREDE e Organon
-- [ ] Análise de Contingências com PandaPower, AnaREDE e Organon (SEMANAL) -> Resultados em dashboard ou PDF
 
 ---
 
@@ -238,6 +217,10 @@ Base para o cálculo de potência ativa (P), reativa (Q) e aparente (S).
 ---
 
 # Estágio ONS __IN_PROGRESS
+- Controle Mensal(12/25) 
+
+
+- MUST Desktop Software - NexusPy + PalkiaGUI
 
 - [x] Integração com Banco Access
 - [ ] Automação de aprovações PDF
@@ -257,8 +240,29 @@ Base para o cálculo de potência ativa (P), reativa (Q) e aparente (S).
   - [ ] Limpeza de dados do Excel para utilizar os dados de SP 2025 e 2024 _inicio 22-10-25_
   - [ ] Criação do Sistema do Pyside6 para gestão de MUST, aprovação com ou sem ressalva e geração do Deck da solicitação
   - [ ] Criação de word template para entrega de documentos
-- [ ] SIMULAÇÕES, ESTUDOS, ANALISE DE DADOS E MODELAGEM DE SEP com ASP (Organon, AnaREDE e PandaPower)
 
+- Atividades MUST 28/10/25
+
+- [ ] Análise de dados usando Flow e anaREDE (Controle de casos, Usinas SIN, despacho, Inequacoões)
+- [ ] QUAIS PONTOS SERÃO ANALISADOS, QUANTO O AGENTE ESTÁ PEDINDO, 	QUEM É O ID PROBLEMA ,	QUEM É O ID SOLUÇÃO
+- [ ] Ajustar caminho relativo dentro do repositorio sem caminho Global do banco de dados
+- [x] Deck Builder com Plugin do Organon - Testes de casos de uso SEP 16 barras, SEP 5 Barras, IEEE 14 e SIN 45
+  - Fundamentação teorica: Barra Swing, Reator Shunt e Transformador em fase
+  - Fluxo de potencia x Curto Circuito
+  - Despacho de Cargas
+- [ ] incluir no banco de dados de MUST a relação ponto de MUST x barras/circuitos do Fluxo de potência
+- [ ] "régua" para inclusão de LTs e Trafos via script do Organon
+
+- [ ] MUST Controle e Gestão - Desktop Software
+- [ ] Dashboard MUST (Palkia GUI)
+- [ ] Simulações de SEP básicos do SIN (RJ/SP) no AnaREDE e Organon
+- [ ] Análise de Contingências com PandaPower, AnaREDE e Organon (SEMANAL) -> Resultados em dashboard ou PDF
+
+
+
+- Perdas duplas **(análises de contigenicas e ASP de SEP)**
+  
+- [ ] SIMULAÇÕES, ESTUDOS, ANALISE DE DADOS E MODELAGEM DE SEP com ASP (Organon, AnaREDE e PandaPower)
   - Curto circuito e onda de alta frequencia entre os ramos
   - Transformador em Fase
   - Reator Shunt
@@ -271,8 +275,10 @@ Base para o cálculo de potência ativa (P), reativa (Q) e aparente (S).
   - Estabilidade
   - Estudos de Máxima e minima Diurna
   - Inercia de SEP
+     
+
+- Controle Quadrimestral(04/2026) - Julho/Agosto de 2025 
 - [ ] Controle de Casos 2030 - PLanilha Flow despacho (SEMANAL) + DASHBOARD usinas GEO BR
-- [ ] Montagem de decks para caso 8 - VD e VE (AnaTEM)
 - [ ] Controle de Casos Quadrimestre - 2026 - 2030 (MENSAL)
 
   - Montagem de decks de cargas inicial (leve, médio e pesada)
@@ -280,9 +286,10 @@ Base para o cálculo de potência ativa (P), reativa (Q) e aparente (S).
   - Metas 1Q 2025 - > Pegar um caso (Ex: Caso 8 -> Abril máximo Noturno)
 
   - [ ] Usar na planilha flow as TABELAS DE gerações de cargas das usinas Belo Monte + pimental, Completo teles pires, Itaipu, GER madeira, Tucuruí. (CASO 8)
-
+  	- Montagem de decks para caso 8 - VD e VE (AnaTEM)
     - Gerar os decks dos casos análisado no Anarede verificando a barra Swing
     - Estudos de caso: Usinas X Despacho de Cargas x Dipolos (Uso de AnaREDE)
+      
   - [ ] Usar o caso 8 para aba de ELOS CC
 
     - Back to back: Transformador -> Circuito CA -> Conversor CC -> Circuito CA: Objetivo: Transformar um transformador de 200KV para 130kv (exemplo), onde entre o ELO CC as pertubações sao diferentes de cada lado
