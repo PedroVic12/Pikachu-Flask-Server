@@ -3,47 +3,9 @@
 Salve esses dados em:
 https://github.com/PedroVic12/Pikachu-Flask-Server/tree/main/batcaverna
 
-DATA ATUAL = 10/11/2025
+DATA ATUAL = 11/11/2025
 
 ![alt text - ciencia de dados ONS](image-1.png)
-
-## Alinhamento Espiritual Template
-
-encorajador, visionário e direto.
-
-- **Chakra do dia**: **Terceiro Olho (Ajna)** — foco, intuição e clareza mental.
-- **Salmo**: Salmo 23 (confiança e caminho claro).
-- **Evangelho**: Trecho breve de reflexão — “Sede luz do mundo” (Mc / Mt — viva com propósito).
-- **Vitória do dia (hiperfoco)**: **Grow Mindset** — aprender 1 padrão novo do PySide6 + 1 refatoração no Next.js.
-- **Equação / Lei Física**: Lei de Faraday (indução) — pergunte-se como transformar a ideia em automação (analogias úteis para circuitos e software).
-- **Dois projetos do dia**:
-
-  1. Integrar menu PySide6 com leitura de `INSTRUCOES.md` (2h).
-  2. Criar `start.sh` + Docker-compose para o NextJS MVP (3h).
-- **Filosofia japonesa**: **Kaizen** — melhore 1 coisa pequena hoje.
-- **Frase de poder**: _“Crio sistemas que inspiram o futuro.”_
-- **Sugestão de leitura**: capítulo sobre CLI automation + patterns em Python (ex.: “Automate the Boring Stuff” — scripts avançados).
-- **Meta de exercícios**: resolver 5 questões rápidas de Eletromagnetismo (foco em transformada de Fourier aplicada a circuitos).
-
-Para um Software Limpo e mais "profissional", a sugestão é organizar o conteúdo de uma forma mais estruturada, separando claramente:
-
-1. **O quê** (O que o projeto faz)
-2. **Porquê** (O contexto)
-3. **Como** (Como instalar e usar)
-4. **O que tem dentro** (Arquitetura e galeria)
-
-# 📅 Sprint - Terça-feira (Foco: Backend Python e SEP ONS)
-
-_Data gerado: 10/11/2025_
-
-|         🌀 Ciclo         | ⏰ Horário (50 min) | 🎯 Foco Integrado (Código/Teoria)         | 🧠 Detalhamento da Tarefa (Passo a Passo)                                                                                                                 |
-| :-----------------------: | :------------------: | :----------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|   **1 (Backend)**   |    09:15 – 10:05    | **FLASK CRUD: Modelagem SQL**        | 🧩 No seu**PikachuWebServer**, defina a tabela `Client` (ou `Task_Log`) usando **SQLAlchemy**. Teste a criação da tabela no `app.db`. |
-|   **2 (Backend)**   |    10:15 – 11:05    | **FLASK CRUD: Rotas API**            | 🚀 Crie os endpoints**POST /clients** (Criação) e **GET /clients** (Leitura) na sua **Blueprint `user_bp`**.                        |
-|   **3 (Teoria)**   |    11:15 – 12:05    | **MÓDULO 2: Matriz Y-Bus (Papel)**  | 📘 Teoria pura (**Stevenson**): finalize a montagem da matriz **Y-Bus 3×3** em papel (as **2 equações do dia**).                     |
-|     **Almoço**     |    12:05 – 13:00    | **Rotina: Desligar a tela**          | 🍽️ Seu descanso é sagrado. Respire e recarregue a mente.                                                                                               |
-| **4 (SEP/Código)** |    13:00 – 13:50    | **MÓDULO 2: ybus_solver.py**        | ⚙️ Inicie o código Python. Modele a matriz**Y-Bus 3×3 em NumPy** (números complexos) — transforme teoria em código.                          |
-| **5 (Alinhamento)** |    14:00 – 14:50    | **DOCUMENTAÇÃO: IEDs/Aprendizado** | 📝 Crie o arquivo `ieds_log.md` e registre a lógica de **MQTT/LED/Buzzer** (aprendizado de IoT). Isso fecha o ciclo do dia.                      |
 
 ---
 
