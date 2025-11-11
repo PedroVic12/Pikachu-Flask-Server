@@ -12,64 +12,30 @@ DATA ATUAL = 11/11/2025
 
 Melhore 1% hoje — no código, na disciplina e na energia interior.
 
-⚡ Equações do Dia:
+### ⚡ Equações do Dia (LaTeX)
 
-Lei de Gauss para o Campo Elétrico:
+## 1) Lei de Gauss (fluxo elétrico)
+A forma integral da Lei de Gauss é:
 
-Φ
-𝐸
-=
-∮
-𝐸
-⃗
-⋅
-𝑑
-𝐴
-⃗
-=
-𝑄
-𝑖
-𝑛
-𝜖
-0
-Φ
-E
-	​
+\[
+\Phi_E = \oint_{\partial V} \mathbf{E}\cdot d\mathbf{A} = \frac{Q_{\text{in}}}{\varepsilon_0}
+\]
 
-=∮
-E
-⋅d
-A
-=
-ϵ
-0
-	​
+Relembre: o fluxo total \(\Phi_E\) sobre uma superfície fechada é proporcional à carga interna \(Q_{in}\).
 
-Q
-in
-	​
+---
 
-	​
+## 2) Potência Complexa em Corrente Alternada
+A potência aparente \(S\), ativa \(P\) e reativa \(Q\):
 
+\[
+S = P + jQ = V I^*
+\]
 
-Relembra que o fluxo total é proporcional à carga interna.
+onde \(V\) é a tensão fasorial, \(I^*\) a conjugada do fasor de corrente.
 
-Equação de Potência Complexa em CA:
+---
 
-𝑆
-=
-𝑃
-+
-𝑗
-𝑄
-=
-𝑉
-𝐼
-∗
-S=P+jQ=VI
-∗
-
-Base para o cálculo de potência ativa (P), reativa (Q) e aparente (S).
 
 📚 Sugestão de Leitura:
 
@@ -89,19 +55,23 @@ Base para o cálculo de potência ativa (P), reativa (Q) e aparente (S).
 ---
 
 # Lista de TAREFAS Pendentes __TODO
-- [ ] Dashboard de graficos de Office Forms (ONS Inspira)
+
+- ONS
+- [x] Dashboard de graficos de Office Forms (ONS Inspira)
 - [ ] ONS INSPIRA - Apresentação + Esboço
-- [ ] Tarefa 1: Mensal -> Desligar linhas de transmissão com obras na coluna 18 dos decks
+- [x] Tarefa 1: Mensal -> Desligar linhas de transmissão com obras na coluna 18 dos decks
     - EditCepel -> F1 -> Consulta
       <img width="1042" height="429" alt="image" src="https://github.com/user-attachments/assets/beabb530-d94f-48bc-b105-9684f88abd36" />
 
 - [ ] Deploy: Plugin no Organon no notepad++ com scripts básicos de AnaREDE e Organon 
 - [ ] Testes de casos de uso com AnaREDE e Organon com controle mensal de dados com o novo deckbuilder em notepad++
 - [ ] Deploy: **Plugin no Organon no notepad++ com .EXE** + Manual de casos de uso de deck builer com pastas com arquivos .py, .ipynb e .PDF
-- [ ] 
-- [ ] Dashboard MUST (Palkia GUI Desktop) ONS - Despacho + MUST PDF extractor ->  Banco de Dados com SQL/Access e relacionamentos com Dashboard final - Projeto Final rodando com .Exe usando banco de dados
+      
+- [ ] Ajustes e organização OneDrive e Pasta /downloads
+- [x] Dashboard MUST (Palkia GUI Desktop) ONS - Despacho + MUST PDF extractor ->  Banco de Dados com SQL/Access e relacionamentos com Dashboard final - Projeto Final rodando com .Exe usando banco de dados
+	- [x] Ajustes de app dashboard template + Palkia APP + deck builder
 
-
+- Tarefas Pendentes
 - [ ] LEGENDA VIDEO YOUTUBE
 - [ ] PLANEJAMENTO SEGUNDA + TREINO + METAS + FECHAR 10 ABAS
 - [ ] ATUALIZAR E ORGANIZAR ASSUNTOS DO BLOG E KANBAN ONS
