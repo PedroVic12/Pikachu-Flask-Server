@@ -58,18 +58,24 @@ onde \(V\) é a tensão fasorial, \(I^*\) a conjugada do fasor de corrente.
 
 - ONS
 - [x] Dashboard de graficos de Office Forms (ONS Inspira)
-- [ ] ONS INSPIRA - Apresentação + Esboço
+- [ ] ONS INSPIRA - Apresentação + Esboço (Proximos Passos)
 - [x] Tarefa 1: Mensal -> Desligar linhas de transmissão com obras na coluna 18 dos decks
     - EditCepel -> F1 -> Consulta
       <img width="1042" height="429" alt="image" src="https://github.com/user-attachments/assets/beabb530-d94f-48bc-b105-9684f88abd36" />
 
-- [ ] Deploy: Plugin no Organon no notepad++ com scripts básicos de AnaREDE e Organon 
-- [ ] Testes de casos de uso com AnaREDE e Organon com controle mensal de dados com o novo deckbuilder em notepad++
-- [ ] Deploy: **Plugin no Organon no notepad++ com .EXE** + Manual de casos de uso de deck builer com pastas com arquivos .py, .ipynb e .PDF
+- [ ] Deploy: Plugin no Organon no notepad++ com scripts básicos de AnaREDE e Organon
+    - [x] Criar .bat e .EXE
+    - [ ] Testar e validar no Windows Pessoal com senha de ADM com o script para instalar o plugin
+	- [ ] Testes de casos de uso com AnaREDE e Organon com controle mensal de dados com o novo deckbuilder em notepad++
+	- [ ] Decks Organon (3)
+ 	- [ ] Decks AnaREDE
+  	- [ ] Scipt automação Pyautogui  	
+	- [ ] Deploy: **Plugin no Organon no notepad++ com .EXE** + Manual de casos de uso de deck builer com pastas com arquivos .py, .ipynb e .PDF
       
 - [ ] Ajustes e organização OneDrive e Pasta /downloads
 - [x] Dashboard MUST (Palkia GUI Desktop) ONS - Despacho + MUST PDF extractor ->  Banco de Dados com SQL/Access e relacionamentos com Dashboard final - Projeto Final rodando com .Exe usando banco de dados
 	- [x] Ajustes de app dashboard template + Palkia APP + deck builder
+ 	- [ ] Colocar Links de HTML e Sites WEB no Header do app template 	
 
 - Tarefas Pendentes
 - [ ] LEGENDA VIDEO YOUTUBE
@@ -106,14 +112,18 @@ onde \(V\) é a tensão fasorial, \(I^*\) a conjugada do fasor de corrente.
 - ONS 2025
 
 - [ ] Dashboard SP com HTML + app template Pyside6 + MUST Controle e Gestão + Lancher AG (RCE) - Arquitetura de Software
-- [ ] Lista de ferramentas para automação, AI, Eng. Elétrica
-- [ ] MUST Modelagem de Dados SQL + Streamlit
-- [ ] ONS Inspira - Local e fala na apresentação + solução e google forms com grafico do dados coletados dos bancos de talento e uma clasificaicao de cada perfil com chatbot online ou software
+    - App Template Pyside6
+    - CRUD Pyside6 com Sqlite3 e Microsoft Access
+	- [ ] MUST Modelagem de Dados SQL + Streamlit
+    - [X] App Template Pyside6 + SQL - MUST Controle e Gestão de Atividades com Chatbot AI com .EXE
+    - [ ] Pyside6 com modelagem de dados (Sqlite3 + Microsoft Access) + Análise de Contigencias + Controle Atividades SP
+	- [ ] Controle  e Gestão Atividades SP + MUST --> Excel To Website and (.PDF + Access)to QT 6 Desktop Deck Builder Organon
+	- [ ] Must Desktop App Excel, Deck BUilder.
+ 	- [x] Gerador de PDF por Template HTML 
+       
 - [ ] Flow ONS V9 - Datasets + Notebooks com análise de dados de carga MW em Horas pelas usinas limpas e renovaveis do BR
 - [ ] Atividade ML de IEEEDs e principais modelo de AI de Supevisionado x Não Supervisionado (Com Rótulos x Sem Rótulos)
-- [X] App Template Pyside6 + SQL - MUST Controle e Gestão de Atividades com Chatbot AI com .EXE
 - [X] Estudos CA para SEP usando GPT e Python
-- [ ] Pyside6 com modelagem de dados (Sqlite3 + Microsoft Access) + Análise de Contigencias + Controle Atividades SP
 - [ ] Automação Outlook + Teams + N8N = Relatorios automatizados por email e Whatsapp
 - [X] Planejamento e Metas (Segunda/Sexta)
 - [X] Análise de contigencias - Perdas Duplas
@@ -130,8 +140,6 @@ onde \(V\) é a tensão fasorial, \(I^*\) a conjugada do fasor de corrente.
 - [X] N8N x Node-Red + webhook + MQQT + Esp32
 - [ ] Pyside6 - Eng. Controle com EDO e Equações de SEP
 - [ ] Nextjs Website + MVP HTML templates (SEP do SIN da ONS para leigos)
-- [ ] Controle  e Gestão Atividades SP + MUST --> Excel To Website and (.PDF + Access)to QT 6 Desktop Deck Builder Organon
-- [ ] Must Desktop App Excel, Deck BUilder.
 - [ ] Teoria de controle de engenharia moderno
 - [ ] Proteção de SEP e monitoramento area SP
 - [ ] Processamento de imagens de satélites com Python
