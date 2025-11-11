@@ -12,7 +12,7 @@ DATA ATUAL = 11/11/2025
 # Lista de TAREFAS Pendentes __TODO
 
 - [ ] Blogpedrov12
-  - [X] SEP para leigos
+  - [x] SEP para leigos
   - [ ] COP30 + Transição Enérgetca no BR
   - [ ] O que são algoriitmos de AG e como usar isso na Eng. Elétrica para agendamento otimo de SEP (video yt)
     - [ ] https://alexandremundim.medium.com/algoritmo-gen%C3%A9tico-na-pr%C3%A1tica-com-python-e24d2b1254d8
@@ -34,11 +34,12 @@ DATA ATUAL = 11/11/2025
 - [ ] AJUSTAR PAINEL DE BATCAVERNA COM KANBANPRO
 - [ ] ONS INSPIRA - Apresentação + Esboço
 
-- Sesão de ESTUDOS (Matemática, programação e Eng. Elétrica)
+
+  
 - SOFTWARE DEVELOPER
 
-- [X] Análise e Leitura do plano de Montagem de Quadros Mensal - dezembro com Organon, Flow e AnaREDE
-- [ ] Testes de UI com PySIde6 para MUST controle e gestão
+- [x] Análise e Leitura do plano de Montagem de Quadros Mensal - dezembro com Organon, Flow e AnaREDE
+- [x] Testes de UI com PySIde6 para MUST controle e gestão
 - [ ] Testes de casos de uso com AnaREDE e Organon com controle mensal de dados com o novo deckbuilder em notepad++
 - [ ] Deploy: Plugin no Organon no notepad++ com scripts básicos de AnaREDE e Organon
 - [ ] Dashboard MUST (Palkia GUI Desktop) ONS - Despacho + MUST PDF extractor ->  Banco de Dados com SQL/Access e relacionamentos com Dashboard final - Projeto Final rodando com .Exe usando banco de dados
@@ -80,9 +81,8 @@ DATA ATUAL = 11/11/2025
 - [ ] Estudos de IA, ML, DL, Chatbots, N8N, AI agentes frameworks (Agno/Langchain)
 - [X] PROGRAMAÇÃO FRONTEND
 - [ ] PROGRAMAÇÃO BACKEND
-- [ ] Atividade IEEEDs = Esp32 + Senoides de corrente em series temporais para modelos de IA (como entrada de dado)
 
-  - Solver ML/DL para cada X,Y de conjunto de dado
+ - Solver ML/DL para cada X,Y de conjunto de dado
 
 - Engenharia Elétrica
 
@@ -92,6 +92,9 @@ DATA ATUAL = 11/11/2025
 - [ ] Sinais e sistemas
 - [ ] Eletronica para makers
 - [ ] Edge impulse + Series Temporais + IoT + ML para Eng Eletrica
+      
+- Sesão de ESTUDOS (Matemática, programação e Eng. Elétrica)
+- [ ] Atividade IEEEDs = Esp32 + Senoides de corrente em series temporais para modelos de IA (como entrada de dado)
 
 ---
 
@@ -119,20 +122,20 @@ DATA ATUAL = 11/11/2025
 
 # Tarefas Concluidas - Outubro/Novembro
 
-- [X] NextJS - SEP para Leigos Website
-- [X] TAREFAS ONS
-- [X] Agrupação de paginas por tab no menu lateral
-- [X] App Template Windows Desktop (Bloco de notas sobre)
-- [X] Análise por empresa (query SQL)
-- [X] Launcher (Palkia GUI) para script run.py rodando na mesma tela do dashboard_desktop_GUI.py
-- [X] Conexão com SQLite e Microsoft Access
+- [x] NextJS - SEP para Leigos Website
+- [x] TAREFAS ONS
+- [x] Agrupação de paginas por tab no menu lateral
+- [x] App Template Windows Desktop (Bloco de notas sobre)
+- [x] Análise por empresa (query SQL)
+- [x] Launcher (Palkia GUI) para script run.py rodando na mesma tela do dashboard_desktop_GUI.py
+- [x] Conexão com SQLite e Microsoft Access
 
 # Atividades MUST 28/10/25
 
 - [ ] Análise de dados usando Flow e anaREDE (Controle de casos, Usinas SIN, despacho, Inequacoões)
 - [ ] QUAIS PONTOS SERÃO ANALISADOS, QUANTO O AGENTE ESTÁ PEDINDO, 	QUEM É O ID PROBLEMA ,	QUEM É O ID SOLUÇÃO
 - [ ] Ajustar caminho relativo dentro do repositorio sem caminho Global do banco de dados
-- [X] Deck Builder com Plugin do Organon - Testes de casos de uso SEP 16 barras, SEP 5 Barras, IEEE 14 e SIN 45
+- [x] Deck Builder com Plugin do Organon - Testes de casos de uso SEP 16 barras, SEP 5 Barras, IEEE 14 e SIN 45
   - Fundamentação teorica: Barra Swing, Reator Shunt e Transformador em fase
   - Fluxo de potencia x Curto Circuito
   - Despacho de Cargas
@@ -152,18 +155,18 @@ DATA ATUAL = 11/11/2025
 
 # Estágio ONS __IN_PROGRESS
 
-- [ ] Integração com Banco Access
+- [x] Integração com Banco Access
 - [ ] Automação de aprovações PDF
-- [ ] Template Word + Geração automática
+- [x] Template Word + Geração automática de PDF com generate_cv.py
 - [ ] Despacho de cargas (Flow, Anarede, Organon)
 - [ ] Análise de contingências e relatório PDF
 - [ ] Controle Casos 2025-2030 e dashboard atividades SP HTML com Excel Online
-- [X] Langchain Agent - Asimov
-- [X] 2 dashboards Streamlit - Asimov
+- [x] Langchain Agent - Asimov
+- [x] 2 dashboards Streamlit - Asimov
 - [ ] Chatbot Streamlit com PDF da ONS (Bot Oráculo)
 - [ ] Estudo VSC e LCC em redes HVDC
 - [ ] Micro e Minigeração Distribuída (MGD)
-- [X] Relatório + Reunião Semanal
+- [ ] Relatório + Reunião Semanal
 - [ ] **Upgrades** e Levantametno de requisitos MUST Dashboard GUI Desktop (Controle e Gestão atividades SP)
 
   - [ ] Controle atividades SP e RJ com planilha 2025
