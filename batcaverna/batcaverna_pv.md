@@ -12,7 +12,64 @@ DATA ATUAL = 11/11/2025
 
 Melhore 1% hoje — no código, na disciplina e na energia interior.
 
+⚡ Equações do Dia:
 
+Lei de Gauss para o Campo Elétrico:
+
+Φ
+𝐸
+=
+∮
+𝐸
+⃗
+⋅
+𝑑
+𝐴
+⃗
+=
+𝑄
+𝑖
+𝑛
+𝜖
+0
+Φ
+E
+	​
+
+=∮
+E
+⋅d
+A
+=
+ϵ
+0
+	​
+
+Q
+in
+	​
+
+	​
+
+
+Relembra que o fluxo total é proporcional à carga interna.
+
+Equação de Potência Complexa em CA:
+
+𝑆
+=
+𝑃
++
+𝑗
+𝑄
+=
+𝑉
+𝐼
+∗
+S=P+jQ=VI
+∗
+
+Base para o cálculo de potência ativa (P), reativa (Q) e aparente (S).
 
 📚 Sugestão de Leitura:
 
