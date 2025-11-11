@@ -8,8 +8,43 @@ DATA ATUAL = 11/11/2025
 ![alt text - ciencia de dados ONS](image-1.png)
 
 ---
+🎌 Filosofia Japonesa do Dia: Kaizen (Melhoria Contínua)
+
+Melhore 1% hoje — no código, na disciplina e na energia interior.
+
+
+
+📚 Sugestão de Leitura:
+
+“Análise de Sistemas Elétricos de Potência” – William D. Stevenson Jr.
+(Revisar o capítulo sobre Fluxo de Potência e Y-Bus).
+
+# 🧩 Meta de Exercícios:
+
+- [ ] 3 de SEP (fluxo de potência)
+
+2 de Eletromagnetismo (Lei de Gauss e Ampère)
+
+2 de Circuitos (RC e RLC)
+
+1 de Sinais e Sistemas (Laplace e resposta em frequência)
+
+---
 
 # Lista de TAREFAS Pendentes __TODO
+
+- [ ] ONS INSPIRA - Apresentação + Esboço
+- [ ] Deploy: Plugin no Organon no notepad++ com scripts básicos de AnaREDE e Organon 
+- [ ] Testes de casos de uso com AnaREDE e Organon com controle mensal de dados com o novo deckbuilder em notepad++
+- [ ] Deploy: **Plugin no Organon no notepad++ com .EXE** + Manual de casos de uso de deck builer com pastas com arquivos .py, .ipynb e .PDF
+- [ ] 
+- [ ] Dashboard MUST (Palkia GUI Desktop) ONS - Despacho + MUST PDF extractor ->  Banco de Dados com SQL/Access e relacionamentos com Dashboard final - Projeto Final rodando com .Exe usando banco de dados
+
+
+- [ ] LEGENDA VIDEO YOUTUBE
+- [ ] PLANEJAMENTO SEGUNDA + TREINO + METAS + FECHAR 10 ABAS
+- [ ] ATUALIZAR E ORGANIZAR ASSUNTOS DO BLOG E KANBAN ONS
+- [ ] AJUSTAR PAINEL DE BATCAVERNA COM KANBANPRO
 
 - [ ] Blogpedrov12
   - [x] SEP para leigos
@@ -28,11 +63,7 @@ DATA ATUAL = 11/11/2025
   - [ ] Metodos númericos em Matlab para engenharia usando Python
   - [ ] O que são MQQT
     - [ ] https://www.sympla.com.br/play/introducao-ao-protocolo-mqtt/1914654
-- [ ] LEGENDA VIDEO YOUTUBE
-- [ ] PLANEJAMENTO SEGUNDA + TREINO + METAS + FECHAR 10 ABAS
-- [ ] ATUALIZAR E ORGANIZAR ASSUNTOS DO BLOG E KANBAN ONS
-- [ ] AJUSTAR PAINEL DE BATCAVERNA COM KANBANPRO
-- [ ] ONS INSPIRA - Apresentação + Esboço
+
 
 
   
@@ -40,10 +71,6 @@ DATA ATUAL = 11/11/2025
 
 - [x] Análise e Leitura do plano de Montagem de Quadros Mensal - dezembro com Organon, Flow e AnaREDE
 - [x] Testes de UI com PySIde6 para MUST controle e gestão
-- [ ] Testes de casos de uso com AnaREDE e Organon com controle mensal de dados com o novo deckbuilder em notepad++
-- [ ] Deploy: Plugin no Organon no notepad++ com scripts básicos de AnaREDE e Organon
-- [ ] Dashboard MUST (Palkia GUI Desktop) ONS - Despacho + MUST PDF extractor ->  Banco de Dados com SQL/Access e relacionamentos com Dashboard final - Projeto Final rodando com .Exe usando banco de dados
-- [ ] Deploy: Plugin no Organon no notepad++ com .EXE + Manual de casos de uso de deck builer com pastas com arquivos .py, .ipynb e .PDF
 
 - ONS 2025
 
@@ -213,7 +240,7 @@ DATA ATUAL = 11/11/2025
 
 - [ ] Modelagem do Fluxo de Potencia - prof luciano
 - [ ] SEP e Análise de Sistemas de Potência (ASP/Stevenson)
-- [X] Estudos CA e Fluxo de Potência / Curto Circuito no PandaPower, AnaREDE, Organon.
+- [x] Estudos CA e Fluxo de Potência / Curto Circuito no PandaPower, AnaREDE, Organon.
 - [ ] Estudos de ASP com Python
 - [ ] Estudar o que são VSC e LCC em Redes Eletricas para o SIN (google)
 - [ ] Estudar o que é MGD para Rede Elétrica (Micro e Minigeração Distribuida) (google)
@@ -253,13 +280,13 @@ DATA ATUAL = 11/11/2025
 
 - UFF, Estudos Acadêmicos e Provas Antigas
 
-- [X] Mátematica aplicada a Eng. Elétrica, ONS, Ciencia de Dados / ML, Provas Antigas
+- [ ] Mátematica aplicada a Eng. Elétrica, ONS, Ciencia de Dados / ML, Provas Antigas
 - [X] Estudos UFF com modelagem e prototipação/simulação de circuitos digitais e eletricos CC/CA com arduino e esp32. Eletronica para makers
 - [ ] Minicurso CC + CD
 - [ ] Minicurso Matemática básica ENEM - Geometria Espacial, Logaritmos e Questões matemáticas de ITA e IME
 - [ ] Jedi Cyberpunk - Python com Métodos Numéricos + Otimização e uso de Redes Neurais (pegar exemplos de eng dos códigos de matlab)
 - [ ] AstroML - Machine learning
-- [X] 1 cap. de um livro de matemática e física por dia
+- [ ] 1 cap. de um livro de matemática e física por dia
 - [ ] 2 Equações do dia
 
 ---
@@ -289,12 +316,12 @@ DATA ATUAL = 11/11/2025
 - [ ] Planejamento seg/sex + Kanban pessoal
 - [X] Planejamento de terapia e limpeza de pensamentos
 - [ ] Terapia
-- [X] Alongamento + Calistenia + Rotina de treinos com saúde em boa forma
+- [ ] Alongamento + Calistenia + Rotina de treinos com saúde em boa forma
 - [ ] Meditação e alinhamento espiritual
 - [ ] Treino gym
-- [X] Fechar 10 abas
+- [ ] Fechar 10 abas
 - [X] Limpeza no apartametno (seg/sex)
-- [X] Lavar a louça e passar pano na casa
+- [ ] Lavar a louça e passar pano na casa
 - [ ] Limpeza de banheiro de cozinha
 - [X] 4 Refeições por dia (Café da manha, Almoço, Lanche (pré-treino) e Jantar)
 - [ ]
@@ -308,18 +335,18 @@ DATA ATUAL = 11/11/2025
 
 # TDAH - Rotina (Saúde, Paz e Equilibrio) __IN_PROGRESS
 
-- [X] Visualização KANBAN e gerar 5 tarefas do dia (MANHA)
+- [x] Visualização KANBAN e gerar 5 tarefas do dia (MANHA)
 - [ ] Organização mental e preparação para novo Ciclo JEDI CYBERPUNK com resolução de provas, tutorial de 10 min de programação, modelagem e simulações de eng eletrica junto com automações com N8N
 - [X] Alinhamento Espiritual
 
-  - [ ] Segunda - Chakra: Solar
-  - [X] Terça - Chakra: Garganta
-  - [X] Quarta - Chakra: Cardiaco
+  - [x] Segunda - Chakra: Solar
+  - [x] Terça - Chakra: Garganta
+  - [ ] Quarta - Chakra: Cardiaco
   - [ ] Quinta: Chakra: 3º Olho
-  - [X] Sexta: Chakra: Root
+  - [ ] Sexta: Chakra: Root
 - [ ] You Only Need 5 Hobbies (Money, Study, Mindset, In Shape, Creative)
 - [ ] Meditação e estudos com Matemática e Japonês
-- [X] Alongamento matinal - Ombros e Quadril
+- [ ] Alongamento matinal - Ombros e Quadril
 - [ ] Treino de calistenia para karate
 - [ ] 2 equações do dia
 - [ ] 2 projetos no dia (backend/frontend)
@@ -331,28 +358,6 @@ DATA ATUAL = 11/11/2025
 ---
 
 # Programação FullStack  (Github) __BACKLOG
-
-- Frontend (HTML/CSS/JS, React, NextJS, Flutter, Astro)
-
-- [ ] Astro blog pedrov12
-- [X] Blog SEP para Leigos NextJS
-- [X] Websites HTML + Flask Pikachu API
-- [X] React Components e Dashboard ONS
-- [ ] Flutter Apps (Calistenia App, App Financeiro, Gohan Treinamentos)
-- [X] DASHBOARD + PalkiaGUI - MUST - ONS (Controle e Gestão Atividades SP e MUST)
-- [X] Frontend: HTML + JS, React, Flutter, Astro, Pyside6, Streamlit
-
-- Backend (FastAPI, Flask, Django, Tornado, SQL, NodeJS, N8N, Drogon C++)
-
-- [ ] FastAPI Auth + CRUD Supabase
-- [X] Flask API - Pikachu Server
-- [ ] Django Ninja / Tornado Server
-- [ ] Backend: Charizard (Drogon), Pikachu (Flask), Raichu ( FastAPI), Dragonite (Tornado)
-
-- Desktop (PySide6, QT Designer, Access Microsoft DB, SQL)
-
-- [ ] Pyside6 - Eng. Controle + Deck Builder
-- [ ] Qt MVC + SQLAlchemy + Access Integration
 
 - IA e Agentes (Chatbots, N8N, ML, DL, Langchain)
 
@@ -381,31 +386,62 @@ DATA ATUAL = 11/11/2025
 - Dashbaords (HTML/React, Streamlit)
 - IoT e Automação
 
-- [X] Node-RED + N8N + MQTT
+- [x] Node-RED + N8N + MQTT
 - [ ] ESP32 com API Python
 - [ ] Dashboard IoT em HTML/Flask
 - [ ] Eletronica para Makers
 
 - Algoritimos de Otimização + Métodos Numéricos + Modelagem Matemática
+- [x] RCE - AG DEAP + Streamlit | Simulator de Redes Elétricas PandaPower + PySide6
+- [ ] Simulações de Ciencia
+      - (Circuito RLC, RC, EDO com Sympy)
+      - Matriz admitancia e Analise de Malhas CC/CA
+      - Buraco Negro
+      - [x] Orbitas da Terra e Marte (Leis de Keppler e Gravitação)
 
-- [X] Electrical-System-Simulator
+- Github
+- [x] Electrical-System-Simulator
 - [ ] meu-react-app-template (Gohan-Treinamentos, Quizz App, Habits tracker - Iconic)
-- [ ] my-flutter-getx-app (Kyogre App, SCRUM Planner App, TodoList App, Controle Financeiro App, Controle Estoque App)
+- [x] my-flutter-getx-app (Kyogre App, SCRUM Planner App, TodoList App, Controle Financeiro App, Controle Estoque App)
 - [ ] Planilha e Controle financeiro Flutter
-- [X] Pikachu-Flask-Server
+- [x] Pikachu-Flask-Server
+- [x] Batcaverna + Github + Planilha de Horários
 - [ ] Raichu-django-Server (Charizard Drogon C++)
 - [ ] Raichu-Server (FastAPI / Tornado)
 - [ ] Rayquaza Web Server (FastAPI)
-- [ ] RCE - AG DEAP + Streamlit | Simulator de Redes Elétricas PandaPower + PySide6
-- [ ] Simulações de Ciencia (Circuito RLC, Buraco Negro, Orbitas da Terra)
-- [X] sistemas-web-template
-- [ ] virtual-shop-Modas Veras
+
+- Frontend (HTML/CSS/JS, React, NextJS, Flutter, Astro)
+
+- [ ] Astro blog pedrov12
+- [x] Blog SEP para Leigos NextJS
+- [x] Websites HTML + Flask Pikachu API
+- [x] React Components e Dashboard ONS
+- [ ] Flutter Apps (Calistenia App, App Financeiro, Gohan Treinamentos)
+- [x] DASHBOARD + PalkiaGUI - MUST - ONS (Controle e Gestão Atividades SP e MUST)
+- [x] Frontend: HTML + JS, React, Flutter, Astro, Pyside6, Streamlit
+- [x] sistemas-web-template
+- [x] virtual-shop-Modas Veras (Astro landing Page)
+- [x] WebSites e sistemas web em Astro/NextJS
 - [ ] Gohan Treinamentos
 - [ ] Calistenia App + Goku IA trainer
 - [ ] Gohan Treinamentos + Hobby XP PSI + Calistenia APP + Controle Financeiro + Dashboard com Flutter Getx e Vaden
-- [ ] WebSites e sistemas web em Astro/NextJS
+
+    
+- Backend (FastAPI, Flask, Django, Tornado, SQL, NodeJS, N8N, Drogon C++)
+
+- [ ] FastAPI Auth + CRUD Supabase
+- [x] Flask API - Pikachu Server
+- [ ] Django Ninja / Tornado Server
+- [ ] Backend: Charizard (Drogon), Pikachu (Flask), Raichu ( FastAPI), Dragonite (Tornado)
+
+- Desktop (PySide6, QT Designer, Access Microsoft DB, SQL)
+
+- [ ] Pyside6 - Eng. Controle + Deck Builder
+- [ ] Qt MVC + SQLAlchemy + Access Integration      
+
 - [ ] Backend com Flask, FastAPI, Django, Ninja, Websockets, Supabase + Redis + SQL
-- [ ] Boas práticas com SQLAlchemy e Python e Pyside6 - MVC desktop Apps com C++ Dragon Web Server
+- [x] Boas práticas com Banco de dados (SQLAlchemy/Sqlite3, Microsoft Access, Excel/LocalStorage) e Python com Pyside6
+- [ ] MVC desktop Apps com C++ Dragon Web Server
 
 # Projetos Portfolio/SAAS (React + Python + SQL) __BACKLOG
 
@@ -413,10 +449,9 @@ DATA ATUAL = 11/11/2025
 
 - [ ] Estudos de frontend com Astro/React, Flutter e MVP em HTML + Bootstrap
 - [ ] Data Driven com metodos SCRUM com organização e planner de projetos PVRV como freelancer e suas tecnologias
-- [ ] KanbanPro + Dashboard (HTML/REACT/TAILWIND) - Sistema de produtividade e TCC - Diario de bordo
+- [x] KanbanPro + Dashboard (HTML/REACT/TAILWIND) - Sistema de produtividade e TCC - Diario de bordo
 
 - ONS, Pesquisa Científica e Cientista de dados
-
 - [ ] Projetos Visão Computacional
   - Contador de embaixadinhas
   - Contador de rolinhas (webcam)
@@ -425,6 +460,8 @@ DATA ATUAL = 11/11/2025
 - [ ] Projeto Visão computacional com cancer de mamas + Contador de embaixadinhass
 - [ ] IOT E ARDUINO COM WEBSOCKET COM HTML ANALISANDO SERIES TEMPORAIS
 - [ ] CIENTISTA DE DADOS - ML E DATASET ENERGY + CLASSIFICATION + REGRESSION + KMEANS
+- [ ] Projeto IEED - Horta Inteligente
+- [ ] Projeto IEEDs - Controle inteligente de Sensores com dashboard online em HTML
 
 - Freelancer / Negócios / Monetização
 
@@ -439,4 +476,8 @@ DATA ATUAL = 11/11/2025
 - [ ] Dados Kaggle
 - [ ] Dados imagens de Satélites
 
+
+- Projetos 2026 (backlog)
+
+- 
 ---
