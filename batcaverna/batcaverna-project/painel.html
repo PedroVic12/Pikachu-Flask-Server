@@ -159,6 +159,22 @@
         }
 
         class DashboardModel {
+            async fetchAndProcessMarkdown() {
+                try {
+                    const response = await fetch(GITHUB_MARKDOWN_URL);
+                    if (!response.ok) throw new Error('Failed to fetch markdown');
+                    let markdown = await response.text();
+                    
+                    // Normalize all checkboxes to lowercase [x]
+                    markdown = markdown.replace(/\[([xX])\]/g, '[x]');
+                    
+                    return this.parseTasksFromMarkdown(markdown);
+                } catch (error) {
+                    console.error('Error fetching markdown:', error);
+                    return this.parseTasksFromMarkdown(DEFAULT_TASKS_MD);
+                }
+                }
+            
             parseTasksFromMarkdown(markdown) {
                 if (!markdown) return [];
                 const mdString = String(markdown);
@@ -178,11 +194,15 @@
                         label = header.replace(tagMatch[0], '').trim();
                     }
 
-                    const taskLines = lines.slice(1).filter(line => line.match(/^\s*-\s*\[[ x]\]/));
-                    const items = taskLines.map(line => ({
-                        completed: !!line.match(/^\s*-\s*\[x\]/i),
-                        text: line.replace(/^\s*-\s*\[[ x]\]\s*/, '').trim()
-                    }));
+                    const taskLines = lines.slice(1).filter(line => line.match(/^\s*-\s*\[[ x]\]/i));
+                    const items = taskLines.map(line => {
+                        const isChecked = line.match(/^\s*-\s*\[x\]/i);
+                        const text = line.replace(/^\s*-\s*\[[ x]\]\s*/i, '').trim();
+                        return {
+                            completed: !!isChecked,
+                            text: text
+                        };
+                    });
 
                     const hasTasks = items.length > 0;
                     if (!hasTasks) return null;
@@ -356,20 +376,103 @@
                 </div>
             </section>`;
 
-        const LinksPanel = () => html`
-            <div className="bg-black/20 p-3 rounded-lg">
-                <h2 className="font-semibold text-gray-300 mb-3">🔗 Painel de Links</h2>
-                <div className="flex flex-col gap-3">
-                    <a href="https://github.com/PedroVic12" target="_blank" rel="noopener noreferrer" className="w-full text-center px-1 py-1 bg-gray-700 text-white rounded-lg shadow hover:bg-gray-600 transition">🌍 GitHub</a>
+        const TextButtonLink = ({ url, text, variant = 'bg-gray-700' }) => html`
+            <a
+                href=${url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className=${`w-full text-center px-3 py-2 ${variant} text-white rounded-lg shadow hover:bg-opacity-90 transition flex items-center justify-center gap-2`}
+            >
+                ${text}
+            </a>`;
+
+        const LinksPanel = () => {
+            const [expandedGroups, setExpandedGroups] = React.useState({
+                redes: true,
+                apps: true,
+                projetos: false,
+                entretenimento: false
+            });
+
+            const toggleGroup = (group) => {
+                setExpandedGroups(prev => ({
+                    ...prev,
+                    [group]: !prev[group]
+                }));
+            };
+
+            const linkSections = [
+                {
+                    id: 'redes',
+                    title: '🔗 Redes Sociais',
+                    links: [
+                        { url: 'https://github.com/PedroVic12', text: '🌍 GitHub' },
+                        { url: 'https://linkedin.com', text: '💼 LinkedIn', variant: 'bg-blue-600' },
+                    ]
+                },
+                {
+                    id: 'apps',
+                    title: '📱 Aplicativos',
+                    links: [
+                        { url: 'PVRV/Gohan_treinamentos_2025.html', text: '💪 App Produtividade' },
+                        { url: 'https://gohann-treinamentos-web-app-one.vercel.app', text: '📚 Habit Tracker' },
+                    ]
+                },
+                {
+                    id: 'projetos',
+                    title: '⚙️ Projetos',
+                    links: [
+                        { url: 'http://127.0.0.1:5000/', text: '🚀 Pikachu API Server' },
+                        { url: 'https://electrical-system-simulator.vercel.app/', text: '⚡ SEP para Leigos' },
+                    ]
+                },
+                {
+                    id: 'entretenimento',
+                    title: '🎮 Entretenimento',
+                    links: [
+                        { url: 'https://www.mat.ufmg.br/futebol/classificacao-para-libertadores_seriea/', text: '⚽ Prob. Futebol', variant: 'bg-green-700' },
+                        { url: 'outro_arquivo.html', text: '📄 Outros Links' },
+                    ]
+                }
+            ];
+
+            return html`
+                <div className="bg-black/30 backdrop-blur-sm p-4 rounded-xl border border-gray-700/50 shadow-lg">
+                    <div className="flex items-center justify-between mb-4 p-2 bg-black/30 rounded-lg">
+                        <h2 className="font-bold text-xl text-gray-200">🔗 Painel de Links</h2>
+                        <div className="text-sm text-gray-400">${linkSections.flatMap(g => g.links).length} links</div>
+                    </div>
                     
-                    <!-- Links Adicionados -->
-                    <a href="probabilidades.html" target="_blank" rel="noopener noreferrer" className="w-full text-center px-1 py-1 bg-blue-700 text-white rounded-lg shadow hover:bg-blue-600 transition">⚽ Probabilidades no Futebol</a>
-                    <a href="PVRV/Gohan_treinamentos_2025.html" target="_blank" rel="noopener noreferrer" className="w-full text-cepx-1nter px-1 py-1 bg-gray-700 text-white rounded-lg shadow hover:bg-gray-600 transition">💪 App Produtividade</a>
-                    <a href="outro_arquivo.html" target="_blank" rel="noopener noreferrer" className="w-full text-center px-1 py-1 bg-gray-700 text-white rounded-lg shadow hover:bg-gray-600 transition">📄 Arquivo 1</a>
-                    <a href="documentacao.html" target="_blank" rel="noopener noreferrer" className="w-full text-center px-1 py-1 bg-gray-700 text-white rounded-lg shadow hover:bg-gray-600 transition">📚 Documentação</a>
-                    <!-- Fim dos Links Adicionados -->
+                    <div className="space-y-3">
+                        ${linkSections.map(section => html`
+                            <div key=${section.id} className="bg-black/20 rounded-lg overflow-hidden">
+                                <button 
+                                    onClick=${() => toggleGroup(section.id)}
+                                    className="w-full px-4 py-3 text-left font-medium text-gray-200 bg-black/30 hover:bg-black/40 transition-colors flex items-center justify-between"
+                                >
+                                    <span>${section.title}</span>
+                                    <span className="transform transition-transform ${expandedGroups[section.id] ? 'rotate-180' : ''} text-gray-400">
+                                        ▼
+                                    </span>
+                                </button>
+                                ${expandedGroups[section.id] ? html`
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 p-3">
+                                        ${section.links.map((link, i) => html`
+                                            <${TextButtonLink} 
+                                                key=${i}
+                                                url=${link.url} 
+                                                text=${link.text} 
+                                                variant=${link.variant || 'bg-gray-700/80'}
+                                            />
+                                        `)}
+                                    </div>
+                                ` : ''}
+                            </div>
+                        `)}
+                    </div>
                 </div>
-            </div>`;
+            `;
+        };
 
         const Footer = () => html`
             <footer className="text-center text-xs text-gray-600 mt-auto pt-4">
@@ -377,7 +480,7 @@
                 <p>Criado por Pedro Victor Veras</p>
             </footer>
         `;
-        
+
         // =======================================================
         // ! REQUISIÇÃO 2: "WIDGETS" SEPARADOS PARA CADA ABA
         // =======================================================
@@ -515,7 +618,7 @@
                 </div>
             `;
         };
-        
+
         // --- Widget: Sistema Orbital ---
         const OrbitWidget = () => {
             const simRef = useRef(null);
@@ -555,9 +658,28 @@
             html = html.replace(/_(.*?)_/gim, '<em>$1</em>');
             html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/gim, '<a href="$2" target="_blank" rel="noopener noreferrer" class="text-cyan-400 hover:underline">$1</a>');
             html = html.replace(/`([^`]+)`/gim, '<code class="bg-black/50 px-2 py-1 rounded-md font-mono text-sm text-amber-300">$1</code>');
-            html = html.replace(/^\s*[-*]\s*\[ \]\s*(.+)$/gim, '<li class="flex items-center mb-2"><span class="inline-block w-4 h-4 border-2 border-gray-500 rounded-sm mr-3 bg-gray-700 flex-shrink-0"></span><span>$1</span></li>');
-            html = html.replace(/^\s*[-*]\s*\[x\]\s*(.+)$/gim, '<li class="flex items-center mb-2"><span class="inline-block w-4 h-4 border-0 border-cyan-500 rounded-sm mr-3 bg-cyan-500 text-black flex items-center justify-center font-bold flex-shrink-0">✓</span><span class="line-through text-gray-500">$1</span></li>');
-            html = html.replace(/^\s*[-*]\s*(?!\[[ x]\])(.+)$/gim, '<li class="ml-6 list-disc marker:text-cyan-400 mb-2">$1</li>');
+            // First handle all list items with checkboxes
+            html = html.replace(/^\s*[-*]\s*(\[([ xX])\])\s*(.+)$/gm, (match, checkbox, state, text) => {
+                const isChecked = state.trim().toLowerCase() === 'x';
+                if (isChecked) {
+                    return `<li class="flex items-center mb-2">
+                        <span class="inline-block w-4 h-4 border-0 border-cyan-500 rounded-sm mr-3 bg-cyan-500 text-black flex items-center justify-center font-bold flex-shrink-0">
+                            ✓
+                        </span>
+                        <span class="line-through text-gray-500">${text}</span>
+                    </li>`;
+                } else {
+                    return `<li class="flex items-center mb-2">
+                        <span class="inline-block w-4 h-4 border-2 border-gray-500 rounded-sm mr-3 bg-gray-700 flex-shrink-0"></span>
+                        <span>${text}</span>
+                    </li>`;
+                }
+            });
+
+            // Then handle regular list items (without checkboxes)
+            html = html.replace(/^\s*[-*]\s+(?!\[([ xX])\])([^\n]+)$/gm, (match, text) => {
+                return `<li class="ml-6 list-disc marker:text-cyan-400 mb-2">${match.replace(/^\s*[-*]\s+/, '')}</li>`;
+            });
             html = html.replace(/((?:<li[\s\S]*?<\/li>\s*)+)/gim, (match) => {
                 if (match.includes('<ul') || match.includes('<ol')) return match;
                 return `<ul class="space-y-1 mb-4">${match}</ul>`;
@@ -613,15 +735,15 @@
         function DashboardPainelPage() {
             // Puxa todo o estado e lógica do controller
             const { activeView, setActiveView, currentTime, moonPhase, fishingForecast, constellations, tasks, tasksMarkdown, handleMarkdownChange, handleKanbanUpdate } = useDashboardController();
-            
+
             // --- NOVO ESTADO PARA O DRAWER ---
             const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-            
+
             // Define as abas
             const TABS = useMemo(() => [
-                { id: 'kanban', label: '🗂️ KanbanPro' }, 
-                { id: 'orbit', label: '🛰️ Sistema Orbital' }, 
-                { id: 'checklist', label: '✅ Checklist' }, 
+                { id: 'kanban', label: '🗂️ KanbanPro' },
+                { id: 'orbit', label: '🛰️ Sistema Orbital' },
+                { id: 'checklist', label: '✅ Checklist' },
                 { id: 'tasks', label: '📊 Gráfico' },
                 { id: 'view-markdown', label: '📄 Visualizador' },
                 { id: 'manage-tasks', label: '📝 Editor' },
@@ -630,17 +752,17 @@
             // Decide qual Widget renderizar com base na aba ativa
             const activeWidget = useMemo(() => {
                 switch (activeView) {
-                    case 'kanban': 
+                    case 'kanban':
                         return html`<${KanbanWidget} tasks=${tasks} onUpdate=${handleKanbanUpdate} />`;
-                    case 'orbit': 
+                    case 'orbit':
                         return html`<${OrbitWidget} />`;
-                    case 'checklist': 
+                    case 'checklist':
                         return html`<${ChecklistWidget} tasks=${tasks} />`;
-                    case 'tasks': 
+                    case 'tasks':
                         return html`<${ChartWidget} data=${tasks} />`;
-                    case 'view-markdown': 
+                    case 'view-markdown':
                         return html`<${MarkdownViewerWidget} markdownText=${tasksMarkdown} />`;
-                    case 'manage-tasks': 
+                    case 'manage-tasks':
                         return html`<${MarkdownEditorWidget} markdown=${tasksMarkdown} onChange=${handleMarkdownChange} />`;
                     default:
                         return html`<div className="p-4">Visualização não encontrada</div>`;
@@ -674,7 +796,9 @@
                         
                         <div className="flex-1 min-h-0 bg-black/20 p-3 rounded-lg overflow-y-auto space-y-4">
                             <${WeeklyFocus} tasks=${tasks} />
-                            <${AstroInfo} moonPhase=${moonPhase} fishingForecast=${fishingForecast} constellations=${constellations} />
+                            <p>Aqui entra alguns informações pegando o Pikachu Flask API sobre o dia de hoje e requisições GET de API</p>
+                            <!-- <${AstroInfo} moonPhase=${moonPhase} fishingForecast=${fishingForecast} constellations=${constellations} /> -->
+
                         </div>
 
                         <${LinksPanel} />
@@ -697,9 +821,9 @@
 
                             <div className="flex space-x-2 overflow-x-auto">${TABS.map(tab => html`
                                 <button key=${tab.id} onClick=${() => {
-                                    setActiveView(tab.id);
-                                    setIsDrawerOpen(false); // Fecha o drawer ao clicar na aba
-                                }} className=${`tab-btn ${activeView === tab.id ? 'active' : ''}`}>${tab.label}</button>
+                    setActiveView(tab.id);
+                    setIsDrawerOpen(false); // Fecha o drawer ao clicar na aba
+                }} className=${`tab-btn ${activeView === tab.id ? 'active' : ''}`}>${tab.label}</button>
                             `)}</div>
                         </nav>
                         
@@ -870,5 +994,3 @@
 </body>
 
 </html>
-
-
