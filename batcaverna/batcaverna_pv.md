@@ -3,7 +3,7 @@
 Salve esses dados em:
 https://github.com/PedroVic12/Pikachu-Flask-Server/tree/main/batcaverna
 
-DATA ATUAL = 11/11/2025
+DATA ATUAL = 12/11/2025
 
 ![alt text - ciencia de dados ONS](image-1.png)
 
@@ -65,22 +65,22 @@ onde \(V\) é a tensão fasorial, \(I^*\) a conjugada do fasor de corrente.
 
 - [ ] Deploy: Plugin no Organon no notepad++ com scripts básicos de AnaREDE e Organon
     - [x] Criar .bat e .EXE
-    - [ ] Testar e validar no Windows Pessoal com senha de ADM com o script para instalar o plugin
+    - [x] Testar e validar no Windows Pessoal com senha de ADM com o script para instalar o plugin
 	- [ ] Testes de casos de uso com AnaREDE e Organon com controle mensal de dados com o novo deckbuilder em notepad++
-	- [ ] Decks Organon (3)
- 	- [ ] Decks AnaREDE
+	- [x] Decks Organon (3)
+ 	- [x] Decks AnaREDE
   	- [ ] Scipt automação Pyautogui  	
-	- [ ] Deploy: **Plugin no Organon no notepad++ com .EXE** + Manual de casos de uso de deck builer com pastas com arquivos .py, .ipynb e .PDF
+	- [x] Deploy: **Plugin no Organon no notepad++ com .EXE** + Manual de casos de uso de deck builer com pastas com arquivos .py, .ipynb e .PDF
       
-- [ ] Ajustes e organização OneDrive e Pasta /downloads
+- [x] Ajustes e organização OneDrive e Pasta /downloads
 - [x] Dashboard MUST (Palkia GUI Desktop) ONS - Despacho + MUST PDF extractor ->  Banco de Dados com SQL/Access e relacionamentos com Dashboard final - Projeto Final rodando com .Exe usando banco de dados
 	- [x] Ajustes de app dashboard template + Palkia APP + deck builder
  	- [ ] Colocar Links de HTML e Sites WEB no Header do app template 	
 
 - Tarefas Pendentes
 - [ ] LEGENDA VIDEO YOUTUBE
-- [ ] PLANEJAMENTO SEGUNDA + TREINO + METAS + FECHAR 10 ABAS
-- [ ] ATUALIZAR E ORGANIZAR ASSUNTOS DO BLOG E KANBAN ONS
+- [x] PLANEJAMENTO SEGUNDA + TREINO + METAS + FECHAR 10 ABAS
+- [x] ATUALIZAR E ORGANIZAR ASSUNTOS DO BLOG E KANBAN ONS
 - [ ] AJUSTAR PAINEL DE BATCAVERNA COM KANBANPRO
 
 - [ ] Blogpedrov12
@@ -112,15 +112,17 @@ onde \(V\) é a tensão fasorial, \(I^*\) a conjugada do fasor de corrente.
 - ONS 2025
 
 - [ ] Dashboard SP com HTML + app template Pyside6 + MUST Controle e Gestão + Lancher AG (RCE) - Arquitetura de Software
-    - App Template Pyside6
+    - [x] App Template Pyside6
     - CRUD Pyside6 com Sqlite3 e Microsoft Access
 	- [ ] MUST Modelagem de Dados SQL + Streamlit
     - [X] App Template Pyside6 + SQL - MUST Controle e Gestão de Atividades com Chatbot AI com .EXE
     - [ ] Pyside6 com modelagem de dados (Sqlite3 + Microsoft Access) + Análise de Contigencias + Controle Atividades SP
 	- [ ] Controle  e Gestão Atividades SP + MUST --> Excel To Website and (.PDF + Access)to QT 6 Desktop Deck Builder Organon
 	- [ ] Must Desktop App Excel, Deck BUilder.
- 	- [x] Gerador de PDF por Template HTML 
-       
+ 	- [x] Gerador de PDF por Template HTML
+        
+- [ ] Despacho de cargas - Planejamento Mensal e Semanal - Flow + AnaREDE, AnaTEM e Organon
+- [ ] **Estudos SEP com base fundamental para CA**       
 - [ ] Flow ONS V9 - Datasets + Notebooks com análise de dados de carga MW em Horas pelas usinas limpas e renovaveis do BR
 - [ ] Atividade ML de IEEEDs e principais modelo de AI de Supevisionado x Não Supervisionado (Com Rótulos x Sem Rótulos)
 - [X] Estudos CA para SEP usando GPT e Python
@@ -131,8 +133,7 @@ onde \(V\) é a tensão fasorial, \(I^*\) a conjugada do fasor de corrente.
 - [X] Kanban/Cronograma -> Organização do cronograma de estudos
 - [ ] Treino de calistenia e calistenia app
 - [ ] Aulas Sinais/cricuitos CC/CA e Eng. Controle + SEP Fundamentals + Metodos numericos com Python
-- [ ] Despacho de cargas - Planejamento Mensal e Semanal - Flow + AnaREDE, AnaTEM e Organon
-- [ ] **Estudos SEP com base fundamental para CA**
+
 - [ ] Chatbot Groundon, Lumina Aurora (Gemini) + Jarvis (GPT) + Copilot (copilot/cursor) with updates
 - [ ] Corpo x Mente x Espirito -> Jobs, Coding, Studying, Creative, In Shape
 - [X] Todos websistes unificados a Pikachu Flask API Server + github batcaverna
