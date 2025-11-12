@@ -57,8 +57,9 @@ onde \(V\) é a tensão fasorial, \(I^*\) a conjugada do fasor de corrente.
 # Lista de TAREFAS Pendentes __TODO
 
 - ONS
-- [x] Dashboard de graficos de Office Forms (ONS Inspira)
-- [ ] ONS INSPIRA - Apresentação + Esboço (Proximos Passos)
+- [x] Dashboard de graficos de Office Forms (ONS Inspira) - Streamlit + 4 graficos + chatbot RAG
+- [ ] ONS INSPIRA - Apresentação + Esboço (Proximos Passos) - 1:30 de tempo de apresentação complementando a fala do Alan
+- [ ] ONS Relatorio Generator + MUST Software com banco de dados  e vindo solicitacoes por email e Controle Dashboard atividades SP
 - [x] Tarefa 1: Mensal -> Desligar linhas de transmissão com obras na coluna 18 dos decks
     - EditCepel -> F1 -> Consulta
       <img width="1042" height="429" alt="image" src="https://github.com/user-attachments/assets/beabb530-d94f-48bc-b105-9684f88abd36" />
