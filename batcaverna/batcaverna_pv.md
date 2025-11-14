@@ -3,7 +3,7 @@
 Salve esses dados em:
 https://github.com/PedroVic12/Pikachu-Flask-Server/tree/main/batcaverna
 
-DATA ATUAL = 12/11/2025
+DATA ATUAL = 14/11/2025
 
 ![alt text - ciencia de dados ONS](image-1.png)
 
