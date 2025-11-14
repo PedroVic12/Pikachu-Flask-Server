@@ -58,7 +58,7 @@ onde \(V\) é a tensão fasorial, \(I^*\) a conjugada do fasor de corrente.
 
 - ONS
 - [x] Dashboard de graficos de Office Forms (ONS Inspira) - Streamlit + 4 graficos + chatbot RAG
-- [ ] ONS INSPIRA - Apresentação + Esboço (Proximos Passos) - 1:30 de tempo de apresentação complementando a fala do Alan
+- [x] ONS INSPIRA - Apresentação + Esboço (Proximos Passos) - 1:30 de tempo de apresentação complementando a fala do Alan
 - [ ] ONS Relatorio Generator + MUST Software com banco de dados  e vindo solicitacoes por email e Controle Dashboard atividades SP
 - [x] Tarefa 1: Mensal -> Desligar linhas de transmissão com obras na coluna 18 dos decks
     - EditCepel -> F1 -> Consulta
@@ -125,7 +125,6 @@ onde \(V\) é a tensão fasorial, \(I^*\) a conjugada do fasor de corrente.
 - [ ] Despacho de cargas - Planejamento Mensal e Semanal - Flow + AnaREDE, AnaTEM e Organon
 - [ ] **Estudos SEP com base fundamental para CA**       
 - [ ] Flow ONS V9 - Datasets + Notebooks com análise de dados de carga MW em Horas pelas usinas limpas e renovaveis do BR
-- [ ] Atividade ML de IEEEDs e principais modelo de AI de Supevisionado x Não Supervisionado (Com Rótulos x Sem Rótulos)
 - [X] Estudos CA para SEP usando GPT e Python
 - [ ] Automação Outlook + Teams + N8N = Relatorios automatizados por email e Whatsapp
 - [X] Planejamento e Metas (Segunda/Sexta)
@@ -134,6 +133,7 @@ onde \(V\) é a tensão fasorial, \(I^*\) a conjugada do fasor de corrente.
 - [X] Kanban/Cronograma -> Organização do cronograma de estudos
 - [ ] Treino de calistenia e calistenia app
 - [ ] Aulas Sinais/cricuitos CC/CA e Eng. Controle + SEP Fundamentals + Metodos numericos com Python
+- [ ] Atividade ML de IEEEDs e principais modelo de AI de Supevisionado x Não Supervisionado (Com Rótulos x Sem Rótulos)
 
 - [ ] Chatbot Groundon, Lumina Aurora (Gemini) + Jarvis (GPT) + Copilot (copilot/cursor) with updates
 - [ ] Corpo x Mente x Espirito -> Jobs, Coding, Studying, Creative, In Shape
@@ -141,14 +141,14 @@ onde \(V\) é a tensão fasorial, \(I^*\) a conjugada do fasor de corrente.
 - [ ] Grondon Chabtot, Jarvis Chatbot, Lumina Aurora Chatbot
 - [X] N8N x Node-Red + webhook + MQQT + Esp32
 - [ ] Pyside6 - Eng. Controle com EDO e Equações de SEP
-- [ ] Nextjs Website + MVP HTML templates (SEP do SIN da ONS para leigos)
+- [x] Nextjs Website + MVP HTML templates (SEP do SIN da ONS para leigos)
 - [ ] Teoria de controle de engenharia moderno
 - [ ] Proteção de SEP e monitoramento area SP
 - [ ] Processamento de imagens de satélites com Python
 - [ ] Bots e RPA com Python
 - [ ] Estudos de IA, ML, DL, Chatbots, N8N, AI agentes frameworks (Agno/Langchain)
 - [X] PROGRAMAÇÃO FRONTEND
-- [ ] PROGRAMAÇÃO BACKEND
+- [x] PROGRAMAÇÃO BACKEND
 
  - Solver ML/DL para cada X,Y de conjunto de dado
 
@@ -159,7 +159,7 @@ onde \(V\) é a tensão fasorial, \(I^*\) a conjugada do fasor de corrente.
 - [ ] Elementos do eletromag - Sadiku + Jorge
 - [ ] Sinais e sistemas
 - [ ] Eletronica para makers
-- [ ] Edge impulse + Series Temporais + IoT + ML para Eng Eletrica
+- [x] Edge impulse + Series Temporais + IoT + ML para Eng Eletrica
       
 - Sesão de ESTUDOS (Matemática, programação e Eng. Elétrica)
 - [ ] Atividade IEEEDs = Esp32 + Senoides de corrente em series temporais para modelos de IA (como entrada de dado)
@@ -203,7 +203,7 @@ onde \(V\) é a tensão fasorial, \(I^*\) a conjugada do fasor de corrente.
 - MUST Desktop Software - NexusPy + PalkiaGUI
 
 - [x] Integração com Banco Access
-- [ ] Automação de aprovações PDF
+- [ ] Automação de Relatórios PDF
 - [x] Template Word + Geração automática de PDF com generate_cv.py
 - [ ] Despacho de cargas (Flow, Anarede, Organon)
 - [ ] Análise de contingências e relatório PDF
@@ -213,12 +213,12 @@ onde \(V\) é a tensão fasorial, \(I^*\) a conjugada do fasor de corrente.
 - [ ] Chatbot Streamlit com PDF da ONS (Bot Oráculo)
 - [ ] Estudo VSC e LCC em redes HVDC
 - [ ] Micro e Minigeração Distribuída (MGD)
-- [ ] Relatório + Reunião Semanal
+- [x] Relatório + Reunião Semanal (Planejamento Segunda e Sexta)
 - [ ] **Upgrades** e Levantametno de requisitos MUST Dashboard GUI Desktop (Controle e Gestão atividades SP)
 
-  - [ ] Controle atividades SP e RJ com planilha 2025
+  - [x] Controle atividades SP e RJ com planilha 2025
   - [ ] Limpeza de dados do Excel para utilizar os dados de SP 2025 e 2024 _inicio 22-10-25_
-  - [ ] Criação do Sistema do Pyside6 para gestão de MUST, aprovação com ou sem ressalva e geração do Deck da solicitação
+  - [x] Criação do Sistema do Pyside6 para gestão de MUST, aprovação com ou sem ressalva e geração do Deck da solicitação
   - [ ] Criação de word template para entrega de documentos
 
 - Atividades MUST 28/10/25
@@ -231,7 +231,7 @@ onde \(V\) é a tensão fasorial, \(I^*\) a conjugada do fasor de corrente.
   - Fluxo de potencia x Curto Circuito
   - Despacho de Cargas
 - [ ] incluir no banco de dados de MUST a relação ponto de MUST x barras/circuitos do Fluxo de potência
-- [ ] "régua" para inclusão de LTs e Trafos via script do Organon
+- [x] "régua" para inclusão de LTs e Trafos via script do Organon
 
 - [ ] MUST Controle e Gestão - Desktop Software
 - [ ] Dashboard MUST (Palkia GUI)
@@ -343,7 +343,7 @@ onde \(V\) é a tensão fasorial, \(I^*\) a conjugada do fasor de corrente.
 
 - Corpo, Mente (Treino, Calistenia, Saúde) e Espirito (Alinhamento, Chakras, Meditação)
 
-- [ ] Treino de calistenia
+- [x] Treino de calistenia
 - [ ] Alongamento diário
 - [X] Alimentação 4x/dia
 
@@ -357,18 +357,16 @@ onde \(V\) é a tensão fasorial, \(I^*\) a conjugada do fasor de corrente.
 
 - [ ] Fechar 10 abas
 - [ ] Limpeza semanal do apartamento
-- [ ] Planejamento seg/sex + Kanban pessoal
+- [x] Planejamento seg/sex + Kanban pessoal
 - [X] Planejamento de terapia e limpeza de pensamentos
-- [ ] Terapia
-- [ ] Alongamento + Calistenia + Rotina de treinos com saúde em boa forma
+- [x] Terapia
+- [x] Alongamento + Calistenia + Rotina de treinos com saúde em boa forma
 - [ ] Meditação e alinhamento espiritual
 - [ ] Treino gym
-- [ ] Fechar 10 abas
 - [X] Limpeza no apartametno (seg/sex)
-- [ ] Lavar a louça e passar pano na casa
+- [x] Lavar a louça e passar pano na casa
 - [ ] Limpeza de banheiro de cozinha
 - [X] 4 Refeições por dia (Café da manha, Almoço, Lanche (pré-treino) e Jantar)
-- [ ]
 - [X] Jogos
 
   - The Witcher 3
@@ -386,12 +384,12 @@ onde \(V\) é a tensão fasorial, \(I^*\) a conjugada do fasor de corrente.
   - [x] Segunda - Chakra: Solar
   - [x] Terça - Chakra: Garganta
   - [ ] Quarta - Chakra: Cardiaco
-  - [ ] Quinta: Chakra: 3º Olho
+  - [x] Quinta: Chakra: 3º Olho
   - [ ] Sexta: Chakra: Root
-- [ ] You Only Need 5 Hobbies (Money, Study, Mindset, In Shape, Creative)
+- [x] You Only Need 5 Hobbies (Money, Study, Mindset, In Shape, Creative)
 - [ ] Meditação e estudos com Matemática e Japonês
 - [ ] Alongamento matinal - Ombros e Quadril
-- [ ] Treino de calistenia para karate
+- [x] Treino de calistenia para karate
 - [ ] 2 equações do dia
 - [ ] 2 projetos no dia (backend/frontend)
 
@@ -407,6 +405,9 @@ onde \(V\) é a tensão fasorial, \(I^*\) a conjugada do fasor de corrente.
 
 - [ ] Jarvis GPT + Lumina Aurora + Groundon
 - [ ] Langchain + Agno + Streamlit Oráculo
+      - Agentes com Grafos com langGraph
+      - n8n integração
+      - chatbot C3po Streamlit - Oraculo
 - [ ] ML com dados ONS e Kaggle
 
 - Modelos de Machine Learning x Deep Learning
