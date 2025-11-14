@@ -294,8 +294,8 @@ className = "lg:hidden p-2 rounded-md text-gray-400 hover:text-gray-600 hover:bg
         <button
             onClick={ () => { setCurrentScreen('dashboard'); setSidebarOpen(false); } }
 className = {`w-full flex items-center px-4 py-3 text-left rounded-lg transition-colors ${currentScreen === 'dashboard'
-  ? 'bg-blue-100 text-blue-700 border-r-2 border-blue-700'
-  : 'text-gray-700 hover:bg-gray-100'
+    ? 'bg-blue-100 text-blue-700 border-r-2 border-blue-700'
+    : 'text-gray-700 hover:bg-gray-100'
   }`}
           >
   <LayoutDashboard size={ 20 } className = "mr-3" />
@@ -305,8 +305,8 @@ className = {`w-full flex items-center px-4 py-3 text-left rounded-lg transition
     < button
 onClick = {() => { setCurrentScreen('kanban'); setSidebarOpen(false); }}
 className = {`w-full flex items-center px-4 py-3 text-left rounded-lg transition-colors ${currentScreen === 'kanban'
-  ? 'bg-blue-100 text-blue-700 border-r-2 border-blue-700'
-  : 'text-gray-700 hover:bg-gray-100'
+    ? 'bg-blue-100 text-blue-700 border-r-2 border-blue-700'
+    : 'text-gray-700 hover:bg-gray-100'
   }`}
           >
   <Kanban size={ 20 } className = "mr-3" />
@@ -316,8 +316,8 @@ className = {`w-full flex items-center px-4 py-3 text-left rounded-lg transition
     < button
 onClick = {() => { setCurrentScreen('table'); setSidebarOpen(false); }}
 className = {`w-full flex items-center px-4 py-3 text-left rounded-lg transition-colors ${currentScreen === 'table'
-  ? 'bg-blue-100 text-blue-700 border-r-2 border-blue-700'
-  : 'text-gray-700 hover:bg-gray-100'
+    ? 'bg-blue-100 text-blue-700 border-r-2 border-blue-700'
+    : 'text-gray-700 hover:bg-gray-100'
   }`}
           >
   <Table size={ 20 } className = "mr-3" />
@@ -327,8 +327,8 @@ className = {`w-full flex items-center px-4 py-3 text-left rounded-lg transition
     < button
 onClick = {() => { setCurrentScreen('files'); setSidebarOpen(false); }}
 className = {`w-full flex items-center px-4 py-3 text-left rounded-lg transition-colors ${currentScreen === 'files'
-  ? 'bg-blue-100 text-blue-700 border-r-2 border-blue-700'
-  : 'text-gray-700 hover:bg-gray-100'
+    ? 'bg-blue-100 text-blue-700 border-r-2 border-blue-700'
+    : 'text-gray-700 hover:bg-gray-100'
   }`}
           >
   <FileText size={ 20 } className = "mr-3" />
