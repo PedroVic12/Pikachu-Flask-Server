@@ -3,7 +3,32 @@
 Salve esses dados em:
 https://github.com/PedroVic12/Pikachu-Flask-Server/tree/main/batcaverna
 
-DATA ATUAL = 17/11/2025
+DATA ATUAL = 18/11/2025
+
+
+# Alinhamento PVRV - Novembro: ONS, UFF, Sáude mental e emocional - Corpo, Mente, Espirito
+
+- MUST Software Desktop (Pyside6 + Access DB + modelagem SQL) - 11/11/25
+- Palkia GUI + Console + Backend flask integrado com Dashboard HTML atividades SP
+- Plugin Organon - Deck Builder + AnaREDE scripts + Fluxo de potencia Organon
+- Flow despacho de cargas
+- Flow Inequações
+- Flow Elos CC
+- Análise de contigencias PandaPower SIN 45
+- Potencia Ativa x Reativa
+- Equações P e Q e 7 principais
+- Minicurso CC + Provas atingas circuitos 1 e 2 ordem EDO
+- Estudos de Sistemas Elétricos de Potencia (SEP) (Fundamentos)
+  - Potencia Ativa/ Reativa/ Aparente
+  - Conceitos básicos de circuitos CA
+  - Capacitores / Indxutores
+  - Impedância, Indutância
+  - Tap de transformadores na região de SP para controle de tensão
+  - Equações principais para fluxo de potencia em diagrama unifilar
+- Elementos do Eletromagnetismo
+- Processamento digital de Sinais com Relés digitais e Series temporais de cargas de Substações
+
+
 
 ![alt text - ciencia de dados ONS](image-1.png)
 
@@ -166,27 +191,6 @@ onde \(V\) é a tensão fasorial, \(I^*\) a conjugada do fasor de corrente.
 
 ---
 
-# Alinhamento PVRV - Novembro: ONS, UFF, Sáude mental e emocional - Corpo, Mente, Espirito
-
-- MUST Software Desktop (Pyside6 + Access DB + modelagem SQL) - 11/11/25
-- Palkia GUI + Console + Backend flask integrado com Dashboard HTML atividades SP
-- Plugin Organon - Deck Builder + AnaREDE scripts + Fluxo de potencia Organon
-- Flow despacho de cargas
-- Flow Inequações
-- Flow Elos CC
-- Análise de contigencias PandaPower SIN 45
-- Potencia Ativa x Reativa
-- Equações P e Q e 7 principais
-- Minicurso CC + Provas atingas circuitos 1 e 2 ordem EDO
-- Estudos de Sistemas Elétricos de Potencia (SEP) (Fundamentos)
-  - Potencia Ativa/ Reativa/ Aparente
-  - Conceitos básicos de circuitos CA
-  - Capacitores / Indxutores
-  - Impedância, Indutância
-  - Tap de transformadores na região de SP para controle de tensão
-  - Equações principais para fluxo de potencia em diagrama unifilar
-- Elementos do Eletromagnetismo
-- Processamento digital de Sinais com Relés digitais e Series temporais de cargas de Substações
 
 
 
