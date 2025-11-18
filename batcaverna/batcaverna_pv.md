@@ -8,25 +8,91 @@ DATA ATUAL = 18/11/2025
 
 # Alinhamento PVRV - Novembro: ONS, UFF, Sáude mental e emocional - Corpo, Mente, Espirito
 
-- MUST Software Desktop (Pyside6 + Access DB + modelagem SQL) - 11/11/25
-- Palkia GUI + Console + Backend flask integrado com Dashboard HTML atividades SP
-- Plugin Organon - Deck Builder + AnaREDE scripts + Fluxo de potencia Organon
-- Flow despacho de cargas
-- Flow Inequações
-- Flow Elos CC
-- Análise de contigencias PandaPower SIN 45
-- Potencia Ativa x Reativa
-- Equações P e Q e 7 principais
-- Minicurso CC + Provas atingas circuitos 1 e 2 ordem EDO
-- Estudos de Sistemas Elétricos de Potencia (SEP) (Fundamentos)
+- ONS - MUST
+
+- ONS - Controle Mensal
+- [x] Conslidação Linhas desativadas SECO
+- [ ] VLockUP pandas - formulas Excel - Bulbassaur PVRV - =PROCX(A12;'[Confere barras para PEC Nov - SECO (1).xlsx]Consolidação'!$A:$A;'[Confere barras para PEC Nov - SECO (1).xlsx]Consolidação'!$C:$C;"-";0)
+- [ ] Passar para o Excel online e falar com o Marcos com ajuste de formatação
+      
+- ONS - Perdas Duplas (análise de contigencias)
+- [ ] Usar apenas desligamento de torres e não de faixa de passagem
+- [ ] ETL -> PDF -> Excel(meta até aqui) -> Word
+- [ ] Colunas de cada Aba do excel (volume, área geoelétrica, perda dupla e futura) e criar subcategorias
+- [ ] Sem intervenção -> Futura Não | Com intervenção -> Futura SIM
+- [ ] Curto prazo -> Futuro SIM | Médio Prazo -> Futuro Não.
+- [x] Enteder a amostra de dados para ETL
+2	Lista de Contingências Duplas analisadas
+2.1	Volume 2 - Interligação Sul e Sudeste/Centro-Oeste
+2.1.1	Curto Prazo
+•	LT 765 kV Foz do Iguaçu – Ivaiporã C1 e C2
+•	LT 765 kV Foz do Iguaçu – Ivaiporã C1 e C3
+•	LT 765 kV Foz do Iguaçu – Ivaiporã C2 e C3
+•	LT 765 kV Ivaiporã – Itaberá C1 e C2
+•	LT 765 kV Ivaiporã – Itaberá C2 e C3
+•	LT 765 kV Ivaiporã – Itaberá C2 e C3
+•	LT 765 kV Itaberá – Tijuco Preto C1 e C2
+•	Contingência Dupla da LT 500 kV Ibiúna – Bateias 
+•	Contingência Dupla da LT 500 kV Foz do Iguaçu – Guaíra C1 e C2 
+2.1.2	Médio Prazo
+•	Contingência Dupla da LT 500 kV Assis – Ponta Grossa C1 e C2 
+2.2	Volume 3 - Interligações Norte, Nordeste e Sudeste/Centro-Oeste
+•	Não há.
+2.3	Volume 4 - Área 525 kV e Interligações Internacionais da Região Sul
+2.3.1	Curto Prazo
+•	Contingência Dupla da LT 525 kV Abdon Batista – Siderópolis 2 
+•	Contingência Dupla das LT 525 kV Blumenau – Gaspar 2 C2 e LT 525 kV Biguaçu – Gaspar 2 
+•	Contingência Dupla das LT 525 kV Blumenau – Gaspar 2 C1 e LT 525 kV Curitiba – Gaspar 2 
+
+
+- ONS - Software/Web Developer
+- [ ] MUST Software Desktop (Pyside6 + Access DB + modelagem SQL) - 11/11/25
+- [ ] Palkia GUI + Console + Backend flask integrado com Dashboard HTML atividades SP
+- [ ] Plugin Organon - Deck Builder + AnaREDE scripts + Fluxo de potencia Organon
+  
+- ONS - IoT Engenheiro de estudos elétricos
+  
+- [ ] Flow despacho de cargas
+- [ ] Flow Inequações
+- [ ] Flow Elos CC
+- [ ] Análise de contigencias PandaPower SIN 45
+- [ ] Potencia Ativa x Reativa
+- [ ] Equações P e Q e 7 principais
+- [ ] Minicurso CC + Provas atingas circuitos 1 e 2 ordem EDO
+- [ ] Estudos de Sistemas Elétricos de Potencia (SEP) (Fundamentos)
   - Potencia Ativa/ Reativa/ Aparente
   - Conceitos básicos de circuitos CA
   - Capacitores / Indxutores
   - Impedância, Indutância
   - Tap de transformadores na região de SP para controle de tensão
   - Equações principais para fluxo de potencia em diagrama unifilar
-- Elementos do Eletromagnetismo
-- Processamento digital de Sinais com Relés digitais e Series temporais de cargas de Substações
+- [ ] Elementos do Eletromagnetismo
+- [ ] Processamento digital de Sinais com Relés digitais e Series temporais de cargas de Substações
+- [ ] Fazer prova de sistema de controle I da UFF com algebra linear básica na mão
+
+
+- ONS - Cienstista de Dados
+
+- [ ] preciso fazer o ETL de um PDF para Excel com power query ou pandas ou formulas excel e ter o mesmo resultado
+
+- [ ] preciso aprender a usar pyspark com pandas para banco e dados em sqlite3/supabase/excel + localStorage
+
+- [ ] preciso pegar um documento PDF intierio e tranformar cada lista de itens em tabelas
+
+- [ ] e depois com a tabela em excel .xlsx eu quero usar dentro do word template cada tabela pela sua categoria correta (pode ser o nome de cada aba)
+
+
+- ESTUDOS - CODING - PYTHON
+__Atividades Práticas: ETL com Python, PySpark + SQL + Pandas para machine learning e relatórios automatizados__
+
+Projeto 1 - Pipeline de Exploração de Dados e Operações SQL com Spark SQL
+Projeto 2 - Banco de Dados, Machine Learning e Pipeline ETL em Cluster Spark Para Detectar Anomalias em Transações Financeiras
+Projeto 3 - Pipeline de Machine Learning em Cluster Spark Para Previsão de Churn - Treinamento e Deploy
+ Projeto 4 - Pipeline de Pré-Processamento, Validação Cruzada e Otimização em Machine Learning
+Projeto 5 - Otimização de Pipeline ETL e Machine Learning com PySpark
+Projeto 6 - Pipeline de Coleta, Transformação e Modelagem Preditiva em Tempo Real com Spark Streaming e TensorFlow
+Projeto 7 - Data Lakehouse Time Travel com Apache Spark e Delta Lake
+Projeto 8 - Deploy e Inferência de Modelos de Machine Learning com MLflow e Databricks
 
 
 
