@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import {
   LayoutDashboard, Table, FileText, Kanban, Menu, X, Plus, Edit3, Save, Eye, EyeOff,
   Trash2, GripVertical, Upload, Download, BarChart3, TrendingUp,
@@ -528,10 +528,28 @@ export default function App() {
     setShowModal(true);
   };
 
-  // Dashboard View
-  const DashboardView = () => {
-    const stats = controller.getStatistics();
+  const stats = useMemo(() => {
+    const statusStats = {};
+    const categoryStats = {};
 
+    projects.forEach(p => {
+      statusStats[p.status] = (statusStats[p.status] || 0) + 1;
+      categoryStats[p.category] = (categoryStats[p.category] || 0) + 1;
+    });
+
+    return {
+      total: projects.length,
+      statusStats,
+      categoryStats,
+      completedCount: statusStats['agents'] || 0,
+      completionRate: projects.length > 0
+        ? ((statusStats['agents'] || 0) / projects.length * 100).toFixed(1)
+        : 0
+    };
+  }, [projects]);
+
+  // Dashboard View
+  const DashboardView = ({ stats }) => {
     return (
       <div className="p-4 lg:p-6">
         <div className="mb-6 flex justify-between items-center">
@@ -638,7 +656,7 @@ export default function App() {
     const columns = Object.entries(STATUS_COLUMNS).map(([status, info]) => ({
       ...info,
       status,
-      items: controller.getProjectsByStatus(status)
+      items: projects.filter(p => p.status === status)
     }));
 
     return (
@@ -726,7 +744,22 @@ export default function App() {
 
   // Table View
   const TableView = () => {
-    const filteredProjects = controller.searchProjects(searchTerm, filterCategory);
+    const filteredProjects = useMemo(() => {
+        let projs = projects;
+        if (searchTerm) {
+          const term = searchTerm.toLowerCase();
+          projs = projs.filter(p =>
+            p.title.toLowerCase().includes(term) ||
+            p.content.toLowerCase().includes(term)
+          );
+        }
+
+        if (filterCategory !== 'all') {
+          projs = projs.filter(p => p.category === filterCategory);
+        }
+
+        return projs;
+    }, [projects, searchTerm, filterCategory]);
 
     return (
       <div className="p-4 lg:p-6">
@@ -961,13 +994,13 @@ export default function App() {
   const renderView = () => {
     switch (currentScreen) {
       case 'dashboard':
-        return <DashboardView />;
+        return <DashboardView stats={stats} />;
       case 'kanban':
         return <KanbanView />;
       case 'table':
         return <TableView />;
       default:
-        return <DashboardView />;
+        return <DashboardView stats={stats} />;
     }
   };
 

@@ -8,7 +8,7 @@
     ],
     "allowJs": true,
     "skipLibCheck": true,
-    "strict": true,
+    "strict": false, // Set to false since we are moving away from TypeScript
     "noEmit": true,
     "esModuleInterop": true,
     "module": "esnext",
@@ -29,11 +29,10 @@
     }
   },
   "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts",
-    "app/kanban_pro_page.jsx"
+    "next-env.d.ts", // Keep this for Next.js environment types
+    "**/*.js",
+    "**/*.jsx",
+    ".next/types/**/*.ts" // Keep this for Next.js internal types if any
   ],
   "exclude": [
     "node_modules"

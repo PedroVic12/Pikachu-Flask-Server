@@ -1,46 +1,6 @@
-interface ProjectItem {
-  id: string;
-  title: string;
-  status: string;
-  content?: string;
-  category?: string;
-  createdAt: Date;
-  updatedAt: Date;
-  files?: FileAttachment[];
-}
+import { ProjectItem } from './types.js';
 
-interface FileAttachment {
-  id: string;
-  name: string;
-  type: 'pdf' | 'image' | 'excel';
-  url: string;
-  size: number;
-}
-
-interface Column {
-  id: string;
-  title: string;
-  emoji: string;
-  items: ProjectItem[];
-}
-
-const CATEGORIES = {
-  'ons': { emoji: '📂', label: 'Relatórios Técnicos ONS', color: 'bg-blue-100 text-blue-800' },
-  'uff': { emoji: '🧪', label: 'Estudos UFF', color: 'bg-purple-100 text-purple-800' },
-  'python': { emoji: '⚙️', label: 'Projetos Python', color: 'bg-green-100 text-green-800' },
-  'web': { emoji: '🚀', label: 'MVP de Aplicações Web', color: 'bg-orange-100 text-orange-800' },
-  'spiritual': { emoji: '🧘‍♂️', label: 'Alinhamento Espiritual', color: 'bg-pink-100 text-pink-800' }
-};
-
-const STATUS_COLUMNS = {
-  'to do': { id: 'todo', title: 'Em Rascunho', emoji: '✏️' },
-  'in progress': { id: 'progress', title: 'Em Análise', emoji: '🔍' },
-  'projetos parados': { id: 'paused', title: 'Projetos Parados', emoji: '⏸️' },
-  'agentes (c3po, jarvis)': { id: 'agents', title: 'Agentes IA', emoji: '🤖' },
-  'uff - 2025': { id: 'uff2025', title: 'UFF 2025', emoji: '🎓' }
-};
-
-const INITIAL_DATA: ProjectItem[] = [
+const INITIAL_DATA = [
   {
     id: '868d3j5vf',
     title: 'Minicurso Circuitos Eletricos CC',
@@ -72,3 +32,39 @@ const INITIAL_DATA: ProjectItem[] = [
     files: []
   }
 ];
+
+class StorageController {
+  static STORAGE_KEY = 'kanban-projects';
+
+  loadProjects() {
+    if (typeof window === 'undefined') {
+      return INITIAL_DATA;
+    }
+
+    const savedData = localStorage.getItem(StorageController.STORAGE_KEY);
+    if (!savedData) {
+      return INITIAL_DATA;
+    }
+
+    try {
+      const parsed = JSON.parse(savedData);
+      return parsed.map(item => ({
+        ...item,
+        createdAt: new Date(item.createdAt),
+        updatedAt: new Date(item.updatedAt)
+      }));
+    } catch {
+      return INITIAL_DATA;
+    }
+  }
+
+  saveProjects(projects) {
+    if (typeof window === 'undefined') {
+      return;
+    }
+    localStorage.setItem(StorageController.STORAGE_KEY, JSON.stringify(projects));
+  }
+}
+
+const storageController = new StorageController();
+export default storageController;

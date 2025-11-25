@@ -1,189 +1,61 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
+import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip, Legend, LineChart, Line, XAxis, YAxis, CartesianGrid } from 'recharts';
 import { LayoutDashboard, Table, FileText, Kanban, Menu, X, Plus, Edit3, Save, Eye, EyeOff, Trash2, GripVertical, Upload, Download, FolderSync as Sync, BarChart3, TrendingUp, Users, Clock, Search, Filter, MoreVertical, FileImage, FileSpreadsheet, File as FilePdf } from 'lucide-react';
+
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import * as XLSX from 'xlsx';
+import projectRepository, {
+  CATEGORIES,
+  STATUS_COLUMNS
+} from './Repository.jsx'; // Updated import path
 
 
 
+// Removed imports for ProjectItem, CategoryKey, StatusKey from types.js
 
-// ========== TYPES AND INTERFACES ==========
-interface FileAttachment {
-  id: string;
-  name: string;
-  type: 'pdf' | 'image' | 'excel';
-  url: string;
-  size: number;
-}
+// ========== HELPERS ========== 
+const calculateProgress = (content) => { // Removed type annotations
+  if (!content) {
+    return { total: 0, completed: 0, percentage: 0 };
+  }
 
-interface ProjectItem {
-  id: string;
-  title: string;
-  status: string;
-  content?: string;
-  category?: string;
-  createdAt: Date;
-  updatedAt: Date;
-  files?: FileAttachment[];
-}
+  const checklistRegex = /- \[( |x)\]/g;
+  const completedRegex = /- \[x\]/g;
 
-interface ColumnInfo {
-  id: string;
-  title: string;
-  emoji: string;
-}
+  const total = (content.match(checklistRegex) || []).length;
+  const completed = (content.match(completedRegex) || []).length;
 
-interface CategoryInfo {
-  emoji: string;
-  label: string;
-  color: string;
-}
+  if (total === 0) {
+    return { total: 0, completed: 0, percentage: 0 };
+  }
 
-type CategoryKey = 'ons' | 'uff' | 'python' | 'web' | 'spiritual';
-type StatusKey = 'to do' | 'in progress' | 'projetos parados' | 'agentes (c3po, jarvis)' | 'uff - 2025';
-
-// ========== CONSTANTS ==========
-const CATEGORIES: Record<CategoryKey, CategoryInfo> = {
-  'ons': { emoji: '📂', label: 'Relatórios Técnicos ONS', color: 'bg-blue-100 text-blue-800' },
-  'uff': { emoji: '🧪', label: 'Estudos UFF', color: 'bg-purple-100 text-purple-800' },
-  'python': { emoji: '⚙️', label: 'Projetos Python', color: 'bg-green-100 text-green-800' },
-  'web': { emoji: '🚀', label: 'MVP de Aplicações Web', color: 'bg-orange-100 text-orange-800' },
-  'spiritual': { emoji: '🧘‍♂️', label: 'Alinhamento Espiritual', color: 'bg-pink-100 text-pink-800' }
+  const percentage = Math.round((completed / total) * 100);
+  return { total, completed, percentage };
 };
 
-const STATUS_COLUMNS: Record<StatusKey, ColumnInfo> = {
-  'to do': { id: 'todo', title: 'Em Rascunho', emoji: '✏️' },
-  'in progress': { id: 'progress', title: 'Em Análise', emoji: '🔍' },
-  'projetos parados': { id: 'paused', title: 'Projetos Parados', emoji: '⏸️' },
-  'agentes (c3po, jarvis)': { id: 'agents', title: 'Agentes IA', emoji: '🤖' },
-  'uff - 2025': { id: 'uff2025', title: 'UFF 2025', emoji: '🎓' }
-};
-
-const INITIAL_DATA: ProjectItem[] = [
-  {
-    id: '868d3j5vf',
-    title: 'Minicurso Circuitos Eletricos CC',
-    status: 'to do',
-    category: 'uff',
-    content: '# Minicurso Circuitos Elétricos CC\n\n## Objetivos\n- Fundamentos de circuitos CC\n- Análise nodal e de malhas\n- Teoremas de circuitos\n\n## Cronograma\n- [ ] Preparar material teórico\n- [ ] Criar exercícios práticos\n- [ ] Desenvolver simulações',
-    createdAt: new Date('2024-01-10'),
-    updatedAt: new Date('2024-01-15'),
-    files: []
-  },
-  {
-    id: '868d3j6h0',
-    title: '3 Landing Pages Templates (Google Analytics, SEO, Maps, parallax, AstroJS, treejs, boltnew)',
-    status: 'projetos parados',
-    category: 'web',
-    content: '# Landing Pages Templates\n\n## Tecnologias\n- AstroJS\n- Three.js\n- Google Analytics\n- SEO otimizado\n\n## Features\n- Parallax scrolling\n- Mapas integrados\n- Animações 3D\n- Performance otimizada',
-    createdAt: new Date('2024-01-08'),
-    updatedAt: new Date('2024-01-12'),
-    files: []
-  },
-  {
-    id: '868d3j6p1',
-    title: '3 Modelos de IA (ML) - Dashboard Template Streamlit',
-    status: 'agentes (c3po, jarvis)',
-    category: 'python',
-    content: '# Dashboard IA com Streamlit\n\n## Modelos\n1. Previsão de vendas\n2. Análise de sentimentos\n3. Classificação de imagens\n\n## Stack\n- Python\n- Streamlit\n- Scikit-learn\n- Pandas\n- Plotly',
-    createdAt: new Date('2024-01-05'),
-    updatedAt: new Date('2024-01-14'),
-    files: []
-  }
-];
-
-// ========== SERVICES ==========
-class StorageService {
-  private static readonly STORAGE_KEY = 'kanban-projects';
-
-  static saveProjects(projects: ProjectItem[]): void {
-    localStorage.setItem(this.STORAGE_KEY, JSON.stringify(projects));
-  }
-
-  static loadProjects(): ProjectItem[] {
-    const savedData = localStorage.getItem(this.STORAGE_KEY);
-    if (!savedData) return INITIAL_DATA;
-
-    try {
-      const parsed = JSON.parse(savedData);
-      return parsed.map((item: ProjectItem) => ({
-        ...item,
-        createdAt: new Date(item.createdAt),
-        updatedAt: new Date(item.updatedAt)
-      }));
-    } catch {
-      return INITIAL_DATA;
-    }
-  }
-}
-
-class ExcelService {
-  static exportToExcel(projects: ProjectItem[]): void {
-    const exportData = projects.map(item => ({
-      'Título': item.title,
-      'Status': item.status,
-      'ID': item.id,
-      'Categoria': item.category || '',
-      'Criado em': item.createdAt.toLocaleDateString('pt-BR'),
-      'Atualizado em': item.updatedAt.toLocaleDateString('pt-BR'),
-      'Conteúdo': item.content || ''
-    }));
-
-    const ws = XLSX.utils.json_to_sheet(exportData);
-    const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Projetos');
-    XLSX.writeFile(wb, 'kanban-backup.xlsx');
-  }
-
-  static importFromExcel(file: File): Promise<ProjectItem[]> {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-
-      reader.onload = (e) => {
-        try {
-          const data = new Uint8Array(e.target?.result as ArrayBuffer);
-          const workbook = XLSX.read(data, { type: 'array' });
-          const worksheet = workbook.Sheets[workbook.SheetNames[0]];
-          const jsonData = XLSX.utils.sheet_to_json(worksheet);
-
-          const importedProjects: ProjectItem[] = jsonData.map((row: any) => ({
-            id: row['ID'] || Date.now().toString(),
-            title: row['Título'] || 'Sem título',
-            status: row['Status'] || 'to do',
-            category: row['Categoria'] || 'ons',
-            content: row['Conteúdo'] || '',
-            createdAt: new Date(row['Criado em'] || Date.now()),
-            updatedAt: new Date(row['Atualizado em'] || Date.now()),
-            files: []
-          }));
-
-          resolve(importedProjects);
-        } catch (error) {
-          reject(new Error('Erro ao importar arquivo Excel'));
-        }
-      };
-
-      reader.onerror = () => reject(new Error('Erro ao ler arquivo'));
-      reader.readAsArrayBuffer(file);
-    });
-  }
-}
-
-// ========== HOOKS ==========
+// ========== HOOKS ========== 
 const useProjects = () => {
-  const [projects, setProjects] = useState<ProjectItem[]>(() => StorageService.loadProjects());
+  const [projects, setProjects] = useState([]);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    StorageService.saveProjects(projects);
-  }, [projects]);
+    setProjects(projectRepository.loadProjects());
+    setIsLoaded(true);
+  }, []);
 
-  const addProject = (project: ProjectItem) => {
+  useEffect(() => {
+    if (isLoaded) {
+      projectRepository.saveProjects(projects);
+    }
+  }, [projects, isLoaded]);
+
+  const addProject = (project) => {
     setProjects(prev => [...prev, project]);
   };
 
-  const updateProject = (id: string, updates: Partial<ProjectItem>) => {
+  const updateProject = (id, updates) => {
     setProjects(prev => prev.map(item =>
       item.id === id
         ? { ...item, ...updates, updatedAt: new Date() }
@@ -191,11 +63,11 @@ const useProjects = () => {
     ));
   };
 
-  const deleteProject = (id: string) => {
+  const deleteProject = (id) => {
     setProjects(prev => prev.filter(item => item.id !== id));
   };
 
-  const moveProject = (projectId: string, newStatus: string) => {
+  const moveProject = (projectId, newStatus) => {
     updateProject(projectId, { status: newStatus });
   };
 
@@ -209,18 +81,9 @@ const useProjects = () => {
   };
 };
 
-// ========== COMPONENTS ==========
-interface SidebarProps {
-  currentScreen: string;
-  onScreenChange: (screen: string) => void;
-  onExport: () => void;
-  onImport: (file: File) => void;
-  onSync: () => void;
-  isOpen: boolean;
-  onClose: () => void;
-}
-
-const Sidebar: React.FC<SidebarProps> = ({
+// ========== COMPONENTS ========== 
+// Removed interface SidebarProps
+const Sidebar = ({ 
   currentScreen,
   onScreenChange,
   onExport,
@@ -228,14 +91,14 @@ const Sidebar: React.FC<SidebarProps> = ({
   onSync,
   isOpen,
   onClose
-}) => {
-  const fileInputRef = useRef<HTMLInputElement>(null);
+}) => { // Removed React.FC<SidebarProps>
+  const fileInputRef = useRef(null); // Removed type annotation
 
   const handleImportClick = () => {
     fileInputRef.current?.click();
   };
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = (event) => { // Removed type annotation
     const file = event.target.files?.[0];
     if (file) {
       onImport(file);
@@ -270,8 +133,8 @@ className = "lg:hidden p-2 rounded-md text-gray-400 hover:text-gray-600 hover:bg
     </button>
     </div>
 
-    < nav className = "mt-8 px-4" >
-      <div className="space-y-2" >
+    < nav className = "mt-8 px-4" > 
+      <div className="space-y-2" > 
       {
         menuItems.map(({ id, label, icon: Icon }) => (
           <button
@@ -285,23 +148,25 @@ className = {`w-full flex items-center px-4 py-3 text-left rounded-lg transition
   <Icon size={ 20 } className = "mr-3" />
     { label }
     </button>
-            ))}
+            ))
+}
 </div>
 
-  < div className = "mt-8 pt-8 border-t border-gray-200" >
-    <div className="space-y-2" >
+  < div className = "mt-8 pt-8 border-t border-gray-200" > 
+    <div className="space-y-2" > 
     {
       actionItems.map(({ id, label, icon: Icon, onClick, color }) => (
         <button
                   key= { id }
                   onClick = { onClick }
-                  className = {`w-full flex items-center px-4 py-3 text-left rounded-lg transition-colors ${color || 'text-gray-700 hover:bg-gray-100'
+                  className = {`w-full flex items-center px-4 py-3 text-left rounded-lg transition-colors ${color || 'text-gray-700 hover:bg-gray-100'}
           }`}
       >
       <Icon size={ 20 } className = "mr-3" />
         { label }
         </button>
-              ))}
+              ))
+}
 </div>
   </div>
   </nav>
@@ -328,59 +193,62 @@ className = "hidden"
   );
 };
 
-interface ProjectCardProps {
-  project: ProjectItem;
-  onEdit: (project: ProjectItem) => void;
-  onDragStart: (e: React.DragEvent, project: ProjectItem) => void;
-}
-
-const ProjectCard: React.FC<ProjectCardProps> = ({ project, onEdit, onDragStart }) => {
-  const categoryInfo = CATEGORIES[project.category as CategoryKey] || CATEGORIES.ons;
+// Removed interface ProjectCardProps
+const ProjectCard = ({ project, onEdit, onDragStart }) => { // Removed React.FC<ProjectCardProps> and type annotations
+  const categoryInfo = CATEGORIES[project.category] || CATEGORIES.ons; // Removed CategoryKey cast
+  const { total, completed, percentage } = calculateProgress(project.content);
+  const [bgColor] = categoryInfo.color.split(' ');
 
   return (
     <div
       draggable
-      onDragStart = {(e) => onDragStart(e, project)}
-onClick = {() => onEdit(project)}
-className = "bg-gray-50 rounded-lg p-3 cursor-pointer hover:bg-gray-100 transition-all duration-200 hover:shadow-md border border-gray-100 group"
-  >
-  <div className="flex items-start justify-between mb-2" >
-    <div className={ `inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium ${categoryInfo.color}` }>
-      <span>{ categoryInfo.emoji } </span>
+      onDragStart={(e) => onDragStart(e, project)}
+      onClick={() => onEdit(project)}
+      className={`${bgColor} rounded-lg p-3 cursor-pointer hover:brightness-95 transition-all duration-200 hover:shadow-md border-gray-100 group`}
+    >
+      <div className="flex items-start justify-between mb-2">
+        <div className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium ${categoryInfo.color}`}>
+          <span>{categoryInfo.emoji} </span>
+        </div>
+        <GripVertical
+          size={14}
+          className="text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity cursor-move"
+        />
       </div>
-      < GripVertical
-size = { 14}
-className = "text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity cursor-move"
-  />
-  </div>
 
-  < h3 className = "font-medium text-gray-900 mb-2 text-sm line-clamp-2" >
-    { project.title }
-    </h3>
+      <h3 className="font-medium text-gray-900 mb-2 text-sm line-clamp-2">
+        {project.title}
+      </h3>
 
-    < p className = "text-xs text-gray-600 line-clamp-2 mb-2" >
-      {(project.content || '').replace(/[#*`]/g, '').substring(0, 80)}...
-</p>
+      <p className="text-xs text-gray-600 line-clamp-2 mb-2">
+        {(project.content || '').replace(/[#*`]/g, '').substring(0, 80)}...
+      </p>
 
-  < div className = "flex items-center justify-between text-xs text-gray-500" >
-    <span>{ project.updatedAt.toLocaleDateString('pt-BR') } </span>
-    < Edit3 size = { 10} className = "opacity-0 group-hover:opacity-100 transition-opacity" />
+      {total > 0 && (
+        <div className="mt-3">
+          <div className="flex justify-between items-center mb-1">
+            <span className="text-xs font-semibold text-gray-500">Progresso</span>
+            <span className="text-xs font-bold text-gray-600">{completed}/{total}</span>
+          </div>
+          <div className="w-full bg-gray-200/70 rounded-full h-1.5">
+            <div
+              className="bg-blue-600 h-1.5 rounded-full"
+              style={{ width: `${percentage}%` }}
+            ></div>
+          </div>
+        </div>
+      )}
+
+      <div className="flex items-center justify-between text-xs text-gray-500 mt-2">
+        <span>{project.updatedAt.toLocaleDateString('pt-BR')}</span>
+        <Edit3 size={10} className="opacity-0 group-hover:opacity-100 transition-opacity" />
       </div>
-      </div>
+    </div>
   );
 };
 
-interface KanbanColumnProps {
-  status: StatusKey;
-  projects: ProjectItem[];
-  onProjectEdit: (project: ProjectItem) => void;
-  onProjectCreate: (status: string) => void;
-  onDragOver: (e: React.DragEvent) => void;
-  onDrop: (e: React.DragEvent, status: string) => void;
-  onDragStart: (e: React.DragEvent, project: ProjectItem) => void;
-}
-
-const KanbanColumn: React.FC<KanbanColumnProps> = ({
+// Removed interface KanbanColumnProps
+const KanbanColumn = ({ 
   status,
   projects,
   onProjectEdit,
@@ -388,7 +256,7 @@ const KanbanColumn: React.FC<KanbanColumnProps> = ({
   onDragOver,
   onDrop,
   onDragStart
-}) => {
+}) => { // Removed React.FC<KanbanColumnProps> and type annotations
   const columnInfo = STATUS_COLUMNS[status];
 
   return (
@@ -413,7 +281,7 @@ className = "p-1 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded tra
     </button>
     </div>
 
-    < div className = "space-y-3" >
+    < div className = "space-y-3" > 
     {
       projects.map((project) => (
         <ProjectCard
@@ -429,24 +297,17 @@ className = "p-1 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded tra
   );
 };
 
-interface ItemEditorProps {
-  item: ProjectItem | null;
-  isOpen: boolean;
-  onSave: (updates: Partial<ProjectItem>) => void;
-  onDelete: (id: string) => void;
-  onClose: () => void;
-}
-
-const ItemEditor: React.FC<ItemEditorProps> = ({
+// Removed interface ItemEditorProps
+const ItemEditor = ({ 
   item,
   isOpen,
   onSave,
   onDelete,
   onClose
-}) => {
+}) => { // Removed React.FC<ItemEditorProps> and type annotations
   const [editContent, setEditContent] = useState(item?.content || '');
   const [editTitle, setEditTitle] = useState(item?.title || '');
-  const [editCategory, setEditCategory] = useState<CategoryKey>((item?.category as CategoryKey) || 'ons');
+  const [editCategory, setEditCategory] = useState(item?.category || 'ons'); // Removed type annotation and CategoryKey cast
   const [showPreview, setShowPreview] = useState(true);
 
   // Update state when item changes
@@ -454,7 +315,7 @@ const ItemEditor: React.FC<ItemEditorProps> = ({
     if (item) {
       setEditContent(item.content || '');
       setEditTitle(item.title);
-      setEditCategory((item.category as CategoryKey) || 'ons');
+      setEditCategory(item.category || 'ons'); // Removed type annotation and CategoryKey cast
     }
   }, [item]);
 
@@ -524,7 +385,7 @@ placeholder = "Título do item..."
   />
   <select
               value={ editCategory }
-onChange = {(e) => setEditCategory(e.target.value as CategoryKey)}
+onChange = {(e) => setEditCategory(e.target.value)} // Removed CategoryKey cast
 className = "px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
   >
 {
@@ -563,13 +424,13 @@ placeholder = "Escreva seu conteúdo em Markdown..."
           < div className = "flex-1 p-4 border border-gray-200 rounded-md bg-gray-50 overflow-y-auto" >
             <div className="prose prose-sm max-w-none" >
               <ReactMarkdown remarkPlugins={ [remarkGfm] }>
-                { editContent || 'Nada para mostrar...'
-}
+                { editContent || 'Nada para mostrar...' }
 </ReactMarkdown>
   </div>
   </div>
   </div>
-            )}
+            )
+}
 </div>
   </div>
   </div>
@@ -606,14 +467,14 @@ const colorClasses = {
   }
 };
 
-// ========== MAIN APP COMPONENT ==========
+// ========== MAIN APP COMPONENT ========== 
 export default function App() {
   const [currentScreen, setCurrentScreen] = useState('dashboard');
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [editingItem, setEditingItem] = useState<ProjectItem | null>(null);
-  const [draggedItem, setDraggedItem] = useState<ProjectItem | null>(null);
+  const [editingItem, setEditingItem] = useState(null); // Removed type annotation
+  const [draggedItem, setDraggedItem] = useState(null); // Removed type annotation
   const [searchTerm, setSearchTerm] = useState('');
-  const [filterCategory, setFilterCategory] = useState<string>('all');
+  const [filterCategory, setFilterCategory] = useState('all'); // Removed type annotation
 
   const {
     projects,
@@ -626,12 +487,12 @@ export default function App() {
 
   // Event Handlers
   const handleExport = () => {
-    ExcelService.exportToExcel(projects);
+    projectRepository.exportToExcel(projects);
   };
 
-  const handleImport = async (file: File) => {
+  const handleImport = async (file) => { // Removed type annotation
     try {
-      const importedProjects = await ExcelService.importFromExcel(file);
+      const importedProjects = await projectRepository.importFromExcel(file);
       setProjects(importedProjects);
       alert('Dados importados com sucesso!');
     } catch (error) {
@@ -640,21 +501,21 @@ export default function App() {
   };
 
   const handleSync = () => {
-    StorageService.saveProjects(projects);
+    projectRepository.saveProjects(projects);
     alert('Dados sincronizados!');
   };
 
-  const handleDragStart = (e: React.DragEvent, item: ProjectItem) => {
+  const handleDragStart = (e, item) => { // Removed type annotations
     setDraggedItem(item);
     e.dataTransfer.effectAllowed = 'move';
   };
 
-  const handleDragOver = (e: React.DragEvent) => {
+  const handleDragOver = (e) => { // Removed type annotation
     e.preventDefault();
     e.dataTransfer.dropEffect = 'move';
   };
 
-  const handleDrop = (e: React.DragEvent, newStatus: string) => {
+  const handleDrop = (e, newStatus) => { // Removed type annotations
     e.preventDefault();
     if (draggedItem) {
       moveProject(draggedItem.id, newStatus);
@@ -662,28 +523,28 @@ export default function App() {
     }
   };
 
-  const openItemEditor = (item: ProjectItem) => {
+  const openItemEditor = (item) => { // Removed type annotation
     setEditingItem(item);
   };
 
-  const handleSaveItem = (updates: Partial<ProjectItem>) => {
+  const handleSaveItem = (updates) => { // Removed type annotation
     if (editingItem) {
       updateProject(editingItem.id, updates);
     }
   };
 
-  const handleDeleteItem = (itemId: string) => {
+  const handleDeleteItem = (itemId) => { // Removed type annotation
     deleteProject(itemId);
     setEditingItem(null);
   };
 
-  const createNewItem = (status: string) => {
-    const newItem: ProjectItem = {
+  const createNewItem = (status) => { // Removed type annotation
+    const newItem = {
       id: Date.now().toString(),
       title: 'Novo Item',
       status,
       category: 'ons',
-      content: '# Novo Item\n\nDescreva aqui o conteúdo...',
+      content: '# Novo Item\n\nDescreva aqui o conteúdo...', 
       createdAt: new Date(),
       updatedAt: new Date(),
       files: []
@@ -694,7 +555,7 @@ export default function App() {
   };
 
   // Utility Functions
-  const getProjectsByStatus = (status: string) => {
+  const getProjectsByStatus = (status) => { // Removed type annotation
     return projects.filter(item => item.status === status);
   };
 
@@ -719,14 +580,14 @@ export default function App() {
     return Object.keys(STATUS_COLUMNS).reduce((acc, status) => {
       acc[status] = projects.filter(item => item.status === status).length;
       return acc;
-    }, {} as Record<string, number>);
+    }, {}); // Removed type annotation
   };
 
   const getCategoryStats = () => {
     return Object.keys(CATEGORIES).reduce((acc, category) => {
       acc[category] = projects.filter(item => item.category === category).length;
       return acc;
-    }, {} as Record<string, number>);
+    }, {}); // Removed type annotation
   };
 
   // Screen Components
@@ -742,30 +603,64 @@ export default function App() {
         label: 'Total de Projetos',
         value: totalProjects,
         icon: BarChart3,
-        color: 'blue' as const
+        color: 'blue'
       },
       {
         label: 'Em Progresso',
         value: statusStats['in progress'] || 0,
         icon: Clock,
-        color: 'orange' as const
+        color: 'orange'
       },
       {
         label: 'Finalizados',
         value: completedProjects,
         icon: TrendingUp,
-        color: 'green' as const
+        color: 'green'
       },
       {
         label: 'Taxa de Conclusão',
         value: `${progressRate.toFixed(1)}%`,
         icon: Users,
-        color: 'purple' as const
+        color: 'purple'
       }
     ];
 
+    const categoryDataForChart = Object.keys(categoryStats).map((key, index) => ({
+      name: CATEGORIES[key]?.label || key,
+      value: categoryStats[key],
+      fill: `hsl(var(--chart-${index + 1}))`
+    }));
+
+    const getTimeSeriesData = () => {
+        if (!projects || projects.length === 0) return [];
+
+        const statusCountsByDate = projects.reduce((acc, project) => {
+            const date = new Date(project.updatedAt).toISOString().split('T')[0];
+            if (!acc[date]) {
+                acc[date] = {};
+                Object.keys(STATUS_COLUMNS).forEach(status => {
+                    acc[date][STATUS_COLUMNS[status].title] = 0;
+                });
+            }
+            const statusTitle = STATUS_COLUMNS[project.status]?.title;
+            if(statusTitle) {
+                acc[date][statusTitle] = (acc[date][statusTitle] || 0) + 1;
+            }
+            return acc;
+        }, {});
+
+        const chartData = Object.keys(statusCountsByDate).map(date => ({
+            date,
+            ...statusCountsByDate[date]
+        })).sort((a, b) => new Date(a.date) - new Date(b.date));
+
+        return chartData;
+    }
+    
+    const timeSeriesData = getTimeSeriesData();
+
     return (
-      <div className= "p-4 lg:p-6" >
+      <div className="p-4 lg:p-6" >
       <div className="mb-6" >
         <h1 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-2" > Dashboard </h1>
           < p className = "text-gray-600" > Visão geral dos seus projetos e atividades </p>
@@ -792,6 +687,22 @@ export default function App() {
 
 {/* Charts */ }
 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8" >
+  <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200 flex flex-col">
+    <h3 className="text-lg font-semibold text-gray-900 mb-4">Distribuição por Categoria</h3>
+    <div className="flex-1 -mx-4">
+    <ResponsiveContainer width="100%" height={250}>
+        <PieChart>
+          <Pie data={categoryDataForChart} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={80} labelLine={false} label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}>
+            {categoryDataForChart.map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={entry.fill} />
+            ))}
+          </Pie>
+          <Tooltip />
+        </PieChart>
+      </ResponsiveContainer>
+    </div>
+  </div>
+
   <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200" >
     <h3 className="text-lg font-semibold text-gray-900 mb-4" > Status dos Projetos </h3>
       < div className = "space-y-3" >
@@ -804,8 +715,8 @@ export default function App() {
         </div>
         < div className = "flex items-center" >
         <div className="w-24 bg-gray-200 rounded-full h-2 mr-3" >
-        <div 
-                        className="bg-blue-600 h-2 rounded-full" 
+        <div
+                        className="bg-blue-600 h-2 rounded-full"
                         style = {{ width: `${totalProjects > 0 ? (statusStats[status] / totalProjects) * 100 : 0}%` }}
         > </div>
         </div>
@@ -815,39 +726,34 @@ export default function App() {
               ))}
 </div>
   </div>
+  </div>
 
-  < div className = "bg-white rounded-xl p-6 shadow-sm border border-gray-200" >
-    <h3 className="text-lg font-semibold text-gray-900 mb-4" > Categorias </h3>
-      < div className = "space-y-3" >
-      {
-        Object.entries(CATEGORIES).map(([category, info]) => (
-          <div key= { category } className = "flex items-center justify-between" >
-          <div className="flex items-center" >
-        <span className="text-lg mr-2" > { info.emoji } </span>
-        < span className = "text-sm text-gray-600" > { info.label } </span>
-        </div>
-        < div className = "flex items-center" >
-        <div className="w-24 bg-gray-200 rounded-full h-2 mr-3" >
-        <div 
-                        className="bg-green-600 h-2 rounded-full" 
-                        style = {{ width: `${totalProjects > 0 ? (categoryStats[category] / totalProjects) * 100 : 0}%` }}
-        > </div>
-        </div>
-        < span className = "text-sm font-medium text-gray-900" > { categoryStats[category] || 0 } </span>
-          </div>
-          </div>
-              ))}
+{/* Time Series Chart */}
+<div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+    <h3 className="text-lg font-semibold text-gray-900 mb-4">Atividade dos Projetos (Séries Temporais)</h3>
+    <div className="h-80 -mx-4">
+        <ResponsiveContainer width="100%" height="100%">
+            <LineChart data={timeSeriesData} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="date" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                {Object.values(STATUS_COLUMNS).map((statusInfo, index) => (
+                    <Line key={statusInfo.id} type="monotone" dataKey={statusInfo.title} stroke={`hsl(var(--chart-${index + 1}))`} strokeWidth={2} />
+                ))}
+            </LineChart>
+        </ResponsiveContainer>
+    </div>
 </div>
-  </div>
-  </div>
 
 {/* Recent Projects */ }
-<div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200" >
+<div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200 mt-8" >
   <h3 className="text-lg font-semibold text-gray-900 mb-4" > Projetos Recentes </h3>
     < div className = "space-y-3" >
     {
       projects.slice(0, 5).map((project) => {
-        const categoryInfo = CATEGORIES[project.category as CategoryKey] || CATEGORIES.ons;
+        const categoryInfo = CATEGORIES[project.category] || CATEGORIES.ons;
         return (
           <div key= { project.id } className = "flex items-center justify-between p-3 bg-gray-50 rounded-lg" >
             <div className="flex items-center" >
@@ -863,7 +769,8 @@ export default function App() {
       </div>
       </div>
       );
-    })}
+    })
+}
 </div>
   </div>
   </div>
@@ -871,7 +778,7 @@ export default function App() {
   };
 
 const KanbanScreen = () => {
-  const columns = Object.keys(STATUS_COLUMNS) as StatusKey[];
+  const columns = Object.keys(STATUS_COLUMNS); // Removed type annotation
 
   return (
     <div className= "p-4 lg:p-6" >
@@ -915,7 +822,8 @@ const TableScreen = () => {
     <div className="flex flex-col sm:flex-row gap-4" >
       <div className="flex-1" >
         <div className="relative" >
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size = { 20} />
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size = { 20}
+/>
             <input
                   type="text"
   placeholder = "Buscar projetos..."
@@ -960,8 +868,8 @@ className = "w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 foc
                   < tbody className = "bg-white divide-y divide-gray-200" >
                   {
                     filteredProjects.map((project) => {
-                      const categoryInfo = CATEGORIES[project.category as CategoryKey] || CATEGORIES.ons;
-                      const statusInfo = STATUS_COLUMNS[project.status as StatusKey];
+                      const categoryInfo = CATEGORIES[project.category] || CATEGORIES.ons; // Removed CategoryKey cast
+                      const statusInfo = STATUS_COLUMNS[project.status]; // Removed StatusKey cast
 
                       return (
                         <tr key= { project.id } className = "hover:bg-gray-50" >
@@ -1005,7 +913,8 @@ className = "text-red-600 hover:text-red-900 p-1 rounded hover:bg-red-50"
     </td>
     </tr>
                   );
-                })}
+                })
+}
 </tbody>
   </table>
   </div>
@@ -1015,7 +924,7 @@ className = "text-red-600 hover:text-red-900 p-1 rounded hover:bg-red-50"
   };
 
 const FilesScreen = () => {
-  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>, type: 'pdf' | 'image' | 'excel') => {
+  const handleFileUpload = (event, type) => { // Removed type annotations
     const files = event.target.files;
     if (!files) return;
 
@@ -1035,24 +944,24 @@ const FilesScreen = () => {
 
   const uploadSections = [
     {
-      type: 'pdf' as const,
+      type: 'pdf', // Removed 'as const'
       label: 'Upload PDF',
       icon: FilePdf,
-      color: 'red' as const,
+      color: 'red', // Removed 'as const'
       accept: '.pdf'
     },
     {
-      type: 'image' as const,
+      type: 'image', // Removed 'as const'
       label: 'Upload Imagem',
       icon: FileImage,
-      color: 'blue' as const,
+      color: 'blue', // Removed 'as const'
       accept: 'image/*'
     },
     {
-      type: 'excel' as const,
+      type: 'excel', // Removed 'as const'
       label: 'Upload Excel',
       icon: FileSpreadsheet,
-      color: 'green' as const,
+      color: 'green', // Removed 'as const'
       accept: '.xlsx,.xls'
     }
   ];
@@ -1091,7 +1000,8 @@ className = {`inline-flex items-center px-4 py-2 ${colorClasses[color].button} t
     Selecionar { type.toUpperCase() }
 </label>
   </div>
-          ))}
+          ))
+}
 </div>
 
 {/* Markdown Editor for Links */ }
@@ -1105,7 +1015,7 @@ className = {`inline-flex items-center px-4 py-2 ${colorClasses[color].button} t
           < textarea
 placeholder = "Cole aqui seus links e referências em formato Markdown..."
 className = "w-full h-64 p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent font-mono text-sm"
-defaultValue = {`# Links e Referências
+deafaultValue = {`# Links e Referências
 
 ## Documentos PDF
 - [Relatório Técnico ONS](link-para-pdf)
