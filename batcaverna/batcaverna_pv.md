@@ -12,44 +12,43 @@ DATA ATUAL = 18/11/2025
 
 - ONS - Controle Mensal
 - [x] Conslidação Linhas desativadas SECO
-- [ ] VLockUP pandas - formulas Excel - Bulbassaur PVRV - =PROCX(A12;'[Confere barras para PEC Nov - SECO (1).xlsx]Consolidação'!$A:$A;'[Confere barras para PEC Nov - SECO (1).xlsx]Consolidação'!$C:$C;"-";0)
-- [ ] Passar para o Excel online e falar com o Marcos com ajuste de formatação
+- [x] VLockUP pandas - formulas Excel - Bulbassaur PVRV - =PROCX(A12;'[Confere barras para PEC Nov - SECO (1).xlsx]Consolidação'!$A:$A;'[Confere barras para PEC Nov - SECO (1).xlsx]Consolidação'!$C:$C;"-";0)
+- [x] Passar para o Excel online e falar com o Marcos com ajuste de formatação
       
 - ONS - Perdas Duplas (análise de contigencias)
 - [ ] Usar apenas desligamento de torres e não de faixa de passagem
-- [ ] ETL -> PDF -> Excel(meta até aqui) -> Word
-- [ ] Colunas de cada Aba do excel (volume, área geoelétrica, perda dupla e futura) e criar subcategorias
-- [ ] Sem intervenção -> Futura Não | Com intervenção -> Futura SIM
-- [ ] Curto prazo -> Futuro SIM | Médio Prazo -> Futuro Não.
-- [x] Enteder a amostra de dados para ETL
-2	Lista de Contingências Duplas analisadas
-2.1	Volume 2 - Interligação Sul e Sudeste/Centro-Oeste
-2.1.1	Curto Prazo
-•	LT 765 kV Foz do Iguaçu – Ivaiporã C1 e C2
-•	LT 765 kV Foz do Iguaçu – Ivaiporã C1 e C3
-•	LT 765 kV Foz do Iguaçu – Ivaiporã C2 e C3
-•	LT 765 kV Ivaiporã – Itaberá C1 e C2
-•	LT 765 kV Ivaiporã – Itaberá C2 e C3
-•	LT 765 kV Ivaiporã – Itaberá C2 e C3
-•	LT 765 kV Itaberá – Tijuco Preto C1 e C2
-•	Contingência Dupla da LT 500 kV Ibiúna – Bateias 
-•	Contingência Dupla da LT 500 kV Foz do Iguaçu – Guaíra C1 e C2 
-2.1.2	Médio Prazo
-•	Contingência Dupla da LT 500 kV Assis – Ponta Grossa C1 e C2 
-2.2	Volume 3 - Interligações Norte, Nordeste e Sudeste/Centro-Oeste
-•	Não há.
-2.3	Volume 4 - Área 525 kV e Interligações Internacionais da Região Sul
-2.3.1	Curto Prazo
-•	Contingência Dupla da LT 525 kV Abdon Batista – Siderópolis 2 
-•	Contingência Dupla das LT 525 kV Blumenau – Gaspar 2 C2 e LT 525 kV Biguaçu – Gaspar 2 
-•	Contingência Dupla das LT 525 kV Blumenau – Gaspar 2 C1 e LT 525 kV Curitiba – Gaspar 2 
+- [x] ETL -> PDF -> Excel(meta até aqui) -> Word
+- [x] Colunas de cada Aba do excel (volume, área geoelétrica, perda dupla e futura) e criar subcategorias
+- [x] Sem intervenção -> Futura Não | Com intervenção -> Futura SIM
+- [x] Curto prazo -> Futuro SIM | Médio Prazo -> Futuro Não.
+- [x] Enteder a amostra de dados para ETL - "2	Lista de Contingências Duplas analisadas" - pág. 17
 
+- [ ] preciso fazer o ETL de um PDF para Excel com power query ou pandas ou formulas excel e ter o mesmo resultado
 
+- [ ] preciso aprender a usar pyspark com pandas para banco e dados em sqlite3/supabase/excel + localStorage
+
+- [ ] preciso pegar um documento PDF intierio e tranformar cada lista de itens em tabelas
+
+- [ ] e depois com a tabela em excel .xlsx eu quero usar dentro do word template cada tabela pela sua categoria correta (pode ser o nome de cada aba)
+      
 - ONS - Software/Web Developer
-- [ ] MUST Software Desktop (Pyside6 + Access DB + modelagem SQL) - 11/11/25
+- [x] MUST Software Desktop (Pyside6 + Access DB + modelagem SQL) - 11/11/25
+    - documentação + app_desktop com Iframe, Widgets e projetos .zip
 - [ ] Palkia GUI + Console + Backend flask integrado com Dashboard HTML atividades SP
+- [x] Dashboard MUST (Palkia GUI Desktop) ONS - Despacho + MUST PDF extractor ->  Banco de Dados com SQL/Access e relacionamentos com Dashboard final - Projeto Final rodando com .Exe usando banco de dados
+	- [x] Ajustes de app dashboard template + Palkia APP + deck builder
+ 	- [ ] Colocar Links de HTML e Sites WEB no Header do app template
+        
 - [ ] Plugin Organon - Deck Builder + AnaREDE scripts + Fluxo de potencia Organon
-  
+  - [ ] Deploy: Plugin no Organon no notepad++ com scripts básicos de AnaREDE e Organon
+    - [x] Criar .bat e .EXE
+    - [x] Testar e validar no Windows Pessoal com senha de ADM com o script para instalar o plugin
+	- [ ] Testes de casos de uso com AnaREDE e Organon com controle mensal de dados com o novo deckbuilder em notepad++
+	- [x] Decks Organon (3)
+ 	- [x] Decks AnaREDE
+  	- [ ] Scipt automação Pyautogui  	
+	- [x] Deploy: **Plugin no Organon no notepad++ com .EXE** + Manual de casos de uso de deck builer com pastas com arquivos .py, .ipynb e .PDF
+        
 - ONS - IoT Engenheiro de estudos elétricos
   
 - [ ] Flow despacho de cargas
@@ -72,14 +71,6 @@ DATA ATUAL = 18/11/2025
 
 
 - ONS - Cienstista de Dados
-
-- [ ] preciso fazer o ETL de um PDF para Excel com power query ou pandas ou formulas excel e ter o mesmo resultado
-
-- [ ] preciso aprender a usar pyspark com pandas para banco e dados em sqlite3/supabase/excel + localStorage
-
-- [ ] preciso pegar um documento PDF intierio e tranformar cada lista de itens em tabelas
-
-- [ ] e depois com a tabela em excel .xlsx eu quero usar dentro do word template cada tabela pela sua categoria correta (pode ser o nome de cada aba)
 
 
 - ESTUDOS - CODING - PYTHON
@@ -150,24 +141,12 @@ onde \(V\) é a tensão fasorial, \(I^*\) a conjugada do fasor de corrente.
 - ONS
 - [x] Dashboard de graficos de Office Forms (ONS Inspira) - Streamlit + 4 graficos + chatbot RAG
 - [x] ONS INSPIRA - Apresentação + Esboço (Proximos Passos) - 1:30 de tempo de apresentação complementando a fala do Alan
-- [ ] ONS Relatorio Generator + MUST Software com banco de dados  e vindo solicitacoes por email e Controle Dashboard atividades SP
 - [x] Tarefa 1: Mensal -> Desligar linhas de transmissão com obras na coluna 18 dos decks
     - EditCepel -> F1 -> Consulta
       <img width="1042" height="429" alt="image" src="https://github.com/user-attachments/assets/beabb530-d94f-48bc-b105-9684f88abd36" />
+	  
+- [ ] ONS Relatorio Generator + MUST Software com banco de dados  e vindo solicitacoes por email e Controle Dashboard atividades SP
 
-- [ ] Deploy: Plugin no Organon no notepad++ com scripts básicos de AnaREDE e Organon
-    - [x] Criar .bat e .EXE
-    - [x] Testar e validar no Windows Pessoal com senha de ADM com o script para instalar o plugin
-	- [ ] Testes de casos de uso com AnaREDE e Organon com controle mensal de dados com o novo deckbuilder em notepad++
-	- [x] Decks Organon (3)
- 	- [x] Decks AnaREDE
-  	- [ ] Scipt automação Pyautogui  	
-	- [x] Deploy: **Plugin no Organon no notepad++ com .EXE** + Manual de casos de uso de deck builer com pastas com arquivos .py, .ipynb e .PDF
-      
-- [x] Ajustes e organização OneDrive e Pasta /downloads
-- [x] Dashboard MUST (Palkia GUI Desktop) ONS - Despacho + MUST PDF extractor ->  Banco de Dados com SQL/Access e relacionamentos com Dashboard final - Projeto Final rodando com .Exe usando banco de dados
-	- [x] Ajustes de app dashboard template + Palkia APP + deck builder
- 	- [ ] Colocar Links de HTML e Sites WEB no Header do app template 	
 
 - Tarefas Pendentes
 - [ ] LEGENDA VIDEO YOUTUBE
