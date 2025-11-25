@@ -7,16 +7,19 @@ DATA ATUAL = 25/11/2025
 
 # Alinhamento PVRV - Novembro: ONS, UFF, Sáude mental e emocional - Corpo, Mente, Espirito
 
-- ONS - MUST
 - ONS - Controle Mensal
 
 - [X] Conslidação Linhas desativadas SECO
 - [X] VLockUP pandas - formulas Excel - Bulbassaur PVRV - =PROCX(A12;'[Confere barras para PEC Nov - SECO (1).xlsx]Consolidação'!$A:$A;'[Confere barras para PEC Nov - SECO (1).xlsx]Consolidação'!$C:$C;"-";0)
 - [X] Passar para o Excel online e falar com o Marcos com ajuste de formatação
+- [ ] Pedir acesso as ferramentas ONS:
+  - [ ]
+- [ ] Solicitar escrita para uso de emails para Montadores do Mensal PLC
+- [ ] Solicitar acesso ao SIN Integre e saber como pegar e buscar informações lá
 
 - ONS - Perdas Duplas (análise de contigencias)
 
-- [ ] Usar apenas desligamento de torres e não de faixa de passagem
+- [X] Usar apenas desligamento de torres e não de faixa de passagem
 - [X] ETL -> PDF -> Excel(meta até aqui) -> Word
 - [X] Colunas de cada Aba do excel (volume, área geoelétrica, perda dupla e futura) e criar subcategorias
 - [X] Sem intervenção -> Futura Não | Com intervenção -> Futura SIM
