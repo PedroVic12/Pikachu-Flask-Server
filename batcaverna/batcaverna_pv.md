@@ -5,7 +5,7 @@ https://github.com/PedroVic12/Pikachu-Flask-Server/tree/main/batcaverna
 
 Aqui está o [primeiro link][var1]
 
-[var1]: [https://revigorar.reservio.com/]
+[var1]: https://revigorar.reservio.com/
 
 DATA ATUAL = 26/11/2025
 
