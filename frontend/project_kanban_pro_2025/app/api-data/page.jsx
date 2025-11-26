@@ -1,10 +1,9 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { BarChart3 } from 'lucide-react';
 
 // URL da sua API Flask. Certifique-se que seu servidor Python está rodando.
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:5000';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://pikachu-restapi.onrender.com';
 
 const ApiDataScreen = () => {
   const [data, setData] = useState(null);

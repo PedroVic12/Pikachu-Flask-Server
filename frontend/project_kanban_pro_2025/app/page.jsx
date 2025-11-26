@@ -7,10 +7,17 @@ import ApiDataScreen from './api-data/page.jsx';
 
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+
+
+// logica de negocios
+
 import projectRepository, {
   CATEGORIES,
   STATUS_COLUMNS
-} from './Repository.jsx'; // Updated import path
+} from './Repository.jsx'; 
+
+
+
 
 
 
