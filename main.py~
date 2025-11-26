@@ -351,4 +351,4 @@ class FlaskServer:
 
 if __name__ == '__main__':
     server = FlaskServer()
-    server.run(debug=True, port=5000, host = "0.0.0.0")
+    server.run(debug=True, port=5000)

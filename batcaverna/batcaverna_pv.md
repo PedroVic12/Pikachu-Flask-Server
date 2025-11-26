@@ -11,7 +11,6 @@ Altere as colunas do Kanban:
 
 ---
 
-
 ![alt text - ciencia de dados ONS](image-1.png)
 
 ---
@@ -63,14 +62,10 @@ onde \(V\) é a tensão fasorial, \(I^*\) a conjugada do fasor de corrente.
 
 ---
 
-
-
 # Alinhamento PVRV - Novembro: ONS, UFF, Sáude mental e emocional - Corpo, Mente, Espirito
 
 - PVRV (PLANEJAMENTO SEG/SEX)
-https://github.com/neupanic/nextjs-flask-video
-
-
+  https://github.com/neupanic/nextjs-flask-video
 - ONS - Controle Mensal
 
 - [ ] Ver manual Etapas e Cronogramas adpatadas ao Planner: VA, VB, VC, VD, VE, VF
@@ -80,39 +75,31 @@ https://sintegre.ons.org.br/sites/SAPECP
 
 <img width="1286" height="448" alt="image" src="https://github.com/user-attachments/assets/7a9301bb-cba2-466e-a6d6-70a8b4c2cf65" />
 
-
 - [ ] Montagem de casos -> decks com AnaREDE e Organon
 - [ ] Uso de flow para despacho de cargas e analisar decks no anaREDE para casos convergentes
 - [ ] Estudos: Máxima Nortuno/Diurna e Mínima Noturna/diurna
-- [ ] 
-
+- [ ]
 - [X] VLockUP pandas - formulas Excel - Bulbassaur PVRV - =PROCX(A12;'[Confere barras para PEC Nov - SECO (1).xlsx]Consolidação'!$A:$A;'[Confere barras para PEC Nov - SECO (1).xlsx]Consolidação'!$C:$C;"-";0)
-
-- [x] Pedir acesso as ferramentas ONS:
-Preciso solicitar acesso para instalar os seguintes programas:
-- [x]  ANAREDE, EditCepel, Organon
-- [ ]  Flupot, PlotCepel, Anat0 
+- [X] Pedir acesso as ferramentas ONS:
+  Preciso solicitar acesso para instalar os seguintes programas:
+- [X] ANAREDE, EditCepel, Organon
+- [ ] Flupot, PlotCepel, Anat0
 
 Para baixar os instaladores é preciso solicitar ao Adriano (abarbosa@ons.org.br), com cópia ao nosso gerente, acesso à conta Cepel.
 
 CEUS_RIO e CEUS_BSB (SAGE), posteriormente pedir o acesso ao Reger - CEUS Rio e Brasília – e mencionar na solicitação que as informações (usuário, ambiente, perfil e tipo de escopo) são iguais ao do Alexandre Rodrigues Nunes (alexrodrigues@ons.org.br).
- 
-- [x] Instalar PITricks (não precisa ser feito pelo TI): file://ons.org.br/FLN-ARQ/DPL-SUL/_EGS/Banco%20de%20Dados/Macros/Python/PITricks/
-Após a instalação do PItrick, verificar se está funcionando:
-Abra um excel e clique com o botão direito em uma célula.
-Clique em “PItricks” e depois em “Novo”
- 
+
+- [X] Instalar PITricks (não precisa ser feito pelo TI): file://ons.org.br/FLN-ARQ/DPL-SUL/_EGS/Banco%20de%20Dados/Macros/Python/PITricks/
+  Após a instalação do PItrick, verificar se está funcionando:
+  Abra um excel e clique com o botão direito em uma célula.
+  Clique em “PItricks” e depois em “Novo”
 - [ ] Solicitar acesso aos e-mails (e inserir no Outlook Classic) para o TI: mensal@ons.org.br
- 
 - [ ] Pedir ao TI acesso ao SGI-OP e mencionar que o perfil de usuário será o mesmo do Alexandre Rodrigues Nunes (alexrodrigues@ons.org.br).
-      
 - [ ] Pedir acesso ao sistema SAPECP pelo SINtegre
-
 - [ ] Verificar no SINtegre se possui acesso aos seguintes produtos:
-Diretrizes para operação com horizonte mensal
-Casos de Referência do Mensal
-Relatório Mensal do Planejamento da Operação
-
+  Diretrizes para operação com horizonte mensal
+  Casos de Referência do Mensal
+  Relatório Mensal do Planejamento da Operação
 
 - ONS - Perdas Duplas (análise de contigencias)
 
@@ -187,16 +174,14 @@ Projeto 8 - Deploy e Inferência de Modelos de Machine Learning com MLflow e Dat
 - [ ] Dashboard SP com HTML + app template Pyside6 + MUST Controle e Gestão + Lancher AG (RCE) - Arquitetura de Software
 
   - [X] App Template Pyside6
-
-  - [x] CRUD Pyside6 com Sqlite3 e Microsoft Access
-
+  - [X] CRUD Pyside6 com Sqlite3 e Microsoft Access
   - [X] App Template Pyside6 + SQL - MUST Controle e Gestão de Atividades com Chatbot AI com .EXE
-     
-        
+
 - ONS 2025
   - [ ] Pyside6 com modelagem de dados (Sqlite3 + Microsoft Access) + Análise de Contigencias + Controle Atividades SP
   - [ ] Controle  e Gestão Atividades SP + MUST --> Excel To Website and (.PDF + Access)to QT 6 Desktop Deck Builder Organon
   - [X] Gerador de PDF por Template HTML
+
 - [ ] Despacho de cargas - Planejamento Mensal e Semanal - Flow + AnaREDE, AnaTEM e Organon
 - [ ] **Estudos SEP com base fundamental para CA**
 - [ ] Flow ONS V9 - Datasets + Notebooks com análise de dados de carga MW em Horas pelas usinas limpas e renovaveis do BR
@@ -284,7 +269,6 @@ Projeto 8 - Deploy e Inferência de Modelos de Machine Learning com MLflow e Dat
   - [ ] Simulação Deck completo de caso selecionad ano anaRede pare fluxo de potencia Convergente.
   - [ ] Correção VD - Caso 8 -> Convergente e passagem de decks correto com script em python. Validar com Caso 10 -> Bruninho corrigiu com novos decks convergentes
 
-
 ---
 
 # Lista de TAREFAS Pendentes __TODO
@@ -294,7 +278,7 @@ Projeto 8 - Deploy e Inferência de Modelos de Machine Learning com MLflow e Dat
 - [ ] LEGENDA VIDEO YOUTUBE
 - [X] PLANEJAMENTO SEGUNDA + TREINO + METAS + FECHAR 10 ABAS
 - [X] ATUALIZAR E ORGANIZAR ASSUNTOS DO BLOG E KANBAN ONS
-- [x] AJUSTAR PAINEL DE BATCAVERNA COM KANBANPRO
+- [X] AJUSTAR PAINEL DE BATCAVERNA COM KANBANPRO
 - [ ] Blogpedrov12
 
   - [X] SEP para leigos
@@ -313,8 +297,6 @@ Projeto 8 - Deploy e Inferência de Modelos de Machine Learning com MLflow e Dat
   - [ ] Metodos númericos em Matlab para engenharia usando Python
   - [ ] O que são MQQT
     - [ ] https://www.sympla.com.br/play/introducao-ao-protocolo-mqtt/1914654
-
-
 - [X] Kanban/Cronograma -> Organização do cronograma de estudos
 - [ ] Treino de calistenia e calistenia app
 - [ ] Aulas Sinais/cricuitos CC/CA e Eng. Controle + SEP Fundamentals + Metodos numericos com Python
@@ -347,7 +329,6 @@ Projeto 8 - Deploy e Inferência de Modelos de Machine Learning com MLflow e Dat
 - Sesão de ESTUDOS (Matemática, programação e Eng. Elétrica)
 
 - [ ] Atividade IEEEDs = Esp32 + Senoides de corrente em series temporais para modelos de IA (como entrada de dado)
-
 
 ---
 
@@ -469,137 +450,4 @@ Projeto 8 - Deploy e Inferência de Modelos de Machine Learning com MLflow e Dat
 - [X] Treino de calistenia para karate
 - [ ] 2 equações do dia
 - [ ] 2 projetos no dia (backend/frontend)
-
----
-
-# PROGRAMAÇÂO
-
----
-
-# Programação FullStack  (Github) __BACKLOG
-
-- IA e Agentes (Chatbots, N8N, ML, DL, Langchain)
-
-- [ ] Jarvis GPT + Lumina Aurora + Groundon
-- [ ] Langchain + Agno + Streamlit Oráculo
-  - Agentes com Grafos com langGraph
-  - n8n integração
-  - chatbot C3po Streamlit - Oraculo
-- [ ] ML com dados ONS e Kaggle
-
-- Modelos de Machine Learning x Deep Learning
-
-  - Supervisionado
-    - Classificação
-    - Recomendação
-    - Previsão
-    - 
-  - Não Supervisionado
-    - KNN
-    - CNN
-    - Kmeans
-    - Cluster
-  - Métricas de SCORE
-    - Matriz de confusão
-    - F1 Score
-    - ROC
-    - Acuracia
-    - Precisão
-- Dashbaords (HTML/React, Streamlit)
-- IoT e Automação
-
-- [X] Node-RED + N8N + MQTT
-- [ ] ESP32 com API Python
-- [ ] Dashboard IoT em HTML/Flask
-- [ ] Eletronica para Makers
-
-- Algoritimos de Otimização + Métodos Numéricos + Modelagem Matemática
-
-- [X] RCE - AG DEAP + Streamlit | Simulator de Redes Elétricas PandaPower + PySide6
-- [ ] Simulações de Ciencia
-  - (Circuito RLC, RC, EDO com Sympy)
-  - Matriz admitancia e Analise de Malhas CC/CA
-  - Buraco Negro
-  - [x] Orbitas da Terra e Marte (Leis de Keppler e Gravitação)
-
-- Github
-
-- [X] Electrical-System-Simulator
-- [ ] meu-react-app-template (Gohan-Treinamentos, Quizz App, Habits tracker - Iconic)
-- [X] my-flutter-getx-app (Kyogre App, SCRUM Planner App, TodoList App, Controle Financeiro App, Controle Estoque App)
-- [ ] Planilha e Controle financeiro Flutter
-- [X] Pikachu-Flask-Server
-- [X] Batcaverna + Github + Planilha de Horários
-- [ ] Raichu-django-Server (Charizard Drogon C++)
-- [ ] Raichu-Server (FastAPI / Tornado)
-- [ ] Rayquaza Web Server (FastAPI)
-
-- Frontend (HTML/CSS/JS, React, NextJS, Flutter, Astro)
-
-- [ ] Astro blog pedrov12
-- [X] Blog SEP para Leigos NextJS
-- [X] Websites HTML + Flask Pikachu API
-- [X] React Components e Dashboard ONS
-- [ ] Flutter Apps (Calistenia App, App Financeiro, Gohan Treinamentos)
-- [X] DASHBOARD + PalkiaGUI - MUST - ONS (Controle e Gestão Atividades SP e MUST)
-- [X] Frontend: HTML + JS, React, Flutter, Astro, Pyside6, Streamlit
-- [X] sistemas-web-template
-- [X] virtual-shop-Modas Veras (Astro landing Page)
-- [X] WebSites e sistemas web em Astro/NextJS
-- [ ] Gohan Treinamentos
-- [ ] Calistenia App + Goku IA trainer
-- [ ] Gohan Treinamentos + Hobby XP PSI + Calistenia APP + Controle Financeiro + Dashboard com Flutter Getx e Vaden
-
-- Backend (FastAPI, Flask, Django, Tornado, SQL, NodeJS, N8N, Drogon C++)
-
-- [ ] FastAPI Auth + CRUD Supabase
-- [X] Flask API - Pikachu Server
-- [ ] Django Ninja / Tornado Server
-- [ ] Backend: Charizard (Drogon), Pikachu (Flask), Raichu ( FastAPI), Dragonite (Tornado)
-
-- Desktop (PySide6, QT Designer, Access Microsoft DB, SQL)
-
-- [ ] Pyside6 - Eng. Controle + Deck Builder
-- [ ] Qt MVC + SQLAlchemy + Access Integration
-- [ ] Backend com Flask, FastAPI, Django, Ninja, Websockets, Supabase + Redis + SQL
-- [X] Boas práticas com Banco de dados (SQLAlchemy/Sqlite3, Microsoft Access, Excel/LocalStorage) e Python com Pyside6
-- [ ] MVC desktop Apps com C++ Dragon Web Server
-
-# Projetos Portfolio/SAAS (React + Python + SQL) __BACKLOG
-
-- Projetos Pessoais e Portfólio
-
-- [ ] Estudos de frontend com Astro/React, Flutter e MVP em HTML + Bootstrap
-- [ ] Data Driven com metodos SCRUM com organização e planner de projetos PVRV como freelancer e suas tecnologias
-- [X] KanbanPro + Dashboard (HTML/REACT/TAILWIND) - Sistema de produtividade e TCC - Diario de bordo
-
-- ONS, Pesquisa Científica e Cientista de dados
-
-- [ ] Projetos Visão Computacional
-  - Contador de embaixadinhas
-  - Contador de rolinhas (webcam)
-  - Calistenia App
-  - Analise de futebol com tic tac toe com projetor e bola na parede
-- [ ] Projeto Visão computacional com cancer de mamas + Contador de embaixadinhass
-- [ ] IOT E ARDUINO COM WEBSOCKET COM HTML ANALISANDO SERIES TEMPORAIS
-- [ ] CIENTISTA DE DADOS - ML E DATASET ENERGY + CLASSIFICATION + REGRESSION + KMEANS
-- [ ] Projeto IEED - Horta Inteligente
-- [ ] Projeto IEEDs - Controle inteligente de Sensores com dashboard online em HTML
-
-- Freelancer / Negócios / Monetização
-
-- [ ] API REST com Django ninja, FastAPI, Flask, Tornado, Drogon C++
-- [ ] Sistemas de CRUD  (Cadastro de Clientes) e api usando python com Flask/FastAPI com docker e boas práticas de modelagem de banco de dados
-
-- Projetos com Datasets de orgãos publicos
-
-- [ ] Dashboard analise distribuição energético ONS + SIN - Website para leigos
-- [ ] dados publicos gov br
-- [ ] Dados ONS
-- [ ] Dados Kaggle
-- [ ] Dados imagens de Satélites
-
-- Projetos 2026 (backlog)
-- 
-
----
+- [ ]
