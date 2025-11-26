@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip, Legend, LineChart, Line, XAxis, YAxis, CartesianGrid } from 'recharts';
-import { LayoutDashboard, Table, FileText, Kanban, Menu, X, Plus, Edit3, Save, Eye, EyeOff, Trash2, GripVertical, Upload, Download, FolderSync as Sync, BarChart3, TrendingUp, Users, Clock, Search, Filter, MoreVertical, FileImage, FileSpreadsheet, File as FilePdf } from 'lucide-react';
+import { LayoutDashboard, Table, FileText, Kanban, Menu, X, Plus, Edit3, Save, Eye, EyeOff, Trash2, GripVertical, Upload, Download, FolderSync as Sync, BarChart3, TrendingUp, Users, Clock, Search, Filter, MoreVertical, FileImage, FileSpreadsheet, File as FilePdf, Database } from 'lucide-react';
+import ApiDataScreen from './api-data/page.jsx';
 
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -110,7 +111,8 @@ const Sidebar = ({
     { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
     { id: 'kanban', label: 'Kanban', icon: Kanban },
     { id: 'table', label: 'Tabelas', icon: Table },
-    { id: 'files', label: 'Arquivos', icon: FileText }
+    { id: 'files', label: 'Arquivos', icon: FileText },
+    { id: 'api-data', label: 'API', icon: Database }
   ];
 
   const actionItems = [
@@ -1076,6 +1078,8 @@ const renderCurrentScreen = () => {
       return <TableScreen />;
     case 'files':
       return <FilesScreen />;
+    case 'api-data':
+      return <ApiDataScreen />;
     default:
       return <DashboardScreen />;
   }

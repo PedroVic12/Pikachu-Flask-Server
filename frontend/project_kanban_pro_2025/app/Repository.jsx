@@ -3,19 +3,22 @@ import storageController from './StorageController.js';
 
 // ========== CONSTANTS ==========
 export const CATEGORIES = {
-  'ons': { emoji: '📂', label: 'Relatórios Técnicos ONS', color: 'bg-blue-100 text-green-800' },
-  'uff': { emoji: '🧪', label: 'Estudos UFF', color: 'bg-purple-100 text-purple-800' },
+  'ons': { emoji: '📂', label: 'Tarefas PLC ONS', color: 'bg-blue-100 text-green-800' },
+  'uff': { emoji: '🧪', label: 'Estudos UFF - Eng. Elétrica', color: 'bg-purple-100 text-purple-800' },
   'python': { emoji: '⚙️', label: 'Projetos Python', color: 'bg-green-100 text-black-800' },
   'web': { emoji: '🚀', label: 'MVP de Aplicações Web', color: 'bg-orange-100 text-orange-800' },
   'spiritual': { emoji: '🧘‍♂️', label: 'Alinhamento Espiritual', color: 'bg-pink-100 text-pink-800' },
   'pvrv':{ emoji: '🔥', label: 'PVRV', color: 'bg-red-100 text-blue-800' },
+  'js': { emoji: '⚙️', label: 'Projetos Javscript', color: 'bg-green-100 text-black-800' },
+  'data_science': { emoji: '⚙️', label: 'Projetos Data Science', color: 'bg-green-100 text-black-800' },
+
 };
 
 export const STATUS_COLUMNS = {
   'to do': { id: 'todo', title: 'Lista de Tarefas', emoji: '✏️' },
   'in progress': { id: 'progress', title: 'SPRINT Atual', emoji: '🔍' },
   'projetos parados': { id: 'paused', title: 'Projetos Parados', emoji: '⏸️' },
-  'agentes (c3po, jarvis)': { id: 'agents', title: 'Agentes IA', emoji: '🤖' },
+  'agentes': { id: 'agents', title: 'Agentes IA (c3po, jarvis, groundon, lumina Aurora)', emoji: '🤖' },
   'uff - 2025': { id: 'uff2025', title: 'UFF 2025', emoji: '🎓' },
   'ONS - PLC - 2025': { id: 'plc', title: 'ONS PLC', emoji: '🔌' },
   'PVRV - Batcaverna': { id: 'batcaverna', title: 'PVRV', emoji: '🔥' },
