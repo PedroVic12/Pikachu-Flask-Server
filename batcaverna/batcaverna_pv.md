@@ -3,19 +3,88 @@
 Salve esses dados em:
 https://github.com/PedroVic12/Pikachu-Flask-Server/tree/main/batcaverna
 
-DATA ATUAL = 25/11/2025
+DATA ATUAL = 26/11/2025
+
+Altere as colunas do Kanban:
+
+**__BACKLOG, __IN_PROGRESS, __TODO, __COMPLETED**
+
+---
+
+
+![alt text - ciencia de dados ONS](image-1.png)
+
+---
+
+🎌 Filosofia Japonesa do Dia: Kaizen (Melhoria Contínua)
+
+Melhore 1% hoje — no código, na disciplina e na energia interior.
+
+### ⚡ Equações do Dia (LaTeX)
+
+## 1) Lei de Gauss (fluxo elétrico)
+
+A forma integral da Lei de Gauss é:
+
+\[
+\Phi_E = \oint_{\partial V} \mathbf{E}\cdot d\mathbf{A} = \frac{Q_{\text{in}}}{\varepsilon_0}
+\]
+
+Relembre: o fluxo total \(\Phi_E\) sobre uma superfície fechada é proporcional à carga interna \(Q_{in}\).
+
+---
+
+## 2) Potência Complexa em Corrente Alternada
+
+A potência aparente \(S\), ativa \(P\) e reativa \(Q\):
+
+\[
+S = P + jQ = V I^*
+\]
+
+onde \(V\) é a tensão fasorial, \(I^*\) a conjugada do fasor de corrente.
+
+---
+
+📚 Sugestão de Leitura:
+
+“Análise de Sistemas Elétricos de Potência” – William D. Stevenson Jr.
+(Revisar o capítulo sobre Fluxo de Potência e Y-Bus).
+
+# 🧩 Meta de Exercícios:
+
+- [ ] 3 de SEP (fluxo de potência)
+
+2 de Eletromagnetismo (Lei de Gauss e Ampère)
+
+2 de Circuitos (RC e RLC)
+
+1 de Sinais e Sistemas (Laplace e resposta em frequência)
+
+---
+
+
 
 # Alinhamento PVRV - Novembro: ONS, UFF, Sáude mental e emocional - Corpo, Mente, Espirito
 
 - ONS - Controle Mensal
 
-- [X] Conslidação Linhas desativadas SECO
-- [X] VLockUP pandas - formulas Excel - Bulbassaur PVRV - =PROCX(A12;'[Confere barras para PEC Nov - SECO (1).xlsx]Consolidação'!$A:$A;'[Confere barras para PEC Nov - SECO (1).xlsx]Consolidação'!$C:$C;"-";0)
-- [X] Passar para o Excel online e falar com o Marcos com ajuste de formatação
-- [ ] Pedir acesso as ferramentas ONS:
+- [ ] Ver manual Etapas e Cronogramas adpatadas ao Planner
+- [ ] SINTEGRE -> SAPECP (sistema de gestão) -> Baixar arquivos referencia/recebidos (decks)
+<img width="1286" height="448" alt="image" src="https://github.com/user-attachments/assets/7a9301bb-cba2-466e-a6d6-70a8b4c2cf65" />
 
+
+- [ ] Montagem de casos -> decks com AnaREDE e Organon
+- [ ] Uso de flow para despacho de cargas e analisar decks no anaREDE para casos convergentes
+- [ ] Estudos: Máxima Nortuno/Diurna e Mínima Noturna/diurna
+- [ ] 
+
+- [X] VLockUP pandas - formulas Excel - Bulbassaur PVRV - =PROCX(A12;'[Confere barras para PEC Nov - SECO (1).xlsx]Consolidação'!$A:$A;'[Confere barras para PEC Nov - SECO (1).xlsx]Consolidação'!$C:$C;"-";0)
+
+- [x] Pedir acesso as ferramentas ONS:
 Preciso solicitar acesso para instalar os seguintes programas:
-- [x]  ANAREDE, ANATEM, EditCepel, Flupot, PlotCepel, Anat0 
+- [x]  ANAREDE, EditCepel, Organon
+- [ ]  Flupot, PlotCepel, Anat0 
 
 Para baixar os instaladores é preciso solicitar ao Adriano (abarbosa@ons.org.br), com cópia ao nosso gerente, acesso à conta Cepel.
 
@@ -26,16 +95,17 @@ Após a instalação do PItrick, verificar se está funcionando:
 Abra um excel e clique com o botão direito em uma célula.
 Clique em “PItricks” e depois em “Novo”
  
-- [x] Solicitar acesso aos e-mails (e inserir no Outlook Classic) para o TI: mensal@ons.org.br
+- [ ] Solicitar acesso aos e-mails (e inserir no Outlook Classic) para o TI: mensal@ons.org.br
  
-- [x] Pedir ao TI acesso ao SGI-OP e mencionar que o perfil de usuário será o mesmo do Alexandre Rodrigues Nunes (alexrodrigues@ons.org.br).
- 
-- [x] Verificar no SINtegre se possui acesso aos seguintes produtos:
+- [ ] Pedir ao TI acesso ao SGI-OP e mencionar que o perfil de usuário será o mesmo do Alexandre Rodrigues Nunes (alexrodrigues@ons.org.br).
+      
+- [ ] Pedir acesso ao sistema SAPECP pelo SINtegre
+
+- [ ] Verificar no SINtegre se possui acesso aos seguintes produtos:
 Diretrizes para operação com horizonte mensal
 Casos de Referência do Mensal
 Relatório Mensal do Planejamento da Operação
 
-- [ ] Pedir acesso ao sistema SAPECP pelo SINTEGRE
 
 - ONS - Perdas Duplas (análise de contigencias)
 
@@ -102,57 +172,6 @@ Projeto 5 - Otimização de Pipeline ETL e Machine Learning com PySpark
 Projeto 6 - Pipeline de Coleta, Transformação e Modelagem Preditiva em Tempo Real com Spark Streaming e TensorFlow
 Projeto 7 - Data Lakehouse Time Travel com Apache Spark e Delta Lake
 Projeto 8 - Deploy e Inferência de Modelos de Machine Learning com MLflow e Databricks
-
-![alt text - ciencia de dados ONS](image-1.png)
-
----
-
-🎌 Filosofia Japonesa do Dia: Kaizen (Melhoria Contínua)
-
-Melhore 1% hoje — no código, na disciplina e na energia interior.
-
-### ⚡ Equações do Dia (LaTeX)
-
-## 1) Lei de Gauss (fluxo elétrico)
-
-A forma integral da Lei de Gauss é:
-
-\[
-\Phi_E = \oint_{\partial V} \mathbf{E}\cdot d\mathbf{A} = \frac{Q_{\text{in}}}{\varepsilon_0}
-\]
-
-Relembre: o fluxo total \(\Phi_E\) sobre uma superfície fechada é proporcional à carga interna \(Q_{in}\).
-
----
-
-## 2) Potência Complexa em Corrente Alternada
-
-A potência aparente \(S\), ativa \(P\) e reativa \(Q\):
-
-\[
-S = P + jQ = V I^*
-\]
-
-onde \(V\) é a tensão fasorial, \(I^*\) a conjugada do fasor de corrente.
-
----
-
-📚 Sugestão de Leitura:
-
-“Análise de Sistemas Elétricos de Potência” – William D. Stevenson Jr.
-(Revisar o capítulo sobre Fluxo de Potência e Y-Bus).
-
-# 🧩 Meta de Exercícios:
-
-- [ ] 3 de SEP (fluxo de potência)
-
-2 de Eletromagnetismo (Lei de Gauss e Ampère)
-
-2 de Circuitos (RC e RLC)
-
-1 de Sinais e Sistemas (Laplace e resposta em frequência)
-
----
 
 # Lista de TAREFAS Pendentes __TODO
 
