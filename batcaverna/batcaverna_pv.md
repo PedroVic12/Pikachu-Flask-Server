@@ -67,11 +67,17 @@ onde \(V\) é a tensão fasorial, \(I^*\) a conjugada do fasor de corrente.
 
 # Alinhamento PVRV - Novembro: ONS, UFF, Sáude mental e emocional - Corpo, Mente, Espirito
 
+- PVRV (PLANEJAMENTO SEG/SEX)
+https://github.com/neupanic/nextjs-flask-video
+
 
 - ONS - Controle Mensal
 
 - [ ] Ver manual Etapas e Cronogramas adpatadas ao Planner: VA, VB, VC, VD, VE, VF
-- [ ] SINTEGRE -> SAPECP (sistema de gestão) -> Baixar arquivos referencia/recebidos (decks)
+- [ ] SINTEGRE -> SAPECP (sistema de gestão) -> Baixar arquivos referencia/recebidos (decks):
+
+https://sintegre.ons.org.br/sites/SAPECP
+
 <img width="1286" height="448" alt="image" src="https://github.com/user-attachments/assets/7a9301bb-cba2-466e-a6d6-70a8b4c2cf65" />
 
 
