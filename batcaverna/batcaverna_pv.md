@@ -14,28 +14,27 @@ DATA ATUAL = 25/11/2025
 - [X] Passar para o Excel online e falar com o Marcos com ajuste de formatação
 - [ ] Pedir acesso as ferramentas ONS:
 
-Solicitar ao TI para instalar os seguintes programas:
-ANAREDE, ANATEM, EditCepel, Flupot, PlotCepel, Anat0 (recentemente não foi possível instalar o Anat0). 
+Preciso solicitar acesso para instalar os seguintes programas:
+- [x]  ANAREDE, ANATEM, EditCepel, Flupot, PlotCepel, Anat0 
+
 Para baixar os instaladores é preciso solicitar ao Adriano (abarbosa@ons.org.br), com cópia ao nosso gerente, acesso à conta Cepel.
+
 CEUS_RIO e CEUS_BSB (SAGE), posteriormente pedir o acesso ao Reger - CEUS Rio e Brasília – e mencionar na solicitação que as informações (usuário, ambiente, perfil e tipo de escopo) são iguais ao do Alexandre Rodrigues Nunes (alexrodrigues@ons.org.br).
  
-Instalar PITricks (não precisa ser feito pelo TI): file://ons.org.br/FLN-ARQ/DPL-SUL/_EGS/Banco%20de%20Dados/Macros/Python/PITricks/
+- [x] Instalar PITricks (não precisa ser feito pelo TI): file://ons.org.br/FLN-ARQ/DPL-SUL/_EGS/Banco%20de%20Dados/Macros/Python/PITricks/
 Após a instalação do PItrick, verificar se está funcionando:
 Abra um excel e clique com o botão direito em uma célula.
 Clique em “PItricks” e depois em “Novo”
  
-Solicitar acesso aos e-mails (e inserir no Outlook Classic) para o TI:
-mensal@ons.org.br
+- [x] Solicitar acesso aos e-mails (e inserir no Outlook Classic) para o TI: mensal@ons.org.br
  
-Pedir ao TI acesso ao SGI-OP e mencionar que o perfil de usuário será o mesmo do Alexandre Rodrigues Nunes (alexrodrigues@ons.org.br).
+- [x] Pedir ao TI acesso ao SGI-OP e mencionar que o perfil de usuário será o mesmo do Alexandre Rodrigues Nunes (alexrodrigues@ons.org.br).
  
-Verificar no SINtegre se possui acesso aos seguintes produtos:
+- [x] Verificar no SINtegre se possui acesso aos seguintes produtos:
 Diretrizes para operação com horizonte mensal
 Casos de Referência do Mensal
 Relatório Mensal do Planejamento da Operação
 
- 
-- [ ] Solicitar escrita para uso de emails para Montadores do Mensal PLC
 - [ ] Pedir acesso ao sistema SAPECP pelo SINTEGRE
 
 - ONS - Perdas Duplas (análise de contigencias)
