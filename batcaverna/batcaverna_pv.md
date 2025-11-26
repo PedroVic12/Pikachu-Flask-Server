@@ -3,6 +3,10 @@
 Salve esses dados em:
 https://github.com/PedroVic12/Pikachu-Flask-Server/tree/main/batcaverna
 
+Aqui está o [primeiro link][var1]
+
+[var1]: [https://example.org](https://revigorar.reservio.com/)
+
 DATA ATUAL = 26/11/2025
 
 Altere as colunas do Kanban:
