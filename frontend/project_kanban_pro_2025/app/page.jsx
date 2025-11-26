@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip, Legend, LineChart, Line, XAxis, YAxis, CartesianGrid } from 'recharts';
 import { LayoutDashboard, Table, FileText, Kanban, Menu, X, Plus, Edit3, Save, Eye, EyeOff, Trash2, GripVertical, Upload, Download, FolderSync as Sync, BarChart3, TrendingUp, Users, Clock, Search, Filter, MoreVertical, FileImage, FileSpreadsheet, File as FilePdf, Database } from 'lucide-react';
 import ApiDataScreen from './api-data/page.jsx';
+import OlaMundo from './OlaMundo.jsx';
 
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -670,10 +671,15 @@ export default function App() {
 
     return (
       <div className="p-4 lg:p-6" >
-      <div className="mb-6" >
-        <h1 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-2" > Dashboard </h1>
-          < p className = "text-gray-600" > Visão geral dos seus projetos e atividades </p>
-            </div>
+        {/* Exemplo de como usar a nova tela */}
+        <div className="mb-8">
+          <OlaMundo />
+        </div>
+
+        <div className="mb-6" >
+          <h1 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-2" > Dashboard </h1>
+          <p className="text-gray-600" > Visão geral dos seus projetos e atividades </p>
+        </div>
 
     {/* Stats Cards */ }
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8" >

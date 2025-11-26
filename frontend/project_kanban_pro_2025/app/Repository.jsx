@@ -26,12 +26,37 @@ export const STATUS_COLUMNS = {
 
 // ========== REPOSITORY CLASS ==========
 class ProjectRepository {
-  loadProjects() {
-    return storageController.loadProjects();
+  async loadProjects() {
+    try {
+      const response = await fetch('/api/excel/load');
+      if (!response.ok) {
+        // Se o arquivo não existir no backend, ele retorna um erro que podemos ignorar
+        console.warn("Arquivo 'kanban_data.xlsx' não encontrado no backend, começando com um array vazio.");
+        return [];
+      }
+      const data = await response.json();
+      // Garante que as datas sejam objetos Date
+      return data.map(p => ({
+        ...p,
+        createdAt: new Date(p.createdAt),
+        updatedAt: new Date(p.updatedAt),
+      }));
+    } catch (error) {
+      console.error("Erro ao carregar projetos da API do Excel:", error);
+      return []; // Em caso de qualquer outro erro, retorna uma lista vazia
+    }
   }
 
-  saveProjects(projects) {
-    storageController.saveProjects(projects);
+  async saveProjects(projects) {
+    try {
+      await fetch('/api/excel/save', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(projects)
+      });
+    } catch (error) {
+      console.error("Erro ao salvar projetos na API do Excel:", error);
+    }
   }
 
   exportToExcel(projects) {

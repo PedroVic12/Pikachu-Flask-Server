@@ -5,6 +5,7 @@ from controllers.routes import setup_routes
 from backend.controllers.floricultura_routes import floricultura_bp
 from backend.controllers.api_routes import api_bp
 from backend.controllers.ia_routes import ia_bp
+from backend.controllers.excel_routes import excel_bp
 import os
 import json
 
@@ -52,6 +53,7 @@ setup_routes(app, db.session)
 app.register_blueprint(floricultura_bp, url_prefix='/floricultura')
 app.register_blueprint(api_bp, url_prefix='/api')
 app.register_blueprint(ia_bp, url_prefix='/api/ia')
+app.register_blueprint(excel_bp, url_prefix='/api/excel')
 
 # Rota para servir o Frontend Next.js
 @app.route('/', defaults={'path': ''})
