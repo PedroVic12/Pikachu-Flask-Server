@@ -67,9 +67,10 @@ onde \(V\) é a tensão fasorial, \(I^*\) a conjugada do fasor de corrente.
 
 # Alinhamento PVRV - Novembro: ONS, UFF, Sáude mental e emocional - Corpo, Mente, Espirito
 
+
 - ONS - Controle Mensal
 
-- [ ] Ver manual Etapas e Cronogramas adpatadas ao Planner
+- [ ] Ver manual Etapas e Cronogramas adpatadas ao Planner: VA, VB, VC, VD, VE, VF
 - [ ] SINTEGRE -> SAPECP (sistema de gestão) -> Baixar arquivos referencia/recebidos (decks)
 <img width="1286" height="448" alt="image" src="https://github.com/user-attachments/assets/7a9301bb-cba2-466e-a6d6-70a8b4c2cf65" />
 
@@ -173,50 +174,10 @@ Projeto 6 - Pipeline de Coleta, Transformação e Modelagem Preditiva em Tempo R
 Projeto 7 - Data Lakehouse Time Travel com Apache Spark e Delta Lake
 Projeto 8 - Deploy e Inferência de Modelos de Machine Learning com MLflow e Databricks
 
-# Lista de TAREFAS Pendentes __TODO
-
-- ONS
-
-- [X] Dashboard de graficos de Office Forms (ONS Inspira) - Streamlit + 4 graficos + chatbot RAG
-- [X] ONS INSPIRA - Apresentação + Esboço (Proximos Passos) - 1:30 de tempo de apresentação complementando a fala do Alan
-- [X] Tarefa 1: Mensal -> Desligar linhas de transmissão com obras na coluna 18 dos decks
-
-  - EditCepel -> F1 -> Consulta
-    `<img width="1042" height="429" alt="image" src="https://github.com/user-attachments/assets/beabb530-d94f-48bc-b105-9684f88abd36" />`
-- [ ] ONS Relatorio Generator + MUST Software com banco de dados  e vindo solicitacoes por email e Controle Dashboard atividades SP
-
-- Tarefas Pendentes
-
-- [ ] LEGENDA VIDEO YOUTUBE
-- [X] PLANEJAMENTO SEGUNDA + TREINO + METAS + FECHAR 10 ABAS
-- [X] ATUALIZAR E ORGANIZAR ASSUNTOS DO BLOG E KANBAN ONS
-- [x] AJUSTAR PAINEL DE BATCAVERNA COM KANBANPRO
-- [ ] Blogpedrov12
-
-  - [X] SEP para leigos
-  - [ ] COP30 + Transição Enérgetca no BR
-  - [ ] O que são algoriitmos de AG e como usar isso na Eng. Elétrica para agendamento otimo de SEP (video yt)
-    - [ ] https://alexandremundim.medium.com/algoritmo-gen%C3%A9tico-na-pr%C3%A1tica-com-python-e24d2b1254d8
-    - [ ] notebook AG - DEAP
-    - [ ] IEEE cases with RCE Pyside6
-    - [ ] SIN45 app template with Lancher refatorado
-  - [ ] Análise de contigencias com SN 45 com pandapower + Deckbuiler para o AnaREDE
-  - [ ] Matriz admtancia + Geração x Tranmião e Distrbuição SIN pelo ONS
-  - [ ] Mincurso CC + arduino + python
-    - [ ] https://www.falstad.com/circuit/circuitjs.html
-    - [ ] Regra de Crammer
-    - [ ] EDO sistemas 1 e 2 ordem com RLC e RC plots e respostas da EDO
-  - [ ] Metodos númericos em Matlab para engenharia usando Python
-  - [ ] O que são MQQT
-    - [ ] https://www.sympla.com.br/play/introducao-ao-protocolo-mqtt/1914654
-
 - SOFTWARE DEVELOPER
 
 - [X] Análise e Leitura do plano de Montagem de Quadros Mensal - dezembro com Organon, Flow e AnaREDE
 - [X] Testes de UI com PySIde6 para MUST controle e gestão
-
-- ONS 2025
-
 - [ ] Dashboard SP com HTML + app template Pyside6 + MUST Controle e Gestão + Lancher AG (RCE) - Arquitetura de Software
 
   - [X] App Template Pyside6
@@ -224,6 +185,9 @@ Projeto 8 - Deploy e Inferência de Modelos de Machine Learning com MLflow e Dat
   - [x] CRUD Pyside6 com Sqlite3 e Microsoft Access
 
   - [X] App Template Pyside6 + SQL - MUST Controle e Gestão de Atividades com Chatbot AI com .EXE
+     
+        
+- ONS 2025
   - [ ] Pyside6 com modelagem de dados (Sqlite3 + Microsoft Access) + Análise de Contigencias + Controle Atividades SP
   - [ ] Controle  e Gestão Atividades SP + MUST --> Excel To Website and (.PDF + Access)to QT 6 Desktop Deck Builder Organon
   - [X] Gerador de PDF por Template HTML
@@ -235,46 +199,6 @@ Projeto 8 - Deploy e Inferência de Modelos de Machine Learning com MLflow e Dat
 - [X] Planejamento e Metas (Segunda/Sexta)
 - [X] Análise de contigencias - Perdas Duplas
 - [ ] MUST - Ponta e fora ponta ate 2030 com Controle e gestão de aprovação de documentos PDF com ou sem Ressalva.
-- [X] Kanban/Cronograma -> Organização do cronograma de estudos
-- [ ] Treino de calistenia e calistenia app
-- [ ] Aulas Sinais/cricuitos CC/CA e Eng. Controle + SEP Fundamentals + Metodos numericos com Python
-- [ ] Atividade ML de IEEEDs e principais modelo de AI de Supevisionado x Não Supervisionado (Com Rótulos x Sem Rótulos)
-- [ ] Chatbot Groundon, Lumina Aurora (Gemini) + Jarvis (GPT) + Copilot (copilot/cursor) with updates
-- [ ] Corpo x Mente x Espirito -> Jobs, Coding, Studying, Creative, In Shape
-- [X] Todos websistes unificados a Pikachu Flask API Server + github batcaverna
-- [ ] Grondon Chabtot, Jarvis Chatbot, Lumina Aurora Chatbot
-- [X] N8N x Node-Red + webhook + MQQT + Esp32
-- [ ] Pyside6 - Eng. Controle com EDO e Equações de SEP
-- [X] Nextjs Website + MVP HTML templates (SEP do SIN da ONS para leigos)
-- [ ] Teoria de controle de engenharia moderno
-- [ ] Proteção de SEP e monitoramento area SP
-- [ ] Processamento de imagens de satélites com Python
-- [ ] Bots e RPA com Python
-- [ ] Estudos de IA, ML, DL, Chatbots, N8N, AI agentes frameworks (Agno/Langchain)
-- [X] PROGRAMAÇÃO FRONTEND
-- [X] PROGRAMAÇÃO BACKEND
-
-- Solver ML/DL para cada X,Y de conjunto de dado
-- Engenharia Elétrica
-
-- [ ] Aulas CC/ CA - Sadiku
-- [ ] Eng. Controle Moderno - Ogata
-- [ ] Elementos do eletromag - Sadiku + Jorge
-- [ ] Sinais e sistemas
-- [ ] Eletronica para makers
-- [X] Edge impulse + Series Temporais + IoT + ML para Eng Eletrica
-
-- Sesão de ESTUDOS (Matemática, programação e Eng. Elétrica)
-
-- [ ] Atividade IEEEDs = Esp32 + Senoides de corrente em series temporais para modelos de IA (como entrada de dado)
-
----
-
----
-
-# LEGADO - ENG. ELÉTRICA - UFF, ONS, PIBIC, IoT Smart Grids
-
----
 
 # Estágio ONS __IN_PROGRESS
 
@@ -353,7 +277,77 @@ Projeto 8 - Deploy e Inferência de Modelos de Machine Learning com MLflow e Dat
       ![alt text](image.png)
   - [ ] Simulação Deck completo de caso selecionad ano anaRede pare fluxo de potencia Convergente.
   - [ ] Correção VD - Caso 8 -> Convergente e passagem de decks correto com script em python. Validar com Caso 10 -> Bruninho corrigiu com novos decks convergentes
-  - [ ] Montagem VE - AnaTEM ->
+
+
+---
+
+# Lista de TAREFAS Pendentes __TODO
+
+- Tarefas Pendentes
+
+- [ ] LEGENDA VIDEO YOUTUBE
+- [X] PLANEJAMENTO SEGUNDA + TREINO + METAS + FECHAR 10 ABAS
+- [X] ATUALIZAR E ORGANIZAR ASSUNTOS DO BLOG E KANBAN ONS
+- [x] AJUSTAR PAINEL DE BATCAVERNA COM KANBANPRO
+- [ ] Blogpedrov12
+
+  - [X] SEP para leigos
+  - [ ] COP30 + Transição Enérgetca no BR
+  - [ ] O que são algoriitmos de AG e como usar isso na Eng. Elétrica para agendamento otimo de SEP (video yt)
+    - [ ] https://alexandremundim.medium.com/algoritmo-gen%C3%A9tico-na-pr%C3%A1tica-com-python-e24d2b1254d8
+    - [ ] notebook AG - DEAP
+    - [ ] IEEE cases with RCE Pyside6
+    - [ ] SIN45 app template with Lancher refatorado
+  - [ ] Análise de contigencias com SN 45 com pandapower + Deckbuiler para o AnaREDE
+  - [ ] Matriz admtancia + Geração x Tranmião e Distrbuição SIN pelo ONS
+  - [ ] Mincurso CC + arduino + python
+    - [ ] https://www.falstad.com/circuit/circuitjs.html
+    - [ ] Regra de Crammer
+    - [ ] EDO sistemas 1 e 2 ordem com RLC e RC plots e respostas da EDO
+  - [ ] Metodos númericos em Matlab para engenharia usando Python
+  - [ ] O que são MQQT
+    - [ ] https://www.sympla.com.br/play/introducao-ao-protocolo-mqtt/1914654
+
+
+- [X] Kanban/Cronograma -> Organização do cronograma de estudos
+- [ ] Treino de calistenia e calistenia app
+- [ ] Aulas Sinais/cricuitos CC/CA e Eng. Controle + SEP Fundamentals + Metodos numericos com Python
+- [ ] Atividade ML de IEEEDs e principais modelo de AI de Supevisionado x Não Supervisionado (Com Rótulos x Sem Rótulos)
+- [ ] Chatbot Groundon, Lumina Aurora (Gemini) + Jarvis (GPT) + Copilot (copilot/cursor) with updates
+- [ ] Corpo x Mente x Espirito -> Jobs, Coding, Studying, Creative, In Shape
+- [X] Todos websistes unificados a Pikachu Flask API Server + github batcaverna
+- [ ] Grondon Chabtot, Jarvis Chatbot, Lumina Aurora Chatbot
+- [X] N8N x Node-Red + webhook + MQQT + Esp32
+- [ ] Pyside6 - Eng. Controle com EDO e Equações de SEP
+- [X] Nextjs Website + MVP HTML templates (SEP do SIN da ONS para leigos)
+- [ ] Teoria de controle de engenharia moderno
+- [ ] Proteção de SEP e monitoramento area SP
+- [ ] Processamento de imagens de satélites com Python
+- [ ] Bots e RPA com Python
+- [ ] Estudos de IA, ML, DL, Chatbots, N8N, AI agentes frameworks (Agno/Langchain)
+- [X] PROGRAMAÇÃO FRONTEND
+- [X] PROGRAMAÇÃO BACKEND
+
+- Solver ML/DL para cada X,Y de conjunto de dado
+- Engenharia Elétrica
+
+- [ ] Aulas CC/ CA - Sadiku
+- [ ] Eng. Controle Moderno - Ogata
+- [ ] Elementos do eletromag - Sadiku + Jorge
+- [ ] Sinais e sistemas
+- [ ] Eletronica para makers
+- [X] Edge impulse + Series Temporais + IoT + ML para Eng Eletrica
+
+- Sesão de ESTUDOS (Matemática, programação e Eng. Elétrica)
+
+- [ ] Atividade IEEEDs = Esp32 + Senoides de corrente em series temporais para modelos de IA (como entrada de dado)
+
+
+---
+
+# LEGADO - ENG. ELÉTRICA - UFF, ONS, PIBIC, IoT Smart Grids
+
+---
 
 # Eng. Elétrica UFF 2025 __IN_PROGRESS
 
