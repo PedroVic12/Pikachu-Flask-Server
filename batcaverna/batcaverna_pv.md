@@ -13,9 +13,30 @@ DATA ATUAL = 25/11/2025
 - [X] VLockUP pandas - formulas Excel - Bulbassaur PVRV - =PROCX(A12;'[Confere barras para PEC Nov - SECO (1).xlsx]Consolidação'!$A:$A;'[Confere barras para PEC Nov - SECO (1).xlsx]Consolidação'!$C:$C;"-";0)
 - [X] Passar para o Excel online e falar com o Marcos com ajuste de formatação
 - [ ] Pedir acesso as ferramentas ONS:
-  - [ ]
+
+Solicitar ao TI para instalar os seguintes programas:
+ANAREDE, ANATEM, EditCepel, Flupot, PlotCepel, Anat0 (recentemente não foi possível instalar o Anat0). 
+Para baixar os instaladores é preciso solicitar ao Adriano (abarbosa@ons.org.br), com cópia ao nosso gerente, acesso à conta Cepel.
+CEUS_RIO e CEUS_BSB (SAGE), posteriormente pedir o acesso ao Reger - CEUS Rio e Brasília – e mencionar na solicitação que as informações (usuário, ambiente, perfil e tipo de escopo) são iguais ao do Alexandre Rodrigues Nunes (alexrodrigues@ons.org.br).
+ 
+Instalar PITricks (não precisa ser feito pelo TI): file://ons.org.br/FLN-ARQ/DPL-SUL/_EGS/Banco%20de%20Dados/Macros/Python/PITricks/
+Após a instalação do PItrick, verificar se está funcionando:
+Abra um excel e clique com o botão direito em uma célula.
+Clique em “PItricks” e depois em “Novo”
+ 
+Solicitar acesso aos e-mails (e inserir no Outlook Classic) para o TI:
+mensal@ons.org.br
+ 
+Pedir ao TI acesso ao SGI-OP e mencionar que o perfil de usuário será o mesmo do Alexandre Rodrigues Nunes (alexrodrigues@ons.org.br).
+ 
+Verificar no SINtegre se possui acesso aos seguintes produtos:
+Diretrizes para operação com horizonte mensal
+Casos de Referência do Mensal
+Relatório Mensal do Planejamento da Operação
+
+ 
 - [ ] Solicitar escrita para uso de emails para Montadores do Mensal PLC
-- [ ] Solicitar acesso ao SIN Integre e saber como pegar e buscar informações lá
+- [ ] Pedir acesso ao sistema SAPECP pelo SINTEGRE
 
 - ONS - Perdas Duplas (análise de contigencias)
 
@@ -151,7 +172,7 @@ onde \(V\) é a tensão fasorial, \(I^*\) a conjugada do fasor de corrente.
 - [ ] LEGENDA VIDEO YOUTUBE
 - [X] PLANEJAMENTO SEGUNDA + TREINO + METAS + FECHAR 10 ABAS
 - [X] ATUALIZAR E ORGANIZAR ASSUNTOS DO BLOG E KANBAN ONS
-- [ ] AJUSTAR PAINEL DE BATCAVERNA COM KANBANPRO
+- [x] AJUSTAR PAINEL DE BATCAVERNA COM KANBANPRO
 - [ ] Blogpedrov12
 
   - [X] SEP para leigos
@@ -182,13 +203,11 @@ onde \(V\) é a tensão fasorial, \(I^*\) a conjugada do fasor de corrente.
 
   - [X] App Template Pyside6
 
-  - CRUD Pyside6 com Sqlite3 e Microsoft Access
+  - [x] CRUD Pyside6 com Sqlite3 e Microsoft Access
 
-  - [ ] MUST Modelagem de Dados SQL + Streamlit
   - [X] App Template Pyside6 + SQL - MUST Controle e Gestão de Atividades com Chatbot AI com .EXE
   - [ ] Pyside6 com modelagem de dados (Sqlite3 + Microsoft Access) + Análise de Contigencias + Controle Atividades SP
   - [ ] Controle  e Gestão Atividades SP + MUST --> Excel To Website and (.PDF + Access)to QT 6 Desktop Deck Builder Organon
-  - [ ] Must Desktop App Excel, Deck BUilder.
   - [X] Gerador de PDF por Template HTML
 - [ ] Despacho de cargas - Planejamento Mensal e Semanal - Flow + AnaREDE, AnaTEM e Organon
 - [ ] **Estudos SEP com base fundamental para CA**
