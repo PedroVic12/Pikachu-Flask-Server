@@ -49,16 +49,17 @@ const useProjects = () => {
   const [projects, setProjects] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
 
+  // Efeito para carregar os dados da API na inicialização
   useEffect(() => {
-    setProjects(projectRepository.loadProjects());
-    setIsLoaded(true);
-  }, []);
+    const fetchData = async () => {
+      const initialProjects = await projectRepository.loadProjects();
+      setProjects(initialProjects || []); // Garante que seja um array
+      setIsLoaded(true);
+    };
+    fetchData();
+  }, []); // Roda apenas uma vez, no início
 
-  useEffect(() => {
-    if (isLoaded) {
-      projectRepository.saveProjects(projects);
-    }
-  }, [projects, isLoaded]);
+  // O useEffect para salvar automaticamente foi removido para dar prioridade ao botão "Sincronizar"
 
   const addProject = (project) => {
     setProjects(prev => [...prev, project]);

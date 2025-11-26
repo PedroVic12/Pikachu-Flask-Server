@@ -6,9 +6,15 @@ import json
 excel_bp = Blueprint('excel_bp', __name__)
 
 # Define o caminho para o arquivo Excel que servirá como nosso "banco de dados"
-# Usamos current_app.root_path para garantir que o caminho seja relativo à pasta do app
 def get_excel_path():
-    return os.path.join(current_app.root_path, 'database', 'kanban_data.xlsx')
+    # Constrói um caminho absoluto a partir da localização deste arquivo
+    # __file__ -> excel_routes.py
+    # dirname -> controllers/
+    # dirname -> backend/
+    # dirname -> raiz do projeto
+    # Junta com 'pikachu-API/database/kanban-data.xlsx'
+    base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    return os.path.join(base_dir, 'pikachu-API', 'database', 'kanban-data.xlsx')
 
 @excel_bp.route('/load', methods=['GET'])
 def load_data():
