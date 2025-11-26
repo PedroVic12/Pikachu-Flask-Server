@@ -15,8 +15,8 @@ const ApiDataScreen = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        // Exemplo: buscando dados da tabela 'cliente'
-        const response = await fetch(`${API_URL}/clientes`);
+        // Exemplo: buscando dados da tabela 'cliente' através do Blueprint
+        const response = await fetch(`${API_URL}/floricultura/clientes`);
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
