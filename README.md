@@ -2,6 +2,20 @@
 
 Bem-vindo ao Projeto Pikachu, uma plataforma web completa e centralizada que integra diversas funcionalidades em um único sistema coeso. O projeto foi arquitetado para ser modular, escalável e de fácil manutenção.
 
+## ✅ Checklist de Módulos do Projeto
+
+Esta é uma lista dos principais componentes que foram ou estão sendo unificados nesta plataforma.
+
+-   [x] **Backend Unificado (Flask):** Servidor central que orquestra todos os serviços.
+-   [x] **Frontend Principal (Next.js):** Interface principal do usuário para o Kanban e outros módulos.
+-   [x] **Banco de Dados (SQLite):** Banco de dados único para toda a aplicação, gerenciado com SQLAlchemy.
+-   [x] **Módulo: Kanban API:** API completa para gerenciar os cartões do quadro Kanban.
+-   [x] **Módulo: API de Projetos/Tarefas/Usuários:** CRUD completo para gestão de projetos.
+-   [x] **Módulo: API da Floricultura:** Lógica de negócios e dados para o serviço de floricultura.
+-   [x] **Módulo: Astro API:** Serviço que se conecta a APIs externas (NASA, Pokémon, etc.).
+-   [ ] **Módulo: Agente de IA (`agente_assistente`):** Serviço com `crewai` e `assemblyai` para IA generativa.
+-   [ ] **Containerização (Docker):** Orquestração de todo o sistema para fácil deploy.
+
 ## 🏗️ Arquitetura
 
 O sistema é construído sobre uma arquitetura moderna que separa o frontend do backend:
