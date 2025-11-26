@@ -7,5 +7,3 @@ Flask-SQLAlchemy
 Flask-Cors
 SQLAlchemy
 reportlab
-pandas
-
