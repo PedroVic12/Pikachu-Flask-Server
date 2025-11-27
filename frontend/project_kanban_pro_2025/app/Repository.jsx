@@ -25,22 +25,72 @@ export const STATUS_COLUMNS = {
   'coding': { id: 'coding', title: 'Programação Github', emoji: '💻' },
 };
 
+const parseDate = (dateValue) => {
+  // If it's already a valid Date object, return it.
+  if (dateValue instanceof Date && !isNaN(dateValue)) {
+    return dateValue;
+  }
+  
+  // If it's a string, try parsing
+  if (typeof dateValue === 'string') {
+    // Handle 'dd/mm/yyyy' format from Brazil
+    const brazilianDateRegex = /^(\d{1,2})\/(\d{1,2})\/(\d{4})/;
+    const match = dateValue.match(brazilianDateRegex);
+    if (match) {
+      // new Date(year, monthIndex, day)
+      const date = new Date(parseInt(match[3], 10), parseInt(match[2], 10) - 1, parseInt(match[1], 10));
+      if (!isNaN(date.getTime())) {
+        return date;
+      }
+    }
+    
+    // Fallback for ISO strings or other parsable formats
+    const parsedDate = new Date(dateValue);
+    if (!isNaN(parsedDate.getTime())) {
+      return parsedDate;
+    }
+  }
+
+  // Handle Excel's serial date number
+  if (typeof dateValue === 'number') {
+    const excelEpoch = new Date(1899, 11, 30);
+    const date = new Date(excelEpoch.getTime() + dateValue * 24 * 60 * 60 * 1000);
+    if (!isNaN(date.getTime())) {
+        return date;
+    }
+  }
+  
+  // If all else fails, return a new date for now.
+  return new Date();
+};
+
+
 // ========== REPOSITORY CLASS ==========
 class ProjectRepository {
   async loadProjects() {
     try {
       const response = await fetch('/api/excel/load');
       if (!response.ok) {
-        // Se o arquivo não existir no backend, ele retorna um erro que podemos ignorar
-        console.warn("Arquivo 'kanban_data.xlsx' não encontrado no backend, começando com um array vazio.");
+        console.error("Erro ao carregar projetos da API, status:", response.status);
         return [];
       }
       const data = await response.json();
-      // Garante que as datas sejam objetos Date
+      
+      if (!Array.isArray(data)) {
+        console.error("API did not return an array:", data);
+        return [];
+      }
+
+      // Garante que as datas sejam objetos Date e os campos sejam mapeados corretamente
       return data.map(p => ({
-        ...p,
-        createdAt: new Date(p.createdAt),
-        updatedAt: new Date(p.updatedAt),
+        id: p['ID']?.toString() || Date.now().toString(),
+        title: p['Título'] || 'Sem título',
+        status: p['Status'] || 'to do',
+        category: p['Categoria'] || 'ons',
+        content: p['Conteúdo'] || '',
+        createdAt: parseDate(p['Criado em']),
+        updatedAt: parseDate(p['Atualizado em']),
+        files: p['files'] || []
       }));
     } catch (error) {
       console.error("Erro ao carregar projetos da API do Excel:", error);
@@ -84,18 +134,18 @@ class ProjectRepository {
       reader.onload = (e) => {
         try {
           const data = new Uint8Array(e.target?.result);
-          const workbook = XLSX.read(data, { type: 'array' });
+          const workbook = XLSX.read(data, { type: 'array', cellDates: true });
           const worksheet = workbook.Sheets[workbook.SheetNames[0]];
           const jsonData = XLSX.utils.sheet_to_json(worksheet);
 
           const importedProjects = jsonData.map(row => ({
-            id: row['ID'] || Date.now().toString(),
+            id: row['ID']?.toString() || Date.now().toString(),
             title: row['Título'] || 'Sem título',
             status: row['Status'] || 'to do',
             category: row['Categoria'] || 'ons',
             content: row['Conteúdo'] || '',
-            createdAt: new Date(row['Criado em'] || Date.now()),
-            updatedAt: new Date(row['Atualizado em'] || Date.now()),
+            createdAt: parseDate(row['Criado em']),
+            updatedAt: parseDate(row['Atualizado em']),
             files: []
           }));
 
