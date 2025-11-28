@@ -7,7 +7,7 @@ Aqui está o [link][var1] do Shiatsu como váriavel no .MD
 
 [var1]: https://revigorar.reservio.com/
 
-DATA ATUAL = 26/11/2025
+DATA ATUAL = 27/11/2025
 
 Altere as colunas do Kanban:
 
@@ -54,7 +54,7 @@ onde \(V\) é a tensão fasorial, \(I^*\) a conjugada do fasor de corrente.
 “Análise de Sistemas Elétricos de Potência” – William D. Stevenson Jr.
 (Revisar o capítulo sobre Fluxo de Potência e Y-Bus).
 
-# 🧩 Meta de Exercícios:
+# 🧩 Meta de Exercícios: __IN_PROGRESS
 
 - [ ] 3 de SEP (fluxo de potência)
 
@@ -66,7 +66,7 @@ onde \(V\) é a tensão fasorial, \(I^*\) a conjugada do fasor de corrente.
 
 ---
 
-# Alinhamento PVRV - Novembro: ONS, UFF, Sáude mental e emocional - Corpo, Mente, Espirito
+# Alinhamento PVRV - Novembro: ONS, UFF, Sáude mental e emocional - Corpo, Mente, Espirito __TODO
 
 - PVRV (PLANEJAMENTO SEG/SEX)
   https://github.com/neupanic/nextjs-flask-video
@@ -195,7 +195,7 @@ Projeto 8 - Deploy e Inferência de Modelos de Machine Learning com MLflow e Dat
 - [X] Análise de contigencias - Perdas Duplas
 - [ ] MUST - Ponta e fora ponta ate 2030 com Controle e gestão de aprovação de documentos PDF com ou sem Ressalva.
 
-# Estágio ONS __IN_PROGRESS
+# Estágio ONS __COMPLETED
 
 - Controle Mensal(12/25)
 - MUST Desktop Software - NexusPy + PalkiaGUI
@@ -340,7 +340,7 @@ Projeto 8 - Deploy e Inferência de Modelos de Machine Learning com MLflow e Dat
 
 ---
 
-# Eng. Elétrica UFF 2025 __IN_PROGRESS
+# Eng. Elétrica UFF 2025 __COMPLETED
 
 - UFF 2025
 
@@ -436,9 +436,8 @@ Projeto 8 - Deploy e Inferência de Modelos de Machine Learning com MLflow e Dat
   - LOL ou Warzone
   - Jurassic Park Evolution
   - Pokemon GBA ou NDS
-  - 
 
-# TDAH - Rotina (Saúde, Paz e Equilibrio) __IN_PROGRESS
+# TDAH - Rotina (Saúde, Paz e Equilibrio) __COMPLETED
 
 - [X] Visualização KANBAN e gerar 5 tarefas do dia (MANHA)
 - [ ] Organização mental e preparação para novo Ciclo JEDI CYBERPUNK com resolução de provas, tutorial de 10 min de programação, modelagem e simulações de eng eletrica junto com automações com N8N
