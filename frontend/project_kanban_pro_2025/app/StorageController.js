@@ -33,28 +33,60 @@ const INITIAL_DATA = [
   }
 ];
 
+const parseDate = (dateValue) => {
+  if (dateValue instanceof Date && !isNaN(dateValue)) return dateValue;
+  if (typeof dateValue === 'string') {
+    // Handle 'dd/mm/yyyy' format from Brazil
+    const brazilianDateRegex = /^(\d{1,2})\/(\d{1,2})\/(\d{4})/;
+    const match = dateValue.match(brazilianDateRegex);
+    if (match) {
+      const date = new Date(parseInt(match[3], 10), parseInt(match[2], 10) - 1, parseInt(match[1], 10));
+      if (!isNaN(date.getTime())) return date;
+    }
+    // Fallback for ISO strings
+    const parsedDate = new Date(dateValue);
+    if (!isNaN(parsedDate.getTime())) return parsedDate;
+  }
+  // For other types or invalid strings, return a valid date (now)
+  return new Date();
+};
+
+
 class StorageController {
   static STORAGE_KEY = 'kanban-projects';
 
   loadProjects() {
     if (typeof window === 'undefined') {
-      return INITIAL_DATA;
-    }
-
-    const savedData = localStorage.getItem(StorageController.STORAGE_KEY);
-    if (!savedData) {
-      return INITIAL_DATA;
-    }
-
-    try {
-      const parsed = JSON.parse(savedData);
-      return parsed.map(item => ({
+      return INITIAL_DATA.map(item => ({
         ...item,
         createdAt: new Date(item.createdAt),
         updatedAt: new Date(item.updatedAt)
       }));
+    }
+
+    const savedData = localStorage.getItem(StorageController.STORAGE_KEY);
+    if (!savedData) {
+      return INITIAL_DATA.map(item => ({
+        ...item,
+        createdAt: new Date(item.createdAt),
+        updatedAt: new Date(item.updatedAt)
+      }));
+    }
+
+    try {
+      const parsed = JSON.parse(savedData);
+      // Use robust date parsing here
+      return parsed.map(item => ({
+        ...item,
+        createdAt: parseDate(item.createdAt),
+        updatedAt: parseDate(item.updatedAt)
+      }));
     } catch {
-      return INITIAL_DATA;
+      return INITIAL_DATA.map(item => ({
+        ...item,
+        createdAt: new Date(item.createdAt),
+        updatedAt: new Date(item.updatedAt)
+      }));
     }
   }
 

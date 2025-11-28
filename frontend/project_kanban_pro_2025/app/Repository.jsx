@@ -25,101 +25,49 @@ export const STATUS_COLUMNS = {
   'coding': { id: 'coding', title: 'Programação Github', emoji: '💻' },
 };
 
-const parseDate = (dateValue) => {
-  // If it's already a valid Date object, return it.
-  if (dateValue instanceof Date && !isNaN(dateValue)) {
-    return dateValue;
-  }
-  
-  // If it's a string, try parsing
-  if (typeof dateValue === 'string') {
-    // Handle 'dd/mm/yyyy' format from Brazil
-    const brazilianDateRegex = /^(\d{1,2})\/(\d{1,2})\/(\d{4})/;
-    const match = dateValue.match(brazilianDateRegex);
-    if (match) {
-      // new Date(year, monthIndex, day)
-      const date = new Date(parseInt(match[3], 10), parseInt(match[2], 10) - 1, parseInt(match[1], 10));
-      if (!isNaN(date.getTime())) {
-        return date;
-      }
+const parseDateForExcel = (dateValue) => {
+    if (dateValue instanceof Date && !isNaN(dateValue)) return dateValue;
+    if (typeof dateValue === 'string') {
+        const brazilianDateRegex = /^(\d{1,2})\/(\d{1,2})\/(\d{4})/;
+        const match = dateValue.match(brazilianDateRegex);
+        if (match) {
+            const date = new Date(parseInt(match[3], 10), parseInt(match[2], 10) - 1, parseInt(match[1], 10));
+            if (!isNaN(date.getTime())) return date;
+        }
+        const parsedDate = new Date(dateValue);
+        if (!isNaN(parsedDate.getTime())) return parsedDate;
     }
-    
-    // Fallback for ISO strings or other parsable formats
-    const parsedDate = new Date(dateValue);
-    if (!isNaN(parsedDate.getTime())) {
-      return parsedDate;
+    if (typeof dateValue === 'number') {
+        const excelEpoch = new Date(1899, 11, 30);
+        const date = new Date(excelEpoch.getTime() + dateValue * 24 * 60 * 60 * 1000);
+        if (!isNaN(date.getTime())) return date;
     }
-  }
-
-  // Handle Excel's serial date number
-  if (typeof dateValue === 'number') {
-    const excelEpoch = new Date(1899, 11, 30);
-    const date = new Date(excelEpoch.getTime() + dateValue * 24 * 60 * 60 * 1000);
-    if (!isNaN(date.getTime())) {
-        return date;
-    }
-  }
-  
-  // If all else fails, return a new date for now.
-  return new Date();
+    return new Date();
 };
 
-
-// ========== REPOSITORY CLASS ==========
 class ProjectRepository {
   async loadProjects() {
-    try {
-      const response = await fetch('/api/excel/load');
-      if (!response.ok) {
-        console.error("Erro ao carregar projetos da API, status:", response.status);
-        return [];
-      }
-      const data = await response.json();
-      
-      if (!Array.isArray(data)) {
-        console.error("API did not return an array:", data);
-        return [];
-      }
-
-      // Garante que as datas sejam objetos Date e os campos sejam mapeados corretamente
-      return data.map(p => ({
-        id: p['ID']?.toString() || Date.now().toString(),
-        title: p['Título'] || 'Sem título',
-        status: p['Status'] || 'to do',
-        category: p['Categoria'] || 'ons',
-        content: p['Conteúdo'] || '',
-        createdAt: parseDate(p['Criado em']),
-        updatedAt: parseDate(p['Atualizado em']),
-        files: p['files'] || []
-      }));
-    } catch (error) {
-      console.error("Erro ao carregar projetos da API do Excel:", error);
-      return []; // Em caso de qualquer outro erro, retorna uma lista vazia
-    }
+    return storageController.loadProjects();
   }
 
   async saveProjects(projects) {
-    try {
-      await fetch('/api/excel/save', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(projects)
-      });
-    } catch (error) {
-      console.error("Erro ao salvar projetos na API do Excel:", error);
-    }
+    storageController.saveProjects(projects);
   }
 
   exportToExcel(projects) {
-    const exportData = projects.map(item => ({
-      'Título': item.title,
-      'Status': item.status,
-      'ID': item.id,
-      'Categoria': item.category || '',
-      'Criado em': item.createdAt.toLocaleDateString('pt-BR'),
-      'Atualizado em': item.updatedAt.toLocaleDateString('pt-BR'),
-      'Conteúdo': item.content || ''
-    }));
+    const exportData = projects.map(item => {
+        const createdAt = item.createdAt instanceof Date ? item.createdAt : new Date(item.createdAt);
+        const updatedAt = item.updatedAt instanceof Date ? item.updatedAt : new Date(item.updatedAt);
+        return {
+            'Título': item.title,
+            'Status': item.status,
+            'ID': item.id,
+            'Categoria': item.category || '',
+            'Criado em': !isNaN(createdAt) ? createdAt.toLocaleDateString('pt-BR') : '',
+            'Atualizado em': !isNaN(updatedAt) ? updatedAt.toLocaleDateString('pt-BR') : '',
+            'Conteúdo': item.content || ''
+        };
+    });
 
     const ws = XLSX.utils.json_to_sheet(exportData);
     const wb = XLSX.utils.book_new();
@@ -130,7 +78,6 @@ class ProjectRepository {
   importFromExcel(file) {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
-
       reader.onload = (e) => {
         try {
           const data = new Uint8Array(e.target?.result);
@@ -144,17 +91,15 @@ class ProjectRepository {
             status: row['Status'] || 'to do',
             category: row['Categoria'] || 'ons',
             content: row['Conteúdo'] || '',
-            createdAt: parseDate(row['Criado em']),
-            updatedAt: parseDate(row['Atualizado em']),
+            createdAt: parseDateForExcel(row['Criado em']),
+            updatedAt: parseDateForExcel(row['Atualizado em']),
             files: []
           }));
-
           resolve(importedProjects);
         } catch (error) {
-          reject(new Error('Erro ao importar arquivo Excel'));
+          reject(new Error('Erro ao importar arquivo Excel: ' + error.message));
         }
       };
-
       reader.onerror = () => reject(new Error('Erro ao ler arquivo'));
       reader.readAsArrayBuffer(file);
     });
