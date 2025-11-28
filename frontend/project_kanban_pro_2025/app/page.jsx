@@ -17,9 +17,33 @@ import projectRepository, {
   STATUS_COLUMNS
 } from './Repository.jsx'; 
 
-
-
-
+// ========== SAFE DATE PARSER ==========
+const safeParseDate = (dateValue, originalProjectForLogging) => {
+    if (dateValue instanceof Date && !isNaN(dateValue)) {
+        return dateValue;
+    }
+    let date;
+    if (typeof dateValue === 'string') {
+        if (dateValue.trim() === '') {
+             console.warn('Empty date string encountered in project:', originalProjectForLogging);
+             return new Date(0); // Return epoch for empty strings
+        }
+        const match = dateValue.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})/);
+        if (match) {
+            date = new Date(parseInt(match[3], 10), parseInt(match[2], 10) - 1, parseInt(match[1], 10));
+            if (!isNaN(date)) return date;
+        }
+        date = new Date(dateValue);
+        if (!isNaN(date)) return date;
+    }
+    if (typeof dateValue === 'number') {
+        const excelEpoch = new Date(1899, 11, 30);
+        date = new Date(excelEpoch.getTime() + dateValue * 24 * 60 * 60 * 1000);
+        if (!isNaN(date)) return date;
+    }
+    console.warn('Could not parse date. Value:', dateValue, 'from project:', originalProjectForLogging);
+    return new Date(0); // Return epoch time
+};
 
 
 // Removed imports for ProjectItem, CategoryKey, StatusKey from types.js
