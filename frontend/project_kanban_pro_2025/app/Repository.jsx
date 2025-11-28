@@ -85,6 +85,8 @@ class ProjectRepository {
           const worksheet = workbook.Sheets[workbook.SheetNames[0]];
           const jsonData = XLSX.utils.sheet_to_json(worksheet);
 
+          console.log("--- DEBUG: Raw data from Excel ---", jsonData);
+
           const importedProjects = jsonData.map(row => ({
             id: row['ID']?.toString() || Date.now().toString(),
             title: row['Título'] || 'Sem título',
