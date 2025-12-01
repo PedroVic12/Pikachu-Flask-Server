@@ -159,7 +159,7 @@ const Sidebar = ({
     <div className= {`fixed inset-y-0 left-0 z-50 w-64 bg-white shadow-lg transform transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0 lg:static lg:inset-0`
 }>
   <div className="flex items-center justify-between h-16 px-4 border-b border-gray-200" >
-    <h1 className="text-xl font-bold text-gray-900" > Kanban Pro </h1>
+    <h1 className="text-xl font-bold text-gray-900" > Kanban Pro 2025 </h1>
       < button
 onClick = { onClose }
 className = "lg:hidden p-2 rounded-md text-gray-400 hover:text-gray-600 hover:bg-gray-100"
@@ -282,7 +282,6 @@ const ProjectCard = ({ project, onEdit, onDragStart }) => { // Removed React.FC<
   );
 };
 
-// Removed interface KanbanColumnProps
 const KanbanColumn = ({ 
   status,
   projects,
@@ -332,14 +331,14 @@ className = "p-1 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded tra
   );
 };
 
-// Removed interface ItemEditorProps
+// Editar Item MOdal
 const ItemEditor = ({ 
   item,
   isOpen,
   onSave,
   onDelete,
   onClose
-}) => { // Removed React.FC<ItemEditorProps> and type annotations
+}) => { 
   const [editContent, setEditContent] = useState(item?.content || '');
   const [editTitle, setEditTitle] = useState(item?.title || '');
   const [editCategory, setEditCategory] = useState(item?.category || 'ons'); // Removed type annotation and CategoryKey cast
@@ -473,7 +472,7 @@ placeholder = "Escreva seu conteúdo em Markdown..."
   );
 };
 
-// Color mapping for consistent styling
+//! Color mapping for consistent styling
 const colorClasses = {
   blue: {
     bg: 'bg-blue-100',
