@@ -9,7 +9,7 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
 
-// logica de negocios
+//! logica de negocios
 import projectRepository, {
   CATEGORIES,
   STATUS_COLUMNS
