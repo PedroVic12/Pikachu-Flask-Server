@@ -275,66 +275,7 @@ Projeto 8 - Deploy e Inferência de Modelos de Machine Learning com MLflow e Dat
 
 ---
 
-# Lista de TAREFAS Pendentes __TODO
 
-- Tarefas Pendentes
-
-- [ ] LEGENDA VIDEO YOUTUBE
-- [X] PLANEJAMENTO SEGUNDA + TREINO + METAS + FECHAR 10 ABAS
-- [X] ATUALIZAR E ORGANIZAR ASSUNTOS DO BLOG E KANBAN ONS
-- [X] AJUSTAR PAINEL DE BATCAVERNA COM KANBANPRO
-- [ ] Blogpedrov12
-
-  - [X] SEP para leigos
-  - [ ] COP30 + Transição Enérgetca no BR
-  - [ ] O que são algoriitmos de AG e como usar isso na Eng. Elétrica para agendamento otimo de SEP (video yt)
-    - [ ] https://alexandremundim.medium.com/algoritmo-gen%C3%A9tico-na-pr%C3%A1tica-com-python-e24d2b1254d8
-    - [ ] notebook AG - DEAP
-    - [ ] IEEE cases with RCE Pyside6
-    - [ ] SIN45 app template with Lancher refatorado
-  - [ ] Análise de contigencias com SN 45 com pandapower + Deckbuiler para o AnaREDE
-  - [ ] Matriz admtancia + Geração x Tranmião e Distrbuição SIN pelo ONS
-  - [ ] Mincurso CC + arduino + python
-    - [ ] https://www.falstad.com/circuit/circuitjs.html
-    - [ ] Regra de Crammer
-    - [ ] EDO sistemas 1 e 2 ordem com RLC e RC plots e respostas da EDO
-  - [ ] Metodos númericos em Matlab para engenharia usando Python
-  - [ ] O que são MQQT
-    - [ ] https://www.sympla.com.br/play/introducao-ao-protocolo-mqtt/1914654
-- [X] Kanban/Cronograma -> Organização do cronograma de estudos
-- [ ] Treino de calistenia e calistenia app
-- [ ] Aulas Sinais/cricuitos CC/CA e Eng. Controle + SEP Fundamentals + Metodos numericos com Python
-- [ ] Atividade ML de IEEEDs e principais modelo de AI de Supevisionado x Não Supervisionado (Com Rótulos x Sem Rótulos)
-- [ ] Chatbot Groundon, Lumina Aurora (Gemini) + Jarvis (GPT) + Copilot (copilot/cursor) with updates
-- [ ] Corpo x Mente x Espirito -> Jobs, Coding, Studying, Creative, In Shape
-- [X] Todos websistes unificados a Pikachu Flask API Server + github batcaverna
-- [ ] Grondon Chabtot, Jarvis Chatbot, Lumina Aurora Chatbot
-- [X] N8N x Node-Red + webhook + MQQT + Esp32
-- [ ] Pyside6 - Eng. Controle com EDO e Equações de SEP
-- [X] Nextjs Website + MVP HTML templates (SEP do SIN da ONS para leigos)
-- [ ] Teoria de controle de engenharia moderno
-- [ ] Proteção de SEP e monitoramento area SP
-- [ ] Processamento de imagens de satélites com Python
-- [ ] Bots e RPA com Python
-- [ ] Estudos de IA, ML, DL, Chatbots, N8N, AI agentes frameworks (Agno/Langchain)
-- [X] PROGRAMAÇÃO FRONTEND
-- [X] PROGRAMAÇÃO BACKEND
-
-- Solver ML/DL para cada X,Y de conjunto de dado
-- Engenharia Elétrica
-
-- [ ] Aulas CC/ CA - Sadiku
-- [ ] Eng. Controle Moderno - Ogata
-- [ ] Elementos do eletromag - Sadiku + Jorge
-- [ ] Sinais e sistemas
-- [ ] Eletronica para makers
-- [X] Edge impulse + Series Temporais + IoT + ML para Eng Eletrica
-
-- Sesão de ESTUDOS (Matemática, programação e Eng. Elétrica)
-
-- [ ] Atividade IEEEDs = Esp32 + Senoides de corrente em series temporais para modelos de IA (como entrada de dado)
-
----
 
 # LEGADO - ENG. ELÉTRICA - UFF, ONS, PIBIC, IoT Smart Grids
 
