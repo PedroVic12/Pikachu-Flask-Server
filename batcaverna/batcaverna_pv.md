@@ -7,7 +7,7 @@ Aqui está o [link][var1] do Shiatsu como váriavel no .MD
 
 [var1]: https://revigorar.reservio.com/
 
-DATA ATUAL = 27/11/2025
+DATA ATUAL = 02/12/2025
 
 Altere as colunas do Kanban:
 
@@ -70,74 +70,7 @@ onde \(V\) é a tensão fasorial, \(I^*\) a conjugada do fasor de corrente.
 
 - PVRV (PLANEJAMENTO SEG/SEX)
   https://github.com/neupanic/nextjs-flask-video
-- ONS - Controle Mensal
-
-- [ ] Ver manual Etapas e Cronogramas adpatadas ao Planner: VA, VB, VC, VD, VE, VF
-- [ ] SINTEGRE -> SAPECP (sistema de gestão) -> Baixar arquivos referencia/recebidos (decks):
-
-https://sintegre.ons.org.br/sites/SAPECP
-
-<img width="1286" height="448" alt="image" src="https://github.com/user-attachments/assets/7a9301bb-cba2-466e-a6d6-70a8b4c2cf65" />
-
-- [ ] Montagem de casos -> decks com AnaREDE e Organon
-- [ ] Uso de flow para despacho de cargas e analisar decks no anaREDE para casos convergentes
-- [ ] Estudos: Máxima Nortuno/Diurna e Mínima Noturna/diurna
-- [ ]
-- [X] VLockUP pandas - formulas Excel - Bulbassaur PVRV - =PROCX(A12;'[Confere barras para PEC Nov - SECO (1).xlsx]Consolidação'!$A:$A;'[Confere barras para PEC Nov - SECO (1).xlsx]Consolidação'!$C:$C;"-";0)
-- [X] Pedir acesso as ferramentas ONS:
-  Preciso solicitar acesso para instalar os seguintes programas:
-- [X] ANAREDE, EditCepel, Organon
-- [ ] Flupot, PlotCepel, Anat0
-
-Para baixar os instaladores é preciso solicitar ao Adriano (abarbosa@ons.org.br), com cópia ao nosso gerente, acesso à conta Cepel.
-
-CEUS_RIO e CEUS_BSB (SAGE), posteriormente pedir o acesso ao Reger - CEUS Rio e Brasília – e mencionar na solicitação que as informações (usuário, ambiente, perfil e tipo de escopo) são iguais ao do Alexandre Rodrigues Nunes (alexrodrigues@ons.org.br).
-
-- [X] Instalar PITricks (não precisa ser feito pelo TI): file://ons.org.br/FLN-ARQ/DPL-SUL/_EGS/Banco%20de%20Dados/Macros/Python/PITricks/
-  Após a instalação do PItrick, verificar se está funcionando:
-  Abra um excel e clique com o botão direito em uma célula.
-  Clique em “PItricks” e depois em “Novo”
-- [ ] Solicitar acesso aos e-mails (e inserir no Outlook Classic) para o TI: mensal@ons.org.br
-- [ ] Pedir ao TI acesso ao SGI-OP e mencionar que o perfil de usuário será o mesmo do Alexandre Rodrigues Nunes (alexrodrigues@ons.org.br).
-- [ ] Pedir acesso ao sistema SAPECP pelo SINtegre
-- [ ] Verificar no SINtegre se possui acesso aos seguintes produtos:
-  Diretrizes para operação com horizonte mensal
-  Casos de Referência do Mensal
-  Relatório Mensal do Planejamento da Operação
-
-- ONS - Perdas Duplas (análise de contigencias)
-
-- [X] Usar apenas desligamento de torres e não de faixa de passagem
-- [X] ETL -> PDF -> Excel(meta até aqui) -> Word
-- [X] Colunas de cada Aba do excel (volume, área geoelétrica, perda dupla e futura) e criar subcategorias
-- [X] Sem intervenção -> Futura Não | Com intervenção -> Futura SIM
-- [X] Curto prazo -> Futuro SIM | Médio Prazo -> Futuro Não.
-- [X] Enteder a amostra de dados para ETL - "2	Lista de Contingências Duplas analisadas" - pág. 17
-- [X] preciso fazer o ETL de um PDF para Excel com power query ou pandas ou formulas excel e ter o mesmo resultado
-- [ ] preciso aprender a usar pyspark com pandas para banco e dados em sqlite3/supabase/excel + localStorage
-- [X] preciso pegar um documento PDF intierio e tranformar cada lista de itens em tabelas
-
-- ONS - Software/Web Developer
-
-- [X] MUST Software Desktop (Pyside6 + Access DB + modelagem SQL) - 11/11/25
-
-  - documentação + app_desktop com Iframe, Widgets e projetos .zip
-- [ ] Palkia GUI + Console + Backend flask integrado com Dashboard HTML atividades SP
-- [X] Dashboard MUST (Palkia GUI Desktop) ONS - Despacho + MUST PDF extractor ->  Banco de Dados com SQL/Access e relacionamentos com Dashboard final - Projeto Final rodando com .Exe usando banco de dados
-
-  - [X] Ajustes de app dashboard template + Palkia APP + deck builder
-  - [ ] Colocar Links de HTML e Sites WEB no Header do app template
-- [ ] Plugin Organon - Deck Builder + AnaREDE scripts + Fluxo de potencia Organon
-
-  - [ ] Deploy: Plugin no Organon no notepad++ com scripts básicos de AnaREDE e Organon
-    - [X] Criar .bat e .EXE
-    - [X] Testar e validar no Windows Pessoal com senha de ADM com o script para instalar o plugin
-    - [ ] Testes de casos de uso com AnaREDE e Organon com controle mensal de dados com o novo deckbuilder em notepad++
-    - [X] Decks Organon (3)
-    - [X] Decks AnaREDE
-    - [ ] Scipt automação Pyautogui
-    - [X] Deploy: **Plugin no Organon no notepad++ com .EXE** + Manual de casos de uso de deck builer com pastas com arquivos .py, .ipynb e .PDF
-
+  
 - ONS - IoT Engenheiro de estudos elétricos
 
 - [ ] Flow despacho de cargas
@@ -170,30 +103,6 @@ Projeto 5 - Otimização de Pipeline ETL e Machine Learning com PySpark
 Projeto 6 - Pipeline de Coleta, Transformação e Modelagem Preditiva em Tempo Real com Spark Streaming e TensorFlow
 Projeto 7 - Data Lakehouse Time Travel com Apache Spark e Delta Lake
 Projeto 8 - Deploy e Inferência de Modelos de Machine Learning com MLflow e Databricks
-
-- SOFTWARE DEVELOPER
-
-- [X] Análise e Leitura do plano de Montagem de Quadros Mensal - dezembro com Organon, Flow e AnaREDE
-- [X] Testes de UI com PySIde6 para MUST controle e gestão
-- [ ] Dashboard SP com HTML + app template Pyside6 + MUST Controle e Gestão + Lancher AG (RCE) - Arquitetura de Software
-
-  - [X] App Template Pyside6
-  - [X] CRUD Pyside6 com Sqlite3 e Microsoft Access
-  - [X] App Template Pyside6 + SQL - MUST Controle e Gestão de Atividades com Chatbot AI com .EXE
-
-- ONS 2025
-  - [ ] Pyside6 com modelagem de dados (Sqlite3 + Microsoft Access) + Análise de Contigencias + Controle Atividades SP
-  - [ ] Controle  e Gestão Atividades SP + MUST --> Excel To Website and (.PDF + Access)to QT 6 Desktop Deck Builder Organon
-  - [X] Gerador de PDF por Template HTML
-
-- [ ] Despacho de cargas - Planejamento Mensal e Semanal - Flow + AnaREDE, AnaTEM e Organon
-- [ ] **Estudos SEP com base fundamental para CA**
-- [ ] Flow ONS V9 - Datasets + Notebooks com análise de dados de carga MW em Horas pelas usinas limpas e renovaveis do BR
-- [X] Estudos CA para SEP usando GPT e Python
-- [ ] Automação Outlook + Teams + N8N = Relatorios automatizados por email e Whatsapp
-- [X] Planejamento e Metas (Segunda/Sexta)
-- [X] Análise de contigencias - Perdas Duplas
-- [ ] MUST - Ponta e fora ponta ate 2030 com Controle e gestão de aprovação de documentos PDF com ou sem Ressalva.
 
 
 
