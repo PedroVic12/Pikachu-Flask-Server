@@ -68,9 +68,6 @@ onde \(V\) é a tensão fasorial, \(I^*\) a conjugada do fasor de corrente.
 
 # Alinhamento PVRV - Novembro: ONS, UFF, Sáude mental e emocional - Corpo, Mente, Espirito __TODO
 
-- PVRV (PLANEJAMENTO SEG/SEX)
-  https://github.com/neupanic/nextjs-flask-video
-  
 - ONS - IoT Engenheiro de estudos elétricos
 
 - [ ] Flow despacho de cargas
@@ -104,66 +101,7 @@ Projeto 6 - Pipeline de Coleta, Transformação e Modelagem Preditiva em Tempo R
 Projeto 7 - Data Lakehouse Time Travel com Apache Spark e Delta Lake
 Projeto 8 - Deploy e Inferência de Modelos de Machine Learning com MLflow e Databricks
 
-
-
 # LEGADO - ENG. ELÉTRICA - UFF, ONS, PIBIC, IoT Smart Grids
-
----
-
-# Eng. Elétrica UFF 2025 __COMPLETED
-
-- UFF 2025
-
-- [ ] Modelagem do Fluxo de Potencia - prof luciano
-- [ ] SEP e Análise de Sistemas de Potência (ASP/Stevenson)
-- [X] Estudos CA e Fluxo de Potência / Curto Circuito no PandaPower, AnaREDE, Organon.
-- [ ] Estudos de ASP com Python
-- [ ] Estudar o que são VSC e LCC em Redes Eletricas para o SIN (google)
-- [ ] Estudar o que é MGD para Rede Elétrica (Micro e Minigeração Distribuida) (google)
-
-- Eletromagnetismo / Circuitos CC/CA (Sadiku)
-
-- [ ] Modelagem de Circuitos Elétricos com Laplace ou Resposta completa da EDO usando casos de uso RLC e RC e usando análise Nodal e Malhas para CC e CA
-- [ ] Caso de Uso Sympy - para resolver integral e derivada e fazer calculo na mão.
-- [ ] Lei de Coulomb, Lei de Gauss, Eq. Laplace/Poisson, Lei de Ampare, Lei de Faraday
-- [ ] Circuitos RL e RLC (1ª e 2ª ordem)
-- [ ] Resposta completa em regime transitório
-- [ ] Cálculo nodal e malhas em CA
-- [ ] Provas antigas + simulações Python
-- [ ] Vetor de Poyting
-- [ ] Fasores
-- [ ] 4 Equações de Maxwell
-- [ ] Análise de circuitos elétricos 2 - Segurança operacional ONS - Fluxo de Potencia, Barra Swing, Reator Shunt e Transformador em Fase
-
-- Eng. Controle Moderno e Sinais e sistemas (Ogata e Oppehhaim)
-
-- [ ] Sinais e Sistemas - Transformada de Laplace
-- [ ] Leitura de capítulos 6-13 Eng. de Controle Moderno (Ogata)
-- [ ] Projeto PID com Python e PyQt
-- [ ] Processamento Digital de Sinais
-- [ ] Leitura Orante do livo Teoria e controle moderno nos capitulos principais como: Cap 6,7,8 e 9 (metodos old - Lugar das Raízes e Resposta em Frequencia) e cap 11 e 13 (moderno com váriavaveis de estado)
-- [ ] Estudar conteúdo de Sinais e Sistemas e Circuitos Digitais passando a limpo as anotações
-
-- IoT e IEEDS (automação industrial)
-
-- [ ] Projeto Final de IoT com Arduino + MQTT + Python Rest API + WebServer em C++ com Tela em index.html com análise de dados de séries temporais de Sensores de Luz, LDR e acionamento de LEDS e Buzzer.
-- [ ] Circuito Contador JK com arduino
-- [ ] AULAS IEED
-  - [ ] https://docs.edgeimpulse.com/tools
-  - [ ] https://studio.edgeimpulse.com/studio/823150/impulse/1/dsp/spectral-analysis/2
-  - [ ] https://drive.google.com/drive/folders/1q7L3WsyK2oesfC6hus6eSU6Mds64luFQ?usp=drive_link
-- [ ] IOT E ARDUINO COM WEBSOCKET COM HTML ANALISANDO SERIES TEMPORAIS
-
-- UFF, Estudos Acadêmicos e Provas Antigas
-
-- [ ] Mátematica aplicada a Eng. Elétrica, ONS, Ciencia de Dados / ML, Provas Antigas
-- [X] Estudos UFF com modelagem e prototipação/simulação de circuitos digitais e eletricos CC/CA com arduino e esp32. Eletronica para makers
-- [ ] Minicurso CC + CD
-- [ ] Minicurso Matemática básica ENEM - Geometria Espacial, Logaritmos e Questões matemáticas de ITA e IME
-- [ ] Jedi Cyberpunk - Python com Métodos Numéricos + Otimização e uso de Redes Neurais (pegar exemplos de eng dos códigos de matlab)
-- [ ] AstroML - Machine learning
-- [ ] 1 cap. de um livro de matemática e física por dia
-- [ ] 2 Equações do dia
 
 ---
 
