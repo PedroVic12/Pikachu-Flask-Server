@@ -46,7 +46,7 @@ const navigationLinks = [
 ];
 
 
-export default function Component() {
+function Component() {
   return (
     <header className="border-b px-4 md:px-6">
       <div className="flex h-16 justify-between gap-4">
