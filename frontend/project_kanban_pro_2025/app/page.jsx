@@ -25,8 +25,8 @@ const calculateProgress = (content) => { // Removed type annotations
     return { total: 0, completed: 0, percentage: 0 };
   }
 
-  const checklistRegex = /- \[( |x)\]/g;
-  const completedRegex = /- \[x\]/g;
+  const checklistRegex = /- \[( |x)\]/gi;
+  const completedRegex = /- \[x\]/gi;
 
   const total = (content.match(checklistRegex) || []).length;
   const completed = (content.match(completedRegex) || []).length;
@@ -120,9 +120,9 @@ const Sidebar = ({
   ];
 
   const actionItems = [
-    { id: 'export', label: 'Backup Excel', icon: Download, onClick: onExport },
+    { id: 'export', label: 'Exportar Excel', icon: Download, onClick: onExport },
     { id: 'import', label: 'Importar Excel', icon: Upload, onClick: handleImportClick },
-    { id: 'sync', label: 'Sincronizar', icon: Sync, onClick: onSync, color: 'text-green-700 hover:bg-green-50' }
+    { id: 'sync', label: 'Salvar', icon: Sync, onClick: onSync, color: 'text-green-700 hover:bg-green-50' }
   ];
 
   return (

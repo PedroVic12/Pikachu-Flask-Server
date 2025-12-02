@@ -31,9 +31,12 @@ const ItemEditor = ({
   const handleSave = () => {
     if (!item) return;
 
+    // Padroniza os checkboxes para minúsculas ([X] -> [x]) antes de salvar
+    const standardizedContent = editContent.replace(/- \[x\]/gi, '- [x]');
+
     onSave({
       title: editTitle,
-      content: editContent,
+      content: standardizedContent,
       category: editCategory
     });
     onClose();
