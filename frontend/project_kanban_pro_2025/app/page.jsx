@@ -120,9 +120,9 @@ const Sidebar = ({
   ];
 
   const actionItems = [
-    { id: 'export', label: 'Exportar Excel', icon: Download, onClick: onExport },
+    { id: 'sync', label: 'Salvar', icon: Sync, onClick: onSync, color: 'text-green-700 hover:bg-green-50' },
     { id: 'import', label: 'Importar Excel', icon: Upload, onClick: handleImportClick },
-    { id: 'sync', label: 'Salvar', icon: Sync, onClick: onSync, color: 'text-green-700 hover:bg-green-50' }
+    { id: 'export', label: 'Exportar Excel', icon: Download, onClick: onExport },
   ];
 
   return (
