@@ -24,25 +24,6 @@ import ItemEditor from './views/components/EditorModalProject.js';
 
 
 
-// ========== HELPERS ========== 
-const calculateProgress = (content) => { // Removed type annotations
-  if (!content) {
-    return { total: 0, completed: 0, percentage: 0 };
-  }
-
-  const checklistRegex = /- \[( |x)\]/gi;
-  const completedRegex = /- \[x\]/gi;
-
-  const total = (content.match(checklistRegex) || []).length;
-  const completed = (content.match(completedRegex) || []).length;
-
-  if (total === 0) {
-    return { total: 0, completed: 0, percentage: 0 };
-  }
-
-  const percentage = Math.round((completed / total) * 100);
-  return { total, completed, percentage };
-};
 
 // ========== HOOKS ========== 
 const useProjects = () => {

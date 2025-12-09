@@ -4,19 +4,28 @@ import { Edit3, GripVertical, Plus } from 'lucide-react';
 // ========== HELPERS ==========
 import { CATEGORIES, STATUS_COLUMNS } from '../controllers/Repository.jsx';
 
-// Calculate progress based on markdown checklist items in content
-const calculateProgress = (content) => {
-    if (!content) return { total: 0, completed: 0, percentage: 0 };
 
-    const lines = content.split('\n');
-    const checklistItems = lines.filter(line => line.trim().startsWith('- ['));
 
-    const total = checklistItems.length;
-    const completed = checklistItems.filter(item => item.includes('- [x]')).length;
-    const percentage = total === 0 ? 0 : Math.round((completed / total) * 100);
+// ========== HELPERS ========== 
+const calculateProgress = (content) => { // Removed type annotations
+    if (!content) {
+        return { total: 0, completed: 0, percentage: 0 };
+    }
 
+    const checklistRegex = /- \[( |x)\]/gi;
+    const completedRegex = /- \[x\]/gi;
+
+    const total = (content.match(checklistRegex) || []).length;
+    const completed = (content.match(completedRegex) || []).length;
+
+    if (total === 0) {
+        return { total: 0, completed: 0, percentage: 0 };
+    }
+
+    const percentage = Math.round((completed / total) * 100);
     return { total, completed, percentage };
 };
+
 
 // ========== COMPONENTS ==========
 
