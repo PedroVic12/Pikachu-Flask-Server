@@ -226,14 +226,14 @@ const ProjectCard = ({ project, onEdit, onDragStart }) => { // Removed React.FC<
         {project.title}
       </h3>
 
-      <p className="text-xs text-gray-600 line-clamp-2 mb-2">
+      <p className="text-xs text-gray-900 line-clamp-2 mb-2">
         {(project.content || '').replace(/[#*`]/g, '').substring(0, 80)}...
       </p>
 
       {total > 0 && (
         <div className="mt-3">
           <div className="flex justify-between items-center mb-1">
-            <span className="text-xs font-semibold text-gray-500">Progresso</span>
+            <span className="text-xs  font-bold text-gray-900">Progresso</span>
             <span className="text-xs font-bold text-gray-600">{completed}/{total}</span>
           </div>
           <div className="w-full bg-gray-200/70 rounded-full h-1.5">
@@ -245,9 +245,9 @@ const ProjectCard = ({ project, onEdit, onDragStart }) => { // Removed React.FC<
         </div>
       )}
 
-      <div className="flex items-center justify-between text-xs text-gray-500 mt-2">
+      <div className="flex items-center justify-between text-xs text-black-900 mt-2">
         <span>{project.updatedAt.toLocaleDateString('pt-BR')}</span>
-        <Edit3 size={10} className="opacity-0 group-hover:opacity-100 transition-opacity" />
+        <Edit3 size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
       </div>
     </div>
   );

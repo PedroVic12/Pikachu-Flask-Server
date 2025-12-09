@@ -6,7 +6,6 @@ https://github.com/PedroVic12/Pikachu-Flask-Server/tree/main/batcaverna
 Aqui está o [link][var1] do Shiatsu como váriavel no .MD
 
 [var1]: https://revigorar.reservio.com/
-
 DATA ATUAL = 02/12/2025
 
 Altere as colunas do Kanban:
@@ -114,7 +113,7 @@ Projeto 8 - Deploy e Inferência de Modelos de Machine Learning com MLflow e Dat
 - Corpo, Mente (Treino, Calistenia, Saúde) e Espirito (Alinhamento, Chakras, Meditação)
 
 - [X] Treino de calistenia
-- [ ] Alongamento diário
+- [X] Alongamento diário
 - [X] Alimentação 4x/dia
 
 ## Espiritualidade
@@ -125,18 +124,18 @@ Projeto 8 - Deploy e Inferência de Modelos de Machine Learning com MLflow e Dat
 
 ## Hábitos, Organização e PLanejamento
 
-- [ ] Fechar 10 abas
+- [X] Fechar 10 abas
 - [ ] Limpeza semanal do apartamento
 - [X] Planejamento seg/sex + Kanban pessoal
 - [X] Planejamento de terapia e limpeza de pensamentos
 - [X] Terapia
 - [X] Alongamento + Calistenia + Rotina de treinos com saúde em boa forma
 - [ ] Meditação e alinhamento espiritual
-- [ ] Treino gym
-- [X] Limpeza no apartametno (seg/sex)
+- [X] Treino gym
+- [ ] Limpeza no apartametno (seg/sex)
 - [X] Lavar a louça e passar pano na casa
 - [ ] Limpeza de banheiro de cozinha
-- [X] 4 Refeições por dia (Café da manha, Almoço, Lanche (pré-treino) e Jantar)
+- [ ] 4 Refeições por dia (Café da manha, Almoço, Lanche (pré-treino) e Jantar)
 - [X] Jogos
 
   - The Witcher 3
@@ -148,13 +147,13 @@ Projeto 8 - Deploy e Inferência de Modelos de Machine Learning com MLflow e Dat
 # TDAH - Rotina (Saúde, Paz e Equilibrio) __COMPLETED
 
 - [X] Visualização KANBAN e gerar 5 tarefas do dia (MANHA)
-- [ ] Organização mental e preparação para novo Ciclo JEDI CYBERPUNK com resolução de provas, tutorial de 10 min de programação, modelagem e simulações de eng eletrica junto com automações com N8N
-- [X] Alinhamento Espiritual
+- [X] Organização mental e preparação para novo Ciclo JEDI CYBERPUNK com resolução de provas, tutorial de 10 min de programação, modelagem e simulações de eng eletrica junto com automações com N8N
+- [ ] Alinhamento Espiritual
 
   - [X] Segunda - Chakra: Solar
-  - [X] Terça - Chakra: Garganta
+  - [ ] Terça - Chakra: Garganta
   - [ ] Quarta - Chakra: Cardiaco
-  - [X] Quinta: Chakra: 3º Olho
+  - [ ] Quinta: Chakra: 3º Olho
   - [ ] Sexta: Chakra: Root
 - [X] You Only Need 5 Hobbies (Money, Study, Mindset, In Shape, Creative)
 - [ ] Meditação e estudos com Matemática e Japonês
