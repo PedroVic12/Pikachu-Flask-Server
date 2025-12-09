@@ -1,4 +1,4 @@
-import { ProjectItem } from './types.js';
+import { ProjectItem } from '../types.js';
 
 const INITIAL_DATA = [
   {

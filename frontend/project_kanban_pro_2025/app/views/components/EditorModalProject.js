@@ -5,7 +5,7 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { Edit3, Save, Eye, X, Trash2 } from 'lucide-react';
 
-import { CATEGORIES } from '../../Repository.jsx';
+import { CATEGORIES } from '../../controllers/Repository.jsx';
 
 const ItemEditor = ({
   item,
