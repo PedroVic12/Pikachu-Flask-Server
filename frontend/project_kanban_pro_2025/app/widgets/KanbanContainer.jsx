@@ -92,13 +92,13 @@ const getColumnColorClass = (status) => {
     const s = status.toLowerCase();
 
     // Red: urgent / blocked / impediment
-    if (s.includes('urg') || s.includes('bloque') || s.includes('block') || s.includes('imped')) {
+    if (s.includes('urg') || s.includes('bloque') || s.includes('block') || s.includes('tarefa')) {
         return 'bg-red-100 border-red-200';
     }
 
     // Green: done / finished / ready
     if (s.includes('done') || s.includes('finaliz') || s.includes('ready') || s.includes('conclu')) {
-        return 'bg-green-200 border-green-200';
+        return 'bg-green-400 border-green-200';
     }
 
     // Blue: default (in progress / backlog / todo)
