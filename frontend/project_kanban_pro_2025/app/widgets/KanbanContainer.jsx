@@ -93,16 +93,16 @@ const getColumnColorClass = (status) => {
 
     // Red: urgent / blocked / impediment
     if (s.includes('urg') || s.includes('bloque') || s.includes('block') || s.includes('imped')) {
-        return 'bg-red-50 border-red-200';
+        return 'bg-red-100 border-red-200';
     }
 
     // Green: done / finished / ready
     if (s.includes('done') || s.includes('finaliz') || s.includes('ready') || s.includes('conclu')) {
-        return 'bg-green-50 border-green-200';
+        return 'bg-green-200 border-green-200';
     }
 
     // Blue: default (in progress / backlog / todo)
-    return 'bg-blue-50 border-blue-200';
+    return 'bg-grey-100 border-blue-200';
 }
 
 const KanbanColumn = ({
