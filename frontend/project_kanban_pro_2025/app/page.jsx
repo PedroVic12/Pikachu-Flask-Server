@@ -116,7 +116,7 @@ const Sidebar = ({
       <div className={`fixed inset-y-0 left-0 z-50 w-64 bg-white shadow-lg transform transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0 lg:static lg:inset-0`
       }>
         <div className="flex items-center justify-between h-16 px-4 border-b border-gray-200" >
-          <h1 className="text-xl font-bold text-gray-900" > Kanban Pro 2025 </h1>
+          <h1 className="text-xl font-bold text-gray-900" > Kanban Pro </h1>
           < button
             onClick={onClose}
             className="lg:hidden p-2 rounded-md text-gray-400 hover:text-gray-600 hover:bg-gray-100"
@@ -511,7 +511,7 @@ export default function App() {
     return (
       <div className="p-4 lg:p-6" >
         <div className="mb-6" >
-          <h1 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-2" > Kanban PRO Board 2025 </h1>
+          <h1 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-2" > Kanban PRO Board 2026 </h1>
           < p className="text-gray-600" > Organize seus projetos visualmente utilizando métodos de SCRUM e Design Patterns para programação de softwares</p>
         </div>
 
