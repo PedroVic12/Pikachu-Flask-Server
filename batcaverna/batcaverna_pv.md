@@ -4,8 +4,8 @@
 
 Salve esses dados em:
 https://github.com/PedroVic12/Pikachu-Flask-Server/tree/main/batcaverna
-
 ---
+
 Aqui está o [link][var1] do Shiatsu como váriavel no .MD
 
 [var1]: https://revigorar.reservio.com/
@@ -34,6 +34,15 @@ __Altere as colunas do Kanban:__
 
 # ONS PLC 2026
 
+## Roteiro de ferramentas de Simulação ONS
+- SIGER
+- SAPECP
+- Flow
+- AnaRede/Organon/AnaTEM
+- Sharepoint
+- 
+
+
 Aqui está o [link do Sharepoint][var2] compartilhado
 
 [var2]:https://onsbr.sharepoint.com/:f:/s/soumaisons/IgBdPCjxhJWGRoBDjV76pZApAdwZkzV_avBxKghxoYbQCaI?e=wcX7o3
@@ -42,6 +51,10 @@ Aqui está o [link do Sharepoint][var2] compartilhado
 - [ ] Apoio na inserção de dados de restrições de novo Software feito pelo Fábio (06/01/26)
 
 ## Controle Mensal
+
+Aqui está o [link do Microsoft Planner][var3] compartilhado
+[var3]: https://planner.cloud.microsoft/webui/mytasks/assignedtome/view/board?tid=3adee5fc-933e-4911-ae1b-9c2fe7b84448
+
 - [ ] Leitura e SPRINT atual do OneNote compartilhado
 - [ ] Resposta PLC: Sisbar x Casos | Desativadas | Futuras x Ativas | Desligadas x Faltantes de cada Mensal
 
@@ -130,56 +143,26 @@ Dezembro: 23/12
 - [ ] Estudos de montagem de decks intercambios VC de Janeiro de 2026
 - [ ] Estudos básicos com pandapower, AnaREDE e Organon
 
-## Roteiro de ferramentas de Simulação ONS
-- SIGER
-- SAPECP
-- Flow
-- AnaRede/Organon/AnaTEM
-- Sharepoint
-- 
-
-# Alinhamento PVRV - Novembro: ONS, UFF, Sáude mental e emocional - Corpo, Mente, Espirito __TODO
 
 - ONS - IoT Engenheiro de estudos elétricos
 
 - [ ] Flow despacho de cargas
 - [ ] Flow Inequações
 - [ ] Flow Elos CC
-- [ ] Análise de contigencias PandaPower SIN 45
-- [ ] Potencia Ativa x Reativa
-- [ ] Equações P e Q e 7 principais
-- [ ] Minicurso CC + Provas atingas circuitos 1 e 2 ordem EDO
-- [ ] Estudos de Sistemas Elétricos de Potencia (SEP) (Fundamentos)
-  - Potencia Ativa/ Reativa/ Aparente
-  - Conceitos básicos de circuitos CA
-  - Capacitores / Indxutores
-  - Impedância, Indutância
-  - Tap de transformadores na região de SP para controle de tensão
-  - Equações principais para fluxo de potencia em diagrama unifilar
-- [ ] Elementos do Eletromagnetismo
-- [ ] Processamento digital de Sinais com Relés digitais e Series temporais de cargas de Substações
-- [ ] Fazer prova de sistema de controle I da UFF com algebra linear básica na mão
+- [ ] 
 
-- ONS - Cienstista de Dados
-- ESTUDOS - CODING - PYTHON
-  __Atividades Práticas: ETL com Python, PySpark + SQL + Pandas para machine learning e relatórios automatizados__
 
-Projeto 1 - Pipeline de Exploração de Dados e Operações SQL com Spark SQL
-Projeto 2 - Banco de Dados, Machine Learning e Pipeline ETL em Cluster Spark Para Detectar Anomalias em Transações Financeiras
-Projeto 3 - Pipeline de Machine Learning em Cluster Spark Para Previsão de Churn - Treinamento e Deploy
- Projeto 4 - Pipeline de Pré-Processamento, Validação Cruzada e Otimização em Machine Learning
-Projeto 5 - Otimização de Pipeline ETL e Machine Learning com PySpark
-Projeto 6 - Pipeline de Coleta, Transformação e Modelagem Preditiva em Tempo Real com Spark Streaming e TensorFlow
-Projeto 7 - Data Lakehouse Time Travel com Apache Spark e Delta Lake
-Projeto 8 - Deploy e Inferência de Modelos de Machine Learning com MLflow e Databricks
 
-# LEGADO - ENG. ELÉTRICA - UFF, ONS, PIBIC, IoT Smart Grids
+---
 
+## LEGADO - ENG. ELÉTRICA - UFF, ONS, PIBIC, IoT Smart Grids
+
+## Alinhamento PVRV - Novembro: ONS, UFF, Sáude mental e emocional - Corpo, Mente, Espirito __TODO
 
 
 # VIDA PESSOAL E ROTINA __IN_PROGRESS
 
-- Corpo, Mente (Treino, Calistenia, Saúde) e Espirito (Alinhamento, Chakras, Meditação)
+## Corpo, Mente (Treino, Calistenia, Saúde) e Espirito (Alinhamento, Chakras, Meditação)
 
 - [X] Treino de calistenia
 - [X] Alongamento diário
@@ -234,6 +217,32 @@ Projeto 8 - Deploy e Inferência de Modelos de Machine Learning com MLflow e Dat
 
 
 # UFF Engenharia Elétrica 2026.1
+- [ ] Análise de contigencias PandaPower SIN 45
+- [ ] Potencia Ativa x Reativa
+- [ ] Equações P e Q e 7 principais
+- [ ] Minicurso CC + Provas atingas circuitos 1 e 2 ordem EDO
+- [ ] Estudos de Sistemas Elétricos de Potencia (SEP) (Fundamentos)
+  - Potencia Ativa/ Reativa/ Aparente
+  - Conceitos básicos de circuitos CA
+  - Capacitores / Indxutores
+  - Impedância, Indutância
+  - Tap de transformadores na região de SP para controle de tensão
+  - Equações principais para fluxo de potencia em diagrama unifilar
+- [ ] Elementos do Eletromagnetismo
+- [ ] Processamento digital de Sinais com Relés digitais e Series temporais de cargas de Substações
+- [ ] Fazer prova de sistema de controle I da UFF com algebra linear básica na mão
 
+- Cienstista de Dados
+
+  __Atividades Práticas: ETL com Python, PySpark + SQL + Pandas para machine learning e relatórios automatizados__
+
+Projeto 1 - Pipeline de Exploração de Dados e Operações SQL com Spark SQL
+Projeto 2 - Banco de Dados, Machine Learning e Pipeline ETL em Cluster Spark Para Detectar Anomalias em Transações Financeiras
+Projeto 3 - Pipeline de Machine Learning em Cluster Spark Para Previsão de Churn - Treinamento e Deploy
+ Projeto 4 - Pipeline de Pré-Processamento, Validação Cruzada e Otimização em Machine Learning
+Projeto 5 - Otimização de Pipeline ETL e Machine Learning com PySpark
+Projeto 6 - Pipeline de Coleta, Transformação e Modelagem Preditiva em Tempo Real com Spark Streaming e TensorFlow
+Projeto 7 - Data Lakehouse Time Travel com Apache Spark e Delta Lake
+Projeto 8 - Deploy e Inferência de Modelos de Machine Learning com MLflow e Databricks
 - [ ] Planejamento de horários de aulas
 - [ ] Livros:
