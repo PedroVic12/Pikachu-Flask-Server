@@ -9,17 +9,18 @@ Faça edições no [arquivo.MD ][var4] do repositório para atualizar o dashboar
 
 [var4]: https://github.com/PedroVic12/Pikachu-Flask-Server/blob/main/batcaverna/batcaverna_pv.md
 
----
-
 Aqui está o [link][var1] do Shiatsu como váriavel no .MD
 
 [var1]: https://revigorar.reservio.com/
+---
 
 DATA ATUAL = 06/01/2025
 
 __Altere as colunas do Kanban:__
 
 **__BACKLOG, __IN_PROGRESS, __TODO, __COMPLETED**
+
+Por default, fica sempre no backlog
 
 ---
 
