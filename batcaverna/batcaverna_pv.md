@@ -86,6 +86,39 @@ Sobre o tratamento das Planilhas Obras DIST, é importante seguir o passo-a-pass
 
 ## Controle Quadrimestral
 
+### Cronograma Relatório Final
+- Minuta
+ 
+Janeiro: 20/01
+Fevereiro: 20/02
+Março: 20/03
+Abril: 17/04
+Maio: 20/05
+Junho: 22/06
+Julho: 20/07
+Agosto: 21/08
+Setembro: 21/09
+Outubro: 20/10
+Novembro: 19/11
+Dezembro: 18/12
+ 
+- Versão Final
+ 
+Janeiro: 23/01
+Fevereiro: 25/02
+Março: 25/03
+Abril: 24/04
+Maio: 25/05
+Junho: 25/06
+Julho: 24/07
+Agosto: 25/08
+Setembro: 25/09
+Outubro: 23/10
+Novembro: 25/11
+Dezembro: 23/12
+
+<img width="1198" height="642" alt="image" src="https://github.com/user-attachments/assets/77902b8a-b691-4101-a876-ba5c6eccedb7" />
+
 
 ## Atividades SP/RJ e MUST gestão e controle
 
