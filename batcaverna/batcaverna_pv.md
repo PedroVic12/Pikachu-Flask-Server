@@ -18,9 +18,45 @@ Altere as colunas do Kanban:
 
 ---
 
-🎌 Filosofia Japonesa do Dia: Kaizen (Melhoria Contínua)
+# PVRV 2026
+- [ ] Backup Kanban, Batcaverna, Linux e Win11
+- [ ] Planejamento e Metas semanal
+- [ ] Listagem de projetos atuais por tecnologias do github
+- [ ] Organização Emails e Arquivos
 
-Melhore 1% hoje — no código, na disciplina e na energia interior.
+# ONS PLC 2026
+
+## Controle Mensal
+Barras com previsão de carga/geração sem representação elétrica para o Mensal de Fevereiro de 2026				
+
+Nº Barra	Distribuidora	Área	Parecer da Área Mensal JAN/26	Parecer da Área
+46391	CEMIG D	MG	Obra no SIGER com previsão para 27/02/2026	
+46400	CEMIG D	MG	-	
+48434	CEMIG D	MG	Alterações enviadas pela CEMIG D para o PAR/PEL e que depende de equipe da PLM carregar no SIGER	
+48441	CEMIG D	MG	Alterações enviadas pela CEMIG D para o PAR/PEL e que depende de equipe da PLM carregar no SIGER	
+48452	CEMIG D	MG	Alterações enviadas pela CEMIG D para o PAR/PEL e que depende de equipe da PLM carregar no SIGER	
+48504	CEMIG D	MG	Alterações enviadas pela CEMIG D para o PAR/PEL e que depende de equipe da PLM carregar no SIGER	
+47905	ENERGISA MT	MT	UTE FS Querência será representada na barra 48073	
+47915	ENERGISA MT	MT	UTE FS Campo Novo será representada na barra 48072	
+48376	ENEL RJ	RJ	-	
+48377	ENEL RJ	RJ	-	
+48373	ENEL RJ	RJ	-	
+48378	ENEL RJ	RJ	-	
+48768	LIGHT	RJ	-	
+48769	LIGHT	RJ	-	
+3431	ENEL SP	SP	-	Obra na ANEEL com previsão para 10/05/2026
+
+## Controle Quadrimestral
+
+
+## Atividades SP/RJ e MUST gestão e controle
+
+
+## Regimes de Operação de Perdas duplas de LTs
+
+
+## Estudos de SEP e conceitos Básicos:
+
 
 
 # Alinhamento PVRV - Novembro: ONS, UFF, Sáude mental e emocional - Corpo, Mente, Espirito __TODO
