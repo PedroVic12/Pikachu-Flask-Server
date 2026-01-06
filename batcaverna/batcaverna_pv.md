@@ -43,8 +43,10 @@ Aqui está o [link do Sharepoint][var2] compartilhado
 
 ## Controle Mensal
 - [ ] Leitura e SPRINT atual do OneNote compartilhado
-- [ ] Barras com previsão de carga/geração sem representação elétrica para o Mensal de Fevereiro de 2026
 - [ ] Resposta PLC: Sisbar x Casos | Desativadas | Futuras x Ativas | Desligadas x Faltantes de cada Mensal
+
+- [ ] Barras com previsão de carga/geração sem representação elétrica para o Mensal de Fevereiro de 2026
+"Todos, segue a planilha com os erros de carga/geração verificados neste ciclo. Peço, por favor, que realizem a conferência até o dia 08/01/2026 (quinta-feira) e incluam, na coluna Parecer da Área (Coluna E), a justificativa e/ou atualização, indicando de que forma a barra será adicionada, caso necessário."
 
 Nº Barra	Distribuidora	Área	Parecer da Área Mensal JAN/26	Parecer da Área
 46391	CEMIG D	MG	Obra no SIGER com previsão para 27/02/2026	
@@ -62,6 +64,25 @@ Nº Barra	Distribuidora	Área	Parecer da Área Mensal JAN/26	Parecer da Área
 48768	LIGHT	RJ	-	
 48769	LIGHT	RJ	-	
 3431	ENEL SP	SP	-	Obra na ANEEL com previsão para 10/05/2026
+
+- [ ] Consolidação dos decks das áreas para o Mensal de Fevereiro de 2026: (mensagem Alvaro 30/12)
+"Todos, favor analisar os decks das áreas (MG, GO-DF e SP) recebidos para o Mensal de Fevereiro de 2026 que estão na pasta: Agentes>Original.
+Peço que, após conferência, coloquem o arquivo final na pasta: Agentes até o dia 05/01/2026 (segunda-feira).
+ 
+Aproveito para lembrar que verifiquem, no SAPECP, o recebimento da Planilha de obras da Distribuição. Após consolidação dos dados, favor inserir a nova versão da planilha na pasta: Planilhas Obras DIST.
+ 
+Por último, peço que acessem o SAPECP e alterem o status do insumo avaliado para "tratado" ou "inconsistente".
+ 
+Lembrando que alterações na rede básica enviadas pelas transmissoras através do SAPECP, além das alterações enviadas pelas distribuidoras das áreas já unificadas, devem ser consolidadas a parte e enviadas para o SIGER. Atenção para alterações sem número de circuito nos decks, que o Anarede não indica como erro, mas o Organon não aceita."
+
+Sobre o tratamento das Planilhas Obras DIST, é importante seguir o passo-a-passo.
+1 - Comparar com a planilha do sharepoint;
+2 - Incluir alterações de datas na planilha de atualização do SIGER;
+3 - Consolidar alterações de decks, incluindo exclusão ou adição de obras;
+4 - Enviar alterações para bdados_siger@ons.org.br;
+5 - Quando de alterações apenas de datas, incluir novas datas na planilha de obras DIST do sharepoint sem criar nova versão (NUNCA SUBSTITUIR PLANILHA DO SHAREPOINT PELA PLANILHA DO AGENTE); 
+6 - Quando de alterações de obras, salvar versão do sharepoint dentro da pasta "Versões anteriores", criar nova versão da planilha e incluir alterações (PARA REFORÇAR, NUNCA SUBSTITUIR PLANILHA DO SHAREPOINT PELA PLANILHA DO AGENTE).
+
 
 ## Controle Quadrimestral
 
