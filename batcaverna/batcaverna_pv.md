@@ -4,6 +4,11 @@
 
 Salve esses dados em:
 https://github.com/PedroVic12/Pikachu-Flask-Server/tree/main/batcaverna
+
+Faça edições no [arquivo.MD ][var4] do repositório para atualizar o dashboard da BatCaverna PV 
+
+[var4]: https://github.com/PedroVic12/Pikachu-Flask-Server/blob/main/batcaverna/batcaverna_pv.md
+
 ---
 
 Aqui está o [link][var1] do Shiatsu como váriavel no .MD
@@ -34,103 +39,12 @@ __Altere as colunas do Kanban:__
 
 # ONS PLC 2026
 
-## Roteiro de ferramentas de Simulação ONS
-- SIGER
-- SAPECP
-- Flow
-- AnaRede/Organon/AnaTEM
-- Sharepoint
-- 
-
-
 Aqui está o [link do Sharepoint][var2] compartilhado
 
 [var2]:https://onsbr.sharepoint.com/:f:/s/soumaisons/IgBdPCjxhJWGRoBDjV76pZApAdwZkzV_avBxKghxoYbQCaI?e=wcX7o3
 
 - [ ] Testes para deploys de programas de automações da PLC
 - [ ] Apoio na inserção de dados de restrições de novo Software feito pelo Fábio (06/01/26)
-
-## Controle Mensal
-
-Aqui está o [link do Microsoft Planner][var3] compartilhado
-[var3]: https://planner.cloud.microsoft/webui/mytasks/assignedtome/view/board?tid=3adee5fc-933e-4911-ae1b-9c2fe7b84448
-
-- [ ] Leitura e SPRINT atual do OneNote compartilhado
-- [ ] Resposta PLC: Sisbar x Casos | Desativadas | Futuras x Ativas | Desligadas x Faltantes de cada Mensal
-
-- [ ] Barras com previsão de carga/geração sem representação elétrica para o Mensal de Fevereiro de 2026
-"Todos, segue a planilha com os erros de carga/geração verificados neste ciclo. Peço, por favor, que realizem a conferência até o dia 08/01/2026 (quinta-feira) e incluam, na coluna Parecer da Área (Coluna E), a justificativa e/ou atualização, indicando de que forma a barra será adicionada, caso necessário."
-
-Nº Barra	Distribuidora	Área	Parecer da Área Mensal JAN/26	Parecer da Área
-46391	CEMIG D	MG	Obra no SIGER com previsão para 27/02/2026	
-46400	CEMIG D	MG	-	
-48434	CEMIG D	MG	Alterações enviadas pela CEMIG D para o PAR/PEL e que depende de equipe da PLM carregar no SIGER	
-48441	CEMIG D	MG	Alterações enviadas pela CEMIG D para o PAR/PEL e que depende de equipe da PLM carregar no SIGER	
-48452	CEMIG D	MG	Alterações enviadas pela CEMIG D para o PAR/PEL e que depende de equipe da PLM carregar no SIGER	
-48504	CEMIG D	MG	Alterações enviadas pela CEMIG D para o PAR/PEL e que depende de equipe da PLM carregar no SIGER	
-47905	ENERGISA MT	MT	UTE FS Querência será representada na barra 48073	
-47915	ENERGISA MT	MT	UTE FS Campo Novo será representada na barra 48072	
-48376	ENEL RJ	RJ	-	
-48377	ENEL RJ	RJ	-	
-48373	ENEL RJ	RJ	-	
-48378	ENEL RJ	RJ	-	
-48768	LIGHT	RJ	-	
-48769	LIGHT	RJ	-	
-3431	ENEL SP	SP	-	Obra na ANEEL com previsão para 10/05/2026
-
-- [ ] Consolidação dos decks das áreas para o Mensal de Fevereiro de 2026: (mensagem Alvaro 30/12)
-"Todos, favor analisar os decks das áreas (MG, GO-DF e SP) recebidos para o Mensal de Fevereiro de 2026 que estão na pasta: Agentes>Original.
-Peço que, após conferência, coloquem o arquivo final na pasta: Agentes até o dia 05/01/2026 (segunda-feira).
- 
-Aproveito para lembrar que verifiquem, no SAPECP, o recebimento da Planilha de obras da Distribuição. Após consolidação dos dados, favor inserir a nova versão da planilha na pasta: Planilhas Obras DIST.
- 
-Por último, peço que acessem o SAPECP e alterem o status do insumo avaliado para "tratado" ou "inconsistente".
- 
-Lembrando que alterações na rede básica enviadas pelas transmissoras através do SAPECP, além das alterações enviadas pelas distribuidoras das áreas já unificadas, devem ser consolidadas a parte e enviadas para o SIGER. Atenção para alterações sem número de circuito nos decks, que o Anarede não indica como erro, mas o Organon não aceita."
-
-Sobre o tratamento das Planilhas Obras DIST, é importante seguir o passo-a-passo.
-1 - Comparar com a planilha do sharepoint;
-2 - Incluir alterações de datas na planilha de atualização do SIGER;
-3 - Consolidar alterações de decks, incluindo exclusão ou adição de obras;
-4 - Enviar alterações para bdados_siger@ons.org.br;
-5 - Quando de alterações apenas de datas, incluir novas datas na planilha de obras DIST do sharepoint sem criar nova versão (NUNCA SUBSTITUIR PLANILHA DO SHAREPOINT PELA PLANILHA DO AGENTE); 
-6 - Quando de alterações de obras, salvar versão do sharepoint dentro da pasta "Versões anteriores", criar nova versão da planilha e incluir alterações (PARA REFORÇAR, NUNCA SUBSTITUIR PLANILHA DO SHAREPOINT PELA PLANILHA DO AGENTE).
-
-
-## Controle Quadrimestral
-
-### Cronograma Relatório Final
-- Minuta
- 
-Janeiro: 20/01
-Fevereiro: 20/02
-Março: 20/03
-Abril: 17/04
-Maio: 20/05
-Junho: 22/06
-Julho: 20/07
-Agosto: 21/08
-Setembro: 21/09
-Outubro: 20/10
-Novembro: 19/11
-Dezembro: 18/12
- 
-- Versão Final
- 
-Janeiro: 23/01
-Fevereiro: 25/02
-Março: 25/03
-Abril: 24/04
-Maio: 25/05
-Junho: 25/06
-Julho: 24/07
-Agosto: 25/08
-Setembro: 25/09
-Outubro: 23/10
-Novembro: 25/11
-Dezembro: 23/12
-
-<img width="1198" height="642" alt="image" src="https://github.com/user-attachments/assets/77902b8a-b691-4101-a876-ba5c6eccedb7" />
 
 
 ## Atividades SP/RJ e MUST gestão e controle
