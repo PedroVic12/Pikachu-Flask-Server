@@ -18,6 +18,8 @@ __Altere as colunas do Kanban:__
 
 ---
 
+## Roadmap Cientista de Dados
+
 ![alt text - ciencia de dados ONS](image-1.png)
 
 ---
@@ -28,10 +30,21 @@ __Altere as colunas do Kanban:__
 - [ ] Listagem de projetos atuais por tecnologias do github
 - [ ] Organização Emails e Arquivos
 
+---
+
 # ONS PLC 2026
 
+Aqui está o [link do Sharepoint][var2] compartilhado
+
+[var2]:https://onsbr.sharepoint.com/:f:/s/soumaisons/IgBdPCjxhJWGRoBDjV76pZApAdwZkzV_avBxKghxoYbQCaI?e=wcX7o3
+
+- [ ] Testes para deploys de programas de automações da PLC
+- [ ] Apoio na inserção de dados de restrições de novo Software feito pelo Fábio (06/01/26)
+
 ## Controle Mensal
-Barras com previsão de carga/geração sem representação elétrica para o Mensal de Fevereiro de 2026				
+- [ ] Leitura e SPRINT atual do OneNote compartilhado
+- [ ] Barras com previsão de carga/geração sem representação elétrica para o Mensal de Fevereiro de 2026
+- [ ] Resposta PLC: Sisbar x Casos | Desativadas | Futuras x Ativas | Desligadas x Faltantes de cada Mensal
 
 Nº Barra	Distribuidora	Área	Parecer da Área Mensal JAN/26	Parecer da Área
 46391	CEMIG D	MG	Obra no SIGER com previsão para 27/02/2026	
@@ -60,8 +73,16 @@ Nº Barra	Distribuidora	Área	Parecer da Área Mensal JAN/26	Parecer da Área
 
 
 ## Estudos de SEP e conceitos Básicos:
+- [ ] Estudos de montagem de decks intercambios VC de Janeiro de 2026
+- [ ] Estudos básicos com pandapower, AnaREDE e Organon
 
-
+## Roteiro de ferramentas de Simulação ONS
+- SIGER
+- SAPECP
+- Flow
+- AnaRede/Organon/AnaTEM
+- Sharepoint
+- 
 
 # Alinhamento PVRV - Novembro: ONS, UFF, Sáude mental e emocional - Corpo, Mente, Espirito __TODO
 
@@ -100,11 +121,7 @@ Projeto 8 - Deploy e Inferência de Modelos de Machine Learning com MLflow e Dat
 
 # LEGADO - ENG. ELÉTRICA - UFF, ONS, PIBIC, IoT Smart Grids
 
----
 
-# ROTINA
-
----
 
 # VIDA PESSOAL E ROTINA __IN_PROGRESS
 
@@ -160,3 +177,9 @@ Projeto 8 - Deploy e Inferência de Modelos de Machine Learning com MLflow e Dat
 - [ ] 2 equações do dia
 - [ ] 2 projetos no dia (backend/frontend)
 - [ ]
+
+
+# UFF Engenharia Elétrica 2026.1
+
+- [ ] Planejamento de horários de aulas
+- [ ] Livros:
