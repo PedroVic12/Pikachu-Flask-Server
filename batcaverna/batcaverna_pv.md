@@ -32,14 +32,14 @@ Por default, fica sempre no backlog
 ---
 
 # PVRV 2026
-- [ ] Backup Kanban, Batcaverna, Linux e Win11
-- [ ] Planejamento e Metas semanal
+- [x] Backup Kanban, Batcaverna, Linux e Win11
+- [x] Planejamento e Metas semanal
 - [ ] Listagem de projetos atuais por tecnologias do github
 - [ ] Organização Emails e Arquivos
 
 ---
 
-# ONS PLC 2026
+# ONS PLC 2026 __IN_PROGRESS
 
 Aqui está o [link do Sharepoint][var2] compartilhado
 
@@ -47,7 +47,56 @@ Aqui está o [link do Sharepoint][var2] compartilhado
 
 - [ ] Testes para deploys de programas de automações da PLC
 - [ ] Apoio na inserção de dados de restrições de novo Software feito pelo Fábio (06/01/26)
+															
+Parâmetro	≤	>	COFICIENTES DAS VARIÁVEIS									OBS	RESULTADO TESTE		
+Carga SIN	-	95000													
+MMGD SECO	3000	0	GIPU	Ger_Fur	Ger_LCB	Ger_AGV	Ger_ILS	Ger_CAP	GPC1	GPC2	INDEPENDENTE				
+		Máximo	7500						8000	1260	1				
+		Manual	4010						100	3200	1				
+			0,917								5069	Noite (F1)	8746,17		
+									1	1	-3200	GPC < 3200 (P1a)	100		
+									0,5	0,286	-890	GPC > 3200 (P1b)	75,2		
+											1901,932	GPC max (P1c)	1901,932		Funções para o Relatório
+			0,917	0,000	0,000	0,000	0,000	0,000	1,000	1,000	1.869	F1+P1a	8846,17	1	RSUL ≤ 0,917 x GIPU + 1 x GPC1 + 1 x GPC2 + 1869
+			0,917	0,000	0,000	0,000	0,000	0,000	0,500	0,286	4.179	F1+P1b	8821,37	2	RSUL ≤ 0,917 x GIPU + 0,5 x GPC1 + 0,286 x GPC2 + 4179
+			0,917	0,000	0,000	0,000	0,000	0,000	0,000	0,000	6.971	F1+P1c	10648,102	3	RSUL ≤ 0,917 x GIPU + 6971
+												Limite Final	8821,37	F1+P1b	
+															
+Parâmetro	≤	>	COFICIENTES DAS VARIÁVEIS									OBS	RESULTADO TESTE		
+Carga SIN	-	95000													
+MMGD SECO	0	3000	GIPU	Ger_Fur	Ger_LCB	Ger_AGV	Ger_ILS	Ger_CAP	GPC1	GPC2	INDEPENDENTE				
+		Máximo	7500						8000	1260	1				
+		Manual	2100						100	3100	1				
+			1,053								1207	Dia (F1)	3418,3		
+											7825	Dia (teto)			
+									1	1	-3200	GPC < 3200 (P1a)	0		
+									0,5	0,286	-890	GPC > 3200 (P1b)	46,6		
+											1901,932	GPC max (P1c)	1901,932		Funções para o Relatório
+			1,053	0,000	0,000	0,000	0,000	0,000	1,000	1,000	-1.993	F1+P1a	3418,3	1	RSUL ≤ 1,053 x GIPU + 1 x GPC1 + 1 x GPC2-1993
+			1,053	0,000	0,000	0,000	0,000	0,000	0,500	0,286	317	F1+P1b	3464,9	2	RSUL ≤ 1,053 x GIPU + 0,5 x GPC1 + 0,286 x GPC2 + 317
+			1,053	0,000	0,000	0,000	0,000	0,000	0,000	0,000	3.109	F1+P1c	5320,232	3	RSUL ≤ 1,053 x GIPU + 3109
+			0,000	0,000	0,000	0,000	0,000	0,000	1,000	1,000	4.625	teto+P1a	7825	1	RSUL ≤  + 1 x GPC1 + 1 x GPC2 + 4625
+			0,000	0,000	0,000	0,000	0,000	0,000	0,500	0,286	6.935	teto+P1b	7871,6	2	RSUL ≤  + 0,5 x GPC1 + 0,286 x GPC2 + 6935
+			0,000	0,000	0,000	0,000	0,000	0,000	0,000	0,000	9.727	teto+P1c	9726,932	3	RSUL ≤  + 9727
+												Limite Final	3418,3	F1+P1a	
 
+
+- [ ] Fazer preeenchimento da base de dados do LPP das ultimas duas tabelas do RSUL da planilha compartilhada
+  - Limite
+  - Condição
+  - Governante
+  - Nova função Base
+  - Cadastro das: Função menor, maior e máx
+  - 
+- [ ] Conferir inequação resultante igual na planilha de RSUL
+
+
+<img width="855" height="592" alt="image" src="https://github.com/user-attachments/assets/8bd6e64b-27b8-498a-84c0-ee51915abf14" />
+
+
+
+
+---
 
 ## Atividades SP/RJ e MUST gestão e controle
 
