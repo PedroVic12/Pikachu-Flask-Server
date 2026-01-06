@@ -22,48 +22,6 @@ Altere as colunas do Kanban:
 
 Melhore 1% hoje — no código, na disciplina e na energia interior.
 
-### ⚡ Equações do Dia (LaTeX)
-
-## 1) Lei de Gauss (fluxo elétrico)
-
-A forma integral da Lei de Gauss é:
-
-\[
-\Phi_E = \oint_{\partial V} \mathbf{E}\cdot d\mathbf{A} = \frac{Q_{\text{in}}}{\varepsilon_0}
-\]
-
-Relembre: o fluxo total \(\Phi_E\) sobre uma superfície fechada é proporcional à carga interna \(Q_{in}\).
-
----
-
-## 2) Potência Complexa em Corrente Alternada
-
-A potência aparente \(S\), ativa \(P\) e reativa \(Q\):
-
-\[
-S = P + jQ = V I^*
-\]
-
-onde \(V\) é a tensão fasorial, \(I^*\) a conjugada do fasor de corrente.
-
----
-
-📚 Sugestão de Leitura:
-
-“Análise de Sistemas Elétricos de Potência” – William D. Stevenson Jr.
-(Revisar o capítulo sobre Fluxo de Potência e Y-Bus).
-
-# 🧩 Meta de Exercícios: __IN_PROGRESS
-
-- [ ] 3 de SEP (fluxo de potência)
-
-2 de Eletromagnetismo (Lei de Gauss e Ampère)
-
-2 de Circuitos (RC e RLC)
-
-1 de Sinais e Sistemas (Laplace e resposta em frequência)
-
----
 
 # Alinhamento PVRV - Novembro: ONS, UFF, Sáude mental e emocional - Corpo, Mente, Espirito __TODO
 
