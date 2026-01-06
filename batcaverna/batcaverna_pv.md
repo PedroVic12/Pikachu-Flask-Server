@@ -1,14 +1,18 @@
+---
 # BatCaverna Editor:
+---
 
 Salve esses dados em:
 https://github.com/PedroVic12/Pikachu-Flask-Server/tree/main/batcaverna
 
+---
 Aqui está o [link][var1] do Shiatsu como váriavel no .MD
 
 [var1]: https://revigorar.reservio.com/
-DATA ATUAL = 02/12/2025
 
-Altere as colunas do Kanban:
+DATA ATUAL = 06/01/2025
+
+__Altere as colunas do Kanban:__
 
 **__BACKLOG, __IN_PROGRESS, __TODO, __COMPLETED**
 
