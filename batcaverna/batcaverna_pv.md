@@ -15,7 +15,7 @@ Aqui está o [link][var1] do Shiatsu como váriavel no .MD
 
 ---
 
-DATA ATUAL = 06/01/2025
+DATA ATUAL = 07/01/2025
 
 __Altere as colunas do Kanban:__
 
@@ -29,6 +29,10 @@ Por default, fica sempre no backlog
 
 ![alt text - ciencia de dados ONS](image-1.png)
 
+
+
+---
+# BatCaverna Editor 2026
 ---
 
 # PVRV 2026
