@@ -110,63 +110,7 @@ Aqui está o [link do Sharepoint][var2] compartilhado
 
 ## LEGADO - ENG. ELÉTRICA - UFF, ONS, PIBIC, IoT Smart Grids
 
-## Alinhamento PVRV - Novembro: ONS, UFF, Sáude mental e emocional - Corpo, Mente, Espirito __TODO
 
-
-# VIDA PESSOAL E ROTINA __IN_PROGRESS
-
-## Corpo, Mente (Treino, Calistenia, Saúde) e Espirito (Alinhamento, Chakras, Meditação)
-
-- [X] Treino de calistenia
-- [X] Alongamento diário
-- [X] Alimentação 4x/dia
-
-## Espiritualidade
-
-- [X] Alinhamento diário (chakra + salmo + equação do dia)
-- [ ] Meditação e leitura bíblica
-- [X] Diário de evolução espiritual
-
-## Hábitos, Organização e PLanejamento
-
-- [X] Fechar 10 abas
-- [ ] Limpeza semanal do apartamento
-- [X] Planejamento seg/sex + Kanban pessoal
-- [X] Planejamento de terapia e limpeza de pensamentos
-- [X] Terapia
-- [X] Alongamento + Calistenia + Rotina de treinos com saúde em boa forma
-- [ ] Meditação e alinhamento espiritual
-- [X] Treino gym
-- [ ] Limpeza no apartametno (seg/sex)
-- [X] Lavar a louça e passar pano na casa
-- [ ] Limpeza de banheiro de cozinha
-- [ ] 4 Refeições por dia (Café da manha, Almoço, Lanche (pré-treino) e Jantar)
-- [X] Jogos
-
-  - The Witcher 3
-  - Bully - ps3 / GTA 4
-  - LOL ou Warzone
-  - Jurassic Park Evolution
-  - Pokemon GBA ou NDS
-
-# TDAH - Rotina (Saúde, Paz e Equilibrio) __COMPLETED
-
-- [X] Visualização KANBAN e gerar 5 tarefas do dia (MANHA)
-- [X] Organização mental e preparação para novo Ciclo JEDI CYBERPUNK com resolução de provas, tutorial de 10 min de programação, modelagem e simulações de eng eletrica junto com automações com N8N
-- [ ] Alinhamento Espiritual
-
-  - [X] Segunda - Chakra: Solar
-  - [ ] Terça - Chakra: Garganta
-  - [ ] Quarta - Chakra: Cardiaco
-  - [ ] Quinta: Chakra: 3º Olho
-  - [ ] Sexta: Chakra: Root
-- [X] You Only Need 5 Hobbies (Money, Study, Mindset, In Shape, Creative)
-- [ ] Meditação e estudos com Matemática e Japonês
-- [ ] Alongamento matinal - Ombros e Quadril
-- [X] Treino de calistenia para karate
-- [ ] 2 equações do dia
-- [ ] 2 projetos no dia (backend/frontend)
-- [ ]
 
 
 # UFF Engenharia Elétrica 2026.1
@@ -263,7 +207,7 @@ _Data gerado: 10/11/2025_
 | **4 (SEP/Código)** |    13:00 – 13:50    | **MÓDULO 2: ybus_solver.py**        | ⚙️ Inicie o código Python. Modele a matriz**Y-Bus 3×3 em NumPy** (números complexos) — transforme teoria em código.                          |
 | **5 (Alinhamento)** |    14:00 – 14:50    | **DOCUMENTAÇÃO: IEDs/Aprendizado** | 📝 Crie o arquivo `ieds_log.md` e registre a lógica de **MQTT/LED/Buzzer** (aprendizado de IoT). Isso fecha o ciclo do dia.                      |
 
-
+##################################################################################################################################################################
 ---
 # Batcaverna 2025 OLD
 ---
@@ -298,59 +242,6 @@ _Data gerado: 10/11/2025_
 - [ ] Bots e RPA com Python
 - [ ] Estudos de IA, ML, DL, Chatbots, N8N, AI agentes frameworks (Agno/Langchain)
 
-
----
-# ROTINA
----
-
-# VIDA PESSOAL E ROTINA __IN_PROGRESS
-
-- Corpo, Mente (Treino, Calistenia, Saúde) e Espirito (Alinhamento, Chakras, Meditação)
-
-- [ ] Treino de calistenia
-- [ ] Alongamento diário
-- [X] Alimentação 4x/dia
-- [ ] Treino gym
-- [X] 4 Refeições por dia (Café da manha, Almoço, Lanche (pré-treino) e Jantar)
-
-## Espiritualidade
-
-- [ ] Alinhamento diário (chakra + salmo + equação do dia)
-- [ ] Meditação e leitura bíblica
-- [ ] Diário de evolução espiritual
-- [ ] Bom dia, nossa Senhora
-- [ ] Rezar o terço do dia
-
-## Hábitos, Organização e PLanejamento
-
-- [ ] Limpeza semanal do apartamento
-- [x] Planejamento seg/sex + Kanban pessoal
-- [X] Terapia
-- [X] Alongamento + Calistenia + Rotina de treinos com saúde em boa forma
-- [ ] Meditação e alinhamento espiritual
-- [X] Fechar 10 abas
-- [X] Limpeza no apartamento (seg/sex)
-- [X] Lavar a louça e passar pano na casa
-- [ ] Limpeza de banheiro de cozinha
-
-
-# TDAH - Rotina (Saúde, Paz e Equilibrio) __IN_PROGRESS
-
-- [X] Visualização KANBAN e gerar 5 tarefas do dia (MANHA)
-- [ ] Organização mental e preparação para novo Ciclo JEDI CYBERPUNK com resolução de provas, tutorial de 10 min de programação, modelagem e simulações de eng eletrica junto com automações com N8N
-- [X] Alinhamento Espiritual
-
-  - [ ] Segunda - Chakra: Solar
-  - [ ] Terça - Chakra: Garganta
-  - [ ] Quarta - Chakra: Cardiaco
-  - [ ] Quinta: Chakra: 3º Olho
-  - [ ] Sexta: Chakra: Root
-- [ ] You Only Need 5 Hobbies (Money, Study, Mindset, In Shape, Creative)
-- [ ] Meditação e estudos com Matemática e Japonês
-- [X] Alongamento matinal - Ombros e Quadril
-- [ ] Treino de calistenia para karate
-- [ ] 2 equações do dia
-- [ ] 2 projetos no dia (backend/frontend)
 
 ---
 
