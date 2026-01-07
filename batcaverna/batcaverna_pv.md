@@ -48,6 +48,14 @@ Por default, fica sempre no backlog
   - Data Atual correta
   - Aba de modificações na pág de Revisões de relatório
   - Pegar o Word direto do Sharepoint
+- [ ]  1 - Como precisa de um modelo word pra gerar o negócio, colocar na macro já o download do modelo. Podemos deixar ele em uma pasta no sharepoint, e só colocar o link na macro;
+ 
+- [ ]  2 - Pegar o número da revisão do nome do arquivo Excel e atualizar no word. Isso vai tanto no nome do arquivo quanto na capa, além do mês da emissão.
+ 
+- [ ] 3 - Obter da aba Modificações os motivos da revisão e colocar na tabela de revisão do word.
+ 
+Os itens 2 e principalmente o 3 eu não sei se vão ser muito simples de implementar, então com certeza não precisa ser hoje, dá pra deixar só gerando o word e editar na mão por enquanto
+ 
 
 ---
 
@@ -59,38 +67,6 @@ Aqui está o [link do Sharepoint][var2] compartilhado
 
 - [ ] Testes para deploys de programas de automações da PLC
 - [ ] Apoio na inserção de dados de restrições de novo Software feito pelo Fábio (06/01/26)
-															
-Parâmetro	≤	>	COFICIENTES DAS VARIÁVEIS									OBS	RESULTADO TESTE		
-Carga SIN	-	95000													
-MMGD SECO	3000	0	GIPU	Ger_Fur	Ger_LCB	Ger_AGV	Ger_ILS	Ger_CAP	GPC1	GPC2	INDEPENDENTE				
-		Máximo	7500						8000	1260	1				
-		Manual	4010						100	3200	1				
-			0,917								5069	Noite (F1)	8746,17		
-									1	1	-3200	GPC < 3200 (P1a)	100		
-									0,5	0,286	-890	GPC > 3200 (P1b)	75,2		
-											1901,932	GPC max (P1c)	1901,932		Funções para o Relatório
-			0,917	0,000	0,000	0,000	0,000	0,000	1,000	1,000	1.869	F1+P1a	8846,17	1	RSUL ≤ 0,917 x GIPU + 1 x GPC1 + 1 x GPC2 + 1869
-			0,917	0,000	0,000	0,000	0,000	0,000	0,500	0,286	4.179	F1+P1b	8821,37	2	RSUL ≤ 0,917 x GIPU + 0,5 x GPC1 + 0,286 x GPC2 + 4179
-			0,917	0,000	0,000	0,000	0,000	0,000	0,000	0,000	6.971	F1+P1c	10648,102	3	RSUL ≤ 0,917 x GIPU + 6971
-												Limite Final	8821,37	F1+P1b	
-															
-Parâmetro	≤	>	COFICIENTES DAS VARIÁVEIS									OBS	RESULTADO TESTE		
-Carga SIN	-	95000													
-MMGD SECO	0	3000	GIPU	Ger_Fur	Ger_LCB	Ger_AGV	Ger_ILS	Ger_CAP	GPC1	GPC2	INDEPENDENTE				
-		Máximo	7500						8000	1260	1				
-		Manual	2100						100	3100	1				
-			1,053								1207	Dia (F1)	3418,3		
-											7825	Dia (teto)			
-									1	1	-3200	GPC < 3200 (P1a)	0		
-									0,5	0,286	-890	GPC > 3200 (P1b)	46,6		
-											1901,932	GPC max (P1c)	1901,932		Funções para o Relatório
-			1,053	0,000	0,000	0,000	0,000	0,000	1,000	1,000	-1.993	F1+P1a	3418,3	1	RSUL ≤ 1,053 x GIPU + 1 x GPC1 + 1 x GPC2-1993
-			1,053	0,000	0,000	0,000	0,000	0,000	0,500	0,286	317	F1+P1b	3464,9	2	RSUL ≤ 1,053 x GIPU + 0,5 x GPC1 + 0,286 x GPC2 + 317
-			1,053	0,000	0,000	0,000	0,000	0,000	0,000	0,000	3.109	F1+P1c	5320,232	3	RSUL ≤ 1,053 x GIPU + 3109
-			0,000	0,000	0,000	0,000	0,000	0,000	1,000	1,000	4.625	teto+P1a	7825	1	RSUL ≤  + 1 x GPC1 + 1 x GPC2 + 4625
-			0,000	0,000	0,000	0,000	0,000	0,000	0,500	0,286	6.935	teto+P1b	7871,6	2	RSUL ≤  + 0,5 x GPC1 + 0,286 x GPC2 + 6935
-			0,000	0,000	0,000	0,000	0,000	0,000	0,000	0,000	9.727	teto+P1c	9726,932	3	RSUL ≤  + 9727
-												Limite Final	3418,3	F1+P1a	
 
 
 - [ ] Fazer preeenchimento da base de dados do LPP das ultimas duas tabelas do RSUL da planilha compartilhada
@@ -325,22 +301,6 @@ Almoço,12:05 – 13:00,Rotina: Desligar a tela.,Ação: Seu descanso é sagrado
 - Elementos do Eletromagnetismo
 - Processamento digital de Sinais com Relés digitais e Series temporais de cargas de Substações
 
-# Atividades MUST 28/10/25
-
-- [X] Agrupação de paginas por tab no menu lateral
-- [X] App Template Windows Desktop (Bloco de notas sobre)
-- [X] Análise por empresa (query SQL)
-- [X] Launcher (Palkia GUI) para script run.py rodando na mesma tela do dashboard_desktop_GUI.py
-- [X] Conexão com SQLite e Microsoft Access
-- [ ] Análise de dados usando Flow e anaREDE (Controle de casos, Usinas SIN, despacho, Inequacoões)
-- [ ] QUAIS PONTOS SERÃO ANALISADOS, QUANTO O AGENTE ESTÁ PEDINDO, 	QUEM É O ID PROBLEMA ,	QUEM É O ID SOLUÇÃO
-- [ ] Ajustar caminho relativo dentro do repositorio sem caminho Global do banco de dados
-- [X] Deck Builder com Plugin do Organon - Testes de casos de uso SEP 16 barras, SEP 5 Barras, IEEE 14 e SIN 45
-  - Fundamentação teorica: Barra Swing, Reator Shunt e Transformador em fase
-  - Fluxo de potencia x Curto Circuito
-  - Despacho de Cargas
-- [ ] incluir no banco de dados de MUST a relação ponto de MUST x barras/circuitos do Fluxo de potência
-- [ ] "régua" para inclusão de LTs e Trafos via script do Organon
 
 # Lista de TAREFAS Pendentes __TODO
 
@@ -352,7 +312,7 @@ Almoço,12:05 – 13:00,Rotina: Desligar a tela.,Ação: Seu descanso é sagrado
 - [X] Planejamento e Metas (Segunda/Sexta)
 - [X] Análise de contigencias - Perdas Duplas
 - [ ] MUST - Ponta e fora ponta ate 2030 com Controle e gestão de aprovação de documentos PDF com ou sem Ressalva.
-- [X] Kanban/Cronograma -> Organização do cronograma de estudos
+- [X] Kanban/Cronograma Website -> Organização do cronograma de estudos
 - [ ] Treino de calistenia e calistenia app
 - [ ] Aulas Sinais/cricuitos CC/CA e Eng. Controle + SEP Fundamentals + Metodos numericos com Python
 - [ ] Despacho de cargas - Planejamento Mensal e Semanal - Flow + AnaREDE, AnaTEM e Organon
@@ -371,8 +331,7 @@ Almoço,12:05 – 13:00,Rotina: Desligar a tela.,Ação: Seu descanso é sagrado
 - [ ] Processamento de imagens de satélites com Python
 - [ ] Bots e RPA com Python
 - [ ] Estudos de IA, ML, DL, Chatbots, N8N, AI agentes frameworks (Agno/Langchain)
-- [X] PROGRAMAÇÃO FRONTEND
-- [ ] PROGRAMAÇÃO BACKEND
+
 
 ---
 
@@ -380,14 +339,11 @@ Almoço,12:05 – 13:00,Rotina: Desligar a tela.,Ação: Seu descanso é sagrado
 
 ---
 
-# Estágio ONS __IN_PROGRESS
+# Estágio ONS PLC 2025 __IN_PROGRESS
 
 - [X] Análise e Leitura do plano de Montagem de Quadros Mensal - dezembro com Organon, Flow e AnaREDE
-- [ ]
 - [ ] Dashboard MUST (Palkia GUI Desktop) ONS - Despacho + MUST PDF extractor ->  Banco de Dados com SQL/Access e relacionamentos com Dashboard final - Projeto Final rodando com .Exe usando banco de dados
 - [X] Deploy: Plugin no Organon no notepad++ com .EXE
-- [X] NextJS - SEP para Leigos Website
-- [X] TAREFAS ONS
 - [ ] Integração com Banco Access
 - [ ] Automação de aprovações PDF
 - [ ] Template Word + Geração automática
@@ -485,12 +441,12 @@ Almoço,12:05 – 13:00,Rotina: Desligar a tela.,Ação: Seu descanso é sagrado
 - UFF, Estudos Acadêmicos e Provas Antigas
 
 - [X] Mátematica aplicada a Eng. Elétrica, ONS, Ciencia de Dados / ML, Provas Antigas
-- [X] Estudos UFF com modelagem e prototipação/simulação de circuitos digitais e eletricos CC/CA com arduino e esp32. Eletronica para makers
+- [ ] Estudos UFF com modelagem e prototipação/simulação de circuitos digitais e eletricos CC/CA com arduino e esp32. Eletronica para makers
 - [ ] Minicurso CC + CD
 - [ ] Minicurso Matemática básica ENEM - Geometria Espacial, Logaritmos e Questões matemáticas de ITA e IME
 - [ ] Jedi Cyberpunk - Python com Métodos Numéricos + Otimização e uso de Redes Neurais (pegar exemplos de eng dos códigos de matlab)
 - [ ] AstroML - Machine learning
-- [X] 1 cap. de um livro de matemática e física por dia
+- [ ] 1 cap. de um livro de matemática e física por dia
 - [ ] 2 Equações do dia
 
 ---
@@ -506,35 +462,29 @@ Almoço,12:05 – 13:00,Rotina: Desligar a tela.,Ação: Seu descanso é sagrado
 - [ ] Treino de calistenia
 - [ ] Alongamento diário
 - [X] Alimentação 4x/dia
+- [ ] Treino gym
+- [X] 4 Refeições por dia (Café da manha, Almoço, Lanche (pré-treino) e Jantar)
 
 ## Espiritualidade
 
-- [X] Alinhamento diário (chakra + salmo + equação do dia)
+- [ ] Alinhamento diário (chakra + salmo + equação do dia)
 - [ ] Meditação e leitura bíblica
-- [X] Diário de evolução espiritual
+- [ ] Diário de evolução espiritual
+- [ ] Bom dia, nossa Senhora
+- [ ] Rezar o terço do dia
 
 ## Hábitos, Organização e PLanejamento
 
-- [ ] Fechar 10 abas
 - [ ] Limpeza semanal do apartamento
-- [ ] Planejamento seg/sex + Kanban pessoal
+- [x] Planejamento seg/sex + Kanban pessoal
 - [X] Terapia
 - [X] Alongamento + Calistenia + Rotina de treinos com saúde em boa forma
 - [ ] Meditação e alinhamento espiritual
-- [ ] Treino gym
 - [X] Fechar 10 abas
-- [X] Limpeza no apartametno (seg/sex)
+- [X] Limpeza no apartamento (seg/sex)
 - [X] Lavar a louça e passar pano na casa
 - [ ] Limpeza de banheiro de cozinha
-- [X] 4 Refeições por dia (Café da manha, Almoço, Lanche (pré-treino) e Jantar)
-- [ ]
-- [X] Jogos
 
-  - The Witcher 3
-  - Bully - ps3 / GTA 4
-  - LOL ou Warzone
-  - Jurassic Park Evolution
-  - Pokemon GBA ou NDS
 
 # TDAH - Rotina (Saúde, Paz e Equilibrio) __IN_PROGRESS
 
@@ -543,10 +493,10 @@ Almoço,12:05 – 13:00,Rotina: Desligar a tela.,Ação: Seu descanso é sagrado
 - [X] Alinhamento Espiritual
 
   - [ ] Segunda - Chakra: Solar
-  - [X] Terça - Chakra: Garganta
-  - [X] Quarta - Chakra: Cardiaco
+  - [ ] Terça - Chakra: Garganta
+  - [ ] Quarta - Chakra: Cardiaco
   - [ ] Quinta: Chakra: 3º Olho
-  - [X] Sexta: Chakra: Root
+  - [ ] Sexta: Chakra: Root
 - [ ] You Only Need 5 Hobbies (Money, Study, Mindset, In Shape, Creative)
 - [ ] Meditação e estudos com Matemática e Japonês
 - [X] Alongamento matinal - Ombros e Quadril
@@ -562,6 +512,7 @@ Almoço,12:05 – 13:00,Rotina: Desligar a tela.,Ação: Seu descanso é sagrado
 
 # Programação FullStack  (Github) __BACKLOG
 
+
 - Frontend (HTML/CSS/JS, React, NextJS, Flutter, Astro)
 
 - [ ] Astro blog pedrov12
@@ -571,18 +522,39 @@ Almoço,12:05 – 13:00,Rotina: Desligar a tela.,Ação: Seu descanso é sagrado
 - [ ] Flutter Apps (Calistenia App, App Financeiro, Gohan Treinamentos)
 - [X] DASHBOARD + PalkiaGUI - MUST - ONS (Controle e Gestão Atividades SP e MUST)
 - [X] Frontend: HTML + JS, React, Flutter, Astro, Pyside6, Streamlit
+- [ ] meu-react-app-template (Gohan-Treinamentos, Quizz App, Habits tracker - Iconic)
+- [ ] sistemas-web-template
+- [ ] virtual-shop-Modas Veras
+- [ ] Gohan Treinamentos
+- [ ] Calistenia App + Goku IA trainer
+- [ ] Gohan Treinamentos + Hobby XP PSI + Calistenia APP + Controle Financeiro + Dashboard com Flutter Getx e Vaden
+- [ ] WebSites e sistemas web em Astro/NextJS
 
+    
 - Backend (FastAPI, Flask, Django, Tornado, SQL, NodeJS, N8N, Drogon C++)
+- [ ] RCE - AG DEAP + Streamlit | Simulator de Redes Elétricas PandaPower + PySide6
+- [ ] Simulações de Ciencia (Circuito RLC, Buraco Negro, Orbitas da Terra)
 
+- [ ] Backend com Flask, FastAPI, Django, Ninja, Websockets, Supabase + Redis + SQL
+- [ ] Boas práticas com SQLAlchemy e Python e Pyside6 - MVC desktop Apps com C++ Dragon Web Server
+- [ ] Pikachu-Flask-Server
+- [ ] Raichu-django-Server (Charizard Drogon C++)
+- [ ] Raichu-Server (FastAPI / Tornado)
+- [ ] Rayquaza Web Server (FastAPI)
 - [ ] FastAPI Auth + CRUD Supabase
 - [X] Flask API - Pikachu Server
+- [ ] NodeJS + Express para Nextjs
 - [ ] Django Ninja / Tornado Server
 - [ ] Backend: Charizard (Drogon), Pikachu (Flask), Raichu ( FastAPI), Dragonite (Tornado)
 
 - Desktop (PySide6, QT Designer, Access Microsoft DB, SQL)
-
+- [X] Electrical-System-Simulator
 - [ ] Pyside6 - Eng. Controle + Deck Builder
-- [ ] Qt MVC + SQLAlchemy + Access Integration
+- [x] Qt MVC + SQLAlchemy + Access Integration
+      - [ ] CRUD database MUST	  
+- [ ] my-flutter-getx-app (Kyogre App, SCRUM Planner App, TodoList App, Controle Financeiro App, Controle Estoque App)
+- [ ] Planilha e Controle financeiro Flutter
+
 
 - IA e Agentes (Chatbots, N8N, ML, DL, Langchain)
 
@@ -591,7 +563,7 @@ Almoço,12:05 – 13:00,Rotina: Desligar a tela.,Ação: Seu descanso é sagrado
 - [ ] ML com dados ONS e Kaggle
 
 - Modelos de Machine Learning x Deep Learning
-- Dashbaords (HTML/React, Streamlit)
+
 - IoT e Automação
 
 - [X] Node-RED + N8N + MQTT
@@ -601,47 +573,24 @@ Almoço,12:05 – 13:00,Rotina: Desligar a tela.,Ação: Seu descanso é sagrado
 
 - Algoritimos de Otimização + Métodos Numéricos + Modelagem Matemática
 
-- [X] Electrical-System-Simulator
-- [ ] meu-react-app-template (Gohan-Treinamentos, Quizz App, Habits tracker - Iconic)
-- [ ] my-flutter-getx-app (Kyogre App, SCRUM Planner App, TodoList App, Controle Financeiro App, Controle Estoque App)
-- [ ] Planilha e Controle financeiro Flutter
-- [ ] Pikachu-Flask-Server
-- [ ] Raichu-django-Server (Charizard Drogon C++)
-- [ ] Raichu-Server (FastAPI / Tornado)
-- [ ] Rayquaza Web Server (FastAPI)
-- [ ] RCE - AG DEAP + Streamlit | Simulator de Redes Elétricas PandaPower + PySide6
-- [ ] Simulações de Ciencia (Circuito RLC, Buraco Negro, Orbitas da Terra)
-- [ ] sistemas-web-template
-- [ ] virtual-shop-Modas Veras
-- [ ] Gohan Treinamentos
-- [ ] Calistenia App + Goku IA trainer
-- [ ] Gohan Treinamentos + Hobby XP PSI + Calistenia APP + Controle Financeiro + Dashboard com Flutter Getx e Vaden
-- [ ] WebSites e sistemas web em Astro/NextJS
-- [ ] Backend com Flask, FastAPI, Django, Ninja, Websockets, Supabase + Redis + SQL
-- [ ] Boas práticas com SQLAlchemy e Python e Pyside6 - MVC desktop Apps com C++ Dragon Web Server
 
 # Projetos Portfolio/SAAS (React + Python + SQL) __BACKLOG
 
 - Projetos Pessoais e Portfólio
 
-- [ ] Estudos de frontend com Astro/React, Flutter e MVP em HTML + Bootstrap
-- [ ] Data Driven com metodos SCRUM com organização e planner de projetos PVRV como freelancer e suas tecnologias
-
-- ONS, Pesquisa Científica e Cientista de dados
-
+- [x] Estudos de frontend com Astro/React, Flutter e MVP em HTML + Bootstrap
+- [x] Data Driven com metodos SCRUM com organização e planner de projetos PVRV como freelancer e suas tecnologias
+- [ ] Projeto Visão computacional com cancer de mamas + Contador de embaixadinhas de futebol
+- [ ] IOT E ARDUINO COM WEBSOCKET COM HTML ANALISANDO SERIES TEMPORAIS
 - [ ] Projetos Visão Computacional
   - Contador de embaixadinhas
   - Contador de rolinhas (webcam)
   - Calistenia App
   - Analise de futebol com tic tac toe com projetor e bola na parede
-- [ ] Projeto Visão computacional com cancer de mamas + Contador de embaixadinhass
-- [ ] IOT E ARDUINO COM WEBSOCKET COM HTML ANALISANDO SERIES TEMPORAIS
+      
+- ONS, Pesquisa Científica e Cientista de dados
+
 - [ ] CIENTISTA DE DADOS - ML E DATASET ENERGY + CLASSIFICATION + REGRESSION + KMEANS
-
-- Freelancer / Negócios / Monetização
-
-- [ ] API REST com Django ninja, FastAPI, Flask, Tornado, Drogon C++
-- [ ] Sistemas de CRUD  (Cadastro de Clientes) e api usando python com Flask/FastAPI com docker e boas práticas de modelagem de banco de dados
 
 - Projetos com Datasets de orgãos publicos
 
@@ -650,5 +599,16 @@ Almoço,12:05 – 13:00,Rotina: Desligar a tela.,Ação: Seu descanso é sagrado
 - [ ] Dados ONS
 - [ ] Dados Kaggle
 - [ ] Dados imagens de Satélites
+
+---
+
+
+
+# Projetos Freelancer / Negócios / Monetização
+
+- [ ] API REST com Django ninja, FastAPI, Flask, Tornado, Drogon C++
+- [ ] Sistemas de CRUD  (Cadastro de Clientes) e api usando python com Flask/FastAPI com docker e boas práticas de modelagem de banco de dados
+
+
 
 ---
