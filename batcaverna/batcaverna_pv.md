@@ -40,6 +40,14 @@ Por default, fica sempre no backlog
 - [x] Planejamento e Metas semanal
 - [ ] Listagem de projetos atuais por tecnologias do github
 - [ ] Organização Emails e Arquivos
+- [x] Terapia janeiro 2026
+- [ ] Docs, .EXE, template projeto Pyside6 
+- [ ] Inserção de dados na base de dados LPP
+- [ ] 3 Upgrades de Perdas Duplas LTs + Dashboard de gráficos
+  - Pegar o nome do arquivo atual com a revisão atual
+  - Data Atual correta
+  - Aba de modificações na pág de Revisões de relatório
+  - Pegar o Word direto do Sharepoint
 
 ---
 
