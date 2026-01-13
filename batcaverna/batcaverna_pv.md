@@ -36,19 +36,18 @@ Por default, fica sempre no backlog
 ---
 
 ## Sprint Atual 13/01/26
-- [ ] VBA Perdas duplas
-- [ ] 3 Upgrades de Perdas Duplas LTs + Dashboard de gráficos
-  - Pegar o nome do arquivo atual com a revisão atual
-  - Data Atual correta
-  - Aba de modificações na pág de Revisões de relatório
-  - Pegar o Word direto do Sharepoint
-- [ ]  1 - Como precisa de um modelo word pra gerar o negócio, colocar na macro já o download do modelo. Podemos deixar ele em uma pasta no sharepoint, e só colocar o link na macro;
+- [x] VBA Perdas duplas
+- [ ] 3 Upgrades de Perdas Duplas LTs + Dashboard de gráficos internos (ver colunas corretas)
+  - Auth do sharepoint correto e baixar para pasta /downloads e Pegar o Word template direto do Sharepoint
+  - Pegar o nome do arquivo atual com a revisão atual do docx (ou msg box para colocar qual numero de revisão por input do usuario)
+  - Data Atual correta como variavel 
+  - Aba de "Modificações" na planilha e jogar na página de Revisões de relatório (pág 3)
+- [ ]  1 - Como precisa de um modelo word pra gerar o negócio, colocar na macro VBA já o download do Word modelo direto do sharepoint. Podemos deixar ele em uma pasta no sharepoint, e só colocar o link na macro como variável global;
  
 - [ ]  2 - Pegar o número da revisão do nome do arquivo Excel e atualizar no word. Isso vai tanto no nome do arquivo quanto na capa, além do mês da emissão.
  
-- [ ] 3 - Obter da aba Modificações os motivos da revisão e colocar na tabela de revisão do word.
+- [ ] 3 - Obter da aba Modificações da planilha os motivos da revisão e colocar na tabela de revisão do word na pág correta.
  
-Os itens 2 e principalmente o 3 eu não sei se vão ser muito simples de implementar, então com certeza não precisa ser hoje, dá pra deixar só gerando o word e editar na mão por enquanto
 
 - [ ] Deck Builder AnaREDE
 - [ ] Flow caso 10 Controle mensal com intercambio VC
