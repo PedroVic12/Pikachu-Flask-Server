@@ -44,7 +44,15 @@ Por default, fica sempre no backlog
   - [ ] Pegar o nome do arquivo atual com a revisão atual do docx (ou msg box para colocar qual numero de revisão por input do usuario)
   - [ ] Pegar o número da revisão do nome do arquivo Excel e atualizar no word. Isso vai tanto no nome do arquivo quanto na capa, além do mês da emissão.
   - [ ]  Obter da aba "Modificações" da planilha os motivos da revisão e colocar na tabela de revisão do word na pág correta (pág 3).
-   
+
+## Tasks Perdas Duplas LTs 2025
+- [x] Software de ETL com Regex para analise de perdas duplas detalhadas 
+- [x] Python para VBA com botão
+- [x] Excel -> Word -> PDF
+  - Excel + Word input = No intervalo de pág correto a tabela dentro do meu word template (merge)
+- [x] Pyside6/EXE com CLI 
+- [x] Gerar Relatorio Button
+- [x] app template simplificado para PLC RPA ferramentas
 
 - [ ] Deck Builder AnaREDE
 - [ ] Flow caso 10 Controle mensal com intercambio VC
