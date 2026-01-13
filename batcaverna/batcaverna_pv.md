@@ -37,13 +37,12 @@ Por default, fica sempre no backlog
 
 ## Sprint Atual 13/01/26
 - [ ] 3 Upgrades de Perdas Duplas LTs + Dashboard de gráficos internos (ver colunas corretas)
+- [ ] Deck Builder AnaREDE
+- [ ] Flow caso 10 Controle mensal com intercambio VC
+- [ ] Templates HTML dentro do NextJS
+- [ ] Projetos python com arquitetura backend
+- [ ] Projetos template Pyside6 com Docs automatizados com pytest e com deploy em .exe com menos de 150MB
 - [x] VBA Perdas duplas (upgrades)
-  - [x] Data Atual correta no nome do arquivo (word_template_yy_mm_dd.docx)
-  - [x] Auth do sharepoint correto e baixar o Word tempalte para pasta /downloads com a data atual
-  - [ ] Como precisa de um modelo word pra gerar o negócio, colocar na macro VBA já o download do Word modelo direto do sharepoint. Podemos deixar ele em uma pasta no sharepoint, e só colocar o link na macro como variável global;
-  - [ ] Pegar o nome do arquivo atual com a revisão atual do docx (ou msg box para colocar qual numero de revisão por input do usuario)
-  - [ ] Pegar o número da revisão do nome do arquivo Excel e atualizar no word. Isso vai tanto no nome do arquivo quanto na capa, além do mês da emissão.
-  - [ ]  Obter da aba "Modificações" da planilha os motivos da revisão e colocar na tabela de revisão do word na pág correta (pág 3).
 
 ## Tasks Perdas Duplas LTs 2025
 - [x] Software de ETL com Regex para analise de perdas duplas detalhadas 
@@ -53,14 +52,15 @@ Por default, fica sempre no backlog
 - [x] Pyside6/EXE com CLI 
 - [x] Gerar Relatorio Button
 - [x] app template simplificado para PLC RPA ferramentas
+- [x] VBA Perdas duplas (upgrades)
+  - [x] Data Atual correta no nome do arquivo (word_template_yy_mm_dd.docx)
+  - [x] Auth do sharepoint correto e baixar o Word tempalte para pasta /downloads com a data atual
+  - [x] Como precisa de um modelo word pra gerar o negócio, colocar na macro VBA já o download do Word modelo direto do sharepoint. Podemos deixar ele em uma pasta no sharepoint, e só colocar o link na macro como variável global;
+  - [x] Pegar o nome do arquivo atual com a revisão atual do docx (ou msg box para colocar qual numero de revisão por input do usuario)
+  - [x] Pegar o número da revisão do nome do arquivo Excel e atualizar no word. Isso vai tanto no nome do arquivo quanto na capa, além do mês da emissão.
+  - [ ]  Obter da aba "Modificações" da planilha os motivos da revisão e colocar na tabela de revisão do word na pág correta (pág 3).
 
-- [ ] Deck Builder AnaREDE
-- [ ] Flow caso 10 Controle mensal com intercambio VC
-- [ ] Templates HTML dentro do NextJS
-- [ ] Projetos python com arquitetura backend
-- [ ] Projetos template Pyside6 com Docs automatizados com pytest e com deploy em .exe com menos de 150MB
 
-## Regimes de Operação de Perdas duplas de LTs
 
 # PVRV 2026
 - [x] Backup Kanban, Batcaverna, Linux e Win11
@@ -109,7 +109,8 @@ Aqui está o [link do Sharepoint][var2] compartilhado
 - [ ] Dashboard SP e RJ com ativdades MUST
 - [ ] Dashboard com atividades de Flow e Perdas duplas Lts com foco em SECO e RJ/SP
 - [ ] Deck Builder da região com dados da Flow
-- [ ] 
+- [ ] Banco de dados Access centralizado PLM e PLC
+- [ ] Testes para deploy ScrapperPDF (Palkia) para o ETL das tabelas de cada MUST de cada arquivo para o banco do MUST
 
 
 
