@@ -652,6 +652,19 @@ export default function App() {
   };
 
   const FilesScreen = () => {
+    const [markdownContent, setMarkdownContent] = useState(
+      `Salve esses dados em:
+https://github.com/PedroVic12/Pikachu-Flask-Server/tree/main/batcaverna
+
+Faça edições no [arquivo.MD ][var4] do repositório para atualizar o dashboard da BatCaverna PV 
+
+[var4]: https://github.com/PedroVic12/Pikachu-Flask-Server/blob/main/batcaverna/batcaverna_pv.md
+
+Aqui está o [link][var1] do Shiatsu como váriavel no .MD
+
+[var1]: https://revigorar.reservio.com/`
+    );
+
     const handleFileUpload = (event, type) => { // Removed type annotations
       const files = event.target.files;
       if (!files) return;
@@ -743,22 +756,8 @@ export default function App() {
               < textarea
                 placeholder="Cole aqui seus links e referências em formato Markdown..."
                 className="w-full h-64 p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent font-mono text-sm"
-                deafaultValue={`# Links e Referências
-
-## Documentos PDF
-- [Relatório Técnico ONS](link-para-pdf)
-- [Manual de Procedimentos](link-para-pdf)
-
-## Imagens
-![Diagrama do Sistema](link-para-imagem)
-
-## Planilhas Excel
-- [Dados de Análise](link-para-excel)
-- [Cronograma do Projeto](link-para-excel)
-
-## Links Externos
-- [Documentação Oficial](https://exemplo.com)
-- [Tutorial Completo](https://exemplo.com/tutorial)`}
+                value={markdownContent}
+                onChange={(e) => setMarkdownContent(e.target.value)}
               />
             </div>
             < div >
@@ -768,22 +767,7 @@ export default function App() {
               < div className="h-64 p-4 border border-gray-200 rounded-lg bg-gray-50 overflow-y-auto" >
                 <div className="prose prose-sm max-w-none" >
                   <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                    {`# Links e Referências
-
-## Documentos PDF
-- [Relatório Técnico ONS](link-para-pdf)
-- [Manual de Procedimentos](link-para-pdf)
-
-## Imagens
-![Diagrama do Sistema](link-para-imagem)
-
-## Planilhas Excel
-- [Dados de Análise](link-para-excel)
-- [Cronograma do Projeto](link-para-excel)
-
-## Links Externos
-- [Documentação Oficial](https://exemplo.com)
-- [Tutorial Completo](https://exemplo.com/tutorial)`}
+                    {markdownContent}
                   </ReactMarkdown>
                 </div>
               </div>
