@@ -36,18 +36,15 @@ Por default, fica sempre no backlog
 ---
 
 ## Sprint Atual 13/01/26
-- [x] VBA Perdas duplas
 - [ ] 3 Upgrades de Perdas Duplas LTs + Dashboard de gráficos internos (ver colunas corretas)
-  - Auth do sharepoint correto e baixar para pasta /downloads e Pegar o Word template direto do Sharepoint
-  - Pegar o nome do arquivo atual com a revisão atual do docx (ou msg box para colocar qual numero de revisão por input do usuario)
-  - Data Atual correta como variavel 
-  - Aba de "Modificações" na planilha e jogar na página de Revisões de relatório (pág 3)
-- [ ]  1 - Como precisa de um modelo word pra gerar o negócio, colocar na macro VBA já o download do Word modelo direto do sharepoint. Podemos deixar ele em uma pasta no sharepoint, e só colocar o link na macro como variável global;
- 
-- [ ]  2 - Pegar o número da revisão do nome do arquivo Excel e atualizar no word. Isso vai tanto no nome do arquivo quanto na capa, além do mês da emissão.
- 
-- [ ] 3 - Obter da aba Modificações da planilha os motivos da revisão e colocar na tabela de revisão do word na pág correta.
- 
+- [x] VBA Perdas duplas (upgrades)
+  - [x] Data Atual correta no nome do arquivo (word_template_yy_mm_dd.docx)
+  - [x] Auth do sharepoint correto e baixar o Word tempalte para pasta /downloads com a data atual
+  - [ ] Como precisa de um modelo word pra gerar o negócio, colocar na macro VBA já o download do Word modelo direto do sharepoint. Podemos deixar ele em uma pasta no sharepoint, e só colocar o link na macro como variável global;
+  - [ ] Pegar o nome do arquivo atual com a revisão atual do docx (ou msg box para colocar qual numero de revisão por input do usuario)
+  - [ ] Pegar o número da revisão do nome do arquivo Excel e atualizar no word. Isso vai tanto no nome do arquivo quanto na capa, além do mês da emissão.
+  - [ ]  Obter da aba "Modificações" da planilha os motivos da revisão e colocar na tabela de revisão do word na pág correta (pág 3).
+   
 
 - [ ] Deck Builder AnaREDE
 - [ ] Flow caso 10 Controle mensal com intercambio VC
