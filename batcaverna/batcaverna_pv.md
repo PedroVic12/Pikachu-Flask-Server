@@ -29,20 +29,14 @@ Por default, fica sempre no backlog
 
 ![alt text - ciencia de dados ONS](image-1.png)
 
-
+---
 
 ---
 # BatCaverna Editor 2026
 ---
 
-# PVRV 2026
-- [x] Backup Kanban, Batcaverna, Linux e Win11
-- [x] Planejamento e Metas semanal
-- [ ] Listagem de projetos atuais por tecnologias do github
-- [ ] Organização Emails e Arquivos
-- [x] Terapia janeiro 2026
-- [ ] Docs, .EXE, template projeto Pyside6 
-- [ ] Inserção de dados na base de dados LPP
+## Sprint Atual 13/01/26
+- [ ] VBA Perdas duplas
 - [ ] 3 Upgrades de Perdas Duplas LTs + Dashboard de gráficos
   - Pegar o nome do arquivo atual com a revisão atual
   - Data Atual correta
@@ -55,6 +49,27 @@ Por default, fica sempre no backlog
 - [ ] 3 - Obter da aba Modificações os motivos da revisão e colocar na tabela de revisão do word.
  
 Os itens 2 e principalmente o 3 eu não sei se vão ser muito simples de implementar, então com certeza não precisa ser hoje, dá pra deixar só gerando o word e editar na mão por enquanto
+
+- [ ] Deck Builder AnaREDE
+- [ ] Flow caso 10 Controle mensal com intercambio VC
+- [ ] Templates HTML dentro do NextJS
+- [ ] Projetos python com arquitetura backend
+- [ ] Projetos template Pyside6 com Docs automatizados com pytest e com deploy em .exe com menos de 150MB
+
+## Regimes de Operação de Perdas duplas de LTs
+
+# PVRV 2026
+- [x] Backup Kanban, Batcaverna, Linux e Win11
+- [x] Planejamento e Metas semanal
+- [ ] Listagem de projetos atuais por tecnologias do github
+- [ ] Planejamento financeiro (Financial APP)
+    - [x] Dezembro
+    - [ ] Janeiro
+    - [ ] Fevereiro
+- [x] Organização Emails e Arquivos
+- [x] Terapia janeiro 2026
+- [x] Inserção de dados na base de dados LPP
+
  
 
 ---
@@ -87,14 +102,22 @@ Aqui está o [link do Sharepoint][var2] compartilhado
 ---
 
 ## Atividades SP/RJ e MUST gestão e controle
+- [ ] Dashboard SP e RJ com ativdades MUST
+- [ ] Dashboard com atividades de Flow e Perdas duplas Lts com foco em SECO e RJ/SP
+- [ ] Deck Builder da região com dados da Flow
+- [ ] 
 
 
-## Regimes de Operação de Perdas duplas de LTs
 
 
-## Estudos de SEP e conceitos Básicos:
+
+## Estudos de SEP e conceitos Básicos de Eng. Elétrica:
 - [ ] Estudos de montagem de decks intercambios VC de Janeiro de 2026
 - [ ] Estudos básicos com pandapower, AnaREDE e Organon
+- [ ] Matriz Ybus
+- [ ] Matriz admitancia e reatancia
+- [ ] Divergente, Rotacional e Gradiente
+- [ ] 
 
 
 - ONS - IoT Engenheiro de estudos elétricos
