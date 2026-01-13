@@ -5,6 +5,14 @@ import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip, Legend, LineChart, L
 import { LayoutDashboard, Table, FileText, Kanban, Menu, X, Plus, Edit3, Save, Eye, EyeOff, Trash2, GripVertical, Upload, Download, FolderSync as Sync, BarChart3, TrendingUp, Users, Clock, Search, Filter, MoreVertical, FileImage, FileSpreadsheet, File as FilePdf, Database } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import { Card, CardContent } from "@/components/ui/card";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 //! updrade separando estilos
 import colorClasses from "./styles.js";
@@ -14,6 +22,7 @@ import projectRepository, {
   CATEGORIES,
   STATUS_COLUMNS
 } from './controllers/Repository.jsx';
+import FileUploaderController from './controllers/FileUploaderController.js';
 
 import KanbanColumn from './widgets/KanbanContainer.jsx';
 
@@ -653,10 +662,7 @@ export default function App() {
 
   const FilesScreen = () => {
     const [markdownContent, setMarkdownContent] = useState(
-      `Salve esses dados em:
-https://github.com/PedroVic12/Pikachu-Flask-Server/tree/main/batcaverna
-
-Faça edições no [arquivo.MD ][var4] do repositório para atualizar o dashboard da BatCaverna PV 
+      `Faça edições no [arquivo.MD ][var4] do repositório para atualizar o dashboard da BatCaverna PV 
 
 [var4]: https://github.com/PedroVic12/Pikachu-Flask-Server/blob/main/batcaverna/batcaverna_pv.md
 
@@ -664,45 +670,62 @@ Aqui está o [link][var1] do Shiatsu como váriavel no .MD
 
 [var1]: https://revigorar.reservio.com/`
     );
+    const [uploadedFiles, setUploadedFiles] = useState([]);
+    const isInitialMount = useRef(true);
 
-    const handleFileUpload = (event, type) => { // Removed type annotations
+    // Load files from localStorage on initial render
+    useEffect(() => {
+      setUploadedFiles(FileUploaderController.loadFiles());
+    }, []);
+
+    // Save files to localStorage whenever state changes
+    useEffect(() => {
+      if (isInitialMount.current) {
+        isInitialMount.current = false;
+      } else {
+        FileUploaderController.saveFiles(uploadedFiles);
+      }
+    }, [uploadedFiles]);
+
+
+    const handleFileUpload = (event, type) => {
       const files = event.target.files;
       if (!files) return;
 
       Array.from(files).forEach(file => {
         const reader = new FileReader();
         reader.onload = (e) => {
-          alert(`Arquivo ${file.name} carregado com sucesso!`);
+          setUploadedFiles(prevFiles => [...prevFiles, {
+            name: file.name,
+            type: type,
+            url: e.target.result
+          }]);
+          alert(`Arquivo ${file.name} carregado e adicionado ao carrossel!`);
         };
-
-        if (type === 'image') {
-          reader.readAsDataURL(file);
-        } else {
-          reader.readAsArrayBuffer(file);
-        }
+        reader.readAsDataURL(file); // Read as data URL for preview
       });
     };
 
     const uploadSections = [
       {
-        type: 'pdf', // Removed 'as const'
+        type: 'pdf',
         label: 'Upload PDF',
         icon: FilePdf,
-        color: 'red', // Removed 'as const'
+        color: 'red',
         accept: '.pdf'
       },
       {
-        type: 'image', // Removed 'as const'
+        type: 'image',
         label: 'Upload Imagem',
         icon: FileImage,
-        color: 'blue', // Removed 'as const'
+        color: 'blue',
         accept: 'image/*'
       },
       {
-        type: 'excel', // Removed 'as const'
+        type: 'excel',
         label: 'Upload Excel',
         icon: FileSpreadsheet,
-        color: 'green', // Removed 'as const'
+        color: 'green',
         accept: '.xlsx,.xls'
       }
     ];
@@ -711,7 +734,7 @@ Aqui está o [link][var1] do Shiatsu como váriavel no .MD
       <div className="p-4 lg:p-6" >
         <div className="mb-6" >
           <h1 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-2" > Gerenciador de Arquivos </h1>
-          < p className="text-gray-600" > Upload e gerenciamento de PDFs, imagens e planilhas Excel </p>
+          <p className="text-gray-600" > Upload e gerenciamento de PDFs, imagens e planilhas Excel. </p>
         </div>
 
         {/* Upload Section */}
@@ -722,49 +745,87 @@ Aqui está o [link][var1] do Shiatsu como váriavel no .MD
                 <div className={`p-4 ${colorClasses[color].bg} rounded-lg inline-block mb-4`} >
                   <Icon className={`h-8 w-8 ${colorClasses[color].text}`} />
                 </div>
-                < h3 className="text-lg font-semibold text-gray-900 mb-2" > {label} </h3>
-                < p className="text-sm text-gray-600 mb-4" >
+                <h3 className="text-lg font-semibold text-gray-900 mb-2" > {label} </h3>
+                <p className="text-sm text-gray-600 mb-4" >
                   Faça upload de {type === 'pdf' ? 'documentos PDF' : type === 'image' ? 'imagens' : 'planilhas Excel'}
                 </p>
-                < input
+                <input
                   type="file"
                   accept={accept}
                   onChange={(e) => handleFileUpload(e, type)}
                   className="hidden"
-                  id={`${type}-upload`}
+                  id={`${type}-upload-carousel`}
+                  multiple
                 />
-                < label
-                  htmlFor={`${type}-upload`}
+                <label
+                  htmlFor={`${type}-upload-carousel`}
                   className={`inline-flex items-center px-4 py-2 ${colorClasses[color].button} text-white rounded-lg cursor-pointer transition-colors`}
                 >
                   <Upload size={16} className="mr-2" />
-                  Selecionar {type.toUpperCase()}
+                  Selecionar Arquivo(s)
                 </label>
               </div>
             ))
           }
         </div>
 
+        {/* Carousel for Uploaded Files */}
+        {uploadedFiles.length > 0 && (
+          <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200 mt-8">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">Arquivos Carregados</h3>
+            <Carousel
+              opts={{
+                align: "start",
+                loop: uploadedFiles.length > 1,
+              }}
+              className="w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-2xl mx-auto"
+            >
+              <CarouselContent>
+                {uploadedFiles.map((file, index) => (
+                  <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+                    <div className="p-1">
+                      <Card>
+                        <CardContent className="flex aspect-square items-center justify-center p-4 flex-col gap-2">
+                          {file.type === 'image' && file.url ? (
+                            <img src={file.url} alt={file.name} className="max-w-full max-h-32 object-contain rounded-md" />
+                          ) : file.type === 'pdf' ? (
+                            <FilePdf className="w-16 h-16 text-red-500" />
+                          ) : (
+                            <FileSpreadsheet className="w-16 h-16 text-green-500" />
+                          )}
+                          <p className="text-xs text-center text-gray-600 truncate w-full pt-2" title={file.name}>{file.name}</p>
+                        </CardContent>
+                      </Card>
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious />
+              <CarouselNext />
+            </Carousel>
+          </div>
+        )}
+
         {/* Markdown Editor for Links */}
-        <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200" >
+        <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200 mt-8" >
           <h3 className="text-lg font-semibold text-gray-900 mb-4" > Editor de Links e Referências </h3>
-          < div className="grid grid-cols-1 lg:grid-cols-2 gap-6" >
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6" >
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2" >
                 Editor Markdown
               </label>
-              < textarea
+              <textarea
                 placeholder="Cole aqui seus links e referências em formato Markdown..."
                 className="w-full h-64 p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent font-mono text-sm"
                 value={markdownContent}
                 onChange={(e) => setMarkdownContent(e.target.value)}
               />
             </div>
-            < div >
+            <div>
               <label className="block text-sm font-medium text-gray-700 mb-2" >
                 Preview
               </label>
-              < div className="h-64 p-4 border border-gray-200 rounded-lg bg-gray-50 overflow-y-auto" >
+              <div className="h-64 p-4 border border-gray-200 rounded-lg bg-gray-50 overflow-y-auto" >
                 <div className="prose prose-sm max-w-none" >
                   <ReactMarkdown remarkPlugins={[remarkGfm]}>
                     {markdownContent}
