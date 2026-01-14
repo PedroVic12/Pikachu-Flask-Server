@@ -37,6 +37,9 @@ Por default, fica sempre no backlog
 
 ## Sprint Atual 14/01/26
 - [x] 3 Upgrades de Perdas Duplas LTs + Dashboard de gráficos internos (ver colunas corretas)
+  - [ ] Verificar o código V6 e corrigir alguns bugs de formatação
+  - [ ] Verificar aba de Modificações ná pag correta como lista de itens nó código VBA
+  
 - [x] __Cadastro de inequacoes no LPP__
   - [x] Fizemos juntos o FJPXG (item 3.5.2). Faltam os itens FFGM-MCP (item 3.5.6) e FBVEQ (item 3.5.9)
     
