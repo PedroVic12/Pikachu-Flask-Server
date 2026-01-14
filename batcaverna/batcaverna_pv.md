@@ -43,6 +43,8 @@ Por default, fica sempre no backlog
 - [ ] Correções e bug fix no VBA para perdas Duplas Lts + 3 gráficos
 - [ ] Deploy de ETL de pasta de PDF para MUST em excel e sqlite com Python
 
+- [ ] IA para negócios, Análise de dados e Programacao com Matematica para IOT 
+
 - [ ] Estudos RUST para embarcados
 - [ ] PowerFlow anaRede com Equacoes
 - [ ] Deck Builder AnaREDE
