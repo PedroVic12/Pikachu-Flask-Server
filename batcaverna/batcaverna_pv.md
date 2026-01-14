@@ -116,11 +116,17 @@ Aqui está o [link do Sharepoint][var2] compartilhado
 ---
 
 ## Atividades SP/RJ e MUST gestão e controle
-- [ ] Dashboard SP e RJ com ativdades MUST
-- [ ] Dashboard com atividades de Flow e Perdas duplas Lts com foco em SECO e RJ/SP
+- [x] Dashboard SP e RJ com ativdades MUST
+- [x] Dashboard com atividades de Flow e Perdas duplas Lts com foco em SECO e RJ/SP
 - [ ] Deck Builder da região com dados da Flow
 - [ ] Banco de dados Access centralizado PLM e PLC
-- [ ] Testes para deploy ScrapperPDF (Palkia) para o ETL das tabelas de cada MUST de cada arquivo para o banco do MUST
+- [x] Testes para deploy ScrapperPDF (Palkia) para o ETL das tabelas de cada MUST de cada arquivo para o banco do MUST
+- [ ] Levantamento de requisitos de upgrades para MUST Palkia Dekstop
+  - [ ] banco de dados historico
+  - [ ] PDF de referencia de aprovado/não aprovado
+  - [ ] Deck .PWF e .Sav de referencia de análise
+  - [ ] Pyautogui abrir AnaREDE com busca da região do SIN.lst
+  - [ ] 
 
 
 
