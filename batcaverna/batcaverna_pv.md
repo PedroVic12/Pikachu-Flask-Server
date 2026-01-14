@@ -35,8 +35,16 @@ Por default, fica sempre no backlog
 # BatCaverna Editor 2026
 ---
 
-## Sprint Atual 13/01/26
-- [ ] 3 Upgrades de Perdas Duplas LTs + Dashboard de gráficos internos (ver colunas corretas)
+## Sprint Atual 14/01/26
+- [x] 3 Upgrades de Perdas Duplas LTs + Dashboard de gráficos internos (ver colunas corretas)
+- [ ] __Cadastro de inequacoes no LPP__
+  - [ ] Fizemos juntos o FJPXG (item 3.5.2). Faltam os itens FFGM-MCP (item 3.5.6) e FBVEQ (item 3.5.9)
+    
+- [ ] Correções e bug fix no VBA para perdas Duplas Lts + 3 gráficos
+- [ ] Deploy de ETL de pasta de PDF para MUST em excel e sqlite com Python
+
+- [ ] Estudos RUST para embarcados
+- [ ] PowerFlow anaRede com Equacoes
 - [ ] Deck Builder AnaREDE
 - [ ] Flow caso 10 Controle mensal com intercambio VC
 - [ ] Templates HTML dentro do NextJS
