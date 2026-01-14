@@ -37,16 +37,16 @@ Por default, fica sempre no backlog
 
 ## Sprint Atual 14/01/26
 - [x] 3 Upgrades de Perdas Duplas LTs + Dashboard de gráficos internos (ver colunas corretas)
-- [ ] __Cadastro de inequacoes no LPP__
-  - [ ] Fizemos juntos o FJPXG (item 3.5.2). Faltam os itens FFGM-MCP (item 3.5.6) e FBVEQ (item 3.5.9)
+- [x] __Cadastro de inequacoes no LPP__
+  - [x] Fizemos juntos o FJPXG (item 3.5.2). Faltam os itens FFGM-MCP (item 3.5.6) e FBVEQ (item 3.5.9)
     
 - [ ] Correções e bug fix no VBA para perdas Duplas Lts + 3 gráficos
-- [ ] Deploy de ETL de pasta de PDF para MUST em excel e sqlite com Python
+- [x] Deploy de ETL de pasta de PDF para MUST em excel e sqlite com Python
 
 - [ ] IA para negócios, Análise de dados e Programacao com Matematica para IOT 
 
-- [ ] Estudos RUST para embarcados
-- [ ] PowerFlow anaRede com Equacoes
+- [x] Estudos RUST para embarcados, backend e webassembly
+- [x] PowerFlow anaRede com Equacoes
 - [ ] Deck Builder AnaREDE
 - [ ] Flow caso 10 Controle mensal com intercambio VC
 - [ ] Templates HTML dentro do NextJS
@@ -56,8 +56,8 @@ Por default, fica sempre no backlog
 
 
 
-
-# PVRV 2026
+ 
+# PVRV 2026 - Planilha de horarios (atualizars)
 - [x] Backup Kanban, Batcaverna, Linux e Win11
 - [x] Planejamento e Metas semanal
 - [ ] Listagem de projetos atuais por tecnologias do github
