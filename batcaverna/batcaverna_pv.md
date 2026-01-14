@@ -54,21 +54,6 @@ Por default, fica sempre no backlog
 - [ ] Projetos template Pyside6 com Docs automatizados com pytest e com deploy em .exe com menos de 150MB
 - [x] VBA Perdas duplas (upgrades)
 
-## Tasks Perdas Duplas LTs 2025
-- [x] Software de ETL com Regex para analise de perdas duplas detalhadas 
-- [x] Python para VBA com botão
-- [x] Excel -> Word -> PDF
-  - Excel + Word input = No intervalo de pág correto a tabela dentro do meu word template (merge)
-- [x] Pyside6/EXE com CLI 
-- [x] Gerar Relatorio Button
-- [x] app template simplificado para PLC RPA ferramentas
-- [x] VBA Perdas duplas (upgrades)
-  - [x] Data Atual correta no nome do arquivo (word_template_yy_mm_dd.docx)
-  - [x] Auth do sharepoint correto e baixar o Word tempalte para pasta /downloads com a data atual
-  - [x] Como precisa de um modelo word pra gerar o negócio, colocar na macro VBA já o download do Word modelo direto do sharepoint. Podemos deixar ele em uma pasta no sharepoint, e só colocar o link na macro como variável global;
-  - [x] Pegar o nome do arquivo atual com a revisão atual do docx (ou msg box para colocar qual numero de revisão por input do usuario)
-  - [x] Pegar o número da revisão do nome do arquivo Excel e atualizar no word. Isso vai tanto no nome do arquivo quanto na capa, além do mês da emissão.
-  - [ ]  Obter da aba "Modificações" da planilha os motivos da revisão e colocar na tabela de revisão do word na pág correta (pág 3).
 
 
 
@@ -115,46 +100,9 @@ Aqui está o [link do Sharepoint][var2] compartilhado
 
 ---
 
-## Atividades SP/RJ e MUST gestão e controle
-- [x] Dashboard SP e RJ com ativdades MUST
-- [x] Dashboard com atividades de Flow e Perdas duplas Lts com foco em SECO e RJ/SP
-- [ ] Deck Builder da região com dados da Flow
-- [ ] Banco de dados Access centralizado PLM e PLC
-- [x] Testes para deploy ScrapperPDF (Palkia) para o ETL das tabelas de cada MUST de cada arquivo para o banco do MUST
-- [ ] Levantamento de requisitos de upgrades para MUST Palkia Dekstop
-  - [ ] banco de dados historico
-  - [ ] PDF de referencia de aprovado/não aprovado
-  - [ ] Deck .PWF e .Sav de referencia de análise
-  - [ ] Pyautogui abrir AnaREDE com busca da região do SIN.lst
-  - [ ] 
-
-
-
-
-
-## Estudos de SEP e conceitos Básicos de Eng. Elétrica:
-- [ ] Estudos de montagem de decks intercambios VC de Janeiro de 2026
-- [ ] Estudos básicos com pandapower, AnaREDE e Organon
-- [ ] Matriz Ybus
-- [ ] Matriz admitancia e reatancia
-- [ ] Divergente, Rotacional e Gradiente
-- [ ] 
-
-
-- ONS - IoT Engenheiro de estudos elétricos
-
-- [ ] Flow despacho de cargas
-- [ ] Flow Inequações
-- [ ] Flow Elos CC
-- [ ] 
-
-
-
----
-
 ## LEGADO - ENG. ELÉTRICA - UFF, ONS, PIBIC, IoT Smart Grids
 
-
+---
 
 
 # UFF Engenharia Elétrica 2026.1
