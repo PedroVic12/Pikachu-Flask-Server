@@ -697,11 +697,15 @@ Aqui está o [link][var1] do Shiatsu como váriavel no .MD
       Array.from(files).forEach(file => {
         const reader = new FileReader();
         reader.onload = (e) => {
-          setUploadedFiles(prevFiles => [...prevFiles, {
-            name: file.name,
-            type: type,
-            url: e.target.result
-          }]);
+          setUploadedFiles(prevFiles => {
+            const newFiles = [...prevFiles, {
+              name: file.name,
+              type: type,
+              url: e.target.result
+            }];
+            FileUploaderController.saveFiles(newFiles); // Explicitly save
+            return newFiles;
+          });
           alert(`Arquivo ${file.name} carregado e adicionado ao carrossel!`);
         };
         reader.readAsDataURL(file); // Read as data URL for preview
@@ -726,12 +730,16 @@ Aqui está o [link][var1] do Shiatsu como váriavel no .MD
 
       const reader = new FileReader();
       reader.onload = (e) => {
-        setUploadedFiles(prevFiles => [...prevFiles, {
-          name: deckFile.name,
-          type: 'deck',
-          url: e.target.result,
-          description: deckDescription || "Sem descrição"
-        }]);
+        setUploadedFiles(prevFiles => {
+          const newFiles = [...prevFiles, {
+            name: deckFile.name,
+            type: 'deck',
+            url: e.target.result,
+            description: deckDescription || "Sem descrição"
+          }];
+          FileUploaderController.saveFiles(newFiles); // Explicitly save
+          return newFiles;
+        });
         alert(`Deck ${deckFile.name} adicionado!`);
         // Reset fields
         setDeckFile(null);
@@ -745,7 +753,11 @@ Aqui está o [link][var1] do Shiatsu como váriavel no .MD
 
     const handleDeleteFile = (indexToDelete) => {
       if (window.confirm("Tem certeza que deseja excluir este arquivo?")) {
-        setUploadedFiles(prevFiles => prevFiles.filter((_, index) => index !== indexToDelete));
+        setUploadedFiles(prevFiles => {
+          const newFiles = prevFiles.filter((_, index) => index !== indexToDelete);
+          FileUploaderController.saveFiles(newFiles); // Explicitly save
+          return newFiles;
+        });
       }
     };
 
