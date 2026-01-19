@@ -35,27 +35,6 @@ Por default, fica sempre no backlog
 # BatCaverna Editor 2026
 ---
 
-## Sprint Atual 14/01/26
-- [x] 3 Upgrades de Perdas Duplas LTs + Dashboard de gráficos internos (ver colunas corretas)
-  - [ ] Verificar o código V6 e corrigir alguns bugs de formatação
-  - [ ] Verificar aba de Modificações ná pag correta como lista de itens nó código VBA
-  
-- [x] __Cadastro de inequacoes no LPP__
-  - [x] Fizemos juntos o FJPXG (item 3.5.2). Faltam os itens FFGM-MCP (item 3.5.6) e FBVEQ (item 3.5.9)
-    
-- [ ] Correções e bug fix no VBA para perdas Duplas Lts + 3 gráficos
-- [x] Deploy de ETL de pasta de PDF para MUST em excel e sqlite com Python
-
-- [ ] IA para negócios, Análise de dados e Programacao com Matematica para IOT 
-
-- [x] Estudos RUST para embarcados, backend e webassembly
-- [x] PowerFlow anaRede com Equacoes
-- [ ] Deck Builder AnaREDE
-- [ ] Flow caso 10 Controle mensal com intercambio VC
-- [ ] Templates HTML dentro do NextJS
-- [ ] Projetos python com arquitetura backend
-- [ ] Projetos template Pyside6 com Docs automatizados com pytest e com deploy em .exe com menos de 150MB
-- [x] VBA Perdas duplas (upgrades)
 
 
 
