@@ -846,7 +846,7 @@ Aqui está o [link][var1] do Shiatsu como váriavel no .MD
     return (
       <div className="p-4 lg:p-6" >
         <div className="mb-6" >
-          <h1 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-2" > Gerenciador de Arquivos V3 </h1>
+          <h1 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-2" > Gerenciador de Arquivos </h1>
           <p className="text-gray-600" > Upload e gerenciamento de PDFs, imagens, planilhas e decks do AnaRede. </p>
         </div>
 
