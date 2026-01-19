@@ -743,6 +743,12 @@ Aqui está o [link][var1] do Shiatsu como váriavel no .MD
       reader.readAsDataURL(deckFile);
     };
 
+    const handleDeleteFile = (indexToDelete) => {
+      if (window.confirm("Tem certeza que deseja excluir este arquivo?")) {
+        setUploadedFiles(prevFiles => prevFiles.filter((_, index) => index !== indexToDelete));
+      }
+    };
+
 
     const uploadSections = [
       {
@@ -767,6 +773,13 @@ Aqui está o [link][var1] do Shiatsu como váriavel no .MD
         accept: '.xlsx,.xls'
       }
     ];
+
+    const carouselSections = {
+      image: 'Imagens',
+      pdf: 'Documentos PDF',
+      excel: 'Planilhas Excel',
+      deck: 'Decks AnaRede'
+    };
 
     return (
       <div className="p-4 lg:p-6" >
@@ -840,52 +853,65 @@ Aqui está o [link][var1] do Shiatsu como váriavel no .MD
           </div>
         </div>
 
-        {/* Carousel for Uploaded Files */}
-        {uploadedFiles.length > 0 && (
-          <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200 mt-8">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Arquivos Carregados</h3>
-            <Carousel
-              opts={{
-                align: "start",
-                loop: uploadedFiles.length > 1,
-              }}
-              className="w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-4xl mx-auto"
-            >
-              <CarouselContent>
-                {uploadedFiles.map((file, index) => (
-                  <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-                    <div className="p-1">
-                      <Card>
-                        <CardContent className="flex aspect-square items-center justify-center p-4 flex-col gap-2">
-                          {file.type === 'image' && file.url ? (
-                            <img src={file.url} alt={file.name} className="max-w-full max-h-24 object-contain rounded-md" />
-                          ) : file.type === 'pdf' ? (
-                            <FilePdf className="w-16 h-16 text-red-500" />
-                          ) : file.type === 'excel' ? (
-                            <FileSpreadsheet className="w-16 h-16 text-green-500" />
-                          ) : ( // for 'deck' type
-                            <FileText className="w-16 h-16 text-purple-500" />
-                          )}
-                          <p className="text-xs text-center text-gray-600 truncate w-full pt-2" title={file.name}>{file.name}</p>
-                          {file.description && <p className="text-xs text-center text-gray-500">{file.description}</p>}
+        {/* Separated Carousels for Uploaded Files */}
+        {Object.entries(carouselSections).map(([type, title]) => {
+          const filesOfType = uploadedFiles.map((file, index) => ({ ...file, originalIndex: index })).filter(file => file.type === type);
+          if (filesOfType.length === 0) return null;
+
+          return (
+            <div key={type} className="bg-white rounded-xl p-6 shadow-sm border border-gray-200 mt-8">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">{title} Carregados</h3>
+              <Carousel
+                opts={{
+                  align: "start",
+                  loop: filesOfType.length > 1,
+                }}
+                className="w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-4xl mx-auto"
+              >
+                <CarouselContent>
+                  {filesOfType.map((file) => (
+                    <CarouselItem key={file.originalIndex} className="md:basis-1/2 lg:basis-1/3">
+                      <div className="p-1">
+                        <Card className="relative group">
                           <button
-                            onClick={() => handleDownload(file)}
-                            className="mt-2 inline-flex items-center px-3 py-1 bg-gray-100 text-gray-700 rounded-lg text-sm hover:bg-gray-200 transition-colors"
+                            onClick={() => handleDeleteFile(file.originalIndex)}
+                            className="absolute top-2 right-2 z-10 p-1 bg-white bg-opacity-75 rounded-full text-gray-600 hover:bg-red-500 hover:text-white transition-all opacity-0 group-hover:opacity-100"
+                            title="Excluir arquivo"
                           >
-                            <Download size={14} className="mr-1.5" />
-                            Baixar
+                            <X size={14} />
                           </button>
-                        </CardContent>
-                      </Card>
-                    </div>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-              <CarouselPrevious />
-              <CarouselNext />
-            </Carousel>
-          </div>
-        )}
+                          <CardContent className="flex aspect-square items-center justify-center p-4 flex-col gap-2">
+                            {file.type === 'image' && file.url ? (
+                              <img src={file.url} alt={file.name} className="max-w-full max-h-24 object-contain rounded-md" />
+                            ) : file.type === 'pdf' ? (
+                              <FilePdf className="w-16 h-16 text-red-500" />
+                            ) : file.type === 'excel' ? (
+                              <FileSpreadsheet className="w-16 h-16 text-green-500" />
+                            ) : ( // for 'deck' type
+                              <FileText className="w-16 h-16 text-purple-500" />
+                            )}
+                            <p className="text-xs text-center text-gray-600 truncate w-full pt-2" title={file.name}>{file.name}</p>
+                            {file.description && <p className="text-xs text-center text-gray-500">{file.description}</p>}
+                            <button
+                              onClick={() => handleDownload(file)}
+                              className="mt-2 inline-flex items-center px-3 py-1 bg-gray-100 text-gray-700 rounded-lg text-sm hover:bg-gray-200 transition-colors"
+                            >
+                              <Download size={14} className="mr-1.5" />
+                              Baixar
+                            </button>
+                          </CardContent>
+                        </Card>
+                      </div>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+                <CarouselPrevious />
+                <CarouselNext />
+              </Carousel>
+            </div>
+          );
+        })}
+
 
         {/* Markdown Editor for Links */}
         <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200 mt-8" >
