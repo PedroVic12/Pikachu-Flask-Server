@@ -696,17 +696,26 @@ Aqui está o [link][var1] do Shiatsu como váriavel no .MD
 
       Array.from(files).forEach(file => {
         const reader = new FileReader();
+        reader.onerror = (error) => {
+          console.error('FileReader error:', error);
+          alert('Ocorreu um erro ao ler o arquivo.');
+        };
         reader.onload = (e) => {
+          const newFile = {
+            name: file.name,
+            type: type,
+            url: e.target.result
+          };
           setUploadedFiles(prevFiles => {
-            const newFiles = [...prevFiles, {
-              name: file.name,
-              type: type,
-              url: e.target.result
-            }];
-            FileUploaderController.saveFiles(newFiles); // Explicitly save
+            const newFiles = [...prevFiles, newFile];
+            const success = FileUploaderController.saveFiles(newFiles);
+            if (success) {
+              alert(`Arquivo ${file.name} carregado e salvo com sucesso!`);
+            } else {
+              alert(`Falha ao salvar o arquivo ${file.name}.`);
+            }
             return newFiles;
           });
-          alert(`Arquivo ${file.name} carregado e adicionado ao carrossel!`);
         };
         reader.readAsDataURL(file); // Read as data URL for preview
       });
@@ -723,25 +732,49 @@ Aqui está o [link][var1] do Shiatsu como váriavel no .MD
     };
 
     const handleAddDeck = () => {
+      console.log('handleAddDeck triggered');
       if (!deckFile) {
         alert("Por favor, selecione um arquivo.");
+        console.error('handleAddDeck failed: No file selected.');
         return;
       }
+      console.log('Deck file selected:', deckFile.name);
+      console.log('Deck description:', deckDescription);
 
       const reader = new FileReader();
+
+      reader.onerror = (error) => {
+        console.error('FileReader error:', error);
+        alert('Ocorreu um erro ao ler o arquivo.');
+      };
+
       reader.onload = (e) => {
+        console.log('FileReader onload event triggered.');
+        const newDeck = {
+          name: deckFile.name,
+          type: 'deck',
+          url: e.target.result,
+          description: deckDescription || "Sem descrição"
+        };
+        console.log('New deck object created:', newDeck);
+
         setUploadedFiles(prevFiles => {
-          const newFiles = [...prevFiles, {
-            name: deckFile.name,
-            type: 'deck',
-            url: e.target.result,
-            description: deckDescription || "Sem descrição"
-          }];
-          FileUploaderController.saveFiles(newFiles); // Explicitly save
+          const newFiles = [...prevFiles, newDeck];
+          console.log('Updating state with new files array:', newFiles);
+
+          const success = FileUploaderController.saveFiles(newFiles);
+
+          if (success) {
+            console.log('Save successful, showing alert.');
+            alert(`Deck ${deckFile.name} adicionado com sucesso e salvo!`);
+          } else {
+            console.error('Save failed.');
+            alert(`Falha ao salvar o deck ${deckFile.name}. Verifique o console para mais detalhes.`);
+          }
           return newFiles;
         });
-        alert(`Deck ${deckFile.name} adicionado!`);
-        // Reset fields
+
+        // Reset fields after operation
         setDeckFile(null);
         setDeckDescription("");
         if (document.getElementById('deck-upload-input')) {
@@ -755,7 +788,12 @@ Aqui está o [link][var1] do Shiatsu como váriavel no .MD
       if (window.confirm("Tem certeza que deseja excluir este arquivo?")) {
         setUploadedFiles(prevFiles => {
           const newFiles = prevFiles.filter((_, index) => index !== indexToDelete);
-          FileUploaderController.saveFiles(newFiles); // Explicitly save
+          const success = FileUploaderController.saveFiles(newFiles);
+          if (!success) {
+            alert('Falha ao salvar as alterações após excluir o arquivo.');
+            // Revert state if save fails
+            return prevFiles;
+          }
           return newFiles;
         });
       }
