@@ -671,6 +671,8 @@ Aqui está o [link][var1] do Shiatsu como váriavel no .MD
 [var1]: https://revigorar.reservio.com/`
     );
     const [uploadedFiles, setUploadedFiles] = useState([]);
+    const [deckFile, setDeckFile] = useState(null);
+    const [deckDescription, setDeckDescription] = useState("");
     const isInitialMount = useRef(true);
 
     // Load files from localStorage on initial render
@@ -706,6 +708,42 @@ Aqui está o [link][var1] do Shiatsu como váriavel no .MD
       });
     };
 
+    const handleDownload = (file) => {
+      if (!file.url) return;
+      const link = document.createElement('a');
+      link.href = file.url;
+      link.download = file.name;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    };
+
+    const handleAddDeck = () => {
+      if (!deckFile) {
+        alert("Por favor, selecione um arquivo.");
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setUploadedFiles(prevFiles => [...prevFiles, {
+          name: deckFile.name,
+          type: 'deck',
+          url: e.target.result,
+          description: deckDescription || "Sem descrição"
+        }]);
+        alert(`Deck ${deckFile.name} adicionado!`);
+        // Reset fields
+        setDeckFile(null);
+        setDeckDescription("");
+        if (document.getElementById('deck-upload-input')) {
+          document.getElementById('deck-upload-input').value = "";
+        }
+      };
+      reader.readAsDataURL(deckFile);
+    };
+
+
     const uploadSections = [
       {
         type: 'pdf',
@@ -734,11 +772,11 @@ Aqui está o [link][var1] do Shiatsu como váriavel no .MD
       <div className="p-4 lg:p-6" >
         <div className="mb-6" >
           <h1 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-2" > Gerenciador de Arquivos </h1>
-          <p className="text-gray-600" > Upload e gerenciamento de PDFs, imagens e planilhas Excel. </p>
+          <p className="text-gray-600" > Upload e gerenciamento de PDFs, imagens, planilhas e decks do AnaRede. </p>
         </div>
 
         {/* Upload Section */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8" >
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8" >
           {
             uploadSections.map(({ type, label, icon: Icon, color, accept }) => (
               <div key={type} className="bg-white rounded-xl p-6 shadow-sm border border-gray-200 text-center" >
@@ -767,6 +805,39 @@ Aqui está o [link][var1] do Shiatsu como váriavel no .MD
               </div>
             ))
           }
+          {/* New Card for AnaRede Decks */}
+          <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200 text-center">
+            <div className={`p-4 ${colorClasses.purple.bg} rounded-lg inline-block mb-4`}>
+              <FileText className={`h-8 w-8 ${colorClasses.purple.text}`} />
+            </div>
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">Decks AnaRede</h3>
+            <p className="text-sm text-gray-600 mb-4">
+              Upload de arquivos .dat, .pwf, .spt com descrição.
+            </p>
+            <div className="space-y-4">
+              <input
+                type="file"
+                accept=".dat,.pwf,.spt"
+                onChange={(e) => setDeckFile(e.target.files[0])}
+                className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-purple-50 file:text-purple-700 hover:file:bg-purple-100"
+                id="deck-upload-input"
+              />
+              <input
+                type="text"
+                placeholder="Descrição do deck..."
+                value={deckDescription}
+                onChange={(e) => setDeckDescription(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+              />
+              <button
+                onClick={handleAddDeck}
+                className={`w-full inline-flex items-center justify-center px-4 py-2 ${colorClasses.purple.button} text-white rounded-lg cursor-pointer transition-colors`}
+              >
+                <Plus size={16} className="mr-2" />
+                Adicionar Deck
+              </button>
+            </div>
+          </div>
         </div>
 
         {/* Carousel for Uploaded Files */}
@@ -778,7 +849,7 @@ Aqui está o [link][var1] do Shiatsu como váriavel no .MD
                 align: "start",
                 loop: uploadedFiles.length > 1,
               }}
-              className="w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-2xl mx-auto"
+              className="w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-4xl mx-auto"
             >
               <CarouselContent>
                 {uploadedFiles.map((file, index) => (
@@ -787,13 +858,23 @@ Aqui está o [link][var1] do Shiatsu como váriavel no .MD
                       <Card>
                         <CardContent className="flex aspect-square items-center justify-center p-4 flex-col gap-2">
                           {file.type === 'image' && file.url ? (
-                            <img src={file.url} alt={file.name} className="max-w-full max-h-32 object-contain rounded-md" />
+                            <img src={file.url} alt={file.name} className="max-w-full max-h-24 object-contain rounded-md" />
                           ) : file.type === 'pdf' ? (
                             <FilePdf className="w-16 h-16 text-red-500" />
-                          ) : (
+                          ) : file.type === 'excel' ? (
                             <FileSpreadsheet className="w-16 h-16 text-green-500" />
+                          ) : ( // for 'deck' type
+                            <FileText className="w-16 h-16 text-purple-500" />
                           )}
                           <p className="text-xs text-center text-gray-600 truncate w-full pt-2" title={file.name}>{file.name}</p>
+                          {file.description && <p className="text-xs text-center text-gray-500">{file.description}</p>}
+                          <button
+                            onClick={() => handleDownload(file)}
+                            className="mt-2 inline-flex items-center px-3 py-1 bg-gray-100 text-gray-700 rounded-lg text-sm hover:bg-gray-200 transition-colors"
+                          >
+                            <Download size={14} className="mr-1.5" />
+                            Baixar
+                          </button>
                         </CardContent>
                       </Card>
                     </div>
