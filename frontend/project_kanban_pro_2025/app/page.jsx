@@ -227,7 +227,27 @@ export default function App() {
     try {
       const importedProjects = await projectRepository.importFromExcel(file);
       setProjects(importedProjects);
-      alert('Dados importados com sucesso!');
+      alert('Dados de projetos importados com sucesso!');
+
+      // Restore functionality: Also add the imported Excel file to the FilesScreen list
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const newFile = {
+          name: file.name,
+          type: 'excel',
+          url: e.target.result,
+        };
+        const currentFiles = FileUploaderController.loadFiles();
+        const newFiles = [...currentFiles, newFile];
+        const success = FileUploaderController.saveFiles(newFiles);
+        if (success) {
+          console.log(`Imported Excel file '${file.name}' also saved to file list.`);
+        } else {
+          console.error(`Failed to save imported Excel file '${file.name}' to file list.`);
+        }
+      };
+      reader.readAsDataURL(file);
+
     } catch (error) {
       alert(error instanceof Error ? error.message : 'Erro ao importar arquivo');
     }
