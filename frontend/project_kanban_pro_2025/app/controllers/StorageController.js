@@ -1,102 +1,140 @@
-import { ProjectItem } from '../types.js';
+// app/controllers/StorageController.js
 
-const INITIAL_DATA = [
-  {
-    id: '868d3j5vf',
-    title: 'Minicurso Circuitos Eletricos CC',
-    status: 'to do',
-    category: 'uff',
-    content: '# Minicurso Circuitos Elétricos CC\n\n## Objetivos\n- Fundamentos de circuitos CC\n- Análise nodal e de malhas\n- Teoremas de circuitos\n\n## Cronograma\n- [ ] Preparar material teórico\n- [ ] Criar exercícios práticos\n- [ ] Desenvolver simulações',
-    createdAt: new Date('2024-01-10'),
-    updatedAt: new Date('2024-01-15'),
-    files: []
-  },
-  {
-    id: '868d3j6h0',
-    title: '3 Landing Pages Templates (Google Analytics, SEO, Maps, parallax, AstroJS, treejs, boltnew)',
-    status: 'projetos parados',
-    category: 'web',
-    content: '# Landing Pages Templates\n\n## Tecnologias\n- AstroJS\n- Three.js\n- Google Analytics\n- SEO otimizado\n\n## Features\n- Parallax scrolling\n- Mapas integrados\n- Animações 3D\n- Performance otimizada',
-    createdAt: new Date('2024-01-08'),
-    updatedAt: new Date('2024-01-12'),
-    files: []
-  },
-  {
-    id: '868d3j6p1',
-    title: '3 Modelos de IA (ML) - Dashboard Template Streamlit',
-    status: 'agentes (c3po, jarvis)',
-    category: 'python',
-    content: '# Dashboard IA com Streamlit\n\n## Modelos\n1. Previsão de vendas\n2. Análise de sentimentos\n3. Classificação de imagens\n\n## Stack\n- Python\n- Streamlit\n- Scikit-learn\n- Pandas\n- Plotly',
-    createdAt: new Date('2024-01-05'),
-    updatedAt: new Date('2024-01-14'),
-    files: []
-  }
-];
+const DB_NAME = 'KanbanProDecksDB';
+const STORE_NAME = 'decks';
+const DB_VERSION = 1;
 
-const parseDate = (dateValue) => {
-  if (dateValue instanceof Date && !isNaN(dateValue)) return dateValue;
-  if (typeof dateValue === 'string') {
-    // Handle 'dd/mm/yyyy' format from Brazil
-    const brazilianDateRegex = /^(\d{1,2})\/(\d{1,2})\/(\d{4})/;
-    const match = dateValue.match(brazilianDateRegex);
-    if (match) {
-      const date = new Date(parseInt(match[3], 10), parseInt(match[2], 10) - 1, parseInt(match[1], 10));
-      if (!isNaN(date.getTime())) return date;
+let db;
+
+/**
+ * Initializes the IndexedDB database and object store.
+ * @returns {Promise<IDBDatabase>} A promise that resolves with the database instance.
+ */
+const initDB = () => {
+  return new Promise((resolve, reject) => {
+    // If connection is already open, return it
+    if (db) {
+      return resolve(db);
     }
-    // Fallback for ISO strings
-    const parsedDate = new Date(dateValue);
-    if (!isNaN(parsedDate.getTime())) return parsedDate;
-  }
-  // For other types or invalid strings, return a valid date (now)
-  return new Date();
+
+    const request = indexedDB.open(DB_NAME, DB_VERSION);
+
+    request.onerror = (event) => {
+      console.error('IndexedDB error:', event.target.error);
+      reject('IndexedDB connection error');
+    };
+
+    request.onsuccess = (event) => {
+      db = event.target.result;
+      console.log('IndexedDB connection successful.');
+      resolve(db);
+    };
+
+    // This event only runs if the database version changes
+    request.onupgradeneeded = (event) => {
+      const tempDb = event.target.result;
+      if (!tempDb.objectStoreNames.contains(STORE_NAME)) {
+        console.log('Creating object store:', STORE_NAME);
+        // Use autoIncrementing key
+        tempDb.createObjectStore(STORE_NAME, { keyPath: 'id', autoIncrement: true });
+      }
+    };
+  });
 };
 
-
-class StorageController {
-  static STORAGE_KEY = 'kanban-projects';
-
-  loadProjects() {
-    if (typeof window === 'undefined') {
-      return INITIAL_DATA.map(item => ({
-        ...item,
-        createdAt: new Date(item.createdAt),
-        updatedAt: new Date(item.updatedAt)
-      }));
-    }
-
-    const savedData = localStorage.getItem(StorageController.STORAGE_KEY);
-    if (!savedData) {
-      return INITIAL_DATA.map(item => ({
-        ...item,
-        createdAt: new Date(item.createdAt),
-        updatedAt: new Date(item.updatedAt)
-      }));
-    }
-
+/**
+ * A controller for handling deck storage in IndexedDB.
+ */
+const StorageController = {
+  /**
+   * Saves a deck object to the IndexedDB.
+   * @param {object} deck - The deck object to save. Must not have an 'id' property.
+   * @returns {Promise<object|null>} A promise that resolves with the saved deck object (including its new id) or null on failure.
+   */
+  saveDeck: async (deck) => {
     try {
-      const parsed = JSON.parse(savedData);
-      // Use robust date parsing here
-      return parsed.map(item => ({
-        ...item,
-        createdAt: parseDate(item.createdAt),
-        updatedAt: parseDate(item.updatedAt)
-      }));
-    } catch {
-      return INITIAL_DATA.map(item => ({
-        ...item,
-        createdAt: new Date(item.createdAt),
-        updatedAt: new Date(item.updatedAt)
-      }));
-    }
-  }
+      const db = await initDB();
+      const transaction = db.transaction(STORE_NAME, 'readwrite');
+      const store = transaction.objectStore(STORE_NAME);
+      
+      return new Promise((resolve, reject) => {
+        // Add the deck. The key (id) will be auto-generated.
+        const request = store.add(deck);
 
-  saveProjects(projects) {
-    if (typeof window === 'undefined') {
-      return;
-    }
-    localStorage.setItem(StorageController.STORAGE_KEY, JSON.stringify(projects));
-  }
-}
+        request.onsuccess = (event) => {
+          // event.target.result will be the new auto-generated key
+          const savedDeck = { ...deck, id: event.target.result };
+          console.log('Deck saved to IndexedDB successfully:', savedDeck);
+          resolve(savedDeck);
+        };
 
-const storageController = new StorageController();
-export default storageController;
+        request.onerror = (event) => {
+          console.error('Failed to save deck to IndexedDB:', event.target.error);
+          reject(null);
+        };
+      });
+    } catch (error) {
+      console.error('Error in saveDeck:', error);
+      return null;
+    }
+  },
+
+  /**
+   * Retrieves all decks from the IndexedDB.
+   * @returns {Promise<Array>} A promise that resolves with an array of all deck objects.
+   */
+  getAllDecks: async () => {
+    try {
+      const db = await initDB();
+      const transaction = db.transaction(STORE_NAME, 'readonly');
+      const store = transaction.objectStore(STORE_NAME);
+      const request = store.getAll();
+
+      return new Promise((resolve, reject) => {
+        request.onsuccess = () => {
+          console.log('Decks loaded from IndexedDB:', request.result);
+          resolve(request.result);
+        };
+
+        request.onerror = (event) => {
+          console.error('Failed to get decks from IndexedDB:', event.target.error);
+          reject([]);
+        };
+      });
+    } catch (error) {
+      console.error('Error in getAllDecks:', error);
+      return [];
+    }
+  },
+
+  /**
+   * Deletes a deck from the IndexedDB by its id.
+   * @param {number} id - The id of the deck to delete.
+   * @returns {Promise<boolean>} A promise that resolves with true on success, false on failure.
+   */
+  deleteDeck: async (id) => {
+    try {
+      const db = await initDB();
+      const transaction = db.transaction(STORE_NAME, 'readwrite');
+      const store = transaction.objectStore(STORE_NAME);
+      const request = store.delete(id);
+
+      return new Promise((resolve, reject) => {
+        request.onsuccess = () => {
+          console.log('Deck deleted from IndexedDB successfully, id:', id);
+          resolve(true);
+        };
+
+        request.onerror = (event) => {
+          console.error('Failed to delete deck from IndexedDB:', event.target.error);
+          reject(false);
+        };
+      });
+    } catch (error) {
+      console.error('Error in deleteDeck:', error);
+      return false;
+    }
+  },
+};
+
+export default StorageController;

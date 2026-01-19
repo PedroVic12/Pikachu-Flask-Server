@@ -670,24 +670,27 @@ Aqui está o [link][var1] do Shiatsu como váriavel no .MD
 
 [var1]: https://revigorar.reservio.com/`
     );
+    // State for legacy files (pdf, image, excel) from localStorage
     const [uploadedFiles, setUploadedFiles] = useState([]);
+    // State for decks from IndexedDB
+    const [decks, setDecks] = useState([]);
+
     const [deckFile, setDeckFile] = useState(null);
     const [deckDescription, setDeckDescription] = useState("");
-    const isInitialMount = useRef(true);
 
-    // Load files from localStorage on initial render
+    // Load files from both localStorage and IndexedDB on initial render
     useEffect(() => {
-      setUploadedFiles(FileUploaderController.loadFiles());
+      // Load legacy files and filter out any stray decks
+      const legacyFiles = FileUploaderController.loadFiles().filter(f => f.type !== 'deck');
+      setUploadedFiles(legacyFiles);
+
+      // Load decks from IndexedDB
+      const loadDecks = async () => {
+        const storedDecks = await StorageController.getAllDecks();
+        setDecks(storedDecks);
+      };
+      loadDecks();
     }, []);
-
-    // Save files to localStorage whenever state changes
-    useEffect(() => {
-      if (isInitialMount.current) {
-        isInitialMount.current = false;
-      } else {
-        FileUploaderController.saveFiles(uploadedFiles);
-      }
-    }, [uploadedFiles]);
 
 
     const handleFileUpload = (event, type) => {
@@ -731,15 +734,11 @@ Aqui está o [link][var1] do Shiatsu como váriavel no .MD
       document.body.removeChild(link);
     };
 
-    const handleAddDeck = () => {
-      console.log('handleAddDeck triggered');
+    const handleAddDeck = async () => {
       if (!deckFile) {
         alert("Por favor, selecione um arquivo.");
-        console.error('handleAddDeck failed: No file selected.');
         return;
       }
-      console.log('Deck file selected:', deckFile.name);
-      console.log('Deck description:', deckDescription);
 
       const reader = new FileReader();
 
@@ -748,31 +747,23 @@ Aqui está o [link][var1] do Shiatsu como váriavel no .MD
         alert('Ocorreu um erro ao ler o arquivo.');
       };
 
-      reader.onload = (e) => {
-        console.log('FileReader onload event triggered.');
-        const newDeck = {
+      reader.onload = async (e) => {
+        // We don't include 'id' because IndexedDB will generate it.
+        const newDeckData = {
           name: deckFile.name,
           type: 'deck',
           url: e.target.result,
           description: deckDescription || "Sem descrição"
         };
-        console.log('New deck object created:', newDeck);
 
-        setUploadedFiles(prevFiles => {
-          const newFiles = [...prevFiles, newDeck];
-          console.log('Updating state with new files array:', newFiles);
+        const savedDeck = await StorageController.saveDeck(newDeckData);
 
-          const success = FileUploaderController.saveFiles(newFiles);
-
-          if (success) {
-            console.log('Save successful, showing alert.');
-            alert(`Deck ${deckFile.name} adicionado com sucesso e salvo!`);
-          } else {
-            console.error('Save failed.');
-            alert(`Falha ao salvar o deck ${deckFile.name}. Verifique o console para mais detalhes.`);
-          }
-          return newFiles;
-        });
+        if (savedDeck) {
+          setDecks(prevDecks => [...prevDecks, savedDeck]);
+          alert(`Deck ${deckFile.name} adicionado com sucesso ao IndexedDB!`);
+        } else {
+          alert(`Falha ao salvar o deck ${deckFile.name}. Verifique o console.`);
+        }
 
         // Reset fields after operation
         setDeckFile(null);
@@ -784,16 +775,30 @@ Aqui está o [link][var1] do Shiatsu como váriavel no .MD
       reader.readAsDataURL(deckFile);
     };
 
-    const handleDeleteFile = (indexToDelete) => {
-      if (window.confirm("Tem certeza que deseja excluir este arquivo?")) {
+    const handleDeleteFile = async (file, legacyIndex) => {
+      if (!window.confirm(`Tem certeza que deseja excluir o arquivo "${file.name}"?`)) {
+        return;
+      }
+
+      if (file.type === 'deck') {
+        // Handle deletion from IndexedDB
+        const success = await StorageController.deleteDeck(file.id);
+        if (success) {
+          setDecks(prevDecks => prevDecks.filter(d => d.id !== file.id));
+          alert('Deck excluído com sucesso.');
+        } else {
+          alert('Falha ao excluir o deck. Verifique o console.');
+        }
+      } else {
+        // Handle deletion from localStorage
         setUploadedFiles(prevFiles => {
-          const newFiles = prevFiles.filter((_, index) => index !== indexToDelete);
+          const newFiles = prevFiles.filter((_, index) => index !== legacyIndex);
           const success = FileUploaderController.saveFiles(newFiles);
           if (!success) {
             alert('Falha ao salvar as alterações após excluir o arquivo.');
-            // Revert state if save fails
-            return prevFiles;
+            return prevFiles; // Revert state on failure
           }
+          alert('Arquivo excluído com sucesso.');
           return newFiles;
         });
       }
@@ -822,6 +827,12 @@ Aqui está o [link][var1] do Shiatsu como váriavel no .MD
         color: 'green',
         accept: '.xlsx,.xls'
       }
+    ];
+
+    // Combine all files for rendering, adding a flag to distinguish them
+    const allFiles = [
+      ...uploadedFiles.map((file, index) => ({ ...file, legacyIndex: index })),
+      ...decks
     ];
 
     const carouselSections = {
@@ -905,7 +916,7 @@ Aqui está o [link][var1] do Shiatsu como váriavel no .MD
 
         {/* Separated Carousels for Uploaded Files */}
         {Object.entries(carouselSections).map(([type, title]) => {
-          const filesOfType = uploadedFiles.map((file, index) => ({ ...file, originalIndex: index })).filter(file => file.type === type);
+          const filesOfType = allFiles.filter(file => file.type === type);
           if (filesOfType.length === 0) return null;
 
           return (
@@ -919,12 +930,12 @@ Aqui está o [link][var1] do Shiatsu como váriavel no .MD
                 className="w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-4xl mx-auto"
               >
                 <CarouselContent>
-                  {filesOfType.map((file) => (
-                    <CarouselItem key={file.originalIndex} className="md:basis-1/2 lg:basis-1/3">
+                  {filesOfType.map((file, i) => (
+                    <CarouselItem key={file.id || file.legacyIndex} className="md:basis-1/2 lg:basis-1/3">
                       <div className="p-1">
                         <Card className="relative group">
                           <button
-                            onClick={() => handleDeleteFile(file.originalIndex)}
+                            onClick={() => handleDeleteFile(file, file.legacyIndex)}
                             className="absolute top-2 right-2 z-10 p-1 bg-white bg-opacity-75 rounded-full text-gray-600 hover:bg-red-500 hover:text-white transition-all opacity-0 group-hover:opacity-100"
                             title="Excluir arquivo"
                           >
