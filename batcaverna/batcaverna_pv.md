@@ -15,7 +15,7 @@ Aqui está o [link][var1] do Shiatsu como váriavel no .MD
 
 ---
 
-DATA ATUAL = 19/01/2025
+DATA ATUAL = 20/01/2025
 
 __Altere as colunas do Kanban:__
 
@@ -31,13 +31,14 @@ Por default, fica sempre no backlog
 
 ---
 
+
 ---
 # BatCaverna Editor 2026
 ---
 
 
  
-# PVRV 2026 - Planilha de horarios (atualizars)
+# PVRV 2026 - Planilha de horarios (atualizar) __IN_PROGRESS
 - [x] Backup Kanban, Batcaverna, Linux e Win11
 - [x] Planejamento e Metas semanal
 - [ ] Listagem de projetos atuais por tecnologias do github
@@ -45,6 +46,7 @@ Por default, fica sempre no backlog
     - [x] Dezembro
     - [ ] Janeiro
     - [ ] Fevereiro
+
 - [x] Organização Emails e Arquivos
 - [x] Terapia janeiro 2026
 - [x] Inserção de dados na base de dados LPP
@@ -61,14 +63,10 @@ Por default, fica sempre no backlog
 - [ ] Teoria de controle de engenharia moderno
 - [ ] Proteção de SEP e monitoramento area SP
 - [ ] Processamento de imagens de satélites com Python
-- [ ] LEGENDA VIDEO YOUTUBE
-- [ ] PLANEJAMENTO SEGUNDA + TREINO + METAS + FECHAR 10 ABAS 
-- [ ] AJUSTAR PAINEL DE BATCAVERNA COM KANBANPRO e Blogpedrov12
+- [x] AJUSTAR PAINEL DE BATCAVERNA COM KANBANPRO e Blogpedrov12
 
-  - [ ] COP30 + Transição Enérgetca no BR
   - [ ] O que são algoriitmos de AG e como usar isso na Eng. Elétrica para agendamento otimo de SEP (video yt)
     - [ ] https://alexandremundim.medium.com/algoritmo-gen%C3%A9tico-na-pr%C3%A1tica-com-python-e24d2b1254d8
-    - [ ] notebook AG - DEAP
     - [ ] SIN45 app template with Lancher refatorado
   - [ ] Análise de contigencias com SN 45 com pandapower + Deckbuiler para o AnaREDE
   - [ ] Matriz admtancia + Geração x Transmissão e Distrbuição SIN pelo ONS
@@ -93,26 +91,21 @@ Por default, fica sempre no backlog
 - [ ] Estudos de IA, ML, DL, Chatbots, N8N, AI agentes frameworks (Agno/Langchain)
 - [ ] Solver ML/DL para cada X,Y de conjunto de dado
 - [ ] Grondon Chabtot, Jarvis Chatbot, Lumina Aurora Chatbot
-- [ ] Pyside6 - Eng. Controle com EDO e Equações de SEP
 
-## Engenharia Elétrica
+## Engenharia Elétrica __IN_PROGRESS
 
 - [ ] Aulas CC/ CA - Sadiku
 - [ ] Eng. Controle Moderno - Ogata
 - [ ] Elementos do eletromag - Sadiku + Jorge
 - [ ] Sinais e sistemas
 - [ ] Eletrônica para makers
+- [ ] Fluxo de potencia + Barra Swing + Reator Shunt + Capacitores Async + Geração de Barras PQ/PV
 
-## Sesão de ESTUDOS (Matemática, programação e Eng. Elétrica)
+## Sesão de ESTUDOS (Matemática, programação e Eng. Elétrica) __TODO
 
 - [ ] Atividade IEEEDs = Esp32 + Senoides de corrente em series temporais para modelos de IA (como entrada de dado)
 
 ---
-
-
-
-
-
 
 
 
