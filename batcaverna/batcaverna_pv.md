@@ -128,7 +128,7 @@ Sexta-feira (30/01) - Review & Code
 
 # PVRV 2026 - Planilha de horarios (atualizar) __IN_PROGRESS
 - [x] Backup Kanban, Batcaverna, Linux e Win11
-- [ ] Planejamento e Metas semanal
+- [ ] Planejamento e Metas semanal (Refatorar a tela do Tarefas PLC e outros sites tudo no mesmo NextJS)
 - [ ] Listagem de projetos atuais por tecnologias do github
 - [ ] Planejamento financeiro (Financial APP)
     - [x] Dezembro
@@ -142,6 +142,10 @@ Sexta-feira (30/01) - Review & Code
 - [ ] Juntar todos sites estaticos em HTML que tenho num unico projeto NextJS com rotas e MVC (Gohan Treinamentos, Legado PVRV, Pomodoro)
 - [ ] Estudos de conceitos básicos de CC/CA
 - [ ] Estudos de conceitos básicos de SEP para ONS PLC
+- [ ] Estudos sobre diagramas fasoriais em eng. elétrica
+- [x] estudos sobre rede básica x rede de simulação do ONS
+- [x] Correção do bug no Raichu/Rayquaza Server para o Kyogre delivey App e deixar ele como SAAS de renda extra (https://docker-raichu.onrender.com/docs)
+- [ ] Controle  e Gestão Atividades SP + MUST --> Excel To Website and (.PDF + Access)to QT 6 Desktop Deck Builder Organon
 
 
  # Lista de TAREFAS Pendentes __TODO
@@ -151,7 +155,6 @@ Sexta-feira (30/01) - Review & Code
 - [ ] Aulas Sinais/cricuitos CC/CA e Eng. Controle + SEP Fundamentals + Metodos numericos com Python
 - [ ] Despacho de cargas - Planejamento Mensal e Semanal - Flow + AnaREDE, AnaTEM e Organon
 - [ ] **Estudos SEP com base fundamental para CA**
-- [ ] Controle  e Gestão Atividades SP + MUST --> Excel To Website and (.PDF + Access)to QT 6 Desktop Deck Builder Organon
 - [ ] Teoria de controle de engenharia moderno
 - [ ] Proteção de SEP e monitoramento area SP
 - [ ] Processamento de imagens de satélites com Python
