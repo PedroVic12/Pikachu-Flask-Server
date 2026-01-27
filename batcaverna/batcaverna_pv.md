@@ -29,6 +29,70 @@ Por default, fica sempre no backlog
 
 ![alt text - ciencia de dados ONS](image-1.png)
 
+---
+🦇 Batcaverna PV - Centro de Comando (26/01 - 31/01)
+---
+
+## 🎯 Objetivos da Semana (Main Quests)
+
+⚡ Trabalho (ONS) - Engenharia de Dados & Sistemas
+
+[ ] Python & DB: Otimizar scripts de consulta (SQLAlchemy/Pandas) para grandes volumes de dados.
+
+[ ] Simulação SEP: Rodar casos de fluxo de potência (Anarede/Organon) e entender os warnings.
+
+[ ] Fundamentos Elétricos: Revisar conceitos de Potência Ativa (P) x Reativa (Q) em CA e Leis de Kirchhoff em CC.
+
+Meta: Conseguir explicar o comportamento da tensão na barra quando a carga reativa aumenta.
+
+
+## 📅 Checklist Diário
+
+Segunda-feira (26/01) - Setup & SEP
+
+[ ] 08:00 - ONS (Home): Organizar backlog da semana.
+
+[ ] 10:00 - ONS (Dev): Estudo de script Python para automação de banco de dados.
+
+[ ] 14:00 - Foco Técnico: Leitura sobre Load Flow (Fluxo de Carga).
+
+[ ] 18:00 - UFF: Aula/Estudo.
+
+Terça-feira (27/01) - O Dia Longo
+
+[ ] 06:25 - ONS (Presencial): Acompanhar operação em tempo real (se possível).
+
+[ ] 09:15 - ⚠️ Decisão: Aula Eletromag vs. Estágio (Definir estratégia).
+
+[ ] 13:25 - Saída ONS.
+
+[ ] 16:30 - Terapia.
+
+[ ] 19:00 - Revisão leve de CC (Circuitos de Corrente Contínua).
+
+Quarta-feira (28/01) - Engenharia Pura
+
+[ ] 06:25 - ONS (Presencial).
+
+[ ] 10:00 - Simulação: Tentar rodar um caso base e analisar os logs.
+
+[ ] 15:00 - Estudos UFF (Biblioteca ou Casa).
+
+Quinta-feira (29/01) - Karatê Day
+
+[ ] 08:00 - ONS (Home): Python - Tratamento de exceções nos scripts.
+
+[ ] 14:00 - UFF: Lista de exercícios Eletromag.
+
+[ ] 19:00 - Karatê: Foco total, zero pensamento em trabalho.
+
+Sexta-feira (30/01) - Review & Code
+
+[ ] 08:00 - ONS (Home): Documentar o que foi aprendido sobre SEP na semana.
+
+[ ] 14:00 - Dev Time: Projeto Pessoal ou aprofundamento em SQL.
+
+[ ] 18:00 - Checkpoint Semanal: O que funcionou? O que atrasou?
 
 ---
 # TDAH - Rotina  __IN_PROGRESS
@@ -39,6 +103,9 @@ Por default, fica sempre no backlog
 - [x] Organização mental e preparação para novo Ciclo JEDI CYBERPUNK com resolução de provas, tutorial de 10 min de programação, modelagem e simulações de eng eletrica junto com automações com N8N
 
 # Alinhamento Espiritual
+- [x] Terapia: Terça-feira 16:30 .
+- [x] Treino de calistenia para karate
+
 - [x] You Only Need 5 Hobbies (Money, Study, Mindset, In Shape, Creative)
 
   - [ ] Segunda - Chakra: Solar
@@ -50,11 +117,14 @@ Por default, fica sempre no backlog
 - [ ] Leitura matinal da bíblia e livros dos espirtos de Alan Kardec
 - [ ] Meditação e estudos com Matemática e Japonês
 - [ ] Alongamento matinal - Ombros e Quadril
-- [x] Treino de calistenia para karate
 - [ ] 2 equações do dia
 - [ ] 2 projetos no dia (backend/frontend)
 - [ ] Dom do espirito Santo do dia
 - [ ] Frase de poder
+      
+- [ ] Jogos: Sessão de The Witcher 3 ou LoL (Sábado/Domingo).
+
+
 
 ---
 # BatCaverna Editor 2026
@@ -114,23 +184,31 @@ Por default, fica sempre no backlog
 
 
 # Sesão de ESTUDOS (Matemática, programação e Eng. Elétrica) __TODO
-  - [ ] Análise de contigencias com SN 45 com pandapower + Deckbuiler para o AnaREDE
-  - [ ] Matriz Ybus em Python para SEP
-  - [ ] Matriz admtancia + Geração x Transmissão e Distrbuição SIN pelo ONS
-  - [ ] Mincurso CC + arduino + python
-    - [ ] https://www.falstad.com/circuit/circuitjs.html
-    - [ ] Regra de Crammer
-    - [ ] EDO sistemas 1 e 2 ordem com RLC e RC plots e respostas da EDO
-  - [ ] Metodos númericos em Matlab para engenharia usando Python
+- [ ] Atividade ML de IEEEDs e principais modelo de AI de Supevisionado x Não Supervisionado (Com Rótulos x Sem Rótulos)
+- [ ] Eletromagnetismo: Resolver 3 exercícios de Lei de Gauss/Coulomb.
+- [ ] Sinais e Sistemas: Revisar Transformada de Laplace (básico).
+      
+- [ ] Análise de contigencias com SN 45 com pandapower + Deckbuiler para o AnaREDE
+- [ ] Matriz Ybus em Python para SEP
+- [ ] Matriz admtancia + Geração x Transmissão e Distrbuição SIN pelo ONS
+- [ ] Mincurso CC + arduino + python
+  - [ ] https://www.falstad.com/circuit/circuitjs.html
+  - [ ] Regra de Crammer
+  - [ ] EDO sistemas 1 e 2 ordem com RLC e RC plots e respostas da EDO
+- [ ] Metodos númericos em Matlab para engenharia usando Python
         
 - [ ] Solver ML/DL para cada X,Y de conjunto de dado
 - [ ] Python com Sympy para calculo de EDO de 1 e 2 ordem para Circuitos CC (RL,RC e RLC)
-- [ ] Atividade IEEEDs = Esp32 + Senoides de corrente em series temporais para modelos de IA (como entrada de dado)
+- [ ] Atividade IEEEDs = Esp32 + Senoides de corrente em series temporais para modelos de IA (como entrada de dados)
 - [ ] Aulas Sinais/cricuitos CC/CA e Eng. Controle + SEP Fundamentals + Metodos numericos com Python
-- [ ] Atividade ML de IEEEDs e principais modelo de AI de Supevisionado x Não Supervisionado (Com Rótulos x Sem Rótulos)
+
 ---
 
+## ⚡ Conceitos Elétricos (Dúvidas/Insights)
 
+CC vs CA: Em CC, a indutância é um curto e a capacitância é um aberto no regime permanente. Em CA, eles geram impedância ($j\omega L$ e $1/j\omega C$).
+
+Dúvida para tirar com engenheiros: Como o ONS modela a carga dependente da tensão ($P = P_0(V/V_0)^\alpha$)?
 
 ---
 
