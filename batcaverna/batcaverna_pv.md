@@ -15,7 +15,7 @@ Aqui está o [link][var1] do Shiatsu como váriavel no .MD
 
 ---
 
-DATA ATUAL = 26/01/2025
+DATA ATUAL = 27/01/2025
 
 __Altere as colunas do Kanban:__
 
@@ -135,7 +135,41 @@ Sexta-feira (30/01) - Review & Code
     - [ ] Janeiro
     - [ ] Fevereiro
      
-# Sprint atual PVRV __IN_PROGRESS
+
+## Sprint Atual 21/01/26
+- [x] Modelagem banco de dados BDT e MUST (feito teste nas Lts no SECO -> ESTREI-MG500 (ok) e N.EXTR-MG500 (ainda falta...)
+- [x] Debug VBA perdas duplas
+  - [x] Verificar o código V6 e corrigir alguns bugs de formatação
+  - [ ] Verificar aba de Modificações ná pag correta como lista de itens nó código VBA
+
+- [ ]  Acompanhar como foi feito o relatorio do controle mensal de Fevereiro
+- [x] Estudo de Arquitetura de projeto Flask com frontend project template (dashboard atividades SP MUST)
+
+- [ ] Script inicial AnaRede com CLI com decks e .sav padrões de montagem de quadro mensal
+- [ ] Algoritimo Big O para complexibilidade de casos de FLuxo de potencia para auxiliar na montagem de decks
+- [ ] Deck Builder AnaREDE
+- [ ] Flow caso 10 Controle mensal com intercambio VC
+- [ ] Templates HTML dentro do NextJS
+- [ ] Projetos python com arquitetura backend em Rust
+- [ ] Projetos template Pyside6 com Docs automatizados com pytest e com deploy em .exe com menos de 150MB
+- [ ] IA para negócios, Análise de dados e Programacao com Matematica para IOT 
+
+## Tarefas  14/01/26
+
+- [x] 3 Upgrades de Perdas Duplas LTs + Dashboard de gráficos internos (ver colunas corretas)
+
+- [x] __Cadastro de inequacoes no LPP__
+  - [x] Fizemos juntos o FJPXG (item 3.5.2). Faltam os itens FFGM-MCP (item 3.5.6) e FBVEQ (item 3.5.9)
+    
+- [ ] Correções e bug fix no VBA para perdas Duplas Lts + 3 gráficos
+- [x] Deploy de ETL de pasta de PDF para MUST em excel e sqlite com Python
+
+
+- [x] Estudos RUST para embarcados, backend e webassembly
+- [x] PowerFlow anaRede com Equacoes
+- [x] VBA Perdas duplas (upgrades)
+     
+# Sprint atual (27/01/2026) PVRV __IN_PROGRESS
 - [ ] Word compartilhado com ajustes da montagem Mensal e Quadrimensal
 - [ ] Debug final V6 de VBA de perdas duplas
 - [ ] Estudos backend com GO e proxy de tunnel com interface web
