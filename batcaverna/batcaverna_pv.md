@@ -33,66 +33,61 @@ Por default, fica sempre no backlog
 🦇 Batcaverna PV - Centro de Comando (26/01 - 31/01)
 ---
 
-## 🎯 Objetivos da Semana (Main Quests)
+# 🎯 Objetivos da Semana (Main Quests)
 
 ⚡ Trabalho (ONS) - Engenharia de Dados & Sistemas
 
-[ ] Python & DB: Otimizar scripts de consulta (SQLAlchemy/Pandas) para grandes volumes de dados.
+- [ ] Python & DB: Otimizar scripts de consulta (SQLAlchemy/Pandas) para grandes volumes de dados.
 
-[ ] Simulação SEP: Rodar casos de fluxo de potência (Anarede/Organon) e entender os warnings.
+- [ ] Simulação SEP: Rodar casos de fluxo de potência (Anarede/Organon) e entender os warnings.
 
-[ ] Fundamentos Elétricos: Revisar conceitos de Potência Ativa (P) x Reativa (Q) em CA e Leis de Kirchhoff em CC.
+- [ ] Fundamentos Elétricos: Revisar conceitos de Potência Ativa (P) x Reativa (Q) em CA e Leis de Kirchhoff em CC.
 
 Meta: Conseguir explicar o comportamento da tensão na barra quando a carga reativa aumenta.
 
 
-## 📅 Checklist Diário
+# 📅 Checklist Diário
 
 Segunda-feira (26/01) - Setup & SEP
 
-[ ] 08:00 - ONS (Home): Organizar backlog da semana.
+- [x] 08:00 - ONS (Home): Organizar backlog da semana.
 
-[ ] 10:00 - ONS (Dev): Estudo de script Python para automação de banco de dados.
+- [ ]  10:00 - ONS (Dev): Estudo de script Python para automação de banco de dados.
 
-[ ] 14:00 - Foco Técnico: Leitura sobre Load Flow (Fluxo de Carga).
+- [ ] 14:00 - Foco Técnico: Leitura sobre Load Flow (Fluxo de Carga).
 
-[ ] 18:00 - UFF: Aula/Estudo.
 
 Terça-feira (27/01) - O Dia Longo
 
-[ ] 06:25 - ONS (Presencial): Acompanhar operação em tempo real (se possível).
+- [ ] 06:25 - ONS (Presencial): Acompanhar operação em tempo real (se possível).
 
-[ ] 09:15 - ⚠️ Decisão: Aula Eletromag vs. Estágio (Definir estratégia).
+- [ ]  09:15 - ⚠️ Aula Eletromag vs. Estágio (Definir estratégia).
 
-[ ] 13:25 - Saída ONS.
-
-[ ] 16:30 - Terapia.
-
-[ ] 19:00 - Revisão leve de CC (Circuitos de Corrente Contínua).
+- [ ]  19:00 - Revisão leve de CC (Circuitos de Corrente Contínua).
 
 Quarta-feira (28/01) - Engenharia Pura
 
-[ ] 06:25 - ONS (Presencial).
+- [ ] 06:25 - ONS (Presencial).
 
-[ ] 10:00 - Simulação: Tentar rodar um caso base e analisar os logs.
+- [ ]  10:00 - Simulação: Tentar rodar um caso base e analisar os logs.
 
-[ ] 15:00 - Estudos UFF (Biblioteca ou Casa).
+- [ ]  15:00 - Estudos UFF (Biblioteca ou Casa).
 
 Quinta-feira (29/01) - Karatê Day
 
-[ ] 08:00 - ONS (Home): Python - Tratamento de exceções nos scripts.
+- [ ]  08:00 - ONS (Home): Python - Tratamento de exceções nos scripts.
 
-[ ] 14:00 - UFF: Lista de exercícios Eletromag.
+- [ ] 14:00 - UFF: Lista de exercícios Eletromag.
 
-[ ] 19:00 - Karatê: Foco total, zero pensamento em trabalho.
+- [ ]  19:00 - Karatê: Foco total, zero pensamento em trabalho.
 
 Sexta-feira (30/01) - Review & Code
 
-[ ] 08:00 - ONS (Home): Documentar o que foi aprendido sobre SEP na semana.
+- [ ] 08:00 - ONS (Home): Documentar o que foi aprendido sobre SEP na semana.
 
-[ ] 14:00 - Dev Time: Projeto Pessoal ou aprofundamento em SQL.
+- [ ]  14:00 - Dev Time: Projeto Pessoal ou aprofundamento em SQL.
 
-[ ] 18:00 - Checkpoint Semanal: O que funcionou? O que atrasou?
+- [ ]  18:00 - Checkpoint Semanal: O que funcionou? O que atrasou?
 
 ---
 # TDAH - Rotina  __IN_PROGRESS
