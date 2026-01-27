@@ -15,7 +15,7 @@ Aqui está o [link][var1] do Shiatsu como váriavel no .MD
 
 ---
 
-DATA ATUAL = 20/01/2025
+DATA ATUAL = 26/01/2025
 
 __Altere as colunas do Kanban:__
 
@@ -29,13 +29,41 @@ Por default, fica sempre no backlog
 
 ![alt text - ciencia de dados ONS](image-1.png)
 
+
 ---
+# TDAH - Rotina  __IN_PROGRESS
+---
+
+- [x] Planejamento Seg/Sexta
+- [x] Visualização KANBAN e gerar 5 tarefas do dia (MANHA) e com 3 metas principais do dia (Eat the frog, Estudos e Criativo)
+- [x] Organização mental e preparação para novo Ciclo JEDI CYBERPUNK com resolução de provas, tutorial de 10 min de programação, modelagem e simulações de eng eletrica junto com automações com N8N
+
+# Alinhamento Espiritual
+- [x] You Only Need 5 Hobbies (Money, Study, Mindset, In Shape, Creative)
+
+  - [ ] Segunda - Chakra: Solar
+  - [ ] Terça - Chakra: Garganta
+  - [ ] Quarta - Chakra: Cardiaco
+  - [ ] Quinta: Chakra: 3º Olho
+  - [ ] Sexta: Chakra: Root
+
+- [ ] Leitura matinal da bíblia e livros dos espirtos de Alan Kardec
+- [ ] Meditação e estudos com Matemática e Japonês
+- [ ] Alongamento matinal - Ombros e Quadril
+- [x] Treino de calistenia para karate
+- [ ] 2 equações do dia
+- [ ] 2 projetos no dia (backend/frontend)
+- [ ] Dom do espirito Santo do dia
+- [ ] Frase de poder
 
 
 ---
 # BatCaverna Editor 2026
 ---
 
+
+## Sprint atual PVRV
+- [ ] 
 
  
 # PVRV 2026 - Planilha de horarios (atualizar) __IN_PROGRESS
@@ -92,14 +120,7 @@ Por default, fica sempre no backlog
 - [ ] Solver ML/DL para cada X,Y de conjunto de dado
 - [ ] Grondon Chabtot, Jarvis Chatbot, Lumina Aurora Chatbot
 
-## Engenharia Elétrica __IN_PROGRESS
 
-- [ ] Aulas CC/ CA - Sadiku
-- [ ] Eng. Controle Moderno - Ogata
-- [ ] Elementos do eletromag - Sadiku + Jorge
-- [ ] Sinais e sistemas
-- [ ] Eletrônica para makers
-- [ ] Fluxo de potencia + Barra Swing + Reator Shunt + Capacitores Async + Geração de Barras PQ/PV
 
 ## Sesão de ESTUDOS (Matemática, programação e Eng. Elétrica) __TODO
 
