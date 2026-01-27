@@ -56,28 +56,27 @@ Por default, fica sempre no backlog
 - [ ] Dom do espirito Santo do dia
 - [ ] Frase de poder
 
-
 ---
 # BatCaverna Editor 2026
 ---
 
 
-## Sprint atual PVRV
-- [ ] 
-
- 
 # PVRV 2026 - Planilha de horarios (atualizar) __IN_PROGRESS
 - [x] Backup Kanban, Batcaverna, Linux e Win11
-- [x] Planejamento e Metas semanal
+- [ ] Planejamento e Metas semanal
 - [ ] Listagem de projetos atuais por tecnologias do github
 - [ ] Planejamento financeiro (Financial APP)
     - [x] Dezembro
     - [ ] Janeiro
     - [ ] Fevereiro
-
-- [x] Organização Emails e Arquivos
-- [x] Terapia janeiro 2026
-- [x] Inserção de dados na base de dados LPP
+     
+# Sprint atual PVRV __IN_PROGRESS
+- [ ] Word compartilhado com ajustes da montagem Mensal e Quadrimensal
+- [ ] Debug final V6 de VBA de perdas duplas
+- [ ] Estudos backend com GO e proxy de tunnel com interface web
+- [ ] Juntar todos sites estaticos em HTML que tenho num unico projeto NextJS com rotas e MVC (Gohan Treinamentos, Legado PVRV, Pomodoro)
+- [ ] Estudos de conceitos básicos de CC/CA
+- [ ] Estudos de conceitos básicos de SEP para ONS PLC
 
 
  # Lista de TAREFAS Pendentes __TODO
@@ -93,39 +92,42 @@ Por default, fica sempre no backlog
 - [ ] Processamento de imagens de satélites com Python
 - [x] AJUSTAR PAINEL DE BATCAVERNA COM KANBANPRO e Blogpedrov12
 
-  - [ ] O que são algoriitmos de AG e como usar isso na Eng. Elétrica para agendamento otimo de SEP (video yt)
+  - [x] O que são algoriitmos de AG e como usar isso na Eng. Elétrica para agendamento otimo de SEP (video yt)
     - [ ] https://alexandremundim.medium.com/algoritmo-gen%C3%A9tico-na-pr%C3%A1tica-com-python-e24d2b1254d8
-    - [ ] SIN45 app template with Lancher refatorado
-  - [ ] Análise de contigencias com SN 45 com pandapower + Deckbuiler para o AnaREDE
-  - [ ] Matriz admtancia + Geração x Transmissão e Distrbuição SIN pelo ONS
-  - [ ] Mincurso CC + arduino + python
-    - [ ] https://www.falstad.com/circuit/circuitjs.html
-    - [ ] Regra de Crammer
-    - [ ] EDO sistemas 1 e 2 ordem com RLC e RC plots e respostas da EDO
-  - [ ] Metodos númericos em Matlab para engenharia usando Python
+    - [x] SIN45 app template with Lancher refatorado
+
   - [ ] O que são MQQT
     - [ ] https://www.sympla.com.br/play/introducao-ao-protocolo-mqtt/1914654
 
 - [ ] Treino de calistenia e calistenia app
-- [ ] Aulas Sinais/cricuitos CC/CA e Eng. Controle + SEP Fundamentals + Metodos numericos com Python
-- [ ] Atividade ML de IEEEDs e principais modelo de AI de Supevisionado x Não Supervisionado (Com Rótulos x Sem Rótulos)
+
 - [ ] Chatbot Groundon, Lumina Aurora (Gemini) + Jarvis (GPT) + Copilot (copilot/cursor) with updates
 - [ ] Corpo x Mente x Espirito -> Jobs, Coding, Studying, Creative, In Shape
 
 - [ ] Teoria de controle de engenharia moderno
 - [ ] Proteção de SEP e monitoramento area SP
 - [ ] Processamento de imagens de satélites com Python
-- [ ] Bots e RPA com Python
-- [ ] Estudos de IA, ML, DL, Chatbots, N8N, AI agentes frameworks (Agno/Langchain)
-- [ ] Solver ML/DL para cada X,Y de conjunto de dado
+- [x] Bots e RPA com Python
+- [x] Estudos de IA, ML, DL, Chatbots, N8N, AI agentes frameworks (Agno/Langchain)
 - [ ] Grondon Chabtot, Jarvis Chatbot, Lumina Aurora Chatbot
 
 
 
-## Sesão de ESTUDOS (Matemática, programação e Eng. Elétrica) __TODO
-
+# Sesão de ESTUDOS (Matemática, programação e Eng. Elétrica) __TODO
+  - [ ] Análise de contigencias com SN 45 com pandapower + Deckbuiler para o AnaREDE
+  - [ ] Matriz Ybus em Python para SEP
+  - [ ] Matriz admtancia + Geração x Transmissão e Distrbuição SIN pelo ONS
+  - [ ] Mincurso CC + arduino + python
+    - [ ] https://www.falstad.com/circuit/circuitjs.html
+    - [ ] Regra de Crammer
+    - [ ] EDO sistemas 1 e 2 ordem com RLC e RC plots e respostas da EDO
+  - [ ] Metodos númericos em Matlab para engenharia usando Python
+        
+- [ ] Solver ML/DL para cada X,Y de conjunto de dado
+- [ ] Python com Sympy para calculo de EDO de 1 e 2 ordem para Circuitos CC (RL,RC e RLC)
 - [ ] Atividade IEEEDs = Esp32 + Senoides de corrente em series temporais para modelos de IA (como entrada de dado)
-
+- [ ] Aulas Sinais/cricuitos CC/CA e Eng. Controle + SEP Fundamentals + Metodos numericos com Python
+- [ ] Atividade ML de IEEEDs e principais modelo de AI de Supevisionado x Não Supervisionado (Com Rótulos x Sem Rótulos)
 ---
 
 
