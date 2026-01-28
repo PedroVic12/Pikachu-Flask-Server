@@ -15,11 +15,11 @@
 ---
 ## 📑 ÍNDICE RÁPIDO
 ### ⚡ **TRABALHO - ONS PLC 2026**
-- 📋 [Tarefas ONS PLC](#-tarefas-ons-plc-2026---janeiro-__in_progress__)
+- 📋 [Tarefas ONS PLC](#-tarefas-ons-plc-2026---janeiro-__in_progress)
 - 🔧 [Manutenção SIGER x BDT](#-manutenção-de-banco-de-dados-do-siger-x-bdt)
 - 🚀 [Sprints PVRV](#-sprints-e-projetos-pessoais-2026)
 ### 🎯 **DESENVOLVIMENTO PESSOAL**
-- 🧠 [Rotina TDAH](#-tdah---rotina-__in_progress__)
+- 🧠 [Rotina TDAH](#-tdah---rotina-__in_progress)
 - 🙏 [Alinhamento Espiritual](#-alinhamento-espiritual)
 - 📚 [Estudos Técnico](#-sessão-de-estudos-matemática-programação-e-eng-elétrica-__todo)
 ### 📅 **PLANEJAMENTO SEMANAL**
@@ -81,7 +81,7 @@
 
 
 ## Sprint Atual Semanal 21/01/26 __TODO
-- [x] Modelagem banco de dados BDT e MUST (feito teste nas Lts no SECO -> ESTREI-MG500 (ok) e N.EXTR-MG500 (ainda falta...)
+- [x] Modelagem banco de dados BDT e MUST (feito teste nas Lts no SECO -> ESTREI-MG500 (ok) e N.EXTR-MG500 (ainda falta...) )
 - [x] Debug VBA perdas duplas
   - [x] Verificar o código V6 e corrigir alguns bugs de formatação
   - [ ] Verificar aba de Modificações ná pag correta como lista de itens nó código VBA
