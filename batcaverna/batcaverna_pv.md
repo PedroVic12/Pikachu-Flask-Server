@@ -46,9 +46,12 @@
 ---
 
 
-- [ ] Sistema de arquivos de decks com label conectado ao OneDrive
-- [ ] Estudos de Decks do AnaRede com diagrama e .SAV automatizados
+- [x] Estudos de Decks do AnaRede com diagrama e .SAV automatizados
 - [x] *Falta ainda corrigir por listas da planilha no word*  |  Correções e Bugs fix do VBA de perdas duplas
+- [x] Estudos AnaRede, VE e Python para DeckBuilder para montagem de casos Mensal e Quadrimensal
+- [x] Estudos de VBA para perdas duplas com 3 Gráficos e inserção de listas de modificações no Relatorio Word
+- [ ] 
+
 
 ---
 <a id="manutencao-siger-bdt"></a>
@@ -74,7 +77,9 @@
 
 
 <a id="pvrv-2026-planilha-horarios"></a>
+
 # PVRV 2026 - Planilha de horarios (atualizar no website) __IN_PROGRESS
+
 ---
 - [ ] Estudos de neurociencia sobre Neuroplasticidade (Boson Treinamentos) + Cartoes de enfretamento TCC para pagina do KanbanPro 2026
 - [x] Backup Kanban, Batcaverna, Linux e Win11

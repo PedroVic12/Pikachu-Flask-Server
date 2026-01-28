@@ -7,13 +7,24 @@ import { CATEGORIES } from '../../controllers/Repository.jsx';
 
 // (Google Font abaixo eu explico na próxima seção)
 import { Inter } from 'next/font/google';
-const editorFont = Inter({ subsets: ['latin'], weight: ['400', '500', '600'] });
+const editorFont = Inter({
+  subsets: ['latin', 'latin-ext'],
+  weight: ['400', '500', '600'],
+});
 
 const ItemEditor = ({ item, isOpen, onSave, onDelete, onClose }) => {
   const [editContent, setEditContent] = useState(item?.content || '');
   const [editTitle, setEditTitle] = useState(item?.title || '');
   const [editCategory, setEditCategory] = useState(item?.category || 'ons');
   const [activeTab, setActiveTab] = useState('editor');
+
+
+  // States para melhor UI e UX no editor em markdown dentro do site
+  const [isPreviewFullscreen, setIsPreviewFullscreen] = useState(false);
+
+  // fonte só da UI (não muda markdown)
+  const [editorFontSizePx, setEditorFontSizePx] = useState(14);  // textarea
+  const [previewFontSizePx, setPreviewFontSizePx] = useState(14); // preview
 
   useEffect(() => {
     if (item) {
@@ -136,8 +147,13 @@ const ItemEditor = ({ item, isOpen, onSave, onDelete, onClose }) => {
         ].join(' ')}
         placeholder="Escreva seu conteúdo em Markdown..."
         rows={25}
-        style={{ maxHeight: 'calc(90vh - 250px)', minHeight: '300px' }}
-      />
+
+        style={{
+            maxHeight: 'calc(90vh - 250px)',
+            minHeight: '300px',
+            fontSize: `${editorFontSizePx}px`,
+          }}
+        />
     </div>
   );
 
@@ -148,11 +164,25 @@ const ItemEditor = ({ item, isOpen, onSave, onDelete, onClose }) => {
           <Eye size={16} className="text-gray-500" />
           <h3 className="text-sm font-medium text-gray-700">Preview</h3>
         </div>
+      <div className="flex items-center gap-2">
         <span className="text-xs text-gray-500">Visualização em tempo real</span>
+
+        <button
+          type="button"
+          onClick={() => setIsPreviewFullscreen(true)}
+          className="text-xs px-2 py-1 rounded-md border border-gray-200 bg-white hover:bg-gray-50 text-gray-700"
+        >
+          Tela cheia
+        </button>
+      </div>
       </div>
 
       <div className="flex-1 p-4 overflow-y-auto" style={{ maxHeight: 'calc(90vh - 250px)' }}>
-        <div className="prose prose-sm max-w-none">
+        <div className="prose prose-sm max-w-none"
+        
+          style={{ fontSize: `${previewFontSizePx}px` }}
+
+        >
           <ReactMarkdown remarkPlugins={[remarkGfm]}>
             {editContent || '*Nada para mostrar...*'}
           </ReactMarkdown>
@@ -187,14 +217,86 @@ const ItemEditor = ({ item, isOpen, onSave, onDelete, onClose }) => {
     </div>
   );
 
+  const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
+
+const renderPreviewFullscreen = () => {
+  if (!isPreviewFullscreen) return null;
+
   return (
+    <div className="fixed inset-0 z-[60] bg-white flex flex-col">
+      {/* Header fixo */}
+      <div className="sticky top-0 z-10 border-b border-gray-200 bg-white px-4 py-3 flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <span className="text-sm font-semibold text-gray-900">Preview (Tela cheia)</span>
+          <span className="text-xs text-gray-500">Somente UI • Markdown não é alterado</span>
+        </div>
+
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={() => setPreviewFontSizePx((s) => clamp(s - 1, 11, 22))}
+            className="text-xs px-2 py-1 rounded-md border border-gray-200 bg-white hover:bg-gray-50 text-gray-700"
+            title="Diminuir fonte"
+          >
+            A-
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setPreviewFontSizePx((s) => clamp(s + 1, 11, 22))}
+            className="text-xs px-2 py-1 rounded-md border border-gray-200 bg-white hover:bg-gray-50 text-gray-700"
+            title="Aumentar fonte"
+          >
+            A+
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setPreviewFontSizePx(14)}
+            className="text-xs px-2 py-1 rounded-md border border-gray-200 bg-white hover:bg-gray-50 text-gray-700"
+            title="Reset fonte"
+          >
+            Reset
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setIsPreviewFullscreen(false)}
+            className="text-xs px-3 py-1 rounded-md bg-gray-900 text-white hover:bg-black"
+          >
+            Fechar
+          </button>
+        </div>
+      </div>
+
+      {/* Conteúdo scrollável */}
+      <div className="flex-1 overflow-y-auto p-6">
+        <div
+          className={`prose max-w-none ${editorFont.className}`}
+          style={{ fontSize: `${previewFontSizePx}px` }}
+        >
+          <ReactMarkdown remarkPlugins={[remarkGfm]}>
+            {editContent || '*Nada para mostrar...*'}
+          </ReactMarkdown>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+return (
+  <>
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
       <div className="bg-white rounded-xl shadow-xl w-full max-w-6xl h-[100vh] flex flex-col">
         {renderHeader()}
         {renderContent()}
       </div>
     </div>
-  );
+
+    {/* Tela cheia do editor Modal*/}
+    {renderPreviewFullscreen()}
+  </>
+);
 };
 
 export default ItemEditor;
