@@ -14,17 +14,26 @@
 
 ---
 ## 📑 ÍNDICE RÁPIDO
+
 ### ⚡ **TRABALHO - ONS PLC 2026**
-- 📋 [Tarefas ONS PLC](#-tarefas-ons-plc-2026---janeiro-__in_progress)
-- 🔧 [Manutenção SIGER x BDT](#-manutenção-de-banco-de-dados-do-siger-x-bdt)
-- 🚀 [Sprints PVRV](#-sprints-e-projetos-pessoais-2026)
+- 📋 [Tarefas ONS PLC](#tarefas-ons-plc-2026-jan)
+- 🔧 [Manutenção SIGER x BDT](#manutencao-siger-bdt)
+- 🚀 [PVRV 2026](#pvrv-2026-planilha-horarios)
+- 🧩 [Estudos de SEP (ONS + Programação)](#estudos-sep-ons-programacao)
+- 🧾 [Lista de TAREFAS Pendentes](#lista-tarefas-pendentes)
+
 ### 🎯 **DESENVOLVIMENTO PESSOAL**
-- 🧠 [Rotina TDAH](#-tdah---rotina-__in_progress)
-- 🙏 [Alinhamento Espiritual](#-alinhamento-espiritual)
-- 📚 [Estudos Técnico](#-sessão-de-estudos-matemática-programação-e-eng-elétrica-__todo)
+- 🧠 [TDAH - Rotina](#tdah-rotina)
+- 🙏 [Alinhamento Espiritual](#alinhamento-espiritual)
+- 📚 [Sessão de ESTUDOS](#sessao-estudos)
+
 ### 📅 **PLANEJAMENTO SEMANAL**
-- 🎯 [Objetivos da Semana](#-objetivos-da-semana-main-quests)
-- 📋 [Checklist Diário](#-checklist-diário)
+- 🎯 [Objetivos da Semana](#objetivos-semana)
+- 📋 [Checklist Diário](#checklist-diario)
+
+### 🔧 **OUTRAS SEÇÕES**
+- 📊 [Roadmap Cientista de Dados](#roadmap-cientista-dados)
+- ⚡ [Conceitos Elétricos](#conceitos-eletricos)
 ---
 ## 🎓 Roadmap Cientista de Dados
 ![alt text - ciencia de dados ONS](image-1.png)
