@@ -28,7 +28,7 @@ import KanbanColumn from './widgets/KanbanContainer.jsx';
 
 //! importando compoenentes e outras paginas
 import ApiDataScreen from './api-data/APIDataScreen.jsx';
-import OlaMundo from './OlaMundo.jsx';
+import OlaMundo from './views/HTML/OlaMundo.jsx';
 import ItemEditor from './views/components/EditorModalProject.js';
 import DeckStorageController from './controllers/DeckStorageController.js';
 
