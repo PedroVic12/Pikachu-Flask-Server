@@ -66,6 +66,7 @@ import FileUploaderController from "./controllers/FileUploaderController.js";
 
 // Widget do componente da Coluna Kanban
 import KanbanColumn from "./widgets/KanbanContainer.jsx";
+import ScrumKanbanWidget from "./views/components/ScrumKanbanWidget.jsx";
 
 //! importando compoenentes e outras paginas
 import ApiDataScreen from "./api-data/APIDataScreen.jsx";
@@ -600,6 +601,7 @@ export default function App() {
             Um quadro visual como Trell ou Jira para dar visibilidade ao
             trabalho
           </p>
+          <ScrumKanbanWidget />
         </div>
 
         {/* Time Series Chart */}

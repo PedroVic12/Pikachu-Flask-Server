@@ -993,7 +993,7 @@ export default function ProjectHubPage() {
 
         <nav className="flex items-center gap-2 bg-slate-50 p-2 rounded-2xl border border-slate-100">
           <NavButton id="plc" label="Tarefas PLC" icon={Icons.Table} />
-          <NavButton id="planner" label="Planejamento" icon={Icons.Columns} />
+          <NavButton id="planner" label="Planner" icon={Icons.Columns} />
           <NavButton
             id="eisenhower"
             label="Matriz Eisenhower"
@@ -1005,17 +1005,6 @@ export default function ProjectHubPage() {
             icon={Icons.ThumbsUp}
           />
         </nav>
-
-        <div className="hidden lg:flex items-center gap-4">
-          <div className="text-right">
-            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
-              Sincronizado
-            </p>
-            <p className="text-xs font-black text-slate-600">
-              {Utils.getTodayString()}
-            </p>
-          </div>
-        </div>
       </header>
 
       {/* MAIN CONTENT */}
@@ -1027,6 +1016,16 @@ export default function ProjectHubPage() {
                 <h2 className="text-3xl font-black text-slate-800 tracking-tight">
                   Registro de Atividades
                 </h2>
+                <div className="hidden lg:flex items-center gap-4">
+                  <div className="text-right">
+                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                      Sincronizado
+                    </p>
+                    <p className="text-xs font-black text-slate-600">
+                      {Utils.getTodayString()}
+                    </p>
+                  </div>
+                </div>
                 <div className="flex gap-3">
                   <input
                     type="file"
