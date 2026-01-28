@@ -41,6 +41,7 @@
 
 ---
 <a id="tarefas-ons-plc-2026-jan"></a>
+
 ## 📋 Tarefas ONS PLC 2026 - Janeiro __IN_PROGRESS
 ---
 
@@ -51,6 +52,7 @@
 
 ---
 <a id="manutencao-siger-bdt"></a>
+
 ## Manutenção de Banco de dados do SIGER x BDT 
 (cadastro de equipamentos elétricos e parametros para PMO)
 ---
@@ -74,7 +76,7 @@
 <a id="pvrv-2026-planilha-horarios"></a>
 # PVRV 2026 - Planilha de horarios (atualizar no website) __IN_PROGRESS
 ---
-
+- [ ] Estudos de neurociencia sobre Neuroplasticidade (Boson Treinamentos) + Cartoes de enfretamento TCC para pagina do KanbanPro 2026
 - [x] Backup Kanban, Batcaverna, Linux e Win11
 - [ ] Planejamento e Metas semanal (Refatorar a tela do Tarefas PLC e outros sites tudo no mesmo NextJS)
 - [x] Listagem de projetos atuais por tecnologias do github
