@@ -1,39 +1,37 @@
+
 ---
-# BatCaverna Editor:
+# 🦇 BatCaverna PV - Centro de Comando 2026
 ---
 
-Salve esses dados em:
-https://github.com/PedroVic12/Pikachu-Flask-Server/tree/main/batcaverna
-
-Faça edições no [arquivo.MD ][var4] do repositório para atualizar o dashboard da BatCaverna PV 
+**📅 DATA ATUAL:** 27/01/2026  
+**🔗 Repositório:** [GitHub Repository][var4]  
+**📋 Shiatsu Link:** [Agendamento Shiatsu][var1]  
+**📊 Kanban Columns:** `__BACKLOG` | `__IN_PROGRESS` | `__TODO` | `__COMPLETED`  
+**🎯 Default Status:** Backlog
 
 [var4]: https://github.com/PedroVic12/Pikachu-Flask-Server/blob/main/batcaverna/batcaverna_pv.md
-
-Aqui está o [link][var1] do Shiatsu como váriavel no .MD
-
 [var1]: https://revigorar.reservio.com/
 
 ---
 
-DATA ATUAL = 27/01/2025
-
-__Altere as colunas do Kanban:__
-
-**__BACKLOG, __IN_PROGRESS, __TODO, __COMPLETED**
-
-Por default, fica sempre no backlog
-
----
-
-## Roadmap Cientista de Dados
+## 🎓 Roadmap Cientista de Dados
 
 ![alt text - ciencia de dados ONS](image-1.png)
 
 
+# ONS PLC 2026 __IN_PROGRESS
+
+Aqui está o [link do Sharepoint][var2] compartilhado
+
+[var2]:https://onsbr.sharepoint.com/:f:/s/soumaisons/IgBdPCjxhJWGRoBDjV76pZApAdwZkzV_avBxKghxoYbQCaI?e=wcX7o3
+
+
+<img width="855" height="592" alt="image" src="https://github.com/user-attachments/assets/8bd6e64b-27b8-498a-84c0-ee51915abf14" />
+
 
 
 ---
-# Tarefas ONS PLC 2026 - Janeiro
+# Tarefas ONS PLC 2026 - Janeiro __IN_PROGRESS
 ---
 
 
@@ -57,145 +55,9 @@ Por default, fica sempre no backlog
 - [x] Ao final do dia, sempre finalizar o Job feito.
 
 
----
-# Tarefas ONS - Perdas Duplas - 14/01/26
----
-
-
-## Relatorio perdas duplas Excel 
-
-- [x] Tabela Excel compartilhada pela equipe no Sharepoint
-- [x] Upgrades Script VBA
-- [x] Px] Pegar o nome do arquivo atual com a revisão atual do docx (ou msg box para colocar qual numero de revisão por input do usuario)
-  - [x] Pegar o número da revisão do nome do arqlot de graficos da Minuta gerada apos Script VBA com python
-- [ ] Refatoração em nova aba do excel dos 3 principais gráficos do Streamlit
-
-## Tasks Perdas Duplas LTs 2025
-- [x] Software de ETL com Regex para analise de perdas duplas detalhadas 
-- [x] Python para VBA com botão
-- [x] Excel -> Word -> PDF
-  - Excel + Word input = No intervalo de pág correto a tabela dentro do meu word template (merge)
-- [x] Pyside6/EXE com CLI 
-- [x] Gerar Relatorio Button
-- [x] app template simplificado para PLC RPA ferramentas
-- [x] VBA Perdas duplas (upgrades)
-  - [x] r o link na macro como variável global;
-  - [x] Pegar o nome do arquivo atual com a revisão atual do docx (ou msg box para colocar qual numero de revisão por input do usuario)
-  - [x] Pegar o número da revisão do nome do arquivo Excel e atualizar no word. Isso vai tanto no nome do arquivo quanto na capa, além do mês da emissão.
-  - [ ]  Obter da aba "Modificações" da planilha os motivos da revisão e colocar na tabela de revisão do word na pág correta (pág 3).
 
 
 
-
-
-Data Atual correta no nome do arquivo (word_template_yy_mm_dd.docx)
-  - [x] Auth do sharepoint correto e baixar o Word tempalte para pasta /downloads com a data atual
-  - [x] Como precisa de um modelo word pra gerar o negócio, colocar na macro VBA já o download do Word modelo direto do sharepoint. Podemos deixar ele em uma pasta no sharepoint, e só colocar o link na macro como variável global;
-  - [x] Pegar o nome do arquivo atual com a revisão atual do docx (ou msg box para colocar qual numero de revisão por input do usuario)
-  - [x] Pegar o número da revisão do nome do arquivo Excel e atualizar no word. Isso vai tanto no nome do arquivo quanto na capa, além do mês da emissão.
-  - [ ]  Obter da aba "Modificações" da planilha os motivos da revisão e colocar na tabela de revisão do word na pág correta (pág 3).
-
-
-
-
-
-
-
----
-🦇 Batcaverna PV - Centro de Comando (26/01 - 31/01)
----
-
-# 🎯 Objetivos da Semana (Main Quests)
-
-⚡ Trabalho (ONS) - Engenharia de Dados & Sistemas
-
-- [ ] Python & DB: Otimizar scripts de consulta (SQLAlchemy/Pandas) para grandes volumes de dados.
-
-- [ ] Simulação SEP: Rodar casos de fluxo de potência (Anarede/Organon) e entender os warnings.
-
-- [ ] Fundamentos Elétricos: Revisar conceitos de Potência Ativa (P) x Reativa (Q) em CA e Leis de Kirchhoff em CC.
-
-Meta: Conseguir explicar o comportamento da tensão na barra quando a carga reativa aumenta.
-
-
-# 📅 Checklist Diário
-
-Segunda-feira (26/01) - Setup & SEP
-
-- [x] 08:00 - ONS (Home): Organizar backlog da semana.
-
-- [ ]  10:00 - ONS (Dev): Estudo de script Python para automação de banco de dados.
-
-- [ ] 14:00 - Foco Técnico: Leitura sobre Load Flow (Fluxo de Carga).
-
-
-Terça-feira (27/01) - O Dia Longo
-
-- [ ] 06:25 - ONS (Presencial): Acompanhar operação em tempo real (se possível).
-
-- [ ]  09:15 - ⚠️ Aula Eletromag vs. Estágio (Definir estratégia).
-
-- [ ]  19:00 - Revisão leve de CC (Circuitos de Corrente Contínua).
-
-Quarta-feira (28/01) - Engenharia Pura
-
-- [ ] 06:25 - ONS (Presencial).
-
-- [ ]  10:00 - Simulação: Tentar rodar um caso base e analisar os logs.
-
-- [ ]  15:00 - Estudos UFF (Biblioteca ou Casa).
-
-Quinta-feira (29/01) - Karatê Day
-
-- [ ]  08:00 - ONS (Home): Python - Tratamento de exceções nos scripts.
-
-- [ ] 14:00 - UFF: Lista de exercícios Eletromag.
-
-- [ ]  19:00 - Karatê: Foco total, zero pensamento em trabalho.
-
-Sexta-feira (30/01) - Review & Code
-
-- [ ] 08:00 - ONS (Home): Documentar o que foi aprendido sobre SEP na semana.
-
-- [ ]  14:00 - Dev Time: Projeto Pessoal ou aprofundamento em SQL.
-
-- [ ]  18:00 - Checkpoint Semanal: O que funcionou? O que atrasou?
-
----
-# TDAH - Rotina  __IN_PROGRESS
----
-
-- [x] Planejamento Seg/Sexta
-- [x] Visualização KANBAN e gerar 5 tarefas do dia (MANHA) e com 3 metas principais do dia (Eat the frog, Estudos e Criativo)
-- [x] Organização mental e preparação para novo Ciclo JEDI CYBERPUNK com resolução de provas, tutorial de 10 min de programação, modelagem e simulações de eng eletrica junto com automações com N8N
-
-# Alinhamento Espiritual
-- [x] Terapia: Terça-feira 16:30 .
-- [x] Treino de calistenia para karate
-
-- [x] You Only Need 5 Hobbies (Money, Study, Mindset, In Shape, Creative)
-
-  - [ ] Segunda - Chakra: Solar
-  - [ ] Terça - Chakra: Garganta
-  - [ ] Quarta - Chakra: Cardiaco
-  - [ ] Quinta: Chakra: 3º Olho
-  - [ ] Sexta: Chakra: Root
-
-- [ ] Leitura matinal da bíblia e livros dos espirtos de Alan Kardec
-- [ ] Meditação e estudos com Matemática e Japonês
-- [ ] Alongamento matinal - Ombros e Quadril
-- [ ] 2 equações do dia
-- [ ] 2 projetos no dia (backend/frontend)
-- [ ] Dom do espirito Santo do dia
-- [ ] Frase de poder
-      
-- [ ] Jogos: Sessão de The Witcher 3 ou LoL (Sábado/Domingo).
-
-
-
----
-# BatCaverna Editor 2026
----
 
 
 # PVRV 2026 - Planilha de horarios (atualizar) __IN_PROGRESS
@@ -287,6 +149,102 @@ Sexta-feira (30/01) - Review & Code
 
 
 
+
+---
+🦇 Batcaverna PV - Centro de Comando (27/01 - 01/02)
+---
+
+# 🎯 Objetivos da Semana (Main Quests)
+
+⚡ Trabalho (ONS) - Engenharia de Dados & Sistemas
+
+- [ ] Python & DB: Otimizar scripts de consulta (SQLAlchemy/Pandas) para grandes volumes de dados.
+
+- [ ] Simulação SEP: Rodar casos de fluxo de potência (Anarede/Organon) e entender os warnings.
+
+- [ ] Fundamentos Elétricos: Revisar conceitos de Potência Ativa (P) x Reativa (Q) em CA e Leis de Kirchhoff em CC.
+
+Meta: Conseguir explicar o comportamento da tensão na barra quando a carga reativa aumenta.
+
+
+# 📅 Checklist Diário
+
+Segunda-feira (27/01) - Setup & SEP
+
+- [x] 08:00 - ONS (Home): Organizar backlog da semana.
+
+- [ ]  10:00 - ONS (Dev): Estudo de script Python para automação de banco de dados.
+
+- [ ] 14:00 - Foco Técnico: Leitura sobre Load Flow (Fluxo de Carga).
+
+
+Terça-feira (28/01) - O Dia Longo
+
+- [ ] 06:25 - ONS (Presencial): Acompanhar operação em tempo real (se possível).
+
+- [ ]  09:15 - ⚠️ Aula Eletromag vs. Estágio (Definir estratégia).
+
+- [ ] 19:00 - Revisão leve de CC (Circuitos de Corrente Contínua).
+
+Quarta-feira (29/01) - Engenharia Pura
+
+- [ ] 06:25 - ONS (Presencial).
+
+- [ ]  10:00 - Simulação: Tentar rodar um caso base e analisar os logs.
+
+- [ ]  15:00 - Estudos UFF (Biblioteca ou Casa).
+
+Quinta-feira (30/01) - Karatê Day
+
+- [ ] 08:00 - ONS (Home): Python - Tratamento de exceções nos scripts.
+
+- [ ] 14:00 - UFF: Lista de exercícios Eletromag.
+
+- [ ] 19:00 - Karatê: Foco total, zero pensamento em trabalho.
+
+Sexta-feira (31/01) - Review & Code
+
+- [ ] 08:00 - ONS (Home): Documentar o que foi aprendido sobre SEP na semana.
+
+- [ ]  14:00 - Dev Time: Projeto Pessoal ou aprofundamento em SQL.
+
+- [ ]  18:00 - Checkpoint Semanal: O que funcionou? O que atrasou?
+
+---
+# TDAH - Rotina  __IN_PROGRESS
+---
+
+- [x] Planejamento Seg/Sexta
+- [x] Visualização KANBAN e gerar 5 tarefas do dia (MANHA) e com 3 metas principais do dia (Eat the frog, Estudos e Criativo)
+- [x] Organização mental e preparação para novo Ciclo JEDI CYBERPUNK com resolução de provas, tutorial de 10 min de programação, modelagem e simulações de eng eletrica junto com automações com N8N
+
+# Alinhamento Espiritual
+- [x] Terapia: Terça-feira 16:30 .
+- [x] Treino de calistenia para karate
+
+- [x] You Only Need 5 Hobbies (Money, Study, Mindset, In Shape, Creative)
+
+  - [ ] Segunda - Chakra: Solar
+  - [ ] Terça - Chakra: Garganta
+  - [ ] Quarta - Chakra: Cardiaco
+  - [ ] Quinta: Chakra: 3º Olho
+  - [ ] Sexta: Chakra: Root
+
+- [ ] Leitura matinal da bíblia e livros dos espirtos de Alan Kardec
+- [ ] Meditação e estudos com Matemática e Japonês
+- [ ] Alongamento matinal - Ombros e Quadril
+- [ ] 2 equações do dia
+- [ ] 2 projetos no dia (backend/frontend)
+- [ ] Dom do espirito Santo do dia
+- [ ] Frase de poder
+      
+- [ ] Jogos: Sessão de The Witcher 3 ou LoL (Sábado/Domingo).
+
+
+
+---
+
+
 # Sesão de ESTUDOS (Matemática, programação e Eng. Elétrica) __TODO
 - [ ] Atividade ML de IEEEDs e principais modelo de AI de Supevisionado x Não Supervisionado (Com Rótulos x Sem Rótulos)
 - [ ] Eletromagnetismo: Resolver 3 exercícios de Lei de Gauss/Coulomb.
@@ -316,14 +274,6 @@ Dúvida para tirar com engenheiros: Como o ONS modela a carga dependente da tens
 
 ---
 
-# ONS PLC 2026 __IN_PROGRESS
-
-Aqui está o [link do Sharepoint][var2] compartilhado
-
-[var2]:https://onsbr.sharepoint.com/:f:/s/soumaisons/IgBdPCjxhJWGRoBDjV76pZApAdwZkzV_avBxKghxoYbQCaI?e=wcX7o3
-
-
-<img width="855" height="592" alt="image" src="https://github.com/user-attachments/assets/8bd6e64b-27b8-498a-84c0-ee51915abf14" />
 
 
 
