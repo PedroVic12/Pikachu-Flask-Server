@@ -13,25 +13,24 @@
 [var1]: https://revigorar.reservio.com/
 
 ---
-
-## 🎓 Roadmap Cientista de Dados
-
-![alt text - ciencia de dados ONS](image-1.png)
-
-
-# ONS PLC 2026 __IN_PROGRESS
-
-Aqui está o [link do Sharepoint][var2] compartilhado
-
-[var2]:https://onsbr.sharepoint.com/:f:/s/soumaisons/IgBdPCjxhJWGRoBDjV76pZApAdwZkzV_avBxKghxoYbQCaI?e=wcX7o3
-
-
-<img width="855" height="592" alt="image" src="https://github.com/user-attachments/assets/8bd6e64b-27b8-498a-84c0-ee51915abf14" />
-
-
-
+## 📑 ÍNDICE RÁPIDO
+### ⚡ **TRABALHO - ONS PLC 2026**
+- 📋 [Tarefas ONS PLC](#-tarefas-ons-plc-2026---janeiro-__in_progress__)
+- 🔧 [Manutenção SIGER x BDT](#-manutenção-de-banco-de-dados-do-siger-x-bdt)
+- 🚀 [Sprints PVRV](#-sprints-e-projetos-pessoais-2026)
+### 🎯 **DESENVOLVIMENTO PESSOAL**
+- 🧠 [Rotina TDAH](#-tdah---rotina-__in_progress__)
+- 🙏 [Alinhamento Espiritual](#-alinhamento-espiritual)
+- 📚 [Estudos Técnico](#-sessão-de-estudos-matemática-programação-e-eng-elétrica-__todo)
+### 📅 **PLANEJAMENTO SEMANAL**
+- 🎯 [Objetivos da Semana](#-objetivos-da-semana-main-quests)
+- 📋 [Checklist Diário](#-checklist-diário)
 ---
-# Tarefas ONS PLC 2026 - Janeiro __IN_PROGRESS
+## 🎓 Roadmap Cientista de Dados
+![alt text - ciencia de dados ONS](image-1.png)
+---
+# ⚡ TRABALHO - ONS PLC 2026
+## 📋 Tarefas ONS PLC 2026 - Janeiro __IN_PROGRESS
 ---
 
 
@@ -55,22 +54,32 @@ Aqui está o [link do Sharepoint][var2] compartilhado
 - [x] Ao final do dia, sempre finalizar o Job feito.
 
 
+---
 
 
 
 
-
+---
 # PVRV 2026 - Planilha de horarios (atualizar) __IN_PROGRESS
+---
+
 - [x] Backup Kanban, Batcaverna, Linux e Win11
 - [ ] Planejamento e Metas semanal (Refatorar a tela do Tarefas PLC e outros sites tudo no mesmo NextJS)
-- [ ] Listagem de projetos atuais por tecnologias do github
+- [x] Listagem de projetos atuais por tecnologias do github
 - [ ] Planejamento financeiro (Financial APP)
     - [x] Dezembro
     - [ ] Janeiro
     - [ ] Fevereiro
-     
+- [ ] Planilhas Horarios
+- [ ] usper + Tunnel Newtork + React UI para proxys e rest api em go e express
+- [ ] AnaRede Deck Builder = Anarede, EditCepel, PandaPower, CLI e ajuda na montagem de casos com algoritimo Big O para nivel de complexibildiade de operação da Rede
+- [ ] Cadastro de dados BDT Seco E NE
+- [ ] Get/POST Google Sheets tabela de checklist de ProjectHub Empresas
+- [ ] HTML templates para Gohan Treinamentos Refatorado com SOLID, MVC e framework CSS components
 
-## Sprint Atual 21/01/26
+
+
+## Sprint Atual Semanal 21/01/26 __TODO
 - [x] Modelagem banco de dados BDT e MUST (feito teste nas Lts no SECO -> ESTREI-MG500 (ok) e N.EXTR-MG500 (ainda falta...)
 - [x] Debug VBA perdas duplas
   - [x] Verificar o código V6 e corrigir alguns bugs de formatação
@@ -88,22 +97,10 @@ Aqui está o [link do Sharepoint][var2] compartilhado
 - [ ] Projetos template Pyside6 com Docs automatizados com pytest e com deploy em .exe com menos de 150MB
 - [ ] IA para negócios, Análise de dados e Programacao com Matematica para IOT 
 
-## Tarefas  14/01/26
-
-- [x] 3 Upgrades de Perdas Duplas LTs + Dashboard de gráficos internos (ver colunas corretas)
-
-- [x] __Cadastro de inequacoes no LPP__
-  - [x] Fizemos juntos o FJPXG (item 3.5.2). Faltam os itens FFGM-MCP (item 3.5.6) e FBVEQ (item 3.5.9)
-    
-- [ ] Correções e bug fix no VBA para perdas Duplas Lts + 3 gráficos
-- [x] Deploy de ETL de pasta de PDF para MUST em excel e sqlite com Python
-
-
-- [x] Estudos RUST para embarcados, backend e webassembly
-- [x] PowerFlow anaRede com Equacoes
-- [x] VBA Perdas duplas (upgrades)
      
-# Sprint atual (27/01/2026) PVRV __IN_PROGRESS
+# Estudos de SEP para ONS e programação __IN_PROGRESS
+
+## Sprint atual (27/01/2026) PVRV __IN_PROGRESS
 - [ ] Word compartilhado com ajustes da montagem Mensal e Quadrimensal
 - [ ] Debug final V6 de VBA de perdas duplas
 - [ ] Estudos backend com GO e proxy de tunnel com interface web
@@ -116,10 +113,36 @@ Aqui está o [link do Sharepoint][var2] compartilhado
 - [ ] Controle  e Gestão Atividades SP + MUST --> Excel To Website and (.PDF + Access)to QT 6 Desktop Deck Builder Organon
 
 
- # Lista de TAREFAS Pendentes __TODO
+
+     
+
+
+# Lista de TAREFAS Pendentes __TODO
 
 - [ ] Pyside6 com modelagem de dados (Sqlite3 + Microsoft Access) + Análise de Contigencias + Controle Atividades SP
-- [ ] Automação Outlook + Teams + N8N = Relatorios automatizados por email e Whatsapp
+- [ ] Automação Outlook + Teamsde satélites com Python
+- [x] AJUSTAR PAINEL DE BATCAVERNA COM KANBANPRO e Blogpedrov12
+
+  - [x] O que são algoriitmos de AG e como usar isso na Eng. Elétrica para agendamento otimo de SEP (video yt)
+    - [ ] https://alexandremundim.medium.com/algoritmo-gen%C3%A9tico-na-pr%C3%A1tica-com-python-e24d2b1254d8
+    - [x] SIN45 app template with Lancher refatorado
+
+  - [ ] O que são MQQT
+    - [ ] https://www.sympla.com.br/play/introducao-ao-protocolo-mqtt/1914654
+
+- [ ] Treino de calistenia e calistenia app
+
+- [ ] Chatbot Groundon, Lumina Aurora (Gemini) + Jarvis (GPT) + Copilot (copilot/cursor) with updates
+- [ ] Corpo x Mente x Espirito -> Jobs, Coding, Studying, Creative, In Shape
+
+- [ ] Teoria de controle de engenharia moderno
+- [ ] Proteção de SEP e monitoramento area SP
+- [ ] Processamento de imagens de satélites com Python
+- [x] Bots e RPA com Python
+- [x] Estudos de IA, ML, DL, Chatbots, N8N, AI agentes frameworks (Agno/Langchain)
+- [ ] Grondon Chabtot, Jarvis Chatbot, Lumina Aurora Chatbot
+
+ + N8N = Relatorios automatizados por email e Whatsapp
 - [ ] Aulas Sinais/cricuitos CC/CA e Eng. Controle + SEP Fundamentals + Metodos numericos com Python
 - [ ] Despacho de cargas - Planejamento Mensal e Semanal - Flow + AnaREDE, AnaTEM e Organon
 - [ ] **Estudos SEP com base fundamental para CA**
