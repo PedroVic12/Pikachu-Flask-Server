@@ -46,7 +46,7 @@ const ItemEditor = ({
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-      <div className="bg-white rounded-xl shadow-xl w-full max-w-6xl h-[90vh] flex flex-col">
+      <div className="bg-white rounded-xl shadow-xl w-full max-w-6xl h-[100vh] flex flex-col">
         {/* Modal Header */}
         <div className="flex items-center justify-between p-4 lg:p-6 border-b border-gray-200">
           <div className="flex items-center gap-4">
@@ -264,7 +264,7 @@ const ItemEditor = ({
 
           {/* Character/Lines Counter */}
           <div className="flex justify-between items-center mt-3 px-1">
-            <div className="text-xs text-gray-500">
+            <div className="text-base text-black-900">
               {editContent.length} caracteres
               {editContent.split('\n').length > 1 && ` • ${editContent.split('\n').length} linhas`}
             </div>
