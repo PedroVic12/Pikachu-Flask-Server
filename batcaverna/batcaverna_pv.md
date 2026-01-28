@@ -29,6 +29,78 @@ Por default, fica sempre no backlog
 
 ![alt text - ciencia de dados ONS](image-1.png)
 
+
+
+
+---
+# Tarefas ONS PLC 2026 - Janeiro
+---
+
+
+- [ ] Sistema de arquivos de decks com label conectado ao OneDrive
+- [ ] Estudos de Decks do AnaRede com diagrama e .SAV automatizados
+- [x] *Falta ainda corrigir por listas da planilha no word*  |  Correções e Bugs fix do VBA de perdas duplas
+
+---
+## Manutenção de Banco de dados do SIGER x BDT 
+(cadastro de equipamentos elétricos e parametros para PMO)
+---
+
+- [ ] Todo dia 10, o programa roda no SIGER que aponta os equipamentos que estão fora da "ponte" (da Planilha Acompanhamento_PONTE_PL.xlsx: Nas Abas: LTs_SIGER_ForaPonte e TRs_SIGER_ForaPonte)
+- [x] GERCAD -> JOB -> ID: Data atual -> Job Criado
+- [x] Lts: Coluna T: Deve estar na ponte? Usar apenas as linhas que __NÃO__ estão na cor vermelho.
+- [x] Separar o Norte, Nordeste, Centroeste e Sudeste para as tarefas. Não cadastrar os que são Data Centers
+- [x] Busca por LTS dentro do sistema: GERCARD -> Topologia -> "Estado" -> "Nome Curto da Instação" -> Aplicar critério -> Retorna tudo relacionado a Subestação pesquisada.
+- [x] Verificar se ja existe a estação no BDT, botão direito -> Novo Equipamento -> LTR 
+- [x] __Campos obrigatórios de cadastro:__ Numero do circuito do planejamento, Nome Estação, Num Barra preferencial, Tipo Rede: (BASICA), Utilização: PAR, 
+
+- [x] Ao final do dia, sempre finalizar o Job feito.
+
+
+---
+# Tarefas ONS - Perdas Duplas - 14/01/26
+---
+
+
+## Relatorio perdas duplas Excel 
+
+- [x] Tabela Excel compartilhada pela equipe no Sharepoint
+- [x] Upgrades Script VBA
+- [x] Px] Pegar o nome do arquivo atual com a revisão atual do docx (ou msg box para colocar qual numero de revisão por input do usuario)
+  - [x] Pegar o número da revisão do nome do arqlot de graficos da Minuta gerada apos Script VBA com python
+- [ ] Refatoração em nova aba do excel dos 3 principais gráficos do Streamlit
+
+## Tasks Perdas Duplas LTs 2025
+- [x] Software de ETL com Regex para analise de perdas duplas detalhadas 
+- [x] Python para VBA com botão
+- [x] Excel -> Word -> PDF
+  - Excel + Word input = No intervalo de pág correto a tabela dentro do meu word template (merge)
+- [x] Pyside6/EXE com CLI 
+- [x] Gerar Relatorio Button
+- [x] app template simplificado para PLC RPA ferramentas
+- [x] VBA Perdas duplas (upgrades)
+  - [x] r o link na macro como variável global;
+  - [x] Pegar o nome do arquivo atual com a revisão atual do docx (ou msg box para colocar qual numero de revisão por input do usuario)
+  - [x] Pegar o número da revisão do nome do arquivo Excel e atualizar no word. Isso vai tanto no nome do arquivo quanto na capa, além do mês da emissão.
+  - [ ]  Obter da aba "Modificações" da planilha os motivos da revisão e colocar na tabela de revisão do word na pág correta (pág 3).
+
+
+
+
+
+Data Atual correta no nome do arquivo (word_template_yy_mm_dd.docx)
+  - [x] Auth do sharepoint correto e baixar o Word tempalte para pasta /downloads com a data atual
+  - [x] Como precisa de um modelo word pra gerar o negócio, colocar na macro VBA já o download do Word modelo direto do sharepoint. Podemos deixar ele em uma pasta no sharepoint, e só colocar o link na macro como variável global;
+  - [x] Pegar o nome do arquivo atual com a revisão atual do docx (ou msg box para colocar qual numero de revisão por input do usuario)
+  - [x] Pegar o número da revisão do nome do arquivo Excel e atualizar no word. Isso vai tanto no nome do arquivo quanto na capa, além do mês da emissão.
+  - [ ]  Obter da aba "Modificações" da planilha os motivos da revisão e colocar na tabela de revisão do word na pág correta (pág 3).
+
+
+
+
+
+
+
 ---
 🦇 Batcaverna PV - Centro de Comando (26/01 - 31/01)
 ---
