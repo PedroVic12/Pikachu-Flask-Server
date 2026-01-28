@@ -66,6 +66,7 @@
 - [x] Backup Kanban, Batcaverna, Linux e Win11
 - [ ] Planejamento e Metas semanal (Refatorar a tela do Tarefas PLC e outros sites tudo no mesmo NextJS)
 - [x] Listagem de projetos atuais por tecnologias do github
+- [ ] Engenheiro de Software Pleno - Legado PVRV: Py, JS, C++, Dart e Rust. Anotações para perspectiva de carreira com 28 anos em site que ajuda a priorizar os projetos.
 - [ ] Planejamento financeiro (Financial APP)
     - [x] Dezembro
     - [ ] Janeiro
