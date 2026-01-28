@@ -10,6 +10,7 @@ export const CATEGORIES = {
   'spiritual': { emoji: '🧘‍♂️', label: 'TDAH + Alinhamento Espiritual', color: 'bg-violet-100 text-violet-900' },
   'pvrv': { emoji: '🔥', label: 'PVRV', color: 'bg-violet-100 text-violet-900' },
   'js': { emoji: '⚙️', label: 'Projetos Javascript', color: 'bg-amber-300 text-amber-900' },
+  'AI_The_Agents': { emoji: '🤖', label: 'Agentes IA', color: 'bg-cyan-300 text-cyan-900'  },
   'data_science': { emoji: '⚙️', label: 'Projetos Data Science', color: 'bg-cyan-100 text-cyan-900' },
   'iot': { emoji: '⚙️', label: 'IoT e Sistemas Embarcados', color: 'bg-cyan-300 text-cyan-900' },
 };
