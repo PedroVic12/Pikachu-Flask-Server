@@ -39,7 +39,7 @@ export default function OlaMundo() {
   return (
     <div className="p-8 bg-white rounded-xl shadow-md">
       <H1 color="blue-600" size="3xl">
-        Olá, Mundo! 👋 Hoje é dia {`${dataAtual}`}
+        Olá, PedroVic12! 👋 Hoje é dia {`${dataAtual}`}
       </H1>
       <P color="gray-700">
         Esta é uma nova tela que foi importada para dentro do `page.jsx`. na pasta views/HTML
