@@ -594,6 +594,14 @@ export default function App() {
           </div>
         </div>
 
+        <div>
+          <h3>Estrutura do Fluxo (Kanban)</h3>
+          <p>
+            Um quadro visual como Trell ou Jira para dar visibilidade ao
+            trabalho
+          </p>
+        </div>
+
         {/* Time Series Chart */}
         <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
           <h3 className="text-lg font-semibold text-gray-900 mb-4">
