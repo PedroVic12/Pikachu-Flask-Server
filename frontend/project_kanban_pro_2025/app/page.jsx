@@ -66,7 +66,7 @@ import FileUploaderController from "./controllers/FileUploaderController.js";
 
 // Widget do componente da Coluna Kanban
 import KanbanColumn from "./widgets/KanbanContainer.jsx";
-import ScrumKanbanWidget from "./views/components/ScrumKanbanWidget.jsx";
+import ScrumKanbanWidget from "./views/components/ScrumKanbanWidget.js";
 
 //! importando compoenentes e outras paginas
 import ApiDataScreen from "./api-data/APIDataScreen.jsx";
