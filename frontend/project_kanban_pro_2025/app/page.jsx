@@ -66,7 +66,7 @@ import FileUploaderController from "./controllers/FileUploaderController.js";
 
 // Widget do componente da Coluna Kanban
 import KanbanColumn from "./widgets/KanbanContainer.jsx";
-import ScrumKanbanWidget from "./views/components/ScrumKanbanWidget.js";
+import ScrumKanbanMetodologia from "./views/components/ScrumKanbanWidget.js";
 
 //! importando compoenentes e outras paginas
 import ApiDataScreen from "./api-data/APIDataScreen.jsx";
@@ -595,13 +595,15 @@ export default function App() {
           </div>
         </div>
 
-        <div>
-          <h3>Estrutura do Fluxo (Kanban)</h3>
-          <p>
-            Um quadro visual como Trell ou Jira para dar visibilidade ao
+        <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">
+            Estrutura do Fluxo (Kanban)
+          </h3>
+          <p className="text-gray-600">
+            Um quadro visual como Trello ou Jira para dar visibilidade ao
             trabalho
           </p>
-          <ScrumKanbanWidget />
+          <ScrumKanbanMetodologia />
         </div>
 
         {/* Time Series Chart */}
