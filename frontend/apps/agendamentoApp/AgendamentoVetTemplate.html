@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VetCare - Agendamento Online</title>
+    
+    <!-- Tailwind CSS para Estilização Moderna -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome para Ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Fonte Google Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        
+        /* Estilização da barra de rolagem horizontal das datas */
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Animação suave para seleção */
+        .transition-all-300 {
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center py-10 px-4">
+
+    <!-- Container Principal -->
+    <div class="bg-white w-full max-w-lg rounded-2xl shadow-xl overflow-hidden">
+        
+        <!-- Cabeçalho -->
+        <div class="bg-blue-600 p-6 text-center">
+            <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-3 shadow-md">
+                <i class="fas fa-paw text-3xl text-blue-600"></i>
+            </div>
+            <h1 class="text-2xl font-bold text-white">VetCare Agendamento</h1>
+            <p class="text-blue-100 text-sm mt-1">Cuidando do seu melhor amigo</p>
+        </div>
+
+        <!-- Formulário -->
+        <form id="bookingForm" class="p-6 space-y-6">
+            
+            <!-- Dados do Cliente e Pet -->
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Seu Nome</label>
+                    <div class="relative">
+                        <span class="absolute left-3 top-3 text-gray-400"><i class="fas fa-user"></i></span>
+                        <input type="text" id="clientName" required placeholder="Ex: Maria Silva" 
+                            class="w-full pl-10 p-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all-300">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Nome do Pet</label>
+                    <div class="relative">
+                        <span class="absolute left-3 top-3 text-gray-400"><i class="fas fa-dog"></i></span>
+                        <input type="text" id="petName" required placeholder="Ex: Rex" 
+                            class="w-full pl-10 p-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all-300">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Veterinário</label>
+                    <div class="relative">
+                        <span class="absolute left-3 top-3 text-gray-400"><i class="fas fa-user-md"></i></span>
+                        <select id="doctorSelect" required
+                            class="w-full pl-10 p-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none bg-white transition-all-300 appearance-none">
+                            <option value="">Selecione o especialista...</option>
+                            <!-- Opções preenchidas via JS -->
+                        </select>
+                        <span class="absolute right-3 top-3 text-gray-400 pointer-events-none"><i class="fas fa-chevron-down"></i></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Seção Escura de Data/Hora -->
+            <div class="bg-gray-900 rounded-xl p-5 shadow-inner">
+                <h3 class="text-white text-sm font-semibold mb-3 flex items-center gap-2">
+                    <i class="far fa-calendar-alt text-blue-400"></i> Selecione a Data
+                </h3>
+                
+                <!-- Date Picker Horizontal -->
+                <div id="dateContainer" class="flex gap-3 overflow-x-auto scrollbar-hide pb-2">
+                    <!-- Datas geradas via JS -->
+                </div>
+
+                <h3 class="text-white text-sm font-semibold mt-4 mb-3 flex items-center gap-2">
+                    <i class="far fa-clock text-blue-400"></i> Horários Disponíveis
+                </h3>
+
+                <!-- Time Picker Grid -->
+                <div id="timeContainer" class="grid grid-cols-3 gap-2">
+                    <!-- Horários gerados via JS -->
+                </div>
+                
+                <div class="mt-4 flex items-center gap-2 text-gray-400 text-xs border-t border-gray-700 pt-3">
+                    <i class="fas fa-info-circle"></i>
+                    <span>Consultas com duração média de 30 min.</span>
+                </div>
+            </div>
+
+            <!-- Descrição -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Sintomas / Observações</label>
+                <textarea id="description" required placeholder="Descreva brevemente o motivo da consulta..." 
+                    class="w-full p-3 border border-gray-300 rounded-lg h-24 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none resize-none transition-all-300"></textarea>
+            </div>
+
+            <!-- Botão Submit -->
+            <button type="submit" 
+                class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center gap-2">
+                <span>Confirmar Agendamento</span>
+                <i class="fas fa-check"></i>
+            </button>
+        </form>
+    </div>
+
+    <!-- Modal de Confirmação -->
+    <div id="confirmationModal" class="fixed inset-0 bg-black bg-opacity-60 hidden items-center justify-center z-50 backdrop-blur-sm p-4">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-sm w-full overflow-hidden transform transition-all scale-100">
+            <div class="bg-green-500 p-4 text-center">
+                <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center mx-auto mb-2">
+                    <i class="fas fa-check text-2xl text-green-500"></i>
+                </div>
+                <h2 class="text-white font-bold text-lg">Agendamento Realizado!</h2>
+            </div>
+            
+            <div class="p-6 space-y-3 text-sm text-gray-600">
+                <div class="flex justify-between border-b pb-2">
+                    <span class="font-semibold">Cliente:</span>
+                    <span id="modalClientName">Nome</span>
+                </div>
+                <div class="flex justify-between border-b pb-2">
+                    <span class="font-semibold">Pet:</span>
+                    <span id="modalPetName">Pet</span>
+                </div>
+                <div class="flex justify-between border-b pb-2">
+                    <span class="font-semibold">Médico:</span>
+                    <span id="modalDoctor">Dr.</span>
+                </div>
+                <div class="flex justify-between border-b pb-2">
+                    <span class="font-semibold">Data:</span>
+                    <span id="modalDate" class="text-blue-600 font-bold">Data</span>
+                </div>
+                <div class="flex justify-between pb-2">
+                    <span class="font-semibold">Horário:</span>
+                    <span id="modalTime" class="text-blue-600 font-bold">Hora</span>
+                </div>
+            </div>
+
+            <div class="p-4 bg-gray-50 flex gap-3">
+                <button id="downloadBtn" class="flex-1 bg-gray-800 text-white py-2 rounded-lg hover:bg-gray-900 transition text-sm">
+                    <i class="fas fa-download mr-1"></i> Baixar
+                </button>
+                <button id="closeModalBtn" class="flex-1 border border-gray-300 text-gray-700 py-2 rounded-lg hover:bg-gray-100 transition text-sm">
+                    Fechar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script Lógico -->
+    <script>
+        // --- Estado da Aplicação ---
+        const state = {
+            doctors: ["Dr. Ricardo Martins (Cirurgião)", "Dra. Ana Oliveira (Clínica Geral)", "Dr. João Santos (Dermatologista)"],
+            times: ["09:00", "09:30", "10:00", "10:30", "14:00", "14:30", "15:00", "15:30", "16:00"],
+            selectedDate: null, // Objeto Date ou string ISO
+            selectedTime: null,
+            form: {
+                name: '',
+                petName: '',
+                doctor: '',
+                description: ''
+            }
+        };
+
+        // --- Elementos do DOM ---
+        const elements = {
+            doctorSelect: document.getElementById('doctorSelect'),
+            dateContainer: document.getElementById('dateContainer'),
+            timeContainer: document.getElementById('timeContainer'),
+            form: document.getElementById('bookingForm'),
+            modal: document.getElementById('confirmationModal'),
+            inputs: {
+                name: document.getElementById('clientName'),
+                pet: document.getElementById('petName'),
+                desc: document.getElementById('description')
+            },
+            modalFields: {
+                name: document.getElementById('modalClientName'),
+                pet: document.getElementById('modalPetName'),
+                doctor: document.getElementById('modalDoctor'),
+                date: document.getElementById('modalDate'),
+                time: document.getElementById('modalTime')
+            },
+            btns: {
+                download: document.getElementById('downloadBtn'),
+                close: document.getElementById('closeModalBtn')
+            }
+        };
+
+        // --- Funções de Inicialização e Renderização ---
+
+        function init() {
+            renderDoctors();
+            renderDates();
+            renderTimes();
+            setupListeners();
+        }
+
+        function renderDoctors() {
+            state.doctors.forEach(doc => {
+                const option = document.createElement('option');
+                option.value = doc;
+                option.textContent = doc;
+                elements.doctorSelect.appendChild(option);
+            });
+        }
+
+        function renderDates() {
+            const today = new Date();
+            const days = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
+            
+            elements.dateContainer.innerHTML = '';
+
+            for (let i = 0; i < 14; i++) { // Próximos 14 dias
+                const date = new Date(today);
+                date.setDate(today.getDate() + i);
+                
+                // Formatação para comparação
+                const dateIso = date.toISOString().split('T')[0];
+                const dayName = days[date.getDay()];
+                const dayNumber = date.getDate();
+
+                const btn = document.createElement('button');
+                btn.type = 'button'; // Previne submit
+                btn.className = `flex flex-col items-center min-w-[70px] p-2 rounded-lg transition-all border-2 ${
+                    state.selectedDate === dateIso 
+                    ? 'bg-blue-600 border-blue-600 text-white shadow-lg scale-105' 
+                    : 'bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700 hover:border-gray-500'
+                }`;
+                
+                btn.innerHTML = `
+                    <span class="text-xs font-medium uppercase tracking-wider mb-1">${dayName}</span>
+                    <span class="text-xl font-bold">${dayNumber}</span>
+                `;
+
+                btn.onclick = () => selectDate(dateIso);
+                elements.dateContainer.appendChild(btn);
+            }
+        }
+
+        function renderTimes() {
+            elements.timeContainer.innerHTML = '';
+            state.times.forEach(time => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.textContent = time;
+                btn.className = `py-2 rounded-lg text-sm font-medium transition-all border ${
+                    state.selectedTime === time
+                    ? 'bg-blue-500 border-blue-500 text-white shadow-md'
+                    : 'bg-gray-800 border-gray-700 text-gray-300 hover:bg-gray-700 hover:text-white'
+                }`;
+                
+                btn.onclick = () => selectTime(time);
+                elements.timeContainer.appendChild(btn);
+            });
+        }
+
+        // --- Lógica de Seleção ---
+
+        function selectDate(dateIso) {
+            state.selectedDate = dateIso;
+            renderDates(); // Re-renderiza para atualizar classes ativas
+        }
+
+        function selectTime(time) {
+            state.selectedTime = time;
+            renderTimes(); // Re-renderiza para atualizar classes ativas
+        }
+
+        // --- Event Listeners e Submit ---
+
+        function setupListeners() {
+            elements.form.addEventListener('submit', handleFormSubmit);
+            elements.btns.close.addEventListener('click', closeModal);
+            elements.btns.download.addEventListener('click', generateFile);
+        }
+
+        function handleFormSubmit(e) {
+            e.preventDefault();
+
+            // Validação customizada
+            if (!state.selectedDate) {
+                alert("Por favor, selecione uma data para a consulta.");
+                return;
+            }
+            if (!state.selectedTime) {
+                alert("Por favor, selecione um horário.");
+                return;
+            }
+
+            // Captura dados
+            state.form.name = elements.inputs.name.value;
+            state.form.petName = elements.inputs.pet.value;
+            state.form.doctor = elements.doctorSelect.value;
+            state.form.description = elements.inputs.desc.value;
+
+            showModal();
+        }
+
+        // --- Modal e Arquivo ---
+
+        function showModal() {
+            // Formatar data para exibição bonita no modal
+            const [ano, mes, dia] = state.selectedDate.split('-');
+            const dataFormatada = `${dia}/${mes}/${ano}`;
+
+            elements.modalFields.name.textContent = state.form.name;
+            elements.modalFields.pet.textContent = state.form.petName;
+            elements.modalFields.doctor.textContent = state.form.doctor;
+            elements.modalFields.date.textContent = dataFormatada;
+            elements.modalFields.time.textContent = state.selectedTime;
+
+            elements.modal.classList.remove('hidden');
+            elements.modal.classList.add('flex');
+        }
+
+        function closeModal() {
+            elements.modal.classList.add('hidden');
+            elements.modal.classList.remove('flex');
+            
+            // Opcional: Resetar formulário após fechar
+            // elements.form.reset();
+            // state.selectedDate = null;
+            // state.selectedTime = null;
+            // renderDates(); renderTimes();
+        }
+
+        function generateFile() {
+            const content = `
+=================================
+   COMPROVANTE DE AGENDAMENTO
+          VETCARE APP
+=================================
+
+CLIENTE: ${state.form.name}
+PET: ${state.form.petName}
+MÉDICO: ${state.form.doctor}
+
+---------------------------------
+DATA: ${state.selectedDate.split('-').reverse().join('/')}
+HORÁRIO: ${state.selectedTime}
+---------------------------------
+
+OBSERVAÇÕES:
+${state.form.description}
+
+=================================
+Obrigado por confiar na VetCare!
+=================================
+            `;
+
+            const blob = new Blob([content], { type: "text/plain" });
+            const url = window.URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.href = url;
+            link.download = `agendamento-${state.form.petName.toLowerCase()}.txt`;
+            link.click();
+            
+            // Limpa URL da memória
+            setTimeout(() => window.URL.revokeObjectURL(url), 100);
+        }
+
+        // Inicia a aplicação
+        init();
+
+    </script>
+</body>
+</html>
