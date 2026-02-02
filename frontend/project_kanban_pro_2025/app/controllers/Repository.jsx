@@ -20,12 +20,12 @@ export const STATUS_COLUMNS = {
   'to do': { id: 'todo', title: 'BACKLOG', emoji: '✏️' },
   'in progress': { id: 'progress', title: 'SPRINT Atual (In Progress)', emoji: '🔍' },
   'projetos parados': { id: 'paused', title: 'Projetos Parados', emoji: '⏸️' },
-  'agentes (c3po, jarvis, groundon, lumina Aurora)': { id: 'agents', title: 'Agentes IA ', emoji: '🤖' },
-  'uff - 2026': { id: 'uff2026', title: 'UFF 2026', emoji: '🎓' },
+  'testing': { id: 'testing', title: 'Testing/Review', emoji: '🧪' },
   'ONS - PLC - 2026': { id: 'plc', title: 'ONS PLC 2026', emoji: '🔌' },
+  'uff - 2026': { id: 'uff2026', title: 'UFF 2026', emoji: '🎓' },
   'PVRV - Batcaverna': { id: 'batcaverna', title: 'PVRV', emoji: '🔥' },
   'coding': { id: 'coding', title: 'Programação Github', emoji: '💻' },
-  'testing': { id: 'testing', title: 'Testing/Review', emoji: '🧪' },
+  'agentes (c3po, jarvis, groundon, lumina Aurora)': { id: 'agents', title: 'Agentes IA ', emoji: '🤖' },
   'completed': { id: 'completed', title: 'Finalizado (Done)', emoji: '✅' },
 };
 
