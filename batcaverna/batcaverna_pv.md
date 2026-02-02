@@ -18,14 +18,12 @@
 ### ⚡ **TRABALHO - ONS PLC 2026**
 - 📋 [Tarefas ONS PLC](#tarefas-ons-plc-2026-02)
 - 🔧 [Manutenção SIGER x BDT](#manutencao-siger-bdt)
-- 🚀 [PVRV 2026](#pvrv-2026-planilha-horarios)
 - 🧩 [Estudos de SEP (ONS + Programação)](#estudos-sep-ons-programacao)
 - 🧾 [Lista de TAREFAS Pendentes](#lista-tarefas-pendentes)
 
 ### 🎯 **DESENVOLVIMENTO PESSOAL**
-- 🧠 [TDAH - Rotina](#tdah-rotina)
-- 🙏 [Alinhamento Espiritual](#alinhamento-espiritual)
 - 📚 [Sessão de ESTUDOS](#sessao-estudos)
+- 🚀 [PVRV 2026](#pvrv-2026-planilha-horarios)
 
 ### 📅 **PLANEJAMENTO SEMANAL**
 - 🎯 [Objetivos da Semana](#objetivos-semana)
@@ -243,42 +241,6 @@ Sexta-feira (31/01) - Review & Code
 - [ ]  14:00 - Dev Time: Projeto Pessoal ou aprofundamento em SQL.
 
 - [ ]  18:00 - Checkpoint Semanal: O que funcionou? O que atrasou?
-
----
-<a id="tdah-rotina"></a>
-
-# TDAH - Rotina  __IN_PROGRESS
----
-
-- [x] Planejamento Seg/Sexta
-- [x] Visualização KANBAN e gerar 5 tarefas do dia (MANHA) e com 3 metas principais do dia (Eat the frog, Estudos e Criativo)
-- [x] Organização mental e preparação para novo Ciclo JEDI CYBERPUNK com resolução de provas, tutorial de 10 min de programação, modelagem e simulações de eng eletrica junto com automações com N8N
-
-<a id="alinhamento-espiritual"></a>
-
-# Alinhamento Espiritual
-
-- [x] Terapia: Terça-feira 16:30 .
-- [x] Treino de calistenia para karate
-
-- [x] You Only Need 5 Hobbies (Money, Study, Mindset, In Shape, Creative)
-
-  - [ ] Segunda - Chakra: Solar
-  - [ ] Terça - Chakra: Garganta
-  - [ ] Quarta - Chakra: Cardiaco
-  - [ ] Quinta: Chakra: 3º Olho
-  - [ ] Sexta: Chakra: Root
-
-- [ ] Leitura matinal da bíblia e livros dos espirtos de Alan Kardec
-- [ ] Meditação e estudos com Matemática e Japonês
-- [ ] Alongamento matinal - Ombros e Quadril
-- [ ] 2 equações do dia
-- [ ] 2 projetos no dia (backend/frontend)
-- [ ] Dom do espirito Santo do dia
-- [ ] Frase de poder
-      
-- [ ] Jogos: Sessão de The Witcher 3 ou LoL (Sábado/Domingo).
-
 
 
 ---
