@@ -16,7 +16,7 @@
 ## 📑 ÍNDICE RÁPIDO
 
 ### ⚡ **TRABALHO - ONS PLC 2026**
-- 📋 [Tarefas ONS PLC](#tarefas-ons-plc-2026-jan)
+- 📋 [Tarefas ONS PLC](#tarefas-ons-plc-2026-02)
 - 🔧 [Manutenção SIGER x BDT](#manutencao-siger-bdt)
 - 🚀 [PVRV 2026](#pvrv-2026-planilha-horarios)
 - 🧩 [Estudos de SEP (ONS + Programação)](#estudos-sep-ons-programacao)
@@ -40,18 +40,20 @@
 ![alt text - ciencia de dados ONS](image-1.png)
 
 ---
-<a id="tarefas-ons-plc-2026-jan"></a>
+<a id="tarefas-ons-plc-2026-02"></a>
 
-## 📋 Tarefas ONS PLC 2026 - Janeiro __IN_PROGRESS
+## 📋 Tarefas ONS PLC 2026 - Feveiro __IN_PROGRESS
 ---
+- [ ] Correções e bug fix no VBA para perdas Duplas Lts + 3 gráficos
 
+- [ ]  Acompanhar como foi feito o relatorio do controle mensal de Fevereiro
 
-- [x] Estudos de Decks do AnaRede com diagrama e .SAV automatizados
-- [x] *Falta ainda corrigir por listas da planilha no word*  |  Correções e Bugs fix do VBA de perdas duplas
-- [x] Estudos AnaRede, VE e Python para DeckBuilder para montagem de casos Mensal e Quadrimensal
-- [x] Estudos de VBA para perdas duplas com 3 Gráficos e inserção de listas de modificações no Relatorio Word
-- [ ] 
-
+- [ ] Script inicial AnaRede com CLI com decks e .sav padrões de montagem de quadro mensal
+- [ ] Algoritimo Big O para complexibilidade de casos de FLuxo de potencia para auxiliar na montagem de decks
+- [x] Deck Builder AnaREDE
+- [ ] Flow caso 10 Controle mensal com intercambio VC
+- [ ] AnaRede Deck Builder = Anarede, EditCepel, PandaPower, CLI e ajuda na montagem de casos com algoritimo Big O para nivel de complexibildiade de operação da Rede
+- [ ] Cadastro de dados BDT Seco E NE
 
 ---
 <a id="manutencao-siger-bdt"></a>
@@ -59,7 +61,6 @@
 ## Manutenção de Banco de dados do SIGER x BDT 
 (cadastro de equipamentos elétricos e parametros para PMO)
 ---
-
 - [ ] Todo dia 10, o programa roda no SIGER que aponta os equipamentos que estão fora da "ponte" (da Planilha Acompanhamento_PONTE_PL.xlsx: Nas Abas: LTs_SIGER_ForaPonte e TRs_SIGER_ForaPonte)
 - [x] GERCAD -> JOB -> ID: Data atual -> Job Criado
 - [x] Lts: Coluna T: Deve estar na ponte? Usar apenas as linhas que __NÃO__ estão na cor vermelho.
@@ -67,14 +68,8 @@
 - [x] Busca por LTS dentro do sistema: GERCARD -> Topologia -> "Estado" -> "Nome Curto da Instação" -> Aplicar critério -> Retorna tudo relacionado a Subestação pesquisada.
 - [x] Verificar se ja existe a estação no BDT, botão direito -> Novo Equipamento -> LTR 
 - [x] __Campos obrigatórios de cadastro:__ Numero do circuito do planejamento, Nome Estação, Num Barra preferencial, Tipo Rede: (BASICA), Utilização: PAR, 
-
 - [x] Ao final do dia, sempre finalizar o Job feito.
-
-
 ---
-
-
-
 
 <a id="pvrv-2026-planilha-horarios"></a>
 
@@ -88,38 +83,16 @@
 - [ ] Engenheiro de Software Pleno - Legado PVRV: Py, JS, C++, Dart e Rust. Anotações para perspectiva de carreira com 28 anos em site que ajuda a priorizar os projetos.
 - [ ] Juntar todos sites estaticos em HTML que tenho num unico projeto NextJS com rotas e MVC (Gohan Treinamentos, Legado PVRV, Pomodoro)
 
-- [ ]  Acompanhar como foi feito o relatorio do controle mensal de Fevereiro
-
-- [ ] Script inicial AnaRede com CLI com decks e .sav padrões de montagem de quadro mensal
-- [ ] Algoritimo Big O para complexibilidade de casos de FLuxo de potencia para auxiliar na montagem de decks
-- [x] Deck Builder AnaREDE
-- [ ] Flow caso 10 Controle mensal com intercambio VC
-
 - [ ] Planejamento financeiro (Financial APP)
     - [x] Dezembro
     - [ ] Janeiro
     - [ ] Fevereiro
 - [x] Planilhas Horarios
 - [ ] usper + Tunnel Newtork + React UI para proxys e rest api em go e express
-- [ ] AnaRede Deck Builder = Anarede, EditCepel, PandaPower, CLI e ajuda na montagem de casos com algoritimo Big O para nivel de complexibildiade de operação da Rede
-- [ ] Cadastro de dados BDT Seco E NE
 - [ ] Get/POST Google Sheets tabela de checklist de ProjectHub Empresas
 - [ ] HTML templates para Gohan Treinamentos Refatorado com SOLID, MVC e framework CSS components
 
 
-
-## Sprint Atual Semanal 21/01/26 __TODO
-- [x] Modelagem banco de dados BDT e MUST (feito teste nas Lts no SECO -> ESTREI-MG500 (ok) e N.EXTR-MG500 (ainda falta...) )
-- [x] Debug VBA perdas duplas
-  - [x] Verificar o código V6 e corrigir alguns bugs de formatação
-  - [ ] Verificar aba de Modificações ná pag correta como lista de itens nó código VBA
-
-- [x] Estudo de Arquitetura de projeto Flask com frontend project template (dashboard atividades SP MUST)
-- [ ] Projetos python com arquitetura backend em Rust
-- [ ] Projetos template Pyside6 com Docs automatizados com pytest e com deploy em .exe com menos de 150MB
-- [ ] IA para negócios, Análise de dados e Programacao com Matematica para IOT 
-
-     
 # Estudos de SEP para ONS e programação __IN_PROGRESS
 
 ## Sprint atual (27/01/2026) PVRV __IN_PROGRESS
@@ -141,6 +114,15 @@
 <a id="lista-tarefas-pendentes"></a>
 
 # Lista de TAREFAS Pendentes __TODO
+- [x] Modelagem banco de dados BDT e MUST (feito teste nas Lts no SECO -> ESTREI-MG500 (ok) e N.EXTR-MG500 (ainda falta...) )
+- [x] Debug VBA perdas duplas
+  - [x] Verificar o código V6 e corrigir alguns bugs de formatação
+  - [ ] Verificar aba de Modificações ná pag correta como lista de itens nó código VBA
+
+- [x] Estudo de Arquitetura de projeto Flask com frontend project template (dashboard atividades SP MUST)
+- [ ] Projetos python com arquitetura backend em Rust
+- [ ] Projetos template Pyside6 com Docs automatizados com pytest e com deploy em .exe com menos de 150MB
+- [ ] IA para negócios, Análise de dados e Programacao com Matematica para IOT 
 
 - [ ] Controle  e Gestão Atividades SP + MUST --> Excel To Website and (.PDF + Access)to QT 6 Desktop Deck Builder Organon
 
