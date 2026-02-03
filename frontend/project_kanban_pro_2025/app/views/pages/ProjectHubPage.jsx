@@ -989,7 +989,7 @@ export default function ProjectHubPage() {
               PROJECT<span className="text-blue-600">HUB</span>
             </h1>
             <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1 truncate">
-              Gestão Integrada v7.0
+              Gestão Integrada v7.1.2
             </p>
           </div>
         </div>
