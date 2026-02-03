@@ -544,7 +544,7 @@ const PlannerView = ({ plannerData, setPlannerData, allTasks }) => {
 
     return (
       <div
-        className="w-full min-w-[200px] flex-shrink-0 flex flex-col bg-slate-50 rounded-xl border h-full shadow-sm"
+        className="w-full min-w-[100px] flex-shrink-0 flex flex-col bg-slate-50 rounded-xl border h-full shadow-sm"
         onDragOver={(e) => e.preventDefault()}
         onDrop={(e) => onDrop(e, listKey)}
       >
@@ -911,6 +911,19 @@ export default function ProjectHubPage() {
   const [currentView, setCurrentView] = useState("plc");
   const fileInputRef = useRef(null);
   const [navOpen, setNavOpen] = useState(false);
+  const [plcFilters, setPlcFilters] = useState({
+    q: "",
+    status: "all",
+    category: "all",
+    assignee: "all",
+  });
+  const [plcColWidths, setPlcColWidths] = useState({
+    title: 420,
+    category: 160,
+    date: 150,
+    assignee: 160,
+    obs: 420,
+  });
 
   useEffect(() => {
     loadXLSX();
@@ -1177,6 +1190,77 @@ export default function ProjectHubPage() {
         <PlcActions />
       </div>
 
+      <div className="mb-4 bg-white border border-slate-100 rounded-2xl p-3 sm:p-4 shadow-sm">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          <input
+            value={plcFilters.q}
+            onChange={(e) =>
+              setPlcFilters((p) => ({ ...p, q: e.target.value }))
+            }
+            placeholder="Buscar (tarefa, categoria, responsável, obs...)"
+            className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-sm font-semibold text-slate-700 outline-none focus:ring-2 focus:ring-blue-200"
+          />
+
+          <select
+            value={plcFilters.status}
+            onChange={(e) =>
+              setPlcFilters((p) => ({ ...p, status: e.target.value }))
+            }
+            className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-sm font-semibold text-slate-700 outline-none focus:ring-2 focus:ring-blue-200"
+          >
+            <option value="all">Status: Todos</option>
+            <option value="open">Abertas</option>
+            <option value="done">Concluídas</option>
+          </select>
+
+          <select
+            value={plcFilters.category}
+            onChange={(e) =>
+              setPlcFilters((p) => ({ ...p, category: e.target.value }))
+            }
+            className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-sm font-semibold text-slate-700 outline-none focus:ring-2 focus:ring-blue-200"
+          >
+            <option value="all">Categoria: Todas</option>
+            {Array.from(
+              new Set(
+                (data?.simpleTasks || [])
+                  .map((t) => (t.category || "").trim())
+                  .filter(Boolean),
+              ),
+            )
+              .sort((a, b) => a.localeCompare(b))
+              .map((cat) => (
+                <option key={cat} value={cat}>
+                  {cat}
+                </option>
+              ))}
+          </select>
+
+          <select
+            value={plcFilters.assignee}
+            onChange={(e) =>
+              setPlcFilters((p) => ({ ...p, assignee: e.target.value }))
+            }
+            className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-sm font-semibold text-slate-700 outline-none focus:ring-2 focus:ring-blue-200"
+          >
+            <option value="all">Responsável: Todos</option>
+            {Array.from(
+              new Set(
+                (data?.simpleTasks || [])
+                  .map((t) => (t.assignee || "").trim())
+                  .filter(Boolean),
+              ),
+            )
+              .sort((a, b) => a.localeCompare(b))
+              .map((name) => (
+                <option key={name} value={name}>
+                  {name}
+                </option>
+              ))}
+          </select>
+        </div>
+      </div>
+
       <div className="bg-white border-2 border-slate-50 rounded-3xl shadow-2xl flex-grow overflow-hidden flex flex-col min-w-0">
         <div className="hidden lg:flex items-center gap-4 px-6 py-4">
           <div className="text-right">
@@ -1189,119 +1273,198 @@ export default function ProjectHubPage() {
           </div>
         </div>
 
-        <div className="sm:hidden p-4 space-y-3 overflow-y-auto custom-scrollbar">
-          {data.simpleTasks.map((task) => (
-            <PlcCard key={task.id} task={task} />
-          ))}
-        </div>
+        {(() => {
+          const q = (plcFilters.q || "").trim().toLowerCase();
+          const filteredTasks = (data?.simpleTasks || []).filter((t) => {
+            if (plcFilters.status === "open" && t.done) return false;
+            if (plcFilters.status === "done" && !t.done) return false;
+            if (
+              plcFilters.category !== "all" &&
+              (t.category || "") !== plcFilters.category
+            )
+              return false;
+            if (
+              plcFilters.assignee !== "all" &&
+              (t.assignee || "") !== plcFilters.assignee
+            )
+              return false;
+            if (!q) return true;
+            const blob =
+              `${t.title || ""} ${t.category || ""} ${t.assignee || ""} ${t.obs || ""} ${t.date || ""}`.toLowerCase();
+            return blob.includes(q);
+          });
 
-        <div className="hidden sm:block overflow-auto custom-scrollbar h-full">
-          <table className="text-left border-collapse min-w-full">
-            <thead className="sticky top-0 z-10 border-b-2 border-slate-50">
-              <tr>
-                <th className="p-5 w-16 text-center bg-slate-50">#</th>
-                <ResizableHeader width={500} onResize={() => {}}>
-                  Tarefa
-                </ResizableHeader>
-                <ResizableHeader width={150} onResize={() => {}}>
-                  Categoria
-                </ResizableHeader>
-                <ResizableHeader width={150} onResize={() => {}}>
-                  Data
-                </ResizableHeader>
-                <ResizableHeader width={100} onResize={() => {}}>
-                  Responsável
-                </ResizableHeader>
-                <th className="p-3 border-b text-left bg-slate-50">
-                  Observações
-                </th>
-                <th className="p-3 w-16 bg-slate-50"></th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-slate-50">
-              {data.simpleTasks.map((task) => (
-                <tr
-                  key={task.id}
-                  className={`group hover:bg-blue-50/20 transition-colors ${task.done ? "bg-slate-50/50" : ""}`}
-                >
-                  <td className="p-5 text-center">
-                    <input
-                      type="checkbox"
-                      checked={task.done}
-                      onChange={(e) =>
-                        handleUpdatePLC(task.id, "done", e.target.checked)
-                      }
-                      className="w-6 h-6 accent-blue-600 cursor-pointer rounded-lg"
-                    />
-                  </td>
-                  <td className="p-5">
-                    <input
-                      value={task.title}
-                      onChange={(e) =>
-                        handleUpdatePLC(task.id, "title", e.target.value)
-                      }
-                      className={`w-full bg-transparent outline-none font-bold text-slate-700 ${task.done ? "line-through text-slate-300" : ""}`}
-                      placeholder="O que precisa ser feito?"
-                    />
-                  </td>
-                  <td className="p-5 text-sm">
-                    <input
-                      value={task.category}
-                      onChange={(e) =>
-                        handleUpdatePLC(task.id, "category", e.target.value)
-                      }
-                      className="w-full bg-transparent outline-none font-bold text-blue-500 uppercase text-[10px]"
-                    />
-                  </td>
-                  <td className="p-5">
-                    <input
-                      type="date"
-                      value={task.date}
-                      onChange={(e) =>
-                        handleUpdatePLC(task.id, "date", e.target.value)
-                      }
-                      className="w-full bg-transparent outline-none text-xs font-bold text-slate-500"
-                    />
-                  </td>
-                  <td className="p-5">
-                    <input
-                      value={task.assignee}
-                      onChange={(e) =>
-                        handleUpdatePLC(task.id, "assignee", e.target.value)
-                      }
-                      className="w-full bg-transparent outline-none text-sm font-semibold text-slate-600"
-                    />
-                  </td>
-                  <td className="p-5">
-                    <input
-                      value={task.obs}
-                      onChange={(e) =>
-                        handleUpdatePLC(task.id, "obs", e.target.value)
-                      }
-                      className="w-full bg-transparent outline-none text-xs italic text-slate-400"
-                      placeholder="Detalhes..."
-                    />
-                  </td>
-                  <td className="p-5 text-center">
-                    <button
-                      onClick={() =>
-                        setData((p) => ({
-                          ...p,
-                          simpleTasks: p.simpleTasks.filter(
-                            (t) => t.id !== task.id,
-                          ),
-                        }))
-                      }
-                      className="text-slate-200 hover:text-red-500 transition-colors"
-                    >
-                      <Icons.Trash2 />
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+          return (
+            <>
+              <div className="sm:hidden p-4 space-y-3 overflow-y-auto custom-scrollbar">
+                {filteredTasks.map((task) => (
+                  <PlcCard key={task.id} task={task} />
+                ))}
+              </div>
+
+              <div className="hidden sm:block overflow-auto custom-scrollbar h-full">
+                <table className="text-left border-collapse min-w-full table-fixed">
+                  <colgroup>
+                    <col style={{ width: 64 }} />
+                    <col style={{ width: plcColWidths.title }} />
+                    <col style={{ width: plcColWidths.category }} />
+                    <col style={{ width: plcColWidths.date }} />
+                    <col style={{ width: plcColWidths.assignee }} />
+                    <col style={{ width: plcColWidths.obs }} />
+                    <col style={{ width: 64 }} />
+                  </colgroup>
+                  <thead className="sticky top-0 z-10 border-b-2 border-slate-50">
+                    <tr>
+                      <th className="p-5 text-center bg-slate-50">#</th>
+                      <ResizableHeader
+                        width={plcColWidths.title}
+                        onResize={(w) =>
+                          setPlcColWidths((p) => ({ ...p, title: w }))
+                        }
+                      >
+                        Tarefa
+                      </ResizableHeader>
+                      <ResizableHeader
+                        width={plcColWidths.category}
+                        onResize={(w) =>
+                          setPlcColWidths((p) => ({ ...p, category: w }))
+                        }
+                      >
+                        Categoria
+                      </ResizableHeader>
+                      <ResizableHeader
+                        width={plcColWidths.date}
+                        onResize={(w) =>
+                          setPlcColWidths((p) => ({ ...p, date: w }))
+                        }
+                      >
+                        Data
+                      </ResizableHeader>
+                      <ResizableHeader
+                        width={plcColWidths.assignee}
+                        onResize={(w) =>
+                          setPlcColWidths((p) => ({ ...p, assignee: w }))
+                        }
+                      >
+                        Responsável
+                      </ResizableHeader>
+                      <ResizableHeader
+                        width={plcColWidths.obs}
+                        onResize={(w) =>
+                          setPlcColWidths((p) => ({ ...p, obs: w }))
+                        }
+                      >
+                        Observações
+                      </ResizableHeader>
+                      <th className="p-3 bg-slate-50"></th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-50">
+                    {filteredTasks.map((task) => (
+                      <tr
+                        key={task.id}
+                        className={`group hover:bg-blue-50/20 transition-colors ${task.done ? "bg-slate-50/50" : ""}`}
+                      >
+                        <td className="p-5 text-center align-top">
+                          <input
+                            type="checkbox"
+                            checked={task.done}
+                            onChange={(e) =>
+                              handleUpdatePLC(task.id, "done", e.target.checked)
+                            }
+                            className="w-6 h-6 accent-blue-600 cursor-pointer rounded-lg"
+                          />
+                        </td>
+
+                        <td className="p-4 align-top">
+                          <textarea
+                            value={task.title}
+                            onChange={(e) =>
+                              handleUpdatePLC(task.id, "title", e.target.value)
+                            }
+                            rows={2}
+                            className={`w-full bg-transparent outline-none font-bold text-slate-700 whitespace-pre-wrap break-words resize-none leading-snug ${task.done ? "line-through text-slate-300" : ""}`}
+                            placeholder="O que precisa ser feito?"
+                          />
+                        </td>
+
+                        <td className="p-4 align-top">
+                          <textarea
+                            value={task.category}
+                            onChange={(e) =>
+                              handleUpdatePLC(
+                                task.id,
+                                "category",
+                                e.target.value,
+                              )
+                            }
+                            rows={2}
+                            className="w-full bg-transparent outline-none font-bold text-blue-600 uppercase text-[10px] whitespace-pre-wrap break-words resize-none leading-snug"
+                          />
+                        </td>
+
+                        <td className="p-4 align-top">
+                          <input
+                            type="date"
+                            value={task.date}
+                            onChange={(e) =>
+                              handleUpdatePLC(task.id, "date", e.target.value)
+                            }
+                            className="w-full bg-transparent outline-none text-xs font-bold text-slate-500"
+                          />
+                        </td>
+
+                        <td className="p-4 align-top">
+                          <textarea
+                            value={task.assignee}
+                            onChange={(e) =>
+                              handleUpdatePLC(
+                                task.id,
+                                "assignee",
+                                e.target.value,
+                              )
+                            }
+                            rows={2}
+                            className="w-full bg-transparent outline-none text-sm font-semibold text-slate-700 whitespace-pre-wrap break-words resize-none leading-snug"
+                            placeholder="Responsável"
+                          />
+                        </td>
+
+                        <td className="p-4 align-top">
+                          <textarea
+                            value={task.obs}
+                            onChange={(e) =>
+                              handleUpdatePLC(task.id, "obs", e.target.value)
+                            }
+                            rows={2}
+                            className="w-full bg-transparent outline-none text-xs italic text-slate-600 whitespace-pre-wrap break-words resize-none leading-snug"
+                            placeholder="Detalhes..."
+                          />
+                        </td>
+
+                        <td className="p-4 text-center align-top">
+                          <button
+                            onClick={() =>
+                              setData((p) => ({
+                                ...p,
+                                simpleTasks: p.simpleTasks.filter(
+                                  (t) => t.id !== task.id,
+                                ),
+                              }))
+                            }
+                            className="text-slate-200 hover:text-red-500 transition-colors"
+                          >
+                            <Icons.Trash2 />
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </>
+          );
+        })()}
       </div>
     </div>
   );
