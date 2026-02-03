@@ -561,7 +561,7 @@ const PlannerView = ({ plannerData, setPlannerData, allTasks }) => {
             </span>
           )}
         </div>
-        <div className="flex-grow p-3 space-y-3 overflow-y-auto custom-scrollbar">
+        <div className="flex-grow p-3 space-y-3 overflow-y-auto overflow-x-hidden custom-scrollbar min-w-0">
           {tasksForDay.map((task, i) => {
             const isDone = task.done;
             const borderColor = isDone
@@ -575,13 +575,15 @@ const PlannerView = ({ plannerData, setPlannerData, allTasks }) => {
                 key={`plc-${i}`}
                 className={`p-3 rounded-lg border border-l-4 ${borderColor} ${bgColor} shadow-sm text-xs relative transition-all`}
               >
-                <div className="flex items-start gap-2 mb-2">
+                <div className="flex items-start gap-2 mb-2 min-w-0">
                   <div
                     className={`mt-0.5 ${isDone ? "text-emerald-600" : "text-amber-500"}`}
                   >
                     <IconStatus />
                   </div>
-                  <span className={`font-bold ${textColor} leading-tight`}>
+                  <span
+                    className={`font-bold ${textColor} leading-tight whitespace-normal break-words min-w-0`}
+                  >
                     {task.title}
                   </span>
                 </div>
@@ -589,7 +591,9 @@ const PlannerView = ({ plannerData, setPlannerData, allTasks }) => {
                   <span className="bg-slate-100 px-1.5 py-0.5 rounded italic">
                     {task.assignee || "S/R"}
                   </span>
-                  <span className="uppercase font-bold">{task.category}</span>
+                  <span className="uppercase font-bold text-right break-words min-w-0">
+                    {task.category}
+                  </span>
                 </div>
               </div>
             );
@@ -601,7 +605,9 @@ const PlannerView = ({ plannerData, setPlannerData, allTasks }) => {
               onDragStart={(e) => onDragStart(e, item, listKey)}
               className="bg-white p-3 rounded-lg border shadow-sm text-xs relative group cursor-grab hover:border-blue-300 transition"
             >
-              <p className="leading-tight text-slate-700">{item.text}</p>
+              <p className="leading-tight text-slate-700 whitespace-normal break-words">
+                {item.text}
+              </p>
               <button
                 onClick={() => removeItem(listKey, item.id)}
                 className="absolute top-1 right-1 text-slate-300 hover:text-red-500 opacity-0 group-hover:opacity-100"
