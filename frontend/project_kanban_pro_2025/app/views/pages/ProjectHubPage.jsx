@@ -904,6 +904,7 @@ export default function ProjectHubPage() {
   const [data, setData] = useState(null);
   const [currentView, setCurrentView] = useState("plc");
   const fileInputRef = useRef(null);
+  const [navOpen, setNavOpen] = useState(false);
 
   useEffect(() => {
     loadXLSX();
@@ -957,10 +958,13 @@ export default function ProjectHubPage() {
     reader.readAsBinaryString(file);
   };
 
-  const NavButton = ({ id, label, icon: IconComp }) => (
+  const NavButton = ({ id, label, icon: IconComp, compact = false }) => (
     <button
-      onClick={() => setCurrentView(id)}
-      className={`flex items-center gap-2 px-6 py-2 rounded-xl font-bold text-sm transition-all active:scale-95 ${
+      onClick={() => {
+        setCurrentView(id);
+        setNavOpen(false);
+      }}
+      className={`flex items-center gap-2 ${compact ? "px-4 py-2 text-xs" : "px-6 py-2 text-sm"} rounded-xl font-bold transition-all active:scale-95 whitespace-nowrap ${
         currentView === id
           ? "bg-blue-600 text-white shadow-lg shadow-blue-200"
           : "text-slate-500 hover:bg-slate-100"
@@ -973,233 +977,338 @@ export default function ProjectHubPage() {
     </button>
   );
 
-  return (
-    <div className="flex flex-col h-screen bg-slate-50 font-sans text-slate-900 overflow-hidden">
-      {/* TOP NAVIGATION BAR */}
-      <header className="h-24 bg-white border-b flex items-center justify-between px-10 shadow-sm z-30 shrink-0">
-        <div className="flex items-center gap-6">
-          <div className="w-12 h-12 bg-blue-600 rounded-2xl flex items-center justify-center text-white shadow-xl shadow-blue-100">
+  const TopBar = () => (
+    <header className="shrink-0 bg-white border-b shadow-sm z-30">
+      <div className="h-16 sm:h-20 lg:h-24 flex items-center justify-between px-4 sm:px-6 lg:px-10">
+        <div className="flex items-center gap-4 sm:gap-6 min-w-0">
+          <div className="w-10 h-10 sm:w-12 sm:h-12 bg-blue-600 rounded-2xl flex items-center justify-center text-white shadow-xl shadow-blue-100 shrink-0">
             <Icons.Columns />
           </div>
-          <div>
-            <h1 className="font-black text-2xl tracking-tighter text-slate-800 leading-none">
+          <div className="min-w-0">
+            <h1 className="font-black text-lg sm:text-2xl tracking-tighter text-slate-800 leading-none truncate">
               PROJECT<span className="text-blue-600">HUB</span>
             </h1>
-            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1">
+            <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1 truncate">
               Gestão Integrada v7.0
             </p>
           </div>
         </div>
 
-        <nav className="flex items-center gap-2 bg-slate-50 p-2 rounded-2xl border border-slate-100">
-          <NavButton id="plc" label="Tarefas PLC" icon={Icons.Table} />
-          <NavButton id="planner" label="Planner" icon={Icons.Columns} />
-          <NavButton
-            id="eisenhower"
-            label="Matriz Eisenhower"
-            icon={Icons.Grid}
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => setNavOpen((v) => !v)}
+            className="lg:hidden px-3 py-2 rounded-xl border border-slate-200 bg-slate-50 text-slate-700 font-bold text-xs hover:bg-slate-100 transition"
+          >
+            MENU
+          </button>
+
+          <nav className="hidden lg:flex items-center gap-2 bg-slate-50 p-2 rounded-2xl border border-slate-100">
+            <NavButton id="plc" label="Tarefas PLC" icon={Icons.Table} />
+            <NavButton id="planner" label="Planner" icon={Icons.Columns} />
+            <NavButton
+              id="eisenhower"
+              label="Matriz Eisenhower"
+              icon={Icons.Grid}
+            />
+            <NavButton
+              id="proscons"
+              label="Prós e Contras"
+              icon={Icons.ThumbsUp}
+            />
+          </nav>
+        </div>
+      </div>
+
+      {navOpen && (
+        <div className="lg:hidden px-4 pb-4">
+          <div className="bg-slate-50 border border-slate-200 rounded-2xl p-2 flex gap-2 overflow-x-auto custom-scrollbar">
+            <NavButton compact id="plc" label="PLC" icon={Icons.Table} />
+            <NavButton
+              compact
+              id="planner"
+              label="Planner"
+              icon={Icons.Columns}
+            />
+            <NavButton
+              compact
+              id="eisenhower"
+              label="Eisenhower"
+              icon={Icons.Grid}
+            />
+            <NavButton
+              compact
+              id="proscons"
+              label="Prós/Contras"
+              icon={Icons.ThumbsUp}
+            />
+          </div>
+        </div>
+      )}
+    </header>
+  );
+
+  const PlcActions = () => (
+    <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+      <input
+        type="file"
+        ref={fileInputRef}
+        hidden
+        accept=".xlsx, .xls"
+        onChange={handleImportExcel}
+      />
+      <button
+        onClick={() => fileInputRef.current?.click()}
+        className="flex items-center justify-center gap-2 px-5 py-3 bg-emerald-50 text-emerald-700 border-2 border-emerald-100 rounded-2xl hover:bg-emerald-100 font-bold text-xs transition-all w-full sm:w-auto"
+      >
+        <Icons.Upload /> IMPORTAR
+      </button>
+      <button
+        onClick={() => backend.exportToExcel(data.simpleTasks)}
+        className="flex items-center justify-center gap-2 px-5 py-3 bg-blue-50 text-blue-700 border-2 border-blue-100 rounded-2xl hover:bg-blue-100 font-bold text-xs transition-all w-full sm:w-auto"
+      >
+        <Icons.Download /> EXPORTAR
+      </button>
+      <button
+        onClick={() =>
+          setData((p) => ({
+            ...p,
+            simpleTasks: [
+              ...p.simpleTasks,
+              {
+                id: Date.now(),
+                title: "",
+                category: "Geral",
+                assignee: "",
+                done: false,
+                date: "",
+                obs: "",
+              },
+            ],
+          }))
+        }
+        className="flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-2xl shadow-xl hover:bg-blue-700 font-bold text-xs transition-all w-full sm:w-auto"
+      >
+        <Icons.Plus /> NOVA LINHA
+      </button>
+    </div>
+  );
+
+  const PlcCard = ({ task }) => (
+    <div
+      className={`bg-white border rounded-2xl p-4 shadow-sm ${task.done ? "opacity-70" : ""}`}
+    >
+      <div className="flex items-start gap-3">
+        <input
+          type="checkbox"
+          checked={task.done}
+          onChange={(e) => handleUpdatePLC(task.id, "done", e.target.checked)}
+          className="w-6 h-6 accent-blue-600 cursor-pointer rounded-lg mt-0.5"
+        />
+        <div className="flex-1 min-w-0">
+          <input
+            value={task.title}
+            onChange={(e) => handleUpdatePLC(task.id, "title", e.target.value)}
+            className={`w-full bg-transparent outline-none font-bold text-slate-800 text-sm ${task.done ? "line-through text-slate-400" : ""}`}
+            placeholder="O que precisa ser feito?"
           />
-          <NavButton
-            id="proscons"
-            label="Prós e Contras"
-            icon={Icons.ThumbsUp}
-          />
-        </nav>
-      </header>
+          <div className="mt-3 grid grid-cols-1 gap-2">
+            <div className="grid grid-cols-2 gap-2">
+              <input
+                value={task.category}
+                onChange={(e) =>
+                  handleUpdatePLC(task.id, "category", e.target.value)
+                }
+                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 outline-none font-bold text-blue-600 uppercase text-[10px]"
+                placeholder="Categoria"
+              />
+              <input
+                type="date"
+                value={task.date}
+                onChange={(e) =>
+                  handleUpdatePLC(task.id, "date", e.target.value)
+                }
+                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 outline-none text-xs font-bold text-slate-600"
+              />
+            </div>
+            <input
+              value={task.assignee}
+              onChange={(e) =>
+                handleUpdatePLC(task.id, "assignee", e.target.value)
+              }
+              className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 outline-none text-xs font-semibold text-slate-700"
+              placeholder="Responsável"
+            />
+            <input
+              value={task.obs}
+              onChange={(e) => handleUpdatePLC(task.id, "obs", e.target.value)}
+              className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 outline-none text-xs italic text-slate-500"
+              placeholder="Detalhes..."
+            />
+          </div>
+        </div>
+
+        <button
+          onClick={() =>
+            setData((p) => ({
+              ...p,
+              simpleTasks: p.simpleTasks.filter((t) => t.id !== task.id),
+            }))
+          }
+          className="text-slate-300 hover:text-red-500 transition-colors"
+        >
+          <Icons.Trash2 />
+        </button>
+      </div>
+    </div>
+  );
+
+  const PlcView = () => (
+    <div className="flex flex-col h-full animate-in fade-in slide-in-from-top duration-500 min-w-0">
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
+        <h2 className="text-xl sm:text-3xl font-black text-slate-800 tracking-tight">
+          Registro de Atividades
+        </h2>
+        <PlcActions />
+      </div>
+
+      <div className="bg-white border-2 border-slate-50 rounded-3xl shadow-2xl flex-grow overflow-hidden flex flex-col min-w-0">
+        <div className="hidden lg:flex items-center gap-4 px-6 py-4">
+          <div className="text-right">
+            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+              Sincronizado
+            </p>
+            <p className="text-xs font-black text-slate-600">
+              {Utils.getTodayString()}
+            </p>
+          </div>
+        </div>
+
+        <div className="sm:hidden p-4 space-y-3 overflow-y-auto custom-scrollbar">
+          {data.simpleTasks.map((task) => (
+            <PlcCard key={task.id} task={task} />
+          ))}
+        </div>
+
+        <div className="hidden sm:block overflow-auto custom-scrollbar h-full">
+          <table className="text-left border-collapse min-w-full">
+            <thead className="sticky top-0 z-10 border-b-2 border-slate-50">
+              <tr>
+                <th className="p-5 w-16 text-center bg-slate-50">#</th>
+                <ResizableHeader width={500} onResize={() => {}}>
+                  Tarefa
+                </ResizableHeader>
+                <ResizableHeader width={150} onResize={() => {}}>
+                  Categoria
+                </ResizableHeader>
+                <ResizableHeader width={150} onResize={() => {}}>
+                  Data
+                </ResizableHeader>
+                <ResizableHeader width={100} onResize={() => {}}>
+                  Responsável
+                </ResizableHeader>
+                <th className="p-3 border-b text-left bg-slate-50">
+                  Observações
+                </th>
+                <th className="p-3 w-16 bg-slate-50"></th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-50">
+              {data.simpleTasks.map((task) => (
+                <tr
+                  key={task.id}
+                  className={`group hover:bg-blue-50/20 transition-colors ${task.done ? "bg-slate-50/50" : ""}`}
+                >
+                  <td className="p-5 text-center">
+                    <input
+                      type="checkbox"
+                      checked={task.done}
+                      onChange={(e) =>
+                        handleUpdatePLC(task.id, "done", e.target.checked)
+                      }
+                      className="w-6 h-6 accent-blue-600 cursor-pointer rounded-lg"
+                    />
+                  </td>
+                  <td className="p-5">
+                    <input
+                      value={task.title}
+                      onChange={(e) =>
+                        handleUpdatePLC(task.id, "title", e.target.value)
+                      }
+                      className={`w-full bg-transparent outline-none font-bold text-slate-700 ${task.done ? "line-through text-slate-300" : ""}`}
+                      placeholder="O que precisa ser feito?"
+                    />
+                  </td>
+                  <td className="p-5 text-sm">
+                    <input
+                      value={task.category}
+                      onChange={(e) =>
+                        handleUpdatePLC(task.id, "category", e.target.value)
+                      }
+                      className="w-full bg-transparent outline-none font-bold text-blue-500 uppercase text-[10px]"
+                    />
+                  </td>
+                  <td className="p-5">
+                    <input
+                      type="date"
+                      value={task.date}
+                      onChange={(e) =>
+                        handleUpdatePLC(task.id, "date", e.target.value)
+                      }
+                      className="w-full bg-transparent outline-none text-xs font-bold text-slate-500"
+                    />
+                  </td>
+                  <td className="p-5">
+                    <input
+                      value={task.assignee}
+                      onChange={(e) =>
+                        handleUpdatePLC(task.id, "assignee", e.target.value)
+                      }
+                      className="w-full bg-transparent outline-none text-sm font-semibold text-slate-600"
+                    />
+                  </td>
+                  <td className="p-5">
+                    <input
+                      value={task.obs}
+                      onChange={(e) =>
+                        handleUpdatePLC(task.id, "obs", e.target.value)
+                      }
+                      className="w-full bg-transparent outline-none text-xs italic text-slate-400"
+                      placeholder="Detalhes..."
+                    />
+                  </td>
+                  <td className="p-5 text-center">
+                    <button
+                      onClick={() =>
+                        setData((p) => ({
+                          ...p,
+                          simpleTasks: p.simpleTasks.filter(
+                            (t) => t.id !== task.id,
+                          ),
+                        }))
+                      }
+                      className="text-slate-200 hover:text-red-500 transition-colors"
+                    >
+                      <Icons.Trash2 />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  );
+
+  return (
+    <div className="flex flex-col h-screen bg-slate-50 font-sans text-slate-900 overflow-hidden">
+      {/* TOP NAVIGATION BAR */}
+      <TopBar />
 
       {/* MAIN CONTENT */}
-      <main className="flex-grow p-10 overflow-hidden relative flex flex-col min-w-0">
+      <main className="flex-grow p-4 sm:p-6 lg:p-10 overflow-hidden relative flex flex-col min-w-0">
         <div className="flex-grow overflow-y-auto custom-scrollbar pr-2">
-          {currentView === "plc" && (
-            <div className="flex flex-col h-full animate-in fade-in slide-in-from-top duration-500">
-              <div className="flex justify-between items-center mb-8">
-                <h2 className="text-3xl font-black text-slate-800 tracking-tight">
-                  Registro de Atividades
-                </h2>
-
-                <div className="flex gap-3">
-                  <input
-                    type="file"
-                    ref={fileInputRef}
-                    hidden
-                    accept=".xlsx, .xls"
-                    onChange={handleImportExcel}
-                  />
-                  <button
-                    onClick={() => fileInputRef.current.click()}
-                    className="flex items-center gap-2 px-5 py-3 bg-emerald-50 text-emerald-700 border-2 border-emerald-100 rounded-2xl hover:bg-emerald-100 font-bold text-xs transition-all"
-                  >
-                    <Icons.Upload /> IMPORTAR
-                  </button>
-                  <button
-                    onClick={() => backend.exportToExcel(data.simpleTasks)}
-                    className="flex items-center gap-2 px-5 py-3 bg-blue-50 text-blue-700 border-2 border-blue-100 rounded-2xl hover:bg-blue-100 font-bold text-xs transition-all"
-                  >
-                    <Icons.Download /> EXPORTAR
-                  </button>
-                  <button
-                    onClick={() =>
-                      setData((p) => ({
-                        ...p,
-                        simpleTasks: [
-                          ...p.simpleTasks,
-                          {
-                            id: Date.now(),
-                            title: "",
-                            category: "Geral",
-                            assignee: "",
-                            done: false,
-                            date: "",
-                            obs: "",
-                          },
-                        ],
-                      }))
-                    }
-                    className="flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-2xl shadow-xl hover:bg-blue-700 font-bold text-xs transition-all"
-                  >
-                    <Icons.Plus /> NOVA LINHA
-                  </button>
-                </div>
-              </div>
-
-              <div className="bg-white border-2 border-slate-50 rounded-3xl shadow-2xl flex-grow overflow-hidden flex flex-col">
-                <div className="hidden lg:flex items-center gap-4">
-                  <div className="text-right">
-                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
-                      Sincronizado
-                    </p>
-                    <p className="text-xs font-black text-slate-600">
-                      {Utils.getTodayString()}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="overflow-auto custom-scrollbar h-full">
-                  <table className="text-left border-collapse min-w-full">
-                    <thead className="sticky top-0 z-10 border-b-2 border-slate-50">
-                      <tr>
-                        <th className="p-5 w-16 text-center bg-slate-50">#</th>
-                        <ResizableHeader width={500} onResize={() => {}}>
-                          Tarefa
-                        </ResizableHeader>
-                        <ResizableHeader width={150} onResize={() => {}}>
-                          Categoria
-                        </ResizableHeader>
-                        <ResizableHeader width={150} onResize={() => {}}>
-                          Data
-                        </ResizableHeader>
-                        <ResizableHeader width={100} onResize={() => {}}>
-                          Responsável
-                        </ResizableHeader>
-                        <th className="p-3 border-b text-left bg-slate-50">
-                          Observações
-                        </th>
-                        <th className="p-3 w-16 bg-slate-50"></th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-slate-50">
-                      {data.simpleTasks.map((task) => (
-                        <tr
-                          key={task.id}
-                          className={`group hover:bg-blue-50/20 transition-colors ${task.done ? "bg-slate-50/50" : ""}`}
-                        >
-                          <td className="p-5 text-center">
-                            <input
-                              type="checkbox"
-                              checked={task.done}
-                              onChange={(e) =>
-                                handleUpdatePLC(
-                                  task.id,
-                                  "done",
-                                  e.target.checked,
-                                )
-                              }
-                              className="w-6 h-6 accent-blue-600 cursor-pointer rounded-lg"
-                            />
-                          </td>
-                          <td className="p-5">
-                            <input
-                              value={task.title}
-                              onChange={(e) =>
-                                handleUpdatePLC(
-                                  task.id,
-                                  "title",
-                                  e.target.value,
-                                )
-                              }
-                              className={`w-full bg-transparent outline-none font-bold text-slate-700 ${task.done ? "line-through text-slate-300" : ""}`}
-                              placeholder="O que precisa ser feito?"
-                            />
-                          </td>
-                          <td className="p-5 text-sm">
-                            <input
-                              value={task.category}
-                              onChange={(e) =>
-                                handleUpdatePLC(
-                                  task.id,
-                                  "category",
-                                  e.target.value,
-                                )
-                              }
-                              className="w-full bg-transparent outline-none font-bold text-blue-500 uppercase text-[10px]"
-                            />
-                          </td>
-                          <td className="p-5">
-                            <input
-                              type="date"
-                              value={task.date}
-                              onChange={(e) =>
-                                handleUpdatePLC(task.id, "date", e.target.value)
-                              }
-                              className="w-full bg-transparent outline-none text-xs font-bold text-slate-500"
-                            />
-                          </td>
-                          <td className="p-5">
-                            <input
-                              value={task.assignee}
-                              onChange={(e) =>
-                                handleUpdatePLC(
-                                  task.id,
-                                  "assignee",
-                                  e.target.value,
-                                )
-                              }
-                              className="w-full bg-transparent outline-none text-sm font-semibold text-slate-600"
-                            />
-                          </td>
-                          <td className="p-5">
-                            <input
-                              value={task.obs}
-                              onChange={(e) =>
-                                handleUpdatePLC(task.id, "obs", e.target.value)
-                              }
-                              className="w-full bg-transparent outline-none text-xs italic text-slate-400"
-                              placeholder="Detalhes..."
-                            />
-                          </td>
-                          <td className="p-5 text-center">
-                            <button
-                              onClick={() =>
-                                setData((p) => ({
-                                  ...p,
-                                  simpleTasks: p.simpleTasks.filter(
-                                    (t) => t.id !== task.id,
-                                  ),
-                                }))
-                              }
-                              className="text-slate-200 hover:text-red-500 transition-colors"
-                            >
-                              <Icons.Trash2 />
-                            </button>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          )}
+          {currentView === "plc" && <PlcView />}
 
           {currentView === "planner" && (
             <PlannerView
