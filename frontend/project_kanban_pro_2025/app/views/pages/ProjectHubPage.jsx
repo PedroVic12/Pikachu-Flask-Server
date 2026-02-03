@@ -544,7 +544,7 @@ const PlannerView = ({ plannerData, setPlannerData, allTasks }) => {
 
     return (
       <div
-        className="w-full min-w-[100px] flex-shrink-0 flex flex-col bg-slate-50 rounded-xl border h-full shadow-sm"
+        className="flex-none min-w-[100px] flex flex-col bg-slate-50 rounded-xl border h-full shadow-sm"
         onDragOver={(e) => e.preventDefault()}
         onDrop={(e) => onDrop(e, listKey)}
       >
