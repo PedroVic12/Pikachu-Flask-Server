@@ -43,6 +43,7 @@
 ## 📋 Tarefas ONS PLC 2026 - Feveiro __IN_PROGRESS
 ---
 - [ ] Cadastro de dados BDT Seco E NE
+- [ ] Correções do SISBAR com procv do Mensal de Janeiro e colocar nas abas faltantes para o Mensal de Fevereiroc com justificativa de aparecer na área
 - [ ] Correções e bug fix no VBA para perdas Duplas Lts + 3 gráficos
       
 - [ ] Estudos de conceitos básicos de CC/CA
