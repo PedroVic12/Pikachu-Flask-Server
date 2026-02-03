@@ -35,6 +35,8 @@ import {
   TrendingUp,
   Users,
   Clock,
+  ChevronLeft,
+  ChevronRight,
   Search,
   Filter,
   MoreVertical,
@@ -132,6 +134,8 @@ const Sidebar = ({
   onSync,
   isOpen,
   onClose,
+  isCollapsed,
+  onToggleCollapse,
 }) => {
   // Removed React.FC<SidebarProps>
   const fileInputRef = useRef(null); // Removed type annotation
@@ -183,19 +187,48 @@ const Sidebar = ({
   return (
     <>
       <div
-        className={`fixed inset-y-0 left-0 z-50 w-64 bg-white shadow-lg transform transition-transform duration-300 ease-in-out ${isOpen ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0 lg:static lg:inset-0`}
+        className={`fixed inset-y-0 left-0 z-50 bg-white shadow-lg transform transition-transform duration-300 ease-in-out ${
+          isOpen ? "translate-x-0" : "-translate-x-full"
+        } lg:translate-x-0 lg:static lg:inset-0 ${
+          isCollapsed ? "lg:w-20" : "w-64"
+        }`}
       >
-        <div className="flex items-center justify-between h-16 px-4 border-b border-gray-200">
-          <h1 className="text-xl font-bold text-gray-900"> Kanban Pro </h1>
-          <button
-            onClick={onClose}
-            className="lg:hidden p-2 rounded-md text-gray-400 hover:text-gray-600 hover:bg-gray-100"
+        <div
+          className={`flex items-center justify-between h-16 border-b border-gray-200 ${isCollapsed ? "px-2" : "px-4"}`}
+        >
+          <h1
+            className={`text-xl font-bold text-gray-900 ${
+              isCollapsed ? "hidden" : "block"
+            }`}
           >
-            <X size={20} />
-          </button>
+            Kanban Pro
+          </h1>
+
+          <div className="flex items-center gap-1">
+            <button
+              onClick={onToggleCollapse}
+              className="hidden lg:inline-flex p-2 rounded-md text-gray-400 hover:text-gray-600 hover:bg-gray-100"
+              aria-label={isCollapsed ? "Expandir menu" : "Recolher menu"}
+              title={isCollapsed ? "Expandir" : "Recolher"}
+            >
+              {isCollapsed ? (
+                <ChevronRight size={20} />
+              ) : (
+                <ChevronLeft size={20} />
+              )}
+            </button>
+
+            <button
+              onClick={onClose}
+              className="lg:hidden p-2 rounded-md text-gray-400 hover:text-gray-600 hover:bg-gray-100"
+              aria-label="Fechar menu"
+            >
+              <X size={20} />
+            </button>
+          </div>
         </div>
 
-        <nav className="mt-8 px-4">
+        <nav className={`mt-8 ${isCollapsed ? "px-2" : "px-4"}`}>
           <div className="space-y-2">
             {menuItems.map(({ id, label, icon: Icon }) => (
               <button
@@ -204,14 +237,17 @@ const Sidebar = ({
                   onScreenChange(id);
                   onClose();
                 }}
-                className={`w-full flex items-center px-4 py-3 text-left rounded-lg transition-colors ${
+                title={label}
+                className={`w-full flex items-center ${
+                  isCollapsed ? "justify-center px-3" : "px-4"
+                } py-3 text-left rounded-lg transition-colors ${
                   currentScreen === id
                     ? "bg-blue-100 text-blue-700 border-r-2 border-blue-700"
                     : "text-gray-700 hover:bg-gray-100"
                 }`}
               >
-                <Icon size={20} className="mr-3" />
-                {label}
+                <Icon size={20} className={isCollapsed ? "" : "mr-3"} />
+                {!isCollapsed && label}
               </button>
             ))}
           </div>
@@ -222,11 +258,14 @@ const Sidebar = ({
                 <button
                   key={id}
                   onClick={onClick}
-                  className={`w-full flex items-center px-4 py-3 text-left rounded-lg transition-colors ${color || "text-gray-700 hover:bg-gray-100"}
+                  title={label}
+                  className={`w-full flex items-center ${
+                    isCollapsed ? "justify-center px-3" : "px-4"
+                  } py-3 text-left rounded-lg transition-colors ${color || "text-gray-700 hover:bg-gray-100"}
           }`}
                 >
-                  <Icon size={20} className="mr-3" />
-                  {label}
+                  <Icon size={20} className={isCollapsed ? "" : "mr-3"} />
+                  {!isCollapsed && label}
                 </button>
               ))}
             </div>
@@ -257,6 +296,7 @@ const Sidebar = ({
 export default function App() {
   const [currentScreen, setCurrentScreen] = useState("dashboard");
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [editingItem, setEditingItem] = useState(null); // Removed type annotation
   const [draggedItem, setDraggedItem] = useState(null); // Removed type annotation
   const [searchTerm, setSearchTerm] = useState("");
@@ -1296,6 +1336,8 @@ Aqui está o [link][var1] do Shiatsu como váriavel no .MD
         onSync={handleSync}
         isOpen={sidebarOpen}
         onClose={() => setSidebarOpen(false)}
+        isCollapsed={sidebarCollapsed}
+        onToggleCollapse={() => setSidebarCollapsed((v) => !v)}
       />
 
       {/* Main Content */}
