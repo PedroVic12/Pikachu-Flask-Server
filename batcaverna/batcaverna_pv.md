@@ -42,16 +42,27 @@
 
 ## 📋 Tarefas ONS PLC 2026 - Feveiro __IN_PROGRESS
 ---
-- [ ] Correções e bug fix no VBA para perdas Duplas Lts + 3 gráficos
-
-- [ ]  Acompanhar como foi feito o relatorio do controle mensal de Fevereiro
-
-- [ ] Script inicial AnaRede com CLI com decks e .sav padrões de montagem de quadro mensal
-- [ ] Algoritimo Big O para complexibilidade de casos de FLuxo de potencia para auxiliar na montagem de decks
-- [x] Deck Builder AnaREDE
-- [ ] Flow caso 10 Controle mensal com intercambio VC
-- [ ] AnaRede Deck Builder = Anarede, EditCepel, PandaPower, CLI e ajuda na montagem de casos com algoritimo Big O para nivel de complexibildiade de operação da Rede
 - [ ] Cadastro de dados BDT Seco E NE
+- [ ] Correções e bug fix no VBA para perdas Duplas Lts + 3 gráficos
+      
+- [ ] Estudos de conceitos básicos de CC/CA
+- [ ] Estudos de conceitos básicos de SEP para ONS PLC
+- [ ] Estudos sobre diagramas fasoriais em eng. elétrica
+      
+- [ ]  Acompanhar como foi feito o relatorio do controle mensal de Fevereiro e Janeiro com Word compartilhado para consulta
+    - [ ] Flow caso 10 Controle mensal com intercambio VC
+
+- [x] Deck Builder AnaREDE
+    - [ ] Script inicial AnaRede com CLI com decks e .sav padrões de montagem de quadro mensal
+      
+- [ ] Algoritimo Big O para complexibilidade de casos de FLuxo de potencia para auxiliar na montagem de decks
+      
+- [ ] AnaRede Deck Builder = Anarede, EditCepel, PandaPower, CLI e ajuda na montagem de casos com algoritimo Big O para nivel de complexibildiade de operação da Rede
+- [ ] 
+
+## Sprint atual (27/01/2026) PVRV __IN_PROGRESS
+
+
 
 ---
 <a id="manutencao-siger-bdt"></a>
@@ -92,30 +103,20 @@
 
 
 # Estudos de SEP para ONS e programação __IN_PROGRESS
-
-## Sprint atual (27/01/2026) PVRV __IN_PROGRESS
-- [x] Word compartilhado com ajustes da montagem Mensal e Quadrimensal
-- [x] Debug final V6 de VBA de perdas duplas
-- [x] Estudos backend com GO e proxy de tunnel com interface web
-
-- [ ] Estudos de conceitos básicos de CC/CA
-- [ ] Estudos de conceitos básicos de SEP para ONS PLC
-- [ ] Estudos sobre diagramas fasoriais em eng. elétrica
-- [x] estudos sobre rede básica x rede de simulação do ONS
-- [x] Correção do bug no Raichu/Rayquaza Server para o Kyogre delivey App e deixar ele como SAAS de renda extra (https://docker-raichu.onrender.com/docs)
-
-
-
-
-     
+   
 
 <a id="lista-tarefas-pendentes"></a>
 
 # Lista de TAREFAS Pendentes __TODO
+- [x] Word compartilhado com ajustes da montagem Mensal e Quadrimensal
+- [x] Debug final V6 de VBA de perdas duplas
+- [x] Estudos backend com GO e proxy de tunnel com interface web
+- [x] estudos sobre rede básica x rede de simulação do ONS
+- [x] Correção do bug no Raichu/Rayquaza Server para o Kyogre delivey App e deixar ele como SAAS de renda extra (https://docker-raichu.onrender.com/docs)
 - [x] Modelagem banco de dados BDT e MUST (feito teste nas Lts no SECO -> ESTREI-MG500 (ok) e N.EXTR-MG500 (ainda falta...) )
 - [x] Debug VBA perdas duplas
   - [x] Verificar o código V6 e corrigir alguns bugs de formatação
-  - [ ] Verificar aba de Modificações ná pag correta como lista de itens nó código VBA
+  - [x] Verificar aba de Modificações ná pag correta como lista de itens nó código VBA
 
 - [x] Estudo de Arquitetura de projeto Flask com frontend project template (dashboard atividades SP MUST)
 - [ ] Projetos python com arquitetura backend em Rust
