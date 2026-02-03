@@ -1079,7 +1079,7 @@ export default function ProjectHubPage() {
                     <thead className="sticky top-0 z-10 border-b-2 border-slate-50">
                       <tr>
                         <th className="p-5 w-16 text-center bg-slate-50">#</th>
-                        <ResizableHeader width={400} onResize={() => {}}>
+                        <ResizableHeader width={500} onResize={() => {}}>
                           Tarefa
                         </ResizableHeader>
                         <ResizableHeader width={150} onResize={() => {}}>
@@ -1088,7 +1088,7 @@ export default function ProjectHubPage() {
                         <ResizableHeader width={150} onResize={() => {}}>
                           Data
                         </ResizableHeader>
-                        <ResizableHeader width={150} onResize={() => {}}>
+                        <ResizableHeader width={100} onResize={() => {}}>
                           Responsável
                         </ResizableHeader>
                         <th className="p-3 border-b text-left bg-slate-50">
