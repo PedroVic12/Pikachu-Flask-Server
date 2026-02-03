@@ -544,7 +544,7 @@ const PlannerView = ({ plannerData, setPlannerData, allTasks }) => {
 
     return (
       <div
-        className="w-full min-w-[240px] lg:min-w-0 flex-shrink-0 flex flex-col bg-slate-50 rounded-xl border h-full shadow-sm"
+        className="w-full min-w-[340px] flex-shrink-0 flex flex-col bg-slate-50 rounded-xl border h-full shadow-sm"
         onDragOver={(e) => e.preventDefault()}
         onDrop={(e) => onDrop(e, listKey)}
       >
@@ -765,7 +765,7 @@ const PlannerView = ({ plannerData, setPlannerData, allTasks }) => {
         </div>
       </div>
       {mode === "week" ? (
-        <div className="flex-grow overflow-x-auto lg:overflow-x-hidden pb-4 flex lg:grid lg:grid-cols-8 gap-5">
+        <div className="flex-grow overflow-x-auto pb-4 flex gap-5">
           <WeekColumn
             title="Backlog"
             listKey="backlog"
