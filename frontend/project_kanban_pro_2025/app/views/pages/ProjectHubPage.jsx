@@ -1016,16 +1016,7 @@ export default function ProjectHubPage() {
                 <h2 className="text-3xl font-black text-slate-800 tracking-tight">
                   Registro de Atividades
                 </h2>
-                <div className="hidden lg:flex items-center gap-4">
-                  <div className="text-right">
-                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
-                      Sincronizado
-                    </p>
-                    <p className="text-xs font-black text-slate-600">
-                      {Utils.getTodayString()}
-                    </p>
-                  </div>
-                </div>
+
                 <div className="flex gap-3">
                   <input
                     type="file"
@@ -1072,12 +1063,23 @@ export default function ProjectHubPage() {
               </div>
 
               <div className="bg-white border-2 border-slate-50 rounded-3xl shadow-2xl flex-grow overflow-hidden flex flex-col">
+                <div className="hidden lg:flex items-center gap-4">
+                  <div className="text-right">
+                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                      Sincronizado
+                    </p>
+                    <p className="text-xs font-black text-slate-600">
+                      {Utils.getTodayString()}
+                    </p>
+                  </div>
+                </div>
+
                 <div className="overflow-auto custom-scrollbar h-full">
                   <table className="text-left border-collapse min-w-full">
                     <thead className="sticky top-0 z-10 border-b-2 border-slate-50">
                       <tr>
                         <th className="p-5 w-16 text-center bg-slate-50">#</th>
-                        <ResizableHeader width={300} onResize={() => {}}>
+                        <ResizableHeader width={400} onResize={() => {}}>
                           Tarefa
                         </ResizableHeader>
                         <ResizableHeader width={150} onResize={() => {}}>
