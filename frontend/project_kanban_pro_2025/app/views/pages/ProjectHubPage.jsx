@@ -911,6 +911,7 @@ export default function ProjectHubPage() {
   const [currentView, setCurrentView] = useState("plc");
   const fileInputRef = useRef(null);
   const [navOpen, setNavOpen] = useState(false);
+  const [plcDrafts, setPlcDrafts] = useState({});
   const [plcFilters, setPlcFilters] = useState({
     q: "",
     status: "all",
@@ -940,6 +941,52 @@ export default function ProjectHubPage() {
         HUB CARREGANDO...
       </div>
     );
+
+  const getDraftValue = (taskId, field, fallback) => {
+    const v = plcDrafts?.[taskId]?.[field];
+    return v === undefined ? fallback : v;
+  };
+
+  const setDraftValue = (taskId, field, value) => {
+    setPlcDrafts((prev) => ({
+      ...prev,
+      [taskId]: {
+        ...(prev[taskId] || {}),
+        [field]: value,
+      },
+    }));
+  };
+
+  const commitDraftField = (taskId, field) => {
+    const nextValue = plcDrafts?.[taskId]?.[field];
+    if (nextValue === undefined) return;
+
+    handleUpdatePLC(taskId, field, nextValue);
+
+    setPlcDrafts((prev) => {
+      const next = { ...prev };
+      const row = { ...(next[taskId] || {}) };
+      delete row[field];
+      if (Object.keys(row).length === 0) delete next[taskId];
+      else next[taskId] = row;
+      return next;
+    });
+  };
+
+  const commitAllDrafts = () => {
+    const drafts = plcDrafts;
+    if (!drafts || Object.keys(drafts).length === 0) return;
+
+    setData((prev) => ({
+      ...prev,
+      simpleTasks: prev.simpleTasks.map((t) => {
+        const row = drafts[t.id];
+        if (!row) return t;
+        return { ...t, ...row };
+      }),
+    }));
+    setPlcDrafts({});
+  };
 
   const handleUpdatePLC = (id, field, value) => {
     setData((prev) => ({
@@ -1108,6 +1155,18 @@ export default function ProjectHubPage() {
         className="flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-2xl shadow-xl hover:bg-blue-700 font-bold text-xs transition-all w-full sm:w-auto"
       >
         <Icons.Plus /> NOVA LINHA
+      </button>
+
+      <button
+        onClick={commitAllDrafts}
+        disabled={Object.keys(plcDrafts).length === 0}
+        className={`flex items-center justify-center gap-2 px-6 py-3 rounded-2xl font-bold text-xs transition-all w-full sm:w-auto border-2 ${
+          Object.keys(plcDrafts).length === 0
+            ? "bg-slate-50 text-slate-300 border-slate-100 cursor-not-allowed"
+            : "bg-slate-800 text-white border-slate-800 hover:bg-slate-900"
+        }`}
+      >
+        SALVAR ALTERAÇÕES
       </button>
     </div>
   );
@@ -1378,10 +1437,16 @@ export default function ProjectHubPage() {
 
                         <td className="p-4 align-top">
                           <textarea
-                            value={task.title}
+                            value={getDraftValue(task.id, "title", task.title)}
                             onChange={(e) =>
-                              handleUpdatePLC(task.id, "title", e.target.value)
+                              setDraftValue(task.id, "title", e.target.value)
                             }
+                            onKeyDown={(e) => {
+                              if (e.key === "Enter" && !e.shiftKey) {
+                                e.preventDefault();
+                                commitDraftField(task.id, "title");
+                              }
+                            }}
                             rows={2}
                             className={`w-full bg-transparent outline-none font-bold text-slate-700 whitespace-pre-wrap break-words resize-none leading-snug ${task.done ? "line-through text-slate-300" : ""}`}
                             placeholder="O que precisa ser feito?"
@@ -1390,14 +1455,20 @@ export default function ProjectHubPage() {
 
                         <td className="p-4 align-top">
                           <textarea
-                            value={task.category}
+                            value={getDraftValue(
+                              task.id,
+                              "category",
+                              task.category,
+                            )}
                             onChange={(e) =>
-                              handleUpdatePLC(
-                                task.id,
-                                "category",
-                                e.target.value,
-                              )
+                              setDraftValue(task.id, "category", e.target.value)
                             }
+                            onKeyDown={(e) => {
+                              if (e.key === "Enter" && !e.shiftKey) {
+                                e.preventDefault();
+                                commitDraftField(task.id, "category");
+                              }
+                            }}
                             rows={2}
                             className="w-full bg-transparent outline-none font-bold text-blue-600 uppercase text-[10px] whitespace-pre-wrap break-words resize-none leading-snug"
                           />
@@ -1416,14 +1487,20 @@ export default function ProjectHubPage() {
 
                         <td className="p-4 align-top">
                           <textarea
-                            value={task.assignee}
+                            value={getDraftValue(
+                              task.id,
+                              "assignee",
+                              task.assignee,
+                            )}
                             onChange={(e) =>
-                              handleUpdatePLC(
-                                task.id,
-                                "assignee",
-                                e.target.value,
-                              )
+                              setDraftValue(task.id, "assignee", e.target.value)
                             }
+                            onKeyDown={(e) => {
+                              if (e.key === "Enter" && !e.shiftKey) {
+                                e.preventDefault();
+                                commitDraftField(task.id, "assignee");
+                              }
+                            }}
                             rows={2}
                             className="w-full bg-transparent outline-none text-sm font-semibold text-slate-700 whitespace-pre-wrap break-words resize-none leading-snug"
                             placeholder="Responsável"
@@ -1432,10 +1509,16 @@ export default function ProjectHubPage() {
 
                         <td className="p-4 align-top">
                           <textarea
-                            value={task.obs}
+                            value={getDraftValue(task.id, "obs", task.obs)}
                             onChange={(e) =>
-                              handleUpdatePLC(task.id, "obs", e.target.value)
+                              setDraftValue(task.id, "obs", e.target.value)
                             }
+                            onKeyDown={(e) => {
+                              if (e.key === "Enter" && !e.shiftKey) {
+                                e.preventDefault();
+                                commitDraftField(task.id, "obs");
+                              }
+                            }}
                             rows={2}
                             className="w-full bg-transparent outline-none text-xs italic text-slate-600 whitespace-pre-wrap break-words resize-none leading-snug"
                             placeholder="Detalhes..."
