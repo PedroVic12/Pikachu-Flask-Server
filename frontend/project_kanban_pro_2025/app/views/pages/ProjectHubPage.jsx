@@ -911,7 +911,8 @@ export default function ProjectHubPage() {
   const [currentView, setCurrentView] = useState("plc");
   const fileInputRef = useRef(null);
   const [navOpen, setNavOpen] = useState(false);
-  const [plcDrafts, setPlcDrafts] = useState({});
+  const plcDraftsRef = useRef({});
+  const [plcHasDrafts, setPlcHasDrafts] = useState(false);
   const [plcFilters, setPlcFilters] = useState({
     q: "",
     status: "all",
@@ -942,39 +943,29 @@ export default function ProjectHubPage() {
       </div>
     );
 
-  const getDraftValue = (taskId, field, fallback) => {
-    const v = plcDrafts?.[taskId]?.[field];
-    return v === undefined ? fallback : v;
+  const rememberDraft = (taskId, field, value) => {
+    const drafts = plcDraftsRef.current;
+    drafts[taskId] = drafts[taskId] || {};
+    drafts[taskId][field] = value;
+    if (!plcHasDrafts) setPlcHasDrafts(true);
   };
 
-  const setDraftValue = (taskId, field, value) => {
-    setPlcDrafts((prev) => ({
-      ...prev,
-      [taskId]: {
-        ...(prev[taskId] || {}),
-        [field]: value,
-      },
-    }));
+  const clearDraftField = (taskId, field) => {
+    const drafts = plcDraftsRef.current;
+    if (!drafts[taskId]) return;
+    delete drafts[taskId][field];
+    if (Object.keys(drafts[taskId]).length === 0) delete drafts[taskId];
+    if (Object.keys(drafts).length === 0) setPlcHasDrafts(false);
   };
 
-  const commitDraftField = (taskId, field) => {
-    const nextValue = plcDrafts?.[taskId]?.[field];
-    if (nextValue === undefined) return;
-
-    handleUpdatePLC(taskId, field, nextValue);
-
-    setPlcDrafts((prev) => {
-      const next = { ...prev };
-      const row = { ...(next[taskId] || {}) };
-      delete row[field];
-      if (Object.keys(row).length === 0) delete next[taskId];
-      else next[taskId] = row;
-      return next;
-    });
+  const commitDraftField = (taskId, field, value) => {
+    if (value === undefined) return;
+    handleUpdatePLC(taskId, field, value);
+    clearDraftField(taskId, field);
   };
 
   const commitAllDrafts = () => {
-    const drafts = plcDrafts;
+    const drafts = plcDraftsRef.current;
     if (!drafts || Object.keys(drafts).length === 0) return;
 
     setData((prev) => ({
@@ -985,7 +976,8 @@ export default function ProjectHubPage() {
         return { ...t, ...row };
       }),
     }));
-    setPlcDrafts({});
+    plcDraftsRef.current = {};
+    setPlcHasDrafts(false);
   };
 
   const handleUpdatePLC = (id, field, value) => {
@@ -1159,9 +1151,9 @@ export default function ProjectHubPage() {
 
       <button
         onClick={commitAllDrafts}
-        disabled={Object.keys(plcDrafts).length === 0}
+        disabled={!plcHasDrafts}
         className={`flex items-center justify-center gap-2 px-6 py-3 rounded-2xl font-bold text-xs transition-all w-full sm:w-auto border-2 ${
-          Object.keys(plcDrafts).length === 0
+          !plcHasDrafts
             ? "bg-slate-50 text-slate-300 border-slate-100 cursor-not-allowed"
             : "bg-slate-800 text-white border-slate-800 hover:bg-slate-900"
         }`}
@@ -1437,14 +1429,23 @@ export default function ProjectHubPage() {
 
                         <td className="p-4 align-top">
                           <textarea
-                            value={getDraftValue(task.id, "title", task.title)}
-                            onChange={(e) =>
-                              setDraftValue(task.id, "title", e.target.value)
+                            key={`plc-title-${task.id}-${task.title}`}
+                            defaultValue={task.title}
+                            onInput={(e) =>
+                              rememberDraft(
+                                task.id,
+                                "title",
+                                e.currentTarget.value,
+                              )
                             }
                             onKeyDown={(e) => {
                               if (e.key === "Enter" && !e.shiftKey) {
                                 e.preventDefault();
-                                commitDraftField(task.id, "title");
+                                commitDraftField(
+                                  task.id,
+                                  "title",
+                                  e.currentTarget.value,
+                                );
                               }
                             }}
                             rows={2}
@@ -1455,18 +1456,23 @@ export default function ProjectHubPage() {
 
                         <td className="p-4 align-top">
                           <textarea
-                            value={getDraftValue(
-                              task.id,
-                              "category",
-                              task.category,
-                            )}
-                            onChange={(e) =>
-                              setDraftValue(task.id, "category", e.target.value)
+                            key={`plc-category-${task.id}-${task.category}`}
+                            defaultValue={task.category}
+                            onInput={(e) =>
+                              rememberDraft(
+                                task.id,
+                                "category",
+                                e.currentTarget.value,
+                              )
                             }
                             onKeyDown={(e) => {
                               if (e.key === "Enter" && !e.shiftKey) {
                                 e.preventDefault();
-                                commitDraftField(task.id, "category");
+                                commitDraftField(
+                                  task.id,
+                                  "category",
+                                  e.currentTarget.value,
+                                );
                               }
                             }}
                             rows={2}
@@ -1487,18 +1493,23 @@ export default function ProjectHubPage() {
 
                         <td className="p-4 align-top">
                           <textarea
-                            value={getDraftValue(
-                              task.id,
-                              "assignee",
-                              task.assignee,
-                            )}
-                            onChange={(e) =>
-                              setDraftValue(task.id, "assignee", e.target.value)
+                            key={`plc-assignee-${task.id}-${task.assignee}`}
+                            defaultValue={task.assignee}
+                            onInput={(e) =>
+                              rememberDraft(
+                                task.id,
+                                "assignee",
+                                e.currentTarget.value,
+                              )
                             }
                             onKeyDown={(e) => {
                               if (e.key === "Enter" && !e.shiftKey) {
                                 e.preventDefault();
-                                commitDraftField(task.id, "assignee");
+                                commitDraftField(
+                                  task.id,
+                                  "assignee",
+                                  e.currentTarget.value,
+                                );
                               }
                             }}
                             rows={2}
@@ -1509,14 +1520,23 @@ export default function ProjectHubPage() {
 
                         <td className="p-4 align-top">
                           <textarea
-                            value={getDraftValue(task.id, "obs", task.obs)}
-                            onChange={(e) =>
-                              setDraftValue(task.id, "obs", e.target.value)
+                            key={`plc-obs-${task.id}-${task.obs}`}
+                            defaultValue={task.obs}
+                            onInput={(e) =>
+                              rememberDraft(
+                                task.id,
+                                "obs",
+                                e.currentTarget.value,
+                              )
                             }
                             onKeyDown={(e) => {
                               if (e.key === "Enter" && !e.shiftKey) {
                                 e.preventDefault();
-                                commitDraftField(task.id, "obs");
+                                commitDraftField(
+                                  task.id,
+                                  "obs",
+                                  e.currentTarget.value,
+                                );
                               }
                             }}
                             rows={2}
