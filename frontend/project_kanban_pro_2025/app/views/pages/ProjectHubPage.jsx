@@ -551,7 +551,7 @@ const PlannerView = ({ plannerData, setPlannerData, allTasks }) => {
         <div className="p-4 border-b bg-white rounded-t-xl flex flex-col border-l-4 border-l-blue-500">
           <div className="flex justify-between items-center font-bold text-sm text-slate-700">
             <span className="capitalize">{title}</span>
-            <span className="bg-blue-100 text-blue-600 px-2 py-0.5 rounded-full text-[10px]">
+            <span className="bg-blue-100 text-blue-600 px-2 py-0.5 rounded-full text-[20px]">
               {items.length + tasksForDay.length}
             </span>
           </div>
