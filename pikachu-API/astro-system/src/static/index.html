@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema Astronômico - NASA, Pokémon e Astrologia</title>
+    <title>Astro System - NASA, Pokémon e Astrologia</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -96,7 +96,8 @@
             padding: 10px;
         }
 
-        input, select {
+        input,
+        select {
             padding: 10px 15px;
             border: none;
             border-radius: 25px;
@@ -212,7 +213,9 @@
                     <select id="rover-camera"></select>
                     <button onclick="getMarsRoverPhotos()">Buscar Fotos</button>
                 </div>
-                <div id="mars-photos-result" class="result" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px;"></div>
+                <div id="mars-photos-result" class="result"
+                    style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px;">
+                </div>
             </div>
         </div>
     </div>
@@ -277,7 +280,7 @@
 
                 if (!response.ok) {
                     if (data.content) {
-                         throw new Error(`${data.error}. Response: ${data.content}`);
+                        throw new Error(`${data.error}. Response: ${data.content}`);
                     }
                     throw new Error(data.error || 'Erro na requisição');
                 }
@@ -481,7 +484,7 @@
                         <p><strong>Estação:</strong> ${weather.Season}</p>
                     `;
                 } else {
-                     resultElement.innerHTML = `
+                    resultElement.innerHTML = `
                         <h3>🌦️ Clima em Marte (InSight)</h3>
                         <p>Dados de clima não disponíveis no momento.</p>
                         <p>A missão InSight foi concluída em 2022, então novos dados não são esperados. Esta API pode estar desativada ou sem dados recentes.</p>
@@ -523,7 +526,7 @@
                 } else {
                     resultElement.innerHTML = '<p>Nenhuma foto encontrada para esta combinação de rover, sol e câmera.</p>';
                 }
-                
+
             } catch (error) {
                 console.error('Erro ao obter fotos de Marte:', error);
             }

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -31,13 +32,16 @@
         .gradient-bg {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
+
         .card-hover {
             transition: all 0.3s ease;
         }
+
         .card-hover:hover {
             transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
         }
+
         .loading-spinner {
             border: 3px solid #f3f3f3;
             border-top: 3px solid #3498db;
@@ -46,12 +50,19 @@
             height: 30px;
             animation: spin 1s linear infinite;
         }
+
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
     </style>
 </head>
+
 <body class="gradient-bg min-h-screen">
     <div id="root"></div>
 
@@ -110,7 +121,7 @@
                         <span className="text-3xl mr-3 animate-bounce-slow">🚀</span>
                         <h2 className="text-2xl font-bold text-yellow-300">NASA - Foto do Dia</h2>
                     </div>
-                    
+
                     <Button onClick={fetchNasaData} disabled={loading} className="mb-4">
                         {loading ? 'Carregando...' : 'Obter Foto Astronômica do Dia'}
                     </Button>
@@ -124,14 +135,14 @@
                                 <p className="text-sm mb-2"><strong>Data:</strong> {nasaData.date}</p>
                                 <p className="text-sm mb-4 leading-relaxed">{nasaData.explanation}</p>
                                 {nasaData.media_type === 'image' ? (
-                                    <img 
-                                        src={nasaData.url} 
-                                        alt={nasaData.title} 
+                                    <img
+                                        src={nasaData.url}
+                                        alt={nasaData.title}
                                         className="w-full max-w-md rounded-lg shadow-lg mx-auto hover:scale-105 transition-transform duration-300"
                                     />
                                 ) : (
-                                    <a href={nasaData.url} target="_blank" rel="noopener noreferrer" 
-                                       className="text-blue-300 hover:text-blue-200 underline">
+                                    <a href={nasaData.url} target="_blank" rel="noopener noreferrer"
+                                        className="text-blue-300 hover:text-blue-200 underline">
                                         Ver vídeo
                                     </a>
                                 )}
@@ -181,7 +192,7 @@
                         <span className="text-3xl mr-3 animate-float">🎮</span>
                         <h2 className="text-2xl font-bold text-yellow-300">Pokémon</h2>
                     </div>
-                    
+
                     <div className="space-y-3 mb-4">
                         <input
                             type="text"
@@ -209,9 +220,9 @@
                                 <h3 className="text-xl font-semibold mb-2 text-yellow-200 capitalize">
                                     {pokemonData.name} (#{pokemonData.id})
                                 </h3>
-                                <img 
-                                    src={pokemonData.sprite} 
-                                    alt={pokemonData.name} 
+                                <img
+                                    src={pokemonData.sprite}
+                                    alt={pokemonData.name}
                                     className="w-32 h-32 mx-auto mb-4 bg-white/10 rounded-full p-2 hover:scale-110 transition-transform duration-300"
                                 />
                                 <div className="text-sm space-y-1">
@@ -267,7 +278,7 @@
                         <span className="text-3xl mr-3 animate-pulse-slow">🔮</span>
                         <h2 className="text-2xl font-bold text-yellow-300">Horóscopo</h2>
                     </div>
-                    
+
                     <div className="space-y-3 mb-4">
                         <select
                             value={selectedSign}
@@ -335,9 +346,9 @@
                                 <p className="text-sm mb-2"><strong>Local:</strong> {astronomyData.location || 'Rio de Janeiro'}</p>
                                 <p className="text-sm mb-2"><strong>Data:</strong> {astronomyData.date}</p>
                                 {astronomyData.imageUrl ? (
-                                    <img 
-                                        src={astronomyData.imageUrl} 
-                                        alt="Fase da Lua" 
+                                    <img
+                                        src={astronomyData.imageUrl}
+                                        alt="Fase da Lua"
                                         className="w-full max-w-xs mx-auto rounded-lg shadow-lg hover:scale-105 transition-transform duration-300"
                                     />
                                 ) : (
@@ -383,24 +394,24 @@
                         <span className="text-3xl mr-3 animate-float">🌙</span>
                         <h2 className="text-2xl font-bold text-yellow-300">Astronomia</h2>
                     </div>
-                    
+
                     <div className="flex flex-wrap gap-2 mb-4">
-                        <Button 
-                            onClick={() => fetchAstronomyData('moon-phase')} 
+                        <Button
+                            onClick={() => fetchAstronomyData('moon-phase')}
                             disabled={loading}
                             className="text-sm"
                         >
                             Fase da Lua
                         </Button>
-                        <Button 
-                            onClick={() => fetchAstronomyData('iss-location')} 
+                        <Button
+                            onClick={() => fetchAstronomyData('iss-location')}
                             disabled={loading}
                             className="text-sm"
                         >
                             Localização da ISS
                         </Button>
-                        <Button 
-                            onClick={() => fetchAstronomyData('people-in-space')} 
+                        <Button
+                            onClick={() => fetchAstronomyData('people-in-space')}
                             disabled={loading}
                             className="text-sm"
                         >
@@ -459,142 +470,128 @@
         ReactDOM.render(<App />, document.getElementById('root'));
     </script>
 </body>
+
 </html>
 
 
 
-        // Componente de Apresentações
-        const PresentationSection = () => {
-            const [markdown, setMarkdown] = useState("");
-            const [title, setTitle] = useState("");
-            const [loading, setLoading] = useState(false);
-            const [pdfUrl, setPdfUrl] = useState(null);
+// Componente de Apresentações
+const PresentationSection = () => {
+const [markdown, setMarkdown] = useState("");
+const [title, setTitle] = useState("");
+const [loading, setLoading] = useState(false);
+const [pdfUrl, setPdfUrl] = useState(null);
 
-            const generatePdf = async () => {
-                setLoading(true);
-                setPdfUrl(null);
-                try {
-                    const response = await fetch("/api/presentations/convert", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                        body: JSON.stringify({ markdown, title }),
-                    });
-                    const data = await response.json();
-                    if (data.success) {
-                        const byteCharacters = atob(data.pdf_base64);
-                        const byteNumbers = new Array(byteCharacters.length);
-                        for (let i = 0; i < byteCharacters.length; i++) {
-                            byteNumbers[i] = byteCharacters.charCodeAt(i);
-                        }
-                        const byteArray = new Uint8Array(byteNumbers);
-                        const blob = new Blob([byteArray], { type: "application/pdf" });
-                        const url = URL.createObjectURL(blob);
-                        setPdfUrl(url);
-                    } else {
-                        console.error("Erro ao gerar PDF:", data.error);
-                    }
-                } catch (error) {
-                    console.error("Erro ao gerar PDF:", error);
-                } finally {
-                    setLoading(false);
-                }
-            };
+const generatePdf = async () => {
+setLoading(true);
+setPdfUrl(null);
+try {
+const response = await fetch("/api/presentations/convert", {
+method: "POST",
+headers: {
+"Content-Type": "application/json",
+},
+body: JSON.stringify({ markdown, title }),
+});
+const data = await response.json();
+if (data.success) {
+const byteCharacters = atob(data.pdf_base64);
+const byteNumbers = new Array(byteCharacters.length);
+for (let i = 0; i < byteCharacters.length; i++) { byteNumbers[i]=byteCharacters.charCodeAt(i); } const byteArray=new
+    Uint8Array(byteNumbers); const blob=new Blob([byteArray], { type: "application/pdf" }); const
+    url=URL.createObjectURL(blob); setPdfUrl(url); } else { console.error("Erro ao gerar PDF:", data.error); } } catch
+    (error) { console.error("Erro ao gerar PDF:", error); } finally { setLoading(false); } }; const loadExample=async
+    ()=> {
+    try {
+    const response = await fetch("/api/presentations/example");
+    const data = await response.json();
+    setMarkdown(data.example);
+    setTitle(data.title);
+    } catch (error) {
+    console.error("Erro ao carregar exemplo:", error);
+    }
+    };
 
-            const loadExample = async () => {
-                try {
-                    const response = await fetch("/api/presentations/example");
-                    const data = await response.json();
-                    setMarkdown(data.example);
-                    setTitle(data.title);
-                } catch (error) {
-                    console.error("Erro ao carregar exemplo:", error);
-                }
-            };
-
-            return (
-                <Card className="lg:col-span-3">
-                    <div className="flex items-center mb-4">
-                        <span className="text-3xl mr-3">📄</span>
-                        <h2 className="text-2xl font-bold text-yellow-300">Gerador de Apresentações</h2>
-                    </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <input
-                                type="text"
-                                value={title}
-                                onChange={(e) => setTitle(e.target.value)}
-                                placeholder="Título da Apresentação"
-                                className="w-full px-4 py-2 rounded-full bg-white/90 text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-yellow-400 mb-4"
-                            />
-                            <textarea
-                                value={markdown}
-                                onChange={(e) => setMarkdown(e.target.value)}
+    return (
+    <Card className="lg:col-span-3">
+        <div className="flex items-center mb-4">
+            <span className="text-3xl mr-3">📄</span>
+            <h2 className="text-2xl font-bold text-yellow-300">Gerador de Apresentações</h2>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+                <input type="text" value={title} onChange={(e)=> setTitle(e.target.value)}
+                placeholder="Título da Apresentação"
+                className="w-full px-4 py-2 rounded-full bg-white/90 text-gray-800 placeholder-gray-500
+                focus:outline-none focus:ring-2 focus:ring-yellow-400 mb-4"
+                />
+                <textarea value={markdown} onChange={(e)=> setMarkdown(e.target.value)}
                                 placeholder="Digite seu Markdown aqui..."
                                 className="w-full h-64 p-4 rounded-lg bg-white/90 text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-yellow-400"
                             ></textarea>
-                            <div className="flex gap-2 mt-4">
-                                <Button onClick={generatePdf} disabled={loading || !markdown.trim()}>
-                                    {loading ? "Gerando PDF..." : "Gerar PDF"}
-                                </Button>
-                                <Button onClick={loadExample} disabled={loading} className="bg-gray-500 hover:bg-gray-600">
-                                    Carregar Exemplo
-                                </Button>
-                            </div>
-                        </div>
-                        <div className="bg-black/20 rounded-xl p-4 min-h-[300px]">
-                            {loading ? (
-                                <LoadingSpinner />
-                            ) : pdfUrl ? (
-                                <iframe src={pdfUrl} className="w-full h-full rounded-lg"></iframe>
-                            ) : (
-                                <div className="text-center text-gray-300 py-8">
-                                    O PDF gerado aparecerá aqui.
-                                </div>
-                            )}
-                        </div>
-                    </div>
-                </Card>
-            );
-        };
-
-        // Componente Principal
-        const App = () => {
-            return (
-                <div className="min-h-screen p-4 lg:p-8">
-                    <div className="max-w-7xl mx-auto">
-                        {/* Header */}
-                        <div className="text-center mb-8">
-                            <h1 className="text-4xl lg:text-6xl font-bold text-white mb-4 animate-pulse-slow">
-                                🌟 Sistema Multifuncional 🌟
-                            </h1>
-                            <p className="text-lg text-white/80">
-                                Explore o universo, crie apresentações e muito mais!
-                            </p>
-                        </div>
-
-                        {/* Grid de Cards */}
-                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                            <PresentationSection />
-                            <NasaSection />
-                            <PokemonSection />
-                            <HoroscopeSection />
-                            <AstronomySection />
-                        </div>
-
-                        {/* Footer */}
-                        <div className="text-center mt-8 text-white/60">
-                            <p>Desenvolvido com ❤️ usando Flask, React e Tailwind CSS</p>
-                        </div>
-                    </div>
+                <div className="flex gap-2 mt-4">
+                    <Button onClick={generatePdf} disabled={loading || !markdown.trim()}>
+                        {loading ? "Gerando PDF..." : "Gerar PDF"}
+                    </Button>
+                    <Button onClick={loadExample} disabled={loading} className="bg-gray-500 hover:bg-gray-600">
+                        Carregar Exemplo
+                    </Button>
                 </div>
-            );
-        };
+            </div>
+            <div className="bg-black/20 rounded-xl p-4 min-h-[300px]">
+                {loading ? (
+                <LoadingSpinner />
+                ) : pdfUrl ? (
+                <iframe src={pdfUrl} className="w-full h-full rounded-lg"></iframe>
+                ) : (
+                <div className="text-center text-gray-300 py-8">
+                    O PDF gerado aparecerá aqui.
+                </div>
+                )}
+            </div>
+        </div>
+    </Card>
+    );
+    };
 
-        // Renderizar a aplicação
-        ReactDOM.render(<App />, document.getElementById("root"));
+    // Componente Principal
+    const App = () => {
+    return (
+    <div className="min-h-screen p-4 lg:p-8">
+        <div className="max-w-7xl mx-auto">
+            {/* Header */}
+            <div className="text-center mb-8">
+                <h1 className="text-4xl lg:text-6xl font-bold text-white mb-4 animate-pulse-slow">
+                    🌟 Sistema Multifuncional 🌟
+                </h1>
+                <p className="text-lg text-white/80">
+                    Explore o universo, crie apresentações e muito mais!
+                </p>
+            </div>
+
+            {/* Grid de Cards */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <PresentationSection />
+                <NasaSection />
+                <PokemonSection />
+                <HoroscopeSection />
+                <AstronomySection />
+            </div>
+
+            {/* Footer */}
+            <div className="text-center mt-8 text-white/60">
+                <p>Desenvolvido com ❤️ usando Flask, React e Tailwind CSS</p>
+            </div>
+        </div>
+    </div>
+    );
+    };
+
+    // Renderizar a aplicação
+    ReactDOM.render(
+    <App />, document.getElementById("root"));
+
     </script>
-</body>
-</html>
+    </body>
 
+    </html>
