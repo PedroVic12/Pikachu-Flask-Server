@@ -96,6 +96,12 @@
 
 ---
 
+- [ ] Kanban, Scrum, Planejamento e metas (Segunda e sexta)
+- [ ] Organização de arquivos .MD
+- [ ] Organização projetos Github
+- [ ] Organização de Word e Excel usados para a semana no ONS
+- [ ] Pyside6 x Tauri x NextJS projetos
+
 - [ ] Planejamento financeiro (Financial APP)
   - [x] Dezembro
   - [ ] Janeiro
@@ -107,83 +113,6 @@
 
 <a id="lista-tarefas-pendentes"></a>
 
-# Lista de TAREFAS Pendentes __TODO
-
-- [x] Word compartilhado com ajustes da montagem Mensal e Quadrimensal
-- [x] Debug final V6 de VBA de perdas duplas
-- [x] Estudos backend com GO e proxy de tunnel com interface web
-- [x] estudos sobre rede básica x rede de simulação do ONS
-- [x] Correção do bug no Raichu/Rayquaza Server para o Kyogre delivey App e deixar ele como SAAS de renda extra (<https://docker-raichu.onrender.com/docs>)
-- [x] Modelagem banco de dados BDT e MUST (feito teste nas Lts no SECO -> ESTREI-MG500 (ok) e N.EXTR-MG500 (ainda falta...) )
-- [x] Debug VBA perdas duplas
-  - [x] Verificar o código V6 e corrigir alguns bugs de formatação
-  - [x] Verificar aba de Modificações ná pag correta como lista de itens nó código VBA
-
-- [x] Estudo de Arquitetura de projeto Flask com frontend project template (dashboard atividades SP MUST)
-- [ ] Projetos python com arquitetura backend em Rust
-- [ ] Projetos template Pyside6 com Docs automatizados com pytest e com deploy em .exe com menos de 150MB
-- [ ] IA para negócios, Análise de dados e Programacao com Matematica para IOT
-
-- [ ] Controle  e Gestão Atividades SP + MUST --> Excel To Website and (.PDF + Access)to QT 6 Desktop Deck Builder Organon
-
-- [ ] Pyside6 com modelagem de dados (Sqlite3 + Microsoft Access) + Análise de Contigencias + Controle Atividades SP
-- [ ] Automação Outlook + Teamsde satélites com Python
-- [x] AJUSTAR PAINEL DE BATCAVERNA COM KANBANPRO e Blogpedrov12
-
-  - [x] O que são algoriitmos de AG e como usar isso na Eng. Elétrica para agendamento otimo de SEP (video yt)
-    - [ ] <https://alexandremundim.medium.com/algoritmo-gen%C3%A9tico-na-pr%C3%A1tica-com-python-e24d2b1254d8>
-    - [x] SIN45 app template with Lancher refatorado
-
-  - [ ] O que são MQQT
-    - [ ] <https://www.sympla.com.br/play/introducao-ao-protocolo-mqtt/1914654>
-
-- [ ] Treino de calistenia e calistenia app
-
-- [ ] Chatbot Groundon, Lumina Aurora (Gemini) + Jarvis (GPT) + Copilot (copilot/cursor) with updates
-- [ ] Corpo x Mente x Espirito -> Jobs, Coding, Studying, Creative, In Shape
-
-- [ ] Teoria de controle de engenharia moderno
-- [ ] Proteção de SEP e monitoramento area SP
-- [ ] Processamento de imagens de satélites com Python
-- [x] Bots e RPA com Python
-- [x] Estudos de IA, ML, DL, Chatbots, N8N, AI agentes frameworks (Agno/Langchain)
-- [ ] Grondon Chabtot, Jarvis Chatbot, Lumina Aurora Chatbot
-
-- N8N = Relatorios automatizados por email e Whatsapp
-
-- [ ] Aulas Sinais/cricuitos CC/CA e Eng. Controle + SEP Fundamentals + Metodos numericos com Python
-- [ ] Despacho de cargas - Planejamento Mensal e Semanal - Flow + AnaREDE, AnaTEM e Organon
-- [ ] **Estudos SEP com base fundamental para CA**
-- [ ] Teoria de controle de engenharia moderno
-- [ ] Proteção de SEP e monitoramento area SP
-- [ ] Processamento de imagens de satélites com Python
-- [x] AJUSTAR PAINEL DE BATCAVERNA COM KANBANPRO e Blogpedrov12
-
-  - [x] O que são algoriitmos de AG e como usar isso na Eng. Elétrica para agendamento otimo de SEP (video yt)
-    - [ ] <https://alexandremundim.medium.com/algoritmo-gen%C3%A9tico-na-pr%C3%A1tica-com-python-e24d2b1254d8>
-    - [x] SIN45 app template with Lancher refatorado
-
-  - [ ] O que são MQQT
-    - [ ] <https://www.sympla.com.br/play/introducao-ao-protocolo-mqtt/1914654>
-
-- [ ] Treino de calistenia e calistenia app
-
-- [ ] Chatbot Groundon, Lumina Aurora (Gemini) + Jarvis (GPT) + Copilot (copilot/cursor) with updates
-- [ ] Corpo x Mente x Espirito -> Jobs, Coding, Studying, Creative, In Shape
-
-- [ ] Teoria de controle de engenharia moderno
-- [ ] Proteção de SEP e monitoramento area SP
-- [ ] Processamento de imagens de satélites com Python
-- [x] Bots e RPA com Python
-- [x] Estudos de IA, ML, DL, Chatbots, N8N, AI agentes frameworks (Agno/Langchain)
-- [ ] Grondon Chabtot, Jarvis Chatbot, Lumina Aurora Chatbot
-
----
-
-# 🦇 Batcaverna PV - Centro de Comando
-
----
-
 ## Sprint atual (09/02/2026) PVRV __IN_PROGRESS
 
 - [ ] Estudos de neurociencia sobre Neuroplasticidade (Boson Treinamentos) + Cartoes de enfretamento TCC para pagina do KanbanPro 2026
@@ -192,6 +121,47 @@
 - [x] Listagem de projetos atuais por tecnologias do github
 - [ ] Engenheiro de Software Pleno - Legado PVRV: Py, JS, C++, Dart e Rust. Anotações para perspectiva de carreira com 28 anos em site que ajuda a priorizar os projetos.
 - [ ] Juntar todos sites estaticos em HTML que tenho num unico projeto NextJS com rotas e MVC (Gohan Treinamentos, Legado PVRV, Pomodoro)
+
+---
+<a id="estudos-sep-ons-programacao"></a>
+
+# Estudos de SEP para ONS e programação __IN_PROGRESS
+
+## Sesão de ESTUDOS (Matemática, programação e Eng. Elétrica) __TODO
+
+- [ ] Atividade ML de IEEEDs e principais modelo de AI de Supevisionado x Não Supervisionado (Com Rótulos x Sem Rótulos)
+- [ ] Eletromagnetismo: Resolver 3 exercícios de Lei de Gauss/Coulomb.
+- [ ] Sinais e Sistemas: Revisar Transformada de Laplace (básico).
+
+- [ ] Análise de contigencias com SN 45 com pandapower + Deckbuiler para o AnaREDE
+- [ ] Matriz Ybus em Python para SEP
+- [ ] Matriz admtancia + Geração x Transmissão e Distrbuição SIN pelo ONS
+- [ ] Mincurso CC + arduino + python
+  - [ ] <https://www.falstad.com/circuit/circuitjs.html>
+  - [ ] Regra de Crammer
+  - [ ] EDO sistemas 1 e 2 ordem com RLC e RC plots e respostas da EDO
+- [ ] Metodos númericos em Matlab para engenharia usando Python
+
+- [ ] Solver ML/DL para cada X,Y de conjunto de dado
+- [ ] Python com Sympy para calculo de EDO de 1 e 2 ordem para Circuitos CC (RL,RC e RLC)
+- [ ] Atividade IEEEDs = Esp32 + Senoides de corrente em series temporais para modelos de IA (como entrada de dados)
+- [ ] Aulas Sinais/cricuitos CC/CA e Eng. Controle + SEP Fundamentals + Metodos numericos com Python
+
+---
+
+<a id="sessao-estudos"></a>
+
+## ⚡ Conceitos Elétricos (Dúvidas/Insights)
+
+- [ ] CC vs CA: Em CC, a indutância é um curto e a capacitância é um aberto no regime permanente. Em CA, eles geram impedância ($j\omega L$ e $1/j\omega C$).
+
+**Dúvida para tirar com engenheiros: Como o ONS modela a carga dependente da tensão ($P = P_0(V/V_0)^\alpha$)?**
+
+---
+
+# 🦇 Batcaverna PV - Centro de Comando 2026
+
+---
 
 ## 🚀 Plano de Coding Intenso - Segunda, 09/02/2026
 
@@ -276,41 +246,5 @@ Sexta-feira (31/01) - Review & Code
 - [ ] 08:00 - ONS (Home): Documentar o que foi aprendido sobre SEP na semana.
 
 - [ ]  14:00 - Dev Time: Projeto Pessoal ou aprofundamento em SQL.
-
----
-
-<a id="estudos-sep-ons-programacao"></a>
-
-# Estudos de SEP para ONS e programação __IN_PROGRESS
-
-## Sesão de ESTUDOS (Matemática, programação e Eng. Elétrica) __TODO
-
-- [ ] Atividade ML de IEEEDs e principais modelo de AI de Supevisionado x Não Supervisionado (Com Rótulos x Sem Rótulos)
-- [ ] Eletromagnetismo: Resolver 3 exercícios de Lei de Gauss/Coulomb.
-- [ ] Sinais e Sistemas: Revisar Transformada de Laplace (básico).
-
-- [ ] Análise de contigencias com SN 45 com pandapower + Deckbuiler para o AnaREDE
-- [ ] Matriz Ybus em Python para SEP
-- [ ] Matriz admtancia + Geração x Transmissão e Distrbuição SIN pelo ONS
-- [ ] Mincurso CC + arduino + python
-  - [ ] <https://www.falstad.com/circuit/circuitjs.html>
-  - [ ] Regra de Crammer
-  - [ ] EDO sistemas 1 e 2 ordem com RLC e RC plots e respostas da EDO
-- [ ] Metodos númericos em Matlab para engenharia usando Python
-
-- [ ] Solver ML/DL para cada X,Y de conjunto de dado
-- [ ] Python com Sympy para calculo de EDO de 1 e 2 ordem para Circuitos CC (RL,RC e RLC)
-- [ ] Atividade IEEEDs = Esp32 + Senoides de corrente em series temporais para modelos de IA (como entrada de dados)
-- [ ] Aulas Sinais/cricuitos CC/CA e Eng. Controle + SEP Fundamentals + Metodos numericos com Python
-
----
-
-<a id="sessao-estudos"></a>
-
-## ⚡ Conceitos Elétricos (Dúvidas/Insights)
-
-- [ ] CC vs CA: Em CC, a indutância é um curto e a capacitância é um aberto no regime permanente. Em CA, eles geram impedância ($j\omega L$ e $1/j\omega C$).
-
-**Dúvida para tirar com engenheiros: Como o ONS modela a carga dependente da tensão ($P = P_0(V/V_0)^\alpha$)?**
 
 ---
