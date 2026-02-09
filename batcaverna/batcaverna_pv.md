@@ -35,7 +35,7 @@
 ### 🔧 **OUTRAS SEÇÕES**
 
 - 📊 [Roadmap Cientista de Dados](#roadmap-cientista-dados)
-- ⚡ [Conceitos Elétricos](#conceitos-eletricos)
+- ⚡ [Conceitos Fundamentais de Eng. Elétrica](#sessao-estudos)
 
 ---
 <a id="roadmap-cientista-dados"></a>
@@ -47,7 +47,7 @@
 ---
 <a id="tarefas-ons-plc-2026-02"></a>
 
-## 📋 Tarefas ONS PLC 2026 - Fevereiro __IN_PROGRESS
+# 📋 Tarefas ONS PLC 2026 - Fevereiro __IN_PROGRESS
 
 ---
 
@@ -73,7 +73,7 @@
 ---
 <a id="manutencao-siger-bdt"></a>
 
-## Manutenção de Banco de dados do SIGER x BDT
+# Manutenção de Banco de dados do SIGER x BDT
 
 ### (cadastro de equipamentos elétricos e parametros para PMO)
 
@@ -104,8 +104,6 @@
 - [ ] usper + Tunnel Newtork + React UI para proxys e rest api em go e express
 - [ ] Get/POST Google Sheets tabela de checklist de ProjectHub Empresas
 - [ ] HTML templates para Gohan Treinamentos Refatorado com SOLID, MVC e framework CSS components
-
-# Estudos de SEP para ONS e programação __IN_PROGRESS
 
 <a id="lista-tarefas-pendentes"></a>
 
