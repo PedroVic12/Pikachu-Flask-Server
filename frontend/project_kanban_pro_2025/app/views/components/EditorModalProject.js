@@ -128,58 +128,58 @@ const ItemEditor = ({ item, isOpen, onSave, onDelete, onClose }) => {
     </div>
   );
 
-  const renderEditorControls = () => (
-    <div className="flex flex-col sm:flex-row justify-between items-center mb-4 gap-2 bg-gray-100 p-3 rounded-lg">
-      <div>
-        <h4 className="text-md font-semibold text-gray-800">Customizar Editor</h4>
-      </div>
-      <div className="flex gap-3 items-center flex-wrap justify-center">
-        <select
-          value={editorSettings.fontFamily}
-          onChange={(e) => updateEditorSetting('fontFamily', e.target.value)}
-          className="bg-gray-200 text-gray-800 text-sm p-2 rounded-md border border-gray-300 outline-none focus:border-blue-500"
-        >
-          <option value="'Architects Daughter', cursive">Estilo Manuscrito</option>
-          <option value="'Inter', sans-serif">Padrão (Inter)</option>
-          <option value="'Fira Code', monospace">Código (Mono)</option>
-        </select>
 
-        <input
-          type="number"
-          min="12"
-          max="32"
-          value={parseInt(editorSettings.fontSize)}
-          onChange={(e) => updateEditorSetting('fontSize', `${e.target.value}px`)}
-          className="w-20 bg-gray-200 text-gray-800 text-sm p-2 rounded-md border border-gray-300 outline-none focus:border-blue-500"
-        />
-
-        <div className="flex items-center gap-2">
-          <label className="text-sm text-gray-600">Fundo:</label>
-          <input
-            type="color"
-            value={editorSettings.backgroundColor}
-            onChange={(e) => updateEditorSetting('backgroundColor', e.target.value)}
-            className="w-8 h-8 rounded-md cursor-pointer border border-gray-300"
-            title="Cor de Fundo"
-          />
-        </div>
-
-        <div className="flex items-center gap-2">
-          <label className="text-sm text-gray-600">Texto:</label>
-          <input
-            type="color"
-            value={editorSettings.color}
-            onChange={(e) => updateEditorSetting('color', e.target.value)}
-            className="w-8 h-8 rounded-md cursor-pointer border border-gray-300"
-            title="Cor do Texto"
-          />
-        </div>
-      </div>
-    </div>
-  );
 
   const renderEditorTab = () => (
     <div className="h-full flex flex-col">
+      <div className="flex flex-col sm:flex-row justify-between items-center mb-4 gap-2 bg-gray-100 p-3 rounded-lg">
+        <div>
+          <h4 className="text-md font-semibold text-gray-800">Customizar Editor</h4>
+        </div>
+        <div className="flex gap-3 items-center flex-wrap justify-center">
+          <select
+            value={editorSettings.fontFamily}
+            onChange={(e) => updateEditorSetting('fontFamily', e.target.value)}
+            className="bg-gray-200 text-gray-800 text-sm p-2 rounded-md border border-gray-300 outline-none focus:border-blue-500"
+          >
+            <option value="'Architects Daughter', cursive">Estilo Manuscrito</option>
+            <option value="'Inter', sans-serif">Padrão (Inter)</option>
+            <option value="'Fira Code', monospace">Código (Mono)</option>
+          </select>
+
+          <input
+            type="number"
+            min="12"
+            max="32"
+            value={parseInt(editorSettings.fontSize)}
+            onChange={(e) => updateEditorSetting('fontSize', `${e.target.value}px`)}
+            className="w-20 bg-gray-200 text-gray-800 text-sm p-2 rounded-md border border-gray-300 outline-none focus:border-blue-500"
+          />
+
+          <div className="flex items-center gap-2">
+            <label className="text-sm text-gray-600">Fundo:</label>
+            <input
+              type="color"
+              value={editorSettings.backgroundColor}
+              onChange={(e) => updateEditorSetting('backgroundColor', e.target.value)}
+              className="w-8 h-8 rounded-md cursor-pointer border border-gray-300"
+              title="Cor de Fundo"
+            />
+          </div>
+
+          <div className="flex items-center gap-2">
+            <label className="text-sm text-gray-600">Texto:</label>
+            <input
+              type="color"
+              value={editorSettings.color}
+              onChange={(e) => updateEditorSetting('color', e.target.value)}
+              className="w-8 h-8 rounded-md cursor-pointer border border-gray-300"
+              title="Cor do Texto"
+            />
+          </div>
+        </div>
+      </div>
+
       <div className="flex items-center justify-between px-4 py-2 border-b border-gray-200 bg-gray-50">
         <div className="flex items-center gap-2">
           <Edit3 size={16} className="text-gray-500" />
@@ -265,7 +265,7 @@ const ItemEditor = ({ item, isOpen, onSave, onDelete, onClose }) => {
   const renderContent = () => (
     <div className="flex-1 p-4 lg:p-6 overflow-hidden flex flex-col">
       {renderTitleAndCategory()}
-      {activeTab === 'editor' && renderEditorControls()}
+
       {renderEditorOrPreviewContainer()}
       {renderCounter()}
     </div>
