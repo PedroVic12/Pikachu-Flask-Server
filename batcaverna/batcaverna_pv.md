@@ -309,8 +309,8 @@ Sexta-feira (31/01) - Review & Code
 
 ## ⚡ Conceitos Elétricos (Dúvidas/Insights)
 
-CC vs CA: Em CC, a indutância é um curto e a capacitância é um aberto no regime permanente. Em CA, eles geram impedância ($j\omega L$ e $1/j\omega C$).
+- [ ] CC vs CA: Em CC, a indutância é um curto e a capacitância é um aberto no regime permanente. Em CA, eles geram impedância ($j\omega L$ e $1/j\omega C$).
 
-Dúvida para tirar com engenheiros: Como o ONS modela a carga dependente da tensão ($P = P_0(V/V_0)^\alpha$)?
+**Dúvida para tirar com engenheiros: Como o ONS modela a carga dependente da tensão ($P = P_0(V/V_0)^\alpha$)?**
 
 ---
