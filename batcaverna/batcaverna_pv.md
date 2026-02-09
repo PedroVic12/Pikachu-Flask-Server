@@ -1,6 +1,5 @@
-
----
 # 🦇 BatCaverna PV - Centro de Comando 2026
+
 ---
 
 **📅 DATA ATUAL:** 27/01/2026  
@@ -13,72 +12,82 @@
 [var1]: https://revigorar.reservio.com/
 
 ---
+
 ## 📑 ÍNDICE RÁPIDO
 
 ### ⚡ **TRABALHO - ONS PLC 2026**
+
 - 📋 [Tarefas ONS PLC](#tarefas-ons-plc-2026-02)
 - 🔧 [Manutenção SIGER x BDT](#manutencao-siger-bdt)
 - 🧩 [Estudos de SEP (ONS + Programação)](#estudos-sep-ons-programacao)
 - 🧾 [Lista de TAREFAS Pendentes](#lista-tarefas-pendentes)
 
 ### 🎯 **DESENVOLVIMENTO PESSOAL**
+
 - 📚 [Sessão de ESTUDOS](#sessao-estudos)
 - 🚀 [PVRV 2026](#pvrv-2026-planilha-horarios)
 
 ### 📅 **PLANEJAMENTO SEMANAL**
+
 - 🎯 [Objetivos da Semana](#objetivos-semana)
 - 📋 [Checklist Diário](#checklist-diario)
 
 ### 🔧 **OUTRAS SEÇÕES**
+
 - 📊 [Roadmap Cientista de Dados](#roadmap-cientista-dados)
 - ⚡ [Conceitos Elétricos](#conceitos-eletricos)
+
 ---
 <a id="roadmap-cientista-dados"></a>
+
 ## 🎓 Roadmap Cientista de Dados
+
 ![alt text - ciencia de dados ONS](image-1.png)
 
 ---
 <a id="tarefas-ons-plc-2026-02"></a>
 
-## 📋 Tarefas ONS PLC 2026 - Feveiro __IN_PROGRESS
+## 📋 Tarefas ONS PLC 2026 - Fevereiro __IN_PROGRESS
+
 ---
+
 - [ ] Cadastro de dados BDT Seco E NE
 - [ ] Correções do SISBAR com procv do Mensal de Janeiro e colocar nas abas faltantes para o Mensal de Fevereiroc com justificativa de aparecer na área
 - [ ] Correções e bug fix no VBA para perdas Duplas Lts + 3 gráficos
-      
+
 - [ ] Estudos de conceitos básicos de CC/CA
 - [ ] Estudos de conceitos básicos de SEP para ONS PLC
 - [ ] Estudos sobre diagramas fasoriais em eng. elétrica
-      
+
 - [ ]  Acompanhar como foi feito o relatorio do controle mensal de Fevereiro e Janeiro com Word compartilhado para consulta
-    - [ ] Flow caso 10 Controle mensal com intercambio VC
+  - [ ] Flow caso 10 Controle mensal com intercambio VC
 
 - [x] Deck Builder AnaREDE
-    - [ ] Script inicial AnaRede com CLI com decks e .sav padrões de montagem de quadro mensal
-      
+  - [ ] Script inicial AnaRede com CLI com decks e .sav padrões de montagem de quadro mensal
+
 - [ ] Algoritimo Big O para complexibilidade de casos de FLuxo de potencia para auxiliar na montagem de decks
-      
+
 - [ ] AnaRede Deck Builder = Anarede, EditCepel, PandaPower, CLI e ajuda na montagem de casos com algoritimo Big O para nivel de complexibildiade de operação da Rede
-- [ ] 
-
-## Sprint atual (27/01/2026) PVRV __IN_PROGRESS
-
-
+- [ ]
 
 ---
 <a id="manutencao-siger-bdt"></a>
 
-## Manutenção de Banco de dados do SIGER x BDT 
-(cadastro de equipamentos elétricos e parametros para PMO)
+## Manutenção de Banco de dados do SIGER x BDT
+
+### (cadastro de equipamentos elétricos e parametros para PMO)
+
 ---
+
 - [ ] Todo dia 10, o programa roda no SIGER que aponta os equipamentos que estão fora da "ponte" (da Planilha Acompanhamento_PONTE_PL.xlsx: Nas Abas: LTs_SIGER_ForaPonte e TRs_SIGER_ForaPonte)
 - [x] GERCAD -> JOB -> ID: Data atual -> Job Criado
-- [x] Lts: Coluna T: Deve estar na ponte? Usar apenas as linhas que __NÃO__ estão na cor vermelho.
+- [x] Lts: Coluna T: Deve estar na ponte? Usar apenas as linhas que **NÃO** estão na cor vermelho.
 - [x] Separar o Norte, Nordeste, Centroeste e Sudeste para as tarefas. Não cadastrar os que são Data Centers
 - [x] Busca por LTS dentro do sistema: GERCARD -> Topologia -> "Estado" -> "Nome Curto da Instação" -> Aplicar critério -> Retorna tudo relacionado a Subestação pesquisada.
-- [x] Verificar se ja existe a estação no BDT, botão direito -> Novo Equipamento -> LTR 
-- [x] __Campos obrigatórios de cadastro:__ Numero do circuito do planejamento, Nome Estação, Num Barra preferencial, Tipo Rede: (BASICA), Utilização: PAR, 
+- [x] Verificar se ja existe a estação no BDT, botão direito -> Novo Equipamento -> LTR
+- [x] **Campos obrigatórios de cadastro:** Numero do circuito do planejamento, Nome Estação, Num Barra preferencial, Tipo Rede: (BASICA), Utilização: PAR,
 - [x] Ao final do dia, sempre finalizar o Job feito.
+
 ---
 
 <a id="pvrv-2026-planilha-horarios"></a>
@@ -86,34 +95,27 @@
 # PVRV 2026 - Planilha de horarios (atualizar no website) __IN_PROGRESS
 
 ---
-- [ ] Estudos de neurociencia sobre Neuroplasticidade (Boson Treinamentos) + Cartoes de enfretamento TCC para pagina do KanbanPro 2026
-- [x] Backup Kanban, Batcaverna, Linux e Win11
-- [ ] Planejamento e Metas semanal (Refatorar a tela do Tarefas PLC e outros sites tudo no mesmo NextJS)
-- [x] Listagem de projetos atuais por tecnologias do github
-- [ ] Engenheiro de Software Pleno - Legado PVRV: Py, JS, C++, Dart e Rust. Anotações para perspectiva de carreira com 28 anos em site que ajuda a priorizar os projetos.
-- [ ] Juntar todos sites estaticos em HTML que tenho num unico projeto NextJS com rotas e MVC (Gohan Treinamentos, Legado PVRV, Pomodoro)
 
 - [ ] Planejamento financeiro (Financial APP)
-    - [x] Dezembro
-    - [ ] Janeiro
-    - [ ] Fevereiro
+  - [x] Dezembro
+  - [ ] Janeiro
+  - [ ] Fevereiro
 - [x] Planilhas Horarios
 - [ ] usper + Tunnel Newtork + React UI para proxys e rest api em go e express
 - [ ] Get/POST Google Sheets tabela de checklist de ProjectHub Empresas
 - [ ] HTML templates para Gohan Treinamentos Refatorado com SOLID, MVC e framework CSS components
 
-
 # Estudos de SEP para ONS e programação __IN_PROGRESS
-   
 
 <a id="lista-tarefas-pendentes"></a>
 
 # Lista de TAREFAS Pendentes __TODO
+
 - [x] Word compartilhado com ajustes da montagem Mensal e Quadrimensal
 - [x] Debug final V6 de VBA de perdas duplas
 - [x] Estudos backend com GO e proxy de tunnel com interface web
 - [x] estudos sobre rede básica x rede de simulação do ONS
-- [x] Correção do bug no Raichu/Rayquaza Server para o Kyogre delivey App e deixar ele como SAAS de renda extra (https://docker-raichu.onrender.com/docs)
+- [x] Correção do bug no Raichu/Rayquaza Server para o Kyogre delivey App e deixar ele como SAAS de renda extra (<https://docker-raichu.onrender.com/docs>)
 - [x] Modelagem banco de dados BDT e MUST (feito teste nas Lts no SECO -> ESTREI-MG500 (ok) e N.EXTR-MG500 (ainda falta...) )
 - [x] Debug VBA perdas duplas
   - [x] Verificar o código V6 e corrigir alguns bugs de formatação
@@ -122,7 +124,7 @@
 - [x] Estudo de Arquitetura de projeto Flask com frontend project template (dashboard atividades SP MUST)
 - [ ] Projetos python com arquitetura backend em Rust
 - [ ] Projetos template Pyside6 com Docs automatizados com pytest e com deploy em .exe com menos de 150MB
-- [ ] IA para negócios, Análise de dados e Programacao com Matematica para IOT 
+- [ ] IA para negócios, Análise de dados e Programacao com Matematica para IOT
 
 - [ ] Controle  e Gestão Atividades SP + MUST --> Excel To Website and (.PDF + Access)to QT 6 Desktop Deck Builder Organon
 
@@ -131,11 +133,11 @@
 - [x] AJUSTAR PAINEL DE BATCAVERNA COM KANBANPRO e Blogpedrov12
 
   - [x] O que são algoriitmos de AG e como usar isso na Eng. Elétrica para agendamento otimo de SEP (video yt)
-    - [ ] https://alexandremundim.medium.com/algoritmo-gen%C3%A9tico-na-pr%C3%A1tica-com-python-e24d2b1254d8
+    - [ ] <https://alexandremundim.medium.com/algoritmo-gen%C3%A9tico-na-pr%C3%A1tica-com-python-e24d2b1254d8>
     - [x] SIN45 app template with Lancher refatorado
 
   - [ ] O que são MQQT
-    - [ ] https://www.sympla.com.br/play/introducao-ao-protocolo-mqtt/1914654
+    - [ ] <https://www.sympla.com.br/play/introducao-ao-protocolo-mqtt/1914654>
 
 - [ ] Treino de calistenia e calistenia app
 
@@ -149,7 +151,8 @@
 - [x] Estudos de IA, ML, DL, Chatbots, N8N, AI agentes frameworks (Agno/Langchain)
 - [ ] Grondon Chabtot, Jarvis Chatbot, Lumina Aurora Chatbot
 
- + N8N = Relatorios automatizados por email e Whatsapp
+- N8N = Relatorios automatizados por email e Whatsapp
+
 - [ ] Aulas Sinais/cricuitos CC/CA e Eng. Controle + SEP Fundamentals + Metodos numericos com Python
 - [ ] Despacho de cargas - Planejamento Mensal e Semanal - Flow + AnaREDE, AnaTEM e Organon
 - [ ] **Estudos SEP com base fundamental para CA**
@@ -159,11 +162,11 @@
 - [x] AJUSTAR PAINEL DE BATCAVERNA COM KANBANPRO e Blogpedrov12
 
   - [x] O que são algoriitmos de AG e como usar isso na Eng. Elétrica para agendamento otimo de SEP (video yt)
-    - [ ] https://alexandremundim.medium.com/algoritmo-gen%C3%A9tico-na-pr%C3%A1tica-com-python-e24d2b1254d8
+    - [ ] <https://alexandremundim.medium.com/algoritmo-gen%C3%A9tico-na-pr%C3%A1tica-com-python-e24d2b1254d8>
     - [x] SIN45 app template with Lancher refatorado
 
   - [ ] O que são MQQT
-    - [ ] https://www.sympla.com.br/play/introducao-ao-protocolo-mqtt/1914654
+    - [ ] <https://www.sympla.com.br/play/introducao-ao-protocolo-mqtt/1914654>
 
 - [ ] Treino de calistenia e calistenia app
 
@@ -177,11 +180,57 @@
 - [x] Estudos de IA, ML, DL, Chatbots, N8N, AI agentes frameworks (Agno/Langchain)
 - [ ] Grondon Chabtot, Jarvis Chatbot, Lumina Aurora Chatbot
 
+---
 
-
+# 🦇 Batcaverna PV - Centro de Comando
 
 ---
-🦇 Batcaverna PV - Centro de Comando (27/01 - 01/02)
+
+## Sprint atual (09/02/2026) PVRV __IN_PROGRESS
+
+- [ ] Estudos de neurociencia sobre Neuroplasticidade (Boson Treinamentos) + Cartoes de enfretamento TCC para pagina do KanbanPro 2026
+- [x] Backup Kanban, Batcaverna, Linux e Win11
+- [ ] Planejamento e Metas semanal (Refatorar a tela do Tarefas PLC e outros sites tudo no mesmo NextJS)
+- [x] Listagem de projetos atuais por tecnologias do github
+- [ ] Engenheiro de Software Pleno - Legado PVRV: Py, JS, C++, Dart e Rust. Anotações para perspectiva de carreira com 28 anos em site que ajuda a priorizar os projetos.
+- [ ] Juntar todos sites estaticos em HTML que tenho num unico projeto NextJS com rotas e MVC (Gohan Treinamentos, Legado PVRV, Pomodoro)
+
+## 🚀 Plano de Coding Intenso - Segunda, 09/02/2026
+
+**Meta:** Unir Matemática (SEP), Planejamento (Kanban) e Código (Python/Julia/JS).
+
+## 09:00 - 10:00 | 🧠 Sprint 1: Engenharia de Dados & Setup
+
+*Foco: Garantir que o histórico de tarefas trabalha a seu favor.*
+
+- [ ] **Tarefa A:** Validar se o arquivo `Projeto_Tarefas_04_02_2026.xlsx` está seguindo o padrão de colunas que o seu `ProjectHubPage.jsx` espera (`Tarefa`, `Categoria`, `Responsável`, `Concluído`, `Data`, `Obs`).
+- [ ] **Tarefa B (Script):** Criar um script Python simples (`analise_historico.py`) na pasta `backend` que lê esse Excel e gera um gráfico de barras simples (Tarefas Feitas vs Pendentes) usando `matplotlib`.
+- [ ] **Conexão:** Isso valida o **Fase 1** do seu checklist de estudos (Pandas + Dados).
+
+## 10:00 - 11:00 | ⚡ Sprint 2: Matemática Aplicada (SEP)
+
+*Foco: Implementar estruturas de dados para Sistemas de Potência.*
+
+- [ ] **Tarefa A (Julia):** Criar um novo arquivo `impedancia_linha.jl`. Implementar uma `struct` para Linha de Transmissão que receba (R, X, Comprimento) e calcule a impedância total.
+- [ ] **Tarefa B (Python):** Traduzir essa lógica para Python usando `dataclasses` (conforme o guia `estudos_sep_backend.md` criado anteriormente).
+- [ ] **Tarefa C:** Criar uma função que recebe uma lista dessas linhas e retorna a Matriz de Admitância (Ybus) inicial (apenas diagonal).
+
+## 11:00 - 12:00 | 💻 Sprint 3: Frontend & Refatoração (Kanban Pro)
+
+*Foco: Melhorar a visualização dos dados no seu App Next.js.*
+
+- [ ] **Tarefa A:** No `ProjectHubPage.jsx`, verificar a função `importMust`. Garantir que ela consegue ler o Excel que você usa diariamente.
+- [ ] **Tarefa B:** Adicionar um pequeno indicador visual (Badge) no Card do Kanban que mostre a "Idade da Tarefa" (dias desde a criação), usando a data que vem do Excel.
+- [ ] **Refatoração:** Se sobrar tempo, extrair o componente `PlcCard` para um arquivo separado em `frontend/project_kanban_pro_2025/app/components/PlcCard.jsx`.
+
+## 12:00 - 13:00 | 🏁 Sprint 4: Consolidação & Commit
+
+*Foco: Documentar e salvar.*
+
+- [ ] **Tarefa A:** Atualizar o `checklist-metas-miniprojetos.md` marcando o progresso de hoje.
+- [ ] **Tarefa B:** Rodar o script de análise de histórico criado na Sprint 1 e salvar a imagem do gráfico na pasta de documentação.
+- [ ] **Git:** Commit de todas as alterações com a mensagem: "feat: day intensive coding sep and kanban sync".
+
 ---
 
 <a id="objetivos-semana"></a>
@@ -198,7 +247,6 @@
 
 Meta: Conseguir explicar o comportamento da tensão na barra quando a carga reativa aumenta.
 
-
 <a id="checklist-diario"></a>
 
 # 📅 Checklist Diário
@@ -211,12 +259,9 @@ Segunda-feira (27/01) - Setup & SEP
 
 - [ ] 14:00 - Foco Técnico: Leitura sobre Load Flow (Fluxo de Carga).
 
-
 Terça-feira (28/01) - O Dia Longo
 
 - [ ] 06:25 - ONS (Presencial): Acompanhar operação em tempo real (se possível).
-
-- [ ]  09:15 - ⚠️ Aula Eletromag vs. Estágio (Definir estratégia).
 
 - [ ] 19:00 - Revisão leve de CC (Circuitos de Corrente Contínua).
 
@@ -228,22 +273,11 @@ Quarta-feira (29/01) - Engenharia Pura
 
 - [ ]  15:00 - Estudos UFF (Biblioteca ou Casa).
 
-Quinta-feira (30/01) - Karatê Day
-
-- [ ] 08:00 - ONS (Home): Python - Tratamento de exceções nos scripts.
-
-- [ ] 14:00 - UFF: Lista de exercícios Eletromag.
-
-- [ ] 19:00 - Karatê: Foco total, zero pensamento em trabalho.
-
 Sexta-feira (31/01) - Review & Code
 
 - [ ] 08:00 - ONS (Home): Documentar o que foi aprendido sobre SEP na semana.
 
 - [ ]  14:00 - Dev Time: Projeto Pessoal ou aprofundamento em SQL.
-
-- [ ]  18:00 - Checkpoint Semanal: O que funcionou? O que atrasou?
-
 
 ---
 
@@ -252,19 +286,20 @@ Sexta-feira (31/01) - Review & Code
 # Estudos de SEP para ONS e programação __IN_PROGRESS
 
 ## Sesão de ESTUDOS (Matemática, programação e Eng. Elétrica) __TODO
+
 - [ ] Atividade ML de IEEEDs e principais modelo de AI de Supevisionado x Não Supervisionado (Com Rótulos x Sem Rótulos)
 - [ ] Eletromagnetismo: Resolver 3 exercícios de Lei de Gauss/Coulomb.
 - [ ] Sinais e Sistemas: Revisar Transformada de Laplace (básico).
-      
+
 - [ ] Análise de contigencias com SN 45 com pandapower + Deckbuiler para o AnaREDE
 - [ ] Matriz Ybus em Python para SEP
 - [ ] Matriz admtancia + Geração x Transmissão e Distrbuição SIN pelo ONS
 - [ ] Mincurso CC + arduino + python
-  - [ ] https://www.falstad.com/circuit/circuitjs.html
+  - [ ] <https://www.falstad.com/circuit/circuitjs.html>
   - [ ] Regra de Crammer
   - [ ] EDO sistemas 1 e 2 ordem com RLC e RC plots e respostas da EDO
 - [ ] Metodos númericos em Matlab para engenharia usando Python
-        
+
 - [ ] Solver ML/DL para cada X,Y de conjunto de dado
 - [ ] Python com Sympy para calculo de EDO de 1 e 2 ordem para Circuitos CC (RL,RC e RLC)
 - [ ] Atividade IEEEDs = Esp32 + Senoides de corrente em series temporais para modelos de IA (como entrada de dados)
@@ -273,6 +308,7 @@ Sexta-feira (31/01) - Review & Code
 ---
 
 <a id="sessao-estudos"></a>
+
 ## ⚡ Conceitos Elétricos (Dúvidas/Insights)
 
 CC vs CA: Em CC, a indutância é um curto e a capacitância é um aberto no regime permanente. Em CA, eles geram impedância ($j\omega L$ e $1/j\omega C$).
@@ -280,11 +316,3 @@ CC vs CA: Em CC, a indutância é um curto e a capacitância é um aberto no reg
 Dúvida para tirar com engenheiros: Como o ONS modela a carga dependente da tensão ($P = P_0(V/V_0)^\alpha$)?
 
 ---
-
-
-
-
-
-
-
-
