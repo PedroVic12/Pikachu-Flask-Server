@@ -2,7 +2,7 @@
 
 ---
 
-**📅 DATA ATUAL:** 27/01/2026  
+**📅 DATA ATUAL:** 10/02/2026  
 **🔗 Repositório:** [GitHub Repository][var4]  
 **📋 Shiatsu Link:** [Agendamento Shiatsu][var1]  
 **📊 Kanban Columns:** `__BACKLOG` | `__IN_PROGRESS` | `__TODO` | `__COMPLETED`  
@@ -18,7 +18,7 @@
 ### ⚡ **TRABALHO - ONS PLC 2026**
 
 - 📋 [Tarefas ONS PLC](#tarefas-ons-plc-2026-02)
-- 🔧 [Manutenção SIGER x BDT](#manutencao-siger-bdt)
+- 🔧 [Modelagem de Banco de Dados](#modelagem-banco-dados)
 - 🧩 [Estudos de SEP (ONS + Programação)](#estudos-sep-ons-programacao)
 - 🧾 [Lista de TAREFAS Pendentes](#lista-tarefas-pendentes)
 
@@ -49,14 +49,17 @@
 
 <a id="lista-tarefas-pendentes"></a>
 
-# Sprint atual (09/02/2026) PVRV \_\_IN_PROGRESS
+# Sprint atual (10/02/2026) PVRV \_\_IN_PROGRESS
 
 - [ ] Cadastro de dados BDT Seco E NE **Urgente**
 - [ ] Correções do SISBAR com procv do Mensal de Janeiro e colocar nas abas faltantes para o Mensal de Fevereiroc com justificativa de aparecer na área
 - [ ] Correções e bug fix no VBA para perdas Duplas Lts + 3 gráficos
+
+- [ ] Modelagem de Banco de Dados com Python com Schemas para SQlite + Access para Data Warehouse e dashboards em BI
+
 - [ ] Estudos de neurociencia sobre Neuroplasticidade (Boson Treinamentos) + Cartoes de enfretamento TCC para pagina do KanbanPro 2026
 - [x] Backup Kanban, Batcaverna, Linux e Win11
-- [ ] Planejamento e Metas semanal (Refatorar a tela do Tarefas PLC e outros sites tudo no mesmo NextJS)
+- [x] Planejamento e Metas semanal (Refatorar a tela do Tarefas PLC e outros sites tudo no mesmo NextJS)
 - [x] Listagem de projetos atuais por tecnologias do github
 - [ ] Engenheiro de Software Pleno - Legado PVRV: Py, JS, C++, Dart e Rust. Anotações para perspectiva de carreira com 28 anos em site que ajuda a priorizar os projetos.
 - [ ] Juntar todos sites estaticos em HTML que tenho num unico projeto NextJS com rotas e MVC (Gohan Treinamentos, Legado PVRV, Pomodoro)
@@ -83,25 +86,6 @@
 
 - [ ] AnaRede Deck Builder = Anarede, EditCepel, PandaPower, CLI e ajuda na montagem de casos com algoritimo Big O para nivel de complexibildiade de operação da Rede
 - [ ]
-
----
-
-<a id="manutencao-siger-bdt"></a>
-
-# Manutenção de Banco de dados do SIGER x BDT
-
-### (cadastro de equipamentos elétricos e parametros para PMO)
-
----
-
-- [ ] Todo dia 10, o programa roda no SIGER que aponta os equipamentos que estão fora da "ponte" (da Planilha Acompanhamento_PONTE_PL.xlsx: Nas Abas: LTs_SIGER_ForaPonte e TRs_SIGER_ForaPonte)
-- [x] GERCAD -> JOB -> ID: Data atual -> Job Criado
-- [x] Lts: Coluna T: Deve estar na ponte? Usar apenas as linhas que **NÃO** estão na cor vermelho.
-- [x] Separar o Norte, Nordeste, Centroeste e Sudeste para as tarefas. Não cadastrar os que são Data Centers
-- [x] Busca por LTS dentro do sistema: GERCARD -> Topologia -> "Estado" -> "Nome Curto da Instação" -> Aplicar critério -> Retorna tudo relacionado a Subestação pesquisada.
-- [x] Verificar se ja existe a estação no BDT, botão direito -> Novo Equipamento -> LTR
-- [x] **Campos obrigatórios de cadastro:** Numero do circuito do planejamento, Nome Estação, Num Barra preferencial, Tipo Rede: (BASICA), Utilização: PAR,
-- [x] Ao final do dia, sempre finalizar o Job feito.
 
 ---
 

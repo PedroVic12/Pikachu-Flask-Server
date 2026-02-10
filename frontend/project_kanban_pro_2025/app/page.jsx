@@ -75,7 +75,10 @@ import ApiDataScreen from "./api-data/APIDataScreen.jsx";
 import OlaMundo from "./views/HTML/OlaMundo.jsx";
 import ItemEditor from "./views/components/EditorModalProject.js";
 import DeckStorageController from "./controllers/DeckStorageController.js";
-import ProjectHubPage from "./views/pages/ProjectHubPage.jsx";
+
+// Usar essa pagina no projeto Dashboard Web SP + SECO para ONS PLC
+//import ProjectHubPage from "./views/pages/ProjectHubPage.jsx";
+
 // Removed: import { MarkdownEditorWidget } from "./views/components/MarkDownEditor.jsx"; // THIS LINE IS NOW CORRECTLY REMOVED
 
 // ========== HOOKS ==========
@@ -1309,8 +1312,6 @@ Aqui está o [link][var1] do Shiatsu como váriavel no .MD
     );
   };
 
-
-
   const renderCurrentScreen = () => {
     switch (currentScreen) {
       case "dashboard":
@@ -1323,8 +1324,8 @@ Aqui está o [link][var1] do Shiatsu como váriavel no .MD
         return <FilesScreen />;
       case "api-data":
         return <ApiDataScreen />;
-      case "projecthub":
-        return <ProjectHubPage />;
+      // case "projecthub":
+      //   return <ProjectHubPage />;
       default:
         return <DashboardScreen />;
     }
@@ -1378,5 +1379,4 @@ Aqui está o [link][var1] do Shiatsu como váriavel no .MD
       />
     </div>
   );
-
-};
+}
