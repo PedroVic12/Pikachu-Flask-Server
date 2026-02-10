@@ -61,7 +61,7 @@ const CustomizableMarkdownEditor = ({ markdown, onChange }) => {
   const renderedHtml = useMemo(() => renderMarkdownToHTML(markdown), [markdown]); // Memoize the HTML rendering
 
   const renderTabSwitcher = () => (
-    <div className="flex items-center gap-1 bg-gray-100 rounded-md p-1">
+    <div className="flex items-center gap-1 bg-gray-100 rounded-md">
       <button
         onClick={() => setActiveTab('editor')}
         className={`flex items-center gap-2 px-3 py-1 rounded-md text-sm transition-colors ${
@@ -85,11 +85,11 @@ const CustomizableMarkdownEditor = ({ markdown, onChange }) => {
   );
 
   const renderEditorControls = () => (
-    <div className="flex flex-col sm:flex-row justify-between items-center gap-1 bg-gray-100 p-3 rounded-lg">
+    <div className="flex flex-col sm:flex-row justify-between items-center gap-1 bg-gray-100 rounded-lg">
       <div>
         <h4 className="text-md font-semibold text-gray-800">Customizar Editor</h4>
       </div>
-      <div className="flex items-center flex-wrap justify-center">
+      <div className="flex items-center gap-1 flex-wrap justify-center">
         <select
           value={settings.fontFamily}
           onChange={(e) => updateSetting('fontFamily', e.target.value)}
@@ -102,7 +102,7 @@ const CustomizableMarkdownEditor = ({ markdown, onChange }) => {
 
         <input
           type="number"
-          min="12"
+          min="10"
           max="32"
           value={parseInt(settings.fontSize)}
           onChange={(e) => updateSetting('fontSize', `${e.target.value}px`)}
