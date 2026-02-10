@@ -912,6 +912,7 @@ export default function ProjectHubPage() {
   const fileInputRef = useRef(null);
   const [navOpen, setNavOpen] = useState(false);
   const plcDraftsRef = useRef({});
+  const plcHasDraftsRef = useRef(false);
   const [plcHasDrafts, setPlcHasDrafts] = useState(false);
   const [plcFilters, setPlcFilters] = useState({
     q: "",
@@ -947,7 +948,10 @@ export default function ProjectHubPage() {
     const drafts = plcDraftsRef.current;
     drafts[taskId] = drafts[taskId] || {};
     drafts[taskId][field] = value;
-    if (!plcHasDrafts) setPlcHasDrafts(true);
+    if (!plcHasDraftsRef.current) {
+      plcHasDraftsRef.current = true;
+      setPlcHasDrafts(true);
+    }
   };
 
   const clearDraftField = (taskId, field) => {
@@ -955,7 +959,10 @@ export default function ProjectHubPage() {
     if (!drafts[taskId]) return;
     delete drafts[taskId][field];
     if (Object.keys(drafts[taskId]).length === 0) delete drafts[taskId];
-    if (Object.keys(drafts).length === 0) setPlcHasDrafts(false);
+    if (Object.keys(drafts).length === 0) {
+      plcHasDraftsRef.current = false;
+      setPlcHasDrafts(false);
+    }
   };
 
   const commitDraftField = (taskId, field, value) => {
@@ -977,6 +984,7 @@ export default function ProjectHubPage() {
       }),
     }));
     plcDraftsRef.current = {};
+    plcHasDraftsRef.current = false;
     setPlcHasDrafts(false);
   };
 
@@ -997,6 +1005,7 @@ export default function ProjectHubPage() {
       simpleTasks: merged,
     }));
     plcDraftsRef.current = {};
+    plcHasDraftsRef.current = false;
     setPlcHasDrafts(false);
     backend.exportToExcel(merged);
   };
