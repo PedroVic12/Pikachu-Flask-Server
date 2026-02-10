@@ -14,14 +14,14 @@ const CustomizableMarkdownEditor = ({ markdown, onChange }) => { // Removed isPr
     if (typeof window !== 'undefined') {
       const savedSettings = localStorage.getItem(LOCAL_STORAGE_KEY);
       return savedSettings ? JSON.parse(savedSettings) : {
-        fontFamily: "'Architects Daughter', cursive",
+        fontFamily: "'Excalifont-Regular', cursive", // Updated default to Excalifont-Regular
         backgroundColor: '#1a1a1a',
         color: '#e6f7ff',
         fontSize: '16px',
       };
     }
     return {
-      fontFamily: "'Architects Daughter', cursive",
+      fontFamily: "'Excalifont-Regular', cursive",
       backgroundColor: '#1a1a1a',
       color: '#e6f7ff',
       fontSize: '16px',
@@ -74,9 +74,9 @@ const CustomizableMarkdownEditor = ({ markdown, onChange }) => { // Removed isPr
           onChange={(e) => updateSetting('fontFamily', e.target.value)}
           className="bg-gray-200 text-gray-800 text-sm p-2 rounded-md border border-gray-300 outline-none focus:border-blue-500"
         >
-          <option value="'Architects Daughter', cursive">Excalidraw (Hand)</option> {/* Updated label */}
+          <option value="'Excalifont-Regular', cursive">Excalidraw (Hand)</option> {/* Updated value and label */}
           <option value="'Inter', sans-serif">Padrão (Inter)</option>
-          <option value="'Fira Code', monospace">Código (Mono)</option>
+          <option value="'CascadiaCode', monospace">Código (Cascadia)</option> {/* Added Cascadia Code */}
         </select>
 
         <input
