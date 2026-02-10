@@ -76,6 +76,7 @@ import OlaMundo from "./views/HTML/OlaMundo.jsx";
 import ItemEditor from "./views/components/EditorModalProject.js";
 import DeckStorageController from "./controllers/DeckStorageController.js";
 import ProjectHubPage from "./views/pages/ProjectHubPage.jsx";
+import { MarkdownEditorWidget } from "./views/components/MarkDownEditor.jsx";
 
 // ========== HOOKS ==========
 const useProjects = () => {
@@ -1149,7 +1150,7 @@ Aqui está o [link][var1] do Shiatsu como váriavel no .MD
             <div
               className={`p-4 ${colorClasses.purple.bg} rounded-lg inline-block mb-4`}
             >
-              <FileText className={`h-8 w-8 ${colorClasses.purple.text}`} />
+              <FileText className={`h-8 w-8 ${colorClasses[color].text}`} />
             </div>
             <h3 className="text-lg font-semibold text-gray-900 mb-2">
               Decks AnaRede
@@ -1266,581 +1267,82 @@ Aqui está o [link][var1] do Shiatsu como váriavel no .MD
           );
         })}
 
-        {/* Markdown Editor for Links */}
-        <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200 mt-8">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">
-            {" "}
-            Editor de Links e Referências{" "}
-          </h3>
-        </div>
+        <MarkdownEditorWidget
+          markdown={markdownContent}
+          onChange={(e) => setMarkdownContent(e.target.value)}
+        />
       </div>
-
     );
   };
-}
 
-const FilesScreen = () => {
-  const [markdownContent, setMarkdownContent] = useState(
-    `Faça edições no [arquivo.MD ][var4] do repositório para atualizar o dashboard da BatCaverna PV 
 
-[var4]: https://github.com/PedroVic12/Pikachu-Flask-Server/blob/main/batcaverna/batcaverna_pv.md
 
-Aqui está o [link][var1] do Shiatsu como váriavel no .MD
-
-[var1]: https://revigorar.reservio.com/`,
-  );
-  // State for legacy files (pdf, image, excel) from localStorage
-  const [uploadedFiles, setUploadedFiles] = useState([]);
-  // State for decks from IndexedDB
-  const [decks, setDecks] = useState([]);
-
-  const [deckFile, setDeckFile] = useState(null);
-  const [deckDescription, setDeckDescription] = useState("");
-
-  // Load files from both localStorage and IndexedDB on initial render
-  useEffect(() => {
-    // Load legacy files and filter out any stray decks
-    const legacyFiles = FileUploaderController.loadFiles().filter(
-      (f) => f.type !== "deck",
-    );
-    setUploadedFiles(legacyFiles);
-
-    // Load decks from IndexedDB
-    const loadDecks = async () => {
-      const storedDecks = await DeckStorageController.getAllDecks();
-      setDecks(storedDecks);
-    };
-    loadDecks();
-  }, []);
-
-  const handleFileUpload = (event, type) => {
-    const files = event.target.files;
-    if (!files) return;
-
-    Array.from(files).forEach((file) => {
-      const reader = new FileReader();
-      reader.onerror = (error) => {
-        console.error("FileReader error:", error);
-        alert("Ocorreu um erro ao ler o arquivo.");
-      };
-      reader.onload = (e) => {
-        const newFile = {
-          name: file.name,
-          type: type,
-          url: e.target.result,
-        };
-        setUploadedFiles((prevFiles) => {
-          const newFiles = [...prevFiles, newFile];
-          const success = FileUploaderController.saveFiles(newFiles);
-          if (success) {
-            alert(`Arquivo ${file.name} carregado e salvo com sucesso!`);
-          } else {
-            alert(`Falha ao salvar o arquivo ${file.name}.`);
-          }
-          return newFiles;
-        });
-      };
-      reader.readAsDataURL(file); // Read as data URL for preview
-    });
-  };
-
-  const handleDownload = (file) => {
-    if (!file.url) return;
-    const link = document.createElement("a");
-    link.href = file.url;
-    link.download = file.name;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
-
-  const handleAddDeck = async () => {
-    if (!deckFile) {
-      alert("Por favor, selecione um arquivo.");
-      return;
+  const renderCurrentScreen = () => {
+    switch (currentScreen) {
+      case "dashboard":
+        return <DashboardScreen />;
+      case "kanban":
+        return <KanbanScreen />;
+      case "table":
+        return <TableScreen />;
+      case "files":
+        return <FilesScreen />;
+      case "api-data":
+        return <ApiDataScreen />;
+      case "projecthub":
+        return <ProjectHubPage />;
+      default:
+        return <DashboardScreen />;
     }
-
-    const reader = new FileReader();
-
-    reader.onerror = (error) => {
-      console.error("FileReader error:", error);
-      alert("Ocorreu um erro ao ler o arquivo.");
-    };
-
-    reader.onload = async (e) => {
-      // We don't include 'id' because IndexedDB will generate it.
-      const newDeckData = {
-        name: deckFile.name,
-        type: "deck",
-        url: e.target.result,
-        description: deckDescription || "Sem descrição",
-      };
-
-      const savedDeck = await DeckStorageController.saveDeck(newDeckData);
-
-      if (savedDeck) {
-        setDecks((prevDecks) => [...prevDecks, savedDeck]);
-        alert(`Deck ${deckFile.name} adicionado com sucesso ao IndexedDB!`);
-      } else {
-        alert(
-          `Falha ao salvar o deck ${deckFile.name}. Verifique o console.`,
-        );
-      }
-
-      // Reset fields after operation
-      setDeckFile(null);
-      setDeckDescription("");
-      if (document.getElementById("deck-upload-input")) {
-        document.getElementById("deck-upload-input").value = "";
-      }
-    };
-    reader.readAsDataURL(deckFile);
-  };
-
-  const handleDeleteFile = async (file, legacyIndex) => {
-    if (
-      !window.confirm(
-        `Tem certeza que deseja excluir o arquivo "${file.name}"?`,
-      )
-    ) {
-      return;
-    }
-
-    if (file.type === "deck") {
-      // Handle deletion from IndexedDB
-      const success = await DeckStorageController.deleteDeck(file.id);
-      if (success) {
-        setDecks((prevDecks) => prevDecks.filter((d) => d.id !== file.id));
-        alert("Deck excluído com sucesso.");
-      } else {
-        alert("Falha ao excluir o deck. Verifique o console.");
-      }
-    } else {
-      // Handle deletion from localStorage
-      setUploadedFiles((prevFiles) => {
-        const newFiles = prevFiles.filter(
-          (_, index) => index !== legacyIndex,
-        );
-        const success = FileUploaderController.saveFiles(newFiles);
-        if (!success) {
-          alert("Falha ao salvar as alterações após excluir o arquivo.");
-          return prevFiles; // Revert state on failure
-        }
-        alert("Arquivo excluído com sucesso.");
-        return newFiles;
-      });
-    }
-  };
-
-  const uploadSections = [
-    {
-      type: "pdf",
-      label: "Upload PDF",
-      icon: FilePdf,
-      color: "red",
-      accept: ".pdf",
-    },
-    {
-      type: "image",
-      label: "Upload Imagem",
-      icon: FileImage,
-      color: "blue",
-      accept: "image/*",
-    },
-    {
-      type: "excel",
-      label: "Upload Excel",
-      icon: FileSpreadsheet,
-      color: "green",
-      accept: ".xlsx,.xls",
-    },
-  ];
-
-  // Combine all files for rendering, adding a flag to distinguish them
-  const allFiles = [
-    ...uploadedFiles.map((file, index) => ({ ...file, legacyIndex: index })),
-    ...decks,
-  ];
-
-  const carouselSections = {
-    image: "Imagens",
-    pdf: "Documentos PDF",
-    excel: "Planilhas Excel",
-    deck: "Decks AnaRede",
   };
 
   return (
-    <div className="p-4 lg:p-6">
-      <div className="mb-6">
-        <h1 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-2">
-          {" "}
-          Gerenciador de Arquivos V3{" "}
-        </h1>
-        <p className="text-gray-600">
-          {" "}
-          Upload e gerenciamento de PDFs, imagens, planilhas e decks do
-          AnaRede.{" "}
-        </p>
-      </div>
+    <div className="min-h-screen bg-gray-50 flex">
+      {/* Sidebar */}
+      <Sidebar
+        currentScreen={currentScreen}
+        onScreenChange={setCurrentScreen}
+        onExport={handleExport}
+        onImport={handleImport}
+        onSync={handleSync}
+        isOpen={sidebarOpen}
+        onClose={() => setSidebarOpen(false)}
+        isCollapsed={sidebarCollapsed}
+        onToggleCollapse={() => setSidebarCollapsed((v) => !v)}
+      />
 
-      {/* Upload Section */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        {uploadSections.map(({ type, label, icon: Icon, color, accept }) => (
-          <div
-            key={type}
-            className="bg-white rounded-xl p-6 shadow-sm border border-gray-200 text-center"
-          >
-            <div
-              className={`p-4 ${colorClasses[color].bg} rounded-lg inline-block mb-4`}
-            >
-              <Icon className={`h-8 w-8 ${colorClasses[color].text}`} />
-            </div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">
-              {" "}
-              {label}{" "}
-            </h3>
-            <p className="text-sm text-gray-600 mb-4">
-              Faça upload de{" "}
-              {type === "pdf"
-                ? "documentos PDF"
-                : type === "image"
-                  ? "imagens"
-                  : "planilhas Excel"}
-            </p>
-            <input
-              type="file"
-              accept={accept}
-              onChange={(e) => handleFileUpload(e, type)}
-              className="hidden"
-              id={`${type}-upload-carousel`}
-              multiple
-            />
-            <label
-              htmlFor={`${type}-upload-carousel`}
-              className={`inline-flex items-center px-4 py-2 ${colorClasses[color].button} text-white rounded-lg cursor-pointer transition-colors`}
-            >
-              <Upload size={16} className="mr-2" />
-              Selecionar Arquivo(s)
-            </label>
-          </div>
-        ))}
-        {/* New Card for AnaRede Decks */}
-        <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200 text-center">
-          <div
-            className={`p-4 ${colorClasses.purple.bg} rounded-lg inline-block mb-4`}
-          >
-            <FileText className={`h-8 w-8 ${colorClasses.purple.text}`} />
-          </div>
-          <h3 className="text-lg font-semibold text-gray-900 mb-2">
-            Decks AnaRede
-          </h3>
-          <p className="text-sm text-gray-600 mb-4">
-            Upload de arquivos .dat, .pwf, .spt com descrição.
-          </p>
-          <div className="space-y-4">
-            <input
-              type="file"
-              accept=".dat,.pwf,.spt,.DAT,.PWF,.SPT"
-              onChange={(e) => setDeckFile(e.target.files[0])}
-              className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-purple-50 file:text-purple-700 hover:file:bg-purple-100"
-              id="deck-upload-input"
-            />
-            <input
-              type="text"
-              placeholder="Descrição do deck..."
-              value={deckDescription}
-              onChange={(e) => setDeckDescription(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-            />
+      {/* Main Content */}
+      <div className="flex-1 flex flex-col lg:ml-0">
+        {/* Mobile Header */}
+        <div className="lg:hidden bg-white shadow-sm border-b border-gray-200 px-4 py-3">
+          <div className="flex items-center justify-between">
             <button
-              onClick={handleAddDeck}
-              className={`w-full inline-flex items-center justify-center px-4 py-2 ${colorClasses.purple.button} text-white rounded-lg cursor-pointer transition-colors`}
+              onClick={() => setSidebarOpen(true)}
+              className="p-2 rounded-md text-gray-400 hover:text-gray-600 hover:bg-gray-100"
             >
-              <Plus size={16} className="mr-2" />
-              Adicionar Deck
+              <Menu size={24} />
             </button>
+            <h1 className="text-lg font-semibold text-gray-900">
+              {" "}
+              Kanban Pro{" "}
+            </h1>
+            <div className="w-10" /> {/* Spacer */}
           </div>
         </div>
+
+        {/* Screen Content */}
+        <main className="flex-1 overflow-auto">{renderCurrentScreen()}</main>
       </div>
 
-      {/* Separated Carousels for Uploaded Files */}
-      {Object.entries(carouselSections).map(([type, title]) => {
-        const filesOfType = allFiles.filter((file) => file.type === type);
-        if (filesOfType.length === 0) return null;
-
-        return (
-          <div
-            key={type}
-            className="bg-white rounded-xl p-6 shadow-sm border border-gray-200 mt-8"
-          >
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">
-              {title} Carregados
-            </h3>
-            <Carousel
-              opts={{
-                align: "start",
-                loop: filesOfType.length > 1,
-              }}
-              className="w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-4xl mx-auto"
-            >
-              <CarouselContent>
-                {filesOfType.map((file, i) => (
-                  <CarouselItem
-                    key={file.id || file.legacyIndex}
-                    className="md:basis-1/2 lg:basis-1/3"
-                  >
-                    <div className="p-1">
-                      <Card className="relative group">
-                        <button
-                          onClick={() =>
-                            handleDeleteFile(file, file.legacyIndex)
-                          }
-                          className="absolute top-2 right-2 z-10 p-1 bg-white bg-opacity-75 rounded-full text-gray-600 hover:bg-red-500 hover:text-white transition-all opacity-0 group-hover:opacity-100"
-                          title="Excluir arquivo"
-                        >
-                          <X size={14} />
-                        </button>
-                        <CardContent className="flex aspect-square items-center justify-center p-4 flex-col gap-2">
-                          {file.type === "image" && file.url ? (
-                            <img
-                              src={file.url}
-                              alt={file.name}
-                              className="max-w-full max-h-24 object-contain rounded-md"
-                            />
-                          ) : file.type === "pdf" ? (
-                            <FilePdf className="w-16 h-16 text-red-500" />
-                          ) : file.type === "excel" ? (
-                            <FileSpreadsheet className="w-16 h-16 text-green-500" />
-                          ) : (
-                            // for 'deck' type
-                            <FileText className="w-16 h-16 text-purple-500" />
-                          )}
-                          <p
-                            className="text-xs text-center text-gray-600 truncate w-full pt-2"
-                            title={file.name}
-                          >
-                            {file.name}
-                          </p>
-                          {file.description && (
-                            <p className="text-xs text-center text-gray-500">
-                              {file.description}
-                            </p>
-                          )}
-                          <button
-                            onClick={() => handleDownload(file)}
-                            className="mt-2 inline-flex items-center px-3 py-1 bg-gray-100 text-gray-700 rounded-lg text-sm hover:bg-gray-200 transition-colors"
-                          >
-                            <Download size={14} className="mr-1.5" />
-                            Baixar
-                          </button>
-                        </CardContent>
-                      </Card>
-                    </div>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-              <CarouselPrevious />
-              <CarouselNext />
-            </Carousel>
-          </div>
-        );
-      })}
-
-      {/* Markdown Editor for Links */}
-      <MarkdownEditor
-        markdownContent={markdownContent}
-        setMarkdownContent={setMarkdownContent}
+      {/* Item Editor */}
+      <ItemEditor
+        item={editingItem}
+        isOpen={!!editingItem}
+        onSave={handleSaveItem}
+        onDelete={handleDeleteItem}
+        onClose={() => setEditingItem(null)}
       />
     </div>
   );
+
 };
-
-const MarkdownEditor = ({ markdownContent, setMarkdownContent }) => {
-  // Definindo as configurações padrão diretamente no componente
-  const [settings, setSettings] = useState({
-    fontFamily: "'Architects Daughter', cursive",
-    backgroundColor: "#1a1a1a",
-    color: "#e6f7ff",
-    fontSize: "16px",
-  });
-
-  const updateSetting = (key, value) => {
-    setSettings((prev) => ({ ...prev, [key]: value }));
-  };
-
-  return (
-    <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200 mt-8">
-      <h3 className="text-lg font-semibold text-gray-900 mb-4">
-        {" "}
-        Editor de Links e Referências{" "}
-      </h3>
-
-      {/* Controles de Customização */}
-      <div className="flex flex-col sm:flex-row justify-between items-center mb-4 gap-2 bg-gray-100 p-3 rounded-lg">
-        <div>
-          <h4 className="text-md font-semibold text-gray-800">
-            Customizar Editor
-          </h4>
-        </div>
-
-        <div className="flex gap-3 items-center flex-wrap justify-center">
-          <select
-            value={settings.fontFamily}
-            onChange={(e) => updateSetting("fontFamily", e.target.value)}
-            className="bg-gray-200 text-gray-800 text-sm p-2 rounded-md border border-gray-300 outline-none focus:border-blue-500"
-          >
-            <option value="'Architects Daughter', cursive">
-              Estilo Manuscrito
-            </option>
-            <option value="'Inter', sans-serif">Padrão (Inter)</option>
-            <option value="'Fira Code', monospace">Código (Mono)</option>
-          </select>
-
-          <input
-            type="number"
-            min="12"
-            max="32"
-            value={parseInt(settings.fontSize)}
-            onChange={(e) => updateSetting("fontSize", `${e.target.value}px`)}
-            className="w-20 bg-gray-200 text-gray-800 text-sm p-2 rounded-md border border-gray-300 outline-none focus:border-blue-500"
-          />
-
-          <div className="flex items-center gap-2">
-            <label className="text-sm text-gray-600">Fundo:</label>
-            <input
-              type="color"
-              value={settings.backgroundColor}
-              onChange={(e) =>
-                updateSetting("backgroundColor", e.target.value)
-              }
-              className="w-8 h-8 rounded-md cursor-pointer border border-gray-300"
-              title="Cor de Fundo"
-            />
-          </div>
-
-          <div className="flex items-center gap-2">
-            <label className="text-sm text-gray-600">Texto:</label>
-            <input
-              type="color"
-              value={settings.color}
-              onChange={(e) => updateSetting("color", e.target.value)}
-              className="w-8 h-8 rounded-md cursor-pointer border border-gray-300"
-              title="Cor do Texto"
-            />
-          </div>
-        </div>
-      </div>
-
-      {/* Editor e Preview */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Editor Markdown
-          </label>
-          <textarea
-            placeholder="Cole aqui seus links e referências em formato Markdown..."
-            className="w-full h-64 p-4 rounded-lg focus:ring-2 focus:ring-blue-500 transition-all duration-300 shadow-inner"
-            style={{
-              fontFamily: settings.fontFamily,
-              backgroundColor: settings.backgroundColor,
-              color: settings.color,
-              fontSize: settings.fontSize,
-              lineHeight: "1.6",
-              border: "1px solid rgba(0,0,0,0.1)",
-            }}
-            value={markdownContent}
-            onChange={(e) => setMarkdownContent(e.target.value)}
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Preview
-          </label>
-          <div
-            className="h-64 p-4 border border-gray-200 rounded-lg bg-gray-50 overflow-y-auto"
-            style={{
-              fontFamily: settings.fontFamily,
-              fontSize: settings.fontSize,
-            }}
-          >
-            <div className="prose prose-sm max-w-none">
-              <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                {markdownContent}
-              </ReactMarkdown>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const renderCurrentScreen = () => {
-  switch (currentScreen) {
-    case "dashboard":
-      return <DashboardScreen />;
-    case "kanban":
-      return <KanbanScreen />;
-    case "table":
-      return <TableScreen />;
-    case "files":
-      return <FilesScreen />;
-    case "api-data":
-      return <ApiDataScreen />;
-    case "projecthub":
-      return <ProjectHubPage />;
-    default:
-      return <DashboardScreen />;
-  }
-};
-
-return (
-  <div className="min-h-screen bg-gray-50 flex">
-    {/* Sidebar */}
-    <Sidebar
-      currentScreen={currentScreen}
-      onScreenChange={setCurrentScreen}
-      onExport={handleExport}
-      onImport={handleImport}
-      onSync={handleSync}
-      isOpen={sidebarOpen}
-      onClose={() => setSidebarOpen(false)}
-      isCollapsed={sidebarCollapsed}
-      onToggleCollapse={() => setSidebarCollapsed((v) => !v)}
-    />
-
-    {/* Main Content */}
-    <div className="flex-1 flex flex-col lg:ml-0">
-      {/* Mobile Header */}
-      <div className="lg:hidden bg-white shadow-sm border-b border-gray-200 px-4 py-3">
-        <div className="flex items-center justify-between">
-          <button
-            onClick={() => setSidebarOpen(true)}
-            className="p-2 rounded-md text-gray-400 hover:text-gray-600 hover:bg-gray-100"
-          >
-            <Menu size={24} />
-          </button>
-          <h1 className="text-lg font-semibold text-gray-900">
-            {" "}
-            Kanban Pro{" "}
-          </h1>
-          <div className="w-10" /> {/* Spacer */}
-        </div>
-      </div>
-
-      {/* Screen Content */}
-      <main className="flex-1 overflow-auto">{renderCurrentScreen()}</main>
-    </div>
-
-    {/* Item Editor */}
-    <ItemEditor
-      item={editingItem}
-      isOpen={!!editingItem}
-      onSave={handleSaveItem}
-      onDelete={handleDeleteItem}
-      onClose={() => setEditingItem(null)}
-    />
-  </div>
-);
-
-

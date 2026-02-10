@@ -47,9 +47,8 @@ const ItemEditor = ({ item, isOpen, onSave, onDelete, onClose }) => {
     <div className="flex items-center gap-1 bg-gray-100 rounded-md p-1">
       <button
         onClick={() => setActiveTab('editor')}
-        className={`flex items-center gap-2 px-3 py-1 rounded-md text-sm transition-colors ${
-          activeTab === 'editor' ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-600 hover:text-gray-900'
-        }`}
+        className={`flex items-center gap-2 px-3 py-1 rounded-md text-sm transition-colors ${activeTab === 'editor' ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-600 hover:text-gray-900'
+          }`}
       >
         <Edit3 size={14} />
         Editor
@@ -57,9 +56,8 @@ const ItemEditor = ({ item, isOpen, onSave, onDelete, onClose }) => {
 
       <button
         onClick={() => setActiveTab('preview')}
-        className={`flex items-center gap-2 px-3 py-1 rounded-md text-sm transition-colors ${
-          activeTab === 'preview' ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-600 hover:text-gray-900'
-        }`}
+        className={`flex items-center gap-2 px-3 py-1 rounded-md text-sm transition-colors ${activeTab === 'preview' ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-600 hover:text-gray-900'
+          }`}
       >
         <Eye size={14} />
         Preview
