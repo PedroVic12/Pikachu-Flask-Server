@@ -38,6 +38,7 @@
 - ⚡ [Conceitos Fundamentais de Eng. Elétrica](#sessao-estudos)
 
 ---
+
 <a id="roadmap-cientista-dados"></a>
 
 ## 🎓 Roadmap Cientista de Dados
@@ -45,21 +46,34 @@
 ![alt text - ciencia de dados ONS](image-1.png)
 
 ---
+
+<a id="lista-tarefas-pendentes"></a>
+
+# Sprint atual (09/02/2026) PVRV \_\_IN_PROGRESS
+
+- [ ] Cadastro de dados BDT Seco E NE **Urgente**
+- [ ] Correções do SISBAR com procv do Mensal de Janeiro e colocar nas abas faltantes para o Mensal de Fevereiroc com justificativa de aparecer na área
+- [ ] Correções e bug fix no VBA para perdas Duplas Lts + 3 gráficos
+- [ ] Estudos de neurociencia sobre Neuroplasticidade (Boson Treinamentos) + Cartoes de enfretamento TCC para pagina do KanbanPro 2026
+- [x] Backup Kanban, Batcaverna, Linux e Win11
+- [ ] Planejamento e Metas semanal (Refatorar a tela do Tarefas PLC e outros sites tudo no mesmo NextJS)
+- [x] Listagem de projetos atuais por tecnologias do github
+- [ ] Engenheiro de Software Pleno - Legado PVRV: Py, JS, C++, Dart e Rust. Anotações para perspectiva de carreira com 28 anos em site que ajuda a priorizar os projetos.
+- [ ] Juntar todos sites estaticos em HTML que tenho num unico projeto NextJS com rotas e MVC (Gohan Treinamentos, Legado PVRV, Pomodoro)
+
 <a id="tarefas-ons-plc-2026-02"></a>
 
-# 📋 Tarefas ONS PLC 2026 - Fevereiro __IN_PROGRESS
+# 📋 Tarefas ONS PLC 2026 - Fevereiro \_\_IN_PROGRESS
 
 ---
 
-- [ ] Cadastro de dados BDT Seco E NE
-- [ ] Correções do SISBAR com procv do Mensal de Janeiro e colocar nas abas faltantes para o Mensal de Fevereiroc com justificativa de aparecer na área
-- [ ] Correções e bug fix no VBA para perdas Duplas Lts + 3 gráficos
-
+- [ ] Rotina de rodízio de tarefas de Casos Mensal (Janeiro, Fevereiro e Março)
+- [ ] Tarefas de Casos Mensal: VA (Configuração de Cargas), VB (Organon) e VC (Intercambio)
 - [ ] Estudos de conceitos básicos de CC/CA
 - [ ] Estudos de conceitos básicos de SEP para ONS PLC
 - [ ] Estudos sobre diagramas fasoriais em eng. elétrica
 
-- [ ]  Acompanhar como foi feito o relatorio do controle mensal de Fevereiro e Janeiro com Word compartilhado para consulta
+- [ ] Acompanhar como foi feito o relatorio do controle mensal de Fevereiro e Janeiro com Word compartilhado para consulta
   - [ ] Flow caso 10 Controle mensal com intercambio VC
 
 - [x] Deck Builder AnaREDE
@@ -71,6 +85,7 @@
 - [ ]
 
 ---
+
 <a id="manutencao-siger-bdt"></a>
 
 # Manutenção de Banco de dados do SIGER x BDT
@@ -92,7 +107,7 @@
 
 <a id="pvrv-2026-planilha-horarios"></a>
 
-# PVRV 2026 - Planilha de horarios (atualizar no website) __IN_PROGRESS
+# PVRV 2026 - Planilha de horarios (atualizar no website) \_\_IN_PROGRESS
 
 ---
 
@@ -113,23 +128,13 @@
 - [ ] Get/POST Google Sheets tabela de checklist de ProjectHub Empresas
 - [ ] HTML templates para Gohan Treinamentos Refatorado com SOLID, MVC e framework CSS components
 
-<a id="lista-tarefas-pendentes"></a>
-
-## Sprint atual (09/02/2026) PVRV __IN_PROGRESS
-
-- [ ] Estudos de neurociencia sobre Neuroplasticidade (Boson Treinamentos) + Cartoes de enfretamento TCC para pagina do KanbanPro 2026
-- [x] Backup Kanban, Batcaverna, Linux e Win11
-- [ ] Planejamento e Metas semanal (Refatorar a tela do Tarefas PLC e outros sites tudo no mesmo NextJS)
-- [x] Listagem de projetos atuais por tecnologias do github
-- [ ] Engenheiro de Software Pleno - Legado PVRV: Py, JS, C++, Dart e Rust. Anotações para perspectiva de carreira com 28 anos em site que ajuda a priorizar os projetos.
-- [ ] Juntar todos sites estaticos em HTML que tenho num unico projeto NextJS com rotas e MVC (Gohan Treinamentos, Legado PVRV, Pomodoro)
-
 ---
+
 <a id="estudos-sep-ons-programacao"></a>
 
-# Estudos de SEP para ONS e programação __IN_PROGRESS
+# Estudos de SEP para ONS e programação \_\_IN_PROGRESS
 
-## Sesão de ESTUDOS (Matemática, programação e Eng. Elétrica) __TODO
+## Sesão de ESTUDOS (Matemática, programação e Eng. Elétrica) \_\_TODO
 
 - [ ] Atividade ML de IEEEDs e principais modelo de AI de Supevisionado x Não Supervisionado (Com Rótulos x Sem Rótulos)
 - [ ] Eletromagnetismo: Resolver 3 exercícios de Lei de Gauss/Coulomb.
@@ -181,32 +186,32 @@ Meta: Conseguir explicar o comportamento da tensão na barra quando a carga reat
 
 # 📅 Checklist Diário
 
-Segunda-feira (27/01) - Setup & SEP
+**Segunda-feira** - Setup, Planejamento, SCRUM & SEP
 
 - [x] 08:00 - ONS (Home): Organizar backlog da semana.
 
-- [ ]  10:00 - ONS (Dev): Estudo de script Python para automação de banco de dados.
+- [ ] 10:00 - ONS (Dev): Estudo de script Python para automação de banco de dados.
 
 - [ ] 14:00 - Foco Técnico: Leitura sobre Load Flow (Fluxo de Carga).
 
-Terça-feira (28/01) - O Dia Longo
+**Terça-feira** - O Dia Longo
 
 - [ ] 06:25 - ONS (Presencial): Acompanhar operação em tempo real (se possível).
 
 - [ ] 19:00 - Revisão leve de CC (Circuitos de Corrente Contínua).
 
-Quarta-feira (29/01) - Engenharia Pura
+**Quarta-feira** - Engenharia Elétrica e Hard Coding
 
 - [ ] 06:25 - ONS (Presencial).
 
-- [ ]  10:00 - Simulação: Tentar rodar um caso base e analisar os logs.
+- [ ] 10:00 - Simulação: Tentar rodar um caso base e analisar os logs.
 
-- [ ]  15:00 - Estudos UFF (Biblioteca ou Casa).
+- [ ] 15:00 - Estudos UFF (Biblioteca ou Casa).
 
-Sexta-feira (31/01) - Review & Code
+**Sexta-feira** - Review & Code
 
 - [ ] 08:00 - ONS (Home): Documentar o que foi aprendido sobre SEP na semana.
 
-- [ ]  14:00 - Dev Time: Projeto Pessoal ou aprofundamento em SQL.
+- [ ] 14:00 - Dev Time: Projeto Pessoal ou aprofundamento em SQL.
 
 ---

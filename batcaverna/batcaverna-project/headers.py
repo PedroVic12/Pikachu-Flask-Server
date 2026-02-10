@@ -44,7 +44,7 @@ PROJETOS = [
         "caminho": "/home/pedrov12/Documentos/GitHub/Pikachu-Flask-Server/pikachu-API/astro-system/src",
         "comando": "python main.py",
         "porta_env": "FLASK_APP=app.py FLASK_ENV=development FLASK_RUN_PORT=5000",
-        "porta": 5000 # Porta padrão Astro-Sytem flaskd
+        "porta": 5000 # Porta padrão Astro-Sytem flask
     }
 ]
 

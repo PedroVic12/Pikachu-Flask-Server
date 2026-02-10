@@ -980,6 +980,27 @@ export default function ProjectHubPage() {
     setPlcHasDrafts(false);
   };
 
+  const getPlcTasksWithDraftsApplied = () => {
+    const drafts = plcDraftsRef.current;
+    if (!drafts || Object.keys(drafts).length === 0) return data.simpleTasks;
+    return data.simpleTasks.map((t) => {
+      const row = drafts[t.id];
+      if (!row) return t;
+      return { ...t, ...row };
+    });
+  };
+
+  const handleSaveExcel = () => {
+    const merged = getPlcTasksWithDraftsApplied();
+    setData((p) => ({
+      ...p,
+      simpleTasks: merged,
+    }));
+    plcDraftsRef.current = {};
+    setPlcHasDrafts(false);
+    backend.exportToExcel(merged);
+  };
+
   const handleUpdatePLC = (id, field, value) => {
     setData((prev) => ({
       ...prev,
@@ -1121,10 +1142,10 @@ export default function ProjectHubPage() {
         <Icons.Upload /> IMPORTAR
       </button>
       <button
-        onClick={() => backend.exportToExcel(data.simpleTasks)}
+        onClick={handleSaveExcel}
         className="flex items-center justify-center gap-2 px-5 py-3 bg-blue-50 text-blue-700 border-2 border-blue-100 rounded-2xl hover:bg-blue-100 font-bold text-xs transition-all w-full sm:w-auto"
       >
-        <Icons.Download /> EXPORTAR
+        <Icons.Download /> SALVAR EXCEL
       </button>
       <button
         onClick={() =>
@@ -1234,14 +1255,14 @@ export default function ProjectHubPage() {
 
   const PlcView = () => (
     <div className="flex flex-col h-full animate-in fade-in slide-in-from-top duration-500 min-w-0">
-      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 mb-4">
         <h2 className="text-xl sm:text-3xl font-black text-slate-800 tracking-tight">
           Registro de Atividades
         </h2>
         <PlcActions />
       </div>
 
-      <div className="mb-4 bg-white border border-slate-100 rounded-2xl p-3 sm:p-4 shadow-sm">
+      <div className="mb-3 bg-white border border-slate-100 rounded-2xl p-3 shadow-sm">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
           <input
             value={plcFilters.q}
@@ -1578,7 +1599,7 @@ export default function ProjectHubPage() {
       <TopBar />
 
       {/* MAIN CONTENT */}
-      <main className="flex-grow p-4 sm:p-6 lg:p-10 overflow-hidden relative flex flex-col min-w-0">
+      <main className="flex-grow p-2 sm:p-4 lg:p-6 overflow-hidden relative flex flex-col min-w-0">
         <div className="flex-grow overflow-y-auto custom-scrollbar pr-2">
           {currentView === "plc" && <PlcView />}
 

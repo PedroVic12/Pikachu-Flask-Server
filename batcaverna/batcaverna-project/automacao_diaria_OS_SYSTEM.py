@@ -7,6 +7,7 @@ import random
 from headers import *
 
 #! pip install google-generativeai pyttsx3 colorama python-dotenv pyautogui gTTS
+
 from c3po_modules.pc_tools import (
     falar,
     abrir_aplicativos,
