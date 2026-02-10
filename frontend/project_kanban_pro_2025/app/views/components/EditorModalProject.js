@@ -60,9 +60,8 @@ const ItemEditor = ({ item, isOpen, onSave, onDelete, onClose }) => {
 
   const renderHeader = () => (
     <div className="flex items-center justify-between p-2 lg:p-4 border-b border-gray-200">
-      <div className="flex items-center gap-2">
+      <div className="flex items-center">
         <h2 className="text-xl font-semibold text-gray-900">Editar Item</h2>
-        {/* Tab switcher moved to CustomizableMarkdownEditor */}
       </div>
       {renderHeaderActions()}
     </div>
@@ -129,9 +128,6 @@ const ItemEditor = ({ item, isOpen, onSave, onDelete, onClose }) => {
           {renderContent()}
         </div>
       </div>
-
-      {/* Tela cheia do editor Modal*/}
-      {/* renderPreviewFullscreen() is no longer called here */}
     </>
   );
 };
