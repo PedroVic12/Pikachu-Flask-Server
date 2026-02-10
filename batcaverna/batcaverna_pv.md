@@ -97,15 +97,17 @@
 ---
 
 - [ ] Kanban, Scrum, Planejamento e metas (Segunda e sexta)
-- [ ] Organização de arquivos .MD
-- [ ] Organização projetos Github
+- [x] Organização de arquivos .MD
+- [x] Organização projetos Github
 - [ ] Organização de Word e Excel usados para a semana no ONS
 - [ ] Pyside6 x Tauri x NextJS projetos
 
 - [ ] Planejamento financeiro (Financial APP)
   - [x] Dezembro
-  - [ ] Janeiro
+  - [x] Janeiro
   - [ ] Fevereiro
+  - [ ] Março
+
 - [x] Planilhas Horarios
 - [ ] usper + Tunnel Newtork + React UI para proxys e rest api em go e express
 - [ ] Get/POST Google Sheets tabela de checklist de ProjectHub Empresas
@@ -160,46 +162,6 @@
 ---
 
 # 🦇 Batcaverna PV - Centro de Comando 2026
-
----
-
-## 🚀 Plano de Coding Intenso - Segunda, 09/02/2026
-
-**Meta:** Unir Matemática (SEP), Planejamento (Kanban) e Código (Python/Julia/JS).
-
-## 09:00 - 10:00 | 🧠 Sprint 1: Engenharia de Dados & Setup
-
-*Foco: Garantir que o histórico de tarefas trabalha a seu favor.*
-
-- [ ] **Tarefa A:** Validar se o arquivo `Projeto_Tarefas_04_02_2026.xlsx` está seguindo o padrão de colunas que o seu `ProjectHubPage.jsx` espera (`Tarefa`, `Categoria`, `Responsável`, `Concluído`, `Data`, `Obs`).
-- [ ] **Tarefa B (Script):** Criar um script Python simples (`analise_historico.py`) na pasta `backend` que lê esse Excel e gera um gráfico de barras simples (Tarefas Feitas vs Pendentes) usando `matplotlib`.
-- [ ] **Conexão:** Isso valida o **Fase 1** do seu checklist de estudos (Pandas + Dados).
-
-## 10:00 - 11:00 | ⚡ Sprint 2: Matemática Aplicada (SEP)
-
-*Foco: Implementar estruturas de dados para Sistemas de Potência.*
-
-- [ ] **Tarefa A (Julia):** Criar um novo arquivo `impedancia_linha.jl`. Implementar uma `struct` para Linha de Transmissão que receba (R, X, Comprimento) e calcule a impedância total.
-- [ ] **Tarefa B (Python):** Traduzir essa lógica para Python usando `dataclasses` (conforme o guia `estudos_sep_backend.md` criado anteriormente).
-- [ ] **Tarefa C:** Criar uma função que recebe uma lista dessas linhas e retorna a Matriz de Admitância (Ybus) inicial (apenas diagonal).
-
-## 11:00 - 12:00 | 💻 Sprint 3: Frontend & Refatoração (Kanban Pro)
-
-*Foco: Melhorar a visualização dos dados no seu App Next.js.*
-
-- [ ] **Tarefa A:** No `ProjectHubPage.jsx`, verificar a função `importMust`. Garantir que ela consegue ler o Excel que você usa diariamente.
-- [ ] **Tarefa B:** Adicionar um pequeno indicador visual (Badge) no Card do Kanban que mostre a "Idade da Tarefa" (dias desde a criação), usando a data que vem do Excel.
-- [ ] **Refatoração:** Se sobrar tempo, extrair o componente `PlcCard` para um arquivo separado em `frontend/project_kanban_pro_2025/app/components/PlcCard.jsx`.
-
-## 12:00 - 13:00 | 🏁 Sprint 4: Consolidação & Commit
-
-*Foco: Documentar e salvar.*
-
-- [ ] **Tarefa A:** Atualizar o `checklist-metas-miniprojetos.md` marcando o progresso de hoje.
-- [ ] **Tarefa B:** Rodar o script de análise de histórico criado na Sprint 1 e salvar a imagem do gráfico na pasta de documentação.
-- [ ] **Git:** Commit de todas as alterações com a mensagem: "feat: day intensive coding sep and kanban sync".
-
----
 
 <a id="objetivos-semana"></a>
 
