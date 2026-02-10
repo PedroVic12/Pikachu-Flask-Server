@@ -76,7 +76,7 @@ import OlaMundo from "./views/HTML/OlaMundo.jsx";
 import ItemEditor from "./views/components/EditorModalProject.js";
 import DeckStorageController from "./controllers/DeckStorageController.js";
 import ProjectHubPage from "./views/pages/ProjectHubPage.jsx";
-import { MarkdownEditorWidget } from "./views/components/MarkDownEditor.jsx";
+// Removed: import { MarkdownEditorWidget } from "./views/components/MarkDownEditor.jsx"; // THIS LINE IS NOW CORRECTLY REMOVED
 
 // ========== HOOKS ==========
 const useProjects = () => {
@@ -188,16 +188,19 @@ const Sidebar = ({
   return (
     <>
       <div
-        className={`fixed inset-y-0 left-0 z-50 bg-white shadow-lg transform transition-transform duration-300 ease-in-out ${isOpen ? "translate-x-0" : "-translate-x-full"
-          } lg:translate-x-0 lg:static lg:inset-0 ${isCollapsed ? "lg:w-20" : "w-64"
-          }`}
+        className={`fixed inset-y-0 left-0 z-50 bg-white shadow-lg transform transition-transform duration-300 ease-in-out ${
+          isOpen ? "translate-x-0" : "-translate-x-full"
+        } lg:translate-x-0 lg:static lg:inset-0 ${
+          isCollapsed ? "lg:w-20" : "w-64"
+        }`}
       >
         <div
           className={`flex items-center justify-between h-16 border-b border-gray-200 ${isCollapsed ? "px-2" : "px-4"}`}
         >
           <h1
-            className={`text-xl font-bold text-gray-900 ${isCollapsed ? "hidden" : "block"
-              }`}
+            className={`text-xl font-bold text-gray-900 ${
+              isCollapsed ? "hidden" : "block"
+            }`}
           >
             Kanban Pro
           </h1>
@@ -236,11 +239,13 @@ const Sidebar = ({
                   onClose();
                 }}
                 title={label}
-                className={`w-full flex items-center ${isCollapsed ? "justify-center px-3" : "px-4"
-                  } py-3 text-left rounded-lg transition-colors ${currentScreen === id
+                className={`w-full flex items-center ${
+                  isCollapsed ? "justify-center px-3" : "px-4"
+                } py-3 text-left rounded-lg transition-colors ${
+                  currentScreen === id
                     ? "bg-blue-100 text-blue-700 border-r-2 border-blue-700"
                     : "text-gray-700 hover:bg-gray-100"
-                  }`}
+                }`}
               >
                 <Icon size={20} className={isCollapsed ? "" : "mr-3"} />
                 {!isCollapsed && label}
@@ -255,8 +260,9 @@ const Sidebar = ({
                   key={id}
                   onClick={onClick}
                   title={label}
-                  className={`w-full flex items-center ${isCollapsed ? "justify-center px-3" : "px-4"
-                    } py-3 text-left rounded-lg transition-colors ${color || "text-gray-700 hover:bg-gray-100"}
+                  className={`w-full flex items-center ${
+                    isCollapsed ? "justify-center px-3" : "px-4"
+                  } py-3 text-left rounded-lg transition-colors ${color || "text-gray-700 hover:bg-gray-100"}
           }`}
                 >
                   <Icon size={20} className={isCollapsed ? "" : "mr-3"} />
@@ -1267,10 +1273,38 @@ Aqui está o [link][var1] do Shiatsu como váriavel no .MD
           );
         })}
 
-        <MarkdownEditorWidget
-          markdown={markdownContent}
-          onChange={(e) => setMarkdownContent(e.target.value)}
-        />
+        {/* Markdown Editor for Links */}
+        <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200 mt-8">
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">
+            {" "}
+            Editor de Links e Referências{" "}
+          </h3>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Editor Markdown
+              </label>
+              <textarea
+                placeholder="Cole aqui seus links e referências em formato Markdown..."
+                className="w-full h-64 p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent font-mono text-sm"
+                value={markdownContent}
+                onChange={(e) => setMarkdownContent(e.target.value)}
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Preview
+              </label>
+              <div className="h-64 p-4 border border-gray-200 rounded-lg bg-gray-50 overflow-y-auto">
+                <div className="prose prose-sm max-w-none">
+                  <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                    {markdownContent}
+                  </ReactMarkdown>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     );
   };

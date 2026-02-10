@@ -1,26 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import { Edit3, Save, Eye, X, Trash2 } from 'lucide-react';
+import { Save, X, Trash2 } from 'lucide-react';
 
 import { CATEGORIES } from '../../controllers/Repository.jsx';
+import CustomizableMarkdownEditor from './CustomizableMarkdownEditor.jsx';
 
 const ItemEditor = ({ item, isOpen, onSave, onDelete, onClose }) => {
   const [editContent, setEditContent] = useState(item?.content || '');
   const [editTitle, setEditTitle] = useState(item?.title || '');
   const [editCategory, setEditCategory] = useState(item?.category || 'ons');
-  const [activeTab, setActiveTab] = useState('editor');
 
-  // States para melhor UI e UX no editor em markdown dentro do site
   const [isPreviewFullscreen, setIsPreviewFullscreen] = useState(false);
 
-  // States para customização da fonte do editor
-  const [editorSettings, setEditorSettings] = useState({
-    fontFamily: "'Architects Daughter', cursive",
-    backgroundColor: '#1a1a1a',
-    color: '#e6f7ff',
-    fontSize: '16px',
-  });
+  // No need for editorSettings state here anymore, it's handled by CustomizableMarkdownEditor
+  // The CustomizableMarkdownEditor will manage its own internal settings for display
 
   useEffect(() => {
     if (item) {
@@ -37,33 +31,7 @@ const ItemEditor = ({ item, isOpen, onSave, onDelete, onClose }) => {
     onClose();
   };
 
-  const updateEditorSetting = (key, value) => {
-    setEditorSettings((prev) => ({ ...prev, [key]: value }));
-  };
-
   if (!isOpen || !item) return null;
-
-  const renderTabSwitcher = () => (
-    <div className="flex items-center gap-1 bg-gray-100 rounded-md p-1">
-      <button
-        onClick={() => setActiveTab('editor')}
-        className={`flex items-center gap-2 px-3 py-1 rounded-md text-sm transition-colors ${activeTab === 'editor' ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-600 hover:text-gray-900'
-          }`}
-      >
-        <Edit3 size={14} />
-        Editor
-      </button>
-
-      <button
-        onClick={() => setActiveTab('preview')}
-        className={`flex items-center gap-2 px-3 py-1 rounded-md text-sm transition-colors ${activeTab === 'preview' ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-600 hover:text-gray-900'
-          }`}
-      >
-        <Eye size={14} />
-        Preview
-      </button>
-    </div>
-  );
 
   const renderHeaderActions = () => (
     <div className="flex items-center gap-2">
@@ -96,7 +64,7 @@ const ItemEditor = ({ item, isOpen, onSave, onDelete, onClose }) => {
     <div className="flex items-center justify-between p-4 lg:p-6 border-b border-gray-200">
       <div className="flex items-center gap-4">
         <h2 className="text-xl font-semibold text-gray-900">Editar Item</h2>
-        {renderTabSwitcher()}
+        {/* Tab switcher moved to CustomizableMarkdownEditor */}
       </div>
       {renderHeaderActions()}
     </div>
@@ -126,128 +94,6 @@ const ItemEditor = ({ item, isOpen, onSave, onDelete, onClose }) => {
     </div>
   );
 
-
-
-  const renderEditorTab = () => (
-    <div className="h-full flex flex-col">
-      <div className="flex flex-col sm:flex-row justify-between items-center mb-4 gap-2 bg-gray-100 p-3 rounded-lg">
-        <div>
-          <h4 className="text-md font-semibold text-gray-800">Customizar Editor</h4>
-        </div>
-        <div className="flex gap-3 items-center flex-wrap justify-center">
-          <select
-            value={editorSettings.fontFamily}
-            onChange={(e) => updateEditorSetting('fontFamily', e.target.value)}
-            className="bg-gray-200 text-gray-800 text-sm p-2 rounded-md border border-gray-300 outline-none focus:border-blue-500"
-          >
-            <option value="'Architects Daughter', cursive">Estilo Manuscrito</option>
-            <option value="'Inter', sans-serif">Padrão (Inter)</option>
-            <option value="'Fira Code', monospace">Código (Mono)</option>
-          </select>
-
-          <input
-            type="number"
-            min="12"
-            max="32"
-            value={parseInt(editorSettings.fontSize)}
-            onChange={(e) => updateEditorSetting('fontSize', `${e.target.value}px`)}
-            className="w-20 bg-gray-200 text-gray-800 text-sm p-2 rounded-md border border-gray-300 outline-none focus:border-blue-500"
-          />
-
-          <div className="flex items-center gap-2">
-            <label className="text-sm text-gray-600">Fundo:</label>
-            <input
-              type="color"
-              value={editorSettings.backgroundColor}
-              onChange={(e) => updateEditorSetting('backgroundColor', e.target.value)}
-              className="w-8 h-8 rounded-md cursor-pointer border border-gray-300"
-              title="Cor de Fundo"
-            />
-          </div>
-
-          <div className="flex items-center gap-2">
-            <label className="text-sm text-gray-600">Texto:</label>
-            <input
-              type="color"
-              value={editorSettings.color}
-              onChange={(e) => updateEditorSetting('color', e.target.value)}
-              className="w-8 h-8 rounded-md cursor-pointer border border-gray-300"
-              title="Cor do Texto"
-            />
-          </div>
-        </div>
-      </div>
-
-      <div className="flex items-center justify-between px-4 py-2 border-b border-gray-200 bg-gray-50">
-        <div className="flex items-center gap-2">
-          <Edit3 size={16} className="text-gray-500" />
-          <h3 className="text-sm font-medium text-gray-700">Editor</h3>
-        </div>
-        <span className="text-xs text-gray-500">Markdown suportado</span>
-      </div>
-
-      <textarea
-        value={editContent}
-        onChange={(e) => setEditContent(e.target.value)}
-        className="flex-1 p-4 border-0 focus:ring-0 focus:outline-none resize-none overflow-y-auto min-h-[200px]"
-        placeholder="Escreva seu conteúdo em Markdown..."
-        rows={25}
-        style={{
-          maxHeight: 'calc(90vh - 250px)',
-          minHeight: '300px',
-          fontFamily: editorSettings.fontFamily,
-          backgroundColor: editorSettings.backgroundColor,
-          color: editorSettings.color,
-          fontSize: editorSettings.fontSize,
-        }}
-      />
-    </div>
-  );
-
-  const renderPreviewTab = () => (
-    <div className="h-full flex flex-col">
-      <div className="flex items-center justify-between px-4 py-2 border-b border-gray-200 bg-gray-50">
-        <div className="flex items-center gap-2">
-          <Eye size={16} className="text-gray-500" />
-          <h3 className="text-sm font-medium text-gray-700">Preview</h3>
-        </div>
-        <div className="flex items-center gap-2">
-          <span className="text-xs text-gray-500">Visualização em tempo real</span>
-          <button
-            type="button"
-            onClick={() => setIsPreviewFullscreen(true)}
-            className="text-xs px-2 py-1 rounded-md border border-gray-200 bg-white hover:bg-gray-50 text-gray-700"
-          >
-            Tela cheia
-          </button>
-        </div>
-      </div>
-
-      <div
-        className="flex-1 p-4 overflow-y-auto"
-        style={{
-          maxHeight: 'calc(90vh - 250px)',
-          fontFamily: editorSettings.fontFamily,
-          fontSize: editorSettings.fontSize,
-          backgroundColor: '#f9fafb', // Cor de fundo padrão para o preview
-          color: '#374151', // Cor do texto padrão para o preview
-        }}
-      >
-        <div className="prose prose-sm max-w-none">
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>
-            {editContent || '*Nada para mostrar...*'}
-          </ReactMarkdown>
-        </div>
-      </div>
-    </div>
-  );
-
-  const renderEditorOrPreviewContainer = () => (
-    <div className="flex-1 overflow-hidden border border-gray-200 rounded-md bg-white">
-      {activeTab === 'editor' ? renderEditorTab() : renderPreviewTab()}
-    </div>
-  );
-
   const renderCounter = () => (
     <div className="flex justify-between items-center mt-3 px-1">
       <div className="text-base text-gray-900">
@@ -263,14 +109,23 @@ const ItemEditor = ({ item, isOpen, onSave, onDelete, onClose }) => {
   const renderContent = () => (
     <div className="flex-1 p-4 lg:p-6 overflow-hidden flex flex-col">
       {renderTitleAndCategory()}
-
-      {renderEditorOrPreviewContainer()}
+      <CustomizableMarkdownEditor
+        markdown={editContent}
+        onChange={(e) => setEditContent(e.target.value)}
+        isPreviewFullscreen={isPreviewFullscreen}
+        onToggleFullscreen={setIsPreviewFullscreen}
+      />
       {renderCounter()}
     </div>
   );
 
   const renderPreviewFullscreen = () => {
     if (!isPreviewFullscreen) return null;
+
+    // The settings for the fullscreen preview should ideally come from CustomizableMarkdownEditor
+    // For now, we'll use default values or assume CustomizableMarkdownEditor manages its own state for this.
+    // If we need to sync settings, CustomizableMarkdownEditor would need to expose them via a ref or callback.
+    // Given the current structure, CustomizableMarkdownEditor will render the preview based on its internal settings.
 
     return (
       <div className="fixed inset-0 z-[60] bg-white flex flex-col">
@@ -294,10 +149,8 @@ const ItemEditor = ({ item, isOpen, onSave, onDelete, onClose }) => {
         <div className="flex-1 overflow-y-auto p-6">
           <div
             className={`prose max-w-none`}
-            style={{
-              fontFamily: editorSettings.fontFamily,
-              fontSize: editorSettings.fontSize,
-            }}
+            // Settings should be applied by CustomizableMarkdownEditor internally for its preview
+            // or passed down if exposed
           >
             <ReactMarkdown remarkPlugins={[remarkGfm]}>
               {editContent || '*Nada para mostrar...*'}
