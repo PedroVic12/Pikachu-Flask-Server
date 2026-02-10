@@ -364,7 +364,7 @@ export default function App() {
           type: "excel",
           url: e.target.result,
         };
-        const currentFiles = FileUploaderController.loadFiles();
+        const currentFiles = FileUploaderController.loadFiles() || []; // Defensive check
         const newFiles = [...currentFiles, newFile];
         const success = FileUploaderController.saveFiles(newFiles);
         if (success) {
@@ -957,9 +957,8 @@ Aqui está o [link][var1] do Shiatsu como váriavel no .MD
 
     // Load files from both localStorage and IndexedDB on initial render
     useEffect(() => {
-      // Load legacy files and filter out any stray decks
-      const legacyFiles = FileUploaderController.loadFiles().filter(
-        (f) => f.type !== "deck",
+          // Load legacy files and filter out any stray decks
+          const legacyFiles = (FileUploaderController.loadFiles() || []).filter( // Defensive check        (f) => f.type !== "deck",
       );
       setUploadedFiles(legacyFiles);
 

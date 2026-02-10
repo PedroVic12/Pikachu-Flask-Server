@@ -37,18 +37,18 @@ export default function OlaMundo() {
   let dataAtual = getToday();
 
   return (
-    <div className="p-8 bg-white rounded-xl shadow-md">
-      <H1 color="blue-600" size="3xl">
+    <div className="p-8 bg-white dark:bg-gray-800 rounded-xl shadow-md">
+      <H1 color="blue-600 dark:text-blue-400" size="3xl">
         Olá, PedroVic12! 👋 Hoje é dia {`${dataAtual}`}
       </H1>
-      <P color="gray-700">
+      <P color="gray-700 dark:text-gray-300">
         Esta é uma nova tela que foi importada para dentro do `page.jsx`. na pasta views/HTML
       </P>
-      <P color="gray-500">
+      <P color="gray-500 dark:text-gray-400">
         Você pode criar componentes assim em arquivos separados para organizar melhor seu código.
       </P>
 
-      <P>
+      <P color="gray-700 dark:text-gray-300">
         Neste trecho, vc criou componentes básicos HTML com React e tailwind para começar a refatoração de novas páginas dentro do projeto.
       </P>
     </div>
