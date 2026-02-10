@@ -85,11 +85,11 @@ const CustomizableMarkdownEditor = ({ markdown, onChange }) => {
   );
 
   const renderEditorControls = () => (
-    <div className="flex flex-col sm:flex-row justify-between items-center mb-4 gap-2 bg-gray-100 p-3 rounded-lg">
+    <div className="flex flex-col sm:flex-row justify-between items-center gap-2 bg-gray-100 p-3 rounded-lg">
       <div>
         <h4 className="text-md font-semibold text-gray-800">Customizar Editor</h4>
       </div>
-      <div className="flex gap-3 items-center flex-wrap justify-center">
+      <div className="flex items-center flex-wrap justify-center">
         <select
           value={settings.fontFamily}
           onChange={(e) => updateSetting('fontFamily', e.target.value)}
@@ -120,7 +120,7 @@ const CustomizableMarkdownEditor = ({ markdown, onChange }) => {
           />
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center ">
           <label className="text-sm text-gray-600">Texto:</label>
           <input
             type="color"
@@ -138,7 +138,7 @@ const CustomizableMarkdownEditor = ({ markdown, onChange }) => {
     <div className="h-full flex flex-col flex-1">
       {renderEditorControls()}
       <div className="flex items-center justify-between px-4 py-2 border-b border-gray-200 bg-gray-50">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center ">
           <Edit3 size={16} className="text-gray-500" />
           <h3 className="text-sm font-medium text-gray-700">Editor</h3>
         </div>
