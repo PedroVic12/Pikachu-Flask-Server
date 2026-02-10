@@ -64,9 +64,7 @@
 
 - [ ] Estudos de neurociencia sobre Neuroplasticidade (Boson Treinamentos) + Cartoes de enfretamento TCC para pagina do KanbanPro 2026
 
-- [ ] Engenheiro de Software Pleno - Legado PVRV: Py, JS, C++, Dart e Rust. Anotações para perspectiva de carreira com 28 anos em site que ajuda a priorizar os projetos.
-
-- [ ] Juntar todos sites estaticos em HTML que tenho num unico projeto NextJS com rotas e MVC (Gohan Treinamentos, Legado PVRV, Pomodoro)
+- [x] Engenheiro de Software Pleno - Legado PVRV: Py, JS, C++, Dart e Rust. Anotações para perspectiva de carreira com 28 anos em site que ajuda a priorizar os projetos.
 
 - [x] Backup Kanban, Batcaverna, Linux e Win11
 - [x] Planejamento e Metas semanal (Refatorar a tela do Tarefas PLC e outros sites tudo no mesmo NextJS)
@@ -86,11 +84,12 @@
 - [ ] Modelagem de Banco de Dados com Python com Schemas para SQlite + Access para Data Warehouse e dashboards em BI
 
 - [x] Estudos de conceitos básicos de CC/CA
-- [ ] Estudos de conceitos básicos de SEP para ONS PLC
+- [ ] Estudos de conceitos básicos de CA e SEP para ONS PLC (Cardeno, Equações e Simuladores)
 - [ ] Estudos sobre diagramas fasoriais em eng. elétrica
 
-- [ ] Acompanhar como foi feito o relatorio do controle mensal de Fevereiro e Janeiro com Word compartilhado para consulta
+- [x] Acompanhar como foi feito o relatorio do controle mensal de Fevereiro e Janeiro com Word compartilhado para consulta
   - [ ] Flow caso 10 Controle mensal com intercambio VC
+  - [x] VA e VB do mes de janeiro com o Marcos
 
 - [x] Deck Builder AnaREDE
   - [ ] Script inicial AnaRede com CLI com decks e .sav padrões de montagem de quadro mensal
@@ -98,6 +97,7 @@
 - [ ] Algoritimo Big O para complexibilidade de casos de FLuxo de potencia para auxiliar na montagem de decks
 
 - [ ] AnaRede Deck Builder = Anarede, EditCepel, PandaPower, CLI e ajuda na montagem de casos com algoritimo Big O para nivel de complexibildiade de operação da Rede
+
 - [ ]
 
 ---
@@ -108,11 +108,11 @@
 
 ---
 
-- [ ] Kanban, Scrum, Planejamento e metas (Segunda e sexta)
+- [x] Kanban, Scrum, Planejamento e metas (Segunda e sexta)
 - [x] Organização de arquivos .MD
 - [x] Organização projetos Github
-- [ ] Organização de Word e Excel usados para a semana no ONS
-- [ ] Pyside6 x Tauri x NextJS projetos
+- [x] Organização de Word e Excel usados para a semana no ONS
+- [x] Pyside6 x Tauri x NextJS projetos
 
 - [ ] Planejamento financeiro (Financial APP)
   - [x] Dezembro
@@ -125,13 +125,15 @@
 - [ ] Get/POST Google Sheets tabela de checklist de ProjectHub Empresas
 - [ ] HTML templates para Gohan Treinamentos Refatorado com SOLID, MVC e framework CSS components
 
+- [ ] Juntar todos sites estaticos em HTML que tenho num unico projeto NextJS com rotas e MVC (Gohan Treinamentos, Legado PVRV, Pomodoro)
+
 ---
 
 <a id="estudos-sep-ons-programacao"></a>
 
-# Estudos de SEP para ONS e programação __IN_PROGRESS
+# Estudos de SEP para ONS e programação __TODO
 
-## Sesão de ESTUDOS (Matemática, programação e Eng. Elétrica) \_\_TODO
+## Sesão de ESTUDOS (Matemática, programação e Eng. Elétrica)
 
 - [ ] Atividade ML de IEEEDs e principais modelo de AI de Supevisionado x Não Supervisionado (Com Rótulos x Sem Rótulos)
 - [ ] Eletromagnetismo: Resolver 3 exercícios de Lei de Gauss/Coulomb.
@@ -155,7 +157,7 @@
 
 <a id="sessao-estudos"></a>
 
-## ⚡ Conceitos Elétricos (Dúvidas/Insights)
+# ⚡ Conceitos Elétricos (Dúvidas/Insights) __TODO
 
 - [ ] CC vs CA: Em CC, a indutância é um curto e a capacitância é um aberto no regime permanente. Em CA, eles geram impedância ($j\omega L$ e $1/j\omega C$).
 
@@ -167,7 +169,7 @@
 
 <a id="objetivos-semana"></a>
 
-# 🎯 Objetivos da Semana (Main Quests)
+# 🎯 Objetivos da Semana (Main Quests) __TODO
 
 ⚡ Trabalho (ONS) - Engenharia de Dados & Sistemas
 
@@ -181,7 +183,7 @@ Meta: Conseguir explicar o comportamento da tensão na barra quando a carga reat
 
 <a id="checklist-diario"></a>
 
-# 📅 Checklist Diário
+# 📅 Checklist Diário __TODO
 
 **Segunda-feira** - Setup, Planejamento, SCRUM & SEP
 
@@ -189,11 +191,11 @@ Meta: Conseguir explicar o comportamento da tensão na barra quando a carga reat
 
 - [ ] 10:00 - ONS (Dev): Estudo de script Python para automação de banco de dados.
 
-- [ ] 14:00 - Foco Técnico: Leitura sobre Load Flow (Fluxo de Carga).
+- [x] 14:00 - Foco Técnico: Leitura sobre Load Flow (Fluxo de Carga).
 
 **Terça-feira** - O Dia Longo
 
-- [ ] 06:25 - ONS (Presencial): Acompanhar operação em tempo real (se possível).
+- [ ] 06:25 - ONS (Presencial): Acompanhar operação do SIN com os colegas de trabalho.
 
 - [ ] 19:00 - Revisão leve de CC (Circuitos de Corrente Contínua).
 
