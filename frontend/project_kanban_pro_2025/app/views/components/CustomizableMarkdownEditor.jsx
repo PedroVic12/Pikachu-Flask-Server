@@ -85,7 +85,7 @@ const CustomizableMarkdownEditor = ({ markdown, onChange }) => {
   );
 
   const renderEditorControls = () => (
-    <div className="flex flex-col sm:flex-row justify-between items-center gap-2 bg-gray-100 p-3 rounded-lg">
+    <div className="flex flex-col sm:flex-row justify-between items-center gap-1 bg-gray-100 p-3 rounded-lg">
       <div>
         <h4 className="text-md font-semibold text-gray-800">Customizar Editor</h4>
       </div>
