@@ -32,7 +32,7 @@ const ItemEditor = ({ item, isOpen, onSave, onDelete, onClose }) => {
   if (!isOpen || !item) return null;
 
   const renderHeaderActions = () => (
-    <div className="flex items-center gap-1">
+    <div className="flex items-center">
       <button
         onClick={() => onDelete(item.id)}
         className="flex items-center gap-2 px-3 py-2 text-red-600 hover:bg-red-50 rounded-md transition-colors"
@@ -53,7 +53,7 @@ const ItemEditor = ({ item, isOpen, onSave, onDelete, onClose }) => {
         onClick={onClose}
         className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-md transition-colors"
       >
-        <X size={20} />
+        <X size={16} />
       </button>
     </div>
   );
@@ -69,7 +69,7 @@ const ItemEditor = ({ item, isOpen, onSave, onDelete, onClose }) => {
   );
 
   const renderTitleAndCategory = () => (
-    <div className="flex flex-col sm:flex-row mb-4">
+    <div className="flex flex-col sm:flex-row mb-2">
       <input
         type="text"
         value={editTitle}
