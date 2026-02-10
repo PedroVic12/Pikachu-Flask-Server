@@ -52,15 +52,15 @@
 # Sprint atual (10/02/2026) PVRV __IN_PROGRESS
 
 - [ ] Cadastro de dados BDT Seco E NE **Urgente**
-- [x] Correções do SISBAR com procv do Mensal de Janeiro e colocar nas abas faltantes para o Mensal de Fevereiroc com justificativa de aparecer na área
+- [x] Planilhas TAREFAS PLC de fevereiro
+
+- [x] Correções do SISBAR com procv do Mensal de Janeiro e colocar nas abas faltantes para o Mensal de Fevereiro com justificativa de aparecer na área
   - [x] Feito via Excel com metodologia e PROCV com planilha do Mensal anterior
   - [ ] Pyside6 que faz a automação de corrigir as barras do SECO do mensal passando a planilha do mensal anterior
 
 - [ ] Correções e bug fix no VBA para perdas Duplas Lts + 3 gráficos
   - [ ] Aba de modificações sem formatação na pagina correta
   - [ ] Pandas + Plotly + Julia para analise de dados e escolher os 3 gráficos de Perdas Duplas LTs e usar os gráficos no excel interno
-
-- [ ] Modelagem de Banco de Dados com Python com Schemas para SQlite + Access para Data Warehouse e dashboards em BI
 
 - [ ] Estudos de neurociencia sobre Neuroplasticidade (Boson Treinamentos) + Cartoes de enfretamento TCC para pagina do KanbanPro 2026
 
@@ -80,6 +80,10 @@
 
 - [ ] Rotina de rodízio de tarefas de Casos Mensal (Janeiro, Fevereiro e Março)
 - [ ] Tarefas de Casos Mensal: VA (Configuração de Cargas), VB (Organon),  VC (Intercambio),  VD (FluPot), VE/VF/VG (Conferencia), VH (AnaTEM)
+
+- [ ] Rotina de tarefas de montagem de caso do Mensal do VA, VB e VC pegando os dados do mensal do Mês anterior.
+
+- [ ] Modelagem de Banco de Dados com Python com Schemas para SQlite + Access para Data Warehouse e dashboards em BI
 
 - [x] Estudos de conceitos básicos de CC/CA
 - [ ] Estudos de conceitos básicos de SEP para ONS PLC

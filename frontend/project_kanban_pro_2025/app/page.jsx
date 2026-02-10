@@ -44,6 +44,8 @@ import {
   FileSpreadsheet,
   File as FilePdf,
   Database,
+  Sun,
+  Moon,
 } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -141,6 +143,8 @@ const Sidebar = ({
   onClose,
   isCollapsed,
   onToggleCollapse,
+  theme, // New prop
+  onToggleTheme, // New prop
 }) => {
   // Removed React.FC<SidebarProps>
   const fileInputRef = useRef(null); // Removed type annotation
@@ -187,21 +191,31 @@ const Sidebar = ({
       icon: Download,
       onClick: onExport,
     },
+    { // New theme toggle item
+      id: "theme-toggle",
+      label: theme === "light" ? "Modo Escuro" : "Modo Claro",
+      icon: theme === "light" ? Moon : Sun,
+      onClick: onToggleTheme,
+      color: "text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700",
+    },
   ];
 
   return (
     <>
       <div
-        className={`fixed inset-y-0 left-0 z-50 bg-white shadow-lg transform transition-transform duration-300 ease-in-out ${isOpen ? "translate-x-0" : "-translate-x-full"
-          } lg:translate-x-0 lg:static lg:inset-0 ${isCollapsed ? "lg:w-20" : "w-64"
-          }`}
+        className={`fixed inset-y-0 left-0 z-50 bg-white dark:bg-gray-800 shadow-lg transform transition-transform duration-300 ease-in-out ${
+          isOpen ? "translate-x-0" : "-translate-x-full"
+        } lg:translate-x-0 lg:static lg:inset-0 ${
+          isCollapsed ? "lg:w-20" : "w-64"
+        }`}
       >
         <div
-          className={`flex items-center justify-between h-16 border-b border-gray-200 ${isCollapsed ? "px-2" : "px-4"}`}
+          className={`flex items-center justify-between h-16 border-b border-gray-200 dark:border-gray-700 ${isCollapsed ? "px-2" : "px-4"}`}
         >
           <h1
-            className={`text-xl font-bold text-gray-900 ${isCollapsed ? "hidden" : "block"
-              }`}
+            className={`text-xl font-bold text-gray-900 dark:text-gray-100 ${
+              isCollapsed ? "hidden" : "block"
+            }`}
           >
             Kanban Pro
           </h1>
@@ -209,7 +223,7 @@ const Sidebar = ({
           <div className="flex items-center gap-1">
             <button
               onClick={onToggleCollapse}
-              className="hidden lg:inline-flex p-2 rounded-md text-gray-400 hover:text-gray-600 hover:bg-gray-100"
+              className="hidden lg:inline-flex p-2 rounded-md text-gray-400 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:text-gray-100 dark:hover:bg-gray-700"
               aria-label={isCollapsed ? "Expandir menu" : "Recolher menu"}
               title={isCollapsed ? "Expandir" : "Recolher"}
             >
@@ -222,7 +236,7 @@ const Sidebar = ({
 
             <button
               onClick={onClose}
-              className="lg:hidden p-2 rounded-md text-gray-400 hover:text-gray-600 hover:bg-gray-100"
+              className="lg:hidden p-2 rounded-md text-gray-400 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:text-gray-100 dark:hover:bg-gray-700"
               aria-label="Fechar menu"
             >
               <X size={20} />
@@ -240,11 +254,13 @@ const Sidebar = ({
                   onClose();
                 }}
                 title={label}
-                className={`w-full flex items-center ${isCollapsed ? "justify-center px-3" : "px-4"
-                  } py-3 text-left rounded-lg transition-colors ${currentScreen === id
-                    ? "bg-blue-100 text-blue-700 border-r-2 border-blue-700"
-                    : "text-gray-700 hover:bg-gray-100"
-                  }`}
+                className={`w-full flex items-center ${
+                  isCollapsed ? "justify-center px-3" : "px-4"
+                } py-3 text-left rounded-lg transition-colors ${
+                  currentScreen === id
+                    ? "bg-blue-100 text-blue-700 border-r-2 border-blue-700 dark:bg-blue-900 dark:text-blue-200 dark:border-blue-200"
+                    : "text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
+                }`}
               >
                 <Icon size={20} className={isCollapsed ? "" : "mr-3"} />
                 {!isCollapsed && label}
@@ -252,15 +268,16 @@ const Sidebar = ({
             ))}
           </div>
 
-          <div className="mt-8 pt-8 border-t border-gray-200">
+          <div className="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700">
             <div className="space-y-2">
               {actionItems.map(({ id, label, icon: Icon, onClick, color }) => (
                 <button
                   key={id}
                   onClick={onClick}
                   title={label}
-                  className={`w-full flex items-center ${isCollapsed ? "justify-center px-3" : "px-4"
-                    } py-3 text-left rounded-lg transition-colors ${color || "text-gray-700 hover:bg-gray-100"}
+                  className={`w-full flex items-center ${
+                    isCollapsed ? "justify-center px-3" : "px-4"
+                  } py-3 text-left rounded-lg transition-colors ${color || "text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"}
           }`}
                 >
                   <Icon size={20} className={isCollapsed ? "" : "mr-3"} />
@@ -300,6 +317,23 @@ export default function App() {
   const [draggedItem, setDraggedItem] = useState(null); // Removed type annotation
   const [searchTerm, setSearchTerm] = useState("");
   const [filterCategory, setFilterCategory] = useState("all"); // Removed type annotation
+  const [theme, setTheme] = useState("light"); // Add theme state
+
+  // Effect to apply theme class and save to localStorage
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme") || "light";
+    setTheme(savedTheme);
+    document.documentElement.classList.toggle("dark", savedTheme === "dark");
+  }, []);
+
+  const toggleTheme = () => {
+    setTheme((prevTheme) => {
+      const newTheme = prevTheme === "light" ? "dark" : "light";
+      localStorage.setItem("theme", newTheme);
+      document.documentElement.classList.toggle("dark", newTheme === "dark");
+      return newTheme;
+    });
+  };
 
   const {
     projects,
@@ -529,18 +563,18 @@ export default function App() {
     const timeSeriesData = getTimeSeriesData();
 
     return (
-      <div className="p-4 lg:p-6">
+      <div className="p-4 lg:p-6 bg-white dark:bg-gray-900">
         {/* Exemplo de como usar a nova tela */}
         <div className="mb-8">
           <OlaMundo />
         </div>
 
         <div className="mb-6">
-          <h1 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-2">
+          <h1 className="text-2xl lg:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">
             {" "}
             Dashboard{" "}
           </h1>
-          <p className="text-gray-600">
+          <p className="text-gray-600 dark:text-gray-300">
             {" "}
             Visão geral dos seus projetos e atividades{" "}
           </p>
@@ -551,12 +585,12 @@ export default function App() {
           {statCards.map(({ label, value, icon: Icon, color }) => (
             <div
               key={label}
-              className="bg-white rounded-xl p-6 shadow-sm border border-gray-200"
+              className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700"
             >
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600"> {label} </p>
-                  <p className="text-2xl font-bold text-gray-900"> {value} </p>
+                  <p className="text-sm font-medium text-gray-600 dark:text-gray-300"> {label} </p>
+                  <p className="text-2xl font-bold text-gray-900 dark:text-gray-100"> {value} </p>
                 </div>
                 <div className={`p-3 ${colorClasses[color].bg} rounded-lg`}>
                   <Icon className={`h-6 w-6 ${colorClasses[color].text}`} />
@@ -568,8 +602,8 @@ export default function App() {
 
         {/* Charts */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-          <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200 flex flex-col">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">
+          <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700 flex flex-col">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
               Distribuição por Categoria
             </h3>
             <div className="flex-1 -mx-4">
@@ -597,8 +631,8 @@ export default function App() {
             </div>
           </div>
 
-          <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">
+          <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
               {" "}
               Status dos Projetos{" "}
             </h3>
@@ -607,7 +641,7 @@ export default function App() {
                 <div key={status} className="flex items-center justify-between">
                   <div className="flex items-center">
                     <span className="text-lg mr-2"> {info.emoji} </span>
-                    <span className="text-sm text-gray-600">
+                    <span className="text-sm text-gray-600 dark:text-gray-300">
                       {" "}
                       {info.title}{" "}
                     </span>
@@ -623,7 +657,7 @@ export default function App() {
                         {" "}
                       </div>
                     </div>
-                    <span className="text-sm font-medium text-gray-900">
+                    <span className="text-sm font-medium text-gray-900 dark:text-gray-100">
                       {" "}
                       {statusStats[status] || 0}{" "}
                     </span>
@@ -636,11 +670,11 @@ export default function App() {
 
         {/* SCRUM KANBAN METODOLOGIA */}
 
-        <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">
+        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
             Estrutura do Fluxo (Kanban)
           </h3>
-          <p className="text-gray-600">
+          <p className="text-gray-600 dark:text-gray-300">
             Um quadro visual como Trello ou Jira para dar visibilidade ao
             trabalho
           </p>
@@ -648,8 +682,8 @@ export default function App() {
         </div>
 
         {/* Time Series Chart */}
-        <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">
+        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
             Atividade dos Projetos (Séries Temporais)
           </h3>
           <div className="h-80 -mx-4">
@@ -678,8 +712,8 @@ export default function App() {
         </div>
 
         {/* Recent Projects */}
-        <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200 mt-8">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">
+        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700 mt-8">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
             {" "}
             Projetos Recentes{" "}
           </h3>
@@ -690,16 +724,16 @@ export default function App() {
               return (
                 <div
                   key={project.id}
-                  className="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
+                  className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg"
                 >
                   <div className="flex items-center">
                     <span className="text-lg mr-3"> {categoryInfo.emoji} </span>
                     <div>
-                      <p className="font-medium text-gray-900">
+                      <p className="font-medium text-gray-900 dark:text-gray-100">
                         {" "}
                         {project.title}{" "}
                       </p>
-                      <p className="text-sm text-gray-500">
+                      <p className="text-sm text-gray-500 dark:text-gray-300">
                         {" "}
                         Atualizado em{" "}
                         {project.updatedAt.toLocaleDateString("pt-BR")}{" "}
@@ -720,64 +754,63 @@ export default function App() {
     );
   };
 
-  const KanbanScreen = () => {
-    const columns = Object.keys(STATUS_COLUMNS); // Removed type annotation
-
-    return (
-      <div className="p-4 lg:p-6">
-        <div className="mb-6">
-          <h1 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-2">
-            {" "}
-            Kanban PRO Board 2026{" "}
-          </h1>
-          <p className="text-gray-600">
-            {" "}
-            Organize seus projetos visualmente utilizando métodos de SCRUM e
-            Design Patterns para programação de softwares
-          </p>
+    const KanbanScreen = () => {
+      const columns = Object.keys(STATUS_COLUMNS); // Removed type annotation
+  
+      return (
+        <div className="p-4 lg:p-6 bg-white dark:bg-gray-900">
+          <div className="mb-6">
+            <h1 className="text-2xl lg:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">
+              {" "}
+              Kanban PRO Board 2026{" "}
+            </h1>
+            <p className="text-gray-600 dark:text-gray-300">
+              {" "}
+              Organize seus projetos visualmente utilizando métodos de SCRUM e
+              Design Patterns para programação de softwares
+            </p>
+          </div>
+  
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 overflow-x-auto">
+            {columns.map((status) => (
+              <KanbanColumn
+                key={status}
+                status={status}
+                projects={getProjectsByStatus(status)}
+                onProjectEdit={openItemEditor}
+                onProjectCreate={createNewItem}
+                onDragOver={handleDragOver}
+                onDrop={handleDrop}
+                onDragStart={handleDragStart}
+              />
+            ))}
+          </div>
         </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 overflow-x-auto">
-          {columns.map((status) => (
-            <KanbanColumn
-              key={status}
-              status={status}
-              projects={getProjectsByStatus(status)}
-              onProjectEdit={openItemEditor}
-              onProjectCreate={createNewItem}
-              onDragOver={handleDragOver}
-              onDrop={handleDrop}
-              onDragStart={handleDragStart}
-            />
-          ))}
-        </div>
-      </div>
-    );
-  };
-
+      );
+    };
   const TableScreen = () => {
     const filteredProjects = getFilteredProjects();
 
     return (
-      <div className="p-4 lg:p-6">
+      <div className="p-4 lg:p-6 bg-white dark:bg-gray-900">
         <div className="mb-6">
-          <h1 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-2">
+          <h1 className="text-2xl lg:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">
             {" "}
             Tabela de Projetos{" "}
           </h1>
-          <p className="text-gray-600">
+          <p className="text-gray-600 dark:text-gray-300">
             {" "}
             Visualize todos os seus projetos em formato de tabela{" "}
           </p>
         </div>
 
         {/* Filters */}
-        <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-200 mb-6">
+        <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm border border-gray-200 dark:border-gray-700 mb-6">
           <div className="flex flex-col sm:flex-row gap-4">
             <div className="flex-1">
               <div className="relative">
                 <Search
-                  className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+                  className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-300"
                   size={20}
                 />
                 <input
@@ -785,7 +818,7 @@ export default function App() {
                   placeholder="Buscar projetos..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
                 />
               </div>
             </div>
@@ -793,7 +826,7 @@ export default function App() {
               <select
                 value={filterCategory}
                 onChange={(e) => setFilterCategory(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
               >
                 <option value="all"> Todas as categorias</option>
                 {Object.entries(CATEGORIES).map(([key, value]) => (
@@ -807,48 +840,48 @@ export default function App() {
         </div>
 
         {/* Table */}
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full">
-              <thead className="bg-gray-50 border-b border-gray-200">
+              <thead className="bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-700">
                 <tr>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                     {" "}
                     Projeto{" "}
                   </th>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                     {" "}
                     Status{" "}
                   </th>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                     {" "}
                     Categoria{" "}
                   </th>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                     {" "}
                     Atualizado{" "}
                   </th>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                     {" "}
                     Ações{" "}
                   </th>
                 </tr>
               </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
+              <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
                 {filteredProjects.map((project) => {
                   const categoryInfo =
                     CATEGORIES[project.category] || CATEGORIES.ons; // Removed CategoryKey cast
                   const statusInfo = STATUS_COLUMNS[project.status]; // Removed StatusKey cast
 
                   return (
-                    <tr key={project.id} className="hover:bg-gray-50">
+                    <tr key={project.id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
                       <td className="px-4 py-4">
                         <div>
-                          <div className="text-sm font-medium text-gray-900">
+                          <div className="text-sm font-medium text-gray-900 dark:text-gray-100">
                             {" "}
                             {project.title}{" "}
                           </div>
-                          <div className="text-sm text-gray-500">
+                          <div className="text-sm text-gray-500 dark:text-gray-300">
                             {" "}
                             ID: {project.id}{" "}
                           </div>
@@ -860,7 +893,7 @@ export default function App() {
                             {" "}
                             {statusInfo?.emoji}{" "}
                           </span>
-                          <span className="text-sm text-gray-900">
+                          <span className="text-sm text-gray-900 dark:text-gray-100">
                             {" "}
                             {statusInfo?.title || project.status}
                           </span>
@@ -874,20 +907,20 @@ export default function App() {
                           {categoryInfo.label}
                         </div>
                       </td>
-                      <td className="px-4 py-4 text-sm text-gray-900">
+                      <td className="px-4 py-4 text-sm text-gray-900 dark:text-gray-100">
                         {project.updatedAt.toLocaleDateString("pt-BR")}
                       </td>
                       <td className="px-4 py-4">
                         <div className="flex items-center space-x-2">
                           <button
                             onClick={() => openItemEditor(project)}
-                            className="text-blue-600 hover:text-blue-900 p-1 rounded hover:bg-blue-50"
+                            className="text-blue-600 hover:text-blue-900 p-1 rounded hover:bg-blue-50 dark:text-blue-400 dark:hover:text-blue-200 dark:hover:bg-blue-900"
                           >
                             <Edit3 size={16} />
                           </button>
                           <button
                             onClick={() => deleteProject(project.id)}
-                            className="text-red-600 hover:text-red-900 p-1 rounded hover:bg-red-50"
+                            className="text-red-600 hover:text-red-900 p-1 rounded hover:bg-red-50 dark:text-red-400 dark:hover:text-red-200 dark:hover:bg-red-900"
                           >
                             <Trash2 size={16} />
                           </button>
@@ -1095,13 +1128,13 @@ Aqui está o [link][var1] do Shiatsu como váriavel no .MD
     };
 
     return (
-      <div className="p-4 lg:p-6">
+      <div className="p-4 lg:p-6 bg-white dark:bg-gray-900">
         <div className="mb-6">
-          <h1 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-2">
+          <h1 className="text-2xl lg:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">
             {" "}
             Gerenciador de Arquivos V3{" "}
           </h1>
-          <p className="text-gray-600">
+          <p className="text-gray-600 dark:text-gray-300">
             {" "}
             Upload e gerenciamento de PDFs, imagens, planilhas e decks do
             AnaRede.{" "}
@@ -1113,18 +1146,18 @@ Aqui está o [link][var1] do Shiatsu como váriavel no .MD
           {uploadSections.map(({ type, label, icon: Icon, color, accept }) => (
             <div
               key={type}
-              className="bg-white rounded-xl p-6 shadow-sm border border-gray-200 text-center"
+              className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700 text-center"
             >
               <div
                 className={`p-4 ${colorClasses[color].bg} rounded-lg inline-block mb-4`}
               >
                 <Icon className={`h-8 w-8 ${colorClasses[color].text}`} />
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">
                 {" "}
                 {label}{" "}
               </h3>
-              <p className="text-sm text-gray-600 mb-4">
+              <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
                 Faça upload de{" "}
                 {type === "pdf"
                   ? "documentos PDF"
@@ -1150,16 +1183,16 @@ Aqui está o [link][var1] do Shiatsu como váriavel no .MD
             </div>
           ))}
           {/* New Card for AnaRede Decks */}
-          <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200 text-center">
+          <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700 text-center">
             <div
               className={`p-4 ${colorClasses.purple.bg} rounded-lg inline-block mb-4`}
             >
               <FileText className={`h-8 w-8 ${colorClasses[color].text}`} />
             </div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">
               Decks AnaRede
             </h3>
-            <p className="text-sm text-gray-600 mb-4">
+            <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
               Upload de arquivos .dat, .pwf, .spt com descrição.
             </p>
             <div className="space-y-4">
@@ -1167,7 +1200,7 @@ Aqui está o [link][var1] do Shiatsu como váriavel no .MD
                 type="file"
                 accept=".dat,.pwf,.spt,.DAT,.PWF,.SPT"
                 onChange={(e) => setDeckFile(e.target.files[0])}
-                className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-purple-50 file:text-purple-700 hover:file:bg-purple-100"
+                className="block w-full text-sm text-gray-500 dark:text-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-purple-50 file:text-purple-700 hover:file:bg-purple-100 file:dark:bg-purple-900 file:dark:text-purple-200 hover:file:dark:bg-purple-800"
                 id="deck-upload-input"
               />
               <input
@@ -1175,7 +1208,7 @@ Aqui está o [link][var1] do Shiatsu como váriavel no .MD
                 placeholder="Descrição do deck..."
                 value={deckDescription}
                 onChange={(e) => setDeckDescription(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
               />
               <button
                 onClick={handleAddDeck}
@@ -1196,9 +1229,9 @@ Aqui está o [link][var1] do Shiatsu como váriavel no .MD
           return (
             <div
               key={type}
-              className="bg-white rounded-xl p-6 shadow-sm border border-gray-200 mt-8"
+              className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700 mt-8"
             >
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
                 {title} Carregados
               </h3>
               <Carousel
@@ -1215,12 +1248,12 @@ Aqui está o [link][var1] do Shiatsu como váriavel no .MD
                       className="md:basis-1/2 lg:basis-1/3"
                     >
                       <div className="p-1">
-                        <Card className="relative group">
+                        <Card className="relative group bg-white dark:bg-gray-700">
                           <button
                             onClick={() =>
                               handleDeleteFile(file, file.legacyIndex)
                             }
-                            className="absolute top-2 right-2 z-10 p-1 bg-white bg-opacity-75 rounded-full text-gray-600 hover:bg-red-500 hover:text-white transition-all opacity-0 group-hover:opacity-100"
+                            className="absolute top-2 right-2 z-10 p-1 bg-white bg-opacity-75 rounded-full text-gray-600 hover:bg-red-500 hover:text-white transition-all opacity-0 group-hover:opacity-100 dark:bg-gray-600 dark:text-gray-300 dark:hover:bg-red-700"
                             title="Excluir arquivo"
                           >
                             <X size={14} />
@@ -1233,27 +1266,27 @@ Aqui está o [link][var1] do Shiatsu como váriavel no .MD
                                 className="max-w-full max-h-24 object-contain rounded-md"
                               />
                             ) : file.type === "pdf" ? (
-                              <FilePdf className="w-16 h-16 text-red-500" />
+                              <FilePdf className="w-16 h-16 text-red-500 dark:text-red-400" />
                             ) : file.type === "excel" ? (
-                              <FileSpreadsheet className="w-16 h-16 text-green-500" />
+                              <FileSpreadsheet className="w-16 h-16 text-green-500 dark:text-green-400" />
                             ) : (
                               // for 'deck' type
-                              <FileText className="w-16 h-16 text-purple-500" />
+                              <FileText className="w-16 h-16 text-purple-500 dark:text-purple-400" />
                             )}
                             <p
-                              className="text-xs text-center text-gray-600 truncate w-full pt-2"
+                              className="text-xs text-center text-gray-600 dark:text-gray-300 truncate w-full pt-2"
                               title={file.name}
                             >
                               {file.name}
                             </p>
                             {file.description && (
-                              <p className="text-xs text-center text-gray-500">
+                              <p className="text-xs text-center text-gray-500 dark:text-gray-400">
                                 {file.description}
                               </p>
                             )}
                             <button
                               onClick={() => handleDownload(file)}
-                              className="mt-2 inline-flex items-center px-3 py-1 bg-gray-100 text-gray-700 rounded-lg text-sm hover:bg-gray-200 transition-colors"
+                              className="mt-2 inline-flex items-center px-3 py-1 bg-gray-100 text-gray-700 rounded-lg text-sm hover:bg-gray-200 transition-colors dark:bg-gray-700 dark:text-gray-100 dark:hover:bg-gray-600"
                             >
                               <Download size={14} className="mr-1.5" />
                               Baixar
@@ -1272,28 +1305,28 @@ Aqui está o [link][var1] do Shiatsu como váriavel no .MD
         })}
 
         {/* Markdown Editor for Links */}
-        <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200 mt-8">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">
+        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700 mt-8">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
             {" "}
             Editor de Links e Referências{" "}
           </h3>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 Editor Markdown
               </label>
               <textarea
                 placeholder="Cole aqui seus links e referências em formato Markdown..."
-                className="w-full h-64 p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent font-mono text-sm"
+                className="w-full h-64 p-4 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent font-mono text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
                 value={markdownContent}
                 onChange={(e) => setMarkdownContent(e.target.value)}
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 Preview
               </label>
-              <div className="h-64 p-4 border border-gray-200 rounded-lg bg-gray-50 overflow-y-auto">
+              <div className="h-64 p-4 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800 overflow-y-auto">
                 <div className="prose prose-sm max-w-none">
                   <ReactMarkdown remarkPlugins={[remarkGfm]}>
                     {markdownContent}
@@ -1327,7 +1360,7 @@ Aqui está o [link][var1] do Shiatsu como váriavel no .MD
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex">
       {/* Sidebar */}
       <Sidebar
         currentScreen={currentScreen}
@@ -1339,20 +1372,23 @@ Aqui está o [link][var1] do Shiatsu como váriavel no .MD
         onClose={() => setSidebarOpen(false)}
         isCollapsed={sidebarCollapsed}
         onToggleCollapse={() => setSidebarCollapsed((v) => !v)}
+        // Pass theme props
+        theme={theme} // Pass theme state
+        onToggleTheme={toggleTheme} // Pass toggle function
       />
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col lg:ml-0">
+      <div className="flex-1 flex flex-col lg:ml-0 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100">
         {/* Mobile Header */}
-        <div className="lg:hidden bg-white shadow-sm border-b border-gray-200 px-4 py-3">
+        <div className="lg:hidden bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700 px-4 py-3">
           <div className="flex items-center justify-between">
             <button
               onClick={() => setSidebarOpen(true)}
-              className="p-2 rounded-md text-gray-400 hover:text-gray-600 hover:bg-gray-100"
+              className="p-2 rounded-md text-gray-400 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:text-gray-100 dark:hover:bg-gray-700"
             >
               <Menu size={24} />
             </button>
-            <h1 className="text-lg font-semibold text-gray-900">
+            <h1 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
               {" "}
               Kanban Pro{" "}
             </h1>
