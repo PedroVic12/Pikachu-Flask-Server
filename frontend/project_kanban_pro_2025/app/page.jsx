@@ -164,7 +164,7 @@ const Sidebar = ({
     { id: "table", label: "Tabelas", icon: Table },
     { id: "files", label: "Arquivos", icon: FileText },
     { id: "api-data", label: "API", icon: Database },
-    { id: "projecthub", label: "PVRV Web DEV", icon: LayoutDashboard },
+    { id: "pvrv-web-dev", label: "PVRV Web DEV", icon: LayoutDashboard },
   ];
 
   const actionItems = [
@@ -192,19 +192,16 @@ const Sidebar = ({
   return (
     <>
       <div
-        className={`fixed inset-y-0 left-0 z-50 bg-white shadow-lg transform transition-transform duration-300 ease-in-out ${
-          isOpen ? "translate-x-0" : "-translate-x-full"
-        } lg:translate-x-0 lg:static lg:inset-0 ${
-          isCollapsed ? "lg:w-20" : "w-64"
-        }`}
+        className={`fixed inset-y-0 left-0 z-50 bg-white shadow-lg transform transition-transform duration-300 ease-in-out ${isOpen ? "translate-x-0" : "-translate-x-full"
+          } lg:translate-x-0 lg:static lg:inset-0 ${isCollapsed ? "lg:w-20" : "w-64"
+          }`}
       >
         <div
           className={`flex items-center justify-between h-16 border-b border-gray-200 ${isCollapsed ? "px-2" : "px-4"}`}
         >
           <h1
-            className={`text-xl font-bold text-gray-900 ${
-              isCollapsed ? "hidden" : "block"
-            }`}
+            className={`text-xl font-bold text-gray-900 ${isCollapsed ? "hidden" : "block"
+              }`}
           >
             Kanban Pro
           </h1>
@@ -243,13 +240,11 @@ const Sidebar = ({
                   onClose();
                 }}
                 title={label}
-                className={`w-full flex items-center ${
-                  isCollapsed ? "justify-center px-3" : "px-4"
-                } py-3 text-left rounded-lg transition-colors ${
-                  currentScreen === id
+                className={`w-full flex items-center ${isCollapsed ? "justify-center px-3" : "px-4"
+                  } py-3 text-left rounded-lg transition-colors ${currentScreen === id
                     ? "bg-blue-100 text-blue-700 border-r-2 border-blue-700"
                     : "text-gray-700 hover:bg-gray-100"
-                }`}
+                  }`}
               >
                 <Icon size={20} className={isCollapsed ? "" : "mr-3"} />
                 {!isCollapsed && label}
@@ -264,9 +259,8 @@ const Sidebar = ({
                   key={id}
                   onClick={onClick}
                   title={label}
-                  className={`w-full flex items-center ${
-                    isCollapsed ? "justify-center px-3" : "px-4"
-                  } py-3 text-left rounded-lg transition-colors ${color || "text-gray-700 hover:bg-gray-100"}
+                  className={`w-full flex items-center ${isCollapsed ? "justify-center px-3" : "px-4"
+                    } py-3 text-left rounded-lg transition-colors ${color || "text-gray-700 hover:bg-gray-100"}
           }`}
                 >
                   <Icon size={20} className={isCollapsed ? "" : "mr-3"} />
@@ -1325,7 +1319,7 @@ Aqui está o [link][var1] do Shiatsu como váriavel no .MD
         return <FilesScreen />;
       case "api-data":
         return <ApiDataScreen />;
-      case "projecthub":
+      case "pvrv-web-dev":
         return <PVRVWebDevPage />;
       default:
         return <DashboardScreen />;

@@ -54,8 +54,7 @@ const markdownTasks = `
 
 // --- FUNÇÃO PARA PARSE DO MARKDOWN ---
 const parseMarkdownTasks = (md) => {
-    const lines = md.trim().split('
-');
+    const lines = md.trim().split('\n');
     const data = {};
     let currentCategory = null;
     let taskIdCounter = 0;
@@ -240,7 +239,7 @@ export default function PVRVWebDevPage() {
             return newSelection;
         });
     };
-    
+
     const themeValues = colorPalettes[theme].values;
 
     return (
