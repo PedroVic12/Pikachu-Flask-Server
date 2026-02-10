@@ -1,20 +1,40 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import ReactMarkdown from 'react-markdown';
+import React, { useState, useEffect, useCallback, useMemo } from 'react'; // Added useMemo
+import ReactMarkdown from 'react-markdown'; // Still needed for raw parsing, but we'll use custom rendering
 import remarkGfm from 'remark-gfm';
-import { Edit3, Eye, Maximize, Minimize } from 'lucide-react'; // Added Maximize, Minimize
+import { Edit3, Eye, Maximize, Minimize } from 'lucide-react';
 
 const LOCAL_STORAGE_KEY = 'custom_markdown_editor_settings';
 
-const CustomizableMarkdownEditor = ({ markdown, onChange }) => { // Removed isPreviewFullscreen, onToggleFullscreen
+// Custom render function for Markdown to HTML with specific styling
+const renderMarkdownToHTML = (markdownText) => {
+    if (!markdownText) return '';
+    let html = String(markdownText);
+    html = html.replace(/```([\s\S]*?)```/gim, (match, p1) => `<pre class="bg-black/50 p-3 rounded-md overflow-x-auto my-4"><code class="font-mono text-sm">${p1.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</code></pre>`);
+    html = html.replace(/^# (.*$)/gim, '<h1 class="text-3xl font-bold neon-text mb-4 mt-6 pb-2 border-b border-gray-700">$1</h1>');
+    html = html.replace(/^## (.*$)/gim, '<h2 class="text-2xl font-semibold text-cyan-300 mb-3 mt-5 pb-1 border-b border-gray-800">$1</h2>');
+    html = html.replace(/^### (.*$)/gim, '<h3 class="text-xl font-semibold text-gray-300 mb-2 mt-4">$1</h3>');
+    html = html.replace(/\*\*(.*?)\*\*/gim, '<strong>$1</strong>').replace(/\*(.*?)\*/gim, '<em>$1</em>').replace(/__(.*?)__/gim, '<strong>$1</strong>').replace(/_(.*?)_/gim, '<em>$1</em>');
+    html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/gim, '<a href="$2" target="_blank" rel="noopener noreferrer" class="text-cyan-400 hover:underline">$1</a>');
+    html = html.replace(/`([^`]+)`/gim, '<code class="bg-black/50 px-2 py-1 rounded-md font-mono text-sm text-amber-300">$1</code>');
+    html = html.replace(/^\s*[-*]\s*(\[([ xX])\])\s*(.+)$/gm, (match, checkbox, state, text) => `<li class="flex items-center mb-2"><span class="inline-block w-4 h-4 border-${state.trim().toLowerCase() === 'x' ? '0 bg-cyan-500 text-black' : '2 border-gray-500 bg-gray-700'} rounded-sm mr-3 flex items-center justify-center font-bold flex-shrink-0">${state.trim().toLowerCase() === 'x' ? '✓' : ''}</span><span class="${state.trim().toLowerCase() === 'x' ? 'line-through text-gray-500' : ''}">${text}</span></li>`);
+    html = html.replace(/^\s*[-*]\s+(?!\[([ xX])\])([^\n]+)$/gm, '<li class="ml-6 list-disc marker:text-cyan-400 mb-2">$2</li>');
+    html = html.replace(/((?:<li[\s\S]*?<\/li>\s*)+)/gim, '<ul class="space-y-1 mb-4">$1</ul>').replace(/<ul>\s*(<ul[\s\S]*?<\/ul>)\s*<\/ul>/gim, '$1');
+    html = html.replace(/^---\s*$/gim, '<hr class="border-gray-700 my-6">').replace(/^===\s*$/gim, '<hr class="border-cyan-500 my-6">');
+    html = html.replace(/^> (.*$)/gim, '<blockquote class="border-l-4 border-gray-600 pl-4 italic text-gray-400 my-4">$1</blockquote>');
+    html = html.split(/\n\n+/).map(p => { const t = p.trim(); if (t.startsWith('<') || t === '') return p; return `<p class="text-gray-300 leading-relaxed mb-4">${t.replace(/\n/g, '<br>')}</p>`; }).join('');
+    return html;
+};
+
+
+const CustomizableMarkdownEditor = ({ markdown, onChange }) => {
   const [activeTab, setActiveTab] = useState('editor');
-  const [isInternalPreviewFullscreen, setIsInternalPreviewFullscreen] = useState(false); // Internal fullscreen state
+  const [isInternalPreviewFullscreen, setIsInternalPreviewFullscreen] = useState(false);
 
   const [settings, setSettings] = useState(() => {
-    // Load settings from localStorage on initial render
     if (typeof window !== 'undefined') {
       const savedSettings = localStorage.getItem(LOCAL_STORAGE_KEY);
       return savedSettings ? JSON.parse(savedSettings) : {
-        fontFamily: "'Excalifont-Regular', cursive", // Updated default to Excalifont-Regular
+        fontFamily: "'Excalifont-Regular', cursive",
         backgroundColor: '#1a1a1a',
         color: '#e6f7ff',
         fontSize: '16px',
@@ -32,12 +52,13 @@ const CustomizableMarkdownEditor = ({ markdown, onChange }) => { // Removed isPr
     setSettings((prev) => ({ ...prev, [key]: value }));
   }, []);
 
-  // Save settings to localStorage whenever they change
   useEffect(() => {
     if (typeof window !== 'undefined') {
       localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(settings));
     }
   }, [settings]);
+
+  const renderedHtml = useMemo(() => renderMarkdownToHTML(markdown), [markdown]); // Memoize the HTML rendering
 
   const renderTabSwitcher = () => (
     <div className="flex items-center gap-1 bg-gray-100 rounded-md p-1">
@@ -74,9 +95,9 @@ const CustomizableMarkdownEditor = ({ markdown, onChange }) => { // Removed isPr
           onChange={(e) => updateSetting('fontFamily', e.target.value)}
           className="bg-gray-200 text-gray-800 text-sm p-2 rounded-md border border-gray-300 outline-none focus:border-blue-500"
         >
-          <option value="'Excalifont-Regular', cursive">Excalidraw (Hand)</option> {/* Updated value and label */}
+          <option value="'Excalifont-Regular', cursive">Excalidraw (Hand)</option>
           <option value="'Inter', sans-serif">Padrão (Inter)</option>
-          <option value="'CascadiaCode', monospace">Código (Cascadia)</option> {/* Added Cascadia Code */}
+          <option value="'CascadiaCode', monospace">Código (Cascadia)</option>
         </select>
 
         <input
@@ -131,8 +152,8 @@ const CustomizableMarkdownEditor = ({ markdown, onChange }) => { // Removed isPr
         placeholder="Escreva seu conteúdo em Markdown..."
         rows={25}
         style={{
-          maxHeight: 'calc(90vh - 250px)', // Adjust based on parent container height
-          minHeight: '300px', // Ensure a minimum height
+          maxHeight: 'calc(90vh - 250px)',
+          minHeight: '300px',
           fontFamily: settings.fontFamily,
           backgroundColor: settings.backgroundColor,
           color: settings.color,
@@ -146,18 +167,14 @@ const CustomizableMarkdownEditor = ({ markdown, onChange }) => { // Removed isPr
     <div
       className={`flex-1 p-4 overflow-y-auto ${isFullScreen ? 'min-h-0' : ''}`}
       style={{
-        maxHeight: isFullScreen ? 'none' : 'calc(90vh - 250px)', // Adjust based on parent container height
+        maxHeight: isFullScreen ? 'none' : 'calc(90vh - 250px)',
         fontFamily: settings.fontFamily,
         fontSize: settings.fontSize,
-        backgroundColor: settings.backgroundColor, // Applied to preview
-        color: settings.color, // Applied to preview
+        backgroundColor: settings.backgroundColor,
+        color: settings.color,
       }}
     >
-      <div className="prose prose-sm max-w-none">
-        <ReactMarkdown remarkPlugins={[remarkGfm]}>
-          {markdown || '*Nada para mostrar...*'}
-        </ReactMarkdown>
-      </div>
+      <div className="prose prose-sm max-w-none" dangerouslySetInnerHTML={{ __html: renderedHtml }} />
     </div>
   );
 
@@ -202,7 +219,7 @@ const CustomizableMarkdownEditor = ({ markdown, onChange }) => { // Removed isPr
             className="text-xs px-3 py-1 rounded-md bg-gray-900 text-white hover:bg-black"
             title="Fechar tela cheia"
           >
-            <Minimize size={14} className="mr-1" /> {/* Changed icon to Minimize */}
+            <Minimize size={14} className="mr-1" />
             Fechar
           </button>
         </div>
