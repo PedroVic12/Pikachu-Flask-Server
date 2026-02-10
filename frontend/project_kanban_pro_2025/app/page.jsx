@@ -74,6 +74,7 @@ import ScrumKanbanMetodologia from "./views/components/ScrumKanbanWidget.js";
 import ApiDataScreen from "./api-data/APIDataScreen.jsx";
 import OlaMundo from "./views/HTML/OlaMundo.jsx";
 import ItemEditor from "./views/components/EditorModalProject.js";
+import PVRVWebDevPage from "./views/pages/PVRVWebDevPage.jsx";
 import DeckStorageController from "./controllers/DeckStorageController.js";
 
 // Usar essa pagina no projeto Dashboard Web SP + SECO para ONS PLC
@@ -163,7 +164,7 @@ const Sidebar = ({
     { id: "table", label: "Tabelas", icon: Table },
     { id: "files", label: "Arquivos", icon: FileText },
     { id: "api-data", label: "API", icon: Database },
-    { id: "projecthub", label: "ProjectHub", icon: LayoutDashboard },
+    { id: "projecthub", label: "PVRV Web DEV", icon: LayoutDashboard },
   ];
 
   const actionItems = [
@@ -1324,8 +1325,8 @@ Aqui está o [link][var1] do Shiatsu como váriavel no .MD
         return <FilesScreen />;
       case "api-data":
         return <ApiDataScreen />;
-      // case "projecthub":
-      //   return <ProjectHubPage />;
+      case "projecthub":
+        return <PVRVWebDevPage />;
       default:
         return <DashboardScreen />;
     }

@@ -49,7 +49,7 @@
 
 <a id="lista-tarefas-pendentes"></a>
 
-# Sprint atual (10/02/2026) PVRV \_\_IN_PROGRESS
+# Sprint atual (10/02/2026) PVRV __IN_PROGRESS
 
 - [ ] Cadastro de dados BDT Seco E NE **Urgente**
 - [ ] Correções do SISBAR com procv do Mensal de Janeiro e colocar nas abas faltantes para o Mensal de Fevereiroc com justificativa de aparecer na área
