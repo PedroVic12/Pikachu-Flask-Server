@@ -52,27 +52,36 @@
 # Sprint atual (10/02/2026) PVRV __IN_PROGRESS
 
 - [ ] Cadastro de dados BDT Seco E NE **Urgente**
-- [ ] Correções do SISBAR com procv do Mensal de Janeiro e colocar nas abas faltantes para o Mensal de Fevereiroc com justificativa de aparecer na área
+- [x] Correções do SISBAR com procv do Mensal de Janeiro e colocar nas abas faltantes para o Mensal de Fevereiroc com justificativa de aparecer na área
+  - [x] Feito via Excel com metodologia e PROCV com planilha do Mensal anterior
+  - [ ] Pyside6 que faz a automação de corrigir as barras do SECO do mensal passando a planilha do mensal anterior
+
 - [ ] Correções e bug fix no VBA para perdas Duplas Lts + 3 gráficos
+  - [ ] Aba de modificações sem formatação na pagina correta
+  - [ ] Pandas + Plotly + Julia para analise de dados e escolher os 3 gráficos de Perdas Duplas LTs e usar os gráficos no excel interno
 
 - [ ] Modelagem de Banco de Dados com Python com Schemas para SQlite + Access para Data Warehouse e dashboards em BI
 
 - [ ] Estudos de neurociencia sobre Neuroplasticidade (Boson Treinamentos) + Cartoes de enfretamento TCC para pagina do KanbanPro 2026
+
+- [ ] Engenheiro de Software Pleno - Legado PVRV: Py, JS, C++, Dart e Rust. Anotações para perspectiva de carreira com 28 anos em site que ajuda a priorizar os projetos.
+
+- [ ] Juntar todos sites estaticos em HTML que tenho num unico projeto NextJS com rotas e MVC (Gohan Treinamentos, Legado PVRV, Pomodoro)
+
 - [x] Backup Kanban, Batcaverna, Linux e Win11
 - [x] Planejamento e Metas semanal (Refatorar a tela do Tarefas PLC e outros sites tudo no mesmo NextJS)
 - [x] Listagem de projetos atuais por tecnologias do github
-- [ ] Engenheiro de Software Pleno - Legado PVRV: Py, JS, C++, Dart e Rust. Anotações para perspectiva de carreira com 28 anos em site que ajuda a priorizar os projetos.
-- [ ] Juntar todos sites estaticos em HTML que tenho num unico projeto NextJS com rotas e MVC (Gohan Treinamentos, Legado PVRV, Pomodoro)
 
 <a id="tarefas-ons-plc-2026-02"></a>
 
-# 📋 Tarefas ONS PLC 2026 - Fevereiro \_\_IN_PROGRESS
+# 📋 Tarefas ONS PLC 2026 - Fevereiro __IN_PROGRESS
 
 ---
 
 - [ ] Rotina de rodízio de tarefas de Casos Mensal (Janeiro, Fevereiro e Março)
-- [ ] Tarefas de Casos Mensal: VA (Configuração de Cargas), VB (Organon) e VC (Intercambio)
-- [ ] Estudos de conceitos básicos de CC/CA
+- [ ] Tarefas de Casos Mensal: VA (Configuração de Cargas), VB (Organon),  VC (Intercambio),  VD (FluPot), VE/VF/VG (Conferencia), VH (AnaTEM)
+
+- [x] Estudos de conceitos básicos de CC/CA
 - [ ] Estudos de conceitos básicos de SEP para ONS PLC
 - [ ] Estudos sobre diagramas fasoriais em eng. elétrica
 
@@ -91,7 +100,7 @@
 
 <a id="pvrv-2026-planilha-horarios"></a>
 
-# PVRV 2026 - Planilha de horarios (atualizar no website) \_\_IN_PROGRESS
+# PVRV 2026 - Planilha de horarios (atualizar no website) __IN_PROGRESS
 
 ---
 
@@ -116,7 +125,7 @@
 
 <a id="estudos-sep-ons-programacao"></a>
 
-# Estudos de SEP para ONS e programação \_\_IN_PROGRESS
+# Estudos de SEP para ONS e programação __IN_PROGRESS
 
 ## Sesão de ESTUDOS (Matemática, programação e Eng. Elétrica) \_\_TODO
 
