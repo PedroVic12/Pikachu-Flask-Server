@@ -3,16 +3,16 @@ import storageController from './StorageController.js';
 
 // ========== CONSTANTS ==========
 export const CATEGORIES = {
-  'ons': { emoji: '📂', label: 'Tarefas PLC ONS', color: 'bg-green-300 hover:bg-emerald-100 text-green-900' },
-  'uff': { emoji: '🧪', label: 'Estudos UFF - Eng. Elétrica', color: 'bg-yellow-300 text-yellow-900' },
-  'python': { emoji: '⚙️', label: 'Projetos Python', color: 'bg-blue-300 hover:bg-blue-300 text-blue-900' },
-  'web': { emoji: '🚀', label: 'MVP de Aplicações Web', color: 'bg-indigo-300 text-indigo-900' },
-  'spiritual': { emoji: '🧘‍♂️', label: 'TDAH + Alinhamento Espiritual', color: 'bg-violet-100 text-violet-900' },
-  'pvrv': { emoji: '🔥', label: 'PVRV', color: 'bg-violet-100 text-violet-900' },
-  'js': { emoji: '⚙️', label: 'Projetos Javascript', color: 'bg-amber-300 text-amber-900' },
-  'AI_The_Agents': { emoji: '🤖', label: 'Agentes IA', color: 'bg-cyan-300 text-cyan-900'  },
-  'data_science': { emoji: '⚙️', label: 'Projetos Data Science', color: 'bg-cyan-100 text-cyan-900' },
-  'iot': { emoji: '⚙️', label: 'IoT e Sistemas Embarcados', color: 'bg-cyan-300 text-cyan-900' },
+  'ons': { emoji: '📂', label: 'Tarefas PLC ONS', color: 'bg-green-300 dark:bg-green-700 hover:bg-emerald-100 dark:hover:bg-emerald-800 text-green-900 dark:text-green-100' },
+  'uff': { emoji: '🧪', label: 'Estudos UFF - Eng. Elétrica', color: 'bg-yellow-300 dark:bg-yellow-700 text-yellow-900 dark:text-yellow-100' },
+  'python': { emoji: '⚙️', label: 'Projetos Python', color: 'bg-blue-300 dark:bg-blue-700 hover:bg-blue-300 dark:hover:bg-blue-800 text-blue-900 dark:text-blue-100' },
+  'web': { emoji: '🚀', label: 'MVP de Aplicações Web', color: 'bg-indigo-300 dark:bg-indigo-700 text-indigo-900 dark:text-indigo-100' },
+  'spiritual': { emoji: '🧘‍♂️', label: 'TDAH + Alinhamento Espiritual', color: 'bg-violet-100 dark:bg-violet-800 text-violet-900 dark:text-violet-100' },
+  'pvrv': { emoji: '🔥', label: 'PVRV', color: 'bg-violet-100 dark:bg-violet-800 text-violet-900 dark:text-violet-100' },
+  'js': { emoji: '⚙️', label: 'Projetos Javascript', color: 'bg-amber-300 dark:bg-amber-700 text-amber-900 dark:text-amber-100' },
+  'AI_The_Agents': { emoji: '🤖', label: 'Agentes IA', color: 'bg-cyan-300 dark:bg-cyan-700 text-cyan-900 dark:text-cyan-100'  },
+  'data_science': { emoji: '⚙️', label: 'Projetos Data Science', color: 'bg-cyan-100 dark:bg-cyan-800 text-cyan-900 dark:text-cyan-100' },
+  'iot': { emoji: '⚙️', label: 'IoT e Sistemas Embarcados', color: 'bg-cyan-300 dark:bg-cyan-700 text-cyan-900 dark:text-cyan-100' },
 };
 
 

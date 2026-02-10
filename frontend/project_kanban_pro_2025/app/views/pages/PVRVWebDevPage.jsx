@@ -220,18 +220,22 @@ const RoadmapSection = () => (
 const AppFooter = () => (<footer className="text-center mt-20 pt-8 border-t border-gray-200"><p className="opacity-70" style={{ color: 'var(--text-color)' }}>Este guia interativo foi criado para transformar conhecimento em ação. Construindo o legado, um commit de cada vez.</p></footer>);
 
 // --- COMPONENTE PRINCIPAL ---
-export default function PVRVWebDevPage() {
+export default function PVRVWebDevPage({ theme: globalTheme }) { // Accept globalTheme prop
     const [selectedTechs, setSelectedTechs] = useState(['python']);
-    const [theme, setTheme] = useState('neutral');
-
+    const [internalTheme, setInternalTheme] = useState('neutral'); // Renamed state to avoid conflict with prop
 
     const handleThemeChange = (themeKey) => {
-        setTheme(themeKey);
+        setInternalTheme(themeKey);
     };
 
     useEffect(() => {
-        handleThemeChange('neutral');
-    }, []);
+        // Set initial internal theme based on globalTheme
+        if (globalTheme === 'dark') {
+            handleThemeChange('tricolor'); // Use tricolor as the default dark theme
+        } else {
+            handleThemeChange('neutral');
+        }
+    }, [globalTheme]); // Re-run when globalTheme changes
 
     const handleSelectTech = (techKey) => {
         setSelectedTechs(prev => {
@@ -239,9 +243,8 @@ export default function PVRVWebDevPage() {
             return newSelection;
         });
     };
-
-    const themeValues = colorPalettes[theme].values;
-
+    
+    const themeValues = colorPalettes[internalTheme].values; // Use internalTheme
     return (
         <div style={themeValues}>
             <style jsx>{`

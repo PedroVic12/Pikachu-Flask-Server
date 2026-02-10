@@ -1352,7 +1352,7 @@ Aqui está o [link][var1] do Shiatsu como váriavel no .MD
       case "api-data":
         return <ApiDataScreen />;
       case "pvrv-web-dev":
-        return <PVRVWebDevPage />;
+        return <PVRVWebDevPage theme={theme} />;
       default:
         return <DashboardScreen />;
     }
