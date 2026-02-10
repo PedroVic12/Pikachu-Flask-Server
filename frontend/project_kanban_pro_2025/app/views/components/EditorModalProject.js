@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
-import { Save, X, Trash2 } from 'lucide-react';
+import ReactMarkdown from 'react-markdown'; // Still needed for renderPreviewFullscreen, but it will be removed.
+import remarkGfm from 'remark-gfm'; // Still needed for renderPreviewFullscreen, but it will be removed.
+import { Save, X, Trash2 } from 'lucide-react'; // Removed Edit3, Eye, Maximize, Minimize
 
 import { CATEGORIES } from '../../controllers/Repository.jsx';
 import CustomizableMarkdownEditor from './CustomizableMarkdownEditor.jsx';
@@ -11,10 +11,8 @@ const ItemEditor = ({ item, isOpen, onSave, onDelete, onClose }) => {
   const [editTitle, setEditTitle] = useState(item?.title || '');
   const [editCategory, setEditCategory] = useState(item?.category || 'ons');
 
-  const [isPreviewFullscreen, setIsPreviewFullscreen] = useState(false);
-
-  // No need for editorSettings state here anymore, it's handled by CustomizableMarkdownEditor
-  // The CustomizableMarkdownEditor will manage its own internal settings for display
+  // isPreviewFullscreen is now managed internally by CustomizableMarkdownEditor
+  // const [isPreviewFullscreen, setIsPreviewFullscreen] = useState(false);
 
   useEffect(() => {
     if (item) {
@@ -112,54 +110,16 @@ const ItemEditor = ({ item, isOpen, onSave, onDelete, onClose }) => {
       <CustomizableMarkdownEditor
         markdown={editContent}
         onChange={(e) => setEditContent(e.target.value)}
-        isPreviewFullscreen={isPreviewFullscreen}
-        onToggleFullscreen={setIsPreviewFullscreen}
+        // isPreviewFullscreen={isPreviewFullscreen} // Removed
+        // onToggleFullscreen={setIsPreviewFullscreen} // Removed
       />
       {renderCounter()}
     </div>
   );
 
-  const renderPreviewFullscreen = () => {
-    if (!isPreviewFullscreen) return null;
-
-    // The settings for the fullscreen preview should ideally come from CustomizableMarkdownEditor
-    // For now, we'll use default values or assume CustomizableMarkdownEditor manages its own state for this.
-    // If we need to sync settings, CustomizableMarkdownEditor would need to expose them via a ref or callback.
-    // Given the current structure, CustomizableMarkdownEditor will render the preview based on its internal settings.
-
-    return (
-      <div className="fixed inset-0 z-[60] bg-white flex flex-col">
-        {/* Header fixo */}
-        <div className="sticky top-0 z-10 border-b border-gray-200 bg-white px-4 py-3 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <span className="text-sm font-semibold text-gray-900">Preview (Tela cheia)</span>
-            <span className="text-xs text-gray-500">Visualização do conteúdo</span>
-          </div>
-
-          <button
-            type="button"
-            onClick={() => setIsPreviewFullscreen(false)}
-            className="text-xs px-3 py-1 rounded-md bg-gray-900 text-white hover:bg-black"
-          >
-            Fechar
-          </button>
-        </div>
-
-        {/* Conteúdo scrollável */}
-        <div className="flex-1 overflow-y-auto p-6">
-          <div
-            className={`prose max-w-none`}
-            // Settings should be applied by CustomizableMarkdownEditor internally for its preview
-            // or passed down if exposed
-          >
-            <ReactMarkdown remarkPlugins={[remarkGfm]}>
-              {editContent || '*Nada para mostrar...*'}
-            </ReactMarkdown>
-          </div>
-        </div>
-      </div>
-    );
-  };
+  // renderPreviewFullscreen is now managed internally by CustomizableMarkdownEditor
+  // This function is no longer needed here
+  // const renderPreviewFullscreen = () => { /* ... */ };
 
   return (
     <>
@@ -171,7 +131,7 @@ const ItemEditor = ({ item, isOpen, onSave, onDelete, onClose }) => {
       </div>
 
       {/* Tela cheia do editor Modal*/}
-      {renderPreviewFullscreen()}
+      {/* renderPreviewFullscreen() is no longer called here */}
     </>
   );
 };

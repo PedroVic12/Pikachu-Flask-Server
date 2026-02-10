@@ -1,28 +1,43 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import { Edit3, Eye } from 'lucide-react';
+import { Edit3, Eye, Maximize, Minimize } from 'lucide-react'; // Added Maximize, Minimize
 
-const CustomizableMarkdownEditor = ({ markdown, onChange, isPreviewFullscreen, onToggleFullscreen }) => {
+const LOCAL_STORAGE_KEY = 'custom_markdown_editor_settings';
+
+const CustomizableMarkdownEditor = ({ markdown, onChange }) => { // Removed isPreviewFullscreen, onToggleFullscreen
   const [activeTab, setActiveTab] = useState('editor');
-  const [settings, setSettings] = useState({
-    fontFamily: "'Architects Daughter', cursive",
-    backgroundColor: '#1a1a1a',
-    color: '#e6f7ff',
-    fontSize: '16px',
+  const [isInternalPreviewFullscreen, setIsInternalPreviewFullscreen] = useState(false); // Internal fullscreen state
+
+  const [settings, setSettings] = useState(() => {
+    // Load settings from localStorage on initial render
+    if (typeof window !== 'undefined') {
+      const savedSettings = localStorage.getItem(LOCAL_STORAGE_KEY);
+      return savedSettings ? JSON.parse(savedSettings) : {
+        fontFamily: "'Architects Daughter', cursive",
+        backgroundColor: '#1a1a1a',
+        color: '#e6f7ff',
+        fontSize: '16px',
+      };
+    }
+    return {
+      fontFamily: "'Architects Daughter', cursive",
+      backgroundColor: '#1a1a1a',
+      color: '#e6f7ff',
+      fontSize: '16px',
+    };
   });
 
   const updateSetting = useCallback((key, value) => {
     setSettings((prev) => ({ ...prev, [key]: value }));
   }, []);
 
-  // Ensure fullscreen preview respects current settings
+  // Save settings to localStorage whenever they change
   useEffect(() => {
-    if (isPreviewFullscreen) {
-      // You might want to pass settings to the fullscreen view or ensure it has its own derived from here
-      // For now, it will use the same settings
+    if (typeof window !== 'undefined') {
+      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(settings));
     }
-  }, [isPreviewFullscreen]);
+  }, [settings]);
 
   const renderTabSwitcher = () => (
     <div className="flex items-center gap-1 bg-gray-100 rounded-md p-1">
@@ -59,7 +74,7 @@ const CustomizableMarkdownEditor = ({ markdown, onChange, isPreviewFullscreen, o
           onChange={(e) => updateSetting('fontFamily', e.target.value)}
           className="bg-gray-200 text-gray-800 text-sm p-2 rounded-md border border-gray-300 outline-none focus:border-blue-500"
         >
-          <option value="'Architects Daughter', cursive">Estilo Manuscrito</option>
+          <option value="'Architects Daughter', cursive">Excalidraw (Hand)</option> {/* Updated label */}
           <option value="'Inter', sans-serif">Padrão (Inter)</option>
           <option value="'Fira Code', monospace">Código (Mono)</option>
         </select>
@@ -127,6 +142,25 @@ const CustomizableMarkdownEditor = ({ markdown, onChange, isPreviewFullscreen, o
     </div>
   );
 
+  const renderPreviewContent = (isFullScreen = false) => (
+    <div
+      className={`flex-1 p-4 overflow-y-auto ${isFullScreen ? 'min-h-0' : ''}`}
+      style={{
+        maxHeight: isFullScreen ? 'none' : 'calc(90vh - 250px)', // Adjust based on parent container height
+        fontFamily: settings.fontFamily,
+        fontSize: settings.fontSize,
+        backgroundColor: settings.backgroundColor, // Applied to preview
+        color: settings.color, // Applied to preview
+      }}
+    >
+      <div className="prose prose-sm max-w-none">
+        <ReactMarkdown remarkPlugins={[remarkGfm]}>
+          {markdown || '*Nada para mostrar...*'}
+        </ReactMarkdown>
+      </div>
+    </div>
+  );
+
   const renderPreviewArea = () => (
     <div className="h-full flex flex-col flex-1">
       <div className="flex items-center justify-between px-4 py-2 border-b border-gray-200 bg-gray-50">
@@ -136,37 +170,48 @@ const CustomizableMarkdownEditor = ({ markdown, onChange, isPreviewFullscreen, o
         </div>
         <div className="flex items-center gap-2">
           <span className="text-xs text-gray-500">Visualização em tempo real</span>
-          {onToggleFullscreen && (
-            <button
-              type="button"
-              onClick={() => onToggleFullscreen(true)}
-              className="text-xs px-2 py-1 rounded-md border border-gray-200 bg-white hover:bg-gray-50 text-gray-700"
-            >
-              Tela cheia
-            </button>
-          )}
+          <button
+            type="button"
+            onClick={() => setIsInternalPreviewFullscreen(true)}
+            className="text-xs px-2 py-1 rounded-md border border-gray-200 bg-white hover:bg-gray-50 text-gray-700"
+            title="Tela cheia"
+          >
+            <Maximize size={14} />
+          </button>
         </div>
       </div>
-
-      <div
-        className="flex-1 p-4 overflow-y-auto"
-        style={{
-          maxHeight: 'calc(90vh - 250px)', // Adjust based on parent container height
-          fontFamily: settings.fontFamily,
-          fontSize: settings.fontSize,
-          backgroundColor: '#f9fafb', // Default background for preview
-          color: '#374151', // Default text color for preview
-        }}
-      >
-        <div className="prose prose-sm max-w-none">
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>
-            {markdown || '*Nada para mostrar...*'}
-          </ReactMarkdown>
-        </div>
-      </div>
+      {renderPreviewContent()}
     </div>
   );
 
+  const renderFullscreenPreview = () => {
+    if (!isInternalPreviewFullscreen) return null;
+
+    return (
+      <div className="fixed inset-0 z-[60] bg-white flex flex-col">
+        {/* Header fixo */}
+        <div className="sticky top-0 z-10 border-b border-gray-200 bg-white px-4 py-3 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <span className="text-sm font-semibold text-gray-900">Preview (Tela cheia)</span>
+            <span className="text-xs text-gray-500">Visualização do conteúdo</span>
+          </div>
+
+          <button
+            type="button"
+            onClick={() => setIsInternalPreviewFullscreen(false)}
+            className="text-xs px-3 py-1 rounded-md bg-gray-900 text-white hover:bg-black"
+            title="Fechar tela cheia"
+          >
+            <Minimize size={14} className="mr-1" /> {/* Changed icon to Minimize */}
+            Fechar
+          </button>
+        </div>
+
+        {/* Conteúdo scrollável */}
+        {renderPreviewContent(true)}
+      </div>
+    );
+  };
 
   return (
     <div className="flex-1 flex flex-col">
@@ -176,6 +221,7 @@ const CustomizableMarkdownEditor = ({ markdown, onChange, isPreviewFullscreen, o
       <div className="flex-1 overflow-hidden border border-gray-200 rounded-md bg-white">
         {activeTab === 'editor' ? renderEditorArea() : renderPreviewArea()}
       </div>
+      {renderFullscreenPreview()}
     </div>
   );
 };
