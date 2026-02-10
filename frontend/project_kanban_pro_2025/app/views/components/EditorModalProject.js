@@ -32,7 +32,7 @@ const ItemEditor = ({ item, isOpen, onSave, onDelete, onClose }) => {
   if (!isOpen || !item) return null;
 
   const renderHeaderActions = () => (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-1">
       <button
         onClick={() => onDelete(item.id)}
         className="flex items-center gap-2 px-3 py-2 text-red-600 hover:bg-red-50 rounded-md transition-colors"
@@ -59,8 +59,8 @@ const ItemEditor = ({ item, isOpen, onSave, onDelete, onClose }) => {
   );
 
   const renderHeader = () => (
-    <div className="flex items-center justify-between p-4 lg:p-6 border-b border-gray-200">
-      <div className="flex items-center gap-4">
+    <div className="flex items-center justify-between p-2 lg:p-4 border-b border-gray-200">
+      <div className="flex items-center gap-2">
         <h2 className="text-xl font-semibold text-gray-900">Editar Item</h2>
         {/* Tab switcher moved to CustomizableMarkdownEditor */}
       </div>
@@ -69,7 +69,7 @@ const ItemEditor = ({ item, isOpen, onSave, onDelete, onClose }) => {
   );
 
   const renderTitleAndCategory = () => (
-    <div className="flex flex-col sm:flex-row gap-4 mb-4">
+    <div className="flex flex-col sm:flex-row mb-4">
       <input
         type="text"
         value={editTitle}
