@@ -49,11 +49,10 @@
 
 <a id="lista-tarefas-pendentes"></a>
 
-# Sprint atual (10/02/2026) PVRV __IN_PROGRESS
+# Sprint atual (11/02/2026)
 
-- [ ] Cadastro de dados BDT Seco E NE **Urgente**
 - [x] Planilhas TAREFAS PLC de fevereiro
-
+- [ ] Cadastro de dados BDT Seco E NE **Urgente**
 - [x] Correções do SISBAR com procv do Mensal de Janeiro e colocar nas abas faltantes para o Mensal de Fevereiro com justificativa de aparecer na área
   - [x] Feito via Excel com metodologia e PROCV com planilha do Mensal anterior
   - [ ] Pyside6 que faz a automação de corrigir as barras do SECO do mensal passando a planilha do mensal anterior
@@ -64,47 +63,32 @@
 
 - [ ] Estudos de neurociencia sobre Neuroplasticidade (Boson Treinamentos) + Cartoes de enfretamento TCC para pagina do KanbanPro 2026
 
+- [ ] Organização de novo Github para ONS e PLC 2026
+- [ ] Deploy MUST desktop Tauri + Rust
+- [ ] New Deck Builder com .PWF para AnaRede e Pandapower
+- [ ] Nova CLI com boas praticas de snippets com Python
+- [ ] Checklist de AG - RCE - Otimização intervenção de SEP com Pyside6 e novos comandos para run.py e novo app.py refatorado com boas praticas de software desktop e com testes TDD
+- [x] CODING com NextJS + RUST + Tauri JS + Python
+- [x] Estudos CA (Potencia Ativa x Reativa)
+- [x] Estudos CA - Circuitos Indutivos x Capacitivos
+- [x] Estudos CA - Circuitos RLC em regime transitorio (EDO)
+- [x] Estudos CA - App Calculadora com EDO e Matrizes para circuitos CC/CA
+
+- [ ] Correções e bug fix no VBA para perdas Duplas Lts + 3 gráficos
+- [ ] Estudos de neurociencia sobre Neuroplasticidade (Boson Treinamentos) + Cartoes de enfretamento TCC para pagina do KanbanPro 2026
+- [x] Backup Kanban, Batcaverna, Linux e Win11
+- [x] Planejamento e Metas semanal (Refatorar a tela do Tarefas PLC e outros sites tudo no mesmo NextJS)
 - [x] Engenheiro de Software Pleno - Legado PVRV: Py, JS, C++, Dart e Rust. Anotações para perspectiva de carreira com 28 anos em site que ajuda a priorizar os projetos.
 
 - [x] Backup Kanban, Batcaverna, Linux e Win11
-- [x] Planejamento e Metas semanal (Refatorar a tela do Tarefas PLC e outros sites tudo no mesmo NextJS)
 - [x] Listagem de projetos atuais por tecnologias do github
+- [ ] Juntar todos sites estaticos em HTML que tenho num unico projeto NextJS com rotas e MVC (Gohan Treinamentos, Legado PVRV, Pomodoro)
 
 <a id="tarefas-ons-plc-2026-02"></a>
 
-# 📋 Tarefas ONS PLC 2026 - Fevereiro __IN_PROGRESS
-
----
-
-- [ ] Rotina de rodízio de tarefas de Casos Mensal (Janeiro, Fevereiro e Março)
-- [ ] Tarefas de Casos Mensal: VA (Configuração de Cargas), VB (Organon),  VC (Intercambio),  VD (FluPot), VE/VF/VG (Conferencia), VH (AnaTEM)
-
-- [ ] Rotina de tarefas de montagem de caso do Mensal do VA, VB e VC pegando os dados do mensal do Mês anterior.
-
-- [ ] Modelagem de Banco de Dados com Python com Schemas para SQlite + Access para Data Warehouse e dashboards em BI
-
-- [x] Estudos de conceitos básicos de CC/CA
-- [ ] Estudos de conceitos básicos de CA e SEP para ONS PLC (Cardeno, Equações e Simuladores)
-- [ ] Estudos sobre diagramas fasoriais em eng. elétrica
-
-- [x] Acompanhar como foi feito o relatorio do controle mensal de Fevereiro e Janeiro com Word compartilhado para consulta
-  - [ ] Flow caso 10 Controle mensal com intercambio VC
-  - [x] VA e VB do mes de janeiro com o Marcos
-
-- [x] Deck Builder AnaREDE
-  - [ ] Script inicial AnaRede com CLI com decks e .sav padrões de montagem de quadro mensal
-
-- [ ] Algoritimo Big O para complexibilidade de casos de FLuxo de potencia para auxiliar na montagem de decks
-
-- [ ] AnaRede Deck Builder = Anarede, EditCepel, PandaPower, CLI e ajuda na montagem de casos com algoritimo Big O para nivel de complexibildiade de operação da Rede
-
-- [ ]
-
----
-
 <a id="pvrv-2026-planilha-horarios"></a>
 
-# PVRV 2026 - Planilha de horarios (atualizar no website) __IN_PROGRESS
+# PVRV 2026 - Planilha de horarios (atualizar no website) \_\_IN_PROGRESS
 
 ---
 
@@ -131,7 +115,7 @@
 
 <a id="estudos-sep-ons-programacao"></a>
 
-# Estudos de SEP para ONS e programação __TODO
+# Estudos de SEP para ONS e programação \_\_TODO
 
 ## Sesão de ESTUDOS (Matemática, programação e Eng. Elétrica)
 
@@ -157,7 +141,7 @@
 
 <a id="sessao-estudos"></a>
 
-# ⚡ Conceitos Elétricos (Dúvidas/Insights) __TODO
+# ⚡ Conceitos Elétricos (Dúvidas/Insights) \_\_TODO
 
 - [ ] CC vs CA: Em CC, a indutância é um curto e a capacitância é um aberto no regime permanente. Em CA, eles geram impedância ($j\omega L$ e $1/j\omega C$).
 
@@ -169,7 +153,7 @@
 
 <a id="objetivos-semana"></a>
 
-# 🎯 Objetivos da Semana (Main Quests) __TODO
+# 🎯 Objetivos da Semana (Main Quests) \_\_TODO
 
 ⚡ Trabalho (ONS) - Engenharia de Dados & Sistemas
 
@@ -183,7 +167,7 @@ Meta: Conseguir explicar o comportamento da tensão na barra quando a carga reat
 
 <a id="checklist-diario"></a>
 
-# 📅 Checklist Diário __TODO
+# 📅 Checklist Diário \_\_TODO
 
 **Segunda-feira** - Setup, Planejamento, SCRUM & SEP
 
