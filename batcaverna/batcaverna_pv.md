@@ -51,7 +51,12 @@
 
 # Sprint atual (11/02/2026)
 
+- [ ] Checklist de AG - RCE - Otimização intervenção de SEP com Pyside6 e novos comandos para run.py e novo app.py refatorado com boas praticas de software desktop e com testes TDD
+
 - [x] Planilhas TAREFAS PLC de fevereiro
+- [ ] Priorizar atividades estáveis, concretas e operacionais
+- [ ] Constuir uma base solida em estudos de SEP e circuitos CA
+- [ ] Trabalho, Disciplina, Organização, Planejamento em resultados mensuráveis
 - [ ] Cadastro de dados BDT Seco E NE **Urgente**
 - [x] Correções do SISBAR com procv do Mensal de Janeiro e colocar nas abas faltantes para o Mensal de Fevereiro com justificativa de aparecer na área
   - [x] Feito via Excel com metodologia e PROCV com planilha do Mensal anterior
@@ -63,11 +68,11 @@
 
 - [ ] Estudos de neurociencia sobre Neuroplasticidade (Boson Treinamentos) + Cartoes de enfretamento TCC para pagina do KanbanPro 2026
 
-- [ ] Organização de novo Github para ONS e PLC 2026
-- [ ] Deploy MUST desktop Tauri + Rust
-- [ ] New Deck Builder com .PWF para AnaRede e Pandapower
-- [ ] Nova CLI com boas praticas de snippets com Python
-- [ ] Checklist de AG - RCE - Otimização intervenção de SEP com Pyside6 e novos comandos para run.py e novo app.py refatorado com boas praticas de software desktop e com testes TDD
+- [x] Organização de novo Github para ONS e PLC 2026
+- [x] Deploy MUST desktop Tauri + Rust
+- [x] New Deck Builder com .PWF para AnaRede e Pandapower
+- [x] Nova CLI com boas praticas de snippets com Python
+
 - [x] CODING com NextJS + RUST + Tauri JS + Python
 - [x] Estudos CA (Potencia Ativa x Reativa)
 - [x] Estudos CA - Circuitos Indutivos x Capacitivos
@@ -103,6 +108,8 @@
   - [x] Janeiro
   - [ ] Fevereiro
   - [ ] Março
+  - [ ] Projeção do grafico com derivdas
+  - [ ] taxa de rendimento do salario ONS com 5% e 10% ao mes
 
 - [x] Planilhas Horarios
 - [ ] usper + Tunnel Newtork + React UI para proxys e rest api em go e express
