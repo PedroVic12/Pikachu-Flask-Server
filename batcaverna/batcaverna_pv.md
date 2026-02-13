@@ -2,7 +2,7 @@
 
 ---
 
-**📅 DATA ATUAL:** 10/02/2026  
+**📅 DATA ATUAL:** 13/02/2026  
 **🔗 Repositório:** [GitHub Repository][var4]  
 **📋 Shiatsu Link:** [Agendamento Shiatsu][var1]  
 **📊 Kanban Columns:** `__BACKLOG` | `__IN_PROGRESS` | `__TODO` | `__COMPLETED`  
@@ -49,7 +49,7 @@
 
 <a id="lista-tarefas-pendentes"></a>
 
-# Sprint atual (11/02/2026)
+# Sprint atual da Semana (11/02/2026)
 
 - [ ] Checklist de AG - RCE - Otimização intervenção de SEP com Pyside6 e novos comandos para run.py e novo app.py refatorado com boas praticas de software desktop e com testes TDD
 
