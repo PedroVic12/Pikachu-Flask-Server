@@ -93,7 +93,7 @@
 
 <a id="pvrv-2026-planilha-horarios"></a>
 
-# PVRV 2026 - Planilha de horarios (atualizar no website) \_\_IN_PROGRESS
+# PVRV 2026 - Planilha de horarios (atualizar no website) __IN_PROGRESS
 
 ---
 
@@ -122,7 +122,7 @@
 
 <a id="estudos-sep-ons-programacao"></a>
 
-# Estudos de SEP para ONS e programação \_\_TODO
+# Estudos de SEP para ONS e programação __TODO
 
 ## Sesão de ESTUDOS (Matemática, programação e Eng. Elétrica)
 
@@ -137,7 +137,8 @@
   - [ ] <https://www.falstad.com/circuit/circuitjs.html>
   - [ ] Regra de Crammer
   - [ ] EDO sistemas 1 e 2 ordem com RLC e RC plots e respostas da EDO
-- [ ] Metodos númericos em Matlab para engenharia usando Python
+  
+- [ ] Metodos númericos em Matlab para engenharia usando Python (pelo livro de moetodos numericos)
 
 - [ ] Solver ML/DL para cada X,Y de conjunto de dado
 - [ ] Python com Sympy para calculo de EDO de 1 e 2 ordem para Circuitos CC (RL,RC e RLC)
@@ -148,7 +149,7 @@
 
 <a id="sessao-estudos"></a>
 
-# ⚡ Conceitos Elétricos (Dúvidas/Insights) \_\_TODO
+# ⚡ Conceitos Elétricos (Dúvidas/Insights) __TODO
 
 - [ ] CC vs CA: Em CC, a indutância é um curto e a capacitância é um aberto no regime permanente. Em CA, eles geram impedância ($j\omega L$ e $1/j\omega C$).
 
@@ -160,7 +161,7 @@
 
 <a id="objetivos-semana"></a>
 
-# 🎯 Objetivos da Semana (Main Quests) \_\_TODO
+# 🎯 Objetivos da Semana (Main Quests) __TODO
 
 ⚡ Trabalho (ONS) - Engenharia de Dados & Sistemas
 
@@ -174,7 +175,7 @@ Meta: Conseguir explicar o comportamento da tensão na barra quando a carga reat
 
 <a id="checklist-diario"></a>
 
-# 📅 Checklist Diário \_\_TODO
+# 📅 Checklist Diário __TODO
 
 **Segunda-feira** - Setup, Planejamento, SCRUM & SEP
 

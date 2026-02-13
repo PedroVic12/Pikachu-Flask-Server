@@ -23,16 +23,19 @@ Network-Tunnel-Go-VM,b05f7ed,2026-01-27,Pedro Victor Veras,up
 Network-Tunnel-Go-VM,129a8fd,2026-01-27,Pedro Victor Veras,up
 Network-Tunnel-Go-VM,54aced8,2026-01-27,Pedro Victor Veras,first comit
 Network-Tunnel-Go-VM,3722e44,2026-01-27,Pedro Victor Veras,Initial commit
+Palkia-PDF-extractor,4b675ae,2026-02-12,Pedro Victor Veras,Update CLI.py
+Palkia-PDF-extractor,f69b1a5,2026-02-11,Pedro Victor Veras,up
+Palkia-PDF-extractor,e470819,2026-02-11,Pedro Victor Veras,Update pandapower_deck_builder.py
+Palkia-PDF-extractor,f7aef62,2026-02-11,Pedro Victor Veras,up
+Palkia-PDF-extractor,5578918,2026-02-11,Pedro Victor Veras,up
+Palkia-PDF-extractor,1d0e125,2026-02-10,Pedro Victor Veras,Create corrige_barras_sisbar_seco_v3.py
+Palkia-PDF-extractor,89aa40f,2026-02-07,Pedro Victor Veras,Update app.py
 Palkia-PDF-extractor,a17ecc8,2026-02-07,Pedro Victor Veras,up
 Palkia-PDF-extractor,1cd11a1,2026-02-04,Pedro Victor Veras,Update GerarRelatorioPerdasDuplas - V6.vba
 Palkia-PDF-extractor,cdab394,2026-02-04,Pedro Victor Veras,up
-Palkia-PDF-extractor,75d4930,2026-02-03,Pedro Victor Veras,up
-Palkia-PDF-extractor,0161205,2026-02-03,Pedro Victor Veras,up
-Palkia-PDF-extractor,8899d80,2026-01-28,Pedro Victor Veras,up
-Palkia-PDF-extractor,22dc7ec,2026-01-28,Pedro Victor Veras,update
-Palkia-PDF-extractor,387402f,2026-01-28,Pedro Victor Veras,up
-Palkia-PDF-extractor,8132041,2026-01-26,Pedro Victor Veras,Create Guia Dashboard Perdas Duplas LTs - Excel.md
-Palkia-PDF-extractor,25017bd,2026-01-21,Pedro Victor Veras,up
+Pikachu-Flask-Server,c2ee968,2026-02-13,Pedro Victor Veras,Update headers.py
+Pikachu-Flask-Server,c3256a3,2026-02-11,Pedro Victor Veras,Update batcaverna_pv.md
+Pikachu-Flask-Server,2c09363,2026-02-11,Pedro Victor Veras,update
 Pikachu-Flask-Server,c29595a,2026-02-11,Pedro Victor Veras,up
 Pikachu-Flask-Server,4049f79,2026-02-10,Pedro Victor Veras,update historico projetos + kanban dark mode
 Pikachu-Flask-Server,f6c7b09,2026-02-10,Pedro Victor Veras,up
@@ -40,19 +43,16 @@ Pikachu-Flask-Server,f956ae2,2026-02-10,Pedro Victor Veras,Update batcaverna_pv.
 Pikachu-Flask-Server,4875593,2026-02-10,Pedro Victor Veras,up
 Pikachu-Flask-Server,b0623ea,2026-02-10,Pedro Victor Veras,up
 Pikachu-Flask-Server,74da8a8,2026-02-10,Pedro Victor Veras,Update batcaverna_pv.md
-Pikachu-Flask-Server,57b6021,2026-02-10,Pedro Victor Veras,yup
-Pikachu-Flask-Server,6b5bfb2,2026-02-10,Pedro Victor Veras,Merge branch 'main' of https://github.com/PedroVic12/Pikachu-Flask-Server
-Pikachu-Flask-Server,6bdeeef,2026-02-10,Pedro Victor Veras,up
-Repopulation-With-Elite-Set,9442cdd0,2026-02-11,Pedro Victor Veras,novas metas e upgrades 2026
-Repopulation-With-Elite-Set,2621445c,2026-02-09,Pedro Victor Veras,Create SEP_backend.ipynb
-Repopulation-With-Elite-Set,e76a25aa,2026-02-07,Pedro Victor Veras,update
-Repopulation-With-Elite-Set,0dc4a88d,2025-12-23,Pedro Victor Veras,up
-Repopulation-With-Elite-Set,2c81b32d,2025-12-23,Pedro Victor Veras,up
-Repopulation-With-Elite-Set,266f4688,2025-12-23,Pedro Victor Veras,up
-Repopulation-With-Elite-Set,8cfe2412,2025-12-23,Pedro Victor Veras,uo
-Repopulation-With-Elite-Set,9e72bf22,2025-12-23,Pedro Victor Veras,up
-Repopulation-With-Elite-Set,7b9407c0,2025-12-23,Pedro Victor Veras,Update run.py
-Repopulation-With-Elite-Set,edce931a,2025-12-18,Pedro Victor Veras,up
+Repopulation-With-Elite-Set,01338ae8,2026-02-13,Pedro Victor Veras,correção no dashboard
+Repopulation-With-Elite-Set,ecc45147,2026-02-13,Pedro Victor Veras,up
+Repopulation-With-Elite-Set,d4bc462f,2026-02-13,Pedro Victor Veras,up
+Repopulation-With-Elite-Set,97d9a21a,2026-02-13,Pedro Victor Veras,Update CheckListFinalRCE2025.md
+Repopulation-With-Elite-Set,0fa88d0b,2026-02-13,Pedro Victor Veras,novo run
+Repopulation-With-Elite-Set,228df1a1,2026-02-13,Pedro Victor Veras,update
+Repopulation-With-Elite-Set,9d3b7ee3,2026-02-13,Pedro Victor Veras,Update CheckListFinalRCE2025.md
+Repopulation-With-Elite-Set,e845fa8a,2026-02-13,Pedro Victor Veras,update
+Repopulation-With-Elite-Set,df6ed1e5,2026-02-12,Pedro Victor Veras,update
+Repopulation-With-Elite-Set,b7445ef6,2026-02-12,Pedro Victor Veras,up
 astro-blog-pedrov12,56dbdb5f,2026-01-06,Pedro Victor Veras,Update README to reflect repository path change
 astro-blog-pedrov12,a5421072,2026-01-06,Pedro Victor Veras,Update README.md
 astro-blog-pedrov12,ce9fc2f7,2026-01-06,Pedro Victor Veras,Create Estudos-SEP-UFF-ONS.md
