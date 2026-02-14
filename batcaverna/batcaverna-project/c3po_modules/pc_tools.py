@@ -33,22 +33,26 @@ def abrir_aplicativos():
 
     todos_os_videos = VIDEOS_YOUTUBE_ESPIRITUALIDADE + VIDEOS_YOUTUBE_PRODUTIVIDADE
     video_aleatorio = random.choice(todos_os_videos) if todos_os_videos else None
-    dashboard_path = "file:/home/pedrov12/Documentos/GitHub/Jedi-CyberPunk/painel.html"
+    dashboard_path = "file:/home/pedrov12/Documentos/GitHub/Pikachu-Flask-Server/batcaverna/batcaverna-project/index.html"
+    pikachu_flask_api_server = "http://http://localhost:5555/"
 
     for app in APLICATIVOS_PARA_ABRIR:
         try:
             comando = [app]
             print(f"Abrindo {app}...")
+
             if app == "brave":
+                # Adicionamos todos os links como argumentos extras
+                comando.append(dashboard_path)
+                comando.append(pikachu_flask_api_server)  # <--- Nova aba aqui
+
                 if video_aleatorio:
                     comando.extend([dashboard_path, video_aleatorio])
-                else:
-                    comando.append(dashboard_path)
 
             subprocess.Popen(comando)
 
             if app == "brave":
-                print("Aguardando 5 segundos para o conteudo carregar...")
+                print("Aguardando carregamento dos sistemas...")
                 time.sleep(1)
             else:
                 time.sleep(2)  # um tempo para o sistema respirar entre cada app
@@ -130,6 +134,8 @@ def automacao_com_teclado():
             pyautogui.click()
 
         lauch_googleAgenda()
+
+        abrir_programa("OneDrive ONS")
 
         abrir_programa("monitor do sistema")
 
