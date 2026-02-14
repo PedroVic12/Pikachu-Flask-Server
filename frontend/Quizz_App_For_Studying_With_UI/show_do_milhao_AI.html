@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Jogo do Milhão 3D com IA</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap');
+
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: 'Montserrat', sans-serif;
+            background-color: #000;
+            color: white;
+            user-select: none;
+        }
+
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        #ui-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: radial-gradient(circle, rgba(0,0,0,0) 0%, rgba(0,0,50,0.8) 100%);
+            pointer-events: none;
+        }
+
+        /* Classes Utilitárias */
+        .hidden { display: none !important; }
+        .interactive { pointer-events: auto; }
+
+        /* HUD (Heads Up Display) */
+        .hud-top {
+            position: absolute;
+            top: 20px;
+            width: 90%;
+            display: flex;
+            justify-content: space-between;
+            text-transform: uppercase;
+            font-weight: 700;
+            text-shadow: 0 0 10px #00eaff;
+        }
+
+        .prize-box {
+            background: linear-gradient(90deg, #002244, #004488);
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: 2px solid #00aaff;
+            box-shadow: 0 0 15px rgba(0, 170, 255, 0.5);
+            text-align: center;
+        }
+        
+        .prize-label { font-size: 0.8rem; color: #aaddff; }
+        .prize-value { font-size: 1.5rem; color: #ffdd00; }
+
+        /* Área da Pergunta */
+        .game-area {
+            width: 90%;
+            max-width: 800px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 60px; /* Espaço para o HUD */
+        }
+
+        .question-card {
+            background: linear-gradient(180deg, #003366 0%, #001122 100%);
+            border: 3px solid #ffd700;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: bold;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            margin-bottom: 20px;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Opções de Resposta */
+        .answers-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+
+        @media (min-width: 768px) {
+            .answers-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        .answer-btn {
+            background: linear-gradient(90deg, #001a33, #003366);
+            border: 2px solid #0055aa;
+            border-radius: 50px;
+            padding: 15px 20px;
+            color: white;
+            font-family: inherit;
+            font-size: 1rem;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .answer-btn:hover {
+            background: linear-gradient(90deg, #003366, #0055aa);
+            transform: scale(1.02);
+            border-color: #00aaff;
+        }
+
+        .answer-btn.selected {
+            background: #ffaa00;
+            color: black;
+            border-color: #fff;
+            box-shadow: 0 0 20px #ffaa00;
+        }
+
+        .answer-btn.correct {
+            background: #00cc44;
+            border-color: #00ff55;
+            box-shadow: 0 0 20px #00ff55;
+        }
+
+        .answer-btn.wrong {
+            background: #cc0000;
+            border-color: #ff0000;
+            opacity: 0.6;
+        }
+        
+        .answer-btn.disabled {
+            opacity: 0.3;
+            pointer-events: none;
+            filter: grayscale(1);
+        }
+
+        .letter-tag {
+            color: #ffd700;
+            font-weight: 900;
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+
+        /* Ajudas */
+        .lifelines-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .lifeline-btn {
+            background: #330000;
+            border: 2px solid #ff4444;
+            color: white;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            transition: 0.3s;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+        }
+
+        .lifeline-btn:hover:not(:disabled) {
+            transform: scale(1.1);
+            background: #660000;
+            box-shadow: 0 0 20px rgba(255, 68, 68, 0.6);
+        }
+
+        .lifeline-btn:disabled {
+            filter: grayscale(1);
+            opacity: 0.4;
+            cursor: not-allowed;
+            border-color: #555;
+            background: #222;
+        }
+
+        /* Botão de Parar/Ação */
+        .action-bar {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .stop-btn {
+            background: #cc9900;
+            color: black;
+            border: none;
+            padding: 10px 30px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 0 0 10px #cc9900;
+        }
+        .stop-btn:hover { background: #ffcc00; }
+
+        /* Telas de Início/Fim */
+        .full-screen-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 20;
+            text-align: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .logo-title {
+            font-size: 3rem;
+            color: #ffd700;
+            text-shadow: 0 0 20px #ff6600, 2px 2px 0px #fff;
+            margin-bottom: 10px;
+            line-height: 1;
+        }
+        
+        .logo-subtitle {
+            font-size: 1.2rem;
+            color: #00aaff;
+            margin-bottom: 40px;
+            letter-spacing: 3px;
+        }
+
+        /* Formulário de Quiz */
+        .quiz-form {
+            background: rgba(0, 17, 34, 0.9);
+            border: 2px solid #00aaff;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 0 30px rgba(0, 170, 255, 0.3);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 90%;
+            max-width: 400px;
+            text-align: left;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .form-label {
+            color: #aaddff;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .form-input {
+            background: #002244;
+            border: 1px solid #0055aa;
+            padding: 12px;
+            border-radius: 8px;
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .form-input:focus {
+            border-color: #00eaff;
+            box-shadow: 0 0 10px rgba(0, 234, 255, 0.3);
+        }
+
+        .start-btn {
+            background: linear-gradient(45deg, #009900, #00cc00);
+            border: 2px solid #fff;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            color: white;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 900;
+            box-shadow: 0 0 30px #00ff00;
+            transition: transform 0.2s;
+            margin-top: 10px;
+            animation: pulse 2s infinite;
+        }
+
+        .start-btn:hover:not(:disabled) { transform: scale(1.05); }
+        .start-btn:disabled { 
+            background: #333; 
+            box-shadow: none; 
+            cursor: wait; 
+            border-color: #555;
+            animation: none;
+        }
+
+        .loading-text {
+            color: #00eaff;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            min-height: 1.2em;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(0, 255, 0, 0.7); }
+            70% { box-shadow: 0 0 0 20px rgba(0, 255, 0, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 255, 0, 0); }
+        }
+
+        /* Modal Generico */
+        .modal {
+            position: fixed;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            background: #001122;
+            border: 2px solid #ffd700;
+            padding: 20px;
+            border-radius: 10px;
+            z-index: 30;
+            max-width: 80%;
+            text-align: center;
+            box-shadow: 0 0 50px rgba(0,0,0,0.9);
+        }
+    </style>
+    <!-- Configuração de Import Map para usar Biblioteca estilo Node.js no Browser -->
+    <script type="importmap">
+      {
+        "imports": {
+          "@google/generative-ai": "https://esm.run/@google/generative-ai"
+        }
+      }
+    </script>
+    <!-- Carregar Three.js via CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+
+    <!-- Fundo 3D -->
+    <div id="canvas-container"></div>
+
+    <!-- Tela de Início / Configuração -->
+    <div id="start-screen" class="full-screen-overlay interactive">
+        <h1 class="logo-title">JOGO DO<br>MILHÃO</h1>
+        <div class="logo-subtitle">GEMINI IA EDITION</div>
+        
+        <div class="quiz-form">
+            <!-- CAMPO API KEY ADICIONADO -->
+            <div class="form-group">
+                <label class="form-label">SUA API KEY (Google AI)</label>
+                <input type="password" id="api-key-input" class="form-input" placeholder="Cole sua chave aqui...">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">ASSUNTO DO QUIZ</label>
+                <input type="text" id="topic-input" class="form-input" placeholder="Ex: História, Futebol, Tecnologia..." value="Conhecimentos Gerais">
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">DIFICULDADE</label>
+                <select id="difficulty-select" class="form-input">
+                    <option value="balanced">Crescente (Padrão)</option>
+                    <option value="hard">Difícil</option>
+                    <option value="easy">Fácil</option>
+                </select>
+            </div>
+
+            <button id="btn-generate" class="start-btn">GERAR PERGUNTAS</button>
+            <div id="loading-indicator" class="loading-text"></div>
+        </div>
+    </div>
+
+    <!-- Tela de Fim de Jogo -->
+    <div id="end-screen" class="full-screen-overlay hidden interactive">
+        <h1 id="end-title" class="logo-title">FIM DE JOGO</h1>
+        <h2 id="end-message" style="color: white; margin-bottom: 30px;"></h2>
+        <div class="prize-box" style="margin-bottom: 30px; transform: scale(1.5);">
+            <div class="prize-label">PRÊMIO FINAL</div>
+            <div id="final-prize-display" class="prize-value">R$ 0,00</div>
+        </div>
+        <button class="start-btn" onclick="location.reload()">JOGAR NOVAMENTE</button>
+    </div>
+
+    <!-- Interface do Jogo -->
+    <div id="ui-layer" class="hidden">
+        
+        <!-- Topo: Placar -->
+        <div class="hud-top interactive">
+            <div class="prize-box">
+                <div class="prize-label">PRÊMIO SE ERRAR</div>
+                <div id="loss-prize" class="prize-value" style="color: #ff4444">R$ 0</div>
+            </div>
+            <div class="prize-box">
+                <div class="prize-label">PRÊMIO SE PARAR</div>
+                <div id="stop-prize" class="prize-value" style="color: #ffffff">R$ 0</div>
+            </div>
+            <div class="prize-box">
+                <div class="prize-label">VALE</div>
+                <div id="win-prize" class="prize-value">R$ 1.000</div>
+            </div>
+        </div>
+
+        <!-- Centro: Jogo -->
+        <div class="game-area interactive">
+            <div id="question-text" class="question-card">
+                Carregando pergunta...
+            </div>
+
+            <div class="answers-grid" id="answers-container">
+                <!-- Botões gerados via JS -->
+            </div>
+
+            <div class="lifelines-container">
+                <button id="btn-skip" class="lifeline-btn" onclick="useLifeline('skip')">PULAR<br>(3x)</button>
+                <button id="btn-cards" class="lifeline-btn" onclick="useLifeline('cards')">CARTAS<br>(1x)</button>
+                <button id="btn-students" class="lifeline-btn" onclick="useLifeline('students')">ALUNOS<br>(1x)</button>
+            </div>
+
+            <div class="action-bar" style="justify-content: center;">
+                <button class="stop-btn" onclick="stopGame()">PARAR</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Simples -->
+    <div id="modal" class="modal hidden interactive">
+        <h3 id="modal-title" style="color: #ffd700">AJUDA</h3>
+        <p id="modal-text">Texto da ajuda...</p>
+        <button onclick="closeModal()" style="margin-top: 10px; padding: 5px 20px; background: #0055aa; color: white; border: none; border-radius: 5px; cursor: pointer;">OK</button>
+    </div>
+
+    <!-- Script Principal como Módulo para usar Import -->
+    <script type="module">
+        // Importando a biblioteca do Gemini
+        import { GoogleGenerativeAI } from "@google/generative-ai";
+
+        // ==========================================
+        // DADOS DO JOGO
+        // ==========================================
+        
+        // Estrutura de prêmios (Clássica do Milhão)
+        const prizeLadder = [
+            { id: 1, win: 1000, stop: 0, loss: 0 },
+            { id: 2, win: 2000, stop: 1000, loss: 500 },
+            { id: 3, win: 3000, stop: 2000, loss: 1000 },
+            { id: 4, win: 4000, stop: 3000, loss: 1500 },
+            { id: 5, win: 5000, stop: 4000, loss: 2000 },
+            { id: 6, win: 10000, stop: 5000, loss: 2500 },
+            { id: 7, win: 20000, stop: 10000, loss: 5000 },
+            { id: 8, win: 30000, stop: 20000, loss: 10000 },
+            { id: 9, win: 40000, stop: 30000, loss: 15000 },
+            { id: 10, win: 50000, stop: 40000, loss: 20000 },
+            { id: 11, win: 100000, stop: 50000, loss: 25000 },
+            { id: 12, win: 200000, stop: 100000, loss: 50000 },
+            { id: 13, win: 300000, stop: 200000, loss: 100000 },
+            { id: 14, win: 400000, stop: 300000, loss: 150000 },
+            { id: 15, win: 500000, stop: 400000, loss: 200000 },
+            { id: 16, win: 1000000, stop: 500000, loss: 0 }
+        ];
+
+        // Banco de Perguntas Padrão (Fallback)
+        const defaultQuestions = [
+            { q: "Qual é a capital do Brasil?", a: ["Brasília", "Rio de Janeiro", "São Paulo", "Salvador"], correct: 0 },
+            { q: "Quem pintou a Mona Lisa?", a: ["Van Gogh", "Leonardo da Vinci", "Pablo Picasso", "Michelangelo"], correct: 1 },
+            { q: "Qual o maior planeta do Sistema Solar?", a: ["Terra", "Marte", "Júpiter", "Saturno"], correct: 2 },
+            { q: "Qual é a fórmula da água?", a: ["HO2", "H2O", "CO2", "H2O2"], correct: 1 },
+            { q: "Quem descobriu o Brasil?", a: ["Cristóvão Colombo", "Pero Vaz de Caminha", "Pedro Álvares Cabral", "Dom Pedro I"], correct: 2 },
+            { q: "Qual animal é conhecido como o rei da selva?", a: ["Tigre", "Elefante", "Leão", "Gorila"], correct: 2 },
+            { q: "Em que continente fica o Egito?", a: ["Ásia", "Europa", "África", "América"], correct: 2 },
+            { q: "Quantos lados tem um hexágono?", a: ["5", "6", "7", "8"], correct: 1 },
+            { q: "Qual moeda é usada nos Estados Unidos?", a: ["Euro", "Iene", "Real", "Dólar"], correct: 3 },
+            { q: "Quem escreveu 'Dom Casmurro'?", a: ["Jorge Amado", "Machado de Assis", "Clarice Lispector", "Monteiro Lobato"], correct: 1 }
+        ];
+        
+        let gameQuestions = [];
+
+        // ==========================================
+        // ESTADO DO JOGO
+        // ==========================================
+        let gameState = {
+            levelIndex: 0,
+            money: 0,
+            skipsLeft: 3,
+            cardsUsed: false,
+            studentsUsed: false,
+            currentQuestion: null,
+            canAnswer: false
+        };
+
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        
+        function playSound(type) {
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            const now = audioCtx.currentTime;
+
+            if (type === 'start') {
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(220, now);
+                osc.frequency.exponentialRampToValueAtTime(880, now + 0.5);
+                gain.gain.setValueAtTime(0.5, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.5);
+                osc.start(now);
+                osc.stop(now + 0.5);
+            } else if (type === 'correct') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(500, now);
+                osc.frequency.setValueAtTime(1000, now + 0.1);
+                gain.gain.setValueAtTime(0.3, now);
+                gain.gain.linearRampToValueAtTime(0, now + 0.4);
+                osc.start(now);
+                osc.stop(now + 0.4);
+            } else if (type === 'wrong') {
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(150, now);
+                osc.frequency.linearRampToValueAtTime(100, now + 0.4);
+                gain.gain.setValueAtTime(0.5, now);
+                gain.gain.linearRampToValueAtTime(0, now + 0.5);
+                osc.start(now);
+                osc.stop(now + 0.5);
+            } else if (type === 'suspense') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(100, now);
+                gain.gain.setValueAtTime(0.1, now);
+                osc.start(now);
+                osc.stop(now + 2);
+            }
+        }
+
+        // ==========================================
+        // INTEGRAÇÃO GEMINI IA (VIA BIBLIOTECA)
+        // ==========================================
+        
+        // Expor a função para o botão no HTML (já que estamos dentro de um módulo)
+        window.prepareGame = async function() {
+            const apiKey = document.getElementById('api-key-input').value.trim();
+            const topic = document.getElementById('topic-input').value || "Conhecimentos Gerais";
+            const difficulty = document.getElementById('difficulty-select').value;
+            const btn = document.getElementById('btn-generate');
+            const loadingText = document.getElementById('loading-indicator');
+
+            if (!apiKey) {
+                alert("Por favor, insira sua API Key do Google AI Studio.");
+                return;
+            }
+
+            btn.disabled = true;
+            btn.innerText = "CONSULTANDO IA...";
+            loadingText.innerText = `Gerando perguntas sobre "${topic}"...`;
+            
+            playSound('start');
+
+            try {
+                if (topic.toLowerCase() === 'conhecimentos gerais' && Math.random() > 0.8) {
+                    await new Promise(r => setTimeout(r, 1000)); 
+                    gameQuestions = [...defaultQuestions].sort(() => Math.random() - 0.5).slice(0, 16);
+                } else {
+                    gameQuestions = await fetchQuestionsFromGeminiLib(apiKey, topic, difficulty);
+                }
+                
+                startGame();
+            } catch (error) {
+                console.error(error);
+                loadingText.innerText = "Erro ao conectar com a IA. Verifique a chave e tente novamente.";
+                loadingText.style.color = "#ff4444";
+                btn.disabled = false;
+                btn.innerText = "TENTAR NOVAMENTE";
+            }
+        }
+
+        async function fetchQuestionsFromGeminiLib(apiKey, topic, difficultyMode) {
+            // Inicializando a Biblioteca (Estilo Node.js)
+            const genAI = new GoogleGenerativeAI(apiKey);
+            
+            // Usando o modelo mais recente disponível
+            const model = genAI.getGenerativeModel({ 
+                model: "gemini-2.5-flash-preview-09-2025",
+                generationConfig: {
+                    responseMimeType: "application/json"
+                }
+            });
+
+            const promptText = `
+                Crie uma lista de 16 perguntas de múltipla escolha para um jogo estilo "Show do Milhão" sobre o tema: "${topic}".
+                
+                Requisitos:
+                1. Progressão: 5 Fáceis, 5 Médias, 5 Difíceis, 1 Muito Difícil.
+                2. Formato JSON estrito:
+                {
+                    "questions": [
+                        {
+                            "q": "Pergunta?",
+                            "a": ["Opção A", "Opção B", "Opção C", "Opção D"],
+                            "correct": 0 
+                        }
+                    ]
+                }
+                3. A resposta correta ("correct") deve ser o índice (0-3) e deve variar aleatoriamente.
+                4. Idioma: Português do Brasil.
+            `;
+
+            const result = await model.generateContent(promptText);
+            const text = result.response.text();
+            
+            const parsed = JSON.parse(text);
+            if (parsed.questions && parsed.questions.length >= 10) {
+                return parsed.questions;
+            } else {
+                throw new Error('Resposta da IA incompleta');
+            }
+        }
+
+        // ==========================================
+        // LÓGICA DO JOGO (ADAPTADA PARA MÓDULO)
+        // ==========================================
+
+        function startGame() {
+            document.getElementById('start-screen').classList.add('hidden');
+            document.getElementById('end-screen').classList.add('hidden');
+            document.getElementById('ui-layer').classList.remove('hidden');
+
+            gameState = {
+                levelIndex: 0,
+                money: 0,
+                skipsLeft: 3,
+                cardsUsed: false,
+                studentsUsed: false,
+                currentQuestion: null,
+                canAnswer: true
+            };
+
+            const btn = document.getElementById('btn-generate');
+            btn.disabled = false;
+            btn.innerText = "GERAR PERGUNTAS";
+            document.getElementById('loading-indicator').innerText = "";
+
+            document.getElementById('btn-skip').disabled = false;
+            document.getElementById('btn-skip').innerHTML = "PULAR<br>(3x)";
+            document.getElementById('btn-cards').disabled = false;
+            document.getElementById('btn-students').disabled = false;
+
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            const levelData = prizeLadder[gameState.levelIndex];
+            
+            document.getElementById('loss-prize').innerText = formatCurrency(levelData.loss);
+            document.getElementById('stop-prize').innerText = formatCurrency(levelData.stop);
+            document.getElementById('win-prize').innerText = formatCurrency(levelData.win);
+
+            let qData;
+            if (gameQuestions.length > gameState.levelIndex) {
+                 qData = gameQuestions[gameState.levelIndex];
+            } else {
+                 qData = gameQuestions[gameState.levelIndex % gameQuestions.length];
+            }
+
+            gameState.currentQuestion = { ...qData };
+
+            document.getElementById('question-text').innerText = gameState.currentQuestion.q;
+
+            const answersDiv = document.getElementById('answers-container');
+            answersDiv.innerHTML = '';
+
+            gameState.currentQuestion.a.forEach((text, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'answer-btn interactive';
+                btn.innerHTML = `<span class="letter-tag">${['A','B','C','D'][index]}</span> ${text}`;
+                btn.onclick = () => checkAnswer(index, btn);
+                btn.id = `ans-${index}`;
+                answersDiv.appendChild(btn);
+            });
+
+            gameState.canAnswer = true;
+            triggerSceneEffect('normal');
+        }
+
+        function checkAnswer(selectedIndex, btnElement) {
+            if (!gameState.canAnswer) return;
+            gameState.canAnswer = false;
+
+            btnElement.classList.add('selected');
+            playSound('suspense');
+
+            setTimeout(() => {
+                const correctIndex = gameState.currentQuestion.correct;
+                
+                if (selectedIndex === correctIndex) {
+                    btnElement.classList.remove('selected');
+                    btnElement.classList.add('correct');
+                    playSound('correct');
+                    triggerSceneEffect('success');
+
+                    setTimeout(() => {
+                        gameState.money = prizeLadder[gameState.levelIndex].win;
+                        gameState.levelIndex++;
+
+                        if (gameState.levelIndex >= prizeLadder.length) {
+                            endGame(true);
+                        } else {
+                            loadQuestion();
+                        }
+                    }, 2000);
+
+                } else {
+                    btnElement.classList.remove('selected');
+                    btnElement.classList.add('wrong');
+                    
+                    document.getElementById(`ans-${correctIndex}`).classList.add('correct');
+                    
+                    playSound('wrong');
+                    triggerSceneEffect('fail');
+
+                    setTimeout(() => {
+                        const prize = prizeLadder[gameState.levelIndex].loss;
+                        endGame(false, prize, "QUE PENA! VOCÊ ERROU.");
+                    }, 2500);
+                }
+            }, 2000);
+        }
+
+        // Expondo funções para o HTML global
+        window.stopGame = function() {
+            if (!gameState.canAnswer) return;
+            const prize = prizeLadder[gameState.levelIndex].stop;
+            endGame(false, prize, "VOCÊ DECIDIU PARAR.");
+        }
+
+        function endGame(isMillionaire, prizeAmount = 0, message = "") {
+            document.getElementById('ui-layer').classList.add('hidden');
+            document.getElementById('end-screen').classList.remove('hidden');
+
+            if (isMillionaire) {
+                document.getElementById('end-title').innerText = "MILIONÁRIO!";
+                document.getElementById('end-message').innerText = "PARABÉNS! VOCÊ VENCEU O JOGO.";
+                document.getElementById('final-prize-display').innerText = "R$ 1.000.000,00";
+                triggerSceneEffect('million');
+            } else {
+                document.getElementById('end-title').innerText = "FIM DE JOGO";
+                document.getElementById('end-message').innerText = message;
+                document.getElementById('final-prize-display').innerText = formatCurrency(prizeAmount);
+            }
+        }
+
+        window.useLifeline = function(type) {
+            if (!gameState.canAnswer) return;
+
+            if (type === 'skip') {
+                if (gameState.skipsLeft > 0) {
+                    gameState.skipsLeft--;
+                    document.getElementById('btn-skip').innerHTML = `PULAR<br>(${gameState.skipsLeft}x)`;
+                    if (gameState.skipsLeft === 0) document.getElementById('btn-skip').disabled = true;
+                    
+                    showModal("PULAR", "Trocando a pergunta...");
+                    setTimeout(() => {
+                        closeModal();
+                        const backupQ = defaultQuestions[Math.floor(Math.random() * defaultQuestions.length)];
+                        gameState.currentQuestion = { ...backupQ };
+                        
+                        document.getElementById('question-text').innerText = gameState.currentQuestion.q;
+                        const answersDiv = document.getElementById('answers-container');
+                        answersDiv.innerHTML = '';
+                        gameState.currentQuestion.a.forEach((text, index) => {
+                            const btn = document.createElement('button');
+                            btn.className = 'answer-btn interactive';
+                            btn.innerHTML = `<span class="letter-tag">${['A','B','C','D'][index]}</span> ${text}`;
+                            btn.onclick = () => checkAnswer(index, btn);
+                            btn.id = `ans-${index}`;
+                            answersDiv.appendChild(btn);
+                        });
+                        
+                    }, 1500);
+                }
+            } else if (type === 'cards') {
+                if (!gameState.cardsUsed) {
+                    gameState.cardsUsed = true;
+                    document.getElementById('btn-cards').disabled = true;
+                    
+                    const correctIndex = gameState.currentQuestion.correct;
+                    let wrongIndices = [0, 1, 2, 3].filter(i => i !== correctIndex);
+                    
+                    wrongIndices.sort(() => Math.random() - 0.5);
+                    const toRemove = wrongIndices.slice(0, 2);
+
+                    toRemove.forEach(idx => {
+                        const btn = document.getElementById(`ans-${idx}`);
+                        btn.classList.add('disabled');
+                        btn.innerHTML = ""; 
+                    });
+
+                    showModal("CARTAS", "O Rei de Copas eliminou 2 alternativas erradas!");
+                }
+            } else if (type === 'students') {
+                if (!gameState.studentsUsed) {
+                    gameState.studentsUsed = true;
+                    document.getElementById('btn-students').disabled = true;
+
+                    const chance = Math.max(0.3, 0.9 - (gameState.levelIndex * 0.05));
+                    
+                    const votes = [0,0,0,0];
+                    for(let i=0; i<3; i++) {
+                        if (Math.random() < chance) {
+                            votes[gameState.currentQuestion.correct]++;
+                        } else {
+                            votes[Math.floor(Math.random()*4)]++;
+                        }
+                    }
+                    
+                    const suggested = votes.indexOf(Math.max(...votes));
+                    const letter = ['A','B','C','D'][suggested];
+                    
+                    showModal("UNIVERSITÁRIOS", `A maioria dos estudantes acha que a resposta é a letra <strong>${letter}</strong>.`);
+                }
+            }
+        }
+
+        // Helpers
+        function formatCurrency(val) {
+            return val.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        }
+
+        window.showModal = function(title, text) {
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-text').innerHTML = text;
+            document.getElementById('modal').classList.remove('hidden');
+        }
+
+        window.closeModal = function() {
+            document.getElementById('modal').classList.add('hidden');
+        }
+
+        // ==========================================
+        // THREE.JS - CENÁRIO 3D
+        // ==========================================
+        
+        let scene, camera, renderer;
+        let particles;
+        let lights = [];
+
+        function initThree() {
+            const container = document.getElementById('canvas-container');
+
+            scene = new THREE.Scene();
+            scene.fog = new THREE.FogExp2(0x000022, 0.02);
+
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.z = 5;
+
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(window.devicePixelRatio);
+            container.appendChild(renderer.domElement);
+
+            // Túnel de Partículas
+            const geometry = new THREE.BufferGeometry();
+            const vertices = [];
+            
+            for (let i = 0; i < 2000; i++) {
+                const x = (Math.random() - 0.5) * 20;
+                const y = (Math.random() - 0.5) * 20;
+                const z = (Math.random() - 0.5) * 50;
+                vertices.push(x, y, z);
+            }
+
+            geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+            
+            const material = new THREE.PointsMaterial({ color: 0xffd700, size: 0.1 });
+            particles = new THREE.Points(geometry, material);
+            scene.add(particles);
+
+            // Luzes giratórias
+            const lightColors = [0x0000ff, 0xff0000, 0x00ff00];
+            lightColors.forEach((color, i) => {
+                const light = new THREE.PointLight(color, 1, 10);
+                light.position.set(Math.cos(i) * 3, Math.sin(i) * 3, 2);
+                scene.add(light);
+                lights.push({ light, angle: i * 2, speed: 0.02 + Math.random() * 0.03 });
+            });
+            
+            // Luz ambiente
+            const ambientLight = new THREE.AmbientLight(0x404040);
+            scene.add(ambientLight);
+
+            animate();
+        }
+
+        let effectState = 'normal'; // normal, success, fail, million
+
+        window.triggerSceneEffect = function(type) {
+            effectState = type;
+            if (type === 'success') {
+                particles.material.color.setHex(0x00ff00);
+            } else if (type === 'fail') {
+                particles.material.color.setHex(0xff0000);
+            } else if (type === 'normal') {
+                particles.material.color.setHex(0xffd700);
+            } else if (type === 'million') {
+                particles.material.color.setHex(0xffffff);
+            }
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            const positions = particles.geometry.attributes.position.array;
+            for (let i = 2; i < positions.length; i += 3) {
+                positions[i] += 0.1;
+                if (positions[i] > 5) {
+                    positions[i] = -40;
+                }
+            }
+            particles.geometry.attributes.position.needsUpdate = true;
+            
+            if (effectState === 'million') {
+                particles.rotation.z += 0.05;
+            } else {
+                particles.rotation.z += 0.002;
+            }
+
+            lights.forEach(obj => {
+                obj.angle += obj.speed;
+                obj.light.position.x = Math.cos(obj.angle) * 4;
+                obj.light.position.y = Math.sin(obj.angle) * 4;
+            });
+
+            renderer.render(scene, camera);
+        }
+
+        // Ajuste de tela
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Adicionando evento de clique no botão via código, já que é module
+        document.getElementById('btn-generate').addEventListener('click', window.prepareGame);
+
+        // Inicializar
+        initThree();
+
+    </script>
+</body>
+</html>
