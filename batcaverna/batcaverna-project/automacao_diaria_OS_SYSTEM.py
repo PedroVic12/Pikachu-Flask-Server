@@ -15,6 +15,8 @@ from c3po_modules.pc_tools import (
     automacao_com_teclado,
 )
 
+from c3po_modules.pc_data_analysis import analisar_tarefas_ONS
+
 if __name__ == "__main__":
     try:
 
@@ -23,6 +25,16 @@ if __name__ == "__main__":
         falar(MENSAGEM_BOM_DIA)
 
         iniciar_projetos()
+
+        falar(
+            f"Você tem {len(PROJETOS_EM_PRODUCAO)} em produção rodando online pelo Github!"
+        )
+
+        status_counts = analisar_tarefas_ONS(excel_file=tarefas_ONS_PLC_file)
+
+        falar(
+            f"Você tem {status_counts.Não} Tarefas ONS pendentes. Você concluiu {status_counts.Sim} tarefas ONS PLC nesta semana"
+        )
 
         automacao_com_teclado()
 
