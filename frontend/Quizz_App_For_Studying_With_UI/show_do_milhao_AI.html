@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Jogo do Milhão 3D com IA</title>
+    <title>Show do Milhão 3D com IA</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap');
 
@@ -361,7 +361,7 @@
 
     <!-- Tela de Início / Configuração -->
     <div id="start-screen" class="full-screen-overlay interactive">
-        <h1 class="logo-title">JOGO DO<br>MILHÃO</h1>
+        <h1 class="logo-title">SHOW DO<br>MILHÃO</h1>
         <div class="logo-subtitle">GEMINI IA EDITION</div>
         
         <div class="quiz-form">
@@ -457,7 +457,15 @@
         // ==========================================
         // DADOS DO JOGO
         // ==========================================
+
+
+        // Variáveis
+        const googleApiKey = "AIzaSyBB4t25SXdKpZB3T4UDFp8lZ4b3riaJQmQ"
+        document.getElementById("api-key-input").value = googleApiKey;
         
+        const topicosDefault = ["Conhecimentos Gerais", "Matemática para Engenharia Básica", "Conceitos fundamentais em programação em Python e Javascript"]
+        document.getElementById("topic-input").value = topicosDefault[1]
+
         // Estrutura de prêmios (Clássica do Milhão)
         const prizeLadder = [
             { id: 1, win: 1000, stop: 0, loss: 0 },
@@ -480,15 +488,12 @@
 
         // Banco de Perguntas Padrão (Fallback)
         const defaultQuestions = [
-            { q: "Qual é a capital do Brasil?", a: ["Brasília", "Rio de Janeiro", "São Paulo", "Salvador"], correct: 0 },
-            { q: "Quem pintou a Mona Lisa?", a: ["Van Gogh", "Leonardo da Vinci", "Pablo Picasso", "Michelangelo"], correct: 1 },
+            { q: "Qual é a maior capital do Brasil?", a: ["Brasília", "Rio de Janeiro", "São Paulo", "Salvador"], correct: 2 },
             { q: "Qual o maior planeta do Sistema Solar?", a: ["Terra", "Marte", "Júpiter", "Saturno"], correct: 2 },
             { q: "Qual é a fórmula da água?", a: ["HO2", "H2O", "CO2", "H2O2"], correct: 1 },
-            { q: "Quem descobriu o Brasil?", a: ["Cristóvão Colombo", "Pero Vaz de Caminha", "Pedro Álvares Cabral", "Dom Pedro I"], correct: 2 },
             { q: "Qual animal é conhecido como o rei da selva?", a: ["Tigre", "Elefante", "Leão", "Gorila"], correct: 2 },
             { q: "Em que continente fica o Egito?", a: ["Ásia", "Europa", "África", "América"], correct: 2 },
             { q: "Quantos lados tem um hexágono?", a: ["5", "6", "7", "8"], correct: 1 },
-            { q: "Qual moeda é usada nos Estados Unidos?", a: ["Euro", "Iene", "Real", "Dólar"], correct: 3 },
             { q: "Quem escreveu 'Dom Casmurro'?", a: ["Jorge Amado", "Machado de Assis", "Clarice Lispector", "Monteiro Lobato"], correct: 1 }
         ];
         
