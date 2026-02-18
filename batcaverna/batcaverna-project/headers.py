@@ -18,7 +18,9 @@ VIDEOS_YOUTUBE_PRODUTIVIDADE = [
     "https://www.youtube.com/watch?v=ajga91x79Ms&t=1s",
     "https://www.youtube.com/watch?v=Zmv2zulCphc&list=PL3CYy6s0NrgUrrZwxMU7uVAayuh2OB5gJ",
 ]
-tarefas_ONS_PLC_file = "/home/pedrov12/Documentos/GitHub/Pikachu-Flask-Server/batcaverna/planilhas/Tarefas_PLC_ONS (13-02-26).xlsx"
+tarefas_ONS_PLC_file = (
+    "/home/pedrov12/Documentos/GitHub/Tarefas_PLC_ONS_2026-02-14.xlsx"
+)
 
 
 PROJETOS_EM_PRODUCAO = [

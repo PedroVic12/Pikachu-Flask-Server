@@ -23,6 +23,7 @@ Network-Tunnel-Go-VM,b05f7ed,2026-01-27,Pedro Victor Veras,up
 Network-Tunnel-Go-VM,129a8fd,2026-01-27,Pedro Victor Veras,up
 Network-Tunnel-Go-VM,54aced8,2026-01-27,Pedro Victor Veras,first comit
 Network-Tunnel-Go-VM,3722e44,2026-01-27,Pedro Victor Veras,Initial commit
+Palkia-PDF-extractor,a017559,2026-02-14,Pedro Victor Veras,up
 Palkia-PDF-extractor,4b675ae,2026-02-12,Pedro Victor Veras,Update CLI.py
 Palkia-PDF-extractor,f69b1a5,2026-02-11,Pedro Victor Veras,up
 Palkia-PDF-extractor,e470819,2026-02-11,Pedro Victor Veras,Update pandapower_deck_builder.py
@@ -32,7 +33,8 @@ Palkia-PDF-extractor,1d0e125,2026-02-10,Pedro Victor Veras,Create corrige_barras
 Palkia-PDF-extractor,89aa40f,2026-02-07,Pedro Victor Veras,Update app.py
 Palkia-PDF-extractor,a17ecc8,2026-02-07,Pedro Victor Veras,up
 Palkia-PDF-extractor,1cd11a1,2026-02-04,Pedro Victor Veras,Update GerarRelatorioPerdasDuplas - V6.vba
-Palkia-PDF-extractor,cdab394,2026-02-04,Pedro Victor Veras,up
+Pikachu-Flask-Server,2bf9807,2026-02-14,Pedro Victor Veras,update
+Pikachu-Flask-Server,5de1926,2026-02-14,Pedro Victor Veras,Create show_do_milhao_AI.html
 Pikachu-Flask-Server,6910d93,2026-02-13,Pedro Victor Veras,up
 Pikachu-Flask-Server,c7ef4f9,2026-02-13,Pedro Victor Veras,Update batcaverna_pv.md
 Pikachu-Flask-Server,5905690,2026-02-13,Pedro Victor Veras,up
@@ -41,8 +43,6 @@ Pikachu-Flask-Server,c3256a3,2026-02-11,Pedro Victor Veras,Update batcaverna_pv.
 Pikachu-Flask-Server,2c09363,2026-02-11,Pedro Victor Veras,update
 Pikachu-Flask-Server,c29595a,2026-02-11,Pedro Victor Veras,up
 Pikachu-Flask-Server,4049f79,2026-02-10,Pedro Victor Veras,update historico projetos + kanban dark mode
-Pikachu-Flask-Server,f6c7b09,2026-02-10,Pedro Victor Veras,up
-Pikachu-Flask-Server,f956ae2,2026-02-10,Pedro Victor Veras,Update batcaverna_pv.md
 Repopulation-With-Elite-Set,31a86490,2026-02-13,Pedro Victor Veras,Update app.py
 Repopulation-With-Elite-Set,fe939f4e,2026-02-13,Pedro Victor Veras,up
 Repopulation-With-Elite-Set,e6424644,2026-02-13,Pedro Victor Veras,up

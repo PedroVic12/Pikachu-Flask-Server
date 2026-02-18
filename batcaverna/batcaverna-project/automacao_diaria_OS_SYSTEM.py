@@ -27,7 +27,7 @@ if __name__ == "__main__":
         iniciar_projetos()
 
         falar(
-            f"Você tem {len(PROJETOS_EM_PRODUCAO)} em produção rodando online pelo Github!"
+            f"Você tem {len(PROJETOS_EM_PRODUCAO)} projetos em produção rodando online pelo Github!"
         )
 
         status_counts = analisar_tarefas_ONS(excel_file=tarefas_ONS_PLC_file)
