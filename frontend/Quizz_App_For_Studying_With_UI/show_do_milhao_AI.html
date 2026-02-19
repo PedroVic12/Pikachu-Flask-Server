@@ -258,7 +258,7 @@
             flex-direction: column;
             gap: 15px;
             width: 90%;
-            max-width: 400px;
+            max-width: 500px;
             text-align: left;
         }
 
@@ -460,7 +460,7 @@
 
 
         // Variáveis
-        const topicosDefault = ["Conhecimentos Gerais", "Matemática para Engenharia Elétrica", "Conceitos fundamentais em programação em Python e Javascript"]
+        const topicosDefault = ["Conhecimentos Gerais", "Matemática para Engenharia Elétrica usada em SEP", "Conceitos fundamentais em programação em Python e Javascript"]
         document.getElementById("topic-input").value = topicosDefault[1]
 
         // Estrutura de prêmios (Clássica do Milhão)
@@ -606,14 +606,18 @@
         async function fetchQuestionsFromGeminiLib(apiKey, topic, difficultyMode) {
             // Inicializando a Biblioteca (Estilo Node.js)
             const genAI = new GoogleGenerativeAI(apiKey);
-            
+            const modelName = "gemini-3-flash-preview";
+
             // Usando o modelo mais recente disponível
             const model = genAI.getGenerativeModel({ 
-                model: "gemini-2.5-flash-preview-09-2025",
+                model: modelName,
                 generationConfig: {
                     responseMimeType: "application/json"
                 }
             });
+
+            document.getElementById('loading-indicator').innerText = `Usando o modelo: ${modelName}...`;
+            
 
             const promptText = `
                 Crie uma lista de 16 perguntas de múltipla escolha para um jogo estilo "Show do Milhão" sobre o tema: "${topic}".
