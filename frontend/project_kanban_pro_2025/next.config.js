@@ -7,6 +7,9 @@ const nextConfig = {
   images: { unoptimized: true },
 };
 
+// npm install next-pwa
+
+// Adiciona e exporta o website como WebApp igual Flutter
 const withPWA = require("next-pwa")({
   dest: "public"
 })
