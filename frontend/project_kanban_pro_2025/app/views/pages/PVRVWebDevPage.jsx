@@ -243,7 +243,7 @@ export default function PVRVWebDevPage({ theme: globalTheme }) { // Accept globa
             return newSelection;
         });
     };
-    
+
     const themeValues = colorPalettes[internalTheme].values; // Use internalTheme
     return (
         <div style={themeValues}>
