@@ -51,9 +51,62 @@
 
 # Sprint atual da Semana de 23/02/2026 
 
+- [x] Correção do código de VBA de perdas duplas
+- [x] Ajuste de projetos NextJS, Psyide6 e Tauri V2
+- [x] Kanban/Scrum - Seg/sexta da semana
+- [x] Ajustes Batcaverna PV
+- [ ] Ajustes PVRV dev e sessão de Scrum/Kanban Pro 2026
+- [ ] Estudos para montagem de casos do mensal
+- [ ] Automação para divergencias de Sisbar ONS
+  - [ ] Rotina de Excel realizada com o marcos
+  - [ ] Script python para usar excel com Sqlite3
+  - [ ] Separar tabelas de forma eficiente
+- [x] Organização de arquivos .md e pastas de repopulation with elite set e Jedi-Cyberpunk
+- [x] Refatoração da UI de RCE framework com .ui e nova organização em /rce_framework
+
+---
+
 <a id="tarefas-ons-plc-2026-02"></a>
 
+## Conceitos Importantes de SEP
 
+1) Equipamentos de proteção:
+
+- Capacitores, Reatores e Indutores
+- Fluxo de potencia com cargas Ativas e Reativas
+- Linhas de trasmissão, barramentos, transformadores
+- Controle de geradores nas linhas
+- Potencia Ativa / Reativa / Aparente
+- Indutancia e Reatancia
+- Geradores
+
+2) Relatórios em .txt com fluxo de potencia e tensões nas barras
+
+- Violações até com 1,035 pu
+- Fluxo te pontencia com Geração e perdas nas linhas
+
+3) 4 Equações de Maxwell
+4) Sistemas de EDO de 1 e 2 ordem com funcao de transferencia em diagrama em blocos
+
+## 🧠 ANÁLISE DE PLANEJAMENTO PARA ONS
+
+- P define o fluxo energético contratado e físico
+- Q afeta tensões e estabilidade – crucial para despacho seguro
+- S limita capacidade térmica de equipamentos
+- O fator de potência (cosφ) deve ser próximo de 1, sob pena de multas
+
+## 🌐 Exemplos práticos:
+
+1) Estimar onde instalar bancos de capacitores ou reatores
+2) Analisar fluxo entre regiões com base em P/Q
+3) Planejar reforços de linhas com base em sobrecarga de S
+4) Usar perfis diários/históricos de P/Q para prever instabilidades
+
+## 💰 VALOR DISSO PARA O MERCADO
+
+- Simulação e relatório de potências com análise técnica: R$ 2.000–5.000
+- Estudo de compensação reativa ou fator de potência: R$ 3.000–10.000
+- Projeto completo com visualizações interativas e recomendações: R$ 8.000+
 
 ---
 
@@ -141,5 +194,33 @@ Meta: Conseguir explicar o comportamento da tensão na barra quando a carga reat
 - [ ] 08:00 - ONS (Home): Documentar o que foi aprendido sobre SEP na semana.
 
 - [ ] 14:00 - Dev Time: Projeto Pessoal ou aprofundamento em SQL.
+
+<a id="pvrv-2026-planilha-horarios"></a>
+
+# PVRV 2026 - Planilha de horarios (atualizar no website) __IN_PROGRESS
+
+---
+
+- [x] Kanban, Scrum, Planejamento e metas (Segunda e sexta)
+- [x] Organização de arquivos .MD
+- [x] Organização projetos Github
+- [x] Organização de Word e Excel usados para a semana no ONS
+- [x] Pyside6 x Tauri x NextJS projetos
+
+- [ ] Planejamento financeiro (Financial APP)
+  - [x] Dezembro
+  - [x] Janeiro
+  - [ ] Fevereiro
+  - [ ] Março
+  - [ ] Projeção do grafico com derivdas
+  - [ ] taxa de rendimento do salario ONS com 5% e 10% ao mes
+
+- [x] Planilhas Horarios
+- [ ] usper + Tunnel Newtork + React UI para proxys e rest api em go e express
+- [ ] Get/POST Google Sheets tabela de checklist de ProjectHub Empresas
+- [ ] HTML templates para Gohan Treinamentos Refatorado com SOLID, MVC e framework CSS components
+
+- [ ] Juntar todos sites estaticos em HTML que tenho num unico projeto NextJS com rotas e MVC (Gohan Treinamentos, Legado PVRV, Pomodoro)
+
 
 ---
