@@ -2,7 +2,7 @@
 
 ---
 
-**📅 DATA ATUAL:** 13/02/2026  
+**📅 DATA ATUAL:** 24/02/2026  
 **🔗 Repositório:** [GitHub Repository][var4]  
 **📋 Shiatsu Link:** [Agendamento Shiatsu][var1]  
 **📊 Kanban Columns:** `__BACKLOG` | `__IN_PROGRESS` | `__TODO` | `__COMPLETED`  
@@ -49,74 +49,11 @@
 
 <a id="lista-tarefas-pendentes"></a>
 
-# Sprint atual da Semana (11/02/2026)
-
-- [ ] Checklist de AG - RCE - Otimização intervenção de SEP com Pyside6 e novos comandos para run.py e novo app.py refatorado com boas praticas de software desktop e com testes TDD
-
-- [x] Planilhas TAREFAS PLC de fevereiro
-- [ ] Priorizar atividades estáveis, concretas e operacionais
-- [ ] Constuir uma base solida em estudos de SEP e circuitos CA
-- [ ] Trabalho, Disciplina, Organização, Planejamento em resultados mensuráveis
-- [ ] Cadastro de dados BDT Seco E NE **Urgente**
-- [x] Correções do SISBAR com procv do Mensal de Janeiro e colocar nas abas faltantes para o Mensal de Fevereiro com justificativa de aparecer na área
-  - [x] Feito via Excel com metodologia e PROCV com planilha do Mensal anterior
-  - [ ] Pyside6 que faz a automação de corrigir as barras do SECO do mensal passando a planilha do mensal anterior
-
-- [ ] Correções e bug fix no VBA para perdas Duplas Lts + 3 gráficos
-  - [ ] Aba de modificações sem formatação na pagina correta
-  - [ ] Pandas + Plotly + Julia para analise de dados e escolher os 3 gráficos de Perdas Duplas LTs e usar os gráficos no excel interno
-
-- [ ] Estudos de neurociencia sobre Neuroplasticidade (Boson Treinamentos) + Cartoes de enfretamento TCC para pagina do KanbanPro 2026
-
-- [x] Organização de novo Github para ONS e PLC 2026
-- [x] Deploy MUST desktop Tauri + Rust
-- [x] New Deck Builder com .PWF para AnaRede e Pandapower
-- [x] Nova CLI com boas praticas de snippets com Python
-
-- [x] CODING com NextJS + RUST + Tauri JS + Python
-- [x] Estudos CA (Potencia Ativa x Reativa)
-- [x] Estudos CA - Circuitos Indutivos x Capacitivos
-- [x] Estudos CA - Circuitos RLC em regime transitorio (EDO)
-- [x] Estudos CA - App Calculadora com EDO e Matrizes para circuitos CC/CA
-
-- [ ] Correções e bug fix no VBA para perdas Duplas Lts + 3 gráficos
-- [ ] Estudos de neurociencia sobre Neuroplasticidade (Boson Treinamentos) + Cartoes de enfretamento TCC para pagina do KanbanPro 2026
-- [x] Backup Kanban, Batcaverna, Linux e Win11
-- [x] Planejamento e Metas semanal (Refatorar a tela do Tarefas PLC e outros sites tudo no mesmo NextJS)
-- [x] Engenheiro de Software Pleno - Legado PVRV: Py, JS, C++, Dart e Rust. Anotações para perspectiva de carreira com 28 anos em site que ajuda a priorizar os projetos.
-
-- [x] Backup Kanban, Batcaverna, Linux e Win11
-- [x] Listagem de projetos atuais por tecnologias do github
-- [ ] Juntar todos sites estaticos em HTML que tenho num unico projeto NextJS com rotas e MVC (Gohan Treinamentos, Legado PVRV, Pomodoro)
+# Sprint atual da Semana de 23/02/2026 
 
 <a id="tarefas-ons-plc-2026-02"></a>
 
-<a id="pvrv-2026-planilha-horarios"></a>
 
-# PVRV 2026 - Planilha de horarios (atualizar no website) __IN_PROGRESS
-
----
-
-- [x] Kanban, Scrum, Planejamento e metas (Segunda e sexta)
-- [x] Organização de arquivos .MD
-- [x] Organização projetos Github
-- [x] Organização de Word e Excel usados para a semana no ONS
-- [x] Pyside6 x Tauri x NextJS projetos
-
-- [ ] Planejamento financeiro (Financial APP)
-  - [x] Dezembro
-  - [x] Janeiro
-  - [ ] Fevereiro
-  - [ ] Março
-  - [ ] Projeção do grafico com derivdas
-  - [ ] taxa de rendimento do salario ONS com 5% e 10% ao mes
-
-- [x] Planilhas Horarios
-- [ ] usper + Tunnel Newtork + React UI para proxys e rest api em go e express
-- [ ] Get/POST Google Sheets tabela de checklist de ProjectHub Empresas
-- [ ] HTML templates para Gohan Treinamentos Refatorado com SOLID, MVC e framework CSS components
-
-- [ ] Juntar todos sites estaticos em HTML que tenho num unico projeto NextJS com rotas e MVC (Gohan Treinamentos, Legado PVRV, Pomodoro)
 
 ---
 
