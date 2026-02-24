@@ -460,27 +460,33 @@
 
 
         // Variáveis
-        const topicosDefault = ["Conhecimentos Gerais", "Matemática para Engenharia Elétrica usada em SEP", "Conceitos fundamentais em programação em Python e Javascript"]
-        document.getElementById("topic-input").value = topicosDefault[1]
+        const topicosDefault = ["Conhecimentos Gerais", "Matemática para Engenharia Elétrica", "Conceitos fundamentais em programação em Python e Javascript", "Conceitos Fundamentais de aplicações de formulas em Circuitos CA, Eletromagnetismo e Sinais e sistemas", "Fisíca base para SEP", "Astronimia usando física básica"]
+        document.getElementById("topic-input").value = topicosDefault[1] // foco em matemática para Eng. Elétrica
 
-        // Estrutura de prêmios (Clássica do Milhão)
+
+        // Função para gerar tópico aleatório (pode ser útil para testes rápidos)
+        const randomTopicIndex = Math.floor(Math.random() * topicosDefault.length);
+        document.getElementById("topic-input").value = topicosDefault[randomTopicIndex];
+
+
+        // Estrutura de prêmios (Clássica do Milhão) - começando com R$ 100
         const prizeLadder = [
-            { id: 1, win: 1000, stop: 0, loss: 0 },
-            { id: 2, win: 2000, stop: 1000, loss: 500 },
-            { id: 3, win: 3000, stop: 2000, loss: 1000 },
-            { id: 4, win: 4000, stop: 3000, loss: 1500 },
-            { id: 5, win: 5000, stop: 4000, loss: 2000 },
-            { id: 6, win: 10000, stop: 5000, loss: 2500 },
-            { id: 7, win: 20000, stop: 10000, loss: 5000 },
-            { id: 8, win: 30000, stop: 20000, loss: 10000 },
-            { id: 9, win: 40000, stop: 30000, loss: 15000 },
-            { id: 10, win: 50000, stop: 40000, loss: 20000 },
+            { id: 1, win: 100, stop: 0, loss: 0 },
+            { id: 2, win: 200, stop: 100, loss: 50 },
+            { id: 3, win: 300, stop: 200, loss: 100 },
+            { id: 4, win: 500, stop: 300, loss: 150 },
+            { id: 5, win: 1000, stop: 500, loss: 250 },
+            { id: 6, win: 2000, stop: 1000, loss: 500 },
+            { id: 7, win: 5000, stop: 2000, loss: 1000 },
+            { id: 8, win: 10000, stop: 5000, loss: 2500 },
+            { id: 9, win: 20000, stop: 10000, loss: 5000 },
+            { id: 10, win: 50000, stop: 20000, loss: 10000 },
             { id: 11, win: 100000, stop: 50000, loss: 25000 },
             { id: 12, win: 200000, stop: 100000, loss: 50000 },
             { id: 13, win: 300000, stop: 200000, loss: 100000 },
-            { id: 14, win: 400000, stop: 300000, loss: 150000 },
-            { id: 15, win: 500000, stop: 400000, loss: 200000 },
-            { id: 16, win: 1000000, stop: 500000, loss: 0 }
+            { id: 14, win: 500000, stop: 300000, loss: 200000 },
+            { id: 15, win: 750000, stop: 500000, loss: 300000 },
+            { id: 16, win: 1000000, stop: 750000, loss: 0 }
         ];
 
         // Banco de Perguntas Padrão (Fallback) - Focado em BR, Astronomia e Biologia
