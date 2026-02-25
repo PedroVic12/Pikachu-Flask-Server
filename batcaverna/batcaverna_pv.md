@@ -55,15 +55,16 @@
 - [x] Ajuste de projetos NextJS, Psyide6 e Tauri V2
 - [x] Kanban/Scrum - Seg/sexta da semana
 - [x] Ajustes Batcaverna PV
-- [ ] Ajustes PVRV dev e sessão de Scrum/Kanban Pro 2026
+- [x] Ajustes PVRV dev e sessão de Scrum/Kanban Pro 2026
 - [ ] Estudos para montagem de casos do mensal
 - [ ] Automação para divergencias de Sisbar ONS
-  - [ ] Rotina de Excel realizada com o marcos
+  - [x] Rotina de Excel realizada com o marcos
   - [ ] Script python para usar excel com Sqlite3
   - [ ] Separar tabelas de forma eficiente
 - [x] Organização de arquivos .md e pastas de repopulation with elite set e Jedi-Cyberpunk
 - [x] Refatoração da UI de RCE framework com .ui e nova organização em /rce_framework
-
+- [x] CLI em python, rust e C++
+- [x] Levantamento de requisitos de projetos e propondo soluções e Pyside6 e Tauri desktop
 ---
 
 <a id="tarefas-ons-plc-2026-02"></a>
