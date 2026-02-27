@@ -65,6 +65,12 @@
 - [x] Refatoração da UI de RCE framework com .ui e nova organização em /rce_framework
 - [x] CLI em python, rust e C++
 - [x] Levantamento de requisitos de projetos e propondo soluções e Pyside6 e Tauri desktop
+- [x] uso de windows 11 e linux e dados synronizados
+- [ ] Notebooks barras SEO - automation rpa
+- [ ] Estudos de reatania apatitva e indutiva
+- [ ] Organização de arquivos .md e .PDF e QUARTO e .ipynb
+- [ ] planilha de finanriro
+- [ ] Automation Mensal pandas e formulas .xlsx om historio de mensal de 2026
 ---
 
 <a id="tarefas-ons-plc-2026-02"></a>
