@@ -1,3 +1,4 @@
+import json
 from flask import Blueprint, jsonify, request
 import requests
 from datetime import datetime
@@ -99,13 +100,34 @@ def get_horoscope(sign):
     """Obtém o horóscopo do dia para um signo específico"""
     try:
         # Usando uma API de horóscopo gratuita
-        url = f"https://horoscope-app-api.vercel.app/api/v1/get-horoscope/daily?sign={sign}&day=today"
+        url = f"https://freehoroscopeapi.com/api/v1/get-horoscope/daily?sign={sign}"
         response = requests.get(url)
         response.raise_for_status()
         return jsonify(response.json())
     except requests.exceptions.RequestException as e:
         return jsonify({"error": str(e)}), 500
 
+@astro_bp.route('horoscope/<sign>', methods = ["GET"])
+def get_horoscope_weekly(signo):
+    try:
+        url = f"https://freehoroscopeapi.com/api/v1/get-horoscope/weekly?sign={signo}"
+        response = requests.get(url)
+        response.raise_for_status()
+        return jsonify(response.json())
+    except Error as e:
+        return jsonify({"error": str(e)}), 500
+
+@astro_bp.route('tarot/<num_carts>', methods = ["GET"])
+def get_tarot_cards(num_carts):
+    try:    
+        url = f"https://freehoroscopeapi.com/api/v1/tarot/cards/random?n={num_carts}"
+        response = requests.get(url)
+        response.raise_for_status()
+        return jsonify(response.json())
+    except requests.exceptions.RequestException as e:
+        return jsonify({"error": str(e)}), 500
+
+        
 @astro_bp.route('/astronomy/moon-phase', methods=['GET'])
 def get_moon_phase():
     """Obtém informações sobre a fase da lua atual"""
