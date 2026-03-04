@@ -5,7 +5,7 @@ import React from 'react';
 const ScrumKanbanMetodologia = () => {
   const secoes = [
     {
-      titulo: "1. Estrutura do Fluxo (Kanban)",
+      titulo: "1. Estrutura do Fluxo (Kanban) para Estagiários e Desenvolvedores",
       subtitulo: "Quadro visual (Trello/Jira) para visibilidade total.",
       itens: [
         { label: "Colunas Sugeridas", desc: "Backlog → To Do → Doing → Testing/Review → Done." },
