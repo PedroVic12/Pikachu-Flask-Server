@@ -1,0 +1,32 @@
+{
+  "name": "desktop-admin-dashboard",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "vinext dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "dev:vinext": "vite dev --port 3001",
+    "build:vinext": "vite build"
+  },
+  "dependencies": {
+    "lucide-react": "^0.577.0",
+    "next": "16.1.6",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "vinext": "^0.0.21",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@vitejs/plugin-rsc": "^0.5.21",
+    "babel-plugin-react-compiler": "1.0.0",
+    "eslint": "^9",
+    "eslint-config-next": "16.1.6",
+    "react-server-dom-webpack": "^19.2.4",
+    "tailwindcss": "^4",
+    "vite": "^7.3.1"
+  },
+  "type": "module"
+}

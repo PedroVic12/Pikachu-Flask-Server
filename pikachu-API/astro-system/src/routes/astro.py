@@ -103,7 +103,15 @@ def get_horoscope(sign):
         url = f"https://freehoroscopeapi.com/api/v1/get-horoscope/daily?sign={sign}"
         response = requests.get(url)
         response.raise_for_status()
-        return jsonify(response.json())
+        request = response.json()
+
+        data_atual =request["data"]["date"]
+        horoscopo = request["data"]["horoscope"]
+        print(data_atual + "\n\n"  + horoscopo)
+        traducao = traduzirTexto(horoscopo)
+
+        return traducao
+        
     except requests.exceptions.RequestException as e:
         return jsonify({"error": str(e)}), 500
 
