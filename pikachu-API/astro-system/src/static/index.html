@@ -369,7 +369,7 @@
             }
         }
 
-        async function getHoroscope() {
+            async function getHoroscope() {
             const sign = document.getElementById('zodiac-sign').value;
 
             try {
@@ -377,16 +377,15 @@
                 const resultElement = document.getElementById('horoscope-result');
 
                 resultElement.innerHTML = `
-                    <h3>Horóscopo para ${sign.charAt(0).toUpperCase() + sign.slice(1)}</h3>
-                    <p><strong>Data:</strong> ${data.data.date}</p>
-                    <p><strong>Previsão:</strong> ${data.data.horoscope_data}</p>
+                    <h3>Horóscopo Diário para ${sign.charAt(0).toUpperCase() + sign.slice(1)}</h3>
+                    <p><strong>Data:</strong> ${data.date}</p>
+                    <p><strong>Previsão:</strong> ${data.horoscope}</p>
                 `;
             } catch (error) {
                 console.error('Erro ao obter horóscopo:', error);
             }
         }
 
-        // NOVO: Função para o Horóscopo Semanal
         async function getHoroscopeWeekly() {
             const sign = document.getElementById('zodiac-sign').value;
 
@@ -395,8 +394,9 @@
                 const resultElement = document.getElementById('horoscope-weekly-result');
 
                 resultElement.innerHTML = `
-                    <h3>Horóscopo Semanal (${sign})</h3>
-                    <p>${data.data.horoscope_data || JSON.stringify(data.data)}</p>
+                    <h3>Horóscopo Semanal para ${sign.charAt(0).toUpperCase() + sign.slice(1)}</h3>
+                    <p><strong>Semana de:</strong> ${data.date}</p>
+                    <p><strong>Previsão:</strong> ${data.horoscope}</p>
                 `;
             } catch (error) {
                 console.error('Erro ao obter horóscopo semanal:', error);

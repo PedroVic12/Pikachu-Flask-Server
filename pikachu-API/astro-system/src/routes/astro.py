@@ -97,35 +97,45 @@ def get_horoscope(sign):
         response.raise_for_status()
         request_data = response.json()
 
+        # A chave correta da API é "horoscope" (e não horoscope_data)
         data_atual = request_data["data"]["date"]
-        # Ajustado para pegar a chave correta baseada no seu frontend
-        horoscopo = request_data["data"]["horoscope_data"] 
+        horoscopo = request_data["data"]["horoscope"] 
         
+        # Fazemos a tradução no Backend
         traducao = maybe_translate(horoscopo)
         
-        # O Frontend espera um JSON com { data: { date: ..., horoscope_data: ... } }
+        # Retornamos um formato limpo e padronizado
         return jsonify({
-            "data": {
-                "date": data_atual,
-                "horoscope_data": traducao
-            }
+            "date": data_atual,
+            "horoscope": traducao
         })
         
-    except Exception as e: # Trocado Error por Exception
+    except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-# CORRIGIDO: Adicionado a / inicial e /weekly/ para não colidir com o diário
 @astro_bp.route('/horoscope/weekly/<signo>', methods=["GET"])
 def get_horoscope_weekly(signo):
     try:
         url = f"https://freehoroscopeapi.com/api/v1/get-horoscope/weekly?sign={signo}"
         response = requests.get(url)
         response.raise_for_status()
-        return jsonify(response.json())
-    except Exception as e: # Trocado Error por Exception
+        request_data = response.json()
+
+        # O formato do semanal é direto (não tem a chave pai "data")
+        data_atual = request_data.get("date", "Data não informada")
+        horoscopo = request_data.get("horoscope", "Sem previsão")
+        
+        # Fazemos a tradução no Backend
+        traducao = maybe_translate(horoscopo)
+
+        # Retornamos no mesmo padrão limpo
+        return jsonify({
+            "date": data_atual,
+            "horoscope": traducao
+        })
+    except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-# CORRIGIDO: Adicionado a / inicial
 @astro_bp.route('/tarot/<num_carts>', methods=["GET"])
 def get_tarot_cards(num_carts):
     try:    
