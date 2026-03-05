@@ -67,6 +67,7 @@
             margin-top: 20px;
             min-height: 100px;
             border-left: 4px solid #ffd700;
+            word-wrap: break-word;
         }
 
         .loading {
@@ -150,8 +151,7 @@
     <div class="container">
 
         <h1>Pikachu Rest API - Frontend 🌟</h1>
-        <h1>🌟 Sistema Astronômico 🌟</h1>
-        <p>(astro-system)</p>
+        <p style="text-align: center;">(astro-system)</p>
 
         <div class="grid">
             <!-- Seção NASA -->
@@ -188,19 +188,21 @@
                     <option value="pisces">Peixes</option>
                 </select>
                 <button onclick="getHoroscope()">Ver Horóscopo Diário</button>
+                <button onclick="getHoroscopeWeekly()">Ver Horóscopo Semanal</button>
+                
                 <div id="horoscope-result" class="result">
                     <div>
                         <button type="button">Traduzir para o português</button>
                         <button>Baixar horóscopo em audio</button>
                     </div>
                 </div>
-                <button onclick="getHoroscopeWeekly()">Ver Horóscopo Semanal</button>
+                
                 <div id="horoscope-weekly-result" class="result"></div>
             </div>
 
             <div class="section">
-                <h2>🔮 Cartas do Tarot</h2>
-                <button onclick="getTarotCards()">Ver Cartas do Tarot</button>
+                <h2>🃏 Cartas do Tarot</h2>
+                <button onclick="getTarotCards()">Ver Cartas do Tarot (3 cartas)</button>
                 <div id="tarot-cards-result" class="result"></div>
             </div>
 
@@ -381,6 +383,52 @@
                 `;
             } catch (error) {
                 console.error('Erro ao obter horóscopo:', error);
+            }
+        }
+
+        // NOVO: Função para o Horóscopo Semanal
+        async function getHoroscopeWeekly() {
+            const sign = document.getElementById('zodiac-sign').value;
+
+            try {
+                const data = await makeRequest(`/api/horoscope/weekly/${sign}`, 'horoscope-weekly-result');
+                const resultElement = document.getElementById('horoscope-weekly-result');
+
+                resultElement.innerHTML = `
+                    <h3>Horóscopo Semanal (${sign})</h3>
+                    <p>${data.data.horoscope_data || JSON.stringify(data.data)}</p>
+                `;
+            } catch (error) {
+                console.error('Erro ao obter horóscopo semanal:', error);
+            }
+        }
+
+        // NOVO: Função para as Cartas de Tarot
+        async function getTarotCards() {
+            try {
+                const numCards = 3; // Puxando 3 cartas por padrão
+                const data = await makeRequest(`/api/tarot/${numCards}`, 'tarot-cards-result');
+                const resultElement = document.getElementById('tarot-cards-result');
+
+                let htmlContent = "<h3>Suas 3 Cartas:</h3>";
+                
+                if (data && data.data) {
+                    // Iterar sobre as cartas retornadas
+                    data.data.forEach(card => {
+                        htmlContent += `
+                            <div style="margin-bottom: 10px; padding: 10px; background: rgba(0,0,0,0.3); border-radius: 8px;">
+                                <strong>${card.name}</strong><br>
+                                <small>${card.meaning_up || 'Sem significado disponível.'}</small>
+                            </div>
+                        `;
+                    });
+                } else {
+                    htmlContent += "<p>Não foi possível puxar as cartas.</p>";
+                }
+
+                resultElement.innerHTML = htmlContent;
+            } catch (error) {
+                console.error('Erro ao obter cartas de tarot:', error);
             }
         }
 
