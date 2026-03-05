@@ -148,6 +148,15 @@
 </head>
 
 <body>
+<div id="root"></div>
+
+      <!-- React 18 (CDN) -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+ 
+  <!-- Babel para permitir JSX sem build (apenas dev) -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+ 
     <div class="container">
 
         <h1>Pikachu Rest API - Frontend 🌟</h1>
@@ -191,10 +200,7 @@
                 <button onclick="getHoroscopeWeekly()">Ver Horóscopo Semanal</button>
                 
                 <div id="horoscope-result" class="result">
-                    <div>
-                        <button type="button">Traduzir para o português</button>
-                        <button>Baixar horóscopo em audio</button>
-                    </div>
+         
                 </div>
                 
                 <div id="horoscope-weekly-result" class="result"></div>
@@ -596,6 +602,13 @@
             }
         }
     </script>
+
+    <!-- Babel para permitir JSX sem build (apenas dev) -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+     <!-- Seu controller (JS separado) -->
+  <!-- <script type="text/babel" src="/astro_system_controller.js"></script> -->
+
 </body>
 
 </html>

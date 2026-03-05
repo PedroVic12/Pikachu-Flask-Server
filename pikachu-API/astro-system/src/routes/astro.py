@@ -122,8 +122,8 @@ def get_horoscope_weekly(signo):
         request_data = response.json()
 
         # O formato do semanal é direto (não tem a chave pai "data")
-        data_atual = request_data.get("date", "Data não informada")
-        horoscopo = request_data.get("horoscope", "Sem previsão")
+        data_atual = request_data["data"].get("date", "Data não informada")
+        horoscopo = request_data["data"].get("horoscope", "Sem previsão")
         
         # Fazemos a tradução no Backend
         traducao = maybe_translate(horoscopo)
