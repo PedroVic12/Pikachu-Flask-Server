@@ -148,7 +148,10 @@
 
 <body>
     <div class="container">
+
+        <h1>Pikachu Rest API - Frontend 🌟</h1>
         <h1>🌟 Sistema Astronômico 🌟</h1>
+        <p>(astro-system)</p>
 
         <div class="grid">
             <!-- Seção NASA -->
@@ -184,8 +187,21 @@
                     <option value="aquarius">Aquário</option>
                     <option value="pisces">Peixes</option>
                 </select>
-                <button onclick="getHoroscope()">Ver Horóscopo</button>
-                <div id="horoscope-result" class="result"></div>
+                <button onclick="getHoroscope()">Ver Horóscopo Diário</button>
+                <div id="horoscope-result" class="result">
+                    <div>
+                        <button type="button">Traduzir para o português</button>
+                        <button>Baixar horóscopo em audio</button>
+                    </div>
+                </div>
+                <button onclick="getHoroscopeWeekly()">Ver Horóscopo Semanal</button>
+                <div id="horoscope-weekly-result" class="result"></div>
+            </div>
+
+            <div class="section">
+                <h2>🔮 Cartas do Tarot</h2>
+                <button onclick="getTarotCards()">Ver Cartas do Tarot</button>
+                <div id="tarot-cards-result" class="result"></div>
             </div>
 
             <!-- Seção Astronomia -->

@@ -15,20 +15,20 @@ astro_bp = Blueprint('astro', __name__)
 NASA_API_KEY = "SqO4btBXshwmDO8tZTbfOxIKLpeShuX3d4SdCJbH"
 
 #! Metodos de tradução
-def traduzirTexto(self, texto_em_ingles):
+def traduzirTexto(texto_em_ingles):
     texto_traduzido = GoogleTranslator(source='en', target='pt').translate(texto_em_ingles) # use translate_text here
     return texto_traduzido
 
-def is_english(self, text):
+def is_english(text):
     try:
         # Se detectar que o idioma é inglês, retorna True
         return detect(text) == 'en'
     except:
         return False
 
-def maybe_translate(self, text):
+def maybe_translate(text):
     # Verifica se o texto é em inglês
-    if self.is_english(text):
+    if is_english(text):
         
         # Traduz o texto
         print('\n\n\nTraduzindo texto...')
@@ -108,8 +108,7 @@ def get_horoscope(sign):
         data_atual =request["data"]["date"]
         horoscopo = request["data"]["horoscope"]
         print(data_atual + "\n\n"  + horoscopo)
-        traducao = traduzirTexto(horoscopo)
-
+        traducao = maybe_translate(horoscopo)
         return traducao
         
     except requests.exceptions.RequestException as e:
