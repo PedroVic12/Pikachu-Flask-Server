@@ -1,52 +1,112 @@
-import * as XLSX from 'xlsx';
-import storageController from './StorageController.js';
+import * as XLSX from "xlsx";
+import storageController from "./StorageController.js";
 
 // ========== CONSTANTS ==========
 export const CATEGORIES = {
-  'ons': { emoji: '📂', label: 'Tarefas PLC ONS', color: 'bg-green-300 dark:bg-green-700 hover:bg-emerald-100 dark:hover:bg-emerald-800 text-green-900 dark:text-green-100' },
-  'uff': { emoji: '🧪', label: 'Estudos UFF - Eng. Elétrica', color: 'bg-yellow-300 dark:bg-yellow-700 text-yellow-900 dark:text-yellow-100' },
-  'python': { emoji: '⚙️', label: 'Projetos Python', color: 'bg-blue-300 dark:bg-blue-700 hover:bg-blue-300 dark:hover:bg-blue-800 text-blue-900 dark:text-blue-100' },
-  'web': { emoji: '🚀', label: 'MVP de Aplicações Web', color: 'bg-indigo-300 dark:bg-indigo-700 text-indigo-900 dark:text-indigo-100' },
-  'spiritual': { emoji: '🧘‍♂️', label: 'TDAH + Alinhamento Espiritual', color: 'bg-violet-100 dark:bg-violet-800 text-violet-900 dark:text-violet-100' },
-  'pvrv': { emoji: '🔥', label: 'PVRV', color: 'bg-violet-100 dark:bg-violet-800 text-violet-900 dark:text-violet-100' },
-  'js': { emoji: '⚙️', label: 'Projetos Javascript', color: 'bg-amber-300 dark:bg-amber-700 text-amber-900 dark:text-amber-100' },
-  'AI_The_Agents': { emoji: '🤖', label: 'Agentes IA', color: 'bg-cyan-300 dark:bg-cyan-700 text-cyan-900 dark:text-cyan-100'  },
-  'data_science': { emoji: '⚙️', label: 'Projetos Data Science', color: 'bg-cyan-100 dark:bg-cyan-800 text-cyan-900 dark:text-cyan-100' },
-  'iot': { emoji: '⚙️', label: 'IoT e Sistemas Embarcados', color: 'bg-cyan-300 dark:bg-cyan-700 text-cyan-900 dark:text-cyan-100' },
+  ons: {
+    emoji: "📂",
+    label: "Tarefas PLC ONS",
+    color:
+      "bg-green-300 dark:bg-green-700 hover:bg-emerald-100 dark:hover:bg-emerald-800 text-green-900 dark:text-green-100",
+  },
+  uff: {
+    emoji: "🧪",
+    label: "Estudos UFF - Eng. Elétrica",
+    color:
+      "bg-yellow-300 dark:bg-yellow-700 text-yellow-900 dark:text-yellow-100",
+  },
+  python: {
+    emoji: "⚙️",
+    label: "Projetos Python",
+    color:
+      "bg-blue-300 dark:bg-blue-700 hover:bg-blue-300 dark:hover:bg-blue-800 text-blue-900 dark:text-blue-100",
+  },
+  web: {
+    emoji: "🚀",
+    label: "MVP de Aplicações Web",
+    color:
+      "bg-indigo-300 dark:bg-indigo-700 text-indigo-900 dark:text-indigo-100",
+  },
+  spiritual: {
+    emoji: "🧘‍♂️",
+    label: "TDAH + Alinhamento Espiritual",
+    color:
+      "bg-violet-100 dark:bg-violet-800 text-violet-900 dark:text-violet-100",
+  },
+  pvrv: {
+    emoji: "🔥",
+    label: "PVRV",
+    color:
+      "bg-violet-100 dark:bg-violet-800 text-violet-900 dark:text-violet-100",
+  },
+  js: {
+    emoji: "⚙️",
+    label: "Projetos Javascript",
+    color: "bg-amber-300 dark:bg-amber-700 text-amber-900 dark:text-amber-100",
+  },
+  AI_The_Agents: {
+    emoji: "🤖",
+    label: "Agentes IA",
+    color: "bg-cyan-300 dark:bg-cyan-700 text-cyan-900 dark:text-cyan-100",
+  },
+  data_science: {
+    emoji: "⚙️",
+    label: "Projetos Data Science",
+    color: "bg-cyan-100 dark:bg-cyan-800 text-cyan-900 dark:text-cyan-100",
+  },
+  iot: {
+    emoji: "⚙️",
+    label: "IoT e Sistemas Embarcados",
+    color: "bg-cyan-300 dark:bg-cyan-700 text-cyan-900 dark:text-cyan-100",
+  },
 };
 
-
 export const STATUS_COLUMNS = {
-  'to do': { id: 'todo', title: 'BACKLOG', emoji: '✏️' },
-  'in progress': { id: 'progress', title: 'SPRINT Atual (In Progress)', emoji: '🔍' },
-  'projetos parados': { id: 'paused', title: 'Projetos Parados', emoji: '⏸️' },
-  'testing': { id: 'testing', title: 'Testing/Review', emoji: '🧪' },
-  'ONS - PLC - 2026': { id: 'plc', title: 'ONS PLC 2026', emoji: '🔌' },
-  'uff - 2026': { id: 'uff2026', title: 'UFF 2026', emoji: '🎓' },
-  'PVRV - Batcaverna': { id: 'batcaverna', title: 'PVRV', emoji: '🔥' },
-  'coding': { id: 'coding', title: 'Programação Github', emoji: '💻' },
-  'agentes (c3po, jarvis, groundon, lumina Aurora)': { id: 'agents', title: 'Agentes IA ', emoji: '🤖' },
-  'completed': { id: 'completed', title: 'Finalizado (Done)', emoji: '✅' },
+  "to do": { id: "todo", title: "TODO - BACKLOG", emoji: "✏️" },
+  "in progress": {
+    id: "progress",
+    title: "SPRINT Atual (In Progress)",
+    emoji: "🔍",
+  },
+  "projetos parados": { id: "paused", title: "Projetos Parados", emoji: "⏸️" },
+  testing: { id: "testing", title: "Testing/Review", emoji: "🧪" },
+  completed: { id: "completed", title: "CONCLUIDO", emoji: "✅" },
+
+  "ONS - PLC - 2026": { id: "plc", title: "ONS PLC 2026", emoji: "🔌" },
+  "uff - 2026": { id: "uff2026", title: "UFF 2026", emoji: "🎓" },
+  "PVRV - Batcaverna": { id: "batcaverna", title: "PVRV", emoji: "🔥" },
+  coding: { id: "coding", title: "Programação Github", emoji: "💻" },
+  "agentes (c3po, jarvis, groundon, lumina Aurora)": {
+    id: "agents",
+    title: "Agentes IA ",
+    emoji: "🤖",
+  },
 };
 
 const parseDateForExcel = (dateValue) => {
-    if (dateValue instanceof Date && !isNaN(dateValue)) return dateValue;
-    if (typeof dateValue === 'string') {
-        const brazilianDateRegex = /^(\d{1,2})\/(\d{1,2})\/(\d{4})/;
-        const match = dateValue.match(brazilianDateRegex);
-        if (match) {
-            const date = new Date(parseInt(match[3], 10), parseInt(match[2], 10) - 1, parseInt(match[1], 10));
-            if (!isNaN(date.getTime())) return date;
-        }
-        const parsedDate = new Date(dateValue);
-        if (!isNaN(parsedDate.getTime())) return parsedDate;
+  if (dateValue instanceof Date && !isNaN(dateValue)) return dateValue;
+  if (typeof dateValue === "string") {
+    const brazilianDateRegex = /^(\d{1,2})\/(\d{1,2})\/(\d{4})/;
+    const match = dateValue.match(brazilianDateRegex);
+    if (match) {
+      const date = new Date(
+        parseInt(match[3], 10),
+        parseInt(match[2], 10) - 1,
+        parseInt(match[1], 10),
+      );
+      if (!isNaN(date.getTime())) return date;
     }
-    if (typeof dateValue === 'number') {
-        const excelEpoch = new Date(1899, 11, 30);
-        const date = new Date(excelEpoch.getTime() + dateValue * 24 * 60 * 60 * 1000);
-        if (!isNaN(date.getTime())) return date;
-    }
-    return new Date();
+    const parsedDate = new Date(dateValue);
+    if (!isNaN(parsedDate.getTime())) return parsedDate;
+  }
+  if (typeof dateValue === "number") {
+    const excelEpoch = new Date(1899, 11, 30);
+    const date = new Date(
+      excelEpoch.getTime() + dateValue * 24 * 60 * 60 * 1000,
+    );
+    if (!isNaN(date.getTime())) return date;
+  }
+  return new Date();
 };
 
 class ProjectRepository {
@@ -59,24 +119,34 @@ class ProjectRepository {
   }
 
   exportToExcel(projects) {
-    const exportData = projects.map(item => {
-        const createdAt = item.createdAt instanceof Date ? item.createdAt : new Date(item.createdAt);
-        const updatedAt = item.updatedAt instanceof Date ? item.updatedAt : new Date(item.updatedAt);
-        return {
-            'Título': item.title,
-            'Status': item.status,
-            'ID': item.id,
-            'Categoria': item.category || '',
-            'Criado em': !isNaN(createdAt) ? createdAt.toLocaleDateString('pt-BR') : '',
-            'Atualizado em': !isNaN(updatedAt) ? updatedAt.toLocaleDateString('pt-BR') : '',
-            'Conteúdo': item.content || ''
-        };
+    const exportData = projects.map((item) => {
+      const createdAt =
+        item.createdAt instanceof Date
+          ? item.createdAt
+          : new Date(item.createdAt);
+      const updatedAt =
+        item.updatedAt instanceof Date
+          ? item.updatedAt
+          : new Date(item.updatedAt);
+      return {
+        Título: item.title,
+        Status: item.status,
+        ID: item.id,
+        Categoria: item.category || "",
+        "Criado em": !isNaN(createdAt)
+          ? createdAt.toLocaleDateString("pt-BR")
+          : "",
+        "Atualizado em": !isNaN(updatedAt)
+          ? updatedAt.toLocaleDateString("pt-BR")
+          : "",
+        Conteúdo: item.content || "",
+      };
     });
 
     const ws = XLSX.utils.json_to_sheet(exportData);
     const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Projetos');
-    XLSX.writeFile(wb, 'kanban-backup.xlsx');
+    XLSX.utils.book_append_sheet(wb, ws, "Projetos");
+    XLSX.writeFile(wb, "kanban-backup.xlsx");
   }
 
   importFromExcel(file) {
@@ -85,28 +155,28 @@ class ProjectRepository {
       reader.onload = (e) => {
         try {
           const data = new Uint8Array(e.target?.result);
-          const workbook = XLSX.read(data, { type: 'array', cellDates: true });
+          const workbook = XLSX.read(data, { type: "array", cellDates: true });
           const worksheet = workbook.Sheets[workbook.SheetNames[0]];
           const jsonData = XLSX.utils.sheet_to_json(worksheet);
 
           console.log("--- DEBUG: Raw data from Excel ---", jsonData);
 
-          const importedProjects = jsonData.map(row => ({
-            id: row['ID']?.toString() || Date.now().toString(),
-            title: row['Título'] || 'Sem título',
-            status: row['Status'] || 'to do',
-            category: row['Categoria'] || 'ons',
-            content: row['Conteúdo'] || '',
-            createdAt: parseDateForExcel(row['Criado em']),
-            updatedAt: parseDateForExcel(row['Atualizado em']),
-            files: []
+          const importedProjects = jsonData.map((row) => ({
+            id: row["ID"]?.toString() || Date.now().toString(),
+            title: row["Título"] || "Sem título",
+            status: row["Status"] || "to do",
+            category: row["Categoria"] || "ons",
+            content: row["Conteúdo"] || "",
+            createdAt: parseDateForExcel(row["Criado em"]),
+            updatedAt: parseDateForExcel(row["Atualizado em"]),
+            files: [],
           }));
           resolve(importedProjects);
         } catch (error) {
-          reject(new Error('Erro ao importar arquivo Excel: ' + error.message));
+          reject(new Error("Erro ao importar arquivo Excel: " + error.message));
         }
       };
-      reader.onerror = () => reject(new Error('Erro ao ler arquivo'));
+      reader.onerror = () => reject(new Error("Erro ao ler arquivo"));
       reader.readAsArrayBuffer(file);
     });
   }

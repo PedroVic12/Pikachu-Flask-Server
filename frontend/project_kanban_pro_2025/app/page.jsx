@@ -191,12 +191,14 @@ const Sidebar = ({
       icon: Download,
       onClick: onExport,
     },
-    { // New theme toggle item
+    {
+      // New theme toggle item
       id: "theme-toggle",
       label: theme === "light" ? "Modo Escuro" : "Modo Claro",
       icon: theme === "light" ? Moon : Sun,
       onClick: onToggleTheme,
-      color: "text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700",
+      color:
+        "text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700",
     },
   ];
 
@@ -589,8 +591,14 @@ export default function App() {
             >
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600 dark:text-gray-300"> {label} </p>
-                  <p className="text-2xl font-bold text-gray-900 dark:text-gray-100"> {value} </p>
+                  <p className="text-sm font-medium text-gray-600 dark:text-gray-300">
+                    {" "}
+                    {label}{" "}
+                  </p>
+                  <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">
+                    {" "}
+                    {value}{" "}
+                  </p>
                 </div>
                 <div className={`p-3 ${colorClasses[color].bg} rounded-lg`}>
                   <Icon className={`h-6 w-6 ${colorClasses[color].text}`} />
@@ -631,7 +639,7 @@ export default function App() {
             </div>
           </div>
 
-          <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
+          <div className="bg-white dark:bg-gray-800 rounded-xl p-12 shadow-sm border border-gray-200 dark:border-gray-700">
             <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
               {" "}
               Status dos Projetos{" "}
@@ -647,11 +655,13 @@ export default function App() {
                     </span>
                   </div>
                   <div className="flex items-center">
-                    <div className="w-24 bg-gray-200 rounded-full h-2 mr-3">
+                    <div className="w-8 h-2 bg-gray-200 rounded-full mr-3">
                       <div
-                        className="bg-blue-600 h-2 rounded-full"
+                        className="h-2 rounded-full"
                         style={{
                           width: `${totalProjects > 0 ? (statusStats[status] / totalProjects) * 100 : 0}%`,
+                          background: "#007bff",
+                          height: "2px",
                         }}
                       >
                         {" "}
@@ -754,40 +764,40 @@ export default function App() {
     );
   };
 
-    const KanbanScreen = () => {
-      const columns = Object.keys(STATUS_COLUMNS); // Removed type annotation
-  
-      return (
-        <div className="p-4 lg:p-6 bg-white dark:bg-gray-900">
-          <div className="mb-6">
-            <h1 className="text-2xl lg:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">
-              {" "}
-              Kanban PRO Board 2026{" "}
-            </h1>
-            <p className="text-gray-600 dark:text-gray-300">
-              {" "}
-              Organize seus projetos visualmente utilizando métodos de SCRUM e
-              Design Patterns para programação de softwares
-            </p>
-          </div>
-  
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 overflow-x-auto">
-            {columns.map((status) => (
-              <KanbanColumn
-                key={status}
-                status={status}
-                projects={getProjectsByStatus(status)}
-                onProjectEdit={openItemEditor}
-                onProjectCreate={createNewItem}
-                onDragOver={handleDragOver}
-                onDrop={handleDrop}
-                onDragStart={handleDragStart}
-              />
-            ))}
-          </div>
+  const KanbanScreen = () => {
+    const columns = Object.keys(STATUS_COLUMNS); // Removed type annotation
+
+    return (
+      <div className="p-4 lg:p-6 bg-white dark:bg-gray-900">
+        <div className="mb-6">
+          <h1 className="text-2xl lg:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">
+            {" "}
+            Kanban PRO Board 2026{" "}
+          </h1>
+          <p className="text-gray-600 dark:text-gray-300">
+            {" "}
+            Organize seus projetos visualmente utilizando métodos de SCRUM e
+            Design Patterns para programação de softwares
+          </p>
         </div>
-      );
-    };
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 overflow-x-auto">
+          {columns.map((status) => (
+            <KanbanColumn
+              key={status}
+              status={status}
+              projects={getProjectsByStatus(status)}
+              onProjectEdit={openItemEditor}
+              onProjectCreate={createNewItem}
+              onDragOver={handleDragOver}
+              onDrop={handleDrop}
+              onDragStart={handleDragStart}
+            />
+          ))}
+        </div>
+      </div>
+    );
+  };
   const TableScreen = () => {
     const filteredProjects = getFilteredProjects();
 
@@ -874,7 +884,10 @@ export default function App() {
                   const statusInfo = STATUS_COLUMNS[project.status]; // Removed StatusKey cast
 
                   return (
-                    <tr key={project.id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
+                    <tr
+                      key={project.id}
+                      className="hover:bg-gray-50 dark:hover:bg-gray-700"
+                    >
                       <td className="px-4 py-4">
                         <div>
                           <div className="text-sm font-medium text-gray-900 dark:text-gray-100">
@@ -957,9 +970,10 @@ Aqui está o [link][var1] do Shiatsu como váriavel no .MD
 
     // Load files from both localStorage and IndexedDB on initial render
     useEffect(() => {
-          // Load legacy files and filter out any stray decks
-          const legacyFiles = (FileUploaderController.loadFiles() || []).filter( // Defensive check        (f) => f.type !== "deck",
-      );
+      // Load legacy files and filter out any stray decks
+      const legacyFiles = (FileUploaderController.loadFiles() || [])
+        .filter // Defensive check        (f) => f.type !== "deck",
+        ();
       setUploadedFiles(legacyFiles);
 
       // Load decks from IndexedDB
