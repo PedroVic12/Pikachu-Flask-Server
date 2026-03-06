@@ -776,8 +776,9 @@ export default function App() {
           </h1>
           <p className="text-gray-600 dark:text-gray-300">
             {" "}
-            Organize seus projetos visualmente utilizando métodos de SCRUM e
-            Design Patterns para programação de softwares
+            Organize seus projetos visualmente utilizando métodos de SCRUM, XP
+            programming e Design Patterns para programação de softwares Desktop,
+            Websites, Aplicativos Móveis, Robos RPA e muito mais!
           </p>
         </div>
 
