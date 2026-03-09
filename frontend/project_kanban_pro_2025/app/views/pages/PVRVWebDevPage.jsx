@@ -19,11 +19,11 @@ const chartLabels = ['Performance', 'Backend Web', 'Desktop GUI', 'Sist. Embarca
 // --- DADOS DO ROTEIRO (FORMATO MARKDOWN) ---
 const markdownTasks = `
 # Tarefas Gerais
-- [ ] 2 dashboards Streamlit - Asimov
+- [x] 3 dashboards Streamlit - Asimov
 - [ ] Dashboard MUST - Refatoração Template
 - [x] Estudos de ASP com Python
-- [ ] Bots e RPA com Python
-- [ ] Estudos de IA, ML, DL, Chatbots, N8N, AI agentes
+- [x] Bots e RPA com Python
+- [x] Estudos de IA, ML, DL, Chatbots, N8N, AI agentes
 
 # Estágio ONS
 - [x] Relatório + Reunião Semanal
