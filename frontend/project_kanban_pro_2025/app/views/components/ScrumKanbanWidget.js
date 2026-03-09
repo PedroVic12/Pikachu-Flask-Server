@@ -33,12 +33,16 @@ const ScrumKanbanMetodologia = () => {
     }
   ];
 
-  return (
-    <div className="max-w-4xl mx-auto p-6 bg-slate-50 rounded-xl shadow-md border border-slate-200">
+  const headerComponent = () => (
       <header className="mb-8 border-b border-slate-300 pb-4">
         <h2 className="text-2xl font-bold text-slate-800 tracking-tight">Metodologia Ágil: Dev & Eng. Elétrica</h2>
         <p className="text-slate-600 mt-2">Aplicação de Scrum e Kanban para integração de Eng. Elétrica e Desenvolvimento de Software.</p>
       </header>
+  );
+
+  return (
+    <div className="max-w-4xl mx-auto p-6 bg-slate-50 rounded-xl shadow-md border border-slate-200">
+      {headerComponent()}
 
       <div className="grid gap-8">
         {secoes.map((secao, idx) => (
