@@ -49,7 +49,7 @@
 
 <a id="lista-tarefas-pendentes"></a>
 
-# Sprint De fevereiro 23/02/2026 
+# Sprint De fevereiro 23/02/2026
 
 - [x] Correção do código de VBA de perdas duplas
 - [x] Ajuste de projetos NextJS, Psyide6 e Tauri V2
@@ -71,9 +71,8 @@
 - [ ] Organização de arquivos .md e .PDF e QUARTO e .ipynb
 - [ ] planilha de Financeiro App - Tauri com MUI 3 e scripts em julia com plots em imagem.
 - [ ] Automation Mensal pandas e formulas .xlsx om historio de mensal de 2026
+
 ---
-
-
 
 # 🦇 Batcaverna PV - Centro de Comando 2026
 
@@ -149,6 +148,5 @@ Meta: Conseguir explicar o comportamento da tensão na barra quando a carga reat
 - [ ] HTML templates para Gohan Treinamentos Refatorado com SOLID, MVC e framework CSS components
 
 - [ ] Juntar todos sites estaticos em HTML que tenho num unico projeto NextJS com rotas e MVC (Gohan Treinamentos, Legado PVRV, Pomodoro)
-
 
 ---
