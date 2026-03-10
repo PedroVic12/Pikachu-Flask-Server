@@ -2,6 +2,28 @@
 
 import React from 'react';
 
+import RecoveryProtocol from './ProtocoloSaudeMental';
+
+const ProtoculoRecuperacaoMental = () => {
+
+return (
+    <div className="max-w-4xl mx-auto p-6 bg-slate-50 rounded-xl shadow-md border border-slate-200">
+      <header className="mb-8 border-b border-slate-300 pb-4">
+        <h2 className="text-2xl font-bold text-slate-800 tracking-tight">Protocolo de Recuperação Mental</h2>
+        <p className="text-slate-600 mt-2">Estratégias para lidar com o estresse, ansiedade, Brain Rot e Burnout no ambiente de trabalho.</p>
+      </header>
+      <div className="grid gap-8">
+        
+        
+      </div>
+
+    </div>
+
+);
+
+}
+
+
 const ScrumKanbanMetodologia = () => {
   const secoes = [
     {
@@ -62,6 +84,10 @@ const ScrumKanbanMetodologia = () => {
             </ul>
           </div>
         ))}
+
+        {ProtoculoRecuperacaoMental()}
+
+        {RecoveryProtocol()}
       </div>
     </div>
   );

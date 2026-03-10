@@ -684,7 +684,7 @@ export default function App() {
           <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
             Estrutura do Fluxo (Kanban)
           </h3>
-          <p className="text-gray-600 dark:text-gray-300">
+          <p className="text-gray-600 text dark:text-gray-300">
             Um quadro visual como Trello ou Jira para dar visibilidade ao
             trabalho
           </p>
