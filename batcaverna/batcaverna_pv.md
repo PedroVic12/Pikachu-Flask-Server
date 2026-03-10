@@ -2,7 +2,7 @@
 
 ---
 
-**📅 DATA ATUAL:** 03/03/2026  
+**📅 DATA ATUAL:** 09/03/2026  
 **🔗 Repositório:** [GitHub Repository][var4]  
 **📋 Shiatsu Link:** [Agendamento Shiatsu][var1]  
 **📊 Kanban Columns:** `__BACKLOG` | `__IN_PROGRESS` | `__TODO` | `__COMPLETED`  
@@ -66,10 +66,10 @@
 - [x] CLI em python, rust e C++
 - [x] Levantamento de requisitos de projetos e propondo soluções e Pyside6 e Tauri desktop
 - [x] uso de windows 11 e linux e dados synronizados
-- [ ] Notebooks barras SEO - automation rpa
-- [ ] Estudos de reatania apatitva e indutiva
+- [x] Notebooks barras SECO - automation rpa
+- [x] Estudos de Reatancia Capatitva e indutiva
 - [ ] Organização de arquivos .md e .PDF e QUARTO e .ipynb
-- [ ] planilha de finanriro
+- [ ] planilha de Financeiro App - Tauri com MUI 3 e scripts em julia com plots em imagem.
 - [ ] Automation Mensal pandas e formulas .xlsx om historio de mensal de 2026
 ---
 
