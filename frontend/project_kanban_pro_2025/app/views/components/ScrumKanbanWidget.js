@@ -24,6 +24,59 @@ return (
 }
 
 
+const VibeCodingMode = () => {
+
+  return (
+    <div className="max-w-4xl mx-auto p-6 bg-slate-50 rounded-xl shadow-md border border-slate-200">
+      <header className="mb-8 border-b border-slate-300 pb-4">
+        <h2 className="text-2xl font-bold text-slate-800 tracking-tight">Vibe Coding Mode</h2>
+        <p className="text-slate-600 mt-2">Dicas para criar um ambiente de trabalho produtivo e agradável, promovendo o foco e a criatividade.</p>
+      </header>
+      <div className="grid gap-8">
+        
+        <p className="text-slate-700 leading-relaxed">
+          Para criar um ambiente de trabalho produtivo e agradável, é importante considerar tanto o espaço físico quanto as práticas diárias. Aqui estão algumas dicas para promover o foco e a criatividade:
+        </p>
+
+         <p className="text-slate-700 leading-relaxed">
+          O framework PROPER visa transformar o Vibe Coding de um atalho para uma ferramenta de aprendizagem estruturada, incentivando os alunos a se envolverem ativamente com o código gerado, em vez de aceitá-lo passivamente. Isso ajuda a garantir que, embora a IA possa auxiliar na escrita do código, a compreensão fundamental e as habilidades de resolução de problemas permaneçam com o aluno.
+        </p>
+
+
+        <p>
+          Para abordar esse problema, foi proposto o framework PROPER, um acrônimo para:
+        </p>
+
+        <ul className="list-disc list-inside text-slate-700 leading-relaxed">
+          <li><strong>Prompt::</strong> Elaborar um prompt claro e eficaz para a IA..</li>
+          <li><strong>Review:</strong> Revisar criticamente o código gerado pela IA..</li>
+          <li><strong>Organize:</strong> Estruturar e organizar o código dentro do projeto maior..</li>
+          <li><strong>Polish:</strong> Refinar e melhorar o código.</li>
+          <li><strong>Extend:</strong> Expandir a funcionalidade além do que foi gerado inicialmente.</li>
+          <li><strong>Reflect:</strong> Refletir e ter discernimento sobre o processo de aprendizagem e do resultado criado.</li>
+        </ul>
+
+        <h2 className="text-xl font-semibold text-blue-700 mb-1">O Impacto no Papel do Desenvolvedor</h2>
+
+        <p className="text-xl font-semibold text-blue-700 mb-1">O foco está se deslocando da escrita de código para habilidades de nível superior. De acordo com Addy Osmani, líder sênior de engenharia no Google Chrome, as competências cruciais para o futuro incluem:</p>
+       
+         <ul className="list-disc list-inside text-slate-700 leading-relaxed">
+          <li><strong>Gerenciamento da Integração e dos Limites de Sistemas:</strong>Compreender e gerenciar as fronteiras entre componentes, incluindo design de API, esquemas de eventos e modelos de dados</li>
+           <li><strong>Pensamento Sistêmico (Systems Thinking):</strong>Uma compreensão avançada de como sistemas complexos interagem e se comportam.</li>
+          <li><strong>Fundamentos de Arquitetura de Software</strong>Conhecimento profundo sobre como projetar sistemas robustos, escaláveis e flexíveis.</li>
+
+        </ul>
+        
+      </div>
+
+    </div>
+  
+  
+  );
+
+}
+
+
 const ScrumKanbanMetodologia = () => {
   const secoes = [
     {
@@ -88,6 +141,8 @@ const ScrumKanbanMetodologia = () => {
         {ProtoculoRecuperacaoMental()}
 
         {RecoveryProtocol()}
+
+        {VibeCodingMode()}
       </div>
     </div>
   );
