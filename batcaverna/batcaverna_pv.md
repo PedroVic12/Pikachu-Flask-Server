@@ -47,58 +47,43 @@
 
 ---
 
-<a id="lista-tarefas-pendentes"></a>
-
-# Sprint De fevereiro 23/02/2026
-
-- [x] Correção do código de VBA de perdas duplas
-- [x] Ajuste de projetos NextJS, Psyide6 e Tauri V2
-- [x] Kanban/Scrum - Seg/sexta da semana
-- [x] Ajustes Batcaverna PV
-- [x] Ajustes PVRV dev e sessão de Scrum/Kanban Pro 2026
-- [ ] Estudos para montagem de casos do mensal
-- [ ] Automação para divergencias de Sisbar ONS
-  - [x] Rotina de Excel realizada com o marcos
-  - [ ] Script python para usar excel com Sqlite3
-  - [ ] Separar tabelas de forma eficiente
-- [x] Organização de arquivos .md e pastas de repopulation with elite set e Jedi-Cyberpunk
-- [x] Refatoração da UI de RCE framework com .ui e nova organização em /rce_framework
-- [x] CLI em python, rust e C++
-- [x] Levantamento de requisitos de projetos e propondo soluções e Pyside6 e Tauri desktop
-- [x] uso de windows 11 e linux e dados synronizados
-- [x] Notebooks barras SECO - automation rpa
-- [x] Estudos de Reatancia Capatitva e indutiva
-- [ ] Organização de arquivos .md e .PDF e QUARTO e .ipynb
-- [ ] planilha de Financeiro App - Tauri com MUI 3 e scripts em julia com plots em imagem.
-- [ ] Automation Mensal pandas e formulas .xlsx om historio de mensal de 2026
-
----
-
 # 🦇 Batcaverna PV - Centro de Comando 2026
+
+
+
 
 <a id="objetivos-semana"></a>
 
 # 🎯 Objetivos da Semana (Main Quests) __TODO
 
-⚡ Trabalho (ONS) - Engenharia de Dados & Sistemas
+⚡ Rotina Trabalho (ONS) - Engenharia de Dados & Sistemas:
+Meta: Conseguir explicar o comportamento da tensão na barra quando a carga reativa aumenta.
 
 - [ ] Python & DB: Otimizar scripts de consulta (SQLAlchemy/Pandas) para grandes volumes de dados.
 
-- [ ] Simulação SEP: Rodar casos de fluxo de potência (Anarede/Organon) e entender os warnings.
+- [x] Simulação SEP: Rodar casos de fluxo de potência (Anarede/Organon) e entender os warnings.
 
-- [ ] Fundamentos Elétricos: Revisar conceitos de Potência Ativa (P) x Reativa (Q) em CA e Leis de Kirchhoff em CC.
+- [x] Fundamentos Elétricos: Revisar conceitos de Potência Ativa (P) x Reativa (Q) em CA e Leis de Kirchhoff em CC.
+- [ ]  ONS (Dev): Estudo de script Python para automação de banco de dados.
 
-Meta: Conseguir explicar o comportamento da tensão na barra quando a carga reativa aumenta.
+---
+
+<a id="lista-tarefas-pendentes"></a>
+
+# Sprint De Março - Mês do aniversariante
+
+- [x] Organização, planejmento e metas para o inicio de periodo
+- [ ]  
+
+---
 
 <a id="checklist-diario"></a>
 
-# 📅 Checklist Diário __TODO
+# 📅Rotina  Checklist Diário __TODO
 
 **Segunda-feira** - Setup, Planejamento, SCRUM & SEP
 
 - [x] 08:00 - ONS (Home): Organizar backlog da semana.
-
-- [ ] 10:00 - ONS (Dev): Estudo de script Python para automação de banco de dados.
 
 - [x] 14:00 - Foco Técnico: Leitura sobre Load Flow (Fluxo de Carga).
 
@@ -122,31 +107,3 @@ Meta: Conseguir explicar o comportamento da tensão na barra quando a carga reat
 
 - [ ] 14:00 - Dev Time: Projeto Pessoal ou aprofundamento em SQL.
 
-<a id="pvrv-2026-planilha-horarios"></a>
-
-# PVRV 2026 - Planilha de horarios (atualizar no website) __IN_PROGRESS
-
----
-
-- [x] Kanban, Scrum, Planejamento e metas (Segunda e sexta)
-- [x] Organização de arquivos .MD
-- [x] Organização projetos Github
-- [x] Organização de Word e Excel usados para a semana no ONS
-- [x] Pyside6 x Tauri x NextJS projetos
-
-- [ ] Planejamento financeiro (Financial APP)
-  - [x] Dezembro
-  - [x] Janeiro
-  - [ ] Fevereiro
-  - [ ] Março
-  - [ ] Projeção do grafico com derivdas
-  - [ ] taxa de rendimento do salario ONS com 5% e 10% ao mes
-
-- [x] Planilhas Horarios
-- [ ] usper + Tunnel Newtork + React UI para proxys e rest api em go e express
-- [ ] Get/POST Google Sheets tabela de checklist de ProjectHub Empresas
-- [ ] HTML templates para Gohan Treinamentos Refatorado com SOLID, MVC e framework CSS components
-
-- [ ] Juntar todos sites estaticos em HTML que tenho num unico projeto NextJS com rotas e MVC (Gohan Treinamentos, Legado PVRV, Pomodoro)
-
----
