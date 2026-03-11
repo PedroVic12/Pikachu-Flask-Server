@@ -205,19 +205,16 @@ const Sidebar = ({
   return (
     <>
       <div
-        className={`fixed inset-y-0 left-0 z-50 bg-white dark:bg-gray-800 shadow-lg transform transition-transform duration-300 ease-in-out ${
-          isOpen ? "translate-x-0" : "-translate-x-full"
-        } lg:translate-x-0 lg:static lg:inset-0 ${
-          isCollapsed ? "lg:w-20" : "w-64"
-        }`}
+        className={`fixed inset-y-0 left-0 z-50 bg-white dark:bg-gray-800 shadow-lg transform transition-transform duration-300 ease-in-out ${isOpen ? "translate-x-0" : "-translate-x-full"
+          } lg:translate-x-0 lg:static lg:inset-0 ${isCollapsed ? "lg:w-20" : "w-64"
+          }`}
       >
         <div
           className={`flex items-center justify-between h-16 border-b border-gray-200 dark:border-gray-700 ${isCollapsed ? "px-2" : "px-4"}`}
         >
           <h1
-            className={`text-xl font-bold text-gray-900 dark:text-gray-100 ${
-              isCollapsed ? "hidden" : "block"
-            }`}
+            className={`text-xl font-bold text-gray-900 dark:text-gray-100 ${isCollapsed ? "hidden" : "block"
+              }`}
           >
             Kanban Pro
           </h1>
@@ -256,13 +253,11 @@ const Sidebar = ({
                   onClose();
                 }}
                 title={label}
-                className={`w-full flex items-center ${
-                  isCollapsed ? "justify-center px-3" : "px-4"
-                } py-3 text-left rounded-lg transition-colors ${
-                  currentScreen === id
+                className={`w-full flex items-center ${isCollapsed ? "justify-center px-3" : "px-4"
+                  } py-3 text-left rounded-lg transition-colors ${currentScreen === id
                     ? "bg-blue-100 text-blue-700 border-r-2 border-blue-700 dark:bg-blue-900 dark:text-blue-200 dark:border-blue-200"
                     : "text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
-                }`}
+                  }`}
               >
                 <Icon size={20} className={isCollapsed ? "" : "mr-3"} />
                 {!isCollapsed && label}
@@ -277,9 +272,8 @@ const Sidebar = ({
                   key={id}
                   onClick={onClick}
                   title={label}
-                  className={`w-full flex items-center ${
-                    isCollapsed ? "justify-center px-3" : "px-4"
-                  } py-3 text-left rounded-lg transition-colors ${color || "text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"}
+                  className={`w-full flex items-center ${isCollapsed ? "justify-center px-3" : "px-4"
+                    } py-3 text-left rounded-lg transition-colors ${color || "text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"}
           }`}
                 >
                   <Icon size={20} className={isCollapsed ? "" : "mr-3"} />

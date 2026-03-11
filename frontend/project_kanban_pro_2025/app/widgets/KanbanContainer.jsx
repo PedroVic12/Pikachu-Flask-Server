@@ -70,8 +70,8 @@ const ProjectCard = ({ project, onEdit, onDragStart }) => { // Removed React.FC<
             {total > 0 && (
                 <div className="mt-3">
                     <div className="flex justify-between items-center mb-1">
-                        <span className="text-xs  font-bold text-gray-900 dark:text-gray-100">Progresso</span>
-                        <span className="text-xs font-bold text-gray-600 dark:text-gray-300">{completed}/{total}</span>
+                        <span className="text-base font-bold text-gray-900 dark:text-gray-100">Progresso</span>
+                        <span className="text-lg font-bold text-gray-600 dark:text-white-300">{completed}/{total}</span>
                     </div>
                     <div className="w-full bg-gray-200/70 dark:bg-gray-700 rounded-full h-1.5">
                         <div
@@ -82,7 +82,7 @@ const ProjectCard = ({ project, onEdit, onDragStart }) => { // Removed React.FC<
                 </div>
             )}
 
-            <div className="flex items-center justify-between text-xs text-gray-900 dark:text-gray-100 mt-2">
+            <div className="flex items-center justify-between text-lg text-gray-900 dark:text-gray-100 mt-2">
                 <span>{project.updatedAt.toLocaleDateString('pt-BR')}</span>
                 <Edit3 size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
             </div>
