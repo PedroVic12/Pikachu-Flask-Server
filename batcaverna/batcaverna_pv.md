@@ -50,7 +50,27 @@
 # 🦇 Batcaverna PV - Centro de Comando 2026
 
 
+SUA ROTINA DE FOCO (USANDO 25min / 50min)
+BLOCO 1 — 10h00–11h30 (25min + 25min + 25min)
+Objetivo: Validar todo o ambiente técnico
+→ executar tarefas 1, 2, 3 e 4
+Se algo quebrar → registrar e pedir suporte imediatamente.
 
+BLOCO 2 — 14h–15h30 (50min + 20min)
+Objetivo: Iniciar lógica do programa SP
+→ Fazer comparação diurno x noturno
+→ Desenhar padrão de extração
+
+BLOCO 3 — 16h–17h (25min + 25min)
+Objetivo: Criar 1 exemplo de linha e 1 exemplo de transformador
+
+AMANHÃ – QUARTA
+9h–11h
+→ Refino final do código SP
+11h–12h
+→ Testes + Documentação rápida
+13h–15h
+→ Entrega final
 
 <a id="objetivos-semana"></a>
 
