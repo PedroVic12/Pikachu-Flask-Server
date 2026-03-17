@@ -32,6 +32,11 @@
 - 🎯 [Objetivos da Semana](#objetivos-semana)
 - 📋 [Checklist Diário](#checklist-diario)
 
+- ### 🎯 **LINKS WEBSITES**
+- https://www.mat.ufmg.br/futebol/classificacao-para-libertadores_seriea/
+- https://gohan-treinamentos-web-app-one.vercel.app/home
+- https://electrical-system-simulator.vercel.app/
+
 ### 🔧 **OUTRAS SEÇÕES**
 
 - 📊 [Roadmap Cientista de Dados](#roadmap-cientista-dados)
