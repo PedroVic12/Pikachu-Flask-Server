@@ -22,6 +22,20 @@
 - 🧩 [Estudos de SEP (ONS + Programação)](#estudos-sep-ons-programacao)
 - 🧾 [Lista de TAREFAS Pendentes](#lista-tarefas-pendentes)
 
+### 🎯 **PROJETOS GITHUB**
+
+- Verifique se o projeto `Github/Pikachu-Flask-Server` esta instalado na sua maquina local: https://github.com/PedroVic12/Pikachu-Flask-Server
+  - Batcaverna Project: GitHub\Pikachu-Flask-Server\batcaverna\batcaverna-project
+  - astro-system: \GitHub\Pikachu-Flask-Server\pikachu-API\astro-system
+  - quizz Show do milhao: GitHub\Pikachu-Flask-Server\frontend\Quizz_App_For_Studying_With_UI\quizz_show_do_mihao_AI.html
+  - Kanban PRO NextJS: GitHub\Pikachu-Flask-Server\frontend\project_kanban_pro_2025
+  - Pikachu Rest API: 
+ 
+    
+- https://github.com/PedroVic12/getx-for-qt6
+- https://github.com/PedroVic12/Gohan-treinamentos-web-app
+
+
 ### 🎯 **DESENVOLVIMENTO PESSOAL**
 
 - 📚 [Sessão de ESTUDOS](#sessao-estudos)
@@ -31,6 +45,13 @@
 
 - 🎯 [Objetivos da Semana](#objetivos-semana)
 - 📋 [Checklist Diário](#checklist-diario)
+
+### 🎯 **LINKS WEBSITES**
+- https://www.mat.ufmg.br/futebol/classificacao-para-libertadores_seriea/
+- https://gohan-treinamentos-web-app-one.vercel.app/home
+- https://electrical-system-simulator.vercel.app/
+
+  
 
 ### 🔧 **OUTRAS SEÇÕES**
 
@@ -50,7 +71,27 @@
 # 🦇 Batcaverna PV - Centro de Comando 2026
 
 
+SUA ROTINA DE FOCO (USANDO 25min / 50min)
+BLOCO 1 — 10h00–11h30 (25min + 25min + 25min)
+Objetivo: Validar todo o ambiente técnico
+→ executar tarefas 1, 2, 3 e 4
+Se algo quebrar → registrar e pedir suporte imediatamente.
 
+BLOCO 2 — 14h–15h30 (50min + 20min)
+Objetivo: Iniciar lógica do programa SP
+→ Fazer comparação diurno x noturno
+→ Desenhar padrão de extração
+
+BLOCO 3 — 16h–17h (25min + 25min)
+Objetivo: Criar 1 exemplo de linha e 1 exemplo de transformador
+
+AMANHÃ – QUARTA
+9h–11h
+→ Refino final do código SP
+11h–12h
+→ Testes + Documentação rápida
+13h–15h
+→ Entrega final
 
 <a id="objetivos-semana"></a>
 
