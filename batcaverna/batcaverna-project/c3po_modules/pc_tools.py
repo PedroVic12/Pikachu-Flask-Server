@@ -34,7 +34,7 @@ def abrir_aplicativos():
     todos_os_videos = VIDEOS_YOUTUBE_ESPIRITUALIDADE + VIDEOS_YOUTUBE_PRODUTIVIDADE
     video_aleatorio = random.choice(todos_os_videos) if todos_os_videos else None
     dashboard_path = "file:/home/pedrov12/Documentos/GitHub/Pikachu-Flask-Server/batcaverna/batcaverna-project/index.html"
-    pikachu_flask_api_server = "http://http://localhost:5555/"
+    pikachu_flask_api_server = "http://localhost:5555/"
 
     for app in APLICATIVOS_PARA_ABRIR:
         try:
@@ -136,8 +136,6 @@ def automacao_com_teclado():
         lauch_googleAgenda()
 
         abrir_programa("OneDrive ONS")
-
-        abrir_programa("monitor do sistema")
 
         print("Automacao com pyautogui finalizada.")
 

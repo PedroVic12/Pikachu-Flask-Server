@@ -13,6 +13,7 @@ from c3po_modules.pc_tools import (
     abrir_aplicativos,
     iniciar_projetos,
     automacao_com_teclado,
+    abrir_programa,
 )
 
 from c3po_modules.pc_data_analysis import analisar_tarefas_ONS
@@ -36,10 +37,12 @@ if __name__ == "__main__":
             f"Você tem {status_counts.Não} Tarefas ONS pendentes. Você concluiu {status_counts.Sim} tarefas ONS PLC nesta semana"
         )
 
-        automacao_com_teclado()
+        # automacao_com_teclado()
+        abrir_programa("monitor do sistema")
 
         print("\n---------------------------------")
         falar("Automação de Jarvis concluida! Tenha um ótimo dia, mestre Pedro!")
 
     except Exception as e:
         print(f"Ocorreu um erro durante {e}")
+        falar("Ops..parece que ocorreu um erro!")
