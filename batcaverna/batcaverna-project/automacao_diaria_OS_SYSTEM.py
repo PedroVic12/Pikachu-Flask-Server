@@ -21,11 +21,11 @@ from c3po_modules.pc_data_analysis import analisar_tarefas_ONS
 if __name__ == "__main__":
     try:
 
-        abrir_aplicativos()
+        # abrir_aplicativos()
 
         falar(MENSAGEM_BOM_DIA)
 
-        iniciar_projetos()
+        # iniciar_projetos()
 
         falar(
             f"Você tem {len(PROJETOS_EM_PRODUCAO)} projetos em produção rodando online pelo Github!"
@@ -39,6 +39,10 @@ if __name__ == "__main__":
 
         # automacao_com_teclado()
         abrir_programa("monitor do sistema")
+
+        abrir_programa("Brave")
+
+        abrir_programa("Steam")
 
         print("\n---------------------------------")
         falar("Automação de Jarvis concluida! Tenha um ótimo dia, mestre Pedro!")
