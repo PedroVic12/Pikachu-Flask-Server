@@ -403,22 +403,22 @@
         class BatmanProfileModel {
             constructor() {
                 this.profileData = {
-                    basicInfo: { nomeVerdadeiro: "Bruce Wayne", ocupacao: "Vigilante", base: "Gotham City", corOlhos: "Azuis", corCabelo: "Preto", altura: "1,88 m", peso: "91 kg" },
+                    basicInfo: { nomeVerdadeiro: "Pedro Victor Veras", ocupacao: "Estudante e Estagiário no ONS", base: "Niteroi City, RJ", corOlhos: "Castanhos", corCabelo: "Preto", altura: "1,72 m", peso: "81 kg" },
                     progress: { perfis: { current: 16, total: 32, percent: 50 }, arquivosAudio: { current: 0, total: 29, percent: 0 } },
                     notes: [
-                        { id: 1, text: "Monitorar atividade do Coringa no Asilo Arkham", date: "2024-02-05", category: "urgente" },
-                        { id: 2, text: "Atualizar sistema de defesa da Batcaverna", date: "2024-02-04", category: "tecnologia" },
-                        { id: 3, text: "Treinamento noturno com Tim Drake", date: "2024-02-03", category: "treinamento" }
+                        { id: 1, text: "Monitorar atividades da região SP e SECO no ONS no Dashboard Tauri Desktop", date: "2025-03-27", category: "ons" },
+                        { id: 2, text: "Atualizar e Verificar Sistemas Kanban, SCRUM, Todo List, Planner diários", date: "2024-02-04", category: "tecnologia" },
+                        { id: 3, text: "Treinamento de força e hipertrofia", date: "2024-02-03", category: "treinamento" }
                     ],
                     goals: [
-                        { id: 1, name: "Desvendar caso do Charada", progress: 75, deadline: "2024-03-01" },
-                        { id: 2, name: "Aprimorar Batmóvel", progress: 40, deadline: "2024-02-20" }
+                        { id: 1, name: "Ser aprovado com nota máxima em Circuitos Digitais", progress: 75, deadline: "2026-06-06" },
+                        { id: 2, name: "Se estabelecer na rotina do ONS - PLC com Engenharia Elétrica e Tecnologia", progress: 40, deadline: "2026-06-06" }
                     ],
-                    stats: { forca: 95, agilidade: 90, inteligencia: 98, resistencia: 92, estrategia: 96, sigilo: 94 },
+                    stats: { forca: 70, agilidade:80, inteligencia: 88, resistencia: 82, estrategia: 76, sigilo: 94 },
                     missions: [
                         { id: 1, name: "Patrulha noturna", status: "concluido" },
-                        { id: 2, name: "Análise forense", status: "em_andamento" },
-                        { id: 3, name: "Monitoramento GCPD", status: "pendente" }
+                        { id: 2, name: "Uso de ferramentas Python, JS e Office (Word, Excel e PowerPoint)", status: "em_andamento" },
+                        { id: 3, name: "Estudos, Quizz Games e Provas antigas da UFF", status: "pendente" }
                     ]
                 };
             }
@@ -439,6 +439,8 @@
             }
         }
 
+     
+     
         window.DataBaseController = DataBaseController;
         window.DashboardModel = DashboardModel;
         window.BatmanProfileModel = BatmanProfileModel;
@@ -458,29 +460,29 @@
         const DEFAULT_SKILLS_DATA = {
             currentXP: 9311, totalXP: 45000, level: 7, improvementPoints: 1,
             unlockedSkills: [
-                { id: 'combat1', name: 'Combate Corporal Básico', category: 'combat', description: 'Aumenta dano em 10%', level: 1, maxLevel: 5 },
-                { id: 'stealth1', name: 'Camuflagem Noturna', category: 'stealth', description: 'Reduz detecção em 20%', level: 1, maxLevel: 3 },
+                { id: 'code1', name: 'Lógica em Python & React', category: 'code', description: 'Aumenta a velocidade de codificação em 15%', level: 1, maxLevel: 5 },
+                { id: 'body_mind1', name: 'Calistenia Básica', category: 'body_mind', description: 'Garante energia para codar. Meta: 100 flexões', level: 1, maxLevel: 3 },
             ],
             availableSkills: [
-                { id: 'combat2', name: 'Contra-ataque Rápido', category: 'combat', description: 'Chance de contra-ataque', xpCost: 1500, requiredLevel: 8 },
-                { id: 'stealth2', name: 'Movimento Silencioso', category: 'stealth', description: 'Reduz ruído em 30%', xpCost: 1200, requiredLevel: 7 },
-                { id: 'aux1', name: 'Scanner Aprimorado', category: 'auxiliary', description: 'Detecta inimigos a 50m', xpCost: 1800, requiredLevel: 9 },
+                { id: 'engineering1', name: 'Domínio do Anarede & SEP', category: 'engineering', description: 'Resolve fluxos de potência 30% mais rápido no ONS', xpCost: 1500, requiredLevel: 8 },
+                { id: 'code2', name: 'Arquitetura Tauri v2 (Rust)', category: 'code', description: 'Cria apps desktop consumindo 50% menos RAM', xpCost: 1200, requiredLevel: 7 },
+                { id: 'body_mind2', name: 'Hiperfoco (Gestão TDAH)', category: 'body_mind', description: 'Bloqueia distrações externas por 2 horas', xpCost: 1800, requiredLevel: 9 },
             ],
             objectives: [
-                { id: 'obj1', name: 'Alcançar Nível 10', description: 'Suba para o nível 10', xpReward: 2000, completed: false },
-                { id: 'obj2', name: 'Desbloquear 5 Habilidades', description: 'Desbloqueie 5 habilidades diferentes', xpReward: 1500, completed: false, current: 2, target: 5 },
-                { id: 'obj3', name: 'Completar Rotina Diária 7x', description: 'Complete sua rotina diária 7 vezes', xpReward: 1000, completed: false, current: 3, target: 7 },
+                { id: 'obj1', name: 'Engenheiro Full-Stack', description: 'Alcançar o Nível 10 unindo SEP e Desenvolvimento', xpReward: 2000, completed: false },
+                { id: 'obj2', name: 'Mestre das Ferramentas', description: 'Desbloquear 5 habilidades entre Next.js, Python e Matemática', xpReward: 1500, completed: false, current: 2, target: 5 },
+                { id: 'obj3', name: 'Disciplina de Ferro', description: 'Completar o Protocolo Hard Reset 7 vezes', xpReward: 1000, completed: false, current: 3, target: 7 },
             ],
             dailyRoutines: [
-                { id: 'morning', name: 'Rotina Matinal', time: '06:00-08:00', tasks: ['Acordar cedo', 'Meditação 15min', 'Planejar dia'], completed: true },
-                { id: 'work', name: 'Trabalho Focado', time: '09:00-12:00', tasks: ['Código 3h', 'Revisar projetos'], completed: false },
-                { id: 'study', name: 'Estudos Técnicos', time: '14:00-16:00', tasks: ['Sistemas de Potência', 'Programação React'], completed: false },
-                { id: 'evening', name: 'Rotina Noturna', time: '20:00-22:00', tasks: ['Revisar dia', 'Planejar amanhã', 'Leitura'], completed: false },
+                { id: 'morning', name: 'Ignição Matinal', time: '06:30-08:00', tasks: ['Acordar', 'Treino Caseiro (Força/ABS)', 'Alinhar tarefas do dia'], completed: true },
+                { id: 'work', name: 'Estágio ONS (Foco Profundo)', time: '08:30-17:30', tasks: ['Scripts Python/Pandas', 'Simulações Organon/Anarede', 'Revisar pendências'], completed: false },
+                { id: 'study', name: 'Batcaverna (Estudos & Code)', time: '19:30-21:30', tasks: ['Teoria UFF (Sadiku/Stevenson)', 'Codar Projetos Web/Desktop'], completed: false },
+                { id: 'evening', name: 'Descompressão', time: '21:30-23:00', tasks: ['Jogo do Fluzão / The Witcher', 'Jantar', 'Preencher Log_Template.md'], completed: false },
             ],
             skillCategories: [
-                { id: 'combat', name: 'Combate Corporal', total: 21, unlocked: 4 },
-                { id: 'stealth', name: 'Predador Invisível', total: 23, unlocked: 3 },
-                { id: 'auxiliary', name: 'Auxiliares', total: 15, unlocked: 2 },
+                { id: 'code', name: 'Desenvolvimento (Code)', total: 25, unlocked: 9 },
+                { id: 'engineering', name: 'Engenharia Elétrica (UFF/ONS)', total: 25, unlocked: 6 },
+                { id: 'body_mind', name: 'Corpo & Mente (Treino/Foco)', total: 25, unlocked: 6 },
             ]
         };
 
