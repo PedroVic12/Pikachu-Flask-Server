@@ -1894,11 +1894,7 @@ const DashboardPainelPage = () => {
   `;
 };
 
-// =====================================================================
-// 7. INICIALIZAÇÃO DA APLICAÇÃO
-// =====================================================================
-//const root = ReactDOM.createRoot(document.getElementById('root'));
-//root.render(html`<${DashboardPainelPage} />`);
 
 // Exportações (caso necessário, mas o script já executa)
 export default DashboardPainelPage;
+
