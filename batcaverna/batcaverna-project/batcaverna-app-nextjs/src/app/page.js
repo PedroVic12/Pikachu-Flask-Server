@@ -2,11 +2,6 @@
 // page.js – Dashboard BatCaverna (Versão Modular)
 // =======================================================
 
-// ---------------------------------------------------------------------
-// 1. IMPORTAÇÕES DE DEPENDÊNCIAS EXTERNAS
-//    (Assumindo que as bibliotecas estejam disponíveis globalmente
-//     ou via import maps; utilizamos import dinâmico para Three.js)
-// ---------------------------------------------------------------------
 
 //! npm install chart.js htm three xlsx
 
@@ -14,6 +9,17 @@
 
 import React from 'react';
 //import ReactDOM from 'react-dom/client';
+
+
+
+
+
+// ---------------------------------------------------------------------
+// 1. IMPORTAÇÕES DE DEPENDÊNCIAS EXTERNAS
+//    (Assumindo que as bibliotecas estejam disponíveis globalmente
+//     ou via import maps; utilizamos import dinâmico para Three.js)
+// ---------------------------------------------------------------------
+
 import htm from 'htm';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
