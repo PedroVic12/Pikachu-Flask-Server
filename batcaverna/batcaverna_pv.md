@@ -2,7 +2,7 @@
 
 ---
 
-**📅 DATA ATUAL:** 09/03/2026  
+**📅 DATA ATUAL:** 26/03/2026  
 **🔗 Repositório:** [GitHub Repository][var4]  
 **📋 Shiatsu Link:** [Agendamento Shiatsu][var1]  
 **📊 Kanban Columns:** `__BACKLOG` | `__IN_PROGRESS` | `__TODO` | `__COMPLETED`  
@@ -111,10 +111,19 @@ Meta: Conseguir explicar o comportamento da tensão na barra quando a carga reat
 
 <a id="lista-tarefas-pendentes"></a>
 
+
 # Sprint De Março - Mês do aniversariante
 
+
+## Rotina TDAH
+
 - [x] Organização, planejmento e metas para o inicio de periodo
-- [ ]  
+- [x] Habit tracker
+- [x] Rotina e TDAH
+- [x] estudos e programação
+- [x] Jogos e Filmes
+- [x] Limpeza, banhos, meditação
+
 
 ---
 
