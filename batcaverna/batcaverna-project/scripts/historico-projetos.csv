@@ -1,29 +1,30 @@
 Projeto,Hash,Data,Autor,Mensagem
+Gohan-Treinamentos-Desktop-App,8f19d1f,2026-03-24,Pedro Victor Veras,up
 Gohan-Treinamentos-Desktop-App,d3aabf6,2026-03-23,Pedro Victor Veras,up
 Gohan-Treinamentos-Desktop-App,f43f42d,2026-03-11,Pedro Victor Veras,up
 Gohan-Treinamentos-Desktop-App,47d02c1,2026-03-11,Pedro Victor Veras,up
 Gohan-Treinamentos-Desktop-App,f20162f,2026-03-11,Pedro Victor Veras,Create tauri_mvc_vanilla_mui3.zip
 Gohan-Treinamentos-Desktop-App,2174378,2026-03-11,Pedro Victor Veras,Initial commit
-ONS-PLC-PV-CONTROLE-E-AUTOMACAO,a0b08a0d,2026-03-23,Pedro Victor Veras,update para salvar a carreira
-ONS-PLC-PV-CONTROLE-E-AUTOMACAO,fc24dc4c,2026-03-23,Pedro Victor Veras,save
-ONS-PLC-PV-CONTROLE-E-AUTOMACAO,e3b315ba,2026-03-23,Pedro Victor Veras,up
-ONS-PLC-PV-CONTROLE-E-AUTOMACAO,41e0698a,2026-03-23,Pedro Victor Veras,po
-ONS-PLC-PV-CONTROLE-E-AUTOMACAO,f231b6f7,2026-03-20,Pedro Victor Veras,up
-ONS-PLC-PV-CONTROLE-E-AUTOMACAO,a768b053,2026-03-20,Pedro Victor Veras,Update script.py
-ONS-PLC-PV-CONTROLE-E-AUTOMACAO,2a16cd12,2026-03-20,Pedro Victor Veras,up
-ONS-PLC-PV-CONTROLE-E-AUTOMACAO,a0eac8fc,2026-03-20,Pedro Victor Veras,up obsidian
-ONS-PLC-PV-CONTROLE-E-AUTOMACAO,191a6317,2026-03-18,Pedro Victor Veras,up
-ONS-PLC-PV-CONTROLE-E-AUTOMACAO,1c3c0a90,2026-03-18,Pedro Victor Veras,up
+ONS-PLC-PV-CONTROLE-E-AUTOMACAO,df79f096,2026-03-27,Pedro Victor Veras,up
+ONS-PLC-PV-CONTROLE-E-AUTOMACAO,3098787a,2026-03-25,Pedro Victor Veras,Update mensal_respostas_pl.xlsx
+ONS-PLC-PV-CONTROLE-E-AUTOMACAO,500820ad,2026-03-25,Pedro Victor Veras,tentativa de bug fix
+ONS-PLC-PV-CONTROLE-E-AUTOMACAO,b45dc5e6,2026-03-25,Pedro Victor Veras,update
+ONS-PLC-PV-CONTROLE-E-AUTOMACAO,f0489060,2026-03-25,Pedro Victor Veras,up
+ONS-PLC-PV-CONTROLE-E-AUTOMACAO,2163c40c,2026-03-25,Pedro Victor Veras,update
+ONS-PLC-PV-CONTROLE-E-AUTOMACAO,3152bc94,2026-03-25,Pedro Victor Veras,Atualizar o Tarefas PLC 25-03-26.md
+ONS-PLC-PV-CONTROLE-E-AUTOMACAO,99d8ec6d,2026-03-25,Pedro Victor Veras,up
+ONS-PLC-PV-CONTROLE-E-AUTOMACAO,5dcc94e0,2026-03-25,Pedro Victor Veras,update
+ONS-PLC-PV-CONTROLE-E-AUTOMACAO,d2baebea,2026-03-25,Pedro Victor Veras,up
+Pikachu-Flask-Server,00f1ff8,2026-03-30,Pedro Victor Veras,Update batcaverna_pv.md
+Pikachu-Flask-Server,0b0c831,2026-03-27,Pedro Victor Veras,Update page.js
+Pikachu-Flask-Server,383cff0,2026-03-27,Pedro Victor Veras,up
+Pikachu-Flask-Server,c98ebbe,2026-03-27,Pedro Victor Veras,up
+Pikachu-Flask-Server,2774d1d,2026-03-27,Pedro Victor Veras,up
+Pikachu-Flask-Server,053d261,2026-03-24,Pedro Victor Veras,up
 Pikachu-Flask-Server,71ca9ec,2026-03-23,Pedro Victor Veras,Merge branch 'main' of https://github.com/PedroVic12/Pikachu-Flask-Server
 Pikachu-Flask-Server,412ac93,2026-03-23,Pedro Victor Veras,up
 Pikachu-Flask-Server,3400980,2026-03-17,Pedro Victor Veras,Update batcaverna_pv.md
 Pikachu-Flask-Server,22e0754,2026-03-17,Pedro Victor Veras,Update batcaverna_pv.md
-Pikachu-Flask-Server,417f5c0,2026-03-17,Pedro Victor Veras,Update batcaverna_pv.md
-Pikachu-Flask-Server,1f07c9f,2026-03-12,Pedro Victor Veras,up show do milhao files
-Pikachu-Flask-Server,bb6a4f4,2026-03-12,Pedro Victor Veras,up
-Pikachu-Flask-Server,88db780,2026-03-11,Pedro Victor Veras,little css bug fixed
-Pikachu-Flask-Server,51753b0,2026-03-11,Pedro Victor Veras,up
-Pikachu-Flask-Server,2f348d9,2026-03-10,Pedro Victor Veras,Update batcaverna_pv.md
 Repopulation-With-Elite-Set,16b0a6c9,2026-03-14,Pedro Victor Veras,up
 Repopulation-With-Elite-Set,8c39f5f9,2026-03-09,Pedro Victor Veras,up
 Repopulation-With-Elite-Set,1c82e628,2026-03-09,Pedro Victor Veras,up
@@ -34,6 +35,8 @@ Repopulation-With-Elite-Set,4ceb97d4,2026-03-01,Pedro Victor Veras,up
 Repopulation-With-Elite-Set,de8cbcd7,2026-02-25,Pedro Victor Veras,up
 Repopulation-With-Elite-Set,bcf67c8d,2026-02-24,Pedro Victor Veras,update
 Repopulation-With-Elite-Set,4f86821d,2026-02-24,Pedro Victor Veras,update
+Websites-Astro-Templates,f9f644a,2026-03-30,Pedro Victor Veras,Initial commit
+dashboard-website-template,06313cc,2026-03-24,Pedro Victor Veras,Update index.html
 dashboard-website-template,e769d6f,2026-03-17,Pedro Victor Veras,up
 dashboard-website-template,2c4f3ee,2026-03-13,Pedro Victor Veras,up
 dashboard-website-template,636fcbf,2026-03-11,Pedro Victor Veras,Update ons_dashboard_PLC_control.html
@@ -43,7 +46,6 @@ dashboard-website-template,3d28d13,2026-03-10,Pedro Victor Veras,new files
 dashboard-website-template,c54c91a,2026-03-07,Pedro Victor Veras,up
 dashboard-website-template,058187f,2026-03-03,Pedro Victor Veras,Update release.yml
 dashboard-website-template,279e16b,2026-03-03,Pedro Victor Veras,Fix: adjust package.json and paths
-dashboard-website-template,7bce9f5,2026-03-03,Pedro Victor Veras,up
 tauri-todo-app,e68c48d,2026-02-27,Pedro Victor Veras,Add Rust POO models for Task and Category structs
 tauri-todo-app,bd9b427,2026-02-27,Pedro Victor Veras,Create README.md with project information
 tauri-todo-app,f4389e4,2026-02-27,Pedro Victor Veras,Add package.json file
