@@ -32,7 +32,7 @@
   - Pikachu Rest API:
 
 - <https://github.com/PedroVic12/getx-for-qt6>
-- <https://github.com/PedroVic12/Gohan-treinamentos-web-app>
+- <https://github.com/PedroVic12/Gohan-treinamentos-web-app>W
 
 ### 🎯 **DESENVOLVIMENTO PESSOAL**
 
