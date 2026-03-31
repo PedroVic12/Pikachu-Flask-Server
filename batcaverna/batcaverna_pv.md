@@ -105,6 +105,62 @@ Meta: Conseguir explicar o comportamento da tensão na barra quando a carga reat
 
 ---
 
+## Sprint - Tarefas PLC 2026
+
+- [ ] Diagrama SP - Organon 440KV
+- [ ] Treinos e apoio mensal VA,VB e VC - Maio 2026
+- [ ] Dashboard SECO - SP com ETL e controle e gestão do MUST SP
+- [ ] Tauri Desktop - Tarefas PLC Trakcer
+- [ ] CalisteniaPro App - Super Sayjain Version
+- [ ] Estudos SEP com Eng eletrica e Matematica avançada
+- [ ] Kanban, SCRUM, Reunioes e alinhamento espiritual
+- [ ] Rotina TDAH com foco no espirito durante a semana santa (30/03 - 04/04)
+- [ ] Gohan Treinamentos Habit Tracker
+- [ ] Astro .md Blog Pedrov12 + SEP para leigos (NextJS)
+
+---
+
+<a id="pvrv-2026-planilha-horarios"></a
+
+<a id="estudos-sep-ons-programacao"></a>
+
+# Estudos de SEP para ONS e programação __TODO
+
+## Sesão de ESTUDOS (Matemática, programação e Eng. Elétrica)
+
+- [ ] Atividade ML de IEEEDs e principais modelo de AI de Supevisionado x Não Supervisionado (Com Rótulos x Sem Rótulos)
+- [ ] Eletromagnetismo: Resolver 3 exercícios de Lei de Gauss/Coulomb.
+- [ ] Sinais e Sistemas: Revisar Transformada de Laplace (básico).
+
+- [ ] Análise de contigencias com SN 45 com pandapower + Deckbuiler para o AnaREDE
+- [ ] Matriz Ybus em Python para SEP
+- [ ] Matriz admtancia + Geração x Transmissão e Distrbuição SIN pelo ONS
+- [ ] Mincurso CC + arduino + python
+  - [ ] <https://www.falstad.com/circuit/circuitjs.html>
+  - [ ] Regra de Crammer
+  - [ ] EDO sistemas 1 e 2 ordem com RLC e RC plots e respostas da EDO
+  
+- [ ] Metodos númericos em Matlab para engenharia usando Python (pelo livro de moetodos numericos)
+
+- [ ] Solver ML/DL para cada X,Y de conjunto de dado
+- [ ] Python com Sympy para calculo de EDO de 1 e 2 ordem para Circuitos CC (RL,RC e RLC)
+- [ ] Atividade IEEEDs = Esp32 + Senoides de corrente em series temporais para modelos de IA (como entrada de dados)
+- [ ] Aulas Sinais/cricuitos CC/CA e Eng. Controle + SEP Fundamentals + Metodos numericos com Python
+
+---
+
+<a id="sessao-estudos"></a>
+
+# ⚡ Conceitos Elétricos (Dúvidas/Insights) __TODO
+
+- [ ] CC vs CA: Em CC, a indutância é um curto e a capacitância é um aberto no regime permanente. Em CA, eles geram impedância ($j\omega L$ e $1/j\omega C$).
+
+**Dúvida para tirar com engenheiros: Como o ONS modela a carga dependente da tensão ($P = P_0(V/V_0)^\alpha$)?**
+
+---
+
+---
+
 <a id="lista-tarefas-pendentes"></a>
 
 # Sprint De Março - Mês do aniversariante
@@ -191,42 +247,5 @@ Meta: Conseguir explicar o comportamento da tensão na barra quando a carga reat
 - Simulação e relatório de potências com análise técnica: R$ 2.000–5.000
 - Estudo de compensação reativa ou fator de potência: R$ 3.000–10.000
 - Projeto completo com visualizações interativas e recomendações: R$ 8.000+
-
----
-
-<a id="estudos-sep-ons-programacao"></a>
-
-# Estudos de SEP para ONS e programação __TODO
-
-## Sesão de ESTUDOS (Matemática, programação e Eng. Elétrica)
-
-- [ ] Atividade ML de IEEEDs e principais modelo de AI de Supevisionado x Não Supervisionado (Com Rótulos x Sem Rótulos)
-- [ ] Eletromagnetismo: Resolver 3 exercícios de Lei de Gauss/Coulomb.
-- [ ] Sinais e Sistemas: Revisar Transformada de Laplace (básico).
-
-- [ ] Análise de contigencias com SN 45 com pandapower + Deckbuiler para o AnaREDE
-- [ ] Matriz Ybus em Python para SEP
-- [ ] Matriz admtancia + Geração x Transmissão e Distrbuição SIN pelo ONS
-- [ ] Mincurso CC + arduino + python
-  - [ ] <https://www.falstad.com/circuit/circuitjs.html>
-  - [ ] Regra de Crammer
-  - [ ] EDO sistemas 1 e 2 ordem com RLC e RC plots e respostas da EDO
-  
-- [ ] Metodos númericos em Matlab para engenharia usando Python (pelo livro de moetodos numericos)
-
-- [ ] Solver ML/DL para cada X,Y de conjunto de dado
-- [ ] Python com Sympy para calculo de EDO de 1 e 2 ordem para Circuitos CC (RL,RC e RLC)
-- [ ] Atividade IEEEDs = Esp32 + Senoides de corrente em series temporais para modelos de IA (como entrada de dados)
-- [ ] Aulas Sinais/cricuitos CC/CA e Eng. Controle + SEP Fundamentals + Metodos numericos com Python
-
----
-
-<a id="sessao-estudos"></a>
-
-# ⚡ Conceitos Elétricos (Dúvidas/Insights) __TODO
-
-- [ ] CC vs CA: Em CC, a indutância é um curto e a capacitância é um aberto no regime permanente. Em CA, eles geram impedância ($j\omega L$ e $1/j\omega C$).
-
-**Dúvida para tirar com engenheiros: Como o ONS modela a carga dependente da tensão ($P = P_0(V/V_0)^\alpha$)?**
 
 ---
