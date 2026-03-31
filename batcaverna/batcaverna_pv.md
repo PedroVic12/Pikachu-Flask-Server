@@ -24,17 +24,15 @@
 
 ### 🎯 **PROJETOS GITHUB**
 
-- Verifique se o projeto `Github/Pikachu-Flask-Server` esta instalado na sua maquina local: https://github.com/PedroVic12/Pikachu-Flask-Server
+- Verifique se o projeto `Github/Pikachu-Flask-Server` esta instalado na sua maquina local: <https://github.com/PedroVic12/Pikachu-Flask-Server>
   - Batcaverna Project: GitHub\Pikachu-Flask-Server\batcaverna\batcaverna-project
   - astro-system: \GitHub\Pikachu-Flask-Server\pikachu-API\astro-system
   - quizz Show do milhao: GitHub\Pikachu-Flask-Server\frontend\Quizz_App_For_Studying_With_UI\quizz_show_do_mihao_AI.html
   - Kanban PRO NextJS: GitHub\Pikachu-Flask-Server\frontend\project_kanban_pro_2025
-  - Pikachu Rest API: 
- 
-    
-- https://github.com/PedroVic12/getx-for-qt6
-- https://github.com/PedroVic12/Gohan-treinamentos-web-app
+  - Pikachu Rest API:
 
+- <https://github.com/PedroVic12/getx-for-qt6>
+- <https://github.com/PedroVic12/Gohan-treinamentos-web-app>
 
 ### 🎯 **DESENVOLVIMENTO PESSOAL**
 
@@ -47,11 +45,10 @@
 - 📋 [Checklist Diário](#checklist-diario)
 
 ### 🎯 **LINKS WEBSITES**
-- https://www.mat.ufmg.br/futebol/classificacao-para-libertadores_seriea/
-- https://gohan-treinamentos-web-app-one.vercel.app/home
-- https://electrical-system-simulator.vercel.app/
 
-  
+- <https://www.mat.ufmg.br/futebol/classificacao-para-libertadores_seriea/>
+- <https://gohan-treinamentos-web-app-one.vercel.app/home>
+- <https://electrical-system-simulator.vercel.app/>
 
 ### 🔧 **OUTRAS SEÇÕES**
 
@@ -69,7 +66,6 @@
 ---
 
 # 🦇 Batcaverna PV - Centro de Comando 2026
-
 
 SUA ROTINA DE FOCO (USANDO 25min / 50min)
 BLOCO 1 — 10h00–11h30 (25min + 25min + 25min)
@@ -111,9 +107,7 @@ Meta: Conseguir explicar o comportamento da tensão na barra quando a carga reat
 
 <a id="lista-tarefas-pendentes"></a>
 
-
 # Sprint De Março - Mês do aniversariante
-
 
 ## Rotina TDAH
 
@@ -123,7 +117,6 @@ Meta: Conseguir explicar o comportamento da tensão na barra quando a carga reat
 - [x] estudos e programação
 - [x] Jogos e Filmes
 - [x] Limpeza, banhos, meditação
-
 
 ---
 
@@ -157,3 +150,83 @@ Meta: Conseguir explicar o comportamento da tensão na barra quando a carga reat
 
 - [ ] 14:00 - Dev Time: Projeto Pessoal ou aprofundamento em SQL.
 
+<a id="tarefas-ons-plc-2026-02"></a>
+
+## Conceitos Importantes de SEP
+
+1) Equipamentos de proteção:
+
+- Capacitores, Reatores e Indutores
+- Fluxo de potencia com cargas Ativas e Reativas
+- Linhas de trasmissão, barramentos, transformadores
+- Controle de geradores nas linhas
+- Potencia Ativa / Reativa / Aparente
+- Indutancia e Reatancia
+- Geradores
+
+1) Relatórios em .txt com fluxo de potencia e tensões nas barras
+
+- Violações até com 1,035 pu
+- Fluxo te pontencia com Geração e perdas nas linhas
+
+1) 4 Equações de Maxwell
+2) Sistemas de EDO de 1 e 2 ordem com funcao de transferencia em diagrama em blocos
+
+## 🧠 ANÁLISE DE PLANEJAMENTO PARA ONS
+
+- P define o fluxo energético contratado e físico
+- Q afeta tensões e estabilidade – crucial para despacho seguro
+- S limita capacidade térmica de equipamentos
+- O fator de potência (cosφ) deve ser próximo de 1, sob pena de multas
+
+## 🌐 Exemplos práticos
+
+1) Estimar onde instalar bancos de capacitores ou reatores
+2) Analisar fluxo entre regiões com base em P/Q
+3) Planejar reforços de linhas com base em sobrecarga de S
+4) Usar perfis diários/históricos de P/Q para prever instabilidades
+
+## 💰 VALOR DISSO PARA O MERCADO
+
+- Simulação e relatório de potências com análise técnica: R$ 2.000–5.000
+- Estudo de compensação reativa ou fator de potência: R$ 3.000–10.000
+- Projeto completo com visualizações interativas e recomendações: R$ 8.000+
+
+---
+
+<a id="estudos-sep-ons-programacao"></a>
+
+# Estudos de SEP para ONS e programação __TODO
+
+## Sesão de ESTUDOS (Matemática, programação e Eng. Elétrica)
+
+- [ ] Atividade ML de IEEEDs e principais modelo de AI de Supevisionado x Não Supervisionado (Com Rótulos x Sem Rótulos)
+- [ ] Eletromagnetismo: Resolver 3 exercícios de Lei de Gauss/Coulomb.
+- [ ] Sinais e Sistemas: Revisar Transformada de Laplace (básico).
+
+- [ ] Análise de contigencias com SN 45 com pandapower + Deckbuiler para o AnaREDE
+- [ ] Matriz Ybus em Python para SEP
+- [ ] Matriz admtancia + Geração x Transmissão e Distrbuição SIN pelo ONS
+- [ ] Mincurso CC + arduino + python
+  - [ ] <https://www.falstad.com/circuit/circuitjs.html>
+  - [ ] Regra de Crammer
+  - [ ] EDO sistemas 1 e 2 ordem com RLC e RC plots e respostas da EDO
+  
+- [ ] Metodos númericos em Matlab para engenharia usando Python (pelo livro de moetodos numericos)
+
+- [ ] Solver ML/DL para cada X,Y de conjunto de dado
+- [ ] Python com Sympy para calculo de EDO de 1 e 2 ordem para Circuitos CC (RL,RC e RLC)
+- [ ] Atividade IEEEDs = Esp32 + Senoides de corrente em series temporais para modelos de IA (como entrada de dados)
+- [ ] Aulas Sinais/cricuitos CC/CA e Eng. Controle + SEP Fundamentals + Metodos numericos com Python
+
+---
+
+<a id="sessao-estudos"></a>
+
+# ⚡ Conceitos Elétricos (Dúvidas/Insights) __TODO
+
+- [ ] CC vs CA: Em CC, a indutância é um curto e a capacitância é um aberto no regime permanente. Em CA, eles geram impedância ($j\omega L$ e $1/j\omega C$).
+
+**Dúvida para tirar com engenheiros: Como o ONS modela a carga dependente da tensão ($P = P_0(V/V_0)^\alpha$)?**
+
+---
