@@ -5,13 +5,13 @@ import { Radar, RadarChart, PolarGrid, Legend, PolarAngleAxis, PolarRadiusAxis, 
 
 // --- DADOS DAS TECNOLOGIAS ---
 const techStackData = {
-    python: { name: 'Python Ciencia de Dados', color: 'rgba(53, 114, 165, 1)', bgColor: 'rgba(53, 114, 165, 0.2)', difficulty: 'Intermediário', description: '<strong>Pilar do Backend e Dados:</strong> Usado para APIs robustas (FastAPI, Flask, Django), análise de dados complexas e simulações de sistemas elétricos (PandaPower). A base para IA e ML.', scores: { performance: 70, webBackend: 95, desktop: 40, embedded: 20 } },
-    cpp: { name: 'C++ (Drogon server)/Arduino/Ladder', color: 'rgba(243, 75, 125, 1)', bgColor: 'rgba(243, 75, 125, 0.2)', difficulty: 'Avançado', description: '<strong>Performance Absoluta:</strong> Para web servers de altíssima velocidade com Drogon e software que interage diretamente com hardware, onde cada microssegundo conta.', scores: { performance: 98, webBackend: 70, desktop: 60, embedded: 90 } },
+    python: { name: 'Python Backend', color: 'rgba(53, 114, 165, 1)', bgColor: 'rgba(53, 114, 165, 0.2)', difficulty: 'Intermediário', description: '<strong>Pilar do Backend e Dados:</strong> Usado para APIs robustas (FastAPI, Flask, Django), análise de dados complexas e simulações de sistemas elétricos (PandaPower). A base para IA e ML.', scores: { performance: 70, webBackend: 95, desktop: 40, embedded: 20 } },
+    cpp: { name: 'C++ (Drogon server) e Arduino', color: 'rgba(243, 75, 125, 1)', bgColor: 'rgba(243, 75, 125, 0.2)', difficulty: 'Avançado', description: '<strong>Performance Absoluta:</strong> Para web servers de altíssima velocidade com Drogon e software que interage diretamente com hardware, onde cada microssegundo conta.', scores: { performance: 98, webBackend: 70, desktop: 60, embedded: 90 } },
     rust: { name: 'Rust', color: 'rgba(222, 165, 132, 1)', bgColor: 'rgba(222, 165, 132, 0.2)', difficulty: 'Avançado', description: '<strong>Segurança e Velocidade:</strong> A escolha moderna para sistemas críticos, combinando a performance do C++ com garantias de segurança de memória, ideal para backend e sistemas embarcados do futuro.', scores: { performance: 95, webBackend: 65, desktop: 50, embedded: 85 } },
     nodejs: { name: 'Node.js', color: 'rgba(104, 159, 56, 1)', bgColor: 'rgba(104, 159, 56, 0.2)', difficulty: 'Iniciante', description: '<strong>Ecossistema JavaScript:</strong> Utilizado para gerenciar pacotes (NPM) e construir backends rápidos e eficientes para aplicações web, integrando-se perfeitamente com frameworks de frontend.', scores: { performance: 75, webBackend: 90, desktop: 20, embedded: 10 } },
     pyside6: { name: 'PySide6 App Desktop', color: 'rgba(179, 157, 219, 1)', bgColor: 'rgba(179, 157, 219, 0.2)', difficulty: 'Intermediário', description: '<strong>Desktop com Python:</strong> Cria aplicações desktop nativas e ricas em recursos usando o poder do Python e do framework Qt, ideal para ferramentas de análise e simuladores.', scores: { performance: 60, webBackend: 0, desktop: 90, embedded: 5 } },
     flutter: { name: 'Flutter - Mobile', color: 'rgba(3, 169, 244, 1)', bgColor: 'rgba(3, 169, 244, 0.2)', difficulty: 'Intermediário', description: '<strong>Multiplataforma Nativo:</strong> Desenvolve apps para mobile, web e desktop a partir de um único código-base com performance nativa. Perfeito para dashboards e apps de controle.', scores: { performance: 80, webBackend: 40, desktop: 85, embedded: 30 } },
-    tauri: { name: 'Tauri Desktop', color: 'rgba(255, 179, 0, 1)', bgColor: 'rgba(255, 179, 0, 0.2)', difficulty: 'Intermediário', description: '<strong>Desktop Leve e Seguro:</strong> Constrói aplicações desktop usando tecnologias web (HTML, JS) com um backend em Rust, resultando em apps extremamente leves, rápidos e seguros.', scores: { performance: 85, webBackend: 0, desktop: 95, embedded: 15 } },
+    tauri: { name: 'Tauri Rust Desktop', color: 'rgba(255, 179, 0, 1)', bgColor: 'rgba(255, 179, 0, 0.2)', difficulty: 'Intermediário', description: '<strong>Desktop Leve e Seguro:</strong> Constrói aplicações desktop usando tecnologias web (HTML, JS) com um backend em Rust, resultando em apps extremamente leves, rápidos e seguros.', scores: { performance: 85, webBackend: 0, desktop: 95, embedded: 15 } },
     html: { name: 'HTML/CSS/JS/Tailwind/Bootstrap', color: 'rgba(239, 83, 80, 1)', bgColor: 'rgba(239, 83, 80, 0.2)', difficulty: 'Iniciante', description: '<strong>A Base da Web:</strong> O trio fundamental para qualquer site ou sistema web, oferecendo a estrutura, estilo e interatividade para todas as aplicações frontend.', scores: { performance: 50, webBackend: 20, desktop: 70, embedded: 5 } }
 };
 const chartLabels = ['Performance', 'Backend Web', 'Desktop GUI', 'Sist. Embarcados'];
@@ -20,7 +20,7 @@ const chartLabels = ['Performance', 'Backend Web', 'Desktop GUI', 'Sist. Embarca
 const markdownTasks = `
 # Tarefas Gerais
 - [x] 3 dashboards Streamlit - Asimov
-- [ ] Dashboard MUST - Refatoração Template
+- [x] Dashboard Desktop MUST - Refatoração Template
 - [x] Estudos de ASP com Python
 - [x] Bots e RPA com Python
 - [x] Estudos de IA, ML, DL, Chatbots, N8N, AI agentes
@@ -30,6 +30,7 @@ const markdownTasks = `
 - [x] Dashboard MUST com PyPDF2 e camelot
 - [x] Simulação Deck e Correção VD/VE (AnaREDE/AnaTEM)
 - [x] Análise de Contingências com PandaPower e AnaREDE
+- [ ] Atividades Mensal PLC - VA,VB e politica energetica
 
 # Eng. Elétrica UFF 2025
 - [x] Matemática aplicada, Provas Antigas
@@ -38,18 +39,18 @@ const markdownTasks = `
 - [ ] Modelagem de Circuitos Elétricos com Laplace
 - [ ] IOT E ARDUINO COM WEBSOCKET E HTML
 - [ ] Processamento Digital de Sinais
-- [ ] Leitura Ogata - Teoria e controle moderno
+- [x] Leitura Ogata - Teoria e pratica de Eng. de controle moderno
 - [ ] Projeto Final de IoT com Arduino + MQTT + Python Rest API
 
 # Projetos Github
 - [x] Backend: Charizard (Drogon), Pikachu (Flask), Raichu (FastAPI)
 - [x] Frontend: HTML, React, Flutter, Astro, Pyside6, Streamlit
 - [x] Electrical-System-Simulator
-- [ ] meu-react-app-template (Gohan, Quizz, Habits)
-- [ ] my-flutter-getx-app (Kyogre, SCRUM, Todo)
+- [x] meu-react-app-template (Gohan, Quizz, Habits)
+- [x] my-flutter-getx-app (Kyogre, SCRUM, Todo)
 - [ ] Simulações de Ciencia (Circuito RLC, Buraco Negro)
-- [ ] Gohan Treinamentos
-- [ ] Calistenia App + Goku IA trainer
+- [x] Gohan Treinamentos
+- [x] Calistenia App + Goku IA trainer
 `;
 
 // --- FUNÇÃO PARA PARSE DO MARKDOWN ---
