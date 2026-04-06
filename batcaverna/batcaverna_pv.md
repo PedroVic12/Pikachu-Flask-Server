@@ -1,8 +1,7 @@
 # 🦇 BatCaverna PV - Centro de Comando 2026
-
 ---
 
-**📅 DATA ATUAL:** 31/03/2026
+**📅 DATA ATUAL:** 06/04/2026
 **🔗 Repositório:** [GitHub Repository][var4]
 **📋 Shiatsu Link:** [Agendamento Shiatsu][var1]
 **📊 Kanban Columns:** `__BACKLOG` | `__IN_PROGRESS` | `__TODO` | `__COMPLETED`
@@ -54,22 +53,23 @@
 
 # 🦇 Batcaverna PV - Centro de Comando 2026
 
-## Sprint - Tarefas PLC 2026
+## Sprint Atual (06/04/2026) - Tarefas PLC 2026
 
 <a id="tarefas-ons-plc-2026"></a>
 
-* [ ] Diagrama SP - Organon 440KV
-* [ ] Treinos e apoio mensal VA,VB e VC - Maio 2026
-* [ ] Dashboard SECO - SP com ETL e controle e gestão do MUST SP
-* [ ] Tauri Desktop - Tarefas PLC Trakcer
-* [ ] CalisteniaPro App - Super Sayjain Version
-* [ ] Estudos SEP com Eng eletrica e Matematica avançada
-* [ ] Kanban, SCRUM, Reunioes e alinhamento espiritual
-* [ ] Rotina TDAH com foco no espirito durante a semana santa (30/03 - 04/04)
-* [ ] Gohan Treinamentos Habit Tracker
-* [ ] Astro .md Blog Pedrov12 + SEP para leigos (NextJS)
+- [ ] Diagrama SP - Organon 440KV
+- [ ] Tarefas e apoio Atividades mensal VA,VB e VC - Maio 2026
+  - [ ] Fazer despacho na Flow usando dados VA para Pesada e Media
+  - [ ] Refazer Pesada (conferir) e usar o caso de Média ncom a politica energetica
+  - [ ] Complexo madeira e tirar duvidas com o marcos no caso de Pesada e Média
+  - [ ] Preparação da VB depois da politica energetica com despacho usando dados SEMENTE do VA
+     
+           
+- [ ] Estudos SEP com Eng eletrica e Matematica avançada
+- [ ] Kanban, SCRUM, Reunioes e alinhamento espiritual
+- [ ] Rotina TDAH com foco no espirito durante a semana santa (30/03 - 04/04)
 
----
+
 
 ## Sprint Rotina TDAH
 
