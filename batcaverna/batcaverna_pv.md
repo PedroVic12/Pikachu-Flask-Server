@@ -69,6 +69,39 @@
 - [ ] Kanban, SCRUM, Reunioes e alinhamento espiritual
 - [ ] Rotina TDAH com foco no espirito durante a semana santa (30/03 - 04/04)
 
+# Tarefas Gerais
+- [x] 3 dashboards Streamlit - Asimov
+- [x] Dashboard Desktop MUST - Refatoração Template
+- [x] Estudos de ASP com Python
+- [x] Bots e RPA com Python
+- [x] Estudos de IA, ML, DL, Chatbots, N8N, AI agentes
+
+# Estágio ONS
+- [x] Relatório + Reunião Semanal
+- [x] Dashboard MUST com PyPDF2 e camelot
+- [x] Simulação Deck e Correção VD/VE (AnaREDE/AnaTEM)
+- [x] Análise de Contingências com PandaPower e AnaREDE
+- [ ] Atividades Mensal PLC - VA,VB e politica energetica
+
+# Eng. Elétrica UFF 2025
+- [x] Matemática aplicada, Provas Antigas
+- [ ] Circuitos digitais e elétricos com Arduino e ESP32
+- [ ] Jedi Cyberpunk - Python com Métodos Numericos
+- [ ] Modelagem de Circuitos Elétricos com Laplace
+- [ ] IOT E ARDUINO COM WEBSOCKET E HTML
+- [ ] Processamento Digital de Sinais
+- [x] Leitura Ogata - Teoria e pratica de Eng. de controle moderno
+- [ ] Projeto Final de IoT com Arduino + MQTT + Python Rest API
+
+# Projetos Github
+- [x] Backend: Charizard (Drogon), Pikachu (Flask), Raichu (FastAPI)
+- [x] Frontend: HTML, React, Flutter, Astro, Pyside6, Streamlit
+- [x] Electrical-System-Simulator
+- [x] meu-react-app-template (Gohan, Quizz, Habits)
+- [x] my-flutter-getx-app (Kyogre, SCRUM, Todo)
+- [ ] Simulações de Ciencia (Circuito RLC, Buraco Negro)
+- [x] Gohan Treinamentos
+- [x] Calistenia App + Goku IA trainer
 
 
 ## Sprint Rotina TDAH
