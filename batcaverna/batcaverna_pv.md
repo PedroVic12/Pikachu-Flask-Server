@@ -71,36 +71,6 @@
 
 
 
----
-## 📋 Tarefas ONS PLC 2026 Março  (PENDENTES)
----
-- [ ] Dashboard SECO - SP com ETL e controle e gestão do MUST SP
-- [ ] Tauri Desktop - Tarefas PLC Trakcer
-- [ ] CalisteniaPro App - Super Sayjain Version
-- [ ] 
-- [x] Script barras ausentes mensal (consolidado)
-- [x] VBA Perduas duplas Lts + Análise
-- [ ] DeckBuilder com .pwf com anaRede e PandaPower
-- [ ] Modelagem de Banco de Dados com Python com Schemas para SQlite + Access para Data Warehouse e dashboards em BI
-- [ ] 3 Notebooks de python com dados opensource com uso de tabelas de dataframes e analises automatizadas
-- [ ] AnaRede Deck Builder = Anarede, EditCepel, PandaPower, CLI e ajuda na montagem de casos com algoritimo Big O para nivel de complexibildiade de operação da Rede
-- [ ]  Estudos CA, Sinais e Sistemas e programação em Julia ( 3 Relatórios em Quarto) __TODO
-- [x] Testes para deploys de programas de automações da PLC com .EXE 
-- [x]  VBA Perdas duplas Lts:  __TODO
-  - [ ] Obter da aba "Modificações" da planilha os motivos da revisão e colocar na tabela de revisão do word na pág correta (pág 3).
-  - [ ]  3 principais gráficos do VBA Perdas duplas LTs em Excel 
-  - [ ] Pandas + Plotly + Julia para analise de dados e escolher os 3 gráficos de Perdas Duplas LTs e usar os gráficos no excel interno
-
-- [ ] Gohan Treinamentos Habit Tracker
-- [ ] Astro .md Blog Pedrov12 + SEP para leigos (NextJS)       
-- [x] Organização de pastas e projetos Python para ONS
-- [x] Levantamento de Requisitos para PalkiaPDF - ETL, MUST Dashboard Desktop App, ProjectHub Enterprise (Cronograma), CLI + RPA projects e VBA para Perdas Duplas LTs 
-
-- [x] Organização de arquivos .md e .PDF e QUARTO e .ipynb
-- [x] planilha de Financeiro App - Tauri com MUI 3 e scripts em julia com plots em imagem.
-- [x] Automation Mensal pandas e formulas .xlsx om historio de mensal de 2026
----
-
 ## Sprint Rotina TDAH
 
 * [x] Organização, planejmento e metas para o inicio de periodo
