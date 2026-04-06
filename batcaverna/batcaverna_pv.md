@@ -55,18 +55,24 @@
 
 ## Sprint Atual (06/04/2026) - Tarefas PLC 2026
 
+- [x] Pesada com política energética
+- [x] Média com política energética
+- [ ] Madeira tratada (ou alinhada com o Marcos)
+
 <a id="tarefas-ons-plc-2026"></a>
 
 - [ ] Diagrama SP - Organon 440KV
-- [ ] Tarefas e apoio Atividades mensal VA,VB e VC - Maio 2026
+- [x] Tarefas e apoio Atividades mensal VA,VB e VC - Maio 2026
   - [ ] Fazer despacho na Flow usando dados VA para Pesada e Media
   - [ ] Refazer Pesada (conferir) e usar o caso de Média ncom a politica energetica
   - [ ] Complexo madeira e tirar duvidas com o marcos no caso de Pesada e Média
-  - [ ] Preparação da VB depois da politica energetica com despacho usando dados SEMENTE do VA
+  - [x] Preparação da VB depois da politica energetica com despacho usando dados SEMENTE do VA
+  - [x] Rascunho .MD x Kanban x Planner Website x SEP Blog x Batcaverna Notes x Tauri Tarefas PLC (ROTINAS)
+  - [ ] 
      
            
 - [ ] Estudos SEP com Eng eletrica e Matematica avançada
-- [ ] Kanban, SCRUM, Reunioes e alinhamento espiritual
+- [x] Kanban, SCRUM, Reunioes e alinhamento espiritual
 - [ ] Rotina TDAH com foco no espirito durante a semana santa (30/03 - 04/04)
 
 # Tarefas Gerais
