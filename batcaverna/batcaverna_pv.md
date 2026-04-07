@@ -54,8 +54,6 @@
 # 🦇 Batcaverna PV - Centro de Comando 2026
 
 ## Sprint Atual (07/04/2026) - Tarefas PLC 2026
-
-
 - [ ] Estudos SEP com Eng eletrica e Matematica avançada
 - [x] Kanban, SCRUM, Reunioes e alinhamento espiritual
 - [ ] Rotina TDAH com foco no espirito durante a semana santa (30/03 - 04/04)
@@ -81,9 +79,9 @@
 
 - [ ] Mincurso CC + arduino + python
 
-  * [ ] <https://www.falstad.com/circuit/circuitjs.html>
-  * [ ] Regra de Crammer
-  * [ ] EDO sistemas 1 e 2 ordem com RLC e RC plots e respostas da EDO
+  - [ ] <https://www.falstad.com/circuit/circuitjs.html>
+  - [ ] Regra de Crammer
+  - [ ] EDO sistemas 1 e 2 ordem com RLC e RC plots e respostas da EDO
 
 - [ ] Metodos númericos em Matlab para engenharia usando Python (pelo livro de moetodos numericos)
 
@@ -92,39 +90,7 @@
 - [ ] Python com Sympy para calculo de EDO de 1 e 2 ordem para Circuitos CC (RL,RC e RLC)
 
 
-- [x] Pesada com política energética
-- [x] Média com política energética
-- [x] Madeira tratada (ou alinhada com o Marcos)
-- [ ] Diagrama SP - Organon 440KV
-- [x] Tarefas e apoio Atividades mensal VA,VB e VC - Maio 2026
-  - [ ] Fazer despacho na Flow usando dados VA para Pesada e Media
-  - [ ] Refazer Pesada (conferir) e usar o caso de Média ncom a politica energetica
-  - [ ] Complexo madeira e tirar duvidas com o marcos no caso de Pesada e Média
-  - [x] Preparação da VB depois da politica energetica com despacho usando dados SEMENTE do VA
-  - [x] Rascunho .MD x Kanban x Planner Website x SEP Blog x Batcaverna Notes x Tauri Tarefas PLC (ROTINAS)
-     
-
 <a id="tarefas-ons-plc-2026"></a>
-
-## Tarefas Gerais Programação
-- [x] 3 dashboards Streamlit/NextJS/Flask tailwindcss
-- [x] Dashboard Desktop MUST - Refatoração Template
-- [x] Estudos de Backend com Python
-- [x] Bots e RPA com Python
-- [x] Estudos de IA, ML, DL, Chatbots, N8N, AI agentes
-- [ ] Gohan Treinamentos web app -> Mobile First NextJS ou Tauri V2 Rust HTML template statico ou Flask Backend + React Frontend
-- [ ] ENG.ELETRICA-UFF -> KANBAN Notes
-- [ ] Tarefas PLC ONS - Planilha Excel
-- [ ] Relatorios projetos Github script (notebook)
-- [ ] Relatorios e simulações de fisica para eng. eletrica em Quarto
-
-## Estágio ONS
-- [x] Relatório + Reunião Semanal
-- [x] Dashboard MUST com PyPDF2 e camelot
-- [x] Simulação Deck e Correção VD/VE (AnaREDE/AnaTEM)
-- [x] Análise de Contingências com PandaPower e AnaREDE
-- [ ] Atividades Mensal PLC - VA,VB e politica energetica
-
 ## Eng. Elétrica UFF 2025
 - [ ] Processamento Digital de Sinais
 - [x] Leitura Ogata - Teoria e pratica de Eng. de controle moderno
@@ -140,15 +106,6 @@
 - [x] Gohan Treinamentos
 - [x] Calistenia App + Goku IA trainer
 
-
-## Sprint Rotina TDAH
-
-* [x] Organização, planejmento e metas para o inicio de periodo
-* [x] Habit tracker
-* [x] Rotina e TDAH
-* [x] estudos e programação
-* [x] Jogos e Filmes
-* [x] Limpeza, banhos, meditação
 
 ---
 
