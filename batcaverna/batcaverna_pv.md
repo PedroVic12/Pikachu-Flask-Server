@@ -103,29 +103,34 @@
   - [x] Preparação da VB depois da politica energetica com despacho usando dados SEMENTE do VA
   - [x] Rascunho .MD x Kanban x Planner Website x SEP Blog x Batcaverna Notes x Tauri Tarefas PLC (ROTINAS)
      
-  - [ ] 
+
 <a id="tarefas-ons-plc-2026"></a>
 
-# Tarefas Gerais Programação
+## Tarefas Gerais Programação
 - [x] 3 dashboards Streamlit/NextJS/Flask tailwindcss
 - [x] Dashboard Desktop MUST - Refatoração Template
 - [x] Estudos de Backend com Python
 - [x] Bots e RPA com Python
 - [x] Estudos de IA, ML, DL, Chatbots, N8N, AI agentes
+- [ ] Gohan Treinamentos web app -> Mobile First NextJS ou Tauri V2 Rust HTML template statico ou Flask Backend + React Frontend
+- [ ] ENG.ELETRICA-UFF -> KANBAN Notes
+- [ ] Tarefas PLC ONS - Planilha Excel
+- [ ] Relatorios projetos Github script (notebook)
+- [ ] Relatorios e simulações de fisica para eng. eletrica em Quarto
 
-# Estágio ONS
+## Estágio ONS
 - [x] Relatório + Reunião Semanal
 - [x] Dashboard MUST com PyPDF2 e camelot
 - [x] Simulação Deck e Correção VD/VE (AnaREDE/AnaTEM)
 - [x] Análise de Contingências com PandaPower e AnaREDE
 - [ ] Atividades Mensal PLC - VA,VB e politica energetica
 
-# Eng. Elétrica UFF 2025
+## Eng. Elétrica UFF 2025
 - [ ] Processamento Digital de Sinais
 - [x] Leitura Ogata - Teoria e pratica de Eng. de controle moderno
 - [ ] Projeto Final de IoT com Arduino + MQTT + Python Rest API
 
-# Projetos Github
+## Projetos Github
 - [x] Backend: Charizard (Drogon), Pikachu (Flask), Raichu (FastAPI)
 - [x] Frontend: HTML, React, Flutter, Astro, Pyside6, Streamlit
 - [x] Electrical-System-Simulator
@@ -153,7 +158,14 @@
 
 - [ ] Atividade ML de IEEEDs e principais modelo de AI de Supevisionado x Não Supervisionado (Com Rótulos x Sem Rótulos)
 - [ ] Atividade IEEEDs = Esp32 + Senoides de corrente em series temporais para modelos de IA (como entrada de dados)
-
+- [ ] Circuitos Digitais
+- [ ] Circuitos eletricos CC
+- [ ] Circuitos de corrente Alternada
+- [ ] ENEM - Questoes de fisica e matematatica
+- [ ] Circuitos trifasicos para SEP
+- [ ] Eletromagnetismo
+- [ ] Sinais e sistemas
+- [ ] 
 
 ---
 
@@ -163,24 +175,24 @@
 
 **Segunda-feira** - Setup, Planejamento, SCRUM & SEP
 
-* [x] 08:00 - ONS (Home): Organizar backlog da semana.
-* [x] 14:00 - Foco Técnico: Leitura sobre Load Flow (Fluxo de Carga).
+- [x] 08:00 - ONS (Home): Organizar backlog da semana.
+- [x] 14:00 - Foco Técnico: Leitura sobre Load Flow (Fluxo de Carga).
 
 **Terça-feira** - O Dia Longo
 
-* [ ] 06:25 - ONS (Presencial): Acompanhar operação do SIN com os colegas de trabalho.
-* [ ] 19:00 - Revisão leve de CC (Circuitos de Corrente Contínua).
+- [ ] 06:25 - ONS (Presencial): Acompanhar operação do SIN com os colegas de trabalho.
+- [ ] 19:00 - Revisão leve de CC (Circuitos de Corrente Contínua).
 
 **Quarta-feira** - Engenharia Elétrica e Hard Coding
 
-* [ ] 06:25 - ONS (Presencial).
-* [ ] 10:00 - Simulação: Tentar rodar um caso base e analisar os logs.
-* [ ] 15:00 - Estudos UFF (Biblioteca ou Casa).
+- [ ] 06:25 - ONS (Presencial).
+- [ ] 10:00 - Simulação: Tentar rodar um caso base e analisar os logs.
+- [ ] 15:00 - Estudos UFF (Biblioteca ou Casa).
 
 **Sexta-feira** - Review & Code
 
-* [ ] 08:00 - ONS (Home): Documentar o que foi aprendido sobre SEP na semana.
-* [ ] 14:00 - Dev Time: Projeto Pessoal ou aprofundamento em SQL.
+- [ ] 08:00 - ONS (Home): Documentar o que foi aprendido sobre SEP na semana.
+- [ ] 14:00 - Dev Time: Projeto Pessoal ou aprofundamento em SQL.
 
 ---
 
