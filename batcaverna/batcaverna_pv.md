@@ -53,14 +53,48 @@
 
 # 🦇 Batcaverna PV - Centro de Comando 2026
 
-## Sprint Atual (06/04/2026) - Tarefas PLC 2026
+## Sprint Atual (07/04/2026) - Tarefas PLC 2026
+
+
+- [ ] Estudos SEP com Eng eletrica e Matematica avançada
+- [x] Kanban, SCRUM, Reunioes e alinhamento espiritual
+- [ ] Rotina TDAH com foco no espirito durante a semana santa (30/03 - 04/04)
+- [x] Matemática aplicada, Provas Antigas
+- [ ] Circuitos digitais e elétricos com Arduino e ESP32
+- [ ] Jedi Cyberpunk - Python com Métodos Numericos
+- [ ] Modelagem de Circuitos Elétricos com Laplace
+- [ ] Anotações Terapia
+- [ ] Anotações Blog - SEP para leigos
+- [ ] UFF 2026.1 -> Aulas e Quizz Games
+- [ ] Circuitos CC x CA x CD x Sinais e Sistemas -> Python + Julia programming
+
+- [ ] Eletromagnetismo: Resolver 3 exercícios de Lei de Gauss/Coulomb.
+
+- [ ] Sinais e Sistemas: Revisar Transformada de Laplace (básico).
+
+- [ ] Análise de contigencias com SN 45 com pandapower + Deckbuiler para o AnaREDE
+
+- [ ] Matriz Ybus em Python para SEP
+
+- [ ] Matriz admtancia + Geração x Transmissão e Distrbuição SIN pelo ONS
+- [ ] Aulas Sinais/cricuitos CC/CA e Eng. Controle + SEP Fundamentals + Metodos numericos com Python
+
+- [ ] Mincurso CC + arduino + python
+
+  * [ ] <https://www.falstad.com/circuit/circuitjs.html>
+  * [ ] Regra de Crammer
+  * [ ] EDO sistemas 1 e 2 ordem com RLC e RC plots e respostas da EDO
+
+- [ ] Metodos númericos em Matlab para engenharia usando Python (pelo livro de moetodos numericos)
+
+- [ ] Solver ML/DL para cada X,Y de conjunto de dado
+
+- [ ] Python com Sympy para calculo de EDO de 1 e 2 ordem para Circuitos CC (RL,RC e RLC)
+
 
 - [x] Pesada com política energética
 - [x] Média com política energética
-- [ ] Madeira tratada (ou alinhada com o Marcos)
-
-<a id="tarefas-ons-plc-2026"></a>
-
+- [x] Madeira tratada (ou alinhada com o Marcos)
 - [ ] Diagrama SP - Organon 440KV
 - [x] Tarefas e apoio Atividades mensal VA,VB e VC - Maio 2026
   - [ ] Fazer despacho na Flow usando dados VA para Pesada e Media
@@ -68,17 +102,14 @@
   - [ ] Complexo madeira e tirar duvidas com o marcos no caso de Pesada e Média
   - [x] Preparação da VB depois da politica energetica com despacho usando dados SEMENTE do VA
   - [x] Rascunho .MD x Kanban x Planner Website x SEP Blog x Batcaverna Notes x Tauri Tarefas PLC (ROTINAS)
-  - [ ] 
      
-           
-- [ ] Estudos SEP com Eng eletrica e Matematica avançada
-- [x] Kanban, SCRUM, Reunioes e alinhamento espiritual
-- [ ] Rotina TDAH com foco no espirito durante a semana santa (30/03 - 04/04)
+  - [ ] 
+<a id="tarefas-ons-plc-2026"></a>
 
-# Tarefas Gerais
-- [x] 3 dashboards Streamlit - Asimov
+# Tarefas Gerais Programação
+- [x] 3 dashboards Streamlit/NextJS/Flask tailwindcss
 - [x] Dashboard Desktop MUST - Refatoração Template
-- [x] Estudos de ASP com Python
+- [x] Estudos de Backend com Python
 - [x] Bots e RPA com Python
 - [x] Estudos de IA, ML, DL, Chatbots, N8N, AI agentes
 
@@ -90,11 +121,6 @@
 - [ ] Atividades Mensal PLC - VA,VB e politica energetica
 
 # Eng. Elétrica UFF 2025
-- [x] Matemática aplicada, Provas Antigas
-- [ ] Circuitos digitais e elétricos com Arduino e ESP32
-- [ ] Jedi Cyberpunk - Python com Métodos Numericos
-- [ ] Modelagem de Circuitos Elétricos com Laplace
-- [ ] IOT E ARDUINO COM WEBSOCKET E HTML
 - [ ] Processamento Digital de Sinais
 - [x] Leitura Ogata - Teoria e pratica de Eng. de controle moderno
 - [ ] Projeto Final de IoT com Arduino + MQTT + Python Rest API
@@ -125,33 +151,9 @@
 
 <a id="sessao-de-estudos-matematica-programacao-e-eng-eletrica"></a>
 
-* [ ] Atividade ML de IEEEDs e principais modelo de AI de Supevisionado x Não Supervisionado (Com Rótulos x Sem Rótulos)
+- [ ] Atividade ML de IEEEDs e principais modelo de AI de Supevisionado x Não Supervisionado (Com Rótulos x Sem Rótulos)
+- [ ] Atividade IEEEDs = Esp32 + Senoides de corrente em series temporais para modelos de IA (como entrada de dados)
 
-* [ ] Eletromagnetismo: Resolver 3 exercícios de Lei de Gauss/Coulomb.
-
-* [ ] Sinais e Sistemas: Revisar Transformada de Laplace (básico).
-
-* [ ] Análise de contigencias com SN 45 com pandapower + Deckbuiler para o AnaREDE
-
-* [ ] Matriz Ybus em Python para SEP
-
-* [ ] Matriz admtancia + Geração x Transmissão e Distrbuição SIN pelo ONS
-
-* [ ] Mincurso CC + arduino + python
-
-  * [ ] <https://www.falstad.com/circuit/circuitjs.html>
-  * [ ] Regra de Crammer
-  * [ ] EDO sistemas 1 e 2 ordem com RLC e RC plots e respostas da EDO
-
-* [ ] Metodos númericos em Matlab para engenharia usando Python (pelo livro de moetodos numericos)
-
-* [ ] Solver ML/DL para cada X,Y de conjunto de dado
-
-* [ ] Python com Sympy para calculo de EDO de 1 e 2 ordem para Circuitos CC (RL,RC e RLC)
-
-* [ ] Atividade IEEEDs = Esp32 + Senoides de corrente em series temporais para modelos de IA (como entrada de dados)
-
-* [ ] Aulas Sinais/cricuitos CC/CA e Eng. Controle + SEP Fundamentals + Metodos numericos com Python
 
 ---
 
