@@ -1,7 +1,8 @@
-# 🦇 BatCaverna PV - Centro de Comando 2026
+---
+### 🦇 BatCaverna PV - Centro de Comando 2026
 ---
 
-**📅 DATA ATUAL:** 06/04/2026
+**📅 DATA ATUAL:** 11/04/2026
 **🔗 Repositório:** [GitHub Repository][var4]
 **📋 Shiatsu Link:** [Agendamento Shiatsu][var1]
 **📊 Kanban Columns:** `__BACKLOG` | `__IN_PROGRESS` | `__TODO` | `__COMPLETED`
@@ -50,8 +51,8 @@
 ![alt text - ciencia de dados ONS](image-1.png)
 
 ---
-
-# 🦇 Batcaverna PV - Centro de Comando 2026
+### 🦇 Batcaverna PV - Centro de Comando 2026
+---
 
 ## Sprint Atual (07/04/2026) - Tarefas PLC 2026
 - [ ] Estudos SEP com Eng eletrica e Matematica avançada
@@ -159,11 +160,11 @@
 
 * Verifique se o projeto `Github/Pikachu-Flask-Server` esta instalado na sua maquina local: <https://github.com/PedroVic12/Pikachu-Flask-Server>
 
-  * Batcaverna Project: GitHub\Pikachu-Flask-Server\batcaverna\batcaverna-project
-  * astro-system: \GitHub\Pikachu-Flask-Server\pikachu-API\astro-system
-  * quizz Show do milhao: GitHub\Pikachu-Flask-Server\frontend\Quizz_App_For_Studying_With_UI\quizz_show_do_mihao_AI.html
-  * Kanban PRO NextJS: GitHub\Pikachu-Flask-Server\frontend\project_kanban_pro_2025
-  * Pikachu Rest API:
+-  Batcaverna Project: GitHub\Pikachu-Flask-Server\batcaverna\batcaverna-project
+- astro-system: \GitHub\Pikachu-Flask-Server\pikachu-API\astro-system
+- quizz Show do milhao: GitHub\Pikachu-Flask-Server\frontend\Quizz_App_For_Studying_With_UI\quizz_show_do_mihao_AI.html
+- Kanban PRO NextJS: GitHub\Pikachu-Flask-Server\frontend\project_kanban_pro_2025
+- Pikachu Rest API:
 
 * <https://github.com/PedroVic12/getx-for-qt6>
 
