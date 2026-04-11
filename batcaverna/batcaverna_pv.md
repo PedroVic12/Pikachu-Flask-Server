@@ -3,16 +3,6 @@
 ### 🦇 BatCaverna PV - Centro de Comando 2026
 ---
 
-**📅 DATA ATUAL:** 11/04/2026
-**🔗 Repositório:** [GitHub Repository][var4]
-**📋 Shiatsu Link:** [Agendamento Shiatsu][var1]
-**📊 Kanban Columns:** `__BACKLOG` | `__IN_PROGRESS` | `__TODO` | `__COMPLETED`
-**🎯 Default Status:** Backlog
-
-[var4]: https://github.com/PedroVic12/Pikachu-Flask-Server/blob/main/batcaverna/batcaverna_pv.md
-[var1]: https://revigorar.reservio.com/
-
----
 
 ## 📑 ÍNDICE RÁPIDO
 
@@ -55,7 +45,7 @@
 ### 🦇 Batcaverna PV - Centro de Comando 2026
 ---
 
-## Sprint Atual (07/04/2026) - Tarefas PLC 2026
+# Sprint Atual (07/04/2026) - Tarefas PLC 2026
 - [ ] Estudos SEP com Eng eletrica e Matematica avançada
 - [x] Kanban, SCRUM, Reunioes e alinhamento espiritual
 - [ ] Rotina TDAH com foco no espirito durante a semana santa (30/03 - 04/04)
