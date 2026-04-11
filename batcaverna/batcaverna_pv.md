@@ -54,7 +54,7 @@
 ### 🦇 Batcaverna PV - Centro de Comando 2026
 ---
 
-## Sprint Atual (07/04/2026) - Tarefas PLC 2026
+# Sprint Atual (07/04/2026) - Tarefas PLC 2026
 - [ ] Estudos SEP com Eng eletrica e Matematica avançada
 - [x] Kanban, SCRUM, Reunioes e alinhamento espiritual
 - [ ] Rotina TDAH com foco no espirito durante a semana santa (30/03 - 04/04)
@@ -92,12 +92,12 @@
 
 
 <a id="tarefas-ons-plc-2026"></a>
-## Eng. Elétrica UFF 2025
+# Eng. Elétrica UFF 2025
 - [ ] Processamento Digital de Sinais
 - [x] Leitura Ogata - Teoria e pratica de Eng. de controle moderno
 - [ ] Projeto Final de IoT com Arduino + MQTT + Python Rest API
 
-## Projetos Github
+# Projetos Github
 - [x] Backend: Charizard (Drogon), Pikachu (Flask), Raichu (FastAPI)
 - [x] Frontend: HTML, React, Flutter, Astro, Pyside6, Streamlit
 - [x] Electrical-System-Simulator
@@ -110,7 +110,7 @@
 
 ---
 
-## Sesão de ESTUDOS (Matemática, programação e Eng. Elétrica)
+# Sesão de ESTUDOS (Matemática, programação e Eng. Elétrica)
 
 <a id="sessao-de-estudos-matematica-programacao-e-eng-eletrica"></a>
 
@@ -127,7 +127,7 @@
 
 ---
 
-## 📅 Rotina Checklist Diário __TODO
+# 📅 Rotina Checklist Diário __TODO
 
 <a id="checklist-diario"></a>
 
@@ -154,7 +154,7 @@
 
 ---
 
-## 🚀 Projetos GitHub
+# 🚀 Projetos GitHub
 
 <a id="projetos-github"></a>
 
