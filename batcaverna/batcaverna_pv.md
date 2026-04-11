@@ -1,3 +1,4 @@
+
 ---
 ### 🦇 BatCaverna PV - Centro de Comando 2026
 ---
@@ -17,30 +18,30 @@
 
 ### ⚡ **TRABALHO - ONS PLC 2026**
 
-* 📋 [Tarefas ONS PLC](#tarefas-ons-plc-2026)
+- 📋 [Tarefas ONS PLC](#tarefas-ons-plc-2026)
 
 ### 🎯 **PROJETOS GITHUB**
 
-* [Projetos GitHub](#projetos-github)
+- [Projetos GitHub](#projetos-github)
 
 ### 🎯 **DESENVOLVIMENTO PESSOAL**
 
-* 📚 [Sessão de ESTUDOS](#sessao-de-estudos-matematica-programacao-e-eng-eletrica)
+- 📚 [Sessão de ESTUDOS](#sessao-de-estudos-matematica-programacao-e-eng-eletrica)
 
 ### 📅 **PLANEJAMENTO SEMANAL**
 
-* 📋 [Checklist Diário](#checklist-diario)
+- 📋 [Checklist Diário](#checklist-diario)
 
 ### 🎯 **LINKS WEBSITES**
 
-* <https://www.mat.ufmg.br/futebol/classificacao-para-libertadores_seriea/>
-* <https://gohan-treinamentos-web-app-one.vercel.app/home>
-* <https://electrical-system-simulator.vercel.app/>
+- <https://www.mat.ufmg.br/futebol/classificacao-para-libertadores_seriea/>
+- <https://gohan-treinamentos-web-app-one.vercel.app/home>
+- <https://electrical-system-simulator.vercel.app/>
 
 ### 🔧 **OUTRAS SEÇÕES**
 
-* 📊 [Roadmap Cientista de Dados](#roadmap-cientista-de-dados)
-* ⚡ [Conceitos Fundamentais de Eng. Elétrica](#sessao-de-estudos-matematica-programacao-e-eng-eletrica)
+- 📊 [Roadmap Cientista de Dados](#roadmap-cientista-de-dados)
+- ⚡ [Conceitos Fundamentais de Eng. Elétrica](#sessao-de-estudos-matematica-programacao-e-eng-eletrica)
 
 ---
 
@@ -54,7 +55,7 @@
 ### 🦇 Batcaverna PV - Centro de Comando 2026
 ---
 
-# Sprint Atual (07/04/2026) - Tarefas PLC 2026
+## Sprint Atual (07/04/2026) - Tarefas PLC 2026
 - [ ] Estudos SEP com Eng eletrica e Matematica avançada
 - [x] Kanban, SCRUM, Reunioes e alinhamento espiritual
 - [ ] Rotina TDAH com foco no espirito durante a semana santa (30/03 - 04/04)
@@ -108,9 +109,7 @@
 - [x] Calistenia App + Goku IA trainer
 
 
----
-
-# Sesão de ESTUDOS (Matemática, programação e Eng. Elétrica)
+## Sesão de ESTUDOS (Matemática, programação e Eng. Elétrica)
 
 <a id="sessao-de-estudos-matematica-programacao-e-eng-eletrica"></a>
 
