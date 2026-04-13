@@ -1,8 +1,6 @@
-
 ---
 ### 🦇 BatCaverna PV - Centro de Comando 2026
 ---
-
 
 ## 📑 ÍNDICE RÁPIDO
 
@@ -42,19 +40,25 @@
 ![alt text - ciencia de dados ONS](image-1.png)
 
 ---
+
 ### 🦇 Batcaverna PV - Centro de Comando 2026
+
 ---
 
-# Sprint Atual (07/04/2026) - Tarefas PLC 2026
+# Sprint Atual (13/04/2026) - Tarefas PLC 2026
+
 - [ ] Estudos SEP com Eng eletrica e Matematica avançada
-- [x] Kanban, SCRUM, Reunioes e alinhamento espiritual
+- [ ] Kanban, SCRUM, Reunioes e alinhamento espiritual
 - [ ] Rotina TDAH com foco no espirito durante a semana santa (30/03 - 04/04)
-- [x] Matemática aplicada, Provas Antigas
+- [ ] Matemática aplicada, Provas Antigas
 - [ ] Circuitos digitais e elétricos com Arduino e ESP32
 - [ ] Jedi Cyberpunk - Python com Métodos Numericos
 - [ ] Modelagem de Circuitos Elétricos com Laplace
 - [ ] Anotações Terapia
 - [ ] Anotações Blog - SEP para leigos
+
+## Tarefas e Estudos Pendentes - Abril de 2026
+
 - [ ] UFF 2026.1 -> Aulas e Quizz Games
 - [ ] Circuitos CC x CA x CD x Sinais e Sistemas -> Python + Julia programming
 
@@ -70,7 +74,6 @@
 - [ ] Aulas Sinais/cricuitos CC/CA e Eng. Controle + SEP Fundamentals + Metodos numericos com Python
 
 - [ ] Mincurso CC + arduino + python
-
   - [ ] <https://www.falstad.com/circuit/circuitjs.html>
   - [ ] Regra de Crammer
   - [ ] EDO sistemas 1 e 2 ordem com RLC e RC plots e respostas da EDO
@@ -81,14 +84,16 @@
 
 - [ ] Python com Sympy para calculo de EDO de 1 e 2 ordem para Circuitos CC (RL,RC e RLC)
 
-
 <a id="tarefas-ons-plc-2026"></a>
+
 # Eng. Elétrica UFF 2025
+
 - [ ] Processamento Digital de Sinais
 - [x] Leitura Ogata - Teoria e pratica de Eng. de controle moderno
 - [ ] Projeto Final de IoT com Arduino + MQTT + Python Rest API
 
 # Projetos Github
+
 - [x] Backend: Charizard (Drogon), Pikachu (Flask), Raichu (FastAPI)
 - [x] Frontend: HTML, React, Flutter, Astro, Pyside6, Streamlit
 - [x] Electrical-System-Simulator
@@ -97,7 +102,6 @@
 - [ ] Simulações de Ciencia (Circuito RLC, Buraco Negro)
 - [x] Gohan Treinamentos
 - [x] Calistenia App + Goku IA trainer
-
 
 ## Sesão de ESTUDOS (Matemática, programação e Eng. Elétrica)
 
@@ -112,11 +116,11 @@
 - [ ] Circuitos trifasicos para SEP
 - [ ] Eletromagnetismo
 - [ ] Sinais e sistemas
-- [ ] 
+- [ ]
 
 ---
 
-# 📅 Rotina Checklist Diário __TODO
+# 📅 Rotina Checklist Diário \_\_TODO
 
 <a id="checklist-diario"></a>
 
@@ -147,16 +151,16 @@
 
 <a id="projetos-github"></a>
 
-* Verifique se o projeto `Github/Pikachu-Flask-Server` esta instalado na sua maquina local: <https://github.com/PedroVic12/Pikachu-Flask-Server>
+- Verifique se o projeto `Github/Pikachu-Flask-Server` esta instalado na sua maquina local: <https://github.com/PedroVic12/Pikachu-Flask-Server>
 
--  Batcaverna Project: GitHub\Pikachu-Flask-Server\batcaverna\batcaverna-project
-- astro-system: \GitHub\Pikachu-Flask-Server\pikachu-API\astro-system
-- quizz Show do milhao: GitHub\Pikachu-Flask-Server\frontend\Quizz_App_For_Studying_With_UI\quizz_show_do_mihao_AI.html
-- Kanban PRO NextJS: GitHub\Pikachu-Flask-Server\frontend\project_kanban_pro_2025
-- Pikachu Rest API:
+* Batcaverna Project: GitHub\Pikachu-Flask-Server\batcaverna\batcaverna-project
+* astro-system: \GitHub\Pikachu-Flask-Server\pikachu-API\astro-system
+* quizz Show do milhao: GitHub\Pikachu-Flask-Server\frontend\Quizz_App_For_Studying_With_UI\quizz_show_do_mihao_AI.html
+* Kanban PRO NextJS: GitHub\Pikachu-Flask-Server\frontend\project_kanban_pro_2025
+* Pikachu Rest API:
 
-* <https://github.com/PedroVic12/getx-for-qt6>
+- <https://github.com/PedroVic12/getx-for-qt6>
 
-* <https://github.com/PedroVic12/Gohan-treinamentos-web-app>
+- <https://github.com/PedroVic12/Gohan-treinamentos-web-app>
 
 ---
