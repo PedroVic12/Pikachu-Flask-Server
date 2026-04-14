@@ -24,6 +24,14 @@ import XLSX from 'xlsx'; // xlsx
 
 import './globals.css'; // Importação direta do CSS
 
+
+// Configurando o localstorage
+// SOLUÇÃO DEFINITIVA PARA NEXT.JS
+const localStorage = typeof window !== 'undefined'
+  ? window.localStorage
+  : { getItem: () => null, setItem: () => null, removeItem: () => null };
+
+
 // Helper para JSX-like com htm
 const html = htm.bind(React.createElement);
 
