@@ -22,8 +22,6 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import Chart from 'chart.js/auto';
 import XLSX from 'xlsx'; // xlsx
 
-import './globals.css'; // Importação direta do CSS
-
 
 // Configurando o localstorage
 // SOLUÇÃO DEFINITIVA PARA NEXT.JS
