@@ -208,6 +208,17 @@ class DashboardModel {
   }
 }
 
+
+
+function GlassContainer() {
+  return html`
+    <div className="glass-panel p-6">
+      <h1 className="neon-text text-2xl">Batcaverna PV WebSite</h1>
+      <p>O CSS agora é carregado de forma nativa pelo Next.js.</p>
+    </div>
+  `;
+}
+
 // ---------------------------------------------------------------------
 // 2.3 BatmanProfileModel – Dados do perfil (notas, metas, missões)
 // ---------------------------------------------------------------------
@@ -554,6 +565,7 @@ const Header = ({ currentTime }) => {
   const DataAtual = `${now.toLocaleDateString('pt-BR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}`;
   return html`
     <header>
+    ${GlassContainer()}
       <h1 className="text-3xl font-bold neon-text">Bat Caverna Dashboard 🦇</h1>
       <p className="text-sm text-gray-400">${DataAtual}</p>
       <div className="flex justify-between items-center mt-4">
