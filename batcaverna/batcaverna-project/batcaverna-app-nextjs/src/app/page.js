@@ -7,12 +7,8 @@
 
 "use client"
 
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 //import ReactDOM from 'react-dom/client';
-
-
-
-
 
 // ---------------------------------------------------------------------
 // 1. IMPORTAÇÕES DE DEPENDÊNCIAS EXTERNAS
@@ -27,7 +23,6 @@ import Chart from 'chart.js/auto';
 import XLSX from 'xlsx'; // xlsx
 
 import './globals.css'; // Importação direta do CSS
-
 
 // Helper para JSX-like com htm
 const html = htm.bind(React.createElement);
@@ -1013,22 +1008,54 @@ function mountPhysicsOrbitSystem(container) {
 }
 
 const OrbitWidget = () => {
-  const simRef = React.useRef(null);
-  const [target, setTarget] = React.useState('sun');
-  React.useEffect(() => {
-    const container = document.getElementById('simulation-container');
-    if (container) simRef.current = mountPhysicsOrbitSystem(container);
-    return () => { if (simRef.current?.stop) simRef.current.stop(); };
+  // Referência direta para a DIV (substitui o getElementById)
+  const containerRef = useRef(null);
+  // Referência para a instância da simulação (Three.js/Physics)
+  const simRef = useRef(null);
+
+  const [target, setTarget] = useState('sun');
+
+  // Efeito para montar a simulação
+  useEffect(() => {
+    // No Next.js/React, usamos o .current da referência
+    if (containerRef.current) {
+      simRef.current = mountPhysicsOrbitSystem(containerRef.current);
+    }
+
+    // Cleanup: limpa a memória ao fechar a página ou remover o componente
+    return () => {
+      if (simRef.current?.stop) simRef.current.stop();
+    };
   }, []);
-  React.useEffect(() => {
-    if (simRef.current?.setCameraTarget) simRef.current.setCameraTarget(target);
+
+  // Efeito para atualizar a câmera quando o target mudar
+  useEffect(() => {
+    if (simRef.current?.setCameraTarget) {
+      simRef.current.setCameraTarget(target);
+    }
   }, [target]);
+
   return html`
     <div className="w-full h-full relative">
-      <div id="simulation-container" className="w-full h-full absolute top-0 left-0"></div>
+      <!-- Usamos ref em vez de ID para garantir que o React gerencie o elemento -->
+      <div 
+        ref=${containerRef} 
+        className="w-full h-full absolute top-0 left-0"
+      ></div>
+      
       <div className="absolute top-2 left-2 md:top-4 md:left-4 glass-panel !p-1 md:!p-2 flex gap-1 md:gap-2">
-        <button onClick=${() => setTarget('sun')} className=${`px-2 py-1 rounded-md md:px-3 text-xs md:text-sm transition ${target === 'sun' ? 'bg-cyan-500 text-black font-semibold' : 'bg-black/40 hover:bg-black/60'}`}>Visão: Sol ☀️</button>
-        <button onClick=${() => setTarget('earth')} className=${`px-2 py-1 rounded-md md:px-3 text-xs md:text-sm transition ${target === 'earth' ? 'bg-cyan-500 text-black font-semibold' : 'bg-black/40 hover:bg-black/60'}`}>Visão: Terra 🌍</button>
+        <button 
+          onClick=${() => setTarget('sun')} 
+          className=${`px-2 py-1 rounded-md md:px-3 text-xs md:text-sm transition ${target === 'sun' ? 'bg-cyan-500 text-black font-semibold' : 'bg-black/40 hover:bg-black/60'}`}
+        >
+          Visão: Sol ☀️
+        </button>
+        <button 
+          onClick=${() => setTarget('earth')} 
+          className=${`px-2 py-1 rounded-md md:px-3 text-xs md:text-sm transition ${target === 'earth' ? 'bg-cyan-500 text-black font-semibold' : 'bg-black/40 hover:bg-black/60'}`}
+        >
+          Visão: Terra 🌍
+        </button>
       </div>
     </div>
   `;
