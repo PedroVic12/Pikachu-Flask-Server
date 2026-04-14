@@ -1,4 +1,14 @@
 Projeto,Hash,Data,Autor,Mensagem
+Electrical-System-Simulator,c534b3f2,2026-04-07,Pedro Victor Veras,Update page.jsx
+Electrical-System-Simulator,a945bb42,2026-04-07,Pedro Victor Veras,up
+Electrical-System-Simulator,ddb969ba,2026-04-07,Pedro Victor Veras,Update page.jsx
+Electrical-System-Simulator,9f679c4e,2026-02-11,Pedro Victor Veras,up
+Electrical-System-Simulator,23d87d27,2026-02-11,Pedro Victor Veras,update
+Electrical-System-Simulator,f2df29f4,2026-02-11,Pedro Victor Veras,up
+Electrical-System-Simulator,ff3f5011,2026-02-11,Pedro Victor Veras,nova versão
+Electrical-System-Simulator,f7b0ee26,2026-02-03,Pedro Victor Veras,up
+Electrical-System-Simulator,51bb4ff9,2025-12-09,Pedro Victor Veras,Update app.py
+Electrical-System-Simulator,5b961ec9,2025-12-05,Pedro Victor Veras,up
 Gohan-Treinamentos-Desktop-App,ab974f5,2026-03-31,Pedro Victor Veras,Create tauri-todo-desktop-app
 Gohan-Treinamentos-Desktop-App,8f19d1f,2026-03-24,Pedro Victor Veras,up
 Gohan-Treinamentos-Desktop-App,d3aabf6,2026-03-23,Pedro Victor Veras,up
@@ -6,26 +16,26 @@ Gohan-Treinamentos-Desktop-App,f43f42d,2026-03-11,Pedro Victor Veras,up
 Gohan-Treinamentos-Desktop-App,47d02c1,2026-03-11,Pedro Victor Veras,up
 Gohan-Treinamentos-Desktop-App,f20162f,2026-03-11,Pedro Victor Veras,Create tauri_mvc_vanilla_mui3.zip
 Gohan-Treinamentos-Desktop-App,2174378,2026-03-11,Pedro Victor Veras,Initial commit
-ONS-PLC-PV-CONTROLE-E-AUTOMACAO,eaad177e,2026-04-03,Pedro Victor Veras,up
-ONS-PLC-PV-CONTROLE-E-AUTOMACAO,00124f71,2026-04-03,Pedro Victor Veras,Update fix_decks_barras_ausentes.py
-ONS-PLC-PV-CONTROLE-E-AUTOMACAO,f0559240,2026-04-02,Pedro Victor Veras,Update ATIVIDADES MENSAL PLC.md
-ONS-PLC-PV-CONTROLE-E-AUTOMACAO,4f49b083,2026-04-02,Pedro Victor Veras,up
-ONS-PLC-PV-CONTROLE-E-AUTOMACAO,83b2ddce,2026-04-02,Pedro Victor Veras,up
-ONS-PLC-PV-CONTROLE-E-AUTOMACAO,33b089ea,2026-04-02,Pedro Victor Veras,up
-ONS-PLC-PV-CONTROLE-E-AUTOMACAO,bf66ac43,2026-04-01,Pedro Victor Veras,up
-ONS-PLC-PV-CONTROLE-E-AUTOMACAO,2f7f0469,2026-04-01,Pedro Victor Veras,up
-ONS-PLC-PV-CONTROLE-E-AUTOMACAO,8d463dc9,2026-04-01,Pedro Victor Veras,up
-ONS-PLC-PV-CONTROLE-E-AUTOMACAO,0825ac24,2026-04-01,Pedro Victor Veras,organizacao de arquivos
+ONS-PLC-PV-CONTROLE-E-AUTOMACAO,510786b6,2026-04-14,Pedro Victor Veras,up
+ONS-PLC-PV-CONTROLE-E-AUTOMACAO,fbb8e7e4,2026-04-08,Pedro Victor Veras,up
+ONS-PLC-PV-CONTROLE-E-AUTOMACAO,5a09c37d,2026-04-08,Pedro Victor Veras,up
+ONS-PLC-PV-CONTROLE-E-AUTOMACAO,f182e671,2026-04-08,Pedro Victor Veras,up
+ONS-PLC-PV-CONTROLE-E-AUTOMACAO,ea58e0ce,2026-04-08,Pedro Victor Veras,up
+ONS-PLC-PV-CONTROLE-E-AUTOMACAO,cad4ddf4,2026-04-08,Pedro Victor Veras,uop
+ONS-PLC-PV-CONTROLE-E-AUTOMACAO,34fe8d1c,2026-04-08,Pedro Victor Veras,up
+ONS-PLC-PV-CONTROLE-E-AUTOMACAO,46e90a28,2026-04-07,Pedro Victor Veras,up
+ONS-PLC-PV-CONTROLE-E-AUTOMACAO,f35ebdbe,2026-04-07,Pedro Victor Veras,up2
+ONS-PLC-PV-CONTROLE-E-AUTOMACAO,4984b6f0,2026-04-07,Pedro Victor Veras,update
+Pikachu-Flask-Server,1aae512,2026-04-06,Pedro Victor Veras,Update batcaverna_pv.md
+Pikachu-Flask-Server,d48159c,2026-04-06,Pedro Victor Veras,Merge branch 'main' of https://github.com/PedroVic12/Pikachu-Flask-Server
+Pikachu-Flask-Server,2a93112,2026-04-06,Pedro Victor Veras,Update historico-projetos.csv
+Pikachu-Flask-Server,bfde7fc,2026-04-06,Pedro Victor Veras,Update batcaverna_pv.md
+Pikachu-Flask-Server,20cf3da,2026-04-06,Pedro Victor Veras,Update batcaverna_pv.md
 Pikachu-Flask-Server,5eeafbc,2026-04-04,Pedro Victor Veras,Update PVRVWebDevPage.jsx
 Pikachu-Flask-Server,bd4da9c,2026-04-01,Pedro Victor Veras,Update batcaverna_pv.md
 Pikachu-Flask-Server,572dd20,2026-03-31,Pedro Victor Veras,Update batcaverna_pv.md
 Pikachu-Flask-Server,182773d,2026-03-31,Pedro Victor Veras,Update batcaverna_pv.md
 Pikachu-Flask-Server,5f22cf1,2026-03-30,Pedro Victor Veras,Update batcaverna_pv.md
-Pikachu-Flask-Server,a8aff27,2026-03-30,Pedro Victor Veras,up react
-Pikachu-Flask-Server,f5b9e91,2026-03-30,Pedro Victor Veras,Update historico-projetos.csv
-Pikachu-Flask-Server,00f1ff8,2026-03-30,Pedro Victor Veras,Update batcaverna_pv.md
-Pikachu-Flask-Server,0b0c831,2026-03-27,Pedro Victor Veras,Update page.js
-Pikachu-Flask-Server,383cff0,2026-03-27,Pedro Victor Veras,up
 Repopulation-With-Elite-Set,16b0a6c9,2026-03-14,Pedro Victor Veras,up
 Repopulation-With-Elite-Set,8c39f5f9,2026-03-09,Pedro Victor Veras,up
 Repopulation-With-Elite-Set,1c82e628,2026-03-09,Pedro Victor Veras,up

@@ -26,162 +26,8 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import Chart from 'chart.js/auto';
 import XLSX from 'xlsx'; // xlsx
 
-// Injeção de CSS (estilos globais)
-const style = document.createElement('style');
-style.textContent = `
-  :root {
-    --bg-dark: #000000;
-    --bg-panel: rgba(1, 1, 16, 0.948);
-    --border-color: rgba(0, 221, 255, 0.5);
-    --neon-cyan: #00e5ff;
-    --text-primary: #e6f7ff;
-    --text-secondary: #8b949e;
-    --kanban-backlog: #4a5568;
-    --kanban-todo: #4299e1;
-    --kanban-progress: #f6ad55;
-    --kanban-completed: #48bb78;
-    --skill-xp-bar: linear-gradient(90deg, #00ff88 0%, #00e5ff 100%);
-    --skill-unlocked: #00ff88;
-    --skill-locked: #4a5568;
-    --batman-yellow: #FFD700;
-  }
-  html, body, #root { height: 100%; }
-  body {
-    background-color: var(--bg-dark);
-    color: var(--text-primary);
-    font-family: 'Inter', sans-serif;
-    overflow-x: hidden;
-  }
-  .glass-panel {
-    background: var(--bg-panel);
-    border: 1px solid var(--border-color);
-    box-shadow: 0 10px 40px rgba(0,0,0,0.25), inset 0 0 20px rgba(0,229,255,0.05);
-    backdrop-filter: blur(12px);
-    border-radius: 0.9rem;
-  }
-  .neon-text {
-    text-shadow: 0 0 4px var(--neon-cyan), 0 0 8px var(--neon-cyan), 0 0 15px rgba(0,229,255,0.4);
-  }
-  .tab-btn {
-    background-color: transparent;
-    border-bottom: 2px solid transparent;
-    transition: all 0.2s ease-in-out;
-    padding: 0.5rem 1.2rem;
-    color: var(--text-secondary);
-    font-weight: 600;
-  }
-  .tab-btn:hover {
-    background-color: rgba(0, 229, 255, 0.05);
-    color: var(--text-primary);
-  }
-  .tab-btn.active {
-    color: var(--neon-cyan);
-    border-bottom-color: var(--neon-cyan);
-    text-shadow: 0 0 5px var(--neon-cyan);
-  }
-  .xp-progress-bar {
-    background: var(--skill-xp-bar);
-    box-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
-  }
-  .skill-card {
-    transition: all 0.3s ease;
-    border: 1px solid transparent;
-  }
-  .skill-card:hover {
-    border-color: var(--neon-cyan);
-    transform: translateY(-2px);
-  }
-  .skill-card.unlocked {
-    border-color: var(--skill-unlocked);
-    box-shadow: 0 0 15px rgba(0, 255, 136, 0.2);
-  }
-  .skill-card.locked {
-    border-color: var(--skill-locked);
-    opacity: 0.7;
-  }
-  .routine-time {
-    font-family: 'Fira Code', monospace;
-    background: rgba(0, 0, 0, 0.3);
-    padding: 2px 8px;
-    border-radius: 4px;
-    border: 1px solid var(--border-color);
-  }
-  .super-saiyan-aura {
-    box-shadow: 0 0 15px 5px rgba(250, 204, 21, 0.7), 0 0 30px 10px rgba(251, 146, 60, 0.5);
-  }
-  .xp-bar-transition {
-    transition: width 0.5s ease-in-out;
-  }
-  .level-up-animation {
-    animation: levelUp 0.8s ease-in-out;
-  }
-  @keyframes levelUp {
-    0% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.2); opacity: 0.7; }
-    100% { transform: scale(1); opacity: 1; }
-  }
-  .progress-ring__circle {
-    transition: stroke-dashoffset 0.35s;
-    transform: rotate(-90deg);
-    transform-origin: 50% 50%;
-  }
-  .ht-tab {
-    cursor: pointer;
-    padding-bottom: 0.5rem;
-    border-bottom: 2px solid transparent;
-  }
-  .ht-tab-active {
-    color: white;
-    border-bottom-color: #f59e0b;
-  }
-  .batman-card {
-    background: rgba(10, 10, 20, 0.9);
-    border: 1px solid rgba(255, 215, 0, 0.3);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    border-radius: 0.5rem;
-  }
-  .batman-progress-bar {
-    background: linear-gradient(90deg, #b8860b 0%, #ffd700 100%);
-    box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-  }
-  .batman-binary {
-    font-family: 'Fira Code', monospace;
-    color: var(--batman-yellow);
-    opacity: 0.7;
-  }
-  .profile-tab-btn {
-    padding: 0.5rem 1rem;
-    border: 1px solid rgba(255, 215, 0, 0.2);
-    color: #8b949e;
-    border-radius: 0.375rem;
-    transition: all 0.2s;
-    font-size: 0.875rem;
-  }
-  .profile-tab-btn:hover {
-    border-color: rgba(255, 215, 0, 0.6);
-    color: #e6f7ff;
-  }
-  .profile-tab-btn.active {
-    background-color: rgba(255, 215, 0, 0.1);
-    border-color: #ffd700;
-    color: #ffd700;
-    font-weight: bold;
-  }
-  ::-webkit-scrollbar {
-    width: 8px;
-  }
-  ::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  ::-webkit-scrollbar-thumb {
-    background: var(--border-color);
-    border-radius: 4px;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: var(--neon-cyan);
-  }
-`;
-document.head.appendChild(style);
+import './globals.css'; // Importação direta do CSS
+
 
 // Helper para JSX-like com htm
 const html = htm.bind(React.createElement);
@@ -1306,10 +1152,10 @@ const HabitCompletionModal = ({ habit, player, onClose, isSuperSaiyan }) => {
           <h3 className="font-semibold text-lg mb-2">Habilidades melhoradas:</h3>
           <div className="space-y-2">
             ${[
-              { name: 'Força', xp: (habit.xp * 0.3).toFixed(2) },
-              { name: 'Inteligência', xp: (habit.xp * 0.2).toFixed(2) },
-              { name: 'Disciplina', xp: (habit.xp * 0.4).toFixed(2) }
-            ].map(char => html`
+      { name: 'Força', xp: (habit.xp * 0.3).toFixed(2) },
+      { name: 'Inteligência', xp: (habit.xp * 0.2).toFixed(2) },
+      { name: 'Disciplina', xp: (habit.xp * 0.4).toFixed(2) }
+    ].map(char => html`
               <div key=${char.name} className="flex justify-between items-center bg-gray-700 p-3 rounded-md">
                 <div>
                   <p>${char.name}</p>
@@ -1805,9 +1651,9 @@ const BatmanProfileWidget = () => {
       <${InfoCard} title="EQUIPAMENTOS">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           ${[
-            { name: "Batarang", icon: "⚔️" }, { name: "Traje", icon: "🦇" }, { name: "Cinto Utilidades", icon: "🔧" }, { name: "Batmóvel", icon: "🚗" },
-            { name: "Batcomputador", icon: "💻" }, { name: "Bat-sinal", icon: "🔦" }, { name: "Batwing", icon: "✈️" }, { name: "Bat-caverna", icon: "🏰" }
-          ].map(item => html`<div key=${item.name} className="text-center p-3 bg-black/40 rounded-lg"><div className="text-2xl mb-1">${item.icon}</div><div className="text-sm text-gray-300">${item.name}</div></div>`)}
+      { name: "Batarang", icon: "⚔️" }, { name: "Traje", icon: "🦇" }, { name: "Cinto Utilidades", icon: "🔧" }, { name: "Batmóvel", icon: "🚗" },
+      { name: "Batcomputador", icon: "💻" }, { name: "Bat-sinal", icon: "🔦" }, { name: "Batwing", icon: "✈️" }, { name: "Bat-caverna", icon: "🏰" }
+    ].map(item => html`<div key=${item.name} className="text-center p-3 bg-black/40 rounded-lg"><div className="text-2xl mb-1">${item.icon}</div><div className="text-sm text-gray-300">${item.name}</div></div>`)}
         </div>
       <//>
     </div>

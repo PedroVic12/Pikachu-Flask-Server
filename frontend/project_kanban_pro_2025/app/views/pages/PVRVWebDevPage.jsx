@@ -30,7 +30,7 @@ const markdownTasks = `
 - [x] Dashboard MUST com PyPDF2 e camelot
 - [x] Simulação Deck e Correção VD/VE (AnaREDE/AnaTEM)
 - [x] Análise de Contingências com PandaPower e AnaREDE
-- [ ] Atividades Mensal PLC - VA,VB e politica energetica
+- [x] Atividades Mensal PLC - VA,VB e politica energetica
 
 # Eng. Elétrica UFF 2025
 - [x] Matemática aplicada, Provas Antigas
@@ -39,8 +39,6 @@ const markdownTasks = `
 - [ ] Modelagem de Circuitos Elétricos com Laplace
 - [ ] IOT E ARDUINO COM WEBSOCKET E HTML
 - [ ] Processamento Digital de Sinais
-- [x] Leitura Ogata - Teoria e pratica de Eng. de controle moderno
-- [ ] Projeto Final de IoT com Arduino + MQTT + Python Rest API
 
 # Projetos Github
 - [x] Backend: Charizard (Drogon), Pikachu (Flask), Raichu (FastAPI)
@@ -48,7 +46,6 @@ const markdownTasks = `
 - [x] Electrical-System-Simulator
 - [x] meu-react-app-template (Gohan, Quizz, Habits)
 - [x] my-flutter-getx-app (Kyogre, SCRUM, Todo)
-- [ ] Simulações de Ciencia (Circuito RLC, Buraco Negro)
 - [x] Gohan Treinamentos
 - [x] Calistenia App + Goku IA trainer
 `;
