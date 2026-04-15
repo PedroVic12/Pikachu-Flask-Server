@@ -45,7 +45,131 @@
 
 ---
 
-# Sprint Atual (13/04/2026) - Tarefas PLC 2026
+# ⚡ Alinhamento do Dia — Execução com Precisão
+
+📅 Data: _______
+
+---
+
+## 🔮 Alinhamento Espiritual
+
+### 🟦 Chakra do dia: Garganta (Vishuddha)
+
+- Comunicação, clareza e verdade  
+- [ ] Falar menos e com precisão  
+- [ ] Ser direto no código e nos estudos  
+
+---
+
+### 📖 Salmo
+
+- Salmo 23  
+- [ ] Ler e refletir  
+
+---
+
+### ✝️ Evangelho
+
+- Mateus 7:7  
+- [ ] Ler e refletir  
+
+---
+
+### ✨ Mensagem do Dia
+
+- [ ] Fazer certo, mesmo cansado  
+
+---
+
+### 🔥 Dom do Espírito Santo: Sabedoria
+
+- [ ] Aplicar conhecimento na prática  
+
+---
+
+### 🧠 Filosofia Japonesa: Ganbaru
+
+- [ ] Persistir mesmo sem motivação  
+
+---
+
+### 💬 Frase de Poder
+
+- “Eu avanço mesmo nos dias difíceis.”  
+- [ ] Repetir 3x ao longo do dia  
+
+---
+
+## 🏆 Vitória do Dia: ESTUDOS
+
+- [ ] Manter consistência mesmo com dia cheio  
+
+---
+
+## ⚡ Lei Física do Dia
+
+### Lei de Kirchhoff das Correntes (KCL)
+
+\[
+\sum I = 0
+\]
+
+- [ ] Revisar conceito  
+- [ ] Aplicar em exercícios  
+
+---
+
+## ⚙️ Plano do Dia (ONS + UFF)
+
+### 🌅 Manhã (ONS 8h–10h)
+
+- [ ] Foco total no trabalho  
+- [ ] Revisar KCL/KVL no intervalo (10–15 min)  
+
+---
+
+### 🕛 Meio-dia (20–30 min)
+
+- [ ] Resolver 3 exercícios  
+  - [ ] Lei de Ohm  
+  - [ ] KCL  
+
+---
+
+### 🎓 Tarde (UFF)
+
+- [ ] Assistir aula com foco no conceito principal  
+- [ ] Evitar perfeccionismo  
+
+---
+
+### 🌙 Noite (60–90 min — BLOCO PRINCIPAL)
+
+#### Tema: Análise Nodal
+
+- [ ] Ver teoria (rápido)  
+- [ ] Resolver 3 exercícios  
+- [ ] Codar sistema linear simples  
+
+---
+
+## 💻 Código do Dia
+
+- [ ] Implementar sistema linear:
+
+```python
+import numpy as np
+
+G = np.array([[10, -5],
+              [-5, 10]])
+
+I = np.array([5, 0])
+
+V = np.linalg.solve(G, I)
+print(V)
+```
+
+## Sprint Atual (13/04/2026) - Tarefas PLC 2026
 
 - [ ] Estudos SEP com Eng eletrica e Matematica avançada
 - [ ] Kanban, SCRUM, Reunioes e alinhamento espiritual
@@ -153,11 +277,11 @@
 
 - Verifique se o projeto `Github/Pikachu-Flask-Server` esta instalado na sua maquina local: <https://github.com/PedroVic12/Pikachu-Flask-Server>
 
-* Batcaverna Project: GitHub\Pikachu-Flask-Server\batcaverna\batcaverna-project
-* astro-system: \GitHub\Pikachu-Flask-Server\pikachu-API\astro-system
-* quizz Show do milhao: GitHub\Pikachu-Flask-Server\frontend\Quizz_App_For_Studying_With_UI\quizz_show_do_mihao_AI.html
-* Kanban PRO NextJS: GitHub\Pikachu-Flask-Server\frontend\project_kanban_pro_2025
-* Pikachu Rest API:
+- Batcaverna Project: GitHub\Pikachu-Flask-Server\batcaverna\batcaverna-project
+- astro-system: \GitHub\Pikachu-Flask-Server\pikachu-API\astro-system
+- quizz Show do milhao: GitHub\Pikachu-Flask-Server\frontend\Quizz_App_For_Studying_With_UI\quizz_show_do_mihao_AI.html
+- Kanban PRO NextJS: GitHub\Pikachu-Flask-Server\frontend\project_kanban_pro_2025
+- Pikachu Rest API:
 
 - <https://github.com/PedroVic12/getx-for-qt6>
 
