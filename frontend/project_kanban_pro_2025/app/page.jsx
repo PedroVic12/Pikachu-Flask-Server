@@ -78,6 +78,7 @@ import OlaMundo from "./views/HTML/OlaMundo.jsx";
 import ItemEditor from "./views/components/EditorModalProject.js";
 import PVRVWebDevPage from "./views/pages/PVRVWebDevPage.jsx";
 import DeckStorageController from "./controllers/DeckStorageController.js";
+import MonitoramentoPage from "./views/pages/MonitoramentePage.jsx";
 
 // Usar essa pagina no projeto Dashboard Web SP + SECO para ONS PLC
 //import ProjectHubPage from "./views/pages/ProjectHubPage.jsx";
@@ -563,6 +564,7 @@ export default function App() {
         {/* Exemplo de como usar a nova tela */}
         <div className="mb-8">
           <OlaMundo />
+          <MonitoramentoPage></MonitoramentoPage>
         </div>
 
         <div className="mb-6">
