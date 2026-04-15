@@ -1,6 +1,5 @@
----
-### 🦇 BatCaverna PV - Centro de Comando 2026
----
+
+# 🦇 BatCaverna PV - Centro de Comando 2026
 
 ## 📑 ÍNDICE RÁPIDO
 
@@ -169,17 +168,49 @@ V = np.linalg.solve(G, I)
 print(V)
 ```
 
-## Sprint Atual (13/04/2026) - Tarefas PLC 2026
+## 🧪 Quiz do Dia
 
-- [ ] Estudos SEP com Eng eletrica e Matematica avançada
-- [ ] Kanban, SCRUM, Reunioes e alinhamento espiritual
-- [ ] Rotina TDAH com foco no espirito durante a semana santa (30/03 - 04/04)
-- [ ] Matemática aplicada, Provas Antigas
-- [ ] Circuitos digitais e elétricos com Arduino e ESP32
-- [ ] Jedi Cyberpunk - Python com Métodos Numericos
-- [ ] Modelagem de Circuitos Elétricos com Laplace
-- [ ] Anotações Terapia
-- [ ] Anotações Blog - SEP para leigos
+- Resolver 3 questões
+- Revisar erros
+- Entender os exercicios resolvidos
+
+## 🎯 Meta de Exercícios
+
+ 3 de Circuitos Elétricos
+ 2 de revisão
+
+## 💪 Corpo
+
+ Treino ou caminhada (20–30 min)
+
+## 🧠 Dopamina Reset (Dia __/14)
+
+ Sem pornografia
+ Sem maconha
+ Sem scroll infinito
+ Controle de açúcar
+ Recompensa só após missão
+
+## 🎯 Missão Principal do Dia
+
+ ______________________________________
+
+## 🧭 Regra do Dia
+
+ Não quebrar a sequência
+ Manter disciplina
+ Executar o mínimo bem feito
+
+## 🌙 Ritual de Encerramento do Dia
+
+✔ O que avancei:
+ ______________________________________
+⚠️ O que ficou:
+ ______________________________________
+🎯 Amanhã (3 tarefas):
+ ______________________________________
+ ______________________________________
+ ______________________________________
 
 ## Tarefas e Estudos Pendentes - Abril de 2026
 
