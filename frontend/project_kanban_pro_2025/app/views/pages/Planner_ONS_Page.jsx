@@ -1,4 +1,6 @@
 
+
+"use client";
 import './Planner_ONS_Page.css';
 import React, { useState, useEffect, useMemo, useRef, useCallback } from 'react';
 
@@ -18,10 +20,9 @@ const CAT_COLORS = { 'Gestão de Projetos': '#94a3b8', 'Planejamento Curto Prazo
 //Recomendação feita por Copilot Microsoft - 07/04/2026
 const DEFAULT_MD = `## Gestão de Projetos
 ## 🧭 Gestão Pessoal e Organização (Rotina PLC / ONS)
-- [ ] Atualizar Kanban semanal (mensal + estudos + código) __TODO
-- [ ] Planejar o dia com foco na vB (Pesada / Média) __TODO
-- [ ] Registrar o que foi feito no Mensal (log técnico) __ONS
-- [ ] Revisar prioridades do estágio (PLC) com o que impacta o Mensal __ONS
+- [x] Atualizar Kanban semanal (mensal + estudos + código) __TODO
+- [x] Registrar o que foi feito no Mensal (log técnico) __ONS
+- [x] Revisar prioridades do estágio (PLC) com o que impacta o Mensal __ONS
 
 ---
 
@@ -41,9 +42,9 @@ const DEFAULT_MD = `## Gestão de Projetos
   - [ ] Comparar política energética × despacho atual __TODO
 
 - [x] Finalizar **Complexo Madeira** (Pesada e Média) __TODO
-- [ ] Montar arquivos da **vB** (.dat, .dut, .pwf, .opf, .prm, BNT1) __TODO
-- [ ] Rodar **Build Case no Organon** (vB) __TODO
-- [ ] Conferir Pos-OPF e variação da swing __TODO
+- [x] Montar arquivos da **vB** (.dat, .dut, .pwf, .opf, .prm, BNT1) __TODO
+- [x] Rodar **Build Case no Organon** (vB) __TODO
+- [x] Conferir Pos-OPF e variação da swing __TODO
 
 ---
 
@@ -60,8 +61,7 @@ const DEFAULT_MD = `## Gestão de Projetos
 ## 🧠 Faculdade – Engenharia Elétrica
 - [x] Circuitos Digitais I
 - [x] Estudo semanal de Circuitos Elétricos / SEP __TODO
-- [ ] Exercícios de Fluxo de Potência (relacionar com ANAREDE) __TODO
-- [ ] Consolidar relação teoria ↔ prática (ONS) __TODO
+- [ ] Exercícios de Fluxo de Potência (relacionar com ANAREDE e PandaPower) __TODO
 
 ---
 
@@ -70,22 +70,22 @@ const DEFAULT_MD = `## Gestão de Projetos
 - [ ] Usar pandas para análise de casos (Pesada × Média) __TODO
 
 ### 🔹 Backend / Visualização
-- [ ] Estrutura inicial Flask (app.py) para análise de casos __TODO
-- [ ] Dashboard simples (HTML + Tailwind) para visualizar resultados __TODO
+- [x] Estrutura inicial Flask (app.py) para análise de casos __TODO
+- [x] Dashboard simples (HTML + Tailwind) para visualizar resultados __TODO
 
 ---
 
 ## 🌌 Projetos Pessoais Técnicos (baixo prazo)
-- [ ] Dashboard SEP interativo (tensões, fluxos, swing) __TODO
-- [ ] Projeto Astronomia + Engenharia (visual tipo NASA / Artemis) __IDEIA
-- [ ] Blog técnico (.md / Quarto) explicando SEP e Mensal __IDEIA
+- [x] SEP interativo para Leigos (tensões, fluxos, swing) 
+- [x] Projeto Astronomia + Engenharia (visual tipo NASA / Artemis) __IDEIA
+- [x] Blog técnico (.md / Quarto) explicando SEP e Mensal __IDEIA
 
 ---
 
 ## 🧘 Rotina Pessoal e Foco
 - [ ] Sessões de foco (2 × 50 min/dia) para vB __TODO
 - [ ] Ajustar rotina TDAH com blocos técnicos e pausas __TODO
-- [ ] Manter equilíbrio entre estágio, faculdade e estudos __ONGOING
+- [ ] Manter equilíbrio entre estágio, faculdade, estudos, corpo, mente e Espirito __ONGOING
 
 `;
 

@@ -239,15 +239,40 @@ print(V)
 
 - [ ] Python com Sympy para calculo de EDO de 1 e 2 ordem para Circuitos CC (RL,RC e RLC)
 
+---
+
+## PVRV 2026
+
+---
+
+- [x] Kanban, Scrum, Planejamento e metas (Segunda e sexta)
+- [x] Organização de arquivos .MD
+- [x] Organização projetos Github
+- [x] Organização de Word e Excel usados para a semana no ONS
+- [x] Pyside6 x Tauri x NextJS projetos
+
+- [ ] Planejamento financeiro (Financial APP)
+  - [x] Dezembro
+  - [x] Janeiro
+  - [ ] Fevereiro
+  - [ ] Março
+  - [ ] Projeção do grafico com derivdas
+  - [ ] taxa de rendimento do salario ONS com 5% e 10% ao mes
+
+- [ ] Planilhas Horarios + Planilha de controle financeiro
+- [x] HTML templates para Gohan Treinamentos Refatorado com SOLID, MVC e framework CSS components
+
+- [x] Juntar todos sites estaticos em HTML que tenho num unico projeto NextJS com rotas e MVC (Gohan Treinamentos, Legado PVRV, Pomodoro)
+
 <a id="tarefas-ons-plc-2026"></a>
 
-# Eng. Elétrica UFF 2025
+## Eng. Elétrica UFF 2025
 
 - [ ] Processamento Digital de Sinais
 - [x] Leitura Ogata - Teoria e pratica de Eng. de controle moderno
 - [ ] Projeto Final de IoT com Arduino + MQTT + Python Rest API
 
-# Projetos Github
+## Projetos Github
 
 - [x] Backend: Charizard (Drogon), Pikachu (Flask), Raichu (FastAPI)
 - [x] Frontend: HTML, React, Flutter, Astro, Pyside6, Streamlit
@@ -275,7 +300,7 @@ print(V)
 
 ---
 
-# 📅 Rotina Checklist Diário \_\_TODO
+## 📅 Rotina Checklist Diário \_\_TODO
 
 <a id="checklist-diario"></a>
 
@@ -302,7 +327,7 @@ print(V)
 
 ---
 
-# 🚀 Projetos GitHub
+### 🚀 Projetos GitHub
 
 <a id="projetos-github"></a>
 
