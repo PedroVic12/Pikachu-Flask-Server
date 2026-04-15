@@ -1,13 +1,16 @@
 
-"use client";
-
+import './Planner_ONS_Page.css';
 import React, { useState, useEffect, useMemo, useRef, useCallback } from 'react';
+
+
+import { Sun, Moon, } from 'lucide-react';
 
 
 const STORAGE_KEY = 'hub_ons_unified_v1';
 const PROJECT_START = new Date(2026, 3, 12); // 12 mar 2026 
 const MONTHS = ['Jan/26', 'Fev/26', 'Mar/26', 'Abr/26', 'Mai/26', 'Jun/26', 'Jul/26'];
 const CATEGORIES = { 'Gestão de Projetos': '#1e293b', 'Planejamento Curto Prazo - PLC': '#16a34a', 'Engenharia Elétrica': '#3b82f6', 'Obras e atividades SECO': '#f59e0b' };
+const DEFAULT_CATEGORY = 'Gestão de Projetos';
 const CAT_COLORS = { 'Gestão de Projetos': '#94a3b8', 'Planejamento Curto Prazo - PLC': '#4ade80', 'Engenharia Elétrica': '#60a5fa', 'Obras e atividades SECO': '#fbbf24' };
 
 
@@ -147,9 +150,9 @@ const SnackbarProvider = ({ children }) => {
     return (
         <SnackbarCtx.Provider value={push}>
             {children}
-            <div className="snackbar">
+            <div className="planner-ons-snackbar">
                 {snacks.map(s => (
-                    <div key={s.id} className={`snack ${s.type}`}>
+                    <div key={s.id} className={`planner-ons-snack ${s.type}`}>
                         <span className="material-icons" style={{ fontSize: 16 }}>
                             {s.type === 'success' ? 'check_circle' : s.type === 'error' ? 'error' : 'info'}
                         </span>
@@ -171,9 +174,10 @@ const GanttModule = ({ tasks, onUpdate }) => {
     const fileRef = useRef(null);
     const todayPct = useMemo(() => {
         const today = new Date();
-        const daysElapsed = (today - PROJECT_START) / (1000 * 60 * 60 * 24);
-        const totalDays = 300; // duração total do projeto em dias
-        return Math.min(Math.max((daysElapsed / totalDays) * 100, 0), 100);
+        const timelineStart = new Date(PROJECT_START.getFullYear(), 0, 1);
+        const timelineEnd = new Date(PROJECT_START.getFullYear(), MONTHS.length, 1);
+        const pct = ((today - timelineStart) / (timelineEnd - timelineStart)) * 100;
+        return Math.min(Math.max(pct, 0), 100);
     }, []);
 
     const todayLabel = useMemo(() => {
@@ -209,7 +213,7 @@ const GanttModule = ({ tasks, onUpdate }) => {
                 const wb = XLSX.read(ev.target.result, { type: 'binary' });
                 const rows = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]], { header: 1 });
                 const imported = rows.slice(1).filter(r => r[1]).map((r, i) => ({
-                    id: r[0] || Date.now() + i, title: String(r[1] || ''), category: r[2] || 'Gestão',
+                    id: r[0] || Date.now() + i, title: String(r[1] || ''), category: r[2] || DEFAULT_CATEGORY,
                     startMonth: parseFloat(r[3]) || 0, duration: parseFloat(r[4]) || 1,
                     color: r[5] || '#3b82f6', description: r[6] || '', notes: r[7] || ''
                 }));
@@ -231,21 +235,21 @@ const GanttModule = ({ tasks, onUpdate }) => {
                     <div style={{ fontSize: 12, color: 'var(--muted)', marginTop: 2 }}>{tasks.length} atividade(s) · Out/2025 → Jul/2026</div>
                 </div>
                 <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-                    <label className="btn btn-green" style={{ cursor: 'pointer' }}>
+                    <label className="planner-ons-btn planner-ons-btn-green" style={{ cursor: 'pointer' }}>
                         <span className="material-icons">upload_file</span> Importar Excel
                         <input type="file" accept=".xlsx,.xls" style={{ display: 'none' }} ref={fileRef} onChange={importExcel} />
                     </label>
-                    <button className="btn btn-ghost" onClick={exportExcel}><span className="material-icons">download</span> Exportar Excel</button>
-                    <button className="btn btn-primary" onClick={() => setModal({ id: null, title: '', category: 'Gestão', startMonth: 0, duration: 1, color: '#3b82f6', description: '', notes: '' })}>
+                    <button className="planner-ons-btn planner-ons-btn-ghost" onClick={exportExcel}><span className="material-icons">download</span> Exportar Excel</button>
+                    <button className="planner-ons-btn planner-ons-btn-primary" onClick={() => setModal({ id: null, title: '', category: DEFAULT_CATEGORY, startMonth: 0, duration: 1, color: '#3b82f6', description: '', notes: '' })}>
                         <span className="material-icons">add</span> Nova Tarefa
                     </button>
                 </div>
             </div>
-            <div className="glass" style={{ overflow: 'hidden' }}>
-                <div className="gantt-wrap">
-                    <table className="gantt-table">
+            <div className="planner-ons-glass" style={{ overflow: 'hidden' }}>
+                <div className="planner-ons-gantt-wrap">
+                    <table className="planner-ons-gantt-table">
                         <thead>
-                            <tr className="gantt-header">
+                            <tr className="planner-ons-gantt-header">
                                 <th>Fase / Atividade</th>
                                 {MONTHS.map(m => <th key={m}>{m}</th>)}
                             </tr>
@@ -255,24 +259,19 @@ const GanttModule = ({ tasks, onUpdate }) => {
                                 const catTasks = byCategory[cat];
                                 return (
                                     <React.Fragment key={cat}>
-                                        <tr className="gantt-cat-row"><td colSpan={11} style={{ color: CAT_COLORS[cat] }}>▸ {cat}</td></tr>
+                                        <tr className="planner-ons-gantt-cat-row"><td colSpan={11} style={{ color: CAT_COLORS[cat] }}>▸ {cat}</td></tr>
                                         {catTasks.length === 0 ? (
-                                            <tr className="gantt-task-row">
+                                            <tr className="planner-ons-gantt-task-row">
                                                 <td style={{ color: 'var(--muted)', fontSize: 11, fontStyle: 'italic' }}>— sem tarefas —</td>
-                                                <td colSpan={10} className="gantt-cell"></td>
+                                                <td colSpan={10} className="planner-ons-gantt-cell"></td>
                                             </tr>
                                         ) : catTasks.map((task, i) => {
-                                            const currentMonth = new Date().getMonth();
-                                            const projectStartMonth = PROJECT_START.getMonth();
-                                            const monthsSinceStart = (currentMonth - projectStartMonth + 12) % 12;
-                                            const todayPositionPct = (monthsSinceStart / MONTHS.length) * 100;
-
                                             return (
-                                                <tr key={task.id} className="gantt-task-row">
+                                                <tr key={task.id} className="planner-ons-gantt-task-row">
                                                     <td>{task.title}</td>
-                                                    <td className="gantt-cell" colSpan={10} style={{ position: 'relative' }}>
-                                                        {i === 0 && <div className="today-line" style={{ left: `${todayPositionPct}%` }}><div className="today-badge">{todayLabel}</div></div>}
-                                                        <div className="task-bar" style={{ left: `${(task.startMonth / MONTHS.length) * 100}%`, width: `${(task.duration / MONTHS.length) * 100}%`, backgroundColor: task.color }} onClick={() => setModal({ ...task })}>
+                                                    <td className="planner-ons-gantt-cell" colSpan={10} style={{ position: 'relative' }}>
+                                                        {i === 0 && <div className="planner-ons-today-line" style={{ left: `${todayPct}%` }}><div className="planner-ons-today-badge">{todayLabel}</div></div>}
+                                                        <div className="planner-ons-task-bar" style={{ left: `${(task.startMonth / MONTHS.length) * 100}%`, width: `${(task.duration / MONTHS.length) * 100}%`, backgroundColor: task.color }} onClick={() => setModal({ ...task })}>
                                                             {task.title}
                                                         </div>
                                                     </td>
@@ -288,38 +287,38 @@ const GanttModule = ({ tasks, onUpdate }) => {
             </div>
 
             {modal && (
-                <div className="modal-backdrop" onClick={() => setModal(null)}>
-                    <div className="modal-box" onClick={e => e.stopPropagation()}>
-                        <div className="modal-title">{modal.id ? '✏️ Editar Tarefa' : '➕ Nova Tarefa'}</div>
-                        <div className="form-group"><label className="form-label">TÍTULO</label>
-                            <input className="form-input" value={modal.title} onChange={e => setModal({ ...modal, title: e.target.value })} placeholder="Ex: Integração API" />
+                <div className="planner-ons-modal-backdrop" onClick={() => setModal(null)}>
+                    <div className="planner-ons-modal-box" onClick={e => e.stopPropagation()}>
+                        <div className="planner-ons-modal-title">{modal.id ? '✏️ Editar Tarefa' : '➕ Nova Tarefa'}</div>
+                        <div className="planner-ons-form-group"><label className="planner-ons-form-label">TÍTULO</label>
+                            <input className="planner-ons-form-input" value={modal.title} onChange={e => setModal({ ...modal, title: e.target.value })} placeholder="Ex: Integração API" />
                         </div>
-                        <div className="form-group"><label className="form-label">CATEGORIA</label>
-                            <select className="form-input" value={modal.category} onChange={e => setModal({ ...modal, category: e.target.value })}>
+                        <div className="planner-ons-form-group"><label className="planner-ons-form-label">CATEGORIA</label>
+                            <select className="planner-ons-form-input" value={modal.category} onChange={e => setModal({ ...modal, category: e.target.value })}>
                                 {Object.keys(CATEGORIES).map(c => <option key={c}>{c}</option>)}
                             </select>
                         </div>
-                        <div className="form-row">
-                            <div className="form-group"><label className="form-label">INÍCIO (0–10)</label>
-                                <input className="form-input" type="number" min="0" max="10" step="0.5" value={modal.startMonth} onChange={e => setModal({ ...modal, startMonth: parseFloat(e.target.value) || 0 })} />
+                        <div className="planner-ons-form-row">
+                            <div className="planner-ons-form-group"><label className="planner-ons-form-label">INÍCIO (0–10)</label>
+                                <input className="planner-ons-form-input" type="number" min="0" max="10" step="0.5" value={modal.startMonth} onChange={e => setModal({ ...modal, startMonth: parseFloat(e.target.value) || 0 })} />
                             </div>
-                            <div className="form-group"><label className="form-label">DURAÇÃO (meses)</label>
-                                <input className="form-input" type="number" min="0.5" max="10" step="0.5" value={modal.duration} onChange={e => setModal({ ...modal, duration: parseFloat(e.target.value) || 1 })} />
+                            <div className="planner-ons-form-group"><label className="planner-ons-form-label">DURAÇÃO (meses)</label>
+                                <input className="planner-ons-form-input" type="number" min="0.5" max="10" step="0.5" value={modal.duration} onChange={e => setModal({ ...modal, duration: parseFloat(e.target.value) || 1 })} />
                             </div>
                         </div>
-                        <div className="form-group"><label className="form-label">COR</label>
+                        <div className="planner-ons-form-group"><label className="planner-ons-form-label">COR</label>
                             <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
                                 <input type="color" value={modal.color} onChange={e => setModal({ ...modal, color: e.target.value })} style={{ width: 44, height: 36, border: '1px solid var(--border)', borderRadius: 8, cursor: 'pointer', background: 'none' }} />
-                                <input className="form-input" style={{ flex: 1 }} value={modal.color} onChange={e => setModal({ ...modal, color: e.target.value })} placeholder="#3b82f6" />
+                                <input className="planner-ons-form-input" style={{ flex: 1 }} value={modal.color} onChange={e => setModal({ ...modal, color: e.target.value })} placeholder="#3b82f6" />
                             </div>
                         </div>
-                        <div className="form-group"><label className="form-label">NOTAS</label>
-                            <textarea className="form-input" rows={2} style={{ resize: 'vertical' }} value={modal.notes || ''} onChange={e => setModal({ ...modal, notes: e.target.value })} placeholder="Observações sobre a tarefa…" />
+                        <div className="planner-ons-form-group"><label className="planner-ons-form-label">NOTAS</label>
+                            <textarea className="planner-ons-form-input" rows={2} style={{ resize: 'vertical' }} value={modal.notes || ''} onChange={e => setModal({ ...modal, notes: e.target.value })} placeholder="Observações sobre a tarefa…" />
                         </div>
                         <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 8, marginTop: 16 }}>
-                            {modal.id && <button className="btn btn-danger" onClick={deleteModal}>Excluir</button>}
-                            <button className="btn btn-ghost" onClick={() => setModal(null)}>Cancelar</button>
-                            <button className="btn btn-primary" onClick={saveModal}>Salvar</button>
+                            {modal.id && <button className="planner-ons-btn planner-ons-btn-danger" onClick={deleteModal}>Excluir</button>}
+                            <button className="planner-ons-btn planner-ons-btn-ghost" onClick={() => setModal(null)}>Cancelar</button>
+                            <button className="planner-ons-btn planner-ons-btn-primary" onClick={saveModal}>Salvar</button>
                         </div>
                     </div>
                 </div>
@@ -354,8 +353,8 @@ const TaskCardsModule = ({ tasks, notes, onNotesChange, onUpdateTasks }) => {
                     <div style={{ fontSize: 20, fontWeight: 800 }}>Meus Rascunhos em .md </div>
                     <div style={{ fontSize: 12, color: 'var(--muted)', marginTop: 2 }}>{tasks.length} projeto(s) · {totalStats.pct}% concluído</div>
                 </div>
-                <button className="btn btn-primary" onClick={() => {
-                    const novo = { id: Date.now(), title: 'Nova Tarefa', category: 'Gestão', startMonth: 0, duration: 1, color: '#0284c7', description: '## Entregáveis\n- [ ] Sub-tarefa 1\n  - [ ] Sub-tarefa 1.1', notes: '' };
+                <button className="planner-ons-btn planner-ons-btn-primary" onClick={() => {
+                    const novo = { id: Date.now(), title: 'Nova Tarefa', category: DEFAULT_CATEGORY, startMonth: 0, duration: 1, color: '#0284c7', description: '## Entregáveis\n- [ ] Sub-tarefa 1\n  - [ ] Sub-tarefa 1.1', notes: '' };
                     onUpdateTasks([...tasks, novo]);
                     snack('Nova tarefa criada.', 'success');
                 }}>
@@ -364,7 +363,7 @@ const TaskCardsModule = ({ tasks, notes, onNotesChange, onUpdateTasks }) => {
             </div>
 
             {/* Anotação Geral — sempre visível e persistida */}
-            <div className="notes-box">
+            <div className="planner-ons-notes-box">
                 <span className="material-icons" style={{ color: 'var(--accent)', flexShrink: 0, marginTop: 2, fontSize: 20 }}>sticky_note_2</span>
                 <div style={{ flex: 1 }}>
                     <div style={{ fontSize: 11, fontWeight: 600, color: 'var(--muted)', letterSpacing: '0.08em', marginBottom: 6 }}>ANOTAÇÃO GERAL</div>
@@ -378,11 +377,11 @@ const TaskCardsModule = ({ tasks, notes, onNotesChange, onUpdateTasks }) => {
                 </div>
             </div>
 
-            <div className="task-cards-grid">
+            <div className="planner-ons-task-cards-grid">
                 {tasks.map(task => {
                     const p = calcProgress(task.description || '');
                     return (
-                        <div key={task.id} className="task-card" onClick={() => setEditTask({ ...task })}>
+                        <div key={task.id} className="planner-ons-task-card" onClick={() => setEditTask({ ...task })}>
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 12 }}>
                                 <div style={{ width: 40, height: 40, borderRadius: 10, background: task.color, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'rgba(0,0,0,0.7)', flexShrink: 0 }}>
                                     <span className="material-icons">assignment</span>
@@ -399,10 +398,10 @@ const TaskCardsModule = ({ tasks, notes, onNotesChange, onUpdateTasks }) => {
                             )}
                             <div style={{ marginTop: 'auto', paddingTop: 12 }}>
                                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, marginBottom: 4 }}>
-                                    <span style={{ color: 'var(--muted)' }}>Progresso</span>
+                                    <span style={{ color: 'var(--planner-muted)' }}>Progresso</span>
                                     <span style={{ fontWeight: 700 }}>{p.pct}%</span>
                                 </div>
-                                <div className="prog-bar"><div className="prog-fill" style={{ width: `${p.pct}%`, background: task.color }} /></div>
+                                <div className="planner-ons-prog-bar"><div className="planner-ons-prog-fill" style={{ width: `${p.pct}%`, background: task.color }} /></div>
                             </div>
                         </div>
                     );
@@ -410,28 +409,28 @@ const TaskCardsModule = ({ tasks, notes, onNotesChange, onUpdateTasks }) => {
             </div>
 
             {editTask && (
-                <div className="modal-backdrop" onClick={() => setEditTask(null)}>
-                    <div className="modal-box" onClick={e => e.stopPropagation()} style={{ width: 600 }}>
+                <div className="planner-ons-modal-backdrop" onClick={() => setEditTask(null)}>
+                    <div className="planner-ons-modal-box" onClick={e => e.stopPropagation()} style={{ width: 600 }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 20 }}>
                             <input type="color" value={editTask.color} onChange={e => setEditTask({ ...editTask, color: e.target.value })} style={{ width: 36, height: 36, borderRadius: 8, border: '1px solid var(--border)', cursor: 'pointer', background: 'none' }} />
-                            <input className="form-input" style={{ flex: 1, fontSize: 15, fontWeight: 700 }} value={editTask.title} onChange={e => setEditTask({ ...editTask, title: e.target.value })} />
+                            <input className="planner-ons-form-input" style={{ flex: 1, fontSize: 15, fontWeight: 700 }} value={editTask.title} onChange={e => setEditTask({ ...editTask, title: e.target.value })} />
                         </div>
-                        <div className="form-group"><label className="form-label">CATEGORIA</label>
-                            <select className="form-input" value={editTask.category || 'Gestão'} onChange={e => setEditTask({ ...editTask, category: e.target.value })}>
+                        <div className="planner-ons-form-group"><label className="planner-ons-form-label">CATEGORIA</label>
+                            <select className="planner-ons-form-input" value={editTask.category || DEFAULT_CATEGORY} onChange={e => setEditTask({ ...editTask, category: e.target.value })}>
                                 {Object.keys(CATEGORIES).map(c => <option key={c}>{c}</option>)}
                             </select>
                         </div>
-                        <div className="form-group"><label className="form-label">NOTAS / OBS</label>
-                            <textarea className="form-input" rows={3} style={{ resize: 'vertical' }} value={editTask.notes || ''} onChange={e => setEditTask({ ...editTask, notes: e.target.value })} placeholder="Observações sobre esta tarefa…" />
+                        <div className="planner-ons-form-group"><label className="planner-ons-form-label">NOTAS / OBS</label>
+                            <textarea className="planner-ons-form-input" rows={3} style={{ resize: 'vertical' }} value={editTask.notes || ''} onChange={e => setEditTask({ ...editTask, notes: e.target.value })} placeholder="Observações sobre esta tarefa…" />
                         </div>
-                        <div className="form-group"><label className="form-label">DESCRIÇÃO / CHECKLIST (Markdown)</label>
-                            <textarea className="form-input md-editor" style={{ minHeight: 220, resize: 'vertical', fontFamily: 'var(--mono)', fontSize: 12 }} value={editTask.description || ''} onChange={e => setEditTask({ ...editTask, description: e.target.value })} placeholder={"## Entregáveis\n- [ ] Tarefa principal\n  - [ ] Sub-tarefa aninhada\n- [x] Já concluída"} />
+                        <div className="planner-ons-form-group"><label className="planner-ons-form-label">DESCRIÇÃO / CHECKLIST (Markdown)</label>
+                            <textarea className="planner-ons-form-input planner-ons-md-editor" style={{ minHeight: 220, resize: 'vertical', fontFamily: 'var(--mono)', fontSize: 12 }} value={editTask.description || ''} onChange={e => setEditTask({ ...editTask, description: e.target.value })} placeholder={"## Entregáveis\n- [ ] Tarefa principal\n  - [ ] Sub-tarefa aninhada\n- [x] Já concluída"} />
                             <div style={{ fontSize: 11, color: 'var(--muted)', marginTop: 4 }}>Dica: use 2 espaços antes de "- [ ]" para sub-tarefas aninhadas.</div>
                         </div>
                         <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 8, marginTop: 16 }}>
-                            <button className="btn btn-danger" onClick={() => { onUpdateTasks(tasks.filter(t => t.id !== editTask.id)); setEditTask(null); snack('Tarefa eliminada.', 'info'); }}>Excluir</button>
-                            <button className="btn btn-ghost" onClick={() => setEditTask(null)}>Cancelar</button>
-                            <button className="btn btn-primary" onClick={saveEdit}>Salvar</button>
+                            <button className="planner-ons-btn planner-ons-btn-danger" onClick={() => { onUpdateTasks(tasks.filter(t => t.id !== editTask.id)); setEditTask(null); snack('Tarefa eliminada.', 'info'); }}>Excluir</button>
+                            <button className="planner-ons-btn planner-ons-btn-ghost" onClick={() => setEditTask(null)}>Cancelar</button>
+                            <button className="planner-ons-btn planner-ons-btn-primary" onClick={saveEdit}>Salvar</button>
                         </div>
                     </div>
                 </div>
@@ -655,13 +654,13 @@ const ChecklistModule = ({ markdown, onSave }) => {
         );
         if (l.type === 'checkbox') return (
             <div key={idx}
-                className={`checklist-item ${l.sub ? 'sub' : ''}`}
+                className={`planner-ons-checklist-item ${l.sub ? 'planner-ons-sub' : ''}`}
                 style={l.indent > 2 ? { marginLeft: Math.min(l.indent * 8, 64) } : {}}
                 onClick={() => toggle(l.lineIdx)}
             >
-                <div className={`check-box ${l.checked ? 'checked' : ''}`} />
-                <span className={`check-text ${l.checked ? 'done' : ''}`}>{l.text}</span>
-                {l.tag && <span className={`tag-pill tag-${l.tag.toLowerCase()}`}>{l.tag}</span>}
+                <div className={`planner-ons-check-box ${l.checked ? 'planner-ons-checked' : ''}`} />
+                <span className={`planner-ons-check-text ${l.checked ? 'planner-ons-done' : ''}`}>{l.text}</span>
+                {l.tag && <span className={`planner-ons-tag-pill planner-ons-tag-${l.tag.toLowerCase()}`}>{l.tag}</span>}
             </div>
         );
         return null;
@@ -675,13 +674,13 @@ const ChecklistModule = ({ markdown, onSave }) => {
                     <div style={{ fontSize: 12, color: 'var(--muted)', marginTop: 2 }}>Markdown fiel · tags __ONS · __TODO · __WIP · __BLOCK · __DONE</div>
                 </div>
                 <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-                    <label className="btn btn-green" style={{ cursor: 'pointer' }}>
+                    <label className="planner-ons-btn planner-ons-btn-green" style={{ cursor: 'pointer' }}>
                         <span className="material-icons">upload_file</span> Importar
                         <input type="file" accept=".xlsx,.xls,.md,.txt" style={{ display: 'none' }} ref={fileRef} onChange={importFile} />
                     </label>
-                    <button className="btn btn-ghost" onClick={exportExcel}><span className="material-icons">table_chart</span> Excel</button>
-                    <button className="btn btn-ghost" onClick={downloadMd}><span className="material-icons">download</span> .md</button>
-                    <button className={`btn ${editMode ? 'btn-primary' : 'btn-ghost'}`} onClick={() => setEditMode(!editMode)}>
+                    <button className="planner-ons-btn planner-ons-btn-ghost" onClick={exportExcel}><span className="material-icons">table_chart</span> Excel</button>
+                    <button className="planner-ons-btn planner-ons-btn-ghost" onClick={downloadMd}><span className="material-icons">download</span> .md</button>
+                    <button className={`planner-ons-btn ${editMode ? 'planner-ons-btn-primary' : 'planner-ons-btn-ghost'}`} onClick={() => setEditMode(!editMode)}>
                         <span className="material-icons">{editMode ? 'visibility' : 'edit'}</span>
                         {editMode ? 'Ver Widgets' : 'Editar MD'}
                     </button>
@@ -689,18 +688,18 @@ const ChecklistModule = ({ markdown, onSave }) => {
             </div>
 
             {editMode ? (
-                <div className="glass" style={{ padding: 16 }}>
+                <div className="planner-ons-glass" style={{ padding: 16 }}>
                     <div style={{ fontSize: 11, color: 'var(--muted)', marginBottom: 8, fontFamily: 'var(--mono)' }}>
                         Sintaxe livre: ## Aba · ### Seção · - [ ] item __TAG · &nbsp;&nbsp;- [x] sub · --- separador · texto livre
                     </div>
-                    <textarea className="md-editor" value={rawMd} onChange={e => handleEditorChange(e.target.value)} spellCheck={false} />
+                    <textarea className="planner-ons-md-editor" value={rawMd} onChange={e => handleEditorChange(e.target.value)} spellCheck={false} />
                 </div>
             ) : (
-                <div className="glass" style={{ overflow: 'hidden' }}>
+                <div className="planner-ons-glass" style={{ overflow: 'hidden' }}>
                     {/* Abas */}
-                    <div className="md-tabs">
+                    <div className="planner-ons-md-tabs">
                         {tabs.map((tab, i) => (
-                            <div key={tab} className={`md-tab ${safeTab === i ? 'active' : ''}`} onClick={() => setActiveTab(i)}>
+                            <div key={tab} className={`planner-ons-md-tab ${safeTab === i ? 'planner-ons-active' : ''}`} onClick={() => setActiveTab(i)}>
                                 {tab}
                                 <span style={{ marginLeft: 6, fontSize: 10, color: tabProgress(allLines, tab) === 100 ? 'var(--accent2)' : 'var(--muted)' }}>
                                     {tabProgress(allLines, tab)}%
@@ -711,7 +710,7 @@ const ChecklistModule = ({ markdown, onSave }) => {
 
                     {/* Progress bar */}
                     <div style={{ padding: '8px 16px 0' }}>
-                        <div className="prog-bar"><div className="prog-fill" style={{ width: `${pct}%` }} /></div>
+                        <div className="planner-ons-prog-bar"><div className="planner-ons-prog-fill" style={{ width: `${pct}%` }} /></div>
                     </div>
 
                     {/* Conteúdo da aba ativa — todas as linhas renderizadas fielmente */}
@@ -744,20 +743,20 @@ const ReportsModule = ({ tasks, markdown }) => {
     }, [tasks, markdown]);
 
     const SC = ({ value, sub, label, color }) => (
-        <div className="report-stat">
-            <div className="report-stat-value" style={{ color: color || 'var(--text)' }}>
-                {value}<span style={{ fontSize: 18, color: 'var(--muted)', fontWeight: 400 }}>{sub}</span>
+        <div className="planner-ons-report-stat">
+            <div className="planner-ons-report-stat-value" style={{ color: color || 'var(--planner-text)' }}>
+                {value}<span style={{ fontSize: 18, color: 'var(--planner-muted)', fontWeight: 400 }}>{sub}</span>
             </div>
-            <div className="report-stat-label">{label}</div>
-            <div className="prog-bar" style={{ marginTop: 12 }}><div className="prog-fill" style={{ width: '100%' }} /></div>
+            <div className="planner-ons-report-stat-label">{label}</div>
+            <div className="planner-ons-prog-bar" style={{ marginTop: 12 }}><div className="planner-ons-prog-fill" style={{ width: '100%' }} /></div>
         </div>
     );
 
     return (
         <div>
             <div style={{ fontSize: 20, fontWeight: 800, marginBottom: 4 }}>Painel de Controle</div>
-            <div style={{ fontSize: 12, color: 'var(--muted)', marginBottom: 20 }}>Visão consolidada de todos os módulos</div>
-            <div className="report-grid">
+            <div style={{ fontSize: 12, color: 'var(--planner-muted)', marginBottom: 20 }}>Visão consolidada de todos os módulos</div>
+            <div className="planner-ons-report-grid">
                 <SC value={stats.totalTasks} sub="" label="PROJETOS NO GANTT" color="var(--accent)" />
                 <SC value={stats.taskPct} sub="%" label="PROGRESSO DAS TAREFAS" color="var(--accent2)" />
                 <SC value={stats.taskDone} sub={` / ${stats.taskItems}`} label="CHECKLISTS CONCLUÍDOS" />
@@ -765,7 +764,7 @@ const ReportsModule = ({ tasks, markdown }) => {
                 <SC value={stats.mdDone} sub={` / ${stats.mdItems}`} label="ITENS DO PLANNER FEITOS" />
             </div>
             <div style={{ marginTop: 32, fontSize: 14, fontWeight: 700, marginBottom: 12 }}>Detalhamento por Projeto</div>
-            <div className="glass" style={{ overflow: 'hidden' }}>
+            <div className="planner-ons-glass" style={{ overflow: 'hidden' }}>
                 {tasks.map((task, i) => {
                     const p = calcProgress(task.description || '');
                     return (
@@ -776,7 +775,7 @@ const ReportsModule = ({ tasks, markdown }) => {
                                 <div style={{ fontSize: 11, color: 'var(--muted)' }}>{task.category || ''}</div>
                             </div>
                             <div style={{ width: 100, flexShrink: 0 }}>
-                                <div className="prog-bar"><div className="prog-fill" style={{ width: `${p.pct}%`, background: task.color }} /></div>
+                                <div className="planner-ons-prog-bar"><div className="planner-ons-prog-fill" style={{ width: `${p.pct}%`, background: task.color }} /></div>
                             </div>
                             <div style={{ fontSize: 12, fontWeight: 700, width: 36, textAlign: 'right' }}>{p.pct}%</div>
                         </div>
@@ -793,35 +792,37 @@ const ReportsModule = ({ tasks, markdown }) => {
 const ConfigModule = ({ onReset, darkMode, onToggleTheme }) => (
     <div>
         <div style={{ fontSize: 20, fontWeight: 800, marginBottom: 20 }}>Configurações</div>
-        <div className="glass" style={{ padding: 24 }}>
-            <div className="config-section">
+        <div className="planner-ons-glass" style={{ padding: 24 }}>
+            <div className="planner-ons-config-section">
                 <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 12 }}>Aparência</div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-                    <span className="material-icons" style={{ color: 'var(--muted)' }}>{darkMode ? 'dark_mode' : 'light_mode'}</span>
+                    <span style={{ color: 'var(--muted)', display: 'flex', alignItems: 'center' }}>
+                        {darkMode ? <Moon size={18} /> : <Sun size={18} />}
+                    </span>
                     <span style={{ fontSize: 13, color: 'var(--text)' }}>{darkMode ? 'Modo Escuro ativo' : 'Modo Claro ativo'}</span>
-                    <button className="btn btn-ghost" onClick={onToggleTheme}>
-                        <span className="material-icons">{darkMode ? 'light_mode' : 'dark_mode'}</span>
+                    <button className="planner-ons-btn planner-ons-btn-ghost" onClick={onToggleTheme}>
+                        {darkMode ? <Sun size={16} style={{ marginRight: 8 }} /> : <Moon size={16} style={{ marginRight: 8 }} />}
                         Alternar para {darkMode ? 'Claro' : 'Escuro'}
                     </button>
                 </div>
             </div>
-            <div className="config-section" style={{ marginTop: 24 }}>
+            <div className="planner-ons-config-section" style={{ marginTop: 24 }}>
                 <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 8 }}>Dados Locais</div>
-                <div className="config-label">Os dados são armazenados no localStorage do navegador.</div>
-                <button className="btn btn-danger" onClick={() => { if (confirm('Resetar todos os dados?')) onReset(); }}>
+                <div className="planner-ons-config-label">Os dados são armazenados no localStorage do navegador.</div>
+                <button className="planner-ons-btn planner-ons-btn-danger" onClick={() => { if (confirm('Resetar todos os dados?')) onReset(); }}>
                     <span className="material-icons">delete_forever</span> Limpar Base de Dados
                 </button>
             </div>
-            <div className="config-section" style={{ marginTop: 24 }}>
+            <div className="planner-ons-config-section" style={{ marginTop: 24 }}>
                 <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 8 }}>Tags Suportadas no Planner</div>
                 <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-                    {['ONS', 'TODO', 'WIP', 'BLOCK', 'DONE'].map(t => <span key={t} className={`tag-pill tag-${t.toLowerCase()}`}>{t}</span>)}
+                    {['ONS', 'TODO', 'WIP', 'BLOCK', 'DONE'].map(t => <span key={t} className={`planner-ons-tag-pill planner-ons-tag-${t.toLowerCase()}`}>{t}</span>)}
                 </div>
-                <div className="config-label" style={{ marginTop: 8 }}>Use __NOMEATAG no final de cada linha no Markdown.</div>
+                <div className="planner-ons-config-label" style={{ marginTop: 8 }}>Use __NOMEATAG no final de cada linha no Markdown.</div>
             </div>
-            <div className="config-section" style={{ marginTop: 24 }}>
+            <div className="planner-ons-config-section" style={{ marginTop: 24 }}>
                 <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 8 }}>Módulos & Fixes</div>
-                <div className="config-label">
+                <div className="planner-ons-config-label">
                     <b>Cronograma:</b> Gantt com categorias, Import/Export Excel (.xlsx)<br />
                     <b>Meus Rascunhos:</b> Cards com checklist MD, anotação geral fixa e persistida<br />
                     <b>Checklist/Planner:</b> Parser MD corrigido (# ## ###, sub-itens 2+ espaços), Export Excel + .md<br />
@@ -841,8 +842,18 @@ export default function PlannerONSPage() {
     const [view, setView] = useState('gantt');
     const [collapsed, setCollapsed] = useState(false);
 
+    useEffect(() => {
+        const id = 'planner-ons-material-icons';
+        if (typeof document !== 'undefined' && !document.getElementById(id)) {
+            const link = document.createElement('link');
+            link.id = id;
+            link.rel = 'stylesheet';
+            link.href = 'https://fonts.googleapis.com/css2?family=Material+Icons';
+            document.head.appendChild(link);
+        }
+    }, []);
+
     useEffect(() => { Model.save(data); }, [data]);
-    useEffect(() => { document.documentElement.setAttribute('data-theme', data.darkMode ? 'dark' : 'light'); }, [data.darkMode]);
 
     const updateTasks = tasks => setData(d => ({ ...d, tasks }));
     const updateMarkdown = markdown => setData(d => ({ ...d, markdown }));
@@ -861,49 +872,52 @@ export default function PlannerONSPage() {
 
     return (
         <SnackbarProvider>
-            <div className="app-layout">
-                <div className={`sidebar ${collapsed ? 'collapsed' : ''}`}>
-                    <div className="sidebar-logo">
-                        <div className="logo-icon">⚡</div>
-                        {!collapsed && <div><div className="logo-text">HUB ONS</div><div className="logo-sub">INTEGRADO v1.0</div></div>}
-                    </div>
-                    <div className="nav-section">
-                        {!collapsed && <div className="nav-label">Módulos</div>}
-                        {navItems.map(item => (
-                            <div key={item.id} className={`nav-item ${view === item.id ? 'active' : ''}`} onClick={() => setView(item.id)} title={collapsed ? item.label : ''}>
-                                <span className="material-icons">{item.icon}</span>
-                                {!collapsed && item.label}
+            <div className="planner-ons-container" data-theme={data.darkMode ? 'dark' : 'light'}>
+                <div className="planner-ons-app-layout">
+                    <div className={`planner-ons-sidebar ${collapsed ? 'planner-ons-collapsed' : ''}`}>
+                        <div className="planner-ons-sidebar-logo">
+                            <div className="planner-ons-logo-icon">⚡</div>
+                            {!collapsed && <div><div className="planner-ons-logo-text">Planner ONS 2026</div><div className="planner-ons-logo-sub">INTEGRADO v3.1.3</div></div>}
+                        </div>
+                        <div className="planner-ons-nav-section">
+                            {!collapsed && <div className="planner-ons-nav-label">Módulos</div>}
+                            {navItems.map(item => (
+                                <div key={item.id} className={`planner-ons-nav-item ${view === item.id ? 'planner-ons-active' : ''}`} onClick={() => setView(item.id)} title={collapsed ? item.label : ''}>
+                                    <span className="material-icons">{item.icon}</span>
+                                    {!collapsed && item.label}
+                                </div>
+                            ))}
+                        </div>
+                        <div className="planner-ons-sidebar-bottom">
+                            <div className="planner-ons-nav-item" onClick={toggleTheme} title={data.darkMode ? 'Modo Claro' : 'Modo Escuro'}>
+                                <span style={{ display: 'flex', alignItems: 'center' }}>{data.darkMode ? <Moon size={18} /> : <Sun size={18} />}</span>
+                                {!collapsed && (data.darkMode ? 'Modo Claro' : 'Modo Escuro')}
                             </div>
-                        ))}
-                    </div>
-                    <div className="sidebar-bottom">
-                        <div className="nav-item" onClick={toggleTheme} title={data.darkMode ? 'Modo Claro' : 'Modo Escuro'}>
-                            <span className="material-icons">{data.darkMode ? 'light_mode' : 'dark_mode'}</span>
-                            {!collapsed && (data.darkMode ? 'Modo Claro' : 'Modo Escuro')}
-                        </div>
-                        <div className="nav-item" onClick={() => setCollapsed(!collapsed)} title={collapsed ? 'Expandir' : 'Recolher'}>
-                            <span className="material-icons">{collapsed ? 'chevron_right' : 'chevron_left'}</span>
-                            {!collapsed && 'Recolher'}
+                            <div className="planner-ons-nav-item" onClick={() => setCollapsed(!collapsed)} title={collapsed ? 'Expandir' : 'Recolher'}>
+                                <span className="material-icons">{collapsed ? 'chevron_right' : 'chevron_left'}</span>
+                                {!collapsed && 'Recolher'}
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div className="main-area">
-                    <div className="topbar">
-                        <div>
-                            <div className="topbar-title">{titles[view]}</div>
-                            <div className="topbar-sub">ONS · {new Date().toLocaleDateString('pt-BR')}</div>
+                    <div className="planner-ons-main-area">
+                        <div className="planner-ons-topbar">
+                            <div>
+                                <div className="planner-ons-topbar-title">{titles[view]}</div>
+                                <div className="planner-ons-topbar-sub">ONS · {new Date().toLocaleDateString('pt-BR')}</div>
+                            </div>
                         </div>
-                    </div>
-                    <div className="content-scroll">
-                        {view === 'gantt' && <GanttModule tasks={data.tasks} onUpdate={updateTasks} />}
-                        {view === 'tasks' && <TaskCardsModule tasks={data.tasks} notes={data.notes || ''} onNotesChange={updateNotes} onUpdateTasks={updateTasks} />}
-                        {view === 'checklist' && <ChecklistModule markdown={data.markdown} onSave={updateMarkdown} />}
-                        {view === 'reports' && <ReportsModule tasks={data.tasks} markdown={data.markdown} />}
-                        {view === 'config' && <ConfigModule onReset={reset} darkMode={data.darkMode} onToggleTheme={toggleTheme} />}
+                        <div className="planner-ons-content-scroll">
+                            {view === 'gantt' && <GanttModule tasks={data.tasks} onUpdate={updateTasks} />}
+                            {view === 'tasks' && <TaskCardsModule tasks={data.tasks} notes={data.notes || ''} onNotesChange={updateNotes} onUpdateTasks={updateTasks} />}
+                            {view === 'checklist' && <ChecklistModule markdown={data.markdown} onSave={updateMarkdown} />}
+                            {view === 'reports' && <ReportsModule tasks={data.tasks} markdown={data.markdown} />}
+                            {view === 'config' && <ConfigModule onReset={reset} darkMode={data.darkMode} onToggleTheme={toggleTheme} />}
+                        </div>
                     </div>
                 </div>
             </div>
         </SnackbarProvider>
     );
 }
+
 
