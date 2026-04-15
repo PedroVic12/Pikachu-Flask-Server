@@ -21,7 +21,6 @@ import {
   Kanban,
   Menu,
   X,
-  Plus,
   Edit3,
 
   Trash2,
@@ -43,6 +42,8 @@ import {
   Sun,
   Moon,
 } from "lucide-react";
+
+
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { Card, CardContent } from "@/components/ui/card";
