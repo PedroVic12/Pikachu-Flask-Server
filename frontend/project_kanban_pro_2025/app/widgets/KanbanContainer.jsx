@@ -136,7 +136,7 @@ const KanbanColumn = ({
                 <div className="flex items-center gap-2" >
                     <span className="text-xl text-gray-900 dark:text-gray-100" > {columnInfo.emoji} </span>
                     < h2 className="font-semibold text-gray-900 dark:text-gray-100 text-sm" > {columnInfo.title} </h2>
-                    < span className="bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-xs px-2 py-1 rounded-full" >
+                    < span className="bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-lg px-2 py-1 rounded-full" >
                         {projects.length}
                     </span>
                 </div>
