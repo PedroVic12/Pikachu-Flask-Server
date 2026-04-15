@@ -12,8 +12,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "BatCaverna",
-  description: "Dashboard do BatCaverna",
+  title: "BatCaverna-PV",
+  description: "Dashboard BatCaverna",
 };
 
 export default function RootLayout({ children }) {

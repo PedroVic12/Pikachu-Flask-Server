@@ -2,7 +2,6 @@
 // page.js – Dashboard BatCaverna (Versão Modular)
 // =======================================================
 
-
 //! npm install chart.js htm three xlsx
 
 "use client"
@@ -24,7 +23,6 @@ import XLSX from 'xlsx'; // xlsx
 
 
 // Configurando o localstorage
-// SOLUÇÃO DEFINITIVA PARA NEXT.JS
 const localStorage = typeof window !== 'undefined'
   ? window.localStorage
   : { getItem: () => null, setItem: () => null, removeItem: () => null };
@@ -225,12 +223,12 @@ class BatmanProfileModel {
     this.profileData = {
       basicInfo: {
         nomeVerdadeiro: "Pedro Victor Veras",
-        ocupacao: "Estudante e Estagiário no ONS",
-        base: "Niteroi City, RJ",
+        ocupacao: "Estudante de Eng. Elétrica na UFF e Estagiário no ONS",
+        base: "Niteroi/CG City, RJ",
         corOlhos: "Castanhos",
         corCabelo: "Preto",
         altura: "1,72 m",
-        peso: "81 kg"
+        peso: "83 kg"
       },
       progress: {
         perfis: { current: 16, total: 32, percent: 50 },
@@ -271,6 +269,8 @@ class BatmanProfileModel {
     this.profileData.notes = this.profileData.notes.filter(note => note.id !== noteId);
     return this.profileData.notes;
   }
+
+  
 
   updateGoalProgress(goalId, newProgress) {
     const goal = this.profileData.goals.find(g => g.id === goalId);
