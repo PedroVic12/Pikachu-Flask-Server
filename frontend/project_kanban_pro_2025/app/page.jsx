@@ -17,7 +17,6 @@ import {
 import {
   LayoutDashboard,
   Table,
-  FileText,
   Kanban,
   Menu,
   X,
@@ -35,9 +34,6 @@ import {
   ChevronRight,
   Search,
 
-  FileImage,
-  FileSpreadsheet,
-  File as FilePdf,
   Database,
   Sun,
   Moon,
@@ -969,6 +965,7 @@ export default function App() {
 
       case "api-data":
         return <ApiDataScreen />;
+
       case "pvrv-web-dev":
         return <PVRVWebDevPage theme={theme} />;
       default:
