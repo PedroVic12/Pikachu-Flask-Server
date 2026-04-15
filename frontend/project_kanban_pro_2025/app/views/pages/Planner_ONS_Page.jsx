@@ -1,6 +1,7 @@
 "use client";
 
-const { useState, useEffect, useMemo, useRef, useCallback } = React;
+import { React, useState, useEffect, useMemo, useRef, useCallback } from 'react';
+
 
 const STORAGE_KEY = 'hub_ons_unified_v1';
 const PROJECT_START = new Date(2026, 3, 12); // 12 mar 2026 
