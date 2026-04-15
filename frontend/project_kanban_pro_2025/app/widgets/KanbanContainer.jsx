@@ -54,12 +54,12 @@ const ProjectCard = ({ project, onEdit, onDragStart }) => { // Removed React.FC<
                     <span>{categoryInfo.emoji} </span>
                 </div>
                 <GripVertical
-                    size={14}
+                    size={20}
                     className="text-gray-400 dark:text-gray-300 opacity-0 group-hover:opacity-100 transition-opacity cursor-move"
                 />
             </div>
 
-            <h3 className="font-medium text-gray-900 dark:text-gray-500 mb-2 text-sm line-clamp-2">
+            <h3 className="font-bold text-gray-900 dark:text-white-500 mb-2 text-sm line-clamp-2">
                 {project.title}
             </h3>
 
@@ -71,7 +71,7 @@ const ProjectCard = ({ project, onEdit, onDragStart }) => { // Removed React.FC<
                 <div className="mt-3">
                     <div className="flex justify-between items-center mb-1">
                         <span className="text-base font-bold text-gray-900 dark:text-gray-100">Progresso</span>
-                        <span className="text-lg font-bold text-gray-500 dark:text-white-500">{completed}/{total}</span>
+                        <span className="text-lg font-bold text-gray-200 dark:text-white-500">{completed}/{total}</span>
                     </div>
                     <div className="w-full bg-gray-200/70 dark:bg-gray-700 rounded-full h-1.5">
                         <div
@@ -82,7 +82,7 @@ const ProjectCard = ({ project, onEdit, onDragStart }) => { // Removed React.FC<
                 </div>
             )}
 
-            <div className="flex items-center justify-between font-bold text-lg text-gray-900 dark:text-gray-100 mt-2">
+            <div className="flex items-center justify-between font-bold text-sm text-gray-900 dark:text-gray-100 mt-2">
                 <span>{project.updatedAt.toLocaleDateString('pt-BR')}</span>
                 <Edit3 size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
             </div>
