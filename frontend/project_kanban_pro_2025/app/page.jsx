@@ -75,6 +75,7 @@ import ItemEditor from "./views/components/EditorModalProject.js";
 import PVRVWebDevPage from "./views/pages/PVRVWebDevPage.jsx";
 import DeckStorageController from "./controllers/DeckStorageController.js";
 import MonitoramentoPage from "./views/pages/MonitoramentePage.jsx";
+import PlannerONSPage from "./views/pages/Planner_ONS_Page.jsx";
 
 // Usar essa pagina no projeto Dashboard Web SP + SECO para ONS PLC
 //import ProjectHubPage from "./views/pages/ProjectHubPage.jsx";
@@ -961,6 +962,9 @@ export default function App() {
         return <DashboardScreen />;
       case "kanban":
         return <KanbanScreen />;
+
+      case "planner":
+        return <PlannerONSPage />
 
       case "api-data":
         return <ApiDataScreen />;
