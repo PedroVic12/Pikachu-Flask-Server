@@ -161,8 +161,8 @@ const Sidebar = ({
   const menuItems = [
     { id: "dashboard", label: "Dashboard", icon: LayoutDashboard },
     { id: "kanban", label: "Kanban", icon: Kanban },
-    { id: "table", label: "Tabelas", icon: Table },
-    { id: "files", label: "Arquivos", icon: FileText },
+    { id: "planner", label: "Planner ONS", icon: Table },
+    // { id: "files", label: "Arquivos", icon: FileText },
     { id: "api-data", label: "API", icon: Database },
     { id: "pvrv-web-dev", label: "PVRV Web DEV", icon: LayoutDashboard },
   ];
