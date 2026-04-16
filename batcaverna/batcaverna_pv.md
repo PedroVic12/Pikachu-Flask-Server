@@ -1,5 +1,7 @@
-
 # 🦇 BatCaverna PV - Centro de Comando 2026
+
+📅 Data: **16/04/2026**
+
 
 ## 📑 ÍNDICE RÁPIDO
 
@@ -38,74 +40,74 @@
 
 ![alt text - ciencia de dados ONS](image-1.png)
 
----
 
-### 🦇 Batcaverna PV - Centro de Comando 2026
+### ⚡ Alinhamento do Dia — Execução com Precisão
 
----
 
-# ⚡ Alinhamento do Dia — Execução com Precisão
-
-📅 Data: _______
 
 ---
 
 ## 🔮 Alinhamento Espiritual
 
-### 🟦 Chakra do dia: Garganta (Vishuddha)
+### 🟦 Chakra do dia: 
 
-- Comunicação, clareza e verdade  
-- [ ] Falar menos e com precisão  
-- [ ] Ser direto no código e nos estudos  
+- Seg:Coronario
+- Terça: Garganta (Vishuddha)
+- Quarta: Cardiaco
+- Quinta: 3rd eye
+- Sexta: Solar Chakra
+- Sabado: Root Chackra
+
+
+- Comunicação, clareza e verdade
+- [ ] Falar menos e com precisão
+- [ ] Ser direto no código e nos estudos
 
 ---
 
-### 📖 Salmo
 
-- Salmo 23  
-- [ ] Ler e refletir  
+### ✝️ Leitura do Evangelho e Cartas espirituais
 
----
+- Mateus 7:7
+- Salmo 23
 
-### ✝️ Evangelho
-
-- Mateus 7:7  
-- [ ] Ler e refletir  
 
 ---
 
 ### ✨ Mensagem do Dia
 
-- [ ] Fazer certo, mesmo cansado  
+- [ ] 
 
 ---
 
-### 🔥 Dom do Espírito Santo: Sabedoria
+### 🔥 Dom do Espírito Santo: 
 
-- [ ] Aplicar conhecimento na prática  
+- [ ] Aplicar conhecimento na prática
 
 ---
 
-### 🧠 Filosofia Japonesa: Ganbaru
+### 🧠 Filosofia Japonesa: Ganbaru, Ikigai, Banho de floresta
 
-- [ ] Persistir mesmo sem motivação  
+- [ ] Persistir mesmo sem motivação
 
 ---
 
 ### 💬 Frase de Poder
 
-- “Eu avanço mesmo nos dias difíceis.”  
-- [ ] Repetir 3x ao longo do dia  
+- Cartões de enfrentamento 
+- Afirmações positivas
+- Meditação e pensamento consciente
+- [ ] Repetir 3x ao longo do dia
 
 ---
 
-## 🏆 Vitória do Dia: ESTUDOS
 
-- [ ] Manter consistência mesmo com dia cheio  
+# 🏆 Vitória do Dia: ESTUDOS
 
----
+- [ ] Manter consistência mesmo com dia cheio
 
-## ⚡ Lei Física do Dia
+
+# ⚡ Equação do dia
 
 ### Lei de Kirchhoff das Correntes (KCL)
 
@@ -113,46 +115,43 @@
 \sum I = 0
 \]
 
-- [ ] Revisar conceito  
-- [ ] Aplicar em exercícios  
+- [ ] Revisar conceito
+- [ ] Aplicar em exercícios
 
 ---
 
-## ⚙️ Plano do Dia (ONS + UFF)
+# ⚙️ Planos e Metas do Dia (ONS + UFF)
 
-### 🌅 Manhã (ONS 8h–10h)
+🌅 Manhã (ONS 8h–10h)
 
-- [ ] Foco total no trabalho  
-- [ ] Revisar KCL/KVL no intervalo (10–15 min)  
-
----
-
-### 🕛 Meio-dia (20–30 min)
-
-- [ ] Resolver 3 exercícios  
-  - [ ] Lei de Ohm  
-  - [ ] KCL  
+- [ ] Foco total no trabalho
+- [ ] Revisar KCL/KVL no intervalo (10–15 min)
 
 ---
 
-### 🎓 Tarde (UFF)
+🕛 Meio-dia (20–30 min)
 
-- [ ] Assistir aula com foco no conceito principal  
-- [ ] Evitar perfeccionismo  
+- [ ] Resolver 3 exercícios
+  - [ ] Lei de Ohm
+  - [ ] KCL
+
+---
+🎓 Tarde (UFF)
+
+- [ ] Assistir aula com foco no conceito principal
+- [ ] Evitar perfeccionismo
+
+🌙 Noite (60–90 min — BLOCO PRINCIPAL)
+
+Tema: Análise Nodal
+
+- [ ] Ver teoria (rápido)
+- [ ] Resolver 3 exercícios
+- [ ] Codar sistema linear simples
 
 ---
 
-### 🌙 Noite (60–90 min — BLOCO PRINCIPAL)
-
-#### Tema: Análise Nodal
-
-- [ ] Ver teoria (rápido)  
-- [ ] Resolver 3 exercícios  
-- [ ] Codar sistema linear simples  
-
----
-
-## 💻 Código do Dia
+# 💻 Programação, Testes e Debug do Dia
 
 - [ ] Implementar sistema linear:
 
@@ -168,51 +167,50 @@ V = np.linalg.solve(G, I)
 print(V)
 ```
 
-## 🧪 Quiz do Dia
+# 🧪 QuizGame e Flashcards do Dia
 
-- Resolver 3 questões
-- Revisar erros
-- Entender os exercicios resolvidos
+- [ ] Resumo tecnico no quarto ou post no blog sobre o assunto que voce quer resolver e por isso precisa estudar
+- [x] Resolver 3 questões do dia -> LKC, LKT e THEVENIn
+- [ ] Entender os exercicios resolvidos dos livros
 
-## 🎯 Meta de Exercícios
-
- 3 de Circuitos Elétricos
- 2 de revisão
+- [ ] 3 de Circuitos Elétricos
+- [ ] 2 de revisão
 
 ## 💪 Corpo
 
- Treino ou caminhada (20–30 min)
+Treino ou caminhada (20–30 min)
 
-## 🧠 Dopamina Reset (Dia __/14)
+# 🧠 Dopamina Reset (Dia 14/04/26 - 21/05/2026)
 
- Sem pornografia
- Sem maconha
- Sem scroll infinito
- Controle de açúcar
- Recompensa só após missão
+- [ ] Sem pornografia
+- [ ] Sem maconha
+- [ ] Sem scroll infinito
+- [ ] Controle de açúcar
+- [ ] Recompensa só após missão
 
-## 🎯 Missão Principal do Dia
-
- ______________________________________
-
-## 🧭 Regra do Dia
-
- Não quebrar a sequência
- Manter disciplina
- Executar o mínimo bem feito
+- [ ] Não quebrar a sequência
+- [ ] Manter disciplina
+- [ ] Executar o mínimo bem feito
 
 ## 🌙 Ritual de Encerramento do Dia
 
 ✔ O que avancei:
- ______________________________________
-⚠️ O que ficou:
- ______________________________________
-🎯 Amanhã (3 tarefas):
- ______________________________________
- ______________________________________
- ______________________________________
 
-## Tarefas e Estudos Pendentes - Abril de 2026
+---
+
+⚠️ O que ficou:
+
+---
+
+🎯 Amanhã (3 tarefas):
+
+---
+
+---
+
+---
+
+# Tarefas e Estudos Pendentes - Abril de 2026
 
 - [ ] UFF 2026.1 -> Aulas e Quizz Games
 - [ ] Circuitos CC x CA x CD x Sinais e Sistemas -> Python + Julia programming
@@ -241,7 +239,7 @@ print(V)
 
 ---
 
-## PVRV 2026
+# PVRV 2026
 
 ---
 
@@ -266,13 +264,13 @@ print(V)
 
 <a id="tarefas-ons-plc-2026"></a>
 
-## Eng. Elétrica UFF 2025
+# Eng. Elétrica UFF 2025
 
 - [ ] Processamento Digital de Sinais
 - [x] Leitura Ogata - Teoria e pratica de Eng. de controle moderno
 - [ ] Projeto Final de IoT com Arduino + MQTT + Python Rest API
 
-## Projetos Github
+# Projetos Github
 
 - [x] Backend: Charizard (Drogon), Pikachu (Flask), Raichu (FastAPI)
 - [x] Frontend: HTML, React, Flutter, Astro, Pyside6, Streamlit
@@ -283,7 +281,7 @@ print(V)
 - [x] Gohan Treinamentos
 - [x] Calistenia App + Goku IA trainer
 
-## Sesão de ESTUDOS (Matemática, programação e Eng. Elétrica)
+# Sesão de ESTUDOS (Matemática, programação e Eng. Elétrica)
 
 <a id="sessao-de-estudos-matematica-programacao-e-eng-eletrica"></a>
 
@@ -300,7 +298,7 @@ print(V)
 
 ---
 
-## 📅 Rotina Checklist Diário \_\_TODO
+# 📅 Rotina Checklist Diário \_\_TODO
 
 <a id="checklist-diario"></a>
 
@@ -311,19 +309,19 @@ print(V)
 
 **Terça-feira** - O Dia Longo
 
-- [ ] 06:25 - ONS (Presencial): Acompanhar operação do SIN com os colegas de trabalho.
-- [ ] 19:00 - Revisão leve de CC (Circuitos de Corrente Contínua).
+- [x] 06:25 - ONS (Presencial): Acompanhar operação do SIN com os colegas de trabalho.
+- x ] 19:00 - Revisão leve de CC (Circuitos de Corrente Contínua).
 
 **Quarta-feira** - Engenharia Elétrica e Hard Coding
 
-- [ ] 06:25 - ONS (Presencial).
-- [ ] 10:00 - Simulação: Tentar rodar um caso base e analisar os logs.
-- [ ] 15:00 - Estudos UFF (Biblioteca ou Casa).
+- [x] 06:25 - ONS (Presencial).
+- x ] 10:00 - Simulação: Tentar rodar um caso base e analisar os logs.
+- x ] 15:00 - Estudos UFF (Biblioteca ou Casa).
 
-**Sexta-feira** - Review & Code
+**Quinta-feira** - Review & Code
 
-- [ ] 08:00 - ONS (Home): Documentar o que foi aprendido sobre SEP na semana.
-- [ ] 14:00 - Dev Time: Projeto Pessoal ou aprofundamento em SQL.
+- [x] 08:00 - ONS (Home): Documentar o que foi aprendido sobre SEP na semana.
+- [x] 14:00 - Dev Time: Projeto Pessoal ou aprofundamento em SQL.
 
 ---
 
