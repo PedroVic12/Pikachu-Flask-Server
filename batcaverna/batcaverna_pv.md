@@ -43,7 +43,29 @@
 
 ### ⚡ Alinhamento do Dia — Execução com Precisão
 
+# 🔚 Encerramento da Semana (17/04/2026)
 
+## ✔ Concluído
+- [ ] ONS:
+- [ ] Estudos (UFF):
+- [ ] Código/Projetos:
+- [ ] Treino:
+
+## ⚠️ Pendências
+- [ ] ONS:
+- [ ] Estudos:
+- [ ] Código:
+- [ ] Pessoal:
+
+## 🔍 Diagnóstico
+- O que funcionou:
+- O que travou:
+- O que cortar:
+
+## 🎯 Top 3 da próxima semana
+- [ ] 1.
+- [ ] 2.
+- [ ] 3.
 
 ---
 
