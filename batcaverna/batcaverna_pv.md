@@ -1,5 +1,7 @@
 # 🦇 BatCaverna PV - Centro de Comando 2026
 
+---
+
 📅 Data: **22/04/2026**
 
 ## 📑 ÍNDICE RÁPIDO
@@ -30,31 +32,23 @@
 
 ---
 
-# Batcaverna 2026
+## Batcaverna 2026
 
 ---
 
 # Tarefas e Estudos Pendentes - Abril de 2026
 
+<a id="tarefas-ons-plc-2026"></a>
+
 - [x] Kanban, Scrum, Planejamento e metas (Segunda e sexta)
 - [x] Organização de arquivos .MD
 - [x] Organização projetos Github
+- [x] Update Diagrama Organon 440KV - Completo
 - [ ] Estudos de Somatorios, Funções de Potencias, Circuitos Eletricos CC e Circuitos Digitais
 - [ ] Organização de Word e Excel usados para a semana no ONS
 - [ ] Pyside6 x Tauri x Flutter - projetos desktop
 - [ ] NextJS x Astro - projetos web
 - [ ] FastAPI x Flask x Django x Drogon C++ x Nodejs(express) - projetos backend
-
-- [ ] UFF 2026.1 -> Aulas +  Quizz Games + Organização da Apostila Online
-- [ ] Circuitos CC x CA x CD x Sinais e Sistemas -> Python + Julia programming
-
-- [ ] Eletromagnetismo: Resolver 3 exercícios de Lei de Gauss/Coulomb.
-
-- [ ] Sinais e Sistemas: Revisar Transformada de Laplace (básico).
-
-- [ ] Análise de contigencias com SN 45 com pandapower + Deckbuiler para o AnaREDE
-
-- [ ] Matriz Ybus em Python para SEP
 
 - [ ] Matriz admtancia + Geração x Transmissão e Distrbuição SIN pelo ONS
 - [ ] Aulas Sinais/cricuitos CC/CA e Eng. Controle + SEP Fundamentals + Metodos numericos com Python
@@ -70,20 +64,10 @@
 
 - [ ] Python com Sympy para calculo de EDO de 1 e 2 ordem para Circuitos CC (RL,RC e RLC)
 
-<a id="tarefas-ons-plc-2026"></a>
-
 # Eng. Elétrica UFF 2025
 
-- [ ] Processamento Digital de Sinais
-- [x] Leitura Ogata - Teoria e pratica de Eng. de controle moderno
-- [ ] Projeto Final de IoT com Arduino + MQTT + Python Rest API
+- [ ] UFF 2026.1 -> Aulas +  Quizz Games + Organização da Apostila Online
 
-# Sesão de ESTUDOS (Matemática, programação e Eng. Elétrica)
-
-<a id="sessao-de-estudos-matematica-programacao-e-eng-eletrica"></a>
-
-- [ ] Atividade ML de IEEEDs e principais modelo de AI de Supevisionado x Não Supervisionado (Com Rótulos x Sem Rótulos)
-- [ ] Atividade IEEEDs = Esp32 + Senoides de corrente em series temporais para modelos de IA (como entrada de dados)
 - [ ] Circuitos Digitais UFF 2026.1
 - [ ] Circuitos eletricos CC UFF 2026.2
 - [ ] Circuitos de corrente Alternada UFF 2026.2
@@ -91,7 +75,27 @@
 - [ ] Circuitos trifasicos para SEP UFF 2026.2
 - [ ] Eletromagnetismo UFF 2026.2
 - [ ] Sinais e sistemas UFF 2027.1
-- [ ]
+
+- [ ] Circuitos CC x CA x CD x Sinais e Sistemas -> Python + Julia programming
+
+- [ ] Eletromagnetismo: Resolver 3 exercícios de Lei de Gauss/Coulomb.
+
+- [ ] Sinais e Sistemas: Revisar Transformada de Laplace (básico).
+
+- [ ] Análise de contigencias com SN 45 com pandapower + Deckbuiler para o AnaREDE
+
+<a id="sessao-de-estudos-matematica-programacao-e-eng-eletrica"></a>
+
+# Sessão de ESTUDOS (Projetos, Matemática, programação e Eng. Elétrica)
+
+- [ ] Atividade ML de IEEEDs e principais modelo de AI de Supevisionado x Não Supervisionado (Com Rótulos x Sem Rótulos)
+- [ ] Atividade IEEEDs = Esp32 + Senoides de corrente em series temporais para modelos de IA (como entrada de dados)
+- [ ] Matriz Ybus em Python para SEP
+- [ ] Processamento Digital de Sinais
+- [x] Leitura Ogata - Teoria e pratica de Eng. de controle moderno
+- [ ] Projeto Final de IoT com Arduino + MQTT + Python Rest API
+
+---
 
 # PVRV 2026
 
@@ -105,7 +109,7 @@
   - [ ] Projeção do grafico com derivdas
   - [ ] taxa de rendimento do salario ONS com 5% e 10% ao mes
 
-- [ ] Planilhas Horarios + Planilha de controle financeiro
+- [ ] Planilhas Horarios + Planilha de controle financeiro + Planilhas de treinos
 - [x] HTML templates para Gohan Treinamentos Refatorado com SOLID, MVC e framework CSS components
 
 - [x] Juntar todos sites estaticos em HTML que tenho num unico projeto NextJS com rotas e MVC (Gohan Treinamentos, Legado PVRV, Pomodoro)
