@@ -16,34 +16,36 @@
 
 - 📚 [Sessão de ESTUDOS](#sessao-de-estudos-matematica-programacao-e-eng-eletrica)
 
-### 📅 **PLANEJAMENTO SEMANAL**
-
-- 📋 [Checklist Diário](#checklist-diario)
-
 ### 🎯 **LINKS WEBSITES**
 
 - <https://www.mat.ufmg.br/futebol/classificacao-para-libertadores_seriea/>
 - <https://gohan-treinamentos-web-app-one.vercel.app/home>
 - <https://electrical-system-simulator.vercel.app/>
 
-### 🔧 **OUTRAS SEÇÕES**
-
-- 📊 [Roadmap Cientista de Dados](#roadmap-cientista-de-dados)
-- ⚡ [Conceitos Fundamentais de Eng. Elétrica](#sessao-de-estudos-matematica-programacao-e-eng-eletrica)
-
 ---
 
 ## 🎓 Roadmap Cientista de Dados
-
-<a id="roadmap-cientista-de-dados"></a>
 
 ![alt text - ciencia de dados ONS](image-1.png)
 
 ---
 
+# Batcaverna 2026
+
+---
+
 # Tarefas e Estudos Pendentes - Abril de 2026
 
-- [ ] UFF 2026.1 -> Aulas e Quizz Games
+- [x] Kanban, Scrum, Planejamento e metas (Segunda e sexta)
+- [x] Organização de arquivos .MD
+- [x] Organização projetos Github
+- [ ] Estudos de Somatorios, Funções de Potencias, Circuitos Eletricos CC e Circuitos Digitais
+- [ ] Organização de Word e Excel usados para a semana no ONS
+- [ ] Pyside6 x Tauri x Flutter - projetos desktop
+- [ ] NextJS x Astro - projetos web
+- [ ] FastAPI x Flask x Django x Drogon C++ x Nodejs(express) - projetos backend
+
+- [ ] UFF 2026.1 -> Aulas +  Quizz Games + Organização da Apostila Online
 - [ ] Circuitos CC x CA x CD x Sinais e Sistemas -> Python + Julia programming
 
 - [ ] Eletromagnetismo: Resolver 3 exercícios de Lei de Gauss/Coulomb.
@@ -68,35 +70,6 @@
 
 - [ ] Python com Sympy para calculo de EDO de 1 e 2 ordem para Circuitos CC (RL,RC e RLC)
 
----
-
-# Batcaverna 2026
-
----
-
-# PVRV 2026
-
----
-
-- [x] Kanban, Scrum, Planejamento e metas (Segunda e sexta)
-- [x] Organização de arquivos .MD
-- [x] Organização projetos Github
-- [x] Organização de Word e Excel usados para a semana no ONS
-- [x] Pyside6 x Tauri x NextJS projetos
-
-- [ ] Planejamento financeiro (Financial APP)
-  - [x] Dezembro
-  - [x] Janeiro
-  - [ ] Fevereiro
-  - [ ] Março
-  - [ ] Projeção do grafico com derivdas
-  - [ ] taxa de rendimento do salario ONS com 5% e 10% ao mes
-
-- [ ] Planilhas Horarios + Planilha de controle financeiro
-- [x] HTML templates para Gohan Treinamentos Refatorado com SOLID, MVC e framework CSS components
-
-- [x] Juntar todos sites estaticos em HTML que tenho num unico projeto NextJS com rotas e MVC (Gohan Treinamentos, Legado PVRV, Pomodoro)
-
 <a id="tarefas-ons-plc-2026"></a>
 
 # Eng. Elétrica UFF 2025
@@ -104,7 +77,6 @@
 - [ ] Processamento Digital de Sinais
 - [x] Leitura Ogata - Teoria e pratica de Eng. de controle moderno
 - [ ] Projeto Final de IoT com Arduino + MQTT + Python Rest API
-
 
 # Sesão de ESTUDOS (Matemática, programação e Eng. Elétrica)
 
@@ -121,8 +93,24 @@
 - [ ] Sinais e sistemas UFF 2027.1
 - [ ]
 
+# PVRV 2026
+
 ---
 
+- [ ] Planejamento financeiro (Financial APP)
+  - [x] Dezembro
+  - [x] Janeiro
+  - [ ] Fevereiro
+  - [ ] Março
+  - [ ] Projeção do grafico com derivdas
+  - [ ] taxa de rendimento do salario ONS com 5% e 10% ao mes
+
+- [ ] Planilhas Horarios + Planilha de controle financeiro
+- [x] HTML templates para Gohan Treinamentos Refatorado com SOLID, MVC e framework CSS components
+
+- [x] Juntar todos sites estaticos em HTML que tenho num unico projeto NextJS com rotas e MVC (Gohan Treinamentos, Legado PVRV, Pomodoro)
+
+---
 
 ### 🚀 Projetos GitHub
 
