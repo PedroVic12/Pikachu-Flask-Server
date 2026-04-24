@@ -2,7 +2,7 @@
 
 ---
 
-📅 Data: **22/04/2026**
+📅 Data: **24/04/2026**
 
 ## 📑 ÍNDICE RÁPIDO
 
@@ -68,8 +68,8 @@
 
 - [ ] UFF 2026.1 -> Aulas +  Quizz Games + Organização da Apostila Online
 
-- [ ] Circuitos Digitais UFF 2026.1
-- [ ] Circuitos eletricos CC UFF 2026.2
+- [ ] Circuitos Digitais UFF 2026.1 __TODO
+- [ ] Circuitos eletricos CC UFF 2026.2 __TODO
 - [ ] Circuitos de corrente Alternada UFF 2026.2
 - [ ] ENEM - Questoes de fisica e matematatica 2025 e 2026
 - [ ] Circuitos trifasicos para SEP UFF 2026.2
