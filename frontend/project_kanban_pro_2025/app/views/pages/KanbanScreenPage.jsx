@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import KanbanColumn from "../../widgets/KanbanContainer.jsx";
 import { STATUS_COLUMNS } from "../../controllers/Repository.jsx";
+import MonitoramentoPage from "./MonitoramentePage.jsx";
 
 class KanbanController {
     constructor(projects, setProjects, editingItem, setEditingItem, draggedItem, setDraggedItem) {
@@ -186,11 +187,15 @@ const KanbanScreen = () => {
                 <h1 className="text-2xl lg:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">
                     Kanban PRO Board 2026
                 </h1>
-                <p className="text-gray-600 dark:text-gray-300">
+                <p className="text-gray-600 dark:text-gray-300 text-lg">
                     Organize seus projetos visualmente utilizando métodos de SCRUM, XP
                     programming e Design Patterns para programação de softwares Desktop,
                     Websites, Aplicativos Móveis, Robos RPA e muito mais!
                 </p>
+                <div className="flex gap-4 mt-4">
+                    <MonitoramentoPage></MonitoramentoPage>
+
+                </div>
 
                 {/* Toolbar */}
                 <div className="flex gap-2 mt-4 flex-wrap">

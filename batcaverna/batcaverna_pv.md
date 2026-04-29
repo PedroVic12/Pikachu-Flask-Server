@@ -2,7 +2,7 @@
 
 ---
 
-📅 Data: **24/04/2026**
+📅 Data: **29/04/2026**
 
 ## 📑 ÍNDICE RÁPIDO
 
@@ -45,9 +45,10 @@
 - [x] Organização projetos Github
 - [x] Update Diagrama Organon 440KV - Completo
 - [ ] Estudos de Somatorios, Funções de Potencias, Circuitos Eletricos CC e Circuitos Digitais
-- [ ] Organização de Word e Excel usados para a semana no ONS
-- [ ] Pyside6 x Tauri x Flutter - projetos desktop
-- [ ] NextJS x Astro - projetos web
+- [x] Organização de Word e Excel usados para a semana no ONS
+- [x] Pyside6 x Tauri x Flutter - projetos desktop
+- [x] NextJS x Astro - projetos web
+- [x] Organização e planejamento de Automaçôes ONS PLC 2026
 - [ ] FastAPI x Flask x Django x Drogon C++ x Nodejs(express) - projetos backend
 
 - [ ] Matriz admtancia + Geração x Transmissão e Distrbuição SIN pelo ONS
@@ -63,37 +64,6 @@
 - [ ] Solver ML/DL para cada X,Y de conjunto de dado
 
 - [ ] Python com Sympy para calculo de EDO de 1 e 2 ordem para Circuitos CC (RL,RC e RLC)
-
-# Eng. Elétrica UFF 2025
-
-- [ ] UFF 2026.1 -> Aulas +  Quizz Games + Organização da Apostila Online
-
-- [ ] Circuitos Digitais UFF 2026.1 __TODO
-- [ ] Circuitos eletricos CC UFF 2026.2 __TODO
-- [ ] Circuitos de corrente Alternada UFF 2026.2
-- [ ] ENEM - Questoes de fisica e matematatica 2025 e 2026
-- [ ] Circuitos trifasicos para SEP UFF 2026.2
-- [ ] Eletromagnetismo UFF 2026.2
-- [ ] Sinais e sistemas UFF 2027.1
-
-- [ ] Circuitos CC x CA x CD x Sinais e Sistemas -> Python + Julia programming
-
-- [ ] Eletromagnetismo: Resolver 3 exercícios de Lei de Gauss/Coulomb.
-
-- [ ] Sinais e Sistemas: Revisar Transformada de Laplace (básico).
-
-- [ ] Análise de contigencias com SN 45 com pandapower + Deckbuiler para o AnaREDE
-
-<a id="sessao-de-estudos-matematica-programacao-e-eng-eletrica"></a>
-
-# Sessão de ESTUDOS (Projetos, Matemática, programação e Eng. Elétrica)
-
-- [ ] Atividade ML de IEEEDs e principais modelo de AI de Supevisionado x Não Supervisionado (Com Rótulos x Sem Rótulos)
-- [ ] Atividade IEEEDs = Esp32 + Senoides de corrente em series temporais para modelos de IA (como entrada de dados)
-- [ ] Matriz Ybus em Python para SEP
-- [ ] Processamento Digital de Sinais
-- [x] Leitura Ogata - Teoria e pratica de Eng. de controle moderno
-- [ ] Projeto Final de IoT com Arduino + MQTT + Python Rest API
 
 ---
 
