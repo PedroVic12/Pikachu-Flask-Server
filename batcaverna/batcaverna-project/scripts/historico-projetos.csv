@@ -1,4 +1,5 @@
 Projeto,Hash,Data,Autor,Mensagem
+Electrical-System-Simulator,59a6209a,2026-04-15,Pedro Victor Veras,Update page.jsx
 Electrical-System-Simulator,c534b3f2,2026-04-07,Pedro Victor Veras,Update page.jsx
 Electrical-System-Simulator,a945bb42,2026-04-07,Pedro Victor Veras,up
 Electrical-System-Simulator,ddb969ba,2026-04-07,Pedro Victor Veras,Update page.jsx
@@ -8,7 +9,6 @@ Electrical-System-Simulator,f2df29f4,2026-02-11,Pedro Victor Veras,up
 Electrical-System-Simulator,ff3f5011,2026-02-11,Pedro Victor Veras,nova versão
 Electrical-System-Simulator,f7b0ee26,2026-02-03,Pedro Victor Veras,up
 Electrical-System-Simulator,51bb4ff9,2025-12-09,Pedro Victor Veras,Update app.py
-Electrical-System-Simulator,5b961ec9,2025-12-05,Pedro Victor Veras,up
 Gohan-Treinamentos-Desktop-App,ab974f5,2026-03-31,Pedro Victor Veras,Create tauri-todo-desktop-app
 Gohan-Treinamentos-Desktop-App,8f19d1f,2026-03-24,Pedro Victor Veras,up
 Gohan-Treinamentos-Desktop-App,d3aabf6,2026-03-23,Pedro Victor Veras,up
@@ -16,26 +16,26 @@ Gohan-Treinamentos-Desktop-App,f43f42d,2026-03-11,Pedro Victor Veras,up
 Gohan-Treinamentos-Desktop-App,47d02c1,2026-03-11,Pedro Victor Veras,up
 Gohan-Treinamentos-Desktop-App,f20162f,2026-03-11,Pedro Victor Veras,Create tauri_mvc_vanilla_mui3.zip
 Gohan-Treinamentos-Desktop-App,2174378,2026-03-11,Pedro Victor Veras,Initial commit
-ONS-PLC-PV-CONTROLE-E-AUTOMACAO,510786b6,2026-04-14,Pedro Victor Veras,up
-ONS-PLC-PV-CONTROLE-E-AUTOMACAO,fbb8e7e4,2026-04-08,Pedro Victor Veras,up
-ONS-PLC-PV-CONTROLE-E-AUTOMACAO,5a09c37d,2026-04-08,Pedro Victor Veras,up
-ONS-PLC-PV-CONTROLE-E-AUTOMACAO,f182e671,2026-04-08,Pedro Victor Veras,up
-ONS-PLC-PV-CONTROLE-E-AUTOMACAO,ea58e0ce,2026-04-08,Pedro Victor Veras,up
-ONS-PLC-PV-CONTROLE-E-AUTOMACAO,cad4ddf4,2026-04-08,Pedro Victor Veras,uop
-ONS-PLC-PV-CONTROLE-E-AUTOMACAO,34fe8d1c,2026-04-08,Pedro Victor Veras,up
-ONS-PLC-PV-CONTROLE-E-AUTOMACAO,46e90a28,2026-04-07,Pedro Victor Veras,up
-ONS-PLC-PV-CONTROLE-E-AUTOMACAO,f35ebdbe,2026-04-07,Pedro Victor Veras,up2
-ONS-PLC-PV-CONTROLE-E-AUTOMACAO,4984b6f0,2026-04-07,Pedro Victor Veras,update
-Pikachu-Flask-Server,1aae512,2026-04-06,Pedro Victor Veras,Update batcaverna_pv.md
-Pikachu-Flask-Server,d48159c,2026-04-06,Pedro Victor Veras,Merge branch 'main' of https://github.com/PedroVic12/Pikachu-Flask-Server
-Pikachu-Flask-Server,2a93112,2026-04-06,Pedro Victor Veras,Update historico-projetos.csv
-Pikachu-Flask-Server,bfde7fc,2026-04-06,Pedro Victor Veras,Update batcaverna_pv.md
-Pikachu-Flask-Server,20cf3da,2026-04-06,Pedro Victor Veras,Update batcaverna_pv.md
-Pikachu-Flask-Server,5eeafbc,2026-04-04,Pedro Victor Veras,Update PVRVWebDevPage.jsx
-Pikachu-Flask-Server,bd4da9c,2026-04-01,Pedro Victor Veras,Update batcaverna_pv.md
-Pikachu-Flask-Server,572dd20,2026-03-31,Pedro Victor Veras,Update batcaverna_pv.md
-Pikachu-Flask-Server,182773d,2026-03-31,Pedro Victor Veras,Update batcaverna_pv.md
-Pikachu-Flask-Server,5f22cf1,2026-03-30,Pedro Victor Veras,Update batcaverna_pv.md
+ONS-PLC-PV-CONTROLE-E-AUTOMACAO,c3902c6f,2026-04-29,Pedro Victor Veras,up
+ONS-PLC-PV-CONTROLE-E-AUTOMACAO,17310036,2026-04-29,Pedro Victor Veras,Update main_window.py
+ONS-PLC-PV-CONTROLE-E-AUTOMACAO,4d7dc5e8,2026-04-29,Pedro Victor Veras,up
+ONS-PLC-PV-CONTROLE-E-AUTOMACAO,d6a746d7,2026-04-29,Pedro Victor Veras,up
+ONS-PLC-PV-CONTROLE-E-AUTOMACAO,4cc3cf1e,2026-04-29,Pedro Victor Veras,up
+ONS-PLC-PV-CONTROLE-E-AUTOMACAO,f62fe9db,2026-04-29,Pedro Victor Veras,UP
+ONS-PLC-PV-CONTROLE-E-AUTOMACAO,4dd17b4d,2026-04-29,Pedro Victor Veras,up
+ONS-PLC-PV-CONTROLE-E-AUTOMACAO,35099a72,2026-04-29,Pedro Victor Veras,up
+ONS-PLC-PV-CONTROLE-E-AUTOMACAO,b1789404,2026-04-29,Pedro Victor Veras,up
+ONS-PLC-PV-CONTROLE-E-AUTOMACAO,3f8f079a,2026-04-29,Pedro Victor Veras,up
+Pikachu-Flask-Server,555523a,2026-04-29,Pedro Victor Veras,upup
+Pikachu-Flask-Server,cc0f9e3,2026-04-24,Pedro Victor Veras,Update batcaverna_pv.md
+Pikachu-Flask-Server,20f0347,2026-04-22,Pedro Victor Veras,Update batcaverna_pv.md
+Pikachu-Flask-Server,608e2cb,2026-04-22,Pedro Victor Veras,up
+Pikachu-Flask-Server,bf3a311,2026-04-22,Pedro Victor Veras,up
+Pikachu-Flask-Server,7b40e3f,2026-04-17,Pedro Victor Veras,Update batcaverna_pv.md
+Pikachu-Flask-Server,8acbafb,2026-04-16,Pedro Victor Veras,Create batcaverna_2026.md
+Pikachu-Flask-Server,7357986,2026-04-16,Pedro Victor Veras,Update batcaverna_pv.md
+Pikachu-Flask-Server,73e3112,2026-04-16,Pedro Victor Veras,up
+Pikachu-Flask-Server,c058a5f,2026-04-15,Pedro Victor Veras,Update page.jsx
 Repopulation-With-Elite-Set,16b0a6c9,2026-03-14,Pedro Victor Veras,up
 Repopulation-With-Elite-Set,8c39f5f9,2026-03-09,Pedro Victor Veras,up
 Repopulation-With-Elite-Set,1c82e628,2026-03-09,Pedro Victor Veras,up
@@ -46,11 +46,19 @@ Repopulation-With-Elite-Set,4ceb97d4,2026-03-01,Pedro Victor Veras,up
 Repopulation-With-Elite-Set,de8cbcd7,2026-02-25,Pedro Victor Veras,up
 Repopulation-With-Elite-Set,bcf67c8d,2026-02-24,Pedro Victor Veras,update
 Repopulation-With-Elite-Set,4f86821d,2026-02-24,Pedro Victor Veras,update
-Websites-Astro-Templates,104d92c,2026-04-02,Pedro Victor Veras,Update package-lock.json
-Websites-Astro-Templates,51053d1,2026-03-30,Pedro Victor Veras,Create CalisteniaAppPOOTemplate.html
-Websites-Astro-Templates,206602e,2026-03-30,Pedro Victor Veras,Update package.json
-Websites-Astro-Templates,cdd379e,2026-03-30,Pedro Victor Veras,upgrade
-Websites-Astro-Templates,f9f644a,2026-03-30,Pedro Victor Veras,Initial commit
+Websites-Astro-Templates,a4fa395,2026-04-29,Pedro Victor Veras,up
+Websites-Astro-Templates,4b5ea9c,2026-04-22,Pedro Victor Veras,Update index.astro
+Websites-Astro-Templates,09d86c9,2026-04-20,Pedro Victor Veras,update final
+Websites-Astro-Templates,a3fc8a5,2026-04-20,Pedro Victor Veras,up
+Websites-Astro-Templates,3820397,2026-04-20,Pedro Victor Veras,Update InsightMarkdown.astro
+Websites-Astro-Templates,4399839,2026-04-20,Pedro Victor Veras,up
+Websites-Astro-Templates,07bf596,2026-04-20,Pedro Victor Veras,Update petropolis.md
+Websites-Astro-Templates,3fcaf9a,2026-04-20,Pedro Victor Veras,Update petropolis.md
+Websites-Astro-Templates,670ef8e,2026-04-20,Pedro Victor Veras,up
+Websites-Astro-Templates,d68e88d,2026-04-20,Pedro Victor Veras,updste
+dashboard-website-template,666f63d,2026-04-28,Pedro Victor Veras,up
+dashboard-website-template,158d8e5,2026-04-22,Pedro Victor Veras,up
+dashboard-website-template,309b215,2026-04-15,Pedro Victor Veras,uo
 dashboard-website-template,06313cc,2026-03-24,Pedro Victor Veras,Update index.html
 dashboard-website-template,e769d6f,2026-03-17,Pedro Victor Veras,up
 dashboard-website-template,2c4f3ee,2026-03-13,Pedro Victor Veras,up
@@ -58,6 +66,3 @@ dashboard-website-template,636fcbf,2026-03-11,Pedro Victor Veras,Update ons_dash
 dashboard-website-template,96fee5d,2026-03-11,Pedro Victor Veras,up
 dashboard-website-template,ecaa184,2026-03-11,Pedro Victor Veras,up novas telas com tech MUI em html puro
 dashboard-website-template,3d28d13,2026-03-10,Pedro Victor Veras,new files
-dashboard-website-template,c54c91a,2026-03-07,Pedro Victor Veras,up
-dashboard-website-template,058187f,2026-03-03,Pedro Victor Veras,Update release.yml
-dashboard-website-template,279e16b,2026-03-03,Pedro Victor Veras,Fix: adjust package.json and paths
