@@ -38,7 +38,7 @@
 
 ---
 
-## 🔚 Encerramento da Semana
+## 🔚 Encerramento da Semana ()
 
 ---
 
@@ -95,70 +95,11 @@
 
 # ⚡ Bloco de Estudos Circuitos Digitais + Nivelamento ONS PLC
 
-## Tema
+## Estudos UFF
 
-- Circuitos Digitais P1 (Karnaugh, SOP, De Morgan)
+- Circuitos Digitais P1 (Karnaugh, SOP, teoremas booleanos)
 - ONS (Python + relatórios + checklist)
-- Projetos (calculadora + Organon)
-
----
-
-## 🎯 Missão do bloco
-
-- [ ] 1 exercício Karnaugh
-- [ ] 1 tarefa ONS
-- [ ] 1 evolução em código
-
----
-
-## ❓ Questões-chave
-
-- [ ] Como simplificar com Karnaugh?
-- [ ] Quando usar SOP vs POS?
-- [ ] Como aplicar De Morgan?
-- [ ] Como automatizar tarefa ONS em Python?
-
----
-
-## 🧠 Resposta de memória
-
-- Karnaugh → agrupar 1,2,4,8 → minimizar variáveis  
-- De Morgan:
-  - (AB)' = A' + B'
-  - (A + B)' = A'B'  
-- NAND:
-  - NOT: A NAND A = A'
-  - AND: (A NAND B)'  
-  - OR: (A' NAND B')  
-
----
-
-## ⚡ Equações-chave
-
-### Digitais
-
-- SOP: \( F = A\bar{B} + AB \)
-- De Morgan:
-  \[
-  (AB)' = A' + B'
-  \]
-
----
-
-### Circuitos (base futura)
-
-- \( V = RI \)
-- \( \sum I = 0 \)
-
----
-
-### EDO (RC exemplo)
-
-\[
-V(t) = V_0 e^{-t/RC}
-\]
-
----
+- Projetos (calculadora + Organon + Pyside6)
 
 ## 💻 Código (Projeto atual)
 
@@ -170,41 +111,11 @@ V(t) = V_0 e^{-t/RC}
 
 ## 🏭 ONS
 
-- [ ] Ler relatório
-- [ ] Executar script Python
-- [ ] Atualizar planilha
-- [ ] Checklist concluído
-
----
-
-## 🧪 Flashcard
-
-Q: Regra de De Morgan?  
-A: Inverte operação e nega variáveis  
-
----
-
-## ❌ Erros
-
-- [ ] esquecer agrupamento máximo no Karnaugh  
-- [ ] confundir NAND com OR  
-
----
-
-## 🔁 Revisão
-
-- [ ] 3 dias  
-- [ ] 1 semana  
-- [ ] 1 mês  
-
----
-
-## 🧭 Síntese (brain dump)
-
-- Karnaugh = simplificação visual  
-- NAND = porta universal  
-- ONS = execução prática  
-- Código = abstração matemática  
+- [x] Ler relatório
+- [x] Executar script Python
+- [x] Atualizar planilha
+- [ ] Checklist Mensal Obsidian + Guia de montagem Word
+- [ ] Organização de Links de Grafos no Obsidian
 
 ---
 
