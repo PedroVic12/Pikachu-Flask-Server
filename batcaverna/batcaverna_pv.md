@@ -30,7 +30,55 @@
 
 ---
 
-# Tarefas e Estudos Pendentes - Abril de 2026
+💡 Dicas práticas:
+
+> Execute em ciclos curtos: rodar script → validar → corrigir → repetir
+
+# Scrum + Planejamento + Organização + Kanban
+
+---
+
+## 🔚 Encerramento da Semana
+
+---
+
+## Rotina
+
+- [x] ONS
+- [x] UFF
+- [ ] CODING
+- [x] CORPO
+- [ ] MENTE
+- [ ] ESPIRITO
+
+## ✔ Concluído
+
+- [ ] ONS:
+- [ ] Estudos (UFF):
+- [ ] Código/Projetos:
+- [ ] Treino:
+
+## ⚠️ Pendências
+
+## 🔍 Diagnóstico
+
+- O que funcionou:
+- O que travou:
+- O que cortar:
+
+## 🎯 Top 3 da próxima semana
+
+- [ ] 1.
+- [ ] 2.
+- [ ] 3.
+
+---
+
+---
+
+# Tarefas e Estudos Pendentes
+
+---
 
 <a id="tarefas-ons-plc-2026"></a>
 
@@ -45,13 +93,124 @@
 
 - [ ] Python com Sympy para calculo de EDO de 1 e 2 ordem para Circuitos CC (RL,RC e RLC)
 
+# ⚡ Bloco de Estudos Circuitos Digitais + Nivelamento ONS PLC
+
+## Tema
+
+- Circuitos Digitais P1 (Karnaugh, SOP, De Morgan)
+- ONS (Python + relatórios + checklist)
+- Projetos (calculadora + Organon)
+
+---
+
+## 🎯 Missão do bloco
+
+- [ ] 1 exercício Karnaugh
+- [ ] 1 tarefa ONS
+- [ ] 1 evolução em código
+
+---
+
+## ❓ Questões-chave
+
+- [ ] Como simplificar com Karnaugh?
+- [ ] Quando usar SOP vs POS?
+- [ ] Como aplicar De Morgan?
+- [ ] Como automatizar tarefa ONS em Python?
+
+---
+
+## 🧠 Resposta de memória
+
+- Karnaugh → agrupar 1,2,4,8 → minimizar variáveis  
+- De Morgan:
+  - (AB)' = A' + B'
+  - (A + B)' = A'B'  
+- NAND:
+  - NOT: A NAND A = A'
+  - AND: (A NAND B)'  
+  - OR: (A' NAND B')  
+
+---
+
+## ⚡ Equações-chave
+
+### Digitais
+
+- SOP: \( F = A\bar{B} + AB \)
+- De Morgan:
+  \[
+  (AB)' = A' + B'
+  \]
+
+---
+
+### Circuitos (base futura)
+
+- \( V = RI \)
+- \( \sum I = 0 \)
+
+---
+
+### EDO (RC exemplo)
+
+\[
+V(t) = V_0 e^{-t/RC}
+\]
+
+---
+
+## 💻 Código (Projeto atual)
+
+- [ ] Resolver sistema (numpy)
+- [ ] Plot função (matplotlib)
+- [ ] Integrar no PySide6
+
+---
+
+## 🏭 ONS
+
+- [ ] Ler relatório
+- [ ] Executar script Python
+- [ ] Atualizar planilha
+- [ ] Checklist concluído
+
+---
+
+## 🧪 Flashcard
+
+Q: Regra de De Morgan?  
+A: Inverte operação e nega variáveis  
+
+---
+
+## ❌ Erros
+
+- [ ] esquecer agrupamento máximo no Karnaugh  
+- [ ] confundir NAND com OR  
+
+---
+
+## 🔁 Revisão
+
+- [ ] 3 dias  
+- [ ] 1 semana  
+- [ ] 1 mês  
+
+---
+
+## 🧭 Síntese (brain dump)
+
+- Karnaugh = simplificação visual  
+- NAND = porta universal  
+- ONS = execução prática  
+- Código = abstração matemática  
+
 ---
 
 # PVRV 2026
 
 ---
-
-- [[Resumo Projetos Github]]
 
 - [ ] Planejamento financeiro (Financial APP)
   - [x] Dezembro
@@ -62,6 +221,105 @@
   - [ ] taxa de rendimento do salario ONS com 5% e 10% ao mes
 
 - [ ] Planilhas Horarios + Planilha de controle financeiro + Planilhas de treinos
+
+## Sistema único de estudo
+
+Use **1 bloco por tema(assunto)**:
+
+### 1) Captura
+
+- ler aula/lista
+- marcar o que caiu na prova
+
+### 2) Recuperação
+
+- flashcards
+- perguntas em vez de notas
+- Cornell reverso
+
+### 3) Fixação
+
+- simulado / prova antiga
+- explicar em voz alta
+- brain dump no caderno/blog
+
+### 4) Consolidação
+
+- mapa mental
+- revisão em 3 dias / 1 semana / 1 mês
+
+---
+
+## Ordem ideal no mesmo bloco
+
+```text
+1. Estudo curto do conteúdo
+2. Fechar o material
+3. Responder de memória
+4. Conferir resposta em 30s
+5. Fazer 1 flashcard
+6. Fazer 1 pergunta Cornell
+7. Desenhar 1 mapa mental pequeno
+8. Registrar no .md
+```
+
+---
+
+## Regra prática
+
+- **Se errou** → vira flashcard
+- **Se caiu em prova** → vira questão
+- **Se é conceito central** → vira mapa mental
+- **Se é explicação boa** → vira brain dump resumido
+
+---
+
+## Para sua prova de Circuitos Digitais
+
+Priorize só:
+
+- mapas de Karnaugh
+- tabela verdade
+- simplificação booleana
+- portas lógicas
+- formas SOP/POS
+
+---
+
+## Template rápido de anotação
+
+```md
+## Tema
+## Questões-chave
+- [ ] ...
+
+## Resposta de memória
+- ...
+
+## Flashcard
+Q:
+A:
+
+## Erros
+- ...
+
+## Revisão
+- 3 dias
+- 1 semana
+- 1 mês
+```
+
+---
+
+## Regra anti-ansiedade
+
+Não use as 7 técnicas em tudo.
+Use **2 principais + 2 de apoio** por assunto.
+
+Para a provas da UFF:
+
+- principais: **simulado + perguntas**
+- apoio: **flashcards + revisão espaçada**
 
 ---
 
