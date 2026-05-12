@@ -2,7 +2,7 @@
 
 ---
 
-📅 Data: **05/05/2026**
+📅 Data: **12/05/2026**
 
 ## 📑 ÍNDICE RÁPIDO
 
@@ -35,6 +35,40 @@
 > Execute em ciclos curtos: rodar script → validar → corrigir → repetir
 
 # Scrum + Planejamento + Organização + Kanban
+
+---
+
+## Desligamento ONS - 12/06 (INICIO COPA26)
+
+
+- Atividades PLC de montagem de casos: Mensal e Quadrimensal
+- COMUNICAÇÃO + SOFT SKILLS
+- SCRIPTS EM PYTHON (CORREÇÕES BARRAS AUSÊNTES MENSAL) 
+- CLI EM PYTHON (TERMINAL - VA, VB, VC) 
+- ETL EM PYTHON (PACOTE OFFICE - PALKIA)
+- dashboard em Rust + MUST + controle e gestão com banco de dados (Excel e sqlite3)
+- minicurso circuitos CC com Sadiku e Python 
+- Relatórios + Artigos em PDF
+- Blogs com markdonwn e análise de SEP
+- APRESENTAÇÃO: modelos de IA X Agentes de IA
+
+- estudos de ONS para SEP:
+ - Barra swing 
+ - Reator Shunt
+ - Barras PQ E PV
+ - Transformador em Fase
+ - Ferramentas FLOW 9.0
+ - anaRede x Organon x Pandapower 
+ - Casos Máxima e Mínima (Noturna e Diurna)
+ - Inércia do sistema 
+ - análise de circuitos RLC com impedância e reatância (capacitiva ou reativa)
+ - Potência Ativa x Reativa
+ - fluxo de potência e Curto circuito 
+
+- Transmissão X Geração X Distribuição 
+- RCE: Agendamento ótimo de análise de contingências para intervenções no Sistema Elétrico 
+- 
+
 
 ---
 
