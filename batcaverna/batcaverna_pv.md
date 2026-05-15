@@ -2,7 +2,7 @@
 
 ---
 
-📅 Data: **12/05/2026**
+📅 Data: **15/05/2026**
 
 ## 📑 ÍNDICE RÁPIDO
 
@@ -40,39 +40,53 @@
 
 ## Desligamento ONS - 12/06 (INICIO COPA26)
 
+- [x] Diagrama SP - Organon 440KV
+- [x] Conversas com Alexandre Nunes e João Marco
+- [ ] Guia de Montagem de Decks: Mensal (Word + Obsidian)
+  - VA = Decks de Configuração e Carga para casos SEMENTE
+    - Correção barras ausentes
+    - Planilha SISBAR: Parecer da Área (fix_decks_barras_ausentes.py) = Retorna uma planilha atualizada comparando as barras ausentes do Mes atual e mes anterior utilizando as Respostas PLC no caso correspondente para região SECO
+    - Decks Eletrico/PRD: Script para comentar barras ausentes nos casos (ler_decks_de_carga.py)
+  - VB = Redespacho de Usinas na FLOW usando politica energética + Case Manager no Organon para Fluxo de Potencia Ótimo.
+  - VC = Intercambios
+  - VD = FLUPOT
+  - VF = Ajustes finos de tensão e carga para SECO
+  - VG = AnaTEM
+  - VH = Emissão do Relatórios
 
-- Atividades PLC de montagem de casos: Mensal e Quadrimensal
-- COMUNICAÇÃO + SOFT SKILLS
-- SCRIPTS EM PYTHON (CORREÇÕES BARRAS AUSÊNTES MENSAL) 
-- CLI EM PYTHON (TERMINAL - VA, VB, VC) 
-- ETL EM PYTHON (PACOTE OFFICE - PALKIA)
-- dashboard em Rust + MUST + controle e gestão com banco de dados (Excel e sqlite3)
-- minicurso circuitos CC com Sadiku e Python 
-- Relatórios + Artigos em PDF
-- Blogs com markdonwn e análise de SEP
-- APRESENTAÇÃO: modelos de IA X Agentes de IA
+- [x] Relatório de Perdas Duplas LTs usando VBA e Plots de 3 gráficos
+- [ ] APRESENTAÇÃO: modelos de IA X Agentes de IA
+- [ ] Relatórios + Artigos em PDF
+- [ ] Blogs com markdonwn e análise de SEP
 
-- estudos de ONS para SEP:
- - Barra swing 
- - Reator Shunt
- - Barras PQ E PV
- - Transformador em Fase
- - Ferramentas FLOW 9.0
- - anaRede x Organon x Pandapower 
- - Casos Máxima e Mínima (Noturna e Diurna)
- - Inércia do sistema 
- - análise de circuitos RLC com impedância e reatância (capacitiva ou reativa)
- - Potência Ativa x Reativa
- - fluxo de potência e Curto circuito 
+- [ ] COMUNICAÇÃO + SOFT SKILLS
+- [ ] CLI EM PYTHON (TERMINAL - VA, VB, VC)
+- [ ] ETL EM PYTHON (PACOTE OFFICE - PALKIA)
+  - ETL de arquivos PDF relacionados a MUST e salvando tudo num excel que vira um banco de dados no Access Microsoft
+  - Painel Dashboard em Rust + MUST + controle e gestão com banco de dados (Excel e sqlite3) de casos do MUST com deck do AnaREDE como referencia e um algoritmo Big O para prever o nivel de complexibilidade de cada problema.
+- [ ] minicurso circuitos CC com Sadiku e Python
 
-- Transmissão X Geração X Distribuição 
-- RCE: Agendamento ótimo de análise de contingências para intervenções no Sistema Elétrico 
-- 
+## Estudos Elétricos do ONS para SEP
 
+- Barra swing
+- Reator Shunt
+- Barras PQ E PV
+- Transformador em Fase
+- Ferramentas FLOW 9.0
+- anaRede x Organon x Pandapower
+- Casos Máxima e Mínima (Noturna e Diurna)
+- Inércia do sistema
+- análise de circuitos RLC com impedância e reatância (capacitiva ou reativa)
+- Potência Ativa x Reativa
+- fluxo de potência e Curto circuito
+
+- Transmissão X Geração X Distribuição
+- RCE: Agendamento ótimo de análise de contingências para intervenções no Sistema Elétrico
+-
 
 ---
 
-## 🔚 Encerramento da Semana ()
+## 🔚 Encerramento da Semana (15-05-2026)
 
 ---
 
@@ -80,9 +94,9 @@
 
 - [x] ONS
 - [x] UFF
-- [ ] CODING
+- [x] CODING
 - [x] CORPO
-- [ ] MENTE
+- [x] MENTE
 - [ ] ESPIRITO
 
 ## ✔ Concluído
