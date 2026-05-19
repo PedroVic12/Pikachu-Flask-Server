@@ -36,9 +36,30 @@
 
 # Scrum + Planejamento + Organização + Kanban
 
+### Gerenciamento do tempo
+
+### Gerenciamento de Prioridades
+
+### Planejamento e Metas
+
 ---
 
 ## Desligamento ONS - 12/06 (INICIO COPA26)
+
+- [ ] Organização de arquivos .md e .PDF e notebooks usados no ONS PLC
+- [ ] Levantar requisitos de MUST e Perdas Duplas LTs
+- [ ] Estudos de Circuitos digitais + Mini curso circuitos eletricos CC com Python e Fastlad
+- [ ] Notebooks feitos para o Github, RCE e ONS PLC
+- [ ] Dashboards em MUST, Palkia.
+- [ ] Apresentacao RCE UFF ONS PLC (27/05/2026)
+
+- [ ] Planner ONS (organização) x MUST dashbords (controle e gestão) x Cronograma Tarefas PLC (rotina) x Batcaverna PV x KanbanPro 2026 x GohanTreinamentos WebApp (calistenia App)
+
+- [ ] Testes de arquivos .md em Astro, PowerPoint, NextJS
+
+- [ ] Uso e testes de CLI em python desenvolvidas
+
+- [ ] Guia de Montagem Mensal Word x Anotações Obsidian (VA,VB e SEMENTE)
 
 - [x] Diagrama SP - Organon 440KV
 - [x] Conversas com Alexandre Nunes e João Marco
@@ -92,11 +113,11 @@
 
 ## Rotina
 
-- [x] ONS
-- [x] UFF
-- [x] CODING
-- [x] CORPO
-- [x] MENTE
+- [ ] ONS
+- [ ] UFF
+- [ ] CODING
+- [ ] CORPO
+- [ ] MENTE
 - [ ] ESPIRITO
 
 ## ✔ Concluído
@@ -161,7 +182,7 @@
 
 - [x] Ler relatório
 - [x] Executar script Python
-- [x] Atualizar planilha
+- [ ] Atualizar planilhas
 - [ ] Checklist Mensal Obsidian + Guia de montagem Word
 - [ ] Organização de Links de Grafos no Obsidian
 

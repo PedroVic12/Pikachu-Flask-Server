@@ -1,4 +1,5 @@
 Projeto,Hash,Data,Autor,Mensagem
+Electrical-System-Simulator,ebf4d522,2026-05-19,Pedro Victor Veras,update
 Electrical-System-Simulator,59a6209a,2026-04-15,Pedro Victor Veras,Update page.jsx
 Electrical-System-Simulator,c534b3f2,2026-04-07,Pedro Victor Veras,Update page.jsx
 Electrical-System-Simulator,a945bb42,2026-04-07,Pedro Victor Veras,up
@@ -8,7 +9,6 @@ Electrical-System-Simulator,23d87d27,2026-02-11,Pedro Victor Veras,update
 Electrical-System-Simulator,f2df29f4,2026-02-11,Pedro Victor Veras,up
 Electrical-System-Simulator,ff3f5011,2026-02-11,Pedro Victor Veras,nova versão
 Electrical-System-Simulator,f7b0ee26,2026-02-03,Pedro Victor Veras,up
-Electrical-System-Simulator,51bb4ff9,2025-12-09,Pedro Victor Veras,Update app.py
 Gohan-Treinamentos-Desktop-App,ab974f5,2026-03-31,Pedro Victor Veras,Create tauri-todo-desktop-app
 Gohan-Treinamentos-Desktop-App,8f19d1f,2026-03-24,Pedro Victor Veras,up
 Gohan-Treinamentos-Desktop-App,d3aabf6,2026-03-23,Pedro Victor Veras,up
@@ -16,26 +16,26 @@ Gohan-Treinamentos-Desktop-App,f43f42d,2026-03-11,Pedro Victor Veras,up
 Gohan-Treinamentos-Desktop-App,47d02c1,2026-03-11,Pedro Victor Veras,up
 Gohan-Treinamentos-Desktop-App,f20162f,2026-03-11,Pedro Victor Veras,Create tauri_mvc_vanilla_mui3.zip
 Gohan-Treinamentos-Desktop-App,2174378,2026-03-11,Pedro Victor Veras,Initial commit
-ONS-PLC-PV-CONTROLE-E-AUTOMACAO,c3902c6f,2026-04-29,Pedro Victor Veras,up
-ONS-PLC-PV-CONTROLE-E-AUTOMACAO,17310036,2026-04-29,Pedro Victor Veras,Update main_window.py
-ONS-PLC-PV-CONTROLE-E-AUTOMACAO,4d7dc5e8,2026-04-29,Pedro Victor Veras,up
-ONS-PLC-PV-CONTROLE-E-AUTOMACAO,d6a746d7,2026-04-29,Pedro Victor Veras,up
-ONS-PLC-PV-CONTROLE-E-AUTOMACAO,4cc3cf1e,2026-04-29,Pedro Victor Veras,up
-ONS-PLC-PV-CONTROLE-E-AUTOMACAO,f62fe9db,2026-04-29,Pedro Victor Veras,UP
-ONS-PLC-PV-CONTROLE-E-AUTOMACAO,4dd17b4d,2026-04-29,Pedro Victor Veras,up
-ONS-PLC-PV-CONTROLE-E-AUTOMACAO,35099a72,2026-04-29,Pedro Victor Veras,up
-ONS-PLC-PV-CONTROLE-E-AUTOMACAO,b1789404,2026-04-29,Pedro Victor Veras,up
-ONS-PLC-PV-CONTROLE-E-AUTOMACAO,3f8f079a,2026-04-29,Pedro Victor Veras,up
+ONS-PLC-PV-CONTROLE-E-AUTOMACAO,cec10560,2026-05-19,Pedro Victor Veras,update no windows
+ONS-PLC-PV-CONTROLE-E-AUTOMACAO,7493d43f,2026-05-19,Pedro Victor Veras,Delete AUTOMACÕES ONS - PLC/Palkia-GUI-PDF-extractor/ScrapperPDF_V1/temp_streamlit_docsCUST-2002-025-41 - SUL SUDESTE_minuta_recon_2025_28_final.pdf
+ONS-PLC-PV-CONTROLE-E-AUTOMACAO,d7431c3d,2026-05-19,Pedro Victor Veras,Delete ONS/Meu-Segundo-Cerebro-2026/JOBS ANTIGOS/Tecnologia e Inovação/Analise de Dados/Otimização e Prog linear/Trasmissao_energia_eletrica.ipynb
+ONS-PLC-PV-CONTROLE-E-AUTOMACAO,5483e4b3,2026-05-19,Pedro Victor Veras,Delete ONS/Meu-Segundo-Cerebro-2026/JOBS ANTIGOS/Tecnologia e Inovação/Machine Learning/Algoritimo Geneticos/relotorio_algoritmo_gentetico.ipynb
+ONS-PLC-PV-CONTROLE-E-AUTOMACAO,ec454ef9,2026-05-19,Pedro Victor Veras,Delete ONS/Meu-Segundo-Cerebro-2026/JOBS ANTIGOS/Tecnologia e Inovação/Machine Learning/Algoritimo Geneticos/problema_caixeiro_viajante.ipynb
+ONS-PLC-PV-CONTROLE-E-AUTOMACAO,c471eab8,2026-05-19,Pedro Victor Veras,Delete ONS/Meu-Segundo-Cerebro-2026/JOBS ANTIGOS/Tecnologia e Inovação/Machine Learning/Deep Learning - Redes convulocionais/deepLearning.ipynb
+ONS-PLC-PV-CONTROLE-E-AUTOMACAO,48ece7e0,2026-05-19,Pedro Victor Veras,up
+ONS-PLC-PV-CONTROLE-E-AUTOMACAO,6cbfea63,2026-05-18,Pedro Victor Veras,up
+ONS-PLC-PV-CONTROLE-E-AUTOMACAO,0c608d56,2026-05-18,Pedro Victor Veras,up
+ONS-PLC-PV-CONTROLE-E-AUTOMACAO,4de14bd7,2026-05-18,Pedro Victor Veras,up
+Pikachu-Flask-Server,0c59f69,2026-05-15,Pedro Victor Veras,Update batcaverna_pv.md
+Pikachu-Flask-Server,b20de1a,2026-05-12,Pedro Victor Veras,Atualizar o batcaverna_pv.md após notícia de desligamento do ONS
+Pikachu-Flask-Server,98033d7,2026-05-06,Pedro Victor Veras,Update batcaverna_pv.md
+Pikachu-Flask-Server,06ed486,2026-05-06,Pedro Victor Veras,Update batcaverna_pv.md
+Pikachu-Flask-Server,4fbf2fa,2026-05-05,Pedro Victor Veras,up
 Pikachu-Flask-Server,555523a,2026-04-29,Pedro Victor Veras,upup
 Pikachu-Flask-Server,cc0f9e3,2026-04-24,Pedro Victor Veras,Update batcaverna_pv.md
 Pikachu-Flask-Server,20f0347,2026-04-22,Pedro Victor Veras,Update batcaverna_pv.md
 Pikachu-Flask-Server,608e2cb,2026-04-22,Pedro Victor Veras,up
 Pikachu-Flask-Server,bf3a311,2026-04-22,Pedro Victor Veras,up
-Pikachu-Flask-Server,7b40e3f,2026-04-17,Pedro Victor Veras,Update batcaverna_pv.md
-Pikachu-Flask-Server,8acbafb,2026-04-16,Pedro Victor Veras,Create batcaverna_2026.md
-Pikachu-Flask-Server,7357986,2026-04-16,Pedro Victor Veras,Update batcaverna_pv.md
-Pikachu-Flask-Server,73e3112,2026-04-16,Pedro Victor Veras,up
-Pikachu-Flask-Server,c058a5f,2026-04-15,Pedro Victor Veras,Update page.jsx
 Repopulation-With-Elite-Set,16b0a6c9,2026-03-14,Pedro Victor Veras,up
 Repopulation-With-Elite-Set,8c39f5f9,2026-03-09,Pedro Victor Veras,up
 Repopulation-With-Elite-Set,1c82e628,2026-03-09,Pedro Victor Veras,up
@@ -46,6 +46,7 @@ Repopulation-With-Elite-Set,4ceb97d4,2026-03-01,Pedro Victor Veras,up
 Repopulation-With-Elite-Set,de8cbcd7,2026-02-25,Pedro Victor Veras,up
 Repopulation-With-Elite-Set,bcf67c8d,2026-02-24,Pedro Victor Veras,update
 Repopulation-With-Elite-Set,4f86821d,2026-02-24,Pedro Victor Veras,update
+Websites-Astro-Templates,e416f97,2026-05-11,Pedro Victor Veras,up
 Websites-Astro-Templates,a4fa395,2026-04-29,Pedro Victor Veras,up
 Websites-Astro-Templates,4b5ea9c,2026-04-22,Pedro Victor Veras,Update index.astro
 Websites-Astro-Templates,09d86c9,2026-04-20,Pedro Victor Veras,update final
@@ -55,7 +56,6 @@ Websites-Astro-Templates,4399839,2026-04-20,Pedro Victor Veras,up
 Websites-Astro-Templates,07bf596,2026-04-20,Pedro Victor Veras,Update petropolis.md
 Websites-Astro-Templates,3fcaf9a,2026-04-20,Pedro Victor Veras,Update petropolis.md
 Websites-Astro-Templates,670ef8e,2026-04-20,Pedro Victor Veras,up
-Websites-Astro-Templates,d68e88d,2026-04-20,Pedro Victor Veras,updste
 dashboard-website-template,666f63d,2026-04-28,Pedro Victor Veras,up
 dashboard-website-template,158d8e5,2026-04-22,Pedro Victor Veras,up
 dashboard-website-template,309b215,2026-04-15,Pedro Victor Veras,uo
