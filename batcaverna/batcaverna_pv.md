@@ -46,12 +46,20 @@
 
 ## Desligamento ONS - 12/06 (INICIO COPA26)
 
-- [ ] Organização de arquivos .md e .PDF e notebooks usados no ONS PLC
+- [x] Organização de arquivos .md e .PDF e notebooks usados no ONS PLC
+- [x] Alinhamento tarefas - alexandre
+  - Diagrama Organon SP 440KV e 345kv
+  - Apresentacao RCE ONS PLC
+
 - [ ] Levantar requisitos de MUST e Perdas Duplas LTs
 - [ ] Estudos de Circuitos digitais + Mini curso circuitos eletricos CC com Python e Fastlad
 - [ ] Notebooks feitos para o Github, RCE e ONS PLC
 - [ ] Dashboards em MUST, Palkia.
-- [ ] Apresentacao RCE UFF ONS PLC (27/05/2026)
+- [x] Apresentacao RCE UFF ONS PLC (27/05/2026)
+  - Slides
+  - Apresentação com falas no markdown
+  - Blog x Relatorios x Pesquias -> tudo em markdown
+  - script python que faz o PDF em .md com template ONS
 
 - [ ] Planner ONS (organização) x MUST dashbords (controle e gestão) x Cronograma Tarefas PLC (rotina) x Batcaverna PV x KanbanPro 2026 x GohanTreinamentos WebApp (calistenia App)
 
