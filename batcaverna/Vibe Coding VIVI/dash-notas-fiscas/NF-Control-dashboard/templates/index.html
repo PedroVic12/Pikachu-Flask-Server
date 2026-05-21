@@ -9,14 +9,18 @@
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!-- Carregar React e ReactDOM primeiro -->
     <script src="https://unpkg.com/react@18.2.0/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
-    <script src="https://unpkg.com/@mui/material@5.14.0/umd/material-ui.development.js"></script>
+    <!-- Emotion (necessário para MUI) -->
     <script src="https://unpkg.com/@emotion/react@11.11.1/dist/emotion-react.umd.min.js"></script>
     <script src="https://unpkg.com/@emotion/styled@11.11.0/dist/emotion-styled.umd.min.js"></script>
+    <!-- Material-UI -->
+    <script src="https://unpkg.com/@mui/material@5.14.0/umd/material-ui.development.js"></script>
+    <!-- Recharts (versão UMD compatível) -->
     <script src="https://unpkg.com/recharts@2.9.3/umd/Recharts.js"></script>
+    <!-- Babel standalone (para transformar JSX no navegador) -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <script src="{{ url_for('static', filename='widgets_mui.js') }}" type="text/babel"></script>
     <style>
         body {
             margin: 0;
@@ -42,6 +46,8 @@
 
 <body>
     <div id="root"></div>
+    <!-- Carregar nosso componente APÓS todas as bibliotecas -->
+    <script src="{{ url_for('static', filename='widgets_mui.js') }}" type="text/babel" data-type="module"></script>
 </body>
 
 </html>
