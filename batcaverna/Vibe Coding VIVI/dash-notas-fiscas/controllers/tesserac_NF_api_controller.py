@@ -10,34 +10,36 @@ from flask import (
     request,
     jsonify,
     render_template,
+    send_from_directory,
     send_file,
 )
 from PyPDF2 import PdfReader
-import pypdfium2 as pdfium
+from pdf2image import convert_from_path
 import cv2
 import numpy as np
-import easyocr
+import pytesseract
 import pandas as pd
 import io
-import ssl
 
 app = Flask(__name__)
 DB_FILE = "notas.db"
 UPLOAD_FOLDER = "uploads"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
+#! Defina o caminho do tesseract caso necessário no Linux
+# pip install Flask PyPDF2 pdf2image opencv-python pytesseract pandas openpyxl PySide6
 
-# pip install pypdfium2 easyocr opencv-python numpy
-# ========================================================
-# BYPASS DE REDE CORPORATIVA (Ignora erro de SSL)
-# ========================================================
-ssl._create_default_https_context = ssl._create_unverified_context
+# No Linux
+# pacman -S poppler tesseract tesseract-data-por
 
-# Inicializa o EasyOCR globalmente para não recarregar a cada arquivo
-# gpu=False garante que vai rodar em qualquer máquina (CPU) sem precisar de placa de vídeo
-print("Inicializando modelo de Inteligência Artificial (EasyOCR)...")
-reader = easyocr.Reader(["pt"], gpu=False)
-print("Motor OCR carregado com sucesso!")
+pytesseract.pytesseract.tesseract_cmd = pytesseract.pytesseract.tesseract_cmd = (
+    r"C:\Users\pedrovictor.veras\Downloads\tesseract.exe"
+)
+
+
+# Configuração do Poppler para o Windows
+# Importante: O caminho deve apontar para a pasta "bin" dentro da pasta extraída
+POPPLER_PATH = r"C:\Users\pedrovictor.veras\OneDrive - Operador Nacional do Sistema Eletrico\Documentos\GitHub\Pikachu-Flask-Server\batcaverna\Vibe Coding VIVI\dash-notas-fiscas\poppler-26.02.0\Library\bin"
 
 
 def get_db_connection():
@@ -87,7 +89,7 @@ def limpar_banco():
         conn.execute("DROP TABLE IF EXISTS notas")
         conn.commit()
         conn.close()
-        init_db()
+        init_db()  # Recria a estrutura limpa
         return jsonify({"message": "Banco de dados resetado com sucesso!"})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
@@ -107,8 +109,9 @@ def corrigir_pyside(nota_id):
 
     filepath = os.path.join(UPLOAD_FOLDER, nota["filename"])
     if not os.path.exists(filepath):
-        return jsonify({"error": "PDF original não encontrado"}), 404
+        return jsonify({"error": "PDF original não encontrado na pasta uploads"}), 404
 
+    # Dispara o pyside_tool passando o caminho do PDF original e o ID da nota no banco
     try:
         subprocess.Popen(
             [sys.executable, "pyside_tool.py", filepath, nota_id], cwd=os.getcwd()
@@ -129,6 +132,7 @@ def bulk_process():
 
     for file in files:
         original_filename = getattr(file, "filename", "") or ""
+        # A MÁGICA PARA PASTA COMPLETA: Pega só o nome do arquivo, ignorando subpastas
         filename = os.path.basename(original_filename)
 
         if file and filename.lower().endswith(".pdf"):
@@ -142,37 +146,31 @@ def bulk_process():
             # 1. Extração de texto nativo com PyPDF2
             texto_pypdf2 = ""
             try:
-                pdf_reader = PdfReader(filepath)
-                for page in pdf_reader.pages:
+                reader = PdfReader(filepath)
+                for page in reader.pages:
                     extraido = page.extract_text()
                     if extraido:
                         texto_pypdf2 += extraido + "\n"
             except Exception as e:
                 print(f"[ERRO PYPDF2]: {e}")
 
-            # 2. Extração via Imagem com EasyOCR + PyPDFium2
+            # 2. Extração via Imagem com Tesseract OCR
             texto_ocr = ""
             try:
-                # Renderiza PDF usando Chrome PDFium engine (Ultra rápido e nativo)
-                pdf_doc = pdfium.PdfDocument(filepath)
-                page = pdf_doc[0]
-                pil_image = page.render(
-                    scale=2
-                ).to_pil()  # Scale 2 é suficiente (~150 dpi)
-
-                # Converte PIL Image para OpenCV Array (BGR)
-                img_cv = cv2.cvtColor(np.array(pil_image), cv2.COLOR_RGB2BGR)
-
-                # Roda o EasyOCR na imagem
-                resultados_ocr = reader.readtext(img_cv, detail=0, paragraph=True)
-                texto_extraido = "\n".join(map(str, resultados_ocr))
+                pages = convert_from_path(filepath, dpi=150, poppler_path=POPPLER_PATH)
+                img = cv2.cvtColor(np.array(pages[0]), cv2.COLOR_RGB2GRAY)
+                texto_ocr = pytesseract.image_to_string(img, lang="por")
             except Exception as e:
-                print(f"[ERRO EASYOCR]: {e}")
+                print(f"[ERRO TESSERACT]: {e}")
 
-            # Combina os textos para a Regex
-            texto_completo = texto_pypdf2 + "\n" + texto_extraido
+            # Combina os textos analisados para alimentar a esteira de Regex
+            texto_completo = texto_pypdf2 + "\n" + texto_ocr
 
-            # REGEX PADRÃO NOTA CARIOCA
+            # ========================================================
+            # REGEX DE PRECISÃO - PADRÃO NOTA CARIOCA (PREFEITURA RJ)
+            # ========================================================
+
+            # A) Número da Nota
             numero = "Não encontrado"
             match_num = re.search(
                 r"Número da Nota\s*\n\s*(\d+)", texto_completo, re.IGNORECASE
@@ -182,8 +180,11 @@ def bulk_process():
                     r"Número da Nota\s+(\d+)", texto_completo, re.IGNORECASE
                 )
             if match_num:
-                numero = match_num.group(1).lstrip("0")
+                numero = match_num.group(1).lstrip(
+                    "0"
+                )  # Remove zeros à esquerda chatos
 
+            # B) Data e Hora de Emissão
             data_emissao = "Não encontrada"
             match_data = re.search(
                 r"(\d{2}/\d{2}/\d{4}\s+\d{2}:\d{2}:\d{2})", texto_completo
@@ -193,6 +194,7 @@ def bulk_process():
             if match_data:
                 data_emissao = match_data.group(1)
 
+            # C) Nome Fantasia
             nome_fantasia = "Não encontrado"
             match_nome = re.search(
                 r"Nome Fantasia\s*[:]*\s*(.*)", texto_completo, re.IGNORECASE
@@ -206,16 +208,20 @@ def bulk_process():
             if match_nome:
                 nome_fantasia = match_nome.group(1).strip()
 
+            # D) Valor da Nota
             valor = "0,00"
             match_val = re.search(
                 r"VALOR DA NOTA\s*[=\s]*R\$\s*([\d\.,]+)", texto_completo, re.IGNORECASE
             )
             if not match_val:
+                # Fallback genérico para pegar valores maiores com cifrão
                 valores_encontrados = re.findall(
                     r"R\$\s*(\d{1,3}(?:\.\d{3})*,\d{2})", texto_completo
                 )
                 if valores_encontrados:
-                    valor = valores_encontrados[-1]
+                    valor = valores_encontrados[
+                        -1
+                    ]  # Geralmente o total fica no fim do bloco descritivo
             if match_val:
                 valor = match_val.group(1).strip()
 
@@ -248,6 +254,7 @@ def bulk_process():
 
 @app.route("/api/exportar", methods=["GET"])
 def exportar_excel():
+    """Usa Pandas para extrair os dados do notas.db e entregar um excel polido"""
     conn = get_db_connection()
     query = """
         SELECT 
@@ -280,14 +287,13 @@ def exportar_excel():
 def launch_pyside():
     if "file" not in request.files:
         return jsonify({"error": "Nenhum arquivo"}), 400
+
     file = request.files["file"]
     temp_pdf = "temp.pdf"
     file.save(temp_pdf)
 
     try:
-        subprocess.Popen(
-            [sys.executable, "pyside_tool.py", temp_pdf, "null"], cwd=os.getcwd()
-        )
+        subprocess.Popen([sys.executable, "pyside_tool.py", temp_pdf], cwd=os.getcwd())
         return jsonify({"message": "Janela do PySide6 disparada!"})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
