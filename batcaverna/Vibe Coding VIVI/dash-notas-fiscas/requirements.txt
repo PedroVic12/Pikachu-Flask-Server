@@ -1,9 +1,9 @@
 Flask==3.0.3
 PyPDF2
-pdf2image
+pypdfium2
 opencv-python==4.9.0.80
-pytesseract==0.3.10
-pandas==2.2.2
+easyocr
+pandas
 openpyxl==3.1.2
 numpy==1.26.4
 Pillow==10.3.0

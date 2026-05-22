@@ -85,17 +85,21 @@ def run_pyside_app(pdf_path, nota_id):
 
             # Renderiza Imagem com PyPDFium2
             pdf_doc = pdfium.PdfDocument(pdf_path)
-            pil_image = (
-                pdf_doc[0].render(scale=3).to_pil()
-            )  # scale 3 para mais nitidez no recorte
+            pil_image = pdf_doc[0].render(scale=3).to_pil()
             img = cv2.cvtColor(np.array(pil_image), cv2.COLOR_RGB2BGR)
 
-            rois = cv2.selectROIs(
-                "Seletor OpenCV (ENTER confirma, ESC finaliza)",
-                img,
-                fromCenter=False,
-                showCrosshair=True,
-            )
+            # ========================================================
+            # FIX: CONTROLE DE REDIMENSIONAMENTO DA JANELA OPENCV
+            # ========================================================
+            win_name = "Seletor OpenCV (ENTER confirma, ESC finaliza)"
+            cv2.namedWindow(
+                win_name, cv2.WINDOW_NORMAL
+            )  # Permite redimensionar livremente
+            cv2.resizeWindow(
+                win_name, 1000, 600
+            )  # Força o tamanho ideal para telas menores
+
+            rois = cv2.selectROIs(win_name, img, fromCenter=False, showCrosshair=True)
             cv2.destroyAllWindows()
 
             if len(rois) == 0:
@@ -105,7 +109,7 @@ def run_pyside_app(pdf_path, nota_id):
             text_output.setText("Extraindo texto das coordenadas...\n")
             QApplication.processEvents()
 
-            # Roda o EasyOCR apenas nos recortes!
+            # Roda o EasyOCR apenas nos recortes
             reader = easyocr.Reader(["pt"], gpu=False)
             resultados = []
 
@@ -113,7 +117,6 @@ def run_pyside_app(pdf_path, nota_id):
                 x, y, w, h = rect
                 if w > 0 and h > 0:
                     recorte = img[y : y + h, x : x + w]
-
                     texto_detectado = reader.readtext(recorte, detail=0, paragraph=True)
                     resultados.append("\n".join(map(str, texto_detectado)))
 

@@ -32,11 +32,17 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 # BYPASS DE REDE CORPORATIVA (Ignora erro de SSL)
 # ========================================================
 ssl._create_default_https_context = ssl._create_unverified_context
+GPU_LIGADA = True
 
 # Inicializa o EasyOCR globalmente para não recarregar a cada arquivo
 # gpu=False garante que vai rodar em qualquer máquina (CPU) sem precisar de placa de vídeo
 print("Inicializando modelo de Inteligência Artificial (EasyOCR)...")
-reader = easyocr.Reader(["pt"], gpu=False)
+reader = easyocr.Reader(["pt"], gpu=GPU_LIGADA)
+print(
+    "Utilizando o EasyOCR com GPU ativada!"
+    if GPU_LIGADA
+    else "Utilizando o EasyOCR em modo CPU (sem GPU)."
+)
 print("Motor OCR carregado com sucesso!")
 
 
@@ -153,37 +159,68 @@ def bulk_process():
             # 2. Extração via Imagem com EasyOCR + PyPDFium2
             texto_ocr = ""
             try:
-                # Renderiza PDF usando Chrome PDFium engine (Ultra rápido e nativo)
+                # Renderiza PDF usando Chrome PDFium engine
                 pdf_doc = pdfium.PdfDocument(filepath)
                 page = pdf_doc[0]
-                pil_image = page.render(
-                    scale=2
-                ).to_pil()  # Scale 2 é suficiente (~150 dpi)
+                pil_image = page.render(scale=2).to_pil()
 
                 # Converte PIL Image para OpenCV Array (BGR)
                 img_cv = cv2.cvtColor(np.array(pil_image), cv2.COLOR_RGB2BGR)
 
                 # Roda o EasyOCR na imagem
                 resultados_ocr = reader.readtext(img_cv, detail=0, paragraph=True)
-                texto_extraido = "\n".join(map(str, resultados_ocr))
+
+                # CORREÇÃO AQUI: Salva na variável correta!
+                texto_ocr = "\n".join(map(str, resultados_ocr))
+
             except Exception as e:
                 print(f"[ERRO EASYOCR]: {e}")
 
             # Combina os textos para a Regex
-            texto_completo = texto_pypdf2 + "\n" + texto_extraido
+            texto_completo = texto_pypdf2 + "\n" + texto_ocr
 
-            # REGEX PADRÃO NOTA CARIOCA
+            # ========================================================
+            # GERADOR DE LOG DE DEBUG (GRAVAÇÃO EM ARQUIVO .TXT)
+            # ========================================================
+            log_filepath = "./debug_ocr.txt"
+            with open(log_filepath, "a", encoding="utf-8") as log_file:
+                log_file.write(f"\n{'#'*80}\n")
+                log_file.write(f"ARQUIVO: {filename}\n")
+                log_file.write(
+                    f"HORA DA LEITURA: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}\n"
+                )
+                log_file.write(f"{'-'*80}\n")
+                log_file.write(texto_completo)
+                log_file.write(f"\n{'#'*80}\n\n")
+
+            # ========================================================
+            # ISOLAMENTO DE ESCOPO - PRESTADOR VS TOMADOR
+            # ========================================================
+            bloco_prestador = texto_completo
+            # O ponto (.) substitui a letra "Ç" para evitar erro caso o OCR leia "SERVICOS" ou "SERVI¢OS"
+            match_bloco = re.search(
+                r"PRESTADOR DE SERVI.OS(.*?)TOMADOR DE SERVI.OS",
+                texto_completo,
+                re.DOTALL | re.IGNORECASE,
+            )
+            if match_bloco:
+                bloco_prestador = match_bloco.group(1)
+
+            # ========================================================
+            # REGEX DE PRECISÃO - BLINDADO PARA EASYOCR
+            # ========================================================
+
+            # A) Número da Nota (Aceita variações como "Numero da Not")
             numero = "Não encontrado"
             match_num = re.search(
-                r"Número da Nota\s*\n\s*(\d+)", texto_completo, re.IGNORECASE
+                r"N[uú]mero da Not[a]?[\s:]*\n*\s*0*(\d+)",
+                texto_completo,
+                re.IGNORECASE,
             )
-            if not match_num:
-                match_num = re.search(
-                    r"Número da Nota\s+(\d+)", texto_completo, re.IGNORECASE
-                )
             if match_num:
-                numero = match_num.group(1).lstrip("0")
+                numero = match_num.group(1)
 
+            # B) Data e Hora de Emissão
             data_emissao = "Não encontrada"
             match_data = re.search(
                 r"(\d{2}/\d{2}/\d{4}\s+\d{2}:\d{2}:\d{2})", texto_completo
@@ -193,35 +230,49 @@ def bulk_process():
             if match_data:
                 data_emissao = match_data.group(1)
 
+            # C) NOME FANTASIA (Captura tudo até esbarrar no Endereço, CPF, Município, etc)
             nome_fantasia = "Não encontrado"
             match_nome = re.search(
-                r"Nome Fantasia\s*[:]*\s*(.*)", texto_completo, re.IGNORECASE
+                r"Nome\s*Fantasia[\s:\-]*(.*?)(?:Endere[çc]o|CPF|CNPJ|Munic[íi]pio|Tel|Inscri[çc][ãa]o)",
+                bloco_prestador,
+                re.IGNORECASE | re.DOTALL,
             )
             if not match_nome:
+                # Fallback para Razão Social
                 match_nome = re.search(
-                    r"Nome\s*Razão\s*Social\s*[:]*\s*(.*)",
+                    r"Nome[\s/]*Raz[ãa]o\s*Social[\s:\-]*(.*?)(?:Nome\s*Fantasia|Endere[çc]o|CPF|CNPJ|Munic[íi]pio|Tel|Inscri[çc][ãa]o)",
+                    bloco_prestador,
+                    re.IGNORECASE | re.DOTALL,
+                )
+
+            if match_nome:
+                # Limpa as quebras de linha que o EasyOCR costuma jogar no meio das palavras
+                nome_fantasia = match_nome.group(1).replace("\n", " ").strip()
+                # Tira pontuações soltas no final
+                nome_fantasia = re.sub(r"[:\-]+$", "", nome_fantasia).strip()
+
+            # D) Valor da Nota (Pega mesmo se o cifrão colar no número)
+            valor = "0,00"
+            match_val = re.search(
+                r"VALOR DA NOTA[^\d]*([\d]{1,3}(?:\.\d{3})*,\d{2})",
+                texto_completo,
+                re.IGNORECASE,
+            )
+            if not match_val:
+                # Fallback: Pega todos os valores no formato de dinheiro e usa o último (que costuma ser o total)
+                valores_encontrados = re.findall(
+                    r"R\$?\s*([\d]{1,3}(?:\.\d{3})*,\d{2})",
                     texto_completo,
                     re.IGNORECASE,
                 )
-            if match_nome:
-                nome_fantasia = match_nome.group(1).strip()
-
-            valor = "0,00"
-            match_val = re.search(
-                r"VALOR DA NOTA\s*[=\s]*R\$\s*([\d\.,]+)", texto_completo, re.IGNORECASE
-            )
-            if not match_val:
-                valores_encontrados = re.findall(
-                    r"R\$\s*(\d{1,3}(?:\.\d{3})*,\d{2})", texto_completo
-                )
                 if valores_encontrados:
                     valor = valores_encontrados[-1]
-            if match_val:
+            else:
                 valor = match_val.group(1).strip()
 
             print(f"[CONSOLE LOG - DADOS CAPTURADOS]")
             print(
-                f" -> Número: {numero}\n -> Data/Hora: {data_emissao}\n -> Empresa: {nome_fantasia}\n -> Valor: R$ {valor}"
+                f" -> Número: {numero}\n -> Data/Hora: {data_emissao}\n -> Nome Fantasia: {nome_fantasia}\n -> Valor: R$ {valor}"
             )
             print(f"{'='*60}\n")
 
