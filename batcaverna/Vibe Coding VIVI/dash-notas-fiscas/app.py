@@ -207,20 +207,28 @@ def bulk_process():
                 bloco_prestador = match_bloco.group(1)
 
             # ========================================================
-            # REGEX DE PRECISÃO - BLINDADO PARA EASYOCR
+            # REGEX DE PRECISÃO - BLINDADO PARA ERROS DO EASYOCR
             # ========================================================
 
-            # A) Número da Nota (Aceita variações como "Numero da Not")
+            # A) NÚMERO DA NOTA (Sua ideia: Prioridade total para o Nome do Arquivo)
             numero = "Não encontrado"
-            match_num = re.search(
-                r"N[uú]mero da Not[a]?[\s:]*\n*\s*0*(\d+)",
-                texto_completo,
-                re.IGNORECASE,
+            # Procura por "NF 13904", "NOTA 12155", "NFSe_3802" no nome do arquivo
+            match_arquivo = re.search(
+                r"(?:NF|NOTA|NFSe)[^\d]*(\d{3,8})", filename, re.IGNORECASE
             )
-            if match_num:
-                numero = match_num.group(1)
+            if match_arquivo:
+                numero = match_arquivo.group(1).lstrip("0")
+            else:
+                # Fallback: Se o nome do arquivo não tiver o número, tenta ler de dentro do PDF
+                match_num = re.search(
+                    r"N[a-zú]*ro\s+da\s+Not[a]?[\s:]*0*(\d+)",
+                    texto_completo,
+                    re.IGNORECASE,
+                )
+                if match_num:
+                    numero = match_num.group(1)
 
-            # B) Data e Hora de Emissão
+            # B) DATA E HORA DE EMISSÃO
             data_emissao = "Não encontrada"
             match_data = re.search(
                 r"(\d{2}/\d{2}/\d{4}\s+\d{2}:\d{2}:\d{2})", texto_completo
@@ -230,28 +238,40 @@ def bulk_process():
             if match_data:
                 data_emissao = match_data.group(1)
 
-            # C) NOME FANTASIA (Captura tudo até esbarrar no Endereço, CPF, Município, etc)
+            # C) NOME FANTASIA (Busca a partir de "Fantasia" e ignora erros de português do OCR)
             nome_fantasia = "Não encontrado"
             match_nome = re.search(
-                r"Nome\s*Fantasia[\s:\-]*(.*?)(?:Endere[çc]o|CPF|CNPJ|Munic[íi]pio|Tel|Inscri[çc][ãa]o)",
+                r"Fantasia[\s:\-]*(.*?)(?:Tel|Endere[çc]o|CPF|CNPJ|Munic[íi]pio)",
                 bloco_prestador,
                 re.IGNORECASE | re.DOTALL,
             )
             if not match_nome:
                 # Fallback para Razão Social
                 match_nome = re.search(
-                    r"Nome[\s/]*Raz[ãa]o\s*Social[\s:\-]*(.*?)(?:Nome\s*Fantasia|Endere[çc]o|CPF|CNPJ|Munic[íi]pio|Tel|Inscri[çc][ãa]o)",
+                    r"Social[\s:\-]*(.*?)(?:Fantasia|Tel|Endere[çc]o|CPF|CNPJ)",
                     bloco_prestador,
                     re.IGNORECASE | re.DOTALL,
                 )
 
             if match_nome:
-                # Limpa as quebras de linha que o EasyOCR costuma jogar no meio das palavras
                 nome_fantasia = match_nome.group(1).replace("\n", " ").strip()
-                # Tira pontuações soltas no final
                 nome_fantasia = re.sub(r"[:\-]+$", "", nome_fantasia).strip()
 
-            # D) Valor da Nota (Pega mesmo se o cifrão colar no número)
+                # DICA DE OURO: Filtro de Auto-Correção
+                # Como o EasyOCR lê "PERSOHALE" ou "COHSULTORA", nós limpamos a sujeira!
+                if "PERSO" in nome_fantasia.upper():
+                    nome_fantasia = "PERSONALE CONSULTORIA E TREINAMENTO LTDA"
+                elif "CLAN" in nome_fantasia.upper():
+                    nome_fantasia = "CLAN SERVICOS TECNICOS EIRELI ME"
+                elif (
+                    "ENGLISH" in nome_fantasia.upper()
+                    or "HOUSE" in nome_fantasia.upper()
+                ):
+                    nome_fantasia = "ENGLISH HOUSE LANGUAGE STUDIES LTDA"
+                elif "HUNTER" in nome_fantasia.upper():
+                    nome_fantasia = "I HUNTER TECNOLOGIA DA INFORMACAO LTDA"
+
+            # D) VALOR DA NOTA
             valor = "0,00"
             match_val = re.search(
                 r"VALOR DA NOTA[^\d]*([\d]{1,3}(?:\.\d{3})*,\d{2})",
@@ -259,7 +279,6 @@ def bulk_process():
                 re.IGNORECASE,
             )
             if not match_val:
-                # Fallback: Pega todos os valores no formato de dinheiro e usa o último (que costuma ser o total)
                 valores_encontrados = re.findall(
                     r"R\$?\s*([\d]{1,3}(?:\.\d{3})*,\d{2})",
                     texto_completo,

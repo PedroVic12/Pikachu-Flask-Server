@@ -85,19 +85,16 @@ def run_pyside_app(pdf_path, nota_id):
 
             # Renderiza Imagem com PyPDFium2
             pdf_doc = pdfium.PdfDocument(pdf_path)
-            pil_image = pdf_doc[0].render(scale=3).to_pil()
+            pil_image = pdf_doc[0].render(scale=2).to_pil()
             img = cv2.cvtColor(np.array(pil_image), cv2.COLOR_RGB2BGR)
 
             # ========================================================
             # FIX: CONTROLE DE REDIMENSIONAMENTO DA JANELA OPENCV
             # ========================================================
             win_name = "Seletor OpenCV (ENTER confirma, ESC finaliza)"
-            cv2.namedWindow(
-                win_name, cv2.WINDOW_NORMAL
-            )  # Permite redimensionar livremente
-            cv2.resizeWindow(
-                win_name, 1000, 600
-            )  # Força o tamanho ideal para telas menores
+            # Permite redimensionar livremente
+            cv2.namedWindow(win_name, cv2.WINDOW_NORMAL)
+            cv2.resizeWindow(win_name, 1000, 700)
 
             rois = cv2.selectROIs(win_name, img, fromCenter=False, showCrosshair=True)
             cv2.destroyAllWindows()
