@@ -2,9 +2,15 @@
 
 ---
 
-📅 Data: **15/05/2026**
+📅 Data: **26/05/2026**
 
 ## 📑 ÍNDICE RÁPIDO
+
+## JOBS
+
+### Trabalho Cientista de dados JR no ELITE Rede de Ensino
+
+### Trabalho 2023-2024: Camorim Serviços Marítimos como estágio de Engenharia Elétrica
 
 ### ⚡ **TRABALHO - ONS PLC 2026**
 
