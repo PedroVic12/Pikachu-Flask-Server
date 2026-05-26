@@ -52,15 +52,35 @@
 
 ## Desligamento ONS - 12/06 (INICIO COPA26)
 
+
+
+- [x] Diagramas, Fluxogramas e mapas mentais sobre projetos no Github e OneDrive realizadas (Scripts,websites, banco de dados, guias, CLI)
+
+
+-  [ ] Estudos e métricas na Batcavena UI com Habit Tracker pegando dados de checklist criados
+
+
+- [x] Planner x Kanban Pro  x Cronograma x SCRUM
+
+
+
 - [x] Organização de arquivos .md e .PDF e notebooks usados no ONS PLC
 - [x] Alinhamento tarefas - alexandre
   - Diagrama Organon SP 440KV e 345kv
-  - Apresentacao RCE ONS PLC
+- [x] Apresentacao RCE ONS PLC
+
+- [ ] Deckbuild com AnaRede, Pandapower e Organon
+
+- [x] Estudos SEP x Circuitos Elétricos x Circuitos Digitais 
+
+- [ ] Obsidian X Quarto .md x Blog com .md x Notebooks Python e Julia x Relatórios PDF com Látex 
+
+- [x] dashboard de agendamento ótimo de intervenção de redes elétricas RCE
 
 - [ ] Levantar requisitos de MUST e Perdas Duplas LTs
 - [ ] Estudos de Circuitos digitais + Mini curso circuitos eletricos CC com Python e Fastlad
-- [ ] Notebooks feitos para o Github, RCE e ONS PLC
-- [ ] Dashboards em MUST, Palkia.
+- [x] Notebooks feitos para o Github, RCE e ONS PLC
+- [x] Dashboards em MUST, Palkia.
 - [x] Apresentacao RCE UFF ONS PLC (27/05/2026)
   - Slides
   - Apresentação com falas no markdown
@@ -69,15 +89,20 @@
 
 - [ ] Planner ONS (organização) x MUST dashbords (controle e gestão) x Cronograma Tarefas PLC (rotina) x Batcaverna PV x KanbanPro 2026 x GohanTreinamentos WebApp (calistenia App)
 
-- [ ] Testes de arquivos .md em Astro, PowerPoint, NextJS
+- [x] Testes de arquivos .md em Astro, PowerPoint, NextJS
 
-- [ ] Uso e testes de CLI em python desenvolvidas
+- [x] Uso e testes de CLI em python desenvolvidas
 
-- [ ] Guia de Montagem Mensal Word x Anotações Obsidian (VA,VB e SEMENTE)
+- [X] Guia de Montagem Mensal Word x Anotações Obsidian (VA,VB e SEMENTE)
 
 - [x] Diagrama SP - Organon 440KV
 - [x] Conversas com Alexandre Nunes e João Marco
-- [ ] Guia de Montagem de Decks: Mensal (Word + Obsidian)
+
+
+- [x] Guia de Montagem de Decks: Mensal (Word + Obsidian)
+
+- [ ] Guia completo em Word e PDF dos processos de atividades do mensal usando simuladores CEPEL e FLOW 
+
   - VA = Decks de Configuração e Carga para casos SEMENTE
     - Correção barras ausentes
     - Planilha SISBAR: Parecer da Área (fix_decks_barras_ausentes.py) = Retorna uma planilha atualizada comparando as barras ausentes do Mes atual e mes anterior utilizando as Respostas PLC no caso correspondente para região SECO
@@ -90,16 +115,19 @@
   - VH = Emissão do Relatórios
 
 - [x] Relatório de Perdas Duplas LTs usando VBA e Plots de 3 gráficos
-- [ ] APRESENTAÇÃO: modelos de IA X Agentes de IA
-- [ ] Relatórios + Artigos em PDF
-- [ ] Blogs com markdonwn e análise de SEP
+
 
 - [ ] COMUNICAÇÃO + SOFT SKILLS
 - [ ] CLI EM PYTHON (TERMINAL - VA, VB, VC)
-- [ ] ETL EM PYTHON (PACOTE OFFICE - PALKIA)
+- [x] ETL EM PYTHON (PACOTE OFFICE - PALKIA)
   - ETL de arquivos PDF relacionados a MUST e salvando tudo num excel que vira um banco de dados no Access Microsoft
   - Painel Dashboard em Rust + MUST + controle e gestão com banco de dados (Excel e sqlite3) de casos do MUST com deck do AnaREDE como referencia e um algoritmo Big O para prever o nivel de complexibilidade de cada problema.
+
 - [ ] minicurso circuitos CC com Sadiku e Python
+
+- [x] Arquivo .md: Astro (blog), quarto (.qmd) e Geração de PowerPoint em PDF tempalte de apresentação ONS PLC 
+
+---
 
 ## Estudos Elétricos do ONS para SEP
 
@@ -157,8 +185,6 @@
 
 ---
 
----
-
 # Tarefas e Estudos Pendentes
 
 ---
@@ -178,7 +204,7 @@
 
 # ⚡ Bloco de Estudos Circuitos Digitais + Nivelamento ONS PLC
 
-## Estudos UFF
+## Estudos UFF 2026.1
 
 - Circuitos Digitais P1 (Karnaugh, SOP, teoremas booleanos)
 - ONS (Python + relatórios + checklist)
@@ -336,6 +362,13 @@ Para a provas da UFF:
 - previsão março de 2026 - hudd (conversar com o bruxo)
 
 - previsão maio e junho de 2026 - hudd
+
+ - 2 missões espirituais em 60 dias
+  - "ensinar a fazer certa pessoa próxima a encontrar seus talentos no meio de trabalho"
+
+  - "minha mente funciona de forma diferente, eu vim para incomodar. Estou aqui para questionar e demonstrar matemática e cientificamente falando assuntos que instiguem na evolução da raça humana."
+
+ programação, engenharia elétrica, ética 
 
 - estado de espírito 
 
