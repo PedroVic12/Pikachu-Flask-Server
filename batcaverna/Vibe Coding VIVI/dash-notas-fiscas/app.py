@@ -161,17 +161,20 @@ def bulk_process():
             try:
                 # Renderiza PDF usando Chrome PDFium engine
                 pdf_doc = pdfium.PdfDocument(filepath)
-                page = pdf_doc[0]
-                pil_image = page.render(scale=2).to_pil()
+                
+                # Processa até as 2 primeiras páginas se existirem
+                paginas_para_ocr = min(len(pdf_doc), 2)
+                for i in range(paginas_para_ocr):
+                    page = pdf_doc[i]
+                    # Aumentamos o scale para 3 para melhorar a precisão de letras pequenas
+                    pil_image = page.render(scale=3).to_pil()
 
-                # Converte PIL Image para OpenCV Array (BGR)
-                img_cv = cv2.cvtColor(np.array(pil_image), cv2.COLOR_RGB2BGR)
+                    # Converte PIL Image para OpenCV Array (BGR)
+                    img_cv = cv2.cvtColor(np.array(pil_image), cv2.COLOR_RGB2BGR)
 
-                # Roda o EasyOCR na imagem
-                resultados_ocr = reader.readtext(img_cv, detail=0, paragraph=True)
-
-                # CORREÇÃO AQUI: Salva na variável correta!
-                texto_ocr = "\n".join(map(str, resultados_ocr))
+                    # Roda o EasyOCR na imagem
+                    resultados_ocr = reader.readtext(img_cv, detail=0, paragraph=True)
+                    texto_ocr += "\n".join(map(str, resultados_ocr)) + "\n"
 
             except Exception as e:
                 print(f"[ERRO EASYOCR]: {e}")
@@ -182,7 +185,7 @@ def bulk_process():
             # ========================================================
             # GERADOR DE LOG DE DEBUG (GRAVAÇÃO EM ARQUIVO .TXT)
             # ========================================================
-            log_filepath = "./debug_ocr.txt"
+            log_filepath = os.path.join(UPLOAD_FOLDER, "debug_ocr.txt")
             with open(log_filepath, "a", encoding="utf-8") as log_file:
                 log_file.write(f"\n{'#'*80}\n")
                 log_file.write(f"ARQUIVO: {filename}\n")
@@ -197,31 +200,30 @@ def bulk_process():
             # ISOLAMENTO DE ESCOPO - PRESTADOR VS TOMADOR
             # ========================================================
             bloco_prestador = texto_completo
-            # O ponto (.) substitui a letra "Ç" para evitar erro caso o OCR leia "SERVICOS" ou "SERVI¢OS"
+            # Regex mais flexível para PRESTADOR (pode vir sem acento ou com erro)
             match_bloco = re.search(
-                r"PRESTADOR DE SERVI.OS(.*?)TOMADOR DE SERVI.OS",
+                r"PRESTADOR\s+DE\s+SERVI.*?TOMADOR\s+DE\s+SERVI",
                 texto_completo,
                 re.DOTALL | re.IGNORECASE,
             )
             if match_bloco:
-                bloco_prestador = match_bloco.group(1)
+                bloco_prestador = match_bloco.group(0) # Pega o bloco inteiro incluindo as palavras chave
 
             # ========================================================
             # REGEX DE PRECISÃO - BLINDADO PARA ERROS DO EASYOCR
             # ========================================================
 
-            # A) NÚMERO DA NOTA (Sua ideia: Prioridade total para o Nome do Arquivo)
+            # A) NÚMERO DA NOTA (Prioridade: Nome do Arquivo -> Conteúdo)
             numero = "Não encontrado"
-            # Procura por "NF 13904", "NOTA 12155", "NFSe_3802" no nome do arquivo
             match_arquivo = re.search(
                 r"(?:NF|NOTA|NFSe)[^\d]*(\d{3,8})", filename, re.IGNORECASE
             )
             if match_arquivo:
                 numero = match_arquivo.group(1).lstrip("0")
             else:
-                # Fallback: Se o nome do arquivo não tiver o número, tenta ler de dentro do PDF
+                # Regex mais abrangente para número dentro do PDF
                 match_num = re.search(
-                    r"N[a-zú]*ro\s+da\s+Not[a]?[\s:]*0*(\d+)",
+                    r"(?:N[a-zú]*ro\s+da\s+Not[a]?|NF-e|NFS-e)[\s:]*0*(\d+)",
                     texto_completo,
                     re.IGNORECASE,
                 )
@@ -230,55 +232,55 @@ def bulk_process():
 
             # B) DATA E HORA DE EMISSÃO
             data_emissao = "Não encontrada"
+            # Tenta vários formatos comuns de OCR (inclusive com erros de barra)
             match_data = re.search(
-                r"(\d{2}/\d{2}/\d{4}\s+\d{2}:\d{2}:\d{2})", texto_completo
+                r"(\d{2}[/\d]\d{2}[/\d]\d{4}\s+\d{2}:\d{2}:\d{2})", texto_completo
             )
             if not match_data:
-                match_data = re.search(r"(\d{2}/\d{2}/\d{4})", texto_completo)
+                match_data = re.search(r"(\d{2}[/\d]\d{2}[/\d]\d{4})", texto_completo)
+            
             if match_data:
-                data_emissao = match_data.group(1)
+                data_emissao = match_data.group(1).replace(" ", " - ")
+                # Limpa possíveis erros de OCR na data (ex: 19407 vira 19/07)
+                if len(data_emissao) >= 10:
+                    data_emissao = data_emissao[:2] + "/" + data_emissao[3:5] + "/" + data_emissao[6:]
 
-            # C) NOME FANTASIA (Busca a partir de "Fantasia" e ignora erros de português do OCR)
+            # C) NOME FANTASIA
             nome_fantasia = "Não encontrado"
+            # Procura por "Fantasia" ou "Razão Social" no bloco do prestador
             match_nome = re.search(
-                r"Fantasia[\s:\-]*(.*?)(?:Tel|Endere[çc]o|CPF|CNPJ|Munic[íi]pio)",
+                r"(?:Fantasia|Social|Nome)[\s:\-]*(.*?)(?:Tel|Endere[çc]o|CPF|CNPJ|Munic[íi]pio|Inscri[çc][ãa]o)",
                 bloco_prestador,
                 re.IGNORECASE | re.DOTALL,
             )
-            if not match_nome:
-                # Fallback para Razão Social
-                match_nome = re.search(
-                    r"Social[\s:\-]*(.*?)(?:Fantasia|Tel|Endere[çc]o|CPF|CNPJ)",
-                    bloco_prestador,
-                    re.IGNORECASE | re.DOTALL,
-                )
-
+            
             if match_nome:
                 nome_fantasia = match_nome.group(1).replace("\n", " ").strip()
                 nome_fantasia = re.sub(r"[:\-]+$", "", nome_fantasia).strip()
 
-                # DICA DE OURO: Filtro de Auto-Correção
-                # Como o EasyOCR lê "PERSOHALE" ou "COHSULTORA", nós limpamos a sujeira!
-                if "PERSO" in nome_fantasia.upper():
+                # Normalização de nomes conhecidos
+                nome_upper = nome_fantasia.upper()
+                if "PERSO" in nome_upper:
                     nome_fantasia = "PERSONALE CONSULTORIA E TREINAMENTO LTDA"
-                elif "CLAN" in nome_fantasia.upper():
+                elif "CLAN" in nome_upper:
                     nome_fantasia = "CLAN SERVICOS TECNICOS EIRELI ME"
-                elif (
-                    "ENGLISH" in nome_fantasia.upper()
-                    or "HOUSE" in nome_fantasia.upper()
-                ):
+                elif "ENGLISH" in nome_upper or "HOUSE" in nome_upper:
                     nome_fantasia = "ENGLISH HOUSE LANGUAGE STUDIES LTDA"
-                elif "HUNTER" in nome_fantasia.upper():
+                elif "HUNTER" in nome_upper:
                     nome_fantasia = "I HUNTER TECNOLOGIA DA INFORMACAO LTDA"
+                elif "INSTITUTO AB" in nome_upper:
+                    nome_fantasia = "INSTITUTO AB"
 
             # D) VALOR DA NOTA
             valor = "0,00"
+            # Tenta "VALOR DA NOTA" ou "VALOR TOTAL"
             match_val = re.search(
-                r"VALOR DA NOTA[^\d]*([\d]{1,3}(?:\.\d{3})*,\d{2})",
+                r"(?:VALOR DA NOTA|VALOR TOTAL|TOTAL DA NOTA)[^\d]*([\d]{1,3}(?:\.\d{3})*,\d{2})",
                 texto_completo,
                 re.IGNORECASE,
             )
             if not match_val:
+                # Fallback: pega o último valor com R$
                 valores_encontrados = re.findall(
                     r"R\$?\s*([\d]{1,3}(?:\.\d{3})*,\d{2})",
                     texto_completo,
@@ -364,4 +366,6 @@ def launch_pyside():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5000)
+    # use_reloader=False é crucial para evitar que o Flask reinicie 
+    # ao salvar arquivos de log ou uploads durante o processamento pesado.
+    app.run(debug=True, use_reloader=False, port=5000)
