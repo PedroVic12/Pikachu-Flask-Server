@@ -121,7 +121,7 @@
 
 ---
 
-## 🔚 Encerramento da Semana (15-05-2026)
+## 🔚 Rotina de Encerramento da Semana (15-05-2026)
 
 ---
 
@@ -314,6 +314,38 @@ Para a provas da UFF:
 
 - principais: **simulado + perguntas**
 - apoio: **flashcards + revisão espaçada**
+
+---
+
+# Corpo x Mente X Espírito 
+
+
+
+## Mundo espiritual
+
+- alinhamento espíritual do dia
+- rotina de evangelho do dia e salmos
+- leitura de Gênesis, Evangelho, Profetas e Profecias, Atos dos apóstolos, Apocalipse 
+
+- periodos do calendário católico
+
+- santo terço e Detox de pensamento ruins e diminuição de ansiedade 
+
+- Curso Raízes de Aruanda e postagem no blog
+
+- previsão março de 2026 - hudd (conversar com o bruxo)
+
+- previsão maio e junho de 2026 - hudd
+
+- estado de espírito 
+
+- Aura, Espírito e Mente
+
+- Campo energético vibracional do ser humano (potencial do campo elétrico do cérebro)
+
+- sessões de confissões de pecados com terço da misericórdia com exame de consciência 
+
+
 
 ---
 
