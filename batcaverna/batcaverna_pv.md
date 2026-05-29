@@ -50,40 +50,80 @@
 
 💡 Dicas práticas:
 
-> Execute em ciclos curtos: rodar script → validar → corrigir → repetir
+  > Execute em ciclos curtos: rodar script → validar → corrigir → repetir
 
-# Scrum + Planejamento + Organização + Kanban
+# KANBAN + SCRUM + Organização + Planejamento + metodologia ágil
+
+Aguardando envio
+
+Pendências | importante
+
+Concluído
+
+- Entregas ageis
+- Kanban para divisão de tarefas BACKLOG, IN PROGRESS, TESTING e CONCLUIDO
 
 ### Gerenciamento do tempo
 
+- Pomodoros: 50/10
+- Divisão de tarefas em atividades gerenciais
+
 ### Gerenciamento de Prioridades
+
+- Matriz Eiseingher: Urgente e Não urgente
+- Eat the frog first
+- Prioridade de 3 tarefas principais do dia
 
 ### Planejamento e Metas
 
+- Planner otimizado com rotinas automatizadas toda segunda e sexta
+- Tarefas com entrega com datas claras e acompanhmento do processo em tempo real
+
 ---
 
-## Desligamento ONS - 12/06 (INICIO COPA26)
+# Atividades e Checklists
+
+- [x] Correção de templates astro tailwind do blog de petropolis e salvando para novos projetos
+- [x] atualização na sessão de Transmissão do Blog para leigos
+- [x] Correção e testes da função objetivo IEEE 30 no RCE Lancher e apresetação do projeto no ONS para gerencia de PLC
+- [x] Diagrama 440kv e 345kv de SP no organon para ajudar nos estudos eletricos
+- [x] Batcaverna PV + Templates em Javascript + backend em Flask
+
+- [ ] Estudos: Flask x FastAPI x Django para programação backend para cada tipo de projeto
+
+- [ ] Estudos: Fronted = Astro, NextJS, React (flask backend), Tauri com JS vanilla, Streamlit e Qt6
+- [ ] Estudos e métricas na Batcavena UI com Habit Tracker pegando dados de checklist criados
+
+---
+
+# Desligamento ONS - 09/06 (INICIO COPA26)
 
 - [x] Diagramas, Fluxogramas e mapas mentais sobre projetos no Github e OneDrive realizadas (Scripts,websites, banco de dados, guias, CLI)
 
-- [ ] Estudos e métricas na Batcavena UI com Habit Tracker pegando dados de checklist criados
+- [ ] Montagem do novo Obsidian para Jedi cyberpunk arruamndo a pasta do ONS PLC para ser usada apenas com conteudo de trabalho
+
+- [ ] Guia de Montagem Mensal no Word e Obsidian para consulta e estudos na UFF futuramente como funcionario do ONS usando os casos de maxima e minima com politica energetica
 
 - [x] Planner x Kanban Pro  x Cronograma x SCRUM
 
 - [x] Organização de arquivos .md e .PDF e notebooks usados no ONS PLC
 - [x] Alinhamento tarefas - alexandre
-  - Diagrama Organon SP 440KV e 345kv
+- [x] Diagrama Organon SP 440KV e 345kv
 - [x] Apresentacao RCE ONS PLC
 
-- [ ] Deckbuild com AnaRede, Pandapower e Organon
+- [ ] Deckbuild com AnaRede, Pandapower e Organon com aquivos .PWF e .dat
+  - Estudos de fluxo de potencia
+  - criação de SEP com montagem de decks
+  - Uso do PandaPower em conjunto do Diagrama do Organon
 
 - [x] Estudos SEP x Circuitos Elétricos x Circuitos Digitais
 
-- [ ] Obsidian X Quarto .md x Blog com .md x Notebooks Python e Julia x Relatórios PDF com Látex
+- [x] Obsidian X Quarto .md x Blog com .md x Notebooks Python e Julia x Relatórios PDF com Látex
 
 - [x] dashboard de agendamento ótimo de intervenção de redes elétricas RCE
 
-- [ ] Levantar requisitos de MUST e Perdas Duplas LTs
+- [x] Levantar requisitos de MUST e Perdas Duplas LTs
+- [ ] Montar apresentação de MUST e ETL de perdas duplas que fiz no ONS PLC em 2025
 - [ ] Estudos de Circuitos digitais + Mini curso circuitos eletricos CC com Python e Fastlad
 - [x] Notebooks feitos para o Github, RCE e ONS PLC
 - [x] Dashboards em MUST, Palkia.
@@ -161,18 +201,18 @@
 
 ## Rotina
 
-- [ ] ONS
-- [ ] UFF
+- [x] ONS
+- [x] UFF
 - [ ] CODING
 - [ ] CORPO
 - [ ] MENTE
-- [ ] ESPIRITO
+- [x] ESPIRITO
 
 ## ✔ Concluído
 
-- [ ] ONS:
-- [ ] Estudos (UFF):
-- [ ] Código/Projetos:
+- [x] ONS:
+- [x] Estudos (UFF):
+- [x] Código/Projetos:
 - [ ] Treino:
 
 ## ⚠️ Pendências
@@ -212,9 +252,17 @@
 
 ## Estudos UFF 2026.1
 
-- Circuitos Digitais P1 (Karnaugh, SOP, teoremas booleanos)
-- ONS (Python + relatórios + checklist)
-- Projetos (calculadora + Organon + Pyside6)
+- [x] Circuitos Digitais P1 (Karnaugh, SOP, teoremas booleanos)
+- [ ] ONS (Python + relatórios + checklist)
+- [ ] Projetos (calculadora + Organon + Pyside6)
+
+- [ ] P2 circuitos digitais
+- [ ] Provas P2 e P3 de circuitos eletricos CC
+- [ ] Provas de Sinais e Sistemas e Eletromagnetismo
+
+- [ ] Provas do ENEM: matematica e Fisica no youtube
+
+- [ ] Minicurso: Calculo Numero com Python e Julia
 
 - [ ] Resolver sistema de solver de calculadora de EDO e Matrizes com plots em Qt6(sympy)
 - [ ] Plot função (matplotlib)
@@ -265,16 +313,6 @@
   - [ ] taxa de rendimento do salario ONS com 5% e 10% ao mes
 
 - [ ] Planilhas Horarios + Planilha de controle financeiro + Planilhas de treinos
-
----
-
-## KANBAN + SCRUM e metodologia ágil
-
-Aguardando envio
-
-Pendências | importante
-
-Concluído
 
 ---
 
