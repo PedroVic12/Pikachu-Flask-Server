@@ -1,0 +1,142 @@
+---
+const { images } = Astro.props;
+---
+
+<section
+    class="relative h-[60vh] md:h-[70vh] w-full overflow-hidden"
+    data-hero-carousel
+>
+    {
+        images.map((img: any, idx: any) => (
+            <div
+                class:list={[
+                    "absolute inset-0 transition-opacity duration-1000 ease-in-out",
+                    idx === 0 ? "opacity-100" : "opacity-0",
+                ]}
+                data-slide
+            >
+                <img
+                    src={img}
+                    alt={`Slide ${idx + 1}`}
+                    class="w-full h-full object-cover"
+                />
+                <div class="absolute inset-0 bg-black/60" />
+            </div>
+        ))
+    }
+
+    <div
+        class="absolute inset-0 flex flex-col items-center justify-center text-white z-10 p-4 text-center"
+    >
+        <span
+            class="bg-[#ff9800]/20 text-[#ff9800] px-3 py-1 rounded-full text-xs font-bold uppercase tracking-[0.25em] mb-3 inline-block border border-[#ff9800]/30"
+        >
+            Modo VIAJANTE ATIVO
+        </span>
+
+        <h1
+            class="text-4xl md:text-6xl font-black mb-4 tracking-wider leading-tight"
+        >
+            Viagem Para <br />Petrópolis
+        </h1>
+
+        <p class="text-lg md:text-xl text-orange-400 mb-8 font-light max-w-xl">
+            Roteiro de 4 dias otimizado com ChatGPT, Copilot, Gemini para
+            aproveitar ao máximo cada momento, sem perder tempo com pesquisas ou
+            planejamento.
+        </p>
+
+        <button
+            class="bg-[#ff9800] hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-full transition-transform hover:scale-105 shadow-lg shadow-orange-500/30"
+            data-toast-trigger
+            data-scroll-target="#meu-roteiro"
+            type="button"
+        >
+            Iniciar Roteiro
+        </button>
+
+        <script>
+            const scrollBtn = document.querySelector("[data-scroll-target]");
+
+            scrollBtn?.addEventListener("click", () => {
+                const targetId = scrollBtn.getAttribute("data-scroll-target");
+                const targetElement = document.querySelector(targetId);
+
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: "smooth", // Deslize suave
+                        block: "start", // Alinha no topo
+                    });
+                }
+            });
+        </script>
+    </div>
+
+    <div class="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+        {
+            images.map((_: any, idx: number) => (
+                <button
+                    type="button"
+                    class:list={[
+                        "h-2.5 rounded-full transition-all duration-300",
+                        idx === 0
+                            ? "w-8 bg-[#ff9800]"
+                            : "w-2.5 bg-white/50 hover:bg-white/80",
+                    ]}
+                    data-dot
+                    aria-label={`Ir para slide ${idx + 1}`}
+                />
+            ))
+        }
+    </div>
+</section>
+
+<script is:inline>
+    const root = document.querySelector("[data-hero-carousel]");
+    if (root) {
+        const slides = Array.from(root.querySelectorAll("[data-slide]"));
+        const dots = Array.from(root.querySelectorAll("[data-dot]"));
+        const button = root.querySelector("[data-toast-trigger]");
+        let current = 0;
+
+        const show = (index) => {
+            slides.forEach((slide, i) => {
+                slide.classList.toggle("opacity-100", i === index);
+                slide.classList.toggle("opacity-0", i !== index);
+            });
+
+            dots.forEach((dot, i) => {
+                dot.classList.toggle("w-8", i === index);
+                dot.classList.toggle("bg-[#ff9800]", i === index);
+                dot.classList.toggle("w-2.5", i !== index);
+                dot.classList.toggle("bg-white/50", i !== index);
+            });
+
+            current = index;
+        };
+
+        const next = () => show((current + 1) % slides.length);
+
+        let timer = window.setInterval(next, 5000);
+
+        dots.forEach((dot, index) => {
+            dot.addEventListener("click", () => {
+                show(index);
+                window.clearInterval(timer);
+                timer = window.setInterval(next, 5000);
+            });
+        });
+
+        if (button) {
+            button.addEventListener("click", () => {
+                window.dispatchEvent(
+                    new CustomEvent("travel:toast", {
+                        detail: {
+                            message: "Roteiro sincronizado com o teu GPS! 🚗",
+                        },
+                    }),
+                );
+            });
+        }
+    }
+</script>

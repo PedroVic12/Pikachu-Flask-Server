@@ -1,0 +1,46 @@
+---
+// Componente Mestre: Centraliza todos os imports do Template Astro + Tailwind
+import Navbar from "./Layout/Navbar.astro";
+import Toast from "./Layout/Toast.astro";
+import Hero from "./Sections/Hero.astro";
+import InfoCards from "./Sections/InfoCards.astro";
+import ItinerarySection from "./Sections/ItinerarySection.astro";
+import InsightSection from "./Sections/InsightSection.astro";
+
+interface Props {
+	data: any;
+	Content: any;
+}
+
+const { data, Content } = Astro.props;
+
+const url_maps = data.links?.maps || "#";
+const url_hotel = data.links?.hotel || "#";
+---
+
+<script is:inline define:vars={{ url_maps, url_hotel }}>
+	window.abrirNoMaps = () => {
+		if (url_maps !== "#") window.open(url_maps, "_blank");
+		else alert("Link do Maps não disponível.");
+	};
+	window.abrirSiteHotel = () => {
+		if (url_hotel !== "#") window.open(url_hotel, "_blank");
+		else alert("Site do Hotel não disponível.");
+	};
+</script>
+
+<div class="template-viagem-v1 font-sans antialiased text-gray-900 bg-gray-50/30">
+	<Toast />
+	<Navbar />
+
+	<Hero images={data.images} />
+
+	<main class="max-w-6xl mx-auto pb-24 px-4">
+		<InfoCards logistics={data.logistics} base={data.base} />
+		<ItinerarySection days={data.days} />
+		
+		<InsightSection>
+			<Content />
+		</InsightSection>
+	</main>
+</div>

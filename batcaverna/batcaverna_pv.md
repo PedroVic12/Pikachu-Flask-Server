@@ -2,7 +2,7 @@
 
 ---
 
-📅 Data: **26/05/2026**
+📅 Data: **29/05/2026**
 
 ## 📑 ÍNDICE RÁPIDO
 
@@ -26,16 +26,15 @@
 
 ### 🎯 **DESENVOLVIMENTO PESSOAL**
 
-### Estudos SEP E ONS 
+### Estudos SEP E ONS
+
 - 📚 [Sessão de ESTUDOS](#sessao-de-estudos-matematica-programacao-e-eng-eletrica)
 
 ### TERAPIA TCC
 
-
 ## CORPO
 
-
-## ESPÍRITO 
+## ESPÍRITO
 
 ---
 
@@ -65,17 +64,11 @@
 
 ## Desligamento ONS - 12/06 (INICIO COPA26)
 
-
-
 - [x] Diagramas, Fluxogramas e mapas mentais sobre projetos no Github e OneDrive realizadas (Scripts,websites, banco de dados, guias, CLI)
 
-
--  [ ] Estudos e métricas na Batcavena UI com Habit Tracker pegando dados de checklist criados
-
+- [ ] Estudos e métricas na Batcavena UI com Habit Tracker pegando dados de checklist criados
 
 - [x] Planner x Kanban Pro  x Cronograma x SCRUM
-
-
 
 - [x] Organização de arquivos .md e .PDF e notebooks usados no ONS PLC
 - [x] Alinhamento tarefas - alexandre
@@ -84,9 +77,9 @@
 
 - [ ] Deckbuild com AnaRede, Pandapower e Organon
 
-- [x] Estudos SEP x Circuitos Elétricos x Circuitos Digitais 
+- [x] Estudos SEP x Circuitos Elétricos x Circuitos Digitais
 
-- [ ] Obsidian X Quarto .md x Blog com .md x Notebooks Python e Julia x Relatórios PDF com Látex 
+- [ ] Obsidian X Quarto .md x Blog com .md x Notebooks Python e Julia x Relatórios PDF com Látex
 
 - [x] dashboard de agendamento ótimo de intervenção de redes elétricas RCE
 
@@ -111,10 +104,9 @@
 - [x] Diagrama SP - Organon 440KV
 - [x] Conversas com Alexandre Nunes e João Marco
 
-
 - [x] Guia de Montagem de Decks: Mensal (Word + Obsidian)
 
-- [ ] Guia completo em Word e PDF dos processos de atividades do mensal usando simuladores CEPEL e FLOW 
+- [ ] Guia completo em Word e PDF dos processos de atividades do mensal usando simuladores CEPEL e FLOW
 
   - VA = Decks de Configuração e Carga para casos SEMENTE
     - Correção barras ausentes
@@ -129,7 +121,6 @@
 
 - [x] Relatório de Perdas Duplas LTs usando VBA e Plots de 3 gráficos
 
-
 - [ ] COMUNICAÇÃO + SOFT SKILLS
 - [ ] CLI EM PYTHON (TERMINAL - VA, VB, VC)
 - [x] ETL EM PYTHON (PACOTE OFFICE - PALKIA)
@@ -138,7 +129,7 @@
 
 - [ ] minicurso circuitos CC com Sadiku e Python
 
-- [x] Arquivo .md: Astro (blog), quarto (.qmd) e Geração de PowerPoint em PDF tempalte de apresentação ONS PLC 
+- [x] Arquivo .md: Astro (blog), quarto (.qmd) e Geração de PowerPoint em PDF tempalte de apresentação ONS PLC
 
 ---
 
@@ -229,7 +220,6 @@
 - [ ] Plot função (matplotlib)
 - [ ] Integrar no PySide6
 
-
 ---
 
 # PVRV 2026
@@ -240,13 +230,13 @@
 
 - Fim de relacionamento Danielle
 
-- Desregulação emocional por TDAH e com ma alimentação e falta de treinos 
+- Desregulação emocional por TDAH e com ma alimentação e falta de treinos
 
 - TCC com cartões de enfrentamento com mudanças de hábitos e tarefas com uso de Atentah e Venvanse em gotas
 
 - Estudos UFF X Coding X JOBS x Treinos X PVRV (jedi cyberpunk)
 
-- Desapego e dependência emocional 
+- Desapego e dependência emocional
 
 - Uso compulsivos de substâncias dopaminergerticas (uso de telas, maconha, masturbação)
 
@@ -256,16 +246,15 @@
 
 - Soft Skills para UFF e ONS
 
-- Sobrecarga de tarefas com cartões de enfrentamento e ferramentas de produtividade para gerenciamento de tempo e tomadas de decisões baseado em dados 
+- Sobrecarga de tarefas com cartões de enfrentamento e ferramentas de produtividade para gerenciamento de tempo e tomadas de decisões baseado em dados
 
-- Início de relacionamento Viviane 
+- Início de relacionamento Viviane
 
-- a saúde mental x espiritual na prática 
-
+- a saúde mental x espiritual na prática
 
 ---
 
-## Planejamento e organização 
+## Planejamento e organização
 
 - [ ] Planejamento financeiro (Financial APP)
   - [x] Dezembro
@@ -283,7 +272,7 @@
 
 Aguardando envio
 
-Pendências | importante 
+Pendências | importante
 
 Concluído
 
@@ -330,8 +319,7 @@ Use **1 bloco por tema(assunto)**:
 8. Registrar no .md
 ```
 
-## Planner X Atividade de Rotina PLC x Cronograma 
-
+## Planner X Atividade de Rotina PLC x Cronograma
 
 ---
 
@@ -393,23 +381,19 @@ Para a provas da UFF:
 
 ---
 
-
-
 ---
 
-# Corpo x Mente X Espírito 
-
-
+# Corpo x Mente X Espírito
 
 ## Mundo espiritual
 
 - alinhamento espíritual do dia
 - rotina de evangelho do dia e salmos
-- leitura de Gênesis, Evangelho, Profetas e Profecias, Atos dos apóstolos, Apocalipse 
+- leitura de Gênesis, Evangelho, Profetas e Profecias, Atos dos apóstolos, Apocalipse
 
 - periodos do calendário católico
 
-- santo terço e Detox de pensamento ruins e diminuição de ansiedade 
+- santo terço e Detox de pensamento ruins e diminuição de ansiedade
 
 - Curso Raízes de Aruanda e postagem no blog
 
@@ -417,22 +401,20 @@ Para a provas da UFF:
 
 - previsão maio e junho de 2026 - hudd
 
- - 2 missões espirituais em 60 dias
-  - "ensinar a fazer certa pessoa próxima a encontrar seus talentos no meio de trabalho"
+- 2 missões espirituais em 60 dias
+- "ensinar a fazer certa pessoa próxima a encontrar seus talentos no meio de trabalho"
 
-  - "minha mente funciona de forma diferente, eu vim para incomodar. Estou aqui para questionar e demonstrar matemática e cientificamente falando assuntos que instiguem na evolução da raça humana."
+- "minha mente funciona de forma diferente, eu vim para incomodar. Estou aqui para questionar e demonstrar matemática e cientificamente falando assuntos que instiguem na evolução da raça humana."
 
- programação, engenharia elétrica, ética 
+ programação, engenharia elétrica, ética
 
-- estado de espírito 
+- estado de espírito
 
 - Aura, Espírito e Mente
 
 - Campo energético vibracional do ser humano (potencial do campo elétrico do cérebro)
 
-- sessões de confissões de pecados com terço da misericórdia com exame de consciência 
-
-
+- sessões de confissões de pecados com terço da misericórdia com exame de consciência
 
 ---
 

@@ -1,0 +1,84 @@
+---
+import ImageContainer from "./UI/ImageContainer.astro";
+
+import img_url_bus from "../assets/Passagem_onibus.jpg";
+import ButtonTailwind from "./UI/ButtonTailwind.astro";
+import img_url_restaurantes from "../assets/Restaurantes.jpg";
+
+const { logistics, base } = Astro.props;
+---
+
+<div
+    class="grid grid-cols-1 md:grid-cols-3 gap-6 px-4 md:px-10 -mt-12 relative z-20"
+>
+    <div
+        class="bg-[#1e1e1e] border border-gray-800 p-6 rounded-2xl shadow-xl shadow-black/50 hover:border-orange-500/50 transition-colors"
+    >
+        <div class="flex items-center gap-3 mb-4 text-[#ff9800]">
+            <span class="text-3xl">🚙</span>
+            <h3 class="text-xl font-bold text-white">Deslocamento</h3>
+        </div>
+        <p class="text-gray-400 text-sm mb-2">
+            <strong class="text-gray-200">Rota:</strong>
+            {logistics.route.join(" → ")}
+        </p>
+        <p class="text-gray-400 text-sm">
+            <strong class="text-gray-200">Tempo:</strong>
+            {logistics.time}
+        </p>
+    </div>
+
+    <!-- Grid Responsivo: 1 coluna no mobile, 2 no tablet, 3 no desktop -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <ImageContainer
+            titulo="Rodoviária Novo Rio -> Petrópolis"
+            descricao="Localização estratégica no centro para os passeios. Check-in às 14h, check-out às 12h."
+            img_url={img_url_bus.src}
+            img_height="500px"
+        />
+    </div>
+
+    <div
+        class="bg-[#1e1e1e] border border-gray-800 p-6 rounded-2xl shadow-xl shadow-black/50 hover:border-cyan-500/50 transition-colors"
+    >
+        <div class="flex items-center gap-3 mb-4 text-[#00bcd4]">
+            <span class="text-3xl">🏨</span>
+            <h2 class="text-xl font-bold text-white">Hospedagem</h2>
+        </div>
+        <p class="text-gray-300">
+            <strong class="text-[#00bcd4] block mb-2 text-lg">{base}</strong>
+            Café da manhã incluso, localização no Centro de Petrópolis e fácil acesso
+            às principais atrações que vamos fazer na cidade.
+        </p>
+
+        <ButtonTailwind titulo="Site do Hotel" onClick="abrirSiteHotel" />
+        <ButtonTailwind
+            titulo="Restaurantes da Cidade"
+            onClick="abrirRestaurantes"
+        />
+    </div>
+
+    <div
+        class="bg-[#1e1e1e] border border-gray-800 p-6 rounded-2xl shadow-xl shadow-black/50 hover:border-yellow-500/50 transition-colors"
+    >
+        <div class="flex items-center gap-3 mb-4 text-yellow-500">
+            <span class="text-3xl">⚠️</span>
+            <h3 class="text-xl font-bold text-white">Dicas Cruciais</h3>
+        </div>
+        <div class="flex flex-col gap-2 mb-4">
+            {
+                logistics.tips.map((tip: any) => (
+                    <span class="text-xs bg-yellow-900/20 text-yellow-500 border border-yellow-700/30 px-3 py-1.5 rounded-md">
+                        {tip}
+                    </span>
+                ))
+            }
+        </div>
+
+        <ImageContainer
+            titulo="Restaurantes"
+            descricao="Pesquisa feita de lugares que aceitam o Sodexo."
+            img_url={img_url_restaurantes.src}
+        />
+    </div>
+</div>

@@ -1,0 +1,19 @@
+---
+import DayCard from "../UI/DayCard.astro";
+
+const { days = [] } = Astro.props;
+---
+
+<div id="meu-roteiro" class="max-w-3xl mx-auto mt-20 px-4 scroll-mt-10">
+    <h2 class="text-3xl font-bold text-center text-gray-800 mb-6">
+        Roteiro de Viagem ({days.length} Dias)
+    </h2>
+
+    <p class="text-gray-600 text-center mb-6 italic">
+        Cronograma detalhado planejado para a sua imersão completa.
+    </p>
+
+    <div class="space-y-12 border-l-2 border-gray-200 ml-4 md:ml-0 relative">
+        {days.map((day: any) => <DayCard day={day} />)}
+    </div>
+</div>

@@ -1,0 +1,223 @@
+---
+import ButtonTailwind from "./UI/ButtonTailwind.astro";
+import ModalConcluido from "./UI/ModalAnimado.astro";
+
+const { day } = Astro.props;
+const dayId = `day-${day.day}`;
+---
+
+<div class="relative pl-8 md:pl-12 day-container" data-day-id={dayId}>
+    <div
+        class="absolute -left-[17px] top-0 w-8 h-8 bg-[#ff9800] rounded-full flex items-center justify-center font-bold text-black border-4 border-black shadow-md"
+    >
+        {day.day}
+    </div>
+
+    <header
+        class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6"
+    >
+        <div>
+            <h3 class="text-xl font-bold text-white uppercase tracking-wide">
+                DIA {day.day} — {day.title}
+            </h3>
+            <p class="text-orange-400 text-xs font-medium mt-1 uppercase">
+                🎯 Foco: {day.focus}
+            </p>
+        </div>
+
+        <div class="flex flex-col items-end gap-1.5">
+            <span class="text-[10px] text-gray-500 font-mono progress-text"
+                >0%</span
+            >
+            <div
+                class="w-32 bg-gray-900 h-1.5 rounded-full overflow-hidden border border-gray-800"
+            >
+                <div
+                    class="progress-bar bg-[#ff9800] h-full transition-all duration-700 w-0"
+                >
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {
+            day.events.map((ev: any, index: number) => (
+                <label class="cursor-pointer group block">
+                    <div class="h-full bg-[#1e1e1e]/40 border border-gray-800 p-4 rounded-2xl flex items-start gap-4 transition-all hover:bg-[#1e1e1e]/60 has-[:checked]:border-[#ff9800]/40 has-[:checked]:bg-[#ff9800]/5">
+                        <input
+                            type="checkbox"
+                            class="event-checkbox peer appearance-none w-5 h-5 border-2 border-gray-700 rounded-lg checked:bg-[#ff9800] checked:border-[#ff9800] transition-all mt-1"
+                            data-index={index}
+                        />
+
+                        <div class="flex-1 peer-checked:opacity-30 transition-opacity">
+                            <h4 class="text-[#ff9800] font-bold text-xs mb-1 group-has-[:checked]:line-through">
+                                {ev.time}
+                            </h4>
+                            <p class="text-gray-300 text-sm leading-snug">
+                                {ev.desc}
+                            </p>
+                        </div>
+                    </div>
+                </label>
+            ))
+        }
+    </div>
+
+    <ModalConcluido id={`modal-${dayId}`} />
+</div>
+
+{
+    day.day === 1 && (
+        <div class="mt-8 md:hidden">
+            <ButtonTailwind
+                titulo="Ver mapa do Hotel"
+                variant="primary"
+                onClick="abrirNoMaps"
+            />
+        </div>
+    )
+}
+
+<script>
+    // --- LÓGICA DE BACKEND (STORAGE) ---
+    const Storage = {
+        save: (id: string, state: boolean[]) =>
+            localStorage.setItem(`progresso-${id}`, JSON.stringify(state)),
+        get: (id: string) =>
+            JSON.parse(localStorage.getItem(`progresso-${id}`) || "[]"),
+    };
+
+    // --- MOTOR DE CONFETES (JS PURO) ---
+    const ConfettiEngine = {
+        particles: [] as any[],
+        canvas: null as HTMLCanvasElement | null,
+        ctx: null as CanvasRenderingContext2D | null,
+
+        init() {
+            this.canvas = document.getElementById(
+                "confetti-canvas",
+            ) as HTMLCanvasElement;
+            if (!this.canvas) return;
+            this.ctx = this.canvas.getContext("2d");
+            this.canvas.width = window.innerWidth;
+            this.canvas.height = window.innerHeight;
+        },
+
+        create(x: number, y: number) {
+            const colors = ["#ff9800", "#ffffff", "#666666"];
+            for (let i = 0; i < 100; i++) {
+                this.particles.push({
+                    x,
+                    y,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    size: Math.random() * 7 + 3,
+                    speedX: (Math.random() - 0.5) * 12,
+                    speedY: (Math.random() - 0.5) * 12 - 5,
+                    gravity: 0.2,
+                    opacity: 1,
+                });
+            }
+            this.animate();
+        },
+
+        animate() {
+            if (!this.ctx || !this.canvas) return;
+            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+            this.particles.forEach((p, i) => {
+                p.speedY += p.gravity;
+                p.x += p.speedX;
+                p.y += p.speedY;
+                p.opacity -= 0.01;
+
+                this.ctx!.fillStyle = p.color;
+                this.ctx!.globalAlpha = p.opacity;
+                this.ctx!.fillRect(p.x, p.y, p.size, p.size);
+
+                if (p.opacity <= 0) this.particles.splice(i, 1);
+            });
+
+            if (this.particles.length > 0) {
+                requestAnimationFrame(() => this.animate());
+            }
+        },
+    };
+
+    // --- CONTROLADOR DE UI ---
+    const UI = {
+        updateProgress(container: HTMLElement) {
+            const checks = container.querySelectorAll(
+                ".event-checkbox",
+            ) as NodeListOf<HTMLInputElement>;
+            const bar = container.querySelector(".progress-bar") as HTMLElement;
+            const text = container.querySelector(
+                ".progress-text",
+            ) as HTMLElement;
+            const dayId = container.getAttribute("data-day-id") || "";
+
+            const state = Array.from(checks).map((c) => c.checked);
+            const percent =
+                (state.filter(Boolean).length / checks.length) * 100;
+
+            if (bar) bar.style.width = `${percent}%`;
+            if (text) text.textContent = `${Math.round(percent)}%`;
+
+            Storage.save(dayId, state);
+
+            if (percent === 100) {
+                const modal = document.getElementById(
+                    `modal-${dayId}`,
+                ) as HTMLDialogElement;
+                modal?.showModal();
+                ConfettiEngine.create(
+                    window.innerWidth / 2,
+                    window.innerHeight / 2,
+                );
+            }
+        },
+    };
+
+    // --- INICIALIZAÇÃO ---
+    function init() {
+        ConfettiEngine.init();
+
+        document
+            .querySelectorAll(".day-container")
+            .forEach((container: any) => {
+                const dayId = container.getAttribute("data-day-id");
+                const checks = container.querySelectorAll(".event-checkbox");
+                const saved = Storage.get(dayId);
+
+                checks.forEach((cb: HTMLInputElement, idx: number) => {
+                    cb.checked = !!saved[idx];
+                    cb.addEventListener("change", () =>
+                        UI.updateProgress(container),
+                    );
+                });
+
+                container
+                    .querySelector("[data-close-modal]")
+                    ?.addEventListener("click", () => {
+                        container.querySelector("dialog")?.close();
+                    });
+
+                // Sincroniza estado inicial sem disparar o modal
+                const state = Array.from(checks).map((c: any) => c.checked);
+                const percent =
+                    (state.filter(Boolean).length / checks.length) * 100;
+                const bar = container.querySelector(
+                    ".progress-bar",
+                ) as HTMLElement;
+                const text = container.querySelector(
+                    ".progress-text",
+                ) as HTMLElement;
+                if (bar) bar.style.width = `${percent}%`;
+                if (text) text.textContent = `${Math.round(percent)}%`;
+            });
+    }
+
+    init();
+    window.addEventListener("resize", () => ConfettiEngine.init());
+</script>
