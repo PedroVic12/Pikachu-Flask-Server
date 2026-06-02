@@ -2,7 +2,7 @@
 
 ---
 
-📅 Data: **29/05/2026**
+📅 Data: **02/06/2026**
 
 ## 📑 ÍNDICE RÁPIDO
 
@@ -99,6 +99,25 @@ Concluído
 # Desligamento ONS - 09/06 (INICIO COPA26)
 
 - [x] Diagramas, Fluxogramas e mapas mentais sobre projetos no Github e OneDrive realizadas (Scripts,websites, banco de dados, guias, CLI)
+
+- [ ] Diagramas SP - 440KV, 345 KV, 138KV
+  - 440kv apenas ajustes finais
+  - 345kv seguindo modelo SIGER e boas praticas de diagramas antigos
+  - 138kv - redes complementares onde possui obras
+
+- [ ] VA - Semente: Configuração e carga do SIN e analise diagnostica na area SECO e principalmente SP
+- [ ] Deckbuilder de casso para VA, VB e VC
+- [ ] script de correções de barras mensal - SISBAR e Despacho Historico
+
+- [x] Parecer da área de barras ausenstes SISBAR
+
+- [ ] VB: Redespacho de Cargas em MW usando politica energetica com FLOW e Elos CC com ajustes na barras swing
+
+- [ ] ETL Palkia:
+  - PDF -> Streamlit OCR ou Qt6 OCR
+  - .md para PDF ou PowerPoint
+  - Extração de tabelas de MUST de SP (EXCEL - SQL - access) como banco de dados microsoft
+  - Controle e gestão dos documentos solicitados e enviados com recomendação de ajustes com Big O para verificar o nivel de complexibildiade do caso e criação do documento template com base nas ressalvas usadas
 
 - [ ] Montagem do novo Obsidian para Jedi cyberpunk arruamndo a pasta do ONS PLC para ser usada apenas com conteudo de trabalho
 
