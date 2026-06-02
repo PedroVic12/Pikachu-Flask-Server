@@ -192,7 +192,7 @@ Concluído
 
 ---
 
-## Estudos Elétricos do ONS para SEP
+# Estudos Elétricos do ONS para SEP
 
 - Barra swing
 - Reator Shunt
@@ -212,7 +212,7 @@ Concluído
 
 ---
 
-## 🔚 Rotina de Encerramento da Semana (15-05-2026)
+# 🔚 Rotina de Encerramento da Semana (15-05-2026)
 
 ---
 
@@ -221,17 +221,17 @@ Concluído
 ## Rotina
 
 - [x] ONS
-- [x] UFF
+- [ ] UFF
 - [ ] CODING
 - [ ] CORPO
 - [ ] MENTE
-- [x] ESPIRITO
+- [ ] ESPIRITO
 
 ## ✔ Concluído
 
-- [x] ONS:
-- [x] Estudos (UFF):
-- [x] Código/Projetos:
+- [ ] ONS:
+- [ ] Estudos (UFF):
+- [ ] Código/Projetos:
 - [ ] Treino:
 
 ## ⚠️ Pendências
@@ -239,7 +239,7 @@ Concluído
 ## 🔍 Diagnóstico
 
 - O que funcionou:
-- O que travou:
+- O que faltou:
 - O que cortar:
 
 ## 🎯 Top 3 da próxima semana
@@ -257,7 +257,9 @@ Concluído
 <a id="tarefas-ons-plc-2026"></a>
 
 - [ ] FastAPI x Flask x Django x Drogon C++ x Nodejs(express) - projetos backend
-- [ ] Estudos de Somatorios, Funções de Potencias, Circuitos Eletricos CC e Circuitos Digitais
+
+- [ ] Estudos de Somatorios, Funções de
+ Potencias, Circuitos Eletricos CC e Circuitos Digitais
 
 - [ ] Matriz admtancia + Geração x Transmissão e Distrbuição SIN pelo ONS
 
@@ -321,7 +323,7 @@ Concluído
 
 ---
 
-## Planejamento e organização
+# Planejamento e organização PVRV
 
 - [ ] Planejamento financeiro (Financial APP)
   - [x] Dezembro
@@ -332,6 +334,14 @@ Concluído
   - [ ] taxa de rendimento do salario ONS com 5% e 10% ao mes
 
 - [ ] Planilhas Horarios + Planilha de controle financeiro + Planilhas de treinos
+
+- [ ] marcar terapia e nutricionista no Optum digital 
+
+- [ ] planilha de contas a pagar do aluguel em Niterói 
+
+- [ ] passar a limpo screenshots e anotações do caderno para os blogs
+
+- [ ] requisitos, responsabilidades e atividades na PLC ONS como guia no Word ou Obsidian
 
 ---
 
