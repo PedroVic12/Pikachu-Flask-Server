@@ -96,7 +96,7 @@ Concluído
 
 ---
 
-# Desligamento ONS - 09/06 (INICIO COPA26)
+# Desligamento ONS - 09/06 (INICIO COPA 2026)
 
 - [x] Diagramas, Fluxogramas e mapas mentais sobre projetos no Github e OneDrive realizadas (Scripts,websites, banco de dados, guias, CLI)
 
@@ -112,6 +112,10 @@ Concluído
 - [ ] Guia com Mapa Mental e sumario das atividades de montagem de casos do Mensal
 
 - [ ] Organização e controle de versões do Sharepoint no Github
+
+- [ ] Montagem do novo Obsidian para Jedi cyberpunk arruamndo a pasta do ONS PLC para ser usada apenas com conteudo de trabalho
+
+- [ ] Guia de Montagem Mensal no Word e Obsidian para consulta e estudos na UFF futuramente como funcionario do ONS usando os casos de maxima e minima com politica energetica
 
 - [ ] VA - Semente: Configuração e carga do SIN e analise diagnostica na area SECO e principalmente SP
 - [ ] Deckbuilder de casso para VA, VB e VC
@@ -129,10 +133,6 @@ Concluído
   - .md para PDF ou PowerPoint
   - Extração de tabelas de MUST de SP (EXCEL - SQL - access) como banco de dados microsoft
   - Controle e gestão dos documentos solicitados e enviados com recomendação de ajustes com Big O para verificar o nivel de complexibildiade do caso e criação do documento template com base nas ressalvas usadas
-
-- [ ] Montagem do novo Obsidian para Jedi cyberpunk arruamndo a pasta do ONS PLC para ser usada apenas com conteudo de trabalho
-
-- [ ] Guia de Montagem Mensal no Word e Obsidian para consulta e estudos na UFF futuramente como funcionario do ONS usando os casos de maxima e minima com politica energetica
 
 - [x] Planner x Kanban Pro  x Cronograma x SCRUM
 
