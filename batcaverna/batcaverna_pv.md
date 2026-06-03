@@ -2,7 +2,7 @@
 
 ---
 
-📅 Data: **02/06/2026**
+📅 Data: **03/06/2026**
 
 ## 📑 ÍNDICE RÁPIDO
 
@@ -100,14 +100,25 @@ Concluído
 
 - [x] Diagramas, Fluxogramas e mapas mentais sobre projetos no Github e OneDrive realizadas (Scripts,websites, banco de dados, guias, CLI)
 
-- [ ] Diagramas SP - 440KV, 345 KV, 138KV
+- [x] Diagramas SP - 440KV, 345 KV, 138KV
   - 440kv apenas ajustes finais
   - 345kv seguindo modelo SIGER e boas praticas de diagramas antigos
   - 138kv - redes complementares onde possui obras
 
+- [x] Carta de despedida da PLC no Whatsapp
+
+- [x] Post sobre sala de operacao do ONS
+
+- [ ] Guia com Mapa Mental e sumario das atividades de montagem de casos do Mensal
+
+- [ ] Organização e controle de versões do Sharepoint no Github
+
 - [ ] VA - Semente: Configuração e carga do SIN e analise diagnostica na area SECO e principalmente SP
 - [ ] Deckbuilder de casso para VA, VB e VC
+
 - [ ] script de correções de barras mensal - SISBAR e Despacho Historico
+  - script de testes
+  - testes com mes atual
 
 - [x] Parecer da área de barras ausenstes SISBAR
 
@@ -335,9 +346,9 @@ Concluído
 
 - [ ] Planilhas Horarios + Planilha de controle financeiro + Planilhas de treinos
 
-- [ ] marcar terapia e nutricionista no Optum digital 
+- [ ] marcar terapia e nutricionista no Optum digital
 
-- [ ] planilha de contas a pagar do aluguel em Niterói 
+- [ ] planilha de contas a pagar do aluguel em Niterói
 
 - [ ] passar a limpo screenshots e anotações do caderno para os blogs
 
