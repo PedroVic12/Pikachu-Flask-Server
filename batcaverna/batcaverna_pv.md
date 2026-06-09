@@ -2,17 +2,15 @@
 
 ---
 
-📅 Data: **03/06/2026**
+📅 Data: **09/06/2026**
 
-## 📑 ÍNDICE RÁPIDO
+## ⚡📑 ÍNDICE RÁPIDO
 
-## JOBS
+## **JOBS**
 
 ### Trabalho Cientista de dados JR no ELITE Rede de Ensino
 
 ### Trabalho 2023-2024: Camorim Serviços Marítimos como estágio de Engenharia Elétrica
-
-### ⚡ **TRABALHO - ONS PLC 2026**
 
 - 📋 [Tarefas ONS PLC](#tarefas-ons-plc-2026)
 
@@ -94,9 +92,28 @@ Concluído
 - [ ] Estudos: Fronted = Astro, NextJS, React (flask backend), Tauri com JS vanilla, Streamlit e Qt6
 - [ ] Estudos e métricas na Batcavena UI com Habit Tracker pegando dados de checklist criados
 
----
+- [ ] Devolver notebook ONS
+- [ ] Agentes de AI com memorias e contexto
+  - Copilot
+  - GPT Jarvis GPT
+  - Gemini CLI
+  - Gemimi Lumina Aurora
+  - Gemini C3po - pc native tools
 
-# Desligamento ONS - 09/06 (INICIO COPA 2026)
+- [ ] Projetos Github
+- [ ] Mapas Mentais
+- [ ] Estudos UFF
+- [ ] Testes, programação e controle de versões de programas
+- [ ] Sites online + Portfolio
+- [ ] AnaREDE, Organon, Pandapower
+- [ ] Estudos de conceitos de desenvolvimento de software moderno
+- [ ] Perfil novo no BatCaverna e União de varios projetos estáticos para um central
+- [ ] Planilha de treinos, rotina(atividades PLC), habitos tracker e planejamento financeiro
+- [ ] Conceitos de cálculo 1,2,3 aplicados na matemática do dia dia. Derivadas em series temporais. Integral aplicados a circuitos RLC e eletromagnetismo
+
+- [ ] Alinhamento espiritual com nova rotina Jedi Cyberpunk + data science
+- [ ] Desligamento oficial do ONS com todos os arquivos solicitados, enviados, projetos
+- [ ] Aulas de circuitos digitais I e circuitos eletricos CC (terça e quinta)
 
 - [x] Diagramas, Fluxogramas e mapas mentais sobre projetos no Github e OneDrive realizadas (Scripts,websites, banco de dados, guias, CLI)
 
@@ -223,7 +240,7 @@ Concluído
 
 ---
 
-# 🔚 Rotina de Encerramento da Semana (15-05-2026)
+# 🔚 Rotina de Encerramento da Semana
 
 ---
 

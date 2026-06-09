@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { Edit3, Trash2, Search } from "lucide-react";
-import { CATEGORIES, STATUS_COLUMNS } from "@/app/constants";
+import { CATEGORIES, STATUS_COLUMNS } from "../../controllers/Repository";
 import { getFilteredProjects, openItemEditor, deleteProject } from "@/app/utils";
 
 // Table Screen
