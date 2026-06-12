@@ -2,6 +2,27 @@
 
 Bem-vindo ao Projeto Pikachu, uma plataforma web completa e centralizada que integra diversas funcionalidades em um único sistema coeso. O projeto foi arquitetado para ser modular, escalável e de fácil manutenção.
 
+
+# Flask - Pikachu Web Server 
+
+## Backend
+
+- [x] Flask Server Pikachu com Blueprint e rotas dinamicas
+- [ ] Banco de dados integrado ao servidor
+- [ ] Copilot C3PO tools
+- [ ] Programação Segunda e Sexta com relatorio completo de projetos do github com estimativa de tempo de codificacao em cada projeto 
+
+## Frontend
+
+- [x] Astro System - NASA and publics API calls
+- [x] Quizz App with AI - https://pikachu-quizz-app-ai.onrender.com/quiz
+- [x] Batcaverna HTML website
+- [x] Kanban Pro - SCRUM, XP e notas de estagiário e desenvolvedores
+- [x] Os Init System  
+
+---
+
+
 ## ✅ Checklist de Módulos do Projeto
 
 Esta é uma lista dos principais componentes que foram ou estão sendo unificados nesta plataforma.

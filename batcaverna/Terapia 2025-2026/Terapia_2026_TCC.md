@@ -1,6 +1,5 @@
 Este é um espaço de acolhimento de controle se sessões de assuntos tratados em atendimentos online psico-comportamental
 
-
 ## Terapia Junho - 10/06/2026 - Yasmin Ignacio 
 
 - Retrospectiva tratamento 2025 (FRAN):
