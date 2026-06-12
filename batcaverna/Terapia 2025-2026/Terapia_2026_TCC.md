@@ -1,6 +1,80 @@
 Este é um espaço de acolhimento de controle se sessões de assuntos tratados em atendimentos online psico-comportamental
 
 
+## Terapia Junho - 10/06/2026 - Yasmin Ignacio 
+
+- Retrospectiva tratamento 2025 (FRAN):
+	- Dainelle
+	- Desapego emocional
+	- Rotina TDAH
+	- Depressao e vicios compulsivos (maconha e RP)
+	- Notas UFF e Caderno de ideias (caligrafia)
+	- Sobrecarga de atividades com cartoes de enfrentamento
+	- Espiritualidade, autoestima e relacionamentos
+	- Lista de pros e contras
+	- Matriz SWOT
+	- Cartões de enfrentamento
+	- Ferramentas de produtividade (Gohan Treinamentos Web APP)
+
+- Retrospectiva tratamento 2026 (LUCAS): 
+	- ONS PLC
+	- Soft Skills: Comunicação, proatividade, inovação
+	- Timidez, vergonha, auto criticas
+	- Baixa autoestima por traumas infantis
+	- BUllying escolar e familiar
+	- Kanban TCC -> 3 tarefas principais do dia
+	- You only need 5 hobbies
+	
+- Topicos a serem aboradados na nova terapia
+	- Baixa Autoestima e autocritica constante. Como posso valorizar minha autoestima e praticar o amor proprio? Como valorizar minhas conquistas e qualidades?
+	- Relacionamentos, TDAH, saude emocional. Como deixar minhas emoções me guiarem mesmo sendo alguem extramamente racional?
+	- Saude mental, exercicios fisicos, rotina de estudos e rotina de trabalho
+	- Planejamento financeiro
+	- Rotina Eng. ONS PLC (Montador de caso mensal) - Leitura e escrita de relatorios tecnicos, porem tenho dificuldade pela dislexia
+	- Relacionamento Viviane: Ansiedade cronica, cobranças/comparações sobre relacionamentos passados, tempo de qualidade via whatsaṕp
+	- **Coding x JOBS x Treinos x Estudos x Espiritual x Emocional** 
+
+
+
+
+	
+
+## Terapia Maio - 06/05/2026 - 04/06/2026 - Optum Digital (Lucas)
+
+https://www.instagram.com/lucaslealpsicologo4891/
+
+https://www.conexasaude.com.br/psicologia-clinica/lucas-leal
+
+- Se sentindo cansado e sobrecarregado pela rotina de trabalho e estudos
+- baixa autoestima
+- traumas por bullying e familiares -> Timidez e baixa autoestima
+- Autocriticas constantes: Se basear na razão dos fatos e nao pela emoção
+- Viviane quer atenção no Wpp enquanto eu preciso ficar Off de celular para me concentrar
+- Sessao desabafo oq vier na minha mente
+
+## Terapia Abril - 28/04/2026 - FIM DE TRATAMENTO TCC
+
+- [x] Sobrecarga cognitva
+- [x] Estudos, trabalho e programação
+- [x] Crises de ansiedade e Burnout
+- [x] Autoestime
+- [x] Vícios, atos compulsivos, maconha e mastubarção (procurar outro profissional)
+
+## Terapia Abril - 07/04/2026 
+
+- [x] Inicio de relacionamento
+- [x] Jogos, Pokemon, Batman, Star Wars
+- [x] Estudos SEP, astronomia e programação
+- [x] RP e hot trib com vicio compulsivo
+- [x] Reconhecimento de alguns aspectos
+- [x] Eu tenho erros de  conta matemataticas com frequencia
+- [x] rotina seg/sex ajuda na sobrecarga 
+- [x] Mapa mentais + Anotações no carderno + Bloco de notas ajudam a reduzir a ansiedade colocando as ideias em outro lugar
+- [x] Rotina com Estudos X Trabalho = UFF x ONS
+- [x] Saber lidar emocionalmente melhor nos relacionamentos
+- [x] Planner, Planilhas, Websites, Aplicativos...
+
+
 # Terapia 2026 - Março - (24/03/2026)
 - [ ] Testes de emoções TCC
 - [x] Masturbação em excesso + Voto de castidade + Roleplay no telegram
