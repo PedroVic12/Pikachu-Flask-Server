@@ -307,22 +307,8 @@ export default function App() {
   const [searchTerm, setSearchTerm] = useState("");
   const [filterCategory, setFilterCategory] = useState("all"); // Removed type annotation
   const [theme, setTheme] = useState("light"); // Add theme state
-
-  // Effect to apply theme class and save to localStorage
-  useEffect(() => {
-    const savedTheme = localStorage.getItem("theme") || "light";
-    setTheme(savedTheme);
-    document.documentElement.classList.toggle("dark", savedTheme === "dark");
-  }, []);
-
-  const toggleTheme = () => {
-    setTheme((prevTheme) => {
-      const newTheme = prevTheme === "light" ? "dark" : "light";
-      localStorage.setItem("theme", newTheme);
-      document.documentElement.classList.toggle("dark", newTheme === "dark");
-      return newTheme;
-    });
-  };
+  const [showWipModal, setShowWipModal] = useState(false);
+  const [lastWipCount, setLastWipCount] = useState(0);
 
   const {
     projects,
@@ -332,6 +318,33 @@ export default function App() {
     moveProject,
     setProjects,
   } = useProjects();
+
+  // Effect to apply theme class and save to localStorage
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme") || "light";
+    setTheme(savedTheme);
+    document.documentElement.classList.toggle("dark", savedTheme === "dark");
+  }, []);
+
+  // Alerta Batcaverna para limites de WIP (In Progress > 4)
+  useEffect(() => {
+    if (projects) {
+      const inProgressCount = projects.filter((p) => p.status === "in progress").length;
+      if (inProgressCount > 4 && inProgressCount > lastWipCount) {
+        setShowWipModal(true);
+      }
+      setLastWipCount(inProgressCount);
+    }
+  }, [projects, lastWipCount]);
+
+  const toggleTheme = () => {
+    setTheme((prevTheme) => {
+      const newTheme = prevTheme === "light" ? "dark" : "light";
+      localStorage.setItem("theme", newTheme);
+      document.documentElement.classList.toggle("dark", newTheme === "dark");
+      return newTheme;
+    });
+  };
 
   // Event Handlers
   const handleExport = () => {
@@ -879,6 +892,31 @@ export default function App() {
         onDelete={handleDeleteItem}
         onClose={() => setEditingItem(null)}
       />
+
+      {/* Batcaverna WIP Warning Modal */}
+      {showWipModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-sm">
+          <div className="bg-gray-900 border-2 border-red-500 shadow-[0_0_25px_rgba(239,68,68,0.55)] rounded-2xl p-8 max-w-md w-full mx-4 text-center text-white">
+            <div className="text-red-500 text-5xl mb-4 animate-bounce">🚨</div>
+            <h2 className="text-xl font-bold uppercase tracking-wider mb-3 text-red-400">
+              Batcaverna Alerta: WIP Limit!
+            </h2>
+            <p className="text-gray-300 mb-6 text-sm leading-relaxed">
+              Você possui <span className="text-red-400 font-bold">{projects.filter(p => p.status === "in progress").length} tarefas</span> ativas em <span className="text-yellow-400 font-semibold">IN PROGRESS</span>.
+              <br /><br />
+              Conforme as diretrizes da <b>Batcaverna 2026</b>, seu limite máximo para evitar dispersão mental e sobrecarga é de <b>4 tarefas ativas</b> (sendo no máximo 3 CLT/ONS e 2 Estudos UFF).
+              <br /><br />
+              <span className="text-yellow-300 font-medium">Por favor, finalize ou pause tarefas antes de iniciar novas!</span>
+            </p>
+            <button
+              onClick={() => setShowWipModal(false)}
+              className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-2.5 px-6 rounded-lg transition-colors shadow-lg hover:shadow-red-500/25"
+            >
+              Entendido, vou focar!
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
