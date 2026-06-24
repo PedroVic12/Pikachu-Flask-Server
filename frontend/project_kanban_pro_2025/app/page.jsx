@@ -299,6 +299,15 @@ const Sidebar = ({
 
 // ========== MAIN APP COMPONENT ==========
 export default function App() {
+  const {
+    projects,
+    addProject,
+    updateProject,
+    deleteProject,
+    moveProject,
+    setProjects,
+  } = useProjects();
+
   const [currentScreen, setCurrentScreen] = useState("dashboard");
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
@@ -309,15 +318,6 @@ export default function App() {
   const [theme, setTheme] = useState("light"); // Add theme state
   const [showWipModal, setShowWipModal] = useState(false);
   const [lastWipCount, setLastWipCount] = useState(0);
-
-  const {
-    projects,
-    addProject,
-    updateProject,
-    deleteProject,
-    moveProject,
-    setProjects,
-  } = useProjects();
 
   // Effect to apply theme class and save to localStorage
   useEffect(() => {
