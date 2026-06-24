@@ -1,9 +1,4 @@
-import os
-import subprocess
-import time
-import pyautogui
-from gtts import gTTS
-import random
+
 from headers import *
 
 #! pip install google-generativeai pyttsx3 colorama python-dotenv pyautogui gTTS
@@ -15,6 +10,18 @@ from c3po_modules.pc_tools import (
     automacao_com_teclado,
     abrir_programa,
 )
+
+
+## JUPYTER NOTEBOOK
+
+import os
+import subprocess
+import time
+import pyautogui
+from gtts import gTTS
+import random
+from headers import *
+
 
 from c3po_modules.pc_data_analysis import analisar_tarefas_ONS
 
