@@ -111,6 +111,25 @@ const parseDateForExcel = (dateValue) => {
 
 class ProjectRepository {
   async loadProjects() {
+    try {
+      const response = await fetch("/api/excel/load");
+      if (response.ok) {
+        const projects = await response.json();
+        if (projects && projects.length > 0) {
+          // Convert date strings back to Date objects
+          const parsedProjects = projects.map(p => ({
+            ...p,
+            createdAt: new Date(p.createdAt),
+            updatedAt: new Date(p.updatedAt)
+          }));
+          // Cache in localStorage
+          storageController.saveProjects(parsedProjects);
+          return parsedProjects;
+        }
+      }
+    } catch (error) {
+      console.warn("Falha ao carregar projetos do Excel API, usando localStorage como fallback:", error);
+    }
     return storageController.loadProjects();
   }
 

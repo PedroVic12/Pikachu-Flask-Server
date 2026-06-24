@@ -1,12 +1,19 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { Edit3, Trash2, Search } from "lucide-react";
 import { CATEGORIES, STATUS_COLUMNS } from "../../controllers/Repository";
-import { getFilteredProjects, openItemEditor, deleteProject } from "@/app/utils";
 
 // Table Screen
-export default TableScreen = () => {
+export default function TableScreen({
+    getFilteredProjects,
+    openItemEditor,
+    deleteProject,
+    searchTerm,
+    setSearchTerm,
+    filterCategory,
+    setFilterCategory
+}) {
     const filteredProjects = getFilteredProjects();
 
     return (

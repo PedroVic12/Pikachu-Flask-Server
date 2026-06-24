@@ -753,7 +753,15 @@ export default function App() {
 
 
           <div className="space-y-3">
-            <TableScreen />
+            <TableScreen
+              getFilteredProjects={getFilteredProjects}
+              openItemEditor={openItemEditor}
+              deleteProject={deleteProject}
+              searchTerm={searchTerm}
+              setSearchTerm={setSearchTerm}
+              filterCategory={filterCategory}
+              setFilterCategory={setFilterCategory}
+            />
           </div>
         </div>
       </div>
