@@ -37,6 +37,7 @@ import {
   Database,
   Sun,
   Moon,
+  Flame,
 } from "lucide-react";
 
 
@@ -74,6 +75,7 @@ import DeckStorageController from "./controllers/DeckStorageController.js";
 import MonitoramentoPage from "./views/pages/MonitoramentePage.jsx";
 import PlannerONSPage from "./views/pages/Planner_ONS_Page.jsx";
 import TableScreen from "./views/components/TableContainer.jsx";
+import HabitsPage from "./views/pages/HabitsPage.jsx";
 
 // Usar essa pagina no projeto Dashboard Web SP + SECO para ONS PLC
 //import ProjectHubPage from "./views/pages/ProjectHubPage.jsx";
@@ -161,6 +163,7 @@ const Sidebar = ({
     { id: "planner", label: "Planner ONS", icon: Table },
     // { id: "files", label: "Arquivos", icon: FileText },
     { id: "api-data", label: "API", icon: Database },
+    { id: "habits", label: "Hábitos", icon: Flame },
     { id: "pvrv-web-dev", label: "PVRV Web DEV", icon: LayoutDashboard },
   ];
 
@@ -835,6 +838,9 @@ export default function App() {
 
       case "api-data":
         return <ApiDataScreen />;
+
+      case "habits":
+        return <HabitsPage />;
 
       case "pvrv-web-dev":
         return <PVRVWebDevPage theme={theme} />;

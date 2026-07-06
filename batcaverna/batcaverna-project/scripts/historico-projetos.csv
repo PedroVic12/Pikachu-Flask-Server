@@ -9,6 +9,19 @@ C3PO-Assistente-Virtual-BR,a7928b9,2025-05-05,Pedro Victor Veras,update
 C3PO-Assistente-Virtual-BR,b6bc660,2025-05-05,Pedro Victor Veras,ip
 C3PO-Assistente-Virtual-BR,8f8f96d,2025-05-05,Pedro Victor Veras,up
 C3PO-Assistente-Virtual-BR,fb8c98d,2025-05-05,Pedro Victor Veras,update sem historico
+Gohan-treinamentos-web-app,d236be1,2026-07-06,Pedro Victor Veras,Update prova_p2_circuitosDigitais.js
+Gohan-treinamentos-web-app,8d45f2a,2026-03-12,Pedro Victor Veras,up
+Gohan-treinamentos-web-app,3241029,2026-02-09,Pedro Victor Veras,Update package-lock.json
+Gohan-treinamentos-web-app,2dad87b,2026-01-28,Pedro Victor Veras,up
+Gohan-treinamentos-web-app,9e09cdf,2026-01-28,Pedro Victor Veras,update
+Gohan-treinamentos-web-app,b9caa9a,2025-08-09,Pedro Victor Veras,up
+Gohan-treinamentos-web-app,ce79357,2025-08-08,Pedro Victor Veras,up
+Gohan-treinamentos-web-app,7ef6a76,2025-07-03,Pedro Victor Veras,Update README.md
+Gohan-treinamentos-web-app,d302da2,2025-06-23,Pedro Victor Veras,up
+Gohan-treinamentos-web-app,f499050,2025-06-23,Pedro Victor Veras,update
+Jedi-CyberPunk,e36911328,2026-07-06,Pedro Victor Veras,up
+Jedi-CyberPunk,4731c6b4b,2026-07-02,Pedro Victor Veras,up
+Jedi-CyberPunk,2efa74d82,2026-07-02,Pedro Victor Veras,up
 Jedi-CyberPunk,b007b7d88,2026-07-01,Pedro Victor Veras,up
 Jedi-CyberPunk,32c2927ab,2026-06-30,Pedro Victor Veras,up
 Jedi-CyberPunk,07015a80b,2026-06-29,Pedro Victor Veras,up
@@ -16,9 +29,6 @@ Jedi-CyberPunk,6e7e9d378,2026-06-29,Pedro Victor Veras,up
 Jedi-CyberPunk,f7d7b06d9,2026-06-27,Pedro Victor Veras,up
 Jedi-CyberPunk,b456e736d,2026-06-27,Pedro Victor Veras,up
 Jedi-CyberPunk,ee73c882e,2026-06-25,Pedro Victor Veras,up
-Jedi-CyberPunk,36b9b9961,2026-06-25,Pedro Victor Veras,up
-Jedi-CyberPunk,5c21480c8,2026-06-25,Pedro Victor Veras,up
-Jedi-CyberPunk,66da3c729,2026-06-25,Pedro Victor Veras,novo caderno de emoceos
 ONS-PLC-PV-CONTROLE-E-AUTOMACAO,dac28c41,2026-06-25,Pedro Victor Veras,up
 ONS-PLC-PV-CONTROLE-E-AUTOMACAO,7f41c266,2026-06-24,Pedro Victor Veras,up
 ONS-PLC-PV-CONTROLE-E-AUTOMACAO,42a1f548,2026-06-12,Pedro Victor Veras,Create kanban-12-06-2026.xlsx
@@ -29,6 +39,7 @@ ONS-PLC-PV-CONTROLE-E-AUTOMACAO,7c0b3aae,2026-06-09,Pedro Victor Veras,readme at
 ONS-PLC-PV-CONTROLE-E-AUTOMACAO,825ee06c,2026-06-09,Pedro Victor Veras,sumario atualizados
 ONS-PLC-PV-CONTROLE-E-AUTOMACAO,a98b598c,2026-06-09,Pedro Victor Veras,up
 ONS-PLC-PV-CONTROLE-E-AUTOMACAO,68e08214,2026-06-09,Pedro Victor Veras,up
+Pikachu-Flask-Server,e262eca,2026-07-06,Pedro Victor Veras,Update historico-projetos.csv
 Pikachu-Flask-Server,a3d8be8,2026-06-24,Pedro Victor Veras,up
 Pikachu-Flask-Server,6c1408d,2026-06-24,Pedro Victor Veras,up
 Pikachu-Flask-Server,596dc11,2026-06-24,Pedro Victor Veras,up
@@ -38,7 +49,6 @@ Pikachu-Flask-Server,6ea65b5,2026-06-12,Pedro Victor Veras,Create Curriculo PEDR
 Pikachu-Flask-Server,b8ebd91,2026-06-12,Pedro Victor Veras,update
 Pikachu-Flask-Server,4e1b28c,2026-06-12,Pedro Victor Veras,up
 Pikachu-Flask-Server,c67f134,2026-06-09,Pedro Victor Veras,Create tela_UI_desktop_Agentes_Pyqt6.png
-Pikachu-Flask-Server,e81c13e,2026-06-09,Pedro Victor Veras,up
 Portfolio-Pedro-Victor,29db0ff,2026-06-25,Pedro Victor Veras,Update README.md
 Portfolio-Pedro-Victor,ef55d84,2026-06-25,Pedro Victor Veras,Update README.md
 Portfolio-Pedro-Victor,4dc5aa4,2026-06-24,Pedro Victor Veras,up
@@ -103,3 +113,13 @@ mvp-projects-freelancer,da3180d69,2025-02-13,Pedro Victor,Update AGENTES_IA_PV.p
 mvp-projects-freelancer,0a75420c8,2025-01-28,Pedro Victor,Create click_tracker.py
 mvp-projects-freelancer,419dd7b01,2025-01-21,Pedro Victor,Merge branch 'main' of https://github.com/PedroVic12/mvp-projects-freelancer
 mvp-projects-freelancer,e9b788c8c,2025-01-21,Pedro Victor Veras,p
+qt-material,5a99be3,2023-02-06,Yeison Cardona,Release 2.14
+qt-material,95e63f9,2023-02-06,Yeison Cardona,Release 2.14
+qt-material,4f207ef,2023-02-06,Yeison Cardona,Merge branch 'master' of github.com:UN-GCPDS/qt-material
+qt-material,cb13754,2023-02-06,Yeison Cardona,I don't really remember the changes I've made :(
+qt-material,1f73d3d,2023-01-23,Yeison Cardona,Merge pull request #78 from gustavo-iniguez-goya/fix-62
+qt-material,732b42e,2023-01-23,Yeison Cardona,Merge pull request #76 from unique021203/master
+qt-material,cf95131,2023-01-05,Gustavo Iñiguez Goia,fixed displaying TabBar left/right arrows
+qt-material,b82a139,2022-12-19,unique021203,add dark_medical.xml
+qt-material,097bd2a,2022-05-15,Yeison Cardona,Update QTabBar QToolButton
+qt-material,e28e801,2022-05-15,Yeison Cardona,Update documentation.
