@@ -322,6 +322,18 @@ export default function App() {
   const [showWipModal, setShowWipModal] = useState(false);
   const [lastWipCount, setLastWipCount] = useState(0);
 
+  const getScreenTitle = () => {
+    switch (currentScreen) {
+      case "dashboard": return "Dashboard";
+      case "kanban": return "Quadro Kanban";
+      case "planner": return "Planner ONS";
+      case "api-data": return "API Status";
+      case "habits": return "Controle de Hábitos";
+      case "pvrv-web-dev": return "PVRV Web DEV";
+      default: return "Kanban Pro";
+    }
+  };
+
   // Effect to apply theme class and save to localStorage
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme") || "light";
@@ -869,22 +881,29 @@ export default function App() {
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col lg:ml-0 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100">
-        {/* Mobile Header */}
-        <div className="lg:hidden bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700 px-4 py-3">
-          <div className="flex items-center justify-between">
+        {/* Unified Header */}
+        <header className="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700 px-6 py-4 flex items-center justify-between">
+          <div className="flex items-center gap-3">
             <button
               onClick={() => setSidebarOpen(true)}
-              className="p-2 rounded-md text-gray-400 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:text-gray-100 dark:hover:bg-gray-700"
+              className="lg:hidden p-2 rounded-md text-gray-500 hover:text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-gray-200 dark:hover:bg-gray-700"
             >
-              <Menu size={24} />
+              <Menu size={20} />
             </button>
-            <h1 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
-              {" "}
-              Kanban Pro{" "}
+            <h1 className="text-xl font-bold text-gray-900 dark:text-gray-100">
+              {getScreenTitle()}
             </h1>
-            <div className="w-10" /> {/* Spacer */}
           </div>
-        </div>
+          
+          <a
+            href="http://localhost:5173"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 px-3 py-1.5 text-xs sm:text-sm font-semibold text-cyan-600 hover:text-cyan-700 dark:text-cyan-400 dark:hover:text-cyan-300 hover:bg-cyan-50 dark:hover:bg-cyan-950/20 border border-cyan-200 dark:border-cyan-800/50 rounded-lg transition-all"
+          >
+            🏋️ Ir para Gohan Treinamentos
+          </a>
+        </header>
 
         {/* Screen Content */}
         <main className="flex-1 overflow-auto">{renderCurrentScreen()}</main>
