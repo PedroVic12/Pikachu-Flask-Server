@@ -1,4 +1,7 @@
 Projeto,Hash,Data,Autor,Mensagem
+C3PO-Assistente-Virtual-BR,f5f1c74,2026-06-27,Pedro Victor Veras,update de projetos moderno como tools no pc linux
+C3PO-Assistente-Virtual-BR,af84cbc,2026-06-25,Pedro Victor Veras,up
+C3PO-Assistente-Virtual-BR,c06953b,2026-06-24,Pedro Victor Veras,agora ele fala com agy
 C3PO-Assistente-Virtual-BR,683986c,2026-06-24,Pedro Victor Veras,up
 C3PO-Assistente-Virtual-BR,79ed842,2025-05-22,Pedro Victor,up
 C3PO-Assistente-Virtual-BR,e52d4cc,2025-05-22,Pedro Victor,Merge branch 'main' of https://github.com/PedroVic12/C3PO-Assistente-Virtual-BR
@@ -6,19 +9,17 @@ C3PO-Assistente-Virtual-BR,a7928b9,2025-05-05,Pedro Victor Veras,update
 C3PO-Assistente-Virtual-BR,b6bc660,2025-05-05,Pedro Victor Veras,ip
 C3PO-Assistente-Virtual-BR,8f8f96d,2025-05-05,Pedro Victor Veras,up
 C3PO-Assistente-Virtual-BR,fb8c98d,2025-05-05,Pedro Victor Veras,update sem historico
-C3PO-Assistente-Virtual-BR,947f2e9,2025-05-05,Pedro Victor Veras,update
-C3PO-Assistente-Virtual-BR,4fd6fa8,2025-05-05,Pedro Victor Veras,deploy
-C3PO-Assistente-Virtual-BR,7bf337d,2025-05-05,Pedro Victor Veras,up
-Jedi-CyberPunk,28ba0c5bd,2026-06-24,Pedro Victor Veras,up
-Jedi-CyberPunk,c198fb42e,2026-06-24,Pedro Victor Veras,big update
-Jedi-CyberPunk,b3dd42953,2026-06-24,Pedro Victor Veras,up
-Jedi-CyberPunk,a3e758ed9,2026-06-24,Pedro Victor Veras,up
-Jedi-CyberPunk,d183b0aac,2026-06-23,Pedro Victor Veras,up
-Jedi-CyberPunk,a56f4acab,2026-06-23,Pedro Victor Veras,up
-Jedi-CyberPunk,956bc9864,2026-06-22,Pedro Victor Veras,up
-Jedi-CyberPunk,62a961ad0,2026-06-22,Pedro Victor Veras,up
-Jedi-CyberPunk,48d92b470,2026-06-22,Pedro Victor Veras,update primerio doc PDF com qauarto
-Jedi-CyberPunk,31b9888eb,2026-06-22,Pedro Victor Veras,up
+Jedi-CyberPunk,b007b7d88,2026-07-01,Pedro Victor Veras,up
+Jedi-CyberPunk,32c2927ab,2026-06-30,Pedro Victor Veras,up
+Jedi-CyberPunk,07015a80b,2026-06-29,Pedro Victor Veras,up
+Jedi-CyberPunk,6e7e9d378,2026-06-29,Pedro Victor Veras,up
+Jedi-CyberPunk,f7d7b06d9,2026-06-27,Pedro Victor Veras,up
+Jedi-CyberPunk,b456e736d,2026-06-27,Pedro Victor Veras,up
+Jedi-CyberPunk,ee73c882e,2026-06-25,Pedro Victor Veras,up
+Jedi-CyberPunk,36b9b9961,2026-06-25,Pedro Victor Veras,up
+Jedi-CyberPunk,5c21480c8,2026-06-25,Pedro Victor Veras,up
+Jedi-CyberPunk,66da3c729,2026-06-25,Pedro Victor Veras,novo caderno de emoceos
+ONS-PLC-PV-CONTROLE-E-AUTOMACAO,dac28c41,2026-06-25,Pedro Victor Veras,up
 ONS-PLC-PV-CONTROLE-E-AUTOMACAO,7f41c266,2026-06-24,Pedro Victor Veras,up
 ONS-PLC-PV-CONTROLE-E-AUTOMACAO,42a1f548,2026-06-12,Pedro Victor Veras,Create kanban-12-06-2026.xlsx
 ONS-PLC-PV-CONTROLE-E-AUTOMACAO,6d1e461b,2026-06-12,Pedro Victor Veras,Create kanban-10-06-2026.xlsx
@@ -28,27 +29,26 @@ ONS-PLC-PV-CONTROLE-E-AUTOMACAO,7c0b3aae,2026-06-09,Pedro Victor Veras,readme at
 ONS-PLC-PV-CONTROLE-E-AUTOMACAO,825ee06c,2026-06-09,Pedro Victor Veras,sumario atualizados
 ONS-PLC-PV-CONTROLE-E-AUTOMACAO,a98b598c,2026-06-09,Pedro Victor Veras,up
 ONS-PLC-PV-CONTROLE-E-AUTOMACAO,68e08214,2026-06-09,Pedro Victor Veras,up
-ONS-PLC-PV-CONTROLE-E-AUTOMACAO,4b9cb587,2026-06-09,Pedro Victor Veras,up
+Pikachu-Flask-Server,a3d8be8,2026-06-24,Pedro Victor Veras,up
+Pikachu-Flask-Server,6c1408d,2026-06-24,Pedro Victor Veras,up
+Pikachu-Flask-Server,596dc11,2026-06-24,Pedro Victor Veras,up
+Pikachu-Flask-Server,2322665,2026-06-24,Pedro Victor Veras,up tentantiva de organizacao
 Pikachu-Flask-Server,0782dfa,2026-06-24,Pedro Victor Veras,VIBE CODING VIVI ANALISE DE CANDIDATOS E DASHBOARD POWER BI
 Pikachu-Flask-Server,6ea65b5,2026-06-12,Pedro Victor Veras,Create Curriculo PEDRO V VERAS 2023.docx
 Pikachu-Flask-Server,b8ebd91,2026-06-12,Pedro Victor Veras,update
 Pikachu-Flask-Server,4e1b28c,2026-06-12,Pedro Victor Veras,up
 Pikachu-Flask-Server,c67f134,2026-06-09,Pedro Victor Veras,Create tela_UI_desktop_Agentes_Pyqt6.png
 Pikachu-Flask-Server,e81c13e,2026-06-09,Pedro Victor Veras,up
-Pikachu-Flask-Server,9eeed07,2026-06-03,Pedro Victor Veras,new batcaverna template
-Pikachu-Flask-Server,5caffa8,2026-06-03,Pedro Victor Veras,Update batcaverna_pv.md
-Pikachu-Flask-Server,99d3db0,2026-06-03,Pedro Victor Veras,Update batcaverna_pv.md
-Pikachu-Flask-Server,ed9e694,2026-06-02,Pedro Victor Veras,Atualizar o batcaverna_pv.md
+Portfolio-Pedro-Victor,29db0ff,2026-06-25,Pedro Victor Veras,Update README.md
+Portfolio-Pedro-Victor,ef55d84,2026-06-25,Pedro Victor Veras,Update README.md
+Portfolio-Pedro-Victor,4dc5aa4,2026-06-24,Pedro Victor Veras,up
+Portfolio-Pedro-Victor,cf08f78,2026-06-24,Pedro Victor Veras,Create roadmap_2026-2027.md
 Portfolio-Pedro-Victor,6943544,2026-06-06,Pedro Victor Veras,up
 Portfolio-Pedro-Victor,2eb861e,2026-06-05,Pedro Victor Veras,Update RepositoryProjetos.js
 Portfolio-Pedro-Victor,76eb4d0,2026-05-19,Pedro Victor Veras,Atualizar o Widgets.js
 Portfolio-Pedro-Victor,e884a08,2026-05-19,Pedro Victor Veras,Atualizar o RepositoryProjetos.js
 Portfolio-Pedro-Victor,3643abc,2026-05-19,Pedro Victor Veras,Update page.js
 Portfolio-Pedro-Victor,2f3e9c8,2026-05-18,Pedro Victor Veras,up
-Portfolio-Pedro-Victor,4b7156c,2026-05-18,Pedro Victor Veras,up
-Portfolio-Pedro-Victor,b2f28bf,2026-05-18,Pedro Victor Veras,update
-Portfolio-Pedro-Victor,d46d4b7,2026-05-18,Pedro Victor Veras,up
-Portfolio-Pedro-Victor,7a95208,2026-05-18,Pedro Victor Veras,Update page.js
 Repopulation-With-Elite-Set,bd869c0e,2026-06-12,Pedro Victor Veras,Create checklist_kanban_2026.md
 Repopulation-With-Elite-Set,0ad1376f,2026-06-03,Pedro Victor Veras,Update RCE_Framework_Page.py
 Repopulation-With-Elite-Set,967f2e70,2026-06-03,Pedro Victor Veras,update stable version with bug fixes in timelines
@@ -69,6 +69,8 @@ Websites-Astro-Templates,17885ba,2026-05-29,Pedro Victor Veras,new update
 Websites-Astro-Templates,15c11d7,2026-05-29,Pedro Victor Veras,Create README.md
 Websites-Astro-Templates,be9d692,2026-05-29,Pedro Victor Veras,up
 Websites-Astro-Templates,b02db03,2026-05-29,Pedro Victor Veras,new update
+astro-blog-pedrov12,440e4c4e,2026-06-27,Pedro Victor Veras,up
+astro-blog-pedrov12,fd0aa28a,2026-06-25,Pedro Victor Veras,up
 astro-blog-pedrov12,8e1c38ff,2026-06-17,Pedro Victor Veras,up
 astro-blog-pedrov12,ded29f7c,2026-06-16,Pedro Victor Veras,update de novas postagens
 astro-blog-pedrov12,e9892d41,2026-06-16,Pedro Victor Veras,Delete RESUMO_PROJETOS.md
@@ -77,11 +79,12 @@ astro-blog-pedrov12,682877aa,2026-06-02,Pedro Victor Veras,Update BaseLayout.ast
 astro-blog-pedrov12,f10ef436,2026-05-30,Pedro Victor Veras,Delete consultoria-tecnologica.mdx
 astro-blog-pedrov12,8d327e1e,2026-05-30,Pedro Victor Veras,fix: gemini dicas 2
 astro-blog-pedrov12,010db4c3,2026-05-30,Pedro Victor Veras,fix: static paths
-astro-blog-pedrov12,4719776d,2026-05-30,Pedro Victor Veras,up8
-astro-blog-pedrov12,586d3bff,2026-05-30,Pedro Victor Veras,up
+calistenia-app-saiyajin-workout,a920918,2026-06-24,Pedro Victor Veras,up
 calistenia-app-saiyajin-workout,e9aa2bc,2026-06-24,Pedro Victor Veras,up
 calistenia-app-saiyajin-workout,f66aeae,2025-08-23,Pedro Victor Veras,Update App.jsx
 calistenia-app-saiyajin-workout,21e8744,2024-01-12,James McArthur,Initial commit
+getx-for-qt6,1132492,2026-06-24,Pedro Victor Veras,up
+getx-for-qt6,ec1895f,2026-06-24,Pedro Victor Veras,up
 getx-for-qt6,7380da2,2026-06-24,Pedro Victor Veras,up
 getx-for-qt6,c766673,2026-04-16,Pedro Victor Veras,Delete create_qt6_mvc_app.sh~
 getx-for-qt6,0d78b1a,2026-03-17,Pedro Victor Veras,Create limpar_cache.sh
@@ -90,15 +93,13 @@ getx-for-qt6,20328c4,2026-03-17,Pedro Victor Veras,up
 getx-for-qt6,591c4f0,2026-03-17,Pedro Victor Veras,update
 getx-for-qt6,bc9de25,2026-03-12,Pedro Victor Veras,novas notas
 getx-for-qt6,627e5cb,2026-03-12,Pedro Victor Veras,up
-getx-for-qt6,91dc7cf,2026-03-12,Pedro Victor Veras,updaye
-getx-for-qt6,1cacd16,2026-03-12,Pedro Victor Veras,up
+mvp-projects-freelancer,d38157d24,2026-06-27,Pedro Victor Veras,up
+mvp-projects-freelancer,93db8cd35,2026-06-27,Pedro Victor Veras,2024
+mvp-projects-freelancer,4284aee58,2026-06-25,Pedro Victor Veras,up
+mvp-projects-freelancer,19796157a,2026-06-25,Pedro Victor Veras,up
 mvp-projects-freelancer,d5405cb29,2025-05-30,Pedro Victor,up
 mvp-projects-freelancer,542e7ee40,2025-04-10,Pedro Victor Veras,up
 mvp-projects-freelancer,da3180d69,2025-02-13,Pedro Victor,Update AGENTES_IA_PV.py
 mvp-projects-freelancer,0a75420c8,2025-01-28,Pedro Victor,Create click_tracker.py
 mvp-projects-freelancer,419dd7b01,2025-01-21,Pedro Victor,Merge branch 'main' of https://github.com/PedroVic12/mvp-projects-freelancer
 mvp-projects-freelancer,e9b788c8c,2025-01-21,Pedro Victor Veras,p
-mvp-projects-freelancer,9a3cfde26,2025-01-21,Pedro Victor Veras,up
-mvp-projects-freelancer,6a7ce4eb0,2025-01-21,Pedro Victor Veras,Create AGENTES_IA_PV.py
-mvp-projects-freelancer,982fc7070,2025-01-21,Pedro Victor Veras,up
-mvp-projects-freelancer,fcad97e9c,2025-01-21,Pedro Victor,Create fooocus_colab.ipynb
