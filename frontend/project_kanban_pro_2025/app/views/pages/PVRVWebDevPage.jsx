@@ -5,14 +5,62 @@ import { Radar, RadarChart, PolarGrid, Legend, PolarAngleAxis, PolarRadiusAxis, 
 
 // --- DADOS DAS TECNOLOGIAS ---
 const techStackData = {
-    python: { name: 'Python Backend', color: 'rgba(53, 114, 165, 1)', bgColor: 'rgba(53, 114, 165, 0.2)', difficulty: 'Intermediário', description: '<strong>Pilar do Backend e Dados:</strong> Usado para APIs robustas (FastAPI, Flask, Django), análise de dados complexas e simulações de sistemas elétricos (PandaPower). A base para IA e ML.', scores: { performance: 70, webBackend: 95, desktop: 40, embedded: 20 } },
-    cpp: { name: 'C++ (Drogon server) e Arduino', color: 'rgba(243, 75, 125, 1)', bgColor: 'rgba(243, 75, 125, 0.2)', difficulty: 'Avançado', description: '<strong>Performance Absoluta:</strong> Para web servers de altíssima velocidade com Drogon e software que interage diretamente com hardware, onde cada microssegundo conta.', scores: { performance: 98, webBackend: 70, desktop: 60, embedded: 90 } },
-    rust: { name: 'Rust', color: 'rgba(222, 165, 132, 1)', bgColor: 'rgba(222, 165, 132, 0.2)', difficulty: 'Avançado', description: '<strong>Segurança e Velocidade:</strong> A escolha moderna para sistemas críticos, combinando a performance do C++ com garantias de segurança de memória, ideal para backend e sistemas embarcados do futuro.', scores: { performance: 95, webBackend: 65, desktop: 50, embedded: 85 } },
-    nodejs: { name: 'Node.js', color: 'rgba(104, 159, 56, 1)', bgColor: 'rgba(104, 159, 56, 0.2)', difficulty: 'Iniciante', description: '<strong>Ecossistema JavaScript:</strong> Utilizado para gerenciar pacotes (NPM) e construir backends rápidos e eficientes para aplicações web, integrando-se perfeitamente com frameworks de frontend.', scores: { performance: 75, webBackend: 90, desktop: 20, embedded: 10 } },
-    pyside6: { name: 'PySide6 App Desktop', color: 'rgba(179, 157, 219, 1)', bgColor: 'rgba(179, 157, 219, 0.2)', difficulty: 'Intermediário', description: '<strong>Desktop com Python:</strong> Cria aplicações desktop nativas e ricas em recursos usando o poder do Python e do framework Qt, ideal para ferramentas de análise e simuladores.', scores: { performance: 60, webBackend: 0, desktop: 90, embedded: 5 } },
-    flutter: { name: 'Flutter - Mobile', color: 'rgba(3, 169, 244, 1)', bgColor: 'rgba(3, 169, 244, 0.2)', difficulty: 'Intermediário', description: '<strong>Multiplataforma Nativo:</strong> Desenvolve apps para mobile, web e desktop a partir de um único código-base com performance nativa. Perfeito para dashboards e apps de controle.', scores: { performance: 80, webBackend: 40, desktop: 85, embedded: 30 } },
-    tauri: { name: 'Tauri Rust Desktop', color: 'rgba(255, 179, 0, 1)', bgColor: 'rgba(255, 179, 0, 0.2)', difficulty: 'Intermediário', description: '<strong>Desktop Leve e Seguro:</strong> Constrói aplicações desktop usando tecnologias web (HTML, JS) com um backend em Rust, resultando em apps extremamente leves, rápidos e seguros.', scores: { performance: 85, webBackend: 0, desktop: 95, embedded: 15 } },
-    html: { name: 'HTML/CSS/JS/Tailwind/Bootstrap', color: 'rgba(239, 83, 80, 1)', bgColor: 'rgba(239, 83, 80, 0.2)', difficulty: 'Iniciante', description: '<strong>A Base da Web:</strong> O trio fundamental para qualquer site ou sistema web, oferecendo a estrutura, estilo e interatividade para todas as aplicações frontend.', scores: { performance: 50, webBackend: 20, desktop: 70, embedded: 5 } }
+    python: {
+        name: 'Python (FastAPI, Flask & Pandas)',
+        color: 'rgba(53, 114, 165, 1)',
+        bgColor: 'rgba(53, 114, 165, 0.2)',
+        difficulty: 'Avançado',
+        description: '<strong>Pilar do Backend, Dados e Otimização:</strong> Usado para APIs robustas (FastAPI, Flask), processamento de dados (Pandas) e análise de contingências de redes elétricas (PandaPower). Integrado com Jupyter Notebooks e relatórios dinâmicos compilados com Quarto (.qmd).',
+        scores: { performance: 75, webBackend: 95, desktop: 50, embedded: 25 }
+    },
+    julia: {
+        name: 'Julia Lang (Cálculo Científico)',
+        color: 'rgba(145, 89, 163, 1)',
+        bgColor: 'rgba(145, 89, 163, 0.2)',
+        difficulty: 'Avançado',
+        description: '<strong>Cálculo Científico de Alta Performance:</strong> Ideal para simulações elétricas complexas, fluxo de carga e álgebra linear rápida. Une a simplicidade sintática do Python à velocidade de execução do C++.',
+        scores: { performance: 95, webBackend: 45, desktop: 30, embedded: 10 }
+    },
+    javascript: {
+        name: 'JS/TS (Next.js & Material UI 3)',
+        color: 'rgba(247, 223, 30, 1)',
+        bgColor: 'rgba(247, 223, 30, 0.2)',
+        difficulty: 'Intermediário',
+        description: '<strong>Frontend Moderno e Reativo:</strong> Desenvolvimento de Single Page Applications e Server-Side Rendering (Next.js). Estilização fluida baseada em Material Design 3 (MUI v6) e Tailwind CSS para interfaces mobile-first e dashboards.',
+        scores: { performance: 80, webBackend: 85, desktop: 45, embedded: 10 }
+    },
+    cpp: {
+        name: 'C++ (Drogon Server & IoT)',
+        color: 'rgba(243, 75, 125, 1)',
+        bgColor: 'rgba(243, 75, 125, 0.2)',
+        difficulty: 'Avançado',
+        description: '<strong>Performance Extrema e Baixo Nível:</strong> APIs web assíncronas ultrarrápidas usando o framework Drogon, algoritmos de redes elétricas de alto desempenho e firmware embarcado para microcontroladores (Arduino, ESP32) com WebSockets.',
+        scores: { performance: 98, webBackend: 85, desktop: 65, embedded: 90 }
+    },
+    pyqt6: {
+        name: 'PyQt6 Desktop Apps',
+        color: 'rgba(179, 157, 219, 1)',
+        bgColor: 'rgba(179, 157, 219, 0.2)',
+        difficulty: 'Avançado',
+        description: '<strong>Interfaces Nativas Desktop:</strong> Desenvolvimento de painéis de controle, ferramentas de automação e GUIs ricas integrando Python e Qt6, ideal para aplicativos como o SysPL Launcher Desktop.',
+        scores: { performance: 70, webBackend: 10, desktop: 95, embedded: 10 }
+    },
+    rust: {
+        name: 'Rust (Tauri Backend)',
+        color: 'rgba(222, 165, 132, 1)',
+        bgColor: 'rgba(222, 165, 132, 0.2)',
+        difficulty: 'Avançado',
+        description: '<strong>Segurança de Memória e Velocidade:</strong> Backend robusto para aplicações desktop em conjunto com Tauri, combinando o controle do C++ com garantias estáticas contra falhas de concorrência e memória.',
+        scores: { performance: 96, webBackend: 70, desktop: 88, embedded: 85 }
+    },
+    flutter: {
+        name: 'Flutter (GetX Mobile)',
+        color: 'rgba(3, 169, 244, 1)',
+        bgColor: 'rgba(3, 169, 244, 0.2)',
+        difficulty: 'Intermediário',
+        description: '<strong>Apps Multiplataforma Nativo:</strong> Interface mobile-first fluida, usando gerenciamento de estado GetX para o desenvolvimento rápido de aplicativos de controle, dashboards e utilitários.',
+        scores: { performance: 80, webBackend: 40, desktop: 75, embedded: 25 }
+    }
 };
 const chartLabels = ['Performance', 'Backend Web', 'Desktop GUI', 'Sist. Embarcados'];
 
