@@ -1,5 +1,55 @@
 Este é um espaço de acolhimento de controle se sessões de assuntos tratados em atendimentos online psico-comportamental
 
+## Terapia Julho - 18/07/2026
+
+- [ ] Exposição no relacionamento ao tamanho da minha Kitnet em Niteroi e pela quantidade de banheiro em campo grade
+- [ ] Confiança x resiliencia x sem mentiras
+- [ ] situação UFF 2026 -> FIAP para Ciencia de dados
+- [ ] Rotina de estudos com livros, programação, artigos e etc...
+
+
+---
+## Rotina TDAH, Dev, Estagio
+---
+
+- [x] Organização, planejmento e metas para o inicio de periodo
+- [x] Habit tracker
+- [x] Rotina e TDAH
+- [x] estudos e programação
+- [x] Jogos e Filmes
+- [x] Limpeza, banhos, meditação
+
+
+- [ ] Organização mental e preparação para novo Ciclo JEDI CYBERPUNK com resolução de provas, tutorial de 10 min de programação, modelagem e simulações de eng eletrica junto com automações com N8N
+
+- [ ] Meditação e estudos com Matemática e Japonês
+
+- [ ] Alongamento matinal - Ombros e Quadril
+
+- [ ] Treino de calistenia para karate
+
+
+---
+## TDAH - Rotina 
+---
+
+- [x] Alinhamento Espiritual do Dia
+- [ ] Corpo x Mente x Espirito -> Jobs, Coding, Studying, Creative, In Shape
+- [x] Planejamento Seg/Sexta
+- [x] Terapia TCC
+- [ ] Treinos de calistenia como SSJ
+- [x] Treinso de caligrafia e leitura diaria por 25 min
+- [ ] Resoluçao de equacoes matematicas + EDO para Circuitos CA
+- [ ] Programação e debug em Python com testes unitarios em python
+- [x] Programação Frontend
+- [x] Programação Backend para Dados
+- [x] Programaçao cientifica com Sympy, Scipy, Python e Julia
+- [x] Projetos de Cientista de dados com projetos Kaggle e Jupyter Notebooks com Relatórios em QUarto .mD e postagem no blog dos resultados em arquivos .mD em Astro com Javascript
+
+- [x] Visualização KANBAN e gerar 5 tarefas do dia (MANHA) e com 3 metas principais do dia (Eat the frog, Estudos e Criativo)
+
+---
+
 ## Terapia Junho - 10/06/2026 - Yasmin Ignacio 
 
 - Retrospectiva tratamento 2025 (FRAN):

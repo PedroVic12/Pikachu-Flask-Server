@@ -135,6 +135,20 @@ class ProjectRepository {
 
   async saveProjects(projects) {
     storageController.saveProjects(projects);
+    try {
+      const response = await fetch("/api/excel/save", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(projects),
+      });
+      if (!response.ok) {
+        console.error("Falha ao salvar projetos no Excel API/Markdown");
+      }
+    } catch (error) {
+      console.error("Erro ao chamar API de salvamento do Excel:", error);
+    }
   }
 
   exportToExcel(projects) {
