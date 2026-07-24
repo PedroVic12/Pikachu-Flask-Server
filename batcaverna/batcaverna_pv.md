@@ -1,16 +1,18 @@
-# 🦇 BatCaverna PV - Centro de Comando 2026
+## 🦇 BatCaverna PV - Centro de Comando 2026
 
 ---
 
-📅 Data: **18/06/2026**
+📅 Data: **24/07/2026**
 
-## ⚡📑 ÍNDICE RÁPIDO
+# ⚡📑 ÍNDICE RÁPIDO
 
 ## **JOBS**
 
 ### Trabalho Cientista de dados JR no ELITE Rede de Ensino
 
-### Trabalho 2023-2024: Camorim Serviços Marítimos como estágio de Engenharia Elétrica
+### Trabalho 2023-2024: Estagio: Camorim Serviços Marítimos de Engenharia Elétrica
+
+### Estagio de Engenharia Elétrica: ONS PLC (Planejamento de Curto prazo) e análises de Estudos Elétricos em Regime Permanente (estático) para área de SP de 135KV, 345KV e 440 KV
 
 - 📋 [Tarefas ONS PLC](#tarefas-ons-plc-2026)
 
@@ -42,7 +44,7 @@
 
 ---
 
-## Batcaverna 2026
+# Batcaverna 2026
 
 ---
 
