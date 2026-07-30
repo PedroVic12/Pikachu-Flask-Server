@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <!-- Meta viewport essencial para Mobile First e responsividade -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Sistema Integrado - Planner & Blog</title>
+
+    <!-- Tailwind CSS para Layout Responsivo -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- React & ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+
+    <!-- Babel para compilar JSX no navegador -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- Material UI -->
+    <script src="https://unpkg.com/@mui/material@5.14.5/umd/material-ui.production.min.js"></script>
+
+    <!-- Marked.js para compilar Markdown (Checklists e Blog) -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <!-- Fonts & Icons -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Segoe+UI:wght@400;600&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- CSS Personalizado Base -->
+    <style>
+        body {
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            /* Evita scroll duplo no desktop, o React gerencia o scroll interno */
+            height: 100vh;
+            width: 100vw;
+            background-color: #1f1f1f;
+            /* Fundo escuro base */
+        }
+
+        #root {
+            height: 100%;
+            width: 100%;
+        }
+
+        /* Scrollbar customizada (discreta) */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #555;
+            border-radius: 4px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #888;
+        }
+
+        /* Estilização para Checklists em Markdown (Workspace) */
+        .markdown-checklist {
+            color: #e2e8f0;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .markdown-checklist h1,
+        .markdown-checklist h2,
+        .markdown-checklist h3 {
+            font-weight: bold;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+            color: #fff;
+        }
+
+        .markdown-checklist p {
+            margin-bottom: 0.5rem;
+        }
+
+        .markdown-checklist ul {
+            list-style-type: disc;
+            padding-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .markdown-checklist .checklist {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .markdown-checklist .checklist li {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 6px;
+        }
+
+        .markdown-checklist input[type="checkbox"] {
+            margin-right: 10px;
+            margin-top: 4px;
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+            accent-color: #3b82f6;
+        }
+
+        /* Edição de Textarea Transparente */
+        .markdown-editor {
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            border: none;
+            color: #e2e8f0;
+            font-family: monospace;
+            resize: none;
+            outline: none;
+            padding: 1rem;
+        }
+
+        /* Estilização para Markdown do Blog (Estilo Claro/Artigo) */
+        .blog-markdown {
+            font-family: 'Georgia', serif;
+        }
+
+        .blog-markdown h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #111;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.2;
+        }
+
+        .blog-markdown h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            color: #222;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .blog-markdown p {
+            margin-bottom: 1.2rem;
+            line-height: 1.8;
+            color: #333;
+            text-align: justify;
+            font-size: 1.05rem;
+        }
+
+        .blog-markdown strong {
+            font-weight: 700;
+            color: #000;
+        }
+
+        .blog-markdown ul {
+            list-style-type: disc;
+            padding-left: 2rem;
+            margin-bottom: 1.5rem;
+            color: #333;
+            line-height: 1.8;
+        }
+
+        /* Helpers Visuais Drag and Drop */
+        .drag-over {
+            background-color: rgba(59, 130, 246, 0.15) !important;
+            border: 2px dashed #3b82f6 !important;
+        }
+
+        /* Estilo do Card Post-it para SWOT e Kanban */
+        .post-it {
+            background: linear-gradient(135deg, #fef08a 0%, #fde047 100%);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            color: #1f2937;
+            border-bottom-right-radius: 12px 2px;
+            border-bottom-left-radius: 2px;
+            position: relative;
+            transition: transform 0.1s ease, box-shadow 0.1s ease;
+            cursor: grab;
+            user-select: none;
+            /* Evita selecionar texto ao arrastar */
+        }
+
+        .post-it:active {
+            cursor: grabbing;
+            transform: scale(1.02);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+        }
+
+        /* Dobra no canto inferior direito do post-it */
+        .post-it::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            border-width: 8px 8px 0 0;
+            border-style: solid;
+            border-color: #eab308 transparent transparent transparent;
+            box-shadow: -1px -1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Classes utilitárias estilo Flutter (Flex) */
+        .flutter-column {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .flutter-row {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .flutter-expanded {
+            flex: 1 1 auto;
+            min-width: 0;
+            min-height: 0;
+        }
+
+        /* Menu lateral Mobile Offcanvas */
+        .mobile-drawer {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 40;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .mobile-drawer.open {
+            transform: translateX(0);
+        }
+
+        .drawer-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 30;
+            display: none;
+        }
+
+        .drawer-overlay.open {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useMemo, useRef, useCallback } = React;
+        const { ThemeProvider, createTheme, CssBaseline, Button, IconButton, TextField, Avatar, Tabs, Tab, Typography, Tooltip } = MaterialUI;
+
+        // ==========================================
+        // 1. ARQUITETURA MVC - MODEL E STORAGE
+        // ==========================================
+
+        class LocalDatabaseMyWebsite {
+            constructor(hashKey = 'sys_web_planner_v1') {
+                this.hashKey = hashKey;
+            }
+            saveData(data) {
+                try { localStorage.setItem(this.hashKey, JSON.stringify(data)); }
+                catch (e) { console.error("Erro ao salvar no LocalStorage:", e); }
+            }
+            loadData(defaultData) {
+                try {
+                    const item = localStorage.getItem(this.hashKey);
+                    return item ? JSON.parse(item) : defaultData;
+                } catch (e) { return defaultData; }
+            }
+            clear() { localStorage.removeItem(this.hashKey); }
+        }
+
+        // Lista de projetos baseada na imagem solicitada
+        const projectsList = [
+            { id: 'p1', name: 'Atualização SIGER SE/CO - PLC', icon: 'update' },
+            { id: 'p2', name: 'Novatos PLC', icon: 'school' },
+            { id: 'p3', name: 'Montadores Mensal PLC', icon: 'handyman' },
+            { id: 'p4', name: 'Áreas - SECO', icon: 'map' },
+            { id: 'p5', name: 'Suporte SAPECP - Mensal', icon: 'support_agent' },
+            { id: 'p6', name: 'Alexandre Rodrigues Nunes', icon: 'person' },
+            { id: 'p7', name: 'Marcos Jorge Araujo de Souza', icon: 'person' },
+            { id: 'p8', name: 'Reunião PLC', icon: 'groups' }
+        ];
+
+        // Estado inicial complexo agrupado por projeto
+        const initialAppState = {
+            currentRoute: 'workspace', // 'workspace' ou 'blog'
+            activeProjectId: 'p3', // Montadores Mensal PLC selecionado por padrão
+            plannerTab: 0, // 0 = Kanban, 1 = SWOT
+            isMobileDrawerOpen: false, // Controle de menu no celular
+
+            // Dados específicos por projeto (Dicionário: ProjectID -> { markdown, tasks })
+            projectData: {
+                'p3': {
+                    markdown: "### Reunião de Montadores Mensal\n\n**Pautas Principais:**\n- [x] Revisar metas do mês passado\n- [ ] Distribuir novas planilhas de despacho\n- [ ] Verificar EPIs\n\n**Observações:**\nLembrar de cobrar o relatório do SAPECP ao Bruno.",
+                    tasks: [
+                        { id: 't1', text: 'Revisar Barramentos 3º Quad.', swot: 'weaknesses', kanban: 'todo' },
+                        { id: 't2', text: 'Atualizar Planilha Despacho', swot: 'strengths', kanban: 'doing' },
+                        { id: 't3', text: 'Treinamento Novos Montadores', swot: 'opportunities', kanban: 'done' },
+                        { id: 't4', text: 'Problema no SAPECP', swot: 'threats', kanban: 'todo' }
+                    ]
+                },
+                'p1': {
+                    markdown: "### Atualização SIGER\n- [ ] Validar MT\n- [ ] Validar AC\n- [ ] Validar RO\n\n*Status atual:* Suzana reportou OK parcial.",
+                    tasks: [
+                        { id: 't5', text: 'Validar dados MT', swot: 'strengths', kanban: 'doing' }
+                    ]
+                }
+                // Outros projetos iniciam vazios dinamicamente se não existirem
+            }
+        };
+
+        class AppModel {
+            constructor() {
+                this.db = new LocalDatabaseMyWebsite();
+                // Carrega do banco ou usa default
+                const savedState = this.db.loadData(initialAppState);
+
+                // Garante que projetos novos na lista tenham estrutura de dados básica
+                projectsList.forEach(p => {
+                    if (!savedState.projectData[p.id]) {
+                        savedState.projectData[p.id] = { markdown: `# ${p.name}\n- [ ] Nova tarefa`, tasks: [] };
+                    }
+                });
+
+                this.state = savedState;
+                this.listeners = [];
+
+                // Interceptador para persistência automática
+                const originalSetState = this.setState.bind(this);
+                this.setState = (newState) => {
+                    originalSetState(newState);
+                    this.db.saveData(this.state);
+                };
+            }
+            subscribe(listener) {
+                this.listeners.push(listener);
+                return () => { this.listeners = this.listeners.filter(l => l !== listener); };
+            }
+            setState(newState) {
+                this.state = { ...this.state, ...newState };
+                this.listeners.forEach(l => l(this.state));
+            }
+            getState() { return this.state; }
+        }
+
+        class AppController {
+            constructor(model) { this.model = model; }
+
+            // Navegação e UI
+            changeRoute(route) { this.model.setState({ currentRoute: route }); }
+            setActiveProject(projectId) {
+                this.model.setState({ activeProjectId: projectId, isMobileDrawerOpen: false });
+            }
+            setPlannerTab(tabIndex) { this.model.setState({ plannerTab: tabIndex }); }
+            toggleMobileDrawer() {
+                this.model.setState({ isMobileDrawerOpen: !this.model.getState().isMobileDrawerOpen });
+            }
+
+            // Manipulação de Markdown do Projeto Atual
+            updateProjectMarkdown(newMarkdown) {
+                const state = this.model.getState();
+                const updatedData = { ...state.projectData };
+                updatedData[state.activeProjectId] = {
+                    ...updatedData[state.activeProjectId],
+                    markdown: newMarkdown
+                };
+                this.model.setState({ projectData: updatedData });
+            }
+
+            // Lógica Unificada de Tasks (Kanban + SWOT) para o Projeto Atual
+            addTask(text) {
+                if (!text.trim()) return;
+                const state = this.model.getState();
+                const pId = state.activeProjectId;
+                const newTask = { id: 't' + Date.now(), text, swot: 'opportunities', kanban: 'todo' };
+
+                const updatedData = { ...state.projectData };
+                updatedData[pId].tasks = [...updatedData[pId].tasks, newTask];
+                this.model.setState({ projectData: updatedData });
+            }
+
+            updateTaskStatus(taskId, newStatus, isSwotUpdate = false) {
+                const state = this.model.getState();
+                const pId = state.activeProjectId;
+
+                const updatedTasks = state.projectData[pId].tasks.map(t => {
+                    if (t.id === taskId) {
+                        return isSwotUpdate ? { ...t, swot: newStatus } : { ...t, kanban: newStatus };
+                    }
+                    return t;
+                });
+
+                const updatedData = { ...state.projectData };
+                updatedData[pId].tasks = updatedTasks;
+                this.model.setState({ projectData: updatedData });
+            }
+
+            deleteTask(taskId) {
+                const state = this.model.getState();
+                const pId = state.activeProjectId;
+
+                const updatedTasks = state.projectData[pId].tasks.filter(t => t.id !== taskId);
+                const updatedData = { ...state.projectData };
+                updatedData[pId].tasks = updatedTasks;
+                this.model.setState({ projectData: updatedData });
+            }
+        }
+
+        // ==========================================
+        // 2. COMPONENTES UTILITÁRIOS (Helpers)
+        // ==========================================
+
+        const Column = ({ children, className = '', style = {}, ...props }) => (
+            <div className={`flutter-column ${className}`} style={style} {...props}>{children}</div>
+        );
+
+        const Row = ({ children, className = '', style = {}, ...props }) => (
+            <div className={`flutter-row ${className}`} style={style} {...props}>{children}</div>
+        );
+
+        const Expanded = ({ children, className = '', style = {}, ...props }) => (
+            <div className={`flutter-expanded ${className}`} style={style} {...props}>{children}</div>
+        );
+
+        // ==========================================
+        // 3. COMPONENTES WORKSPACE & PLANNER
+        // ==========================================
+
+        const ProjectSidebar = ({ state, controller }) => (
+            <Column className="h-full bg-[#1e1e1e] border-r border-[#333] w-[280px] md:w-[320px] flex-shrink-0">
+                <div className="p-4 pb-2">
+                    <Typography variant="h6" className="font-semibold text-lg text-white mb-2">Projetos & Áreas</Typography>
+                    <Row className="gap-2 text-xs border-b border-[#333] pb-3">
+                        <span className="bg-[#5c2d91] text-white px-3 py-1 rounded-full cursor-pointer hover:bg-[#6c3b9f] transition">PLC</span>
+                        <span className="bg-[#3b3a39] text-gray-300 px-3 py-1 rounded-full cursor-pointer hover:bg-[#4b4a49] transition">SECO</span>
+                    </Row>
+                </div>
+
+                <Expanded className="overflow-y-auto custom-scrollbar pt-2 px-2">
+                    {projectsList.map(proj => (
+                        <Row
+                            key={proj.id}
+                            onClick={() => controller.setActiveProject(proj.id)}
+                            className={`
+                                p-3 mb-1 rounded-md cursor-pointer items-center transition-colors
+                                ${state.activeProjectId === proj.id
+                                    ? 'bg-[#333] border-l-4 border-[#7b83eb] text-white shadow-sm'
+                                    : 'border-l-4 border-transparent text-gray-400 hover:bg-[#2a2a2a] hover:text-gray-200'}
+                            `}
+                        >
+                            <span className="material-icons text-sm mr-3 opacity-80">{proj.icon}</span>
+                            <span className="font-medium text-sm truncate flex-1">{proj.name}</span>
+                        </Row>
+                    ))}
+                </Expanded>
+            </Column>
+        );
+
+        const ChecklistArea = ({ markdown, controller }) => {
+            const [isEditing, setIsEditing] = useState(false);
+            const [localText, setLocalText] = useState(markdown);
+
+            // Sincroniza estado local se o prop mudar externo (ex: troca de projeto)
+            useEffect(() => { setLocalText(markdown); setIsEditing(false); }, [markdown]);
+
+            // Parser customizado de Markdown para Checklists do HTML
+            const renderMarkdown = () => {
+                let html = marked.parse(localText || '');
+                // Substitui [ ] e [x] por inputs nativos do HTML mantendo o visual
+                html = html.replace(/<ul>\n<li>\[ \]/g, '<ul class="checklist">\n<li><input type="checkbox" onclick="return false;" />');
+                html = html.replace(/<ul>\n<li>\[x\]/g, '<ul class="checklist">\n<li><input type="checkbox" checked onclick="return false;" />');
+                html = html.replace(/<li>\[ \]/g, '<li><input type="checkbox" onclick="return false;" />');
+                html = html.replace(/<li>\[x\]/g, '<li><input type="checkbox" checked onclick="return false;" />');
+                return { __html: html };
+            };
+
+            const handleSave = () => {
+                controller.updateProjectMarkdown(localText);
+                setIsEditing(false);
+            };
+
+            return (
+                <Column className="h-full bg-[#252423] border-r border-[#333] flex-1 min-w-[300px]">
+                    <Row className="p-3 border-b border-[#333] justify-between items-center bg-[#1a1a1a]">
+                        <Typography variant="subtitle2" className="text-gray-300 font-semibold flex items-center gap-2">
+                            <span className="material-icons text-[18px] text-blue-400">checklist</span>
+                            Anotações do Projeto
+                        </Typography>
+                        {isEditing ? (
+                            <Row className="gap-2">
+                                <Button size="small" variant="text" color="inherit" onClick={() => { setLocalText(markdown); setIsEditing(false); }}>Cancelar</Button>
+                                <Button size="small" variant="contained" color="primary" onClick={handleSave}>Salvar</Button>
+                            </Row>
+                        ) : (
+                            <IconButton size="small" sx={{ color: '#9ca3af' }} onClick={() => setIsEditing(true)}>
+                                <span className="material-icons text-[18px]">edit</span>
+                            </IconButton>
+                        )}
+                    </Row>
+
+                    <Expanded className="relative overflow-hidden">
+                        {isEditing ? (
+                            <textarea
+                                className="markdown-editor custom-scrollbar"
+                                value={localText}
+                                onChange={(e) => setLocalText(e.target.value)}
+                                placeholder="Digite aqui usando Markdown. Use - [ ] para checklists..."
+                            />
+                        ) : (
+                            <div
+                                className="h-full overflow-y-auto custom-scrollbar p-4 markdown-checklist"
+                                dangerouslySetInnerHTML={renderMarkdown()}
+                            />
+                        )}
+                    </Expanded>
+                </Column>
+            );
+        };
+
+        const PlannerBoard = ({ tasks, controller, tab }) => {
+            const [newTaskText, setNewTaskText] = useState('');
+
+            // Funções Drag & Drop p/ HTML5 nativo (Funciona bem em Desktop, em Mobile geralmente exige Polyfill, 
+            // mas usaremos a abordagem de clique longo/arraste nativa onde suportado).
+            const handleDragStart = (e, taskId) => { e.dataTransfer.setData('taskId', taskId); };
+            const handleDragOver = (e) => { e.preventDefault(); e.currentTarget.classList.add('drag-over'); };
+            const handleDragLeave = (e) => { e.currentTarget.classList.remove('drag-over'); };
+
+            const handleDrop = (e, newStatus, isSwot) => {
+                e.preventDefault();
+                e.currentTarget.classList.remove('drag-over');
+                const taskId = e.dataTransfer.getData('taskId');
+                if (taskId) controller.updateTaskStatus(taskId, newStatus, isSwot);
+            };
+
+            const TaskCard = ({ task }) => (
+                <div
+                    draggable="true"
+                    onDragStart={(e) => handleDragStart(e, task.id)}
+                    className="post-it p-3 mb-3 text-sm flex flex-col gap-2 group w-full"
+                >
+                    <div className="flex justify-between items-start">
+                        <span className="leading-snug flex-1 pr-4">{task.text}</span>
+                        <IconButton
+                            size="small"
+                            className="opacity-0 group-hover:opacity-100 absolute top-1 right-1"
+                            sx={{ padding: '2px', color: '#ef4444' }}
+                            onClick={() => controller.deleteTask(task.id)}
+                        >
+                            <span className="material-icons text-[16px]">delete</span>
+                        </IconButton>
+                    </div>
+                    {/* Tags indicativas de estado cruzado */}
+                    <div className="flex gap-1 mt-auto text-[10px] font-bold uppercase tracking-wider opacity-60">
+                        {tab === 0
+                            ? <span className="bg-black/10 px-1.5 py-0.5 rounded">{task.swot.substring(0, 3)}</span> // Mostra sigla swot no Kanban
+                            : <span className="bg-black/10 px-1.5 py-0.5 rounded">{task.kanban}</span> // Mostra sigla kanban na SWOT
+                        }
+                    </div>
+                </div>
+            );
+
+            return (
+                <Column className="h-full bg-[#18181b] text-white flex-1 min-w-[300px]">
+                    {/* Barra Superior do Planner */}
+                    <Row className="p-2 px-4 border-b border-[#333] justify-between items-center bg-[#1a1a1a]">
+                        <Tabs
+                            value={tab}
+                            onChange={(e, val) => controller.setPlannerTab(val)}
+                            textColor="inherit"
+                            indicatorColor="primary"
+                            sx={{ minHeight: '40px' }}
+                        >
+                            <Tab label="Kanban" sx={{ minHeight: '40px', py: 0, textTransform: 'none', fontWeight: 600 }} />
+                            <Tab label="SWOT" sx={{ minHeight: '40px', py: 0, textTransform: 'none', fontWeight: 600 }} />
+                        </Tabs>
+                    </Row>
+
+                    {/* Input Rápido */}
+                    <div className="p-3 bg-[#1e1e1e] border-b border-[#333]">
+                        <form onSubmit={(e) => { e.preventDefault(); controller.addTask(newTaskText); setNewTaskText(''); }} className="flex gap-2">
+                            <input
+                                type="text"
+                                className="flex-1 bg-[#2d2d2d] border border-[#444] rounded p-2 text-sm text-white outline-none focus:border-blue-500 transition"
+                                placeholder="Criar nova nota/tarefa (arrastável)..."
+                                value={newTaskText}
+                                onChange={(e) => setNewTaskText(e.target.value)}
+                            />
+                            <button type="submit" className="bg-blue-600 px-4 rounded text-sm font-medium hover:bg-blue-500 transition whitespace-nowrap shadow">
+                                + Adicionar
+                            </button>
+                        </form>
+                    </div>
+
+                    {/* Áreas de Renderização Baseada na Tab */}
+                    <Expanded className="p-3 overflow-hidden">
+                        {tab === 0 ? (
+                            /* KANBAN (3 Colunas) */
+                            <Row className="h-full gap-3 overflow-x-auto custom-scrollbar pb-2">
+                                {[{ id: 'todo', label: 'A Fazer (To Do)', color: 'gray' },
+                                { id: 'doing', label: 'Em Andamento', color: 'blue' },
+                                { id: 'done', label: 'Concluído', color: 'green' }].map(col => (
+                                    <Column
+                                        key={col.id}
+                                        className="flex-1 min-w-[200px] max-w-[400px] bg-[#222222] rounded-lg border border-[#333] shadow-inner"
+                                        onDragOver={handleDragOver} onDragLeave={handleDragLeave} onDrop={(e) => handleDrop(e, col.id, false)}
+                                    >
+                                        <div className="p-3 border-b border-[#333] bg-[#2a2a2a] rounded-t-lg">
+                                            <span className={`text-xs font-bold uppercase tracking-wider text-${col.color}-400`}>{col.label}</span>
+                                            <span className="ml-2 text-xs text-gray-500 bg-[#1a1a1a] px-2 py-0.5 rounded-full">
+                                                {tasks.filter(t => t.kanban === col.id).length}
+                                            </span>
+                                        </div>
+                                        <div className="flex-1 overflow-y-auto custom-scrollbar p-2 flex flex-col items-center">
+                                            {tasks.filter(t => t.kanban === col.id).map(t => <TaskCard key={t.id} task={t} />)}
+                                        </div>
+                                    </Column>
+                                ))}
+                            </Row>
+                        ) : (
+                            /* MATRIZ SWOT (Grade 2x2) */
+                            <div className="h-full w-full grid grid-cols-2 grid-rows-2 gap-3 pb-2">
+                                {[{ id: 'strengths', label: 'Forças (S)', color: 'text-green-400', bg: 'bg-green-900/10 border-green-900/30' },
+                                { id: 'weaknesses', label: 'Fraquezas (W)', color: 'text-red-400', bg: 'bg-red-900/10 border-red-900/30' },
+                                { id: 'opportunities', label: 'Oportunidades (O)', color: 'text-blue-400', bg: 'bg-blue-900/10 border-blue-900/30' },
+                                { id: 'threats', label: 'Ameaças (T)', color: 'text-orange-400', bg: 'bg-orange-900/10 border-orange-900/30' }
+                                ].map(quad => (
+                                    <Column
+                                        key={quad.id}
+                                        className={`rounded-lg border-2 ${quad.bg} p-2 overflow-hidden flex flex-col`}
+                                        onDragOver={handleDragOver} onDragLeave={handleDragLeave} onDrop={(e) => handleDrop(e, quad.id, true)}
+                                    >
+                                        <div className={`text-xs font-bold uppercase tracking-wider mb-2 drop-shadow-md ${quad.color}`}>
+                                            {quad.label}
+                                        </div>
+                                        {/* Container para notas - flow flexível */}
+                                        <div className="flex-1 overflow-y-auto custom-scrollbar flex flex-wrap gap-2 content-start items-start">
+                                            {tasks.filter(t => t.swot === quad.id).map(t => (
+                                                <div key={t.id} className="w-[48%] min-w-[120px] max-w-full">
+                                                    <TaskCard task={t} />
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </Column>
+                                ))}
+                            </div>
+                        )}
+                    </Expanded>
+                </Column>
+            );
+        };
+
+        const WorkspaceView = ({ state, controller }) => {
+            const activeProject = projectsList.find(p => p.id === state.activeProjectId);
+            const activeData = state.projectData[state.activeProjectId] || { markdown: '', tasks: [] };
+
+            return (
+                <Row className="h-full w-full relative">
+
+                    {/* Drawer Mobile / Sidebar Desktop */}
+                    <div className={`
+                        ${state.isMobileDrawerOpen ? 'mobile-drawer open' : 'mobile-drawer'} 
+                        md:relative md:transform-none md:flex h-full shadow-2xl md:shadow-none z-40
+                    `}>
+                        <ProjectSidebar state={state} controller={controller} />
+                    </div>
+                    {/* Overlay Escuro para Mobile */}
+                    <div
+                        className={`drawer-overlay md:hidden ${state.isMobileDrawerOpen ? 'open' : ''}`}
+                        onClick={() => controller.toggleMobileDrawer()}
+                    />
+
+                    {/* Área Central de Conteúdo */}
+                    <Column className="flex-1 h-full w-full overflow-hidden bg-[#1f1f1f]">
+                        {/* Header do Projeto Ativo */}
+                        <Row className="p-3 border-b border-[#333] items-center bg-[#252423] shadow-sm z-10 flex-shrink-0">
+                            {/* Menu Hamburguer Mobile */}
+                            <IconButton sx={{ display: { xs: 'block', md: 'none' }, color: 'white', mr: 1 }} onClick={() => controller.toggleMobileDrawer()}>
+                                <span className="material-icons">menu</span>
+                            </IconButton>
+
+                            <Avatar sx={{ width: 32, height: 32, bgcolor: '#4f46e5', mr: 2, fontSize: '1rem' }}>
+                                <span className="material-icons text-sm">{activeProject?.icon}</span>
+                            </Avatar>
+                            <Column className="flex-1">
+                                <Typography variant="subtitle1" className="font-bold text-white leading-tight truncate">{activeProject?.name}</Typography>
+                                <Typography variant="caption" className="text-gray-400">Workspace de Gestão Unificada</Typography>
+                            </Column>
+                        </Row>
+
+                        {/* Layout Responsivo: Lado a Lado no Desktop, Empilhado no Mobile */}
+                        <Expanded className="flex flex-col md:flex-row overflow-hidden w-full">
+                            {/* Metade Esquerda: Checklist Markdown */}
+                            <div className="h-[40%] min-h-[300px] md:h-full md:w-5/12 flex-shrink-0 flex flex-col border-b md:border-b-0 md:border-r border-[#333]">
+                                <ChecklistArea markdown={activeData.markdown} controller={controller} />
+                            </div>
+
+                            {/* Metade Direita: Planner Board */}
+                            <div className="flex-1 h-[60%] min-h-[400px] md:h-full flex flex-col overflow-hidden">
+                                <PlannerBoard tasks={activeData.tasks} controller={controller} tab={state.plannerTab} />
+                            </div>
+                        </Expanded>
+                    </Column>
+                </Row>
+            );
+        };
+
+        // ==========================================
+        // 4. COMPONENTES DO BLOG "ZONA DA ELÉTRICA"
+        // ==========================================
+
+        const BlogView = () => {
+            // O Blog opera em um estado visual totalmente diferente (Claro, Serifado)
+            return (
+                <Column className="h-full bg-[#f9fafb] text-black overflow-y-auto custom-scrollbar font-sans w-full">
+                    {/* Top Bar Preto Exato */}
+                    <Row className="bg-black text-white py-1 px-4 md:px-10 justify-end items-center text-[11px] gap-6 font-semibold uppercase tracking-wider flex-wrap">
+                        <span className="text-gray-400">30 de julho de 2026</span>
+                        <span className="hover:text-orange-400 cursor-pointer transition">Doações</span>
+                        <span className="hover:text-orange-400 cursor-pointer transition">Entre em contato</span>
+                        <span className="hover:text-orange-400 cursor-pointer transition">Sobre</span>
+                    </Row>
+
+                    {/* Container Principal do Layout do Blog */}
+                    <div className="w-full max-w-[1100px] mx-auto mt-8 px-4 flex flex-col md:flex-row gap-8 pb-20">
+
+                        {/* SIDEBAR ESQUERDA (Menu e Widgets) */}
+                        <Column className="w-full md:w-[240px] flex-shrink-0">
+                            {/* Logo Zona da Elétrica Fiel */}
+                            <div className="flex border border-gray-200 shadow-sm w-full mb-8 cursor-pointer hover:shadow-md transition bg-white">
+                                <div className="bg-[#2d3035] flex items-center justify-center p-3 w-[30%]">
+                                    <svg className="w-10 h-10 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clipRule="evenodd"></path></svg>
+                                </div>
+                                <div className="bg-white flex flex-col justify-center px-3 py-2 w-[70%] border-b-[5px] border-orange-500">
+                                    <span className="text-gray-500 text-[10px] tracking-[0.2em] font-bold">ZONA DA</span>
+                                    <span className="text-orange-500 font-extrabold text-[15px] tracking-[0.1em] leading-none mt-1">ELÉTRICA</span>
+                                </div>
+                            </div>
+
+                            {/* Menu Lateral Estilizado */}
+                            <Column className="border-t border-x border-gray-100 mb-8 text-[13px] font-bold text-gray-700 bg-white shadow-sm">
+                                <div className="p-3 border-b border-gray-100 hover:bg-gray-50 cursor-pointer text-orange-500">INÍCIO</div>
+                                <div className="p-3 border-b border-gray-100 hover:bg-gray-50 cursor-pointer transition">BIBLIOTECA</div>
+                                <div className="p-3 border-b border-gray-100 hover:bg-gray-50 cursor-pointer transition">EXERCÍCIOS RESOLVIDOS</div>
+                                <div className="p-3 border-b border-gray-100 hover:bg-gray-50 cursor-pointer transition">CONTRIBUIR</div>
+                            </Column>
+
+                            {/* Barra de Pesquisa */}
+                            <Row className="border border-gray-200 mb-6 bg-white shadow-sm">
+                                <input type="text" placeholder="Pesquisar..." className="w-full p-2.5 outline-none text-sm text-gray-700" />
+                                <div className="bg-black text-white px-3 flex items-center justify-center cursor-pointer hover:bg-gray-800 transition">
+                                    <span className="material-icons text-sm">search</span>
+                                </div>
+                            </Row>
+
+                            {/* Ícones Redes Sociais */}
+                            <Row className="justify-center gap-3 mb-10">
+                                <a href="#" className="w-8 h-8 rounded-full bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-500 flex items-center justify-center text-white hover:scale-110 transition shadow"><i className="fa-brands fa-instagram text-sm"></i></a>
+                                <a href="#" className="w-8 h-8 rounded-full bg-[#1DA1F2] flex items-center justify-center text-white hover:scale-110 transition shadow"><i className="fa-brands fa-twitter text-sm"></i></a>
+                                <a href="#" className="w-8 h-8 rounded-full bg-black flex items-center justify-center text-white hover:scale-110 transition shadow">
+                                    <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"></path></svg>
+                                </a>
+                                <a href="#" className="w-8 h-8 rounded-full bg-[#FF0000] flex items-center justify-center text-white hover:scale-110 transition shadow"><i className="fa-brands fa-youtube text-sm"></i></a>
+                            </Row>
+
+                            {/* Seção Popular na Semana */}
+                            <div className="mb-6">
+                                <Typography variant="subtitle2" className="font-bold text-gray-800 mb-4 border-b-2 border-gray-100 pb-2 uppercase tracking-wide text-xs">Popular na semana</Typography>
+                                <Column className="gap-5">
+                                    <Row className="items-start gap-3 cursor-pointer group">
+                                        <div className="w-12 h-12 rounded-full bg-blue-100 flex-shrink-0 flex justify-center items-center overflow-hidden shadow-sm border border-blue-200"><i className="fa-solid fa-bolt text-blue-500"></i></div>
+                                        <span className="text-[11px] font-bold text-gray-600 group-hover:text-orange-500 transition leading-tight mt-1">IBERDROLA CONCLUI MAIOR LINHA DE TRANSMISSÃO DO BRASIL: O PROJETO ALTO PARANAÍBA</span>
+                                    </Row>
+                                    <Row className="items-start gap-3 cursor-pointer group">
+                                        <div className="w-12 h-12 rounded-full bg-teal-100 flex-shrink-0 flex justify-center items-center overflow-hidden shadow-sm border border-teal-200"><i className="fa-solid fa-water text-teal-600"></i></div>
+                                        <span className="text-[11px] font-bold text-gray-600 group-hover:text-orange-500 transition leading-tight mt-1">ENERGIA HIDRELÉTRICA - VISÃO GERAL COMPLETA</span>
+                                    </Row>
+                                    <Row className="items-start gap-3 cursor-pointer group">
+                                        <div className="w-12 h-12 rounded-full bg-gray-100 flex-shrink-0 flex justify-center items-center overflow-hidden shadow-sm border border-gray-200"><i className="fa-solid fa-glasses text-gray-600"></i></div>
+                                        <span className="text-[11px] font-bold text-gray-600 group-hover:text-orange-500 transition leading-tight mt-1">A FÍSICA NAS LENTES DOS ÓCULOS DE GRAU: ÓPTICA GEOMÉTRICA</span>
+                                    </Row>
+                                </Column>
+                            </div>
+                        </Column>
+
+                        {/* CONTEÚDO CENTRAL (Artigo) */}
+                        <Column className="flex-1 w-full md:pr-4">
+                            <Row className="items-start gap-6 flex-col md:flex-row">
+
+                                {/* Bloco da Esquerda do Artigo (Capa e Botões) */}
+                                <Column className="w-full md:w-[220px] flex-shrink-0 mt-2">
+                                    {/* Capa do Livro (Simulada em CSS para ficar leve) */}
+                                    <div className="border border-gray-200 bg-gray-50 p-2 shadow-md mb-4 relative" style={{ aspectRatio: '3/4' }}>
+                                        <div className="border border-gray-300 h-full w-full bg-[#fdfbf7] flex flex-col pt-8 pb-4 px-3 relative shadow-inner overflow-hidden">
+                                            <span className="text-sm font-serif text-gray-800 mb-6 block text-left leading-tight">Introdução à<br />Física Estatística</span>
+                                            {/* Detalhe da lombada simulada */}
+                                            <div className="absolute right-6 top-1/5 bottom-1/5 w-6 bg-[#d1b082] border-x border-[#b08d5c] shadow-inner" style={{ height: '60%', top: '20%' }}>
+                                                <div className="w-1/3 h-full bg-black/10 mx-auto"></div>
+                                            </div>
+                                            <span className="text-[9px] mt-auto text-gray-500 uppercase tracking-widest">Silvio R. A. Salinas</span>
+                                        </div>
+                                    </div>
+
+                                    {/* Caixa Azul "Ajude a manter o site" */}
+                                    <div className="bg-gradient-to-b from-[#6b73d9] to-[#5a62c8] text-white p-4 rounded text-center text-xs mb-3 shadow-md">
+                                        <div className="font-bold mb-3 leading-snug">Ajude a manter o site no ar lendo um artigo. É de graça!</div>
+                                        <Column className="gap-2">
+                                            <button className="w-full bg-white/20 border border-white/30 py-2 rounded flex items-center justify-center gap-2 hover:bg-white/30 transition text-xs font-semibold shadow-sm">
+                                                <span className="material-icons text-[16px]">article</span> Último Artigo
+                                            </button>
+                                            <button className="w-full bg-white/20 border border-white/30 py-2 rounded flex items-center justify-center gap-2 hover:bg-white/30 transition text-xs font-semibold shadow-sm">
+                                                <span className="material-icons text-[16px]">shuffle</span> Artigo Aleatório
+                                            </button>
+                                        </Column>
+                                    </div>
+
+                                    {/* Botão Laranja Finalizando */}
+                                    <button className="w-full bg-gradient-to-b from-[#f28e2b] to-[#e07a19] text-white py-3.5 rounded text-sm font-bold shadow-md hover:brightness-110 transition flex items-center justify-center gap-2">
+                                        <span className="material-icons text-[18px]">access_time</span> Finalizando...
+                                    </button>
+                                </Column>
+
+                                {/* Texto do Artigo (Renderizado via Markdown para facilitar manutenção) */}
+                                <Column className="flex-1 w-full blog-markdown">
+                                    <div dangerouslySetInnerHTML={{
+                                        __html: marked.parse(`
+# Introdução à Física Estatística – Salinas
+
+<div style="display: flex; gap: 8px; margin-bottom: 24px;">
+    <span style="border: 1px solid #fbd38d; color: #dd6b20; padding: 2px 12px; border-radius: 999px; font-size: 11px; font-weight: 700; font-family: sans-serif; text-transform: uppercase;">Estatística</span>
+    <span style="border: 1px solid #fbd38d; color: #dd6b20; padding: 2px 12px; border-radius: 999px; font-size: 11px; font-weight: 700; font-family: sans-serif; text-transform: uppercase;">Física</span>
+</div>
+
+*Introdução à Física Estatística*, do professor **Silvio R. A. Salinas**, é uma obra de referência fundamental e elegante, concebida para servir como um **curso introdutório e intermediário** para estudantes de **graduação e pós-graduação em Física** e áreas correlatas da ciência. Publicada pela Edusp, o livro é reconhecido por sua **clareza expositiva, rigor conceitual e abordagem moderna**, que equilibra a dedução matemática cuidadosa com uma discussão física profunda dos fenômenos estatísticos.
+
+Ele é amplamente adotado nas principais universidades brasileiras e tornou-se um clássico incontestável em língua portuguesa na área de termodinâmica e estatística.
+
+## A Construção Lógica da Teoria
+
+O livro não é apenas uma apresentação de fórmulas soltas, mas uma construção lógica da teoria termodinâmica a partir de bases microscópicas. Ele começa com os postulados fundamentais da **Mecânica Estatística**, introduzindo com grande didática os conceitos de:
+
+*   **Espaço de fases** e a dinâmica Hamiltoniana.
+*   **Ensemble microcanônico** (sistemas isolados).
+*   A profunda definição estatística de **entropia de Boltzmann** ($S = k_B \ln \Omega$).
+
+Desse ponto de partida sólido e geral, Salinas deduz de forma natural a distribuição de probabilidade para um sistema em contato com um reservatório térmico, chegando ao poderoso **ensemble canônico**. O tratamento do **ensemble grande-canônico** (onde há troca de partículas) segue a mesma lógica dedutiva, completando o arcabouço teórico principal para sistemas em equilíbrio termodinâmico.
+
+Esta abordagem permite que o leitor construa a intuição física ao mesmo tempo em que desenvolve o ferramental matemático necessário para resolver problemas complexos da física da matéria condensada e astrofísica.
+                                    `)
+                                    }}></div>
+                                </Column>
+                            </Row>
+                        </Column>
+
+                        {/* SIDEBAR DIREITA (Livros Populares) */}
+                        <Column className="w-full md:w-[240px] flex-shrink-0 mt-8 md:mt-0 hidden lg:flex">
+                            <div className="border border-gray-200 rounded-lg p-5 shadow-sm bg-white">
+                                <Typography variant="subtitle2" className="font-bold border-b border-gray-100 pb-3 mb-5 flex items-center gap-2 text-gray-800 uppercase tracking-wide text-xs">
+                                    <span className="material-icons text-gray-400 text-lg">star_outline</span> Livros Populares
+                                </Typography>
+
+                                <Column className="gap-8 items-center">
+                                    {/* Item 1 */}
+                                    <div className="text-center cursor-pointer group w-full">
+                                        <Row className="justify-center gap-[2px] mb-3">
+                                            <div className="w-10 h-14 bg-red-600 shadow-sm rounded-sm"></div>
+                                            <div className="w-10 h-14 bg-green-600 shadow-sm rounded-sm"></div>
+                                            <div className="w-10 h-14 bg-blue-600 shadow-sm rounded-sm"></div>
+                                        </Row>
+                                        <span className="text-xs font-semibold text-gray-700 group-hover:text-orange-500 transition leading-tight block">Coleção Halliday 10ª Edição – Física (Completa)</span>
+                                    </div>
+
+                                    {/* Item 2 */}
+                                    <div className="text-center cursor-pointer group w-full border-t border-gray-100 pt-6">
+                                        <div className="w-24 h-32 bg-[#e2f1f8] shadow-md mx-auto mb-3 flex flex-col items-center justify-center border border-gray-300 relative overflow-hidden">
+                                            <div className="w-full h-8 bg-teal-600 absolute top-0 opacity-10"></div>
+                                            <span className="text-[10px] font-bold text-teal-800 uppercase tracking-widest mt-2">FÍSICA 2</span>
+                                            <div className="w-1/2 h-1 bg-teal-500 mt-2"></div>
+                                        </div>
+                                        <span className="text-xs font-semibold text-gray-700 group-hover:text-orange-500 transition leading-tight block">Os Fundamentos da Física – Vol. 1, 2 e 3...</span>
+                                    </div>
+
+                                    {/* Item 3 */}
+                                    <div className="text-center cursor-pointer group w-full border-t border-gray-100 pt-6">
+                                        <Row className="justify-center gap-[2px] mb-3">
+                                            <div className="w-12 h-16 bg-purple-600 shadow-sm rounded-sm border border-purple-800 relative"><div className="absolute bottom-1 right-1 w-2 h-2 rounded-full bg-white/50"></div></div>
+                                            <div className="w-12 h-16 bg-teal-500 shadow-sm rounded-sm border border-teal-700 relative"><div className="absolute bottom-1 right-1 w-2 h-2 rounded-full bg-white/50"></div></div>
+                                        </Row>
+                                        <span className="text-xs font-semibold text-gray-700 group-hover:text-orange-500 transition leading-tight block">Curso de Física Básica – Moysés Nussenzveig...</span>
+                                    </div>
+                                </Column>
+                            </div>
+                        </Column>
+                    </div>
+
+                    {/* Botão Flutuante Youtube */}
+                    <div className="fixed right-0 top-1/2 -translate-y-1/2 bg-red-600 text-white p-2.5 flex flex-col items-center justify-center rounded-l-xl shadow-xl cursor-pointer hover:bg-red-700 hover:-translate-x-1 transition-all z-50 group border border-red-800 border-r-0">
+                        <i className="fa-brands fa-youtube text-2xl mb-1.5 group-hover:scale-110 transition"></i>
+                        <span className="text-[9px] font-extrabold text-center leading-[1.1] uppercase tracking-wide">Seguir<br />no<br />YT</span>
+                    </div>
+                </Column>
+            );
+        };
+
+        // ==========================================
+        // 5. COMPONENTE RAIZ (Main App)
+        // ==========================================
+
+        const App = ({ model, controller }) => {
+            const [state, setState] = useState(model.getState());
+
+            useEffect(() => {
+                const unsubscribe = model.subscribe(newState => setState({ ...newState }));
+                return unsubscribe;
+            }, [model]);
+
+            // Tema escuro para UI administrativa, mas o Blog sobrepõe com suas classes tailwind
+            const muiTheme = createTheme({
+                palette: { mode: 'dark', primary: { main: '#3b82f6' }, background: { default: '#1f1f1f' } },
+                typography: { fontFamily: '"Inter", "Segoe UI", sans-serif' }
+            });
+
+            return (
+                <ThemeProvider theme={muiTheme}>
+                    <CssBaseline />
+                    <Column className="h-screen w-screen overflow-hidden flex-col">
+
+                        {/* NAVBAR SUPERIOR GLOBAL */}
+                        <div className="h-[50px] bg-[#111111] border-b border-[#333] flex items-center px-4 flex-shrink-0 z-50 shadow-md justify-between w-full">
+                            <Row className="items-center cursor-pointer group">
+                                <span className="material-icons text-blue-500 mr-2 text-xl group-hover:rotate-90 transition duration-300">apps</span>
+                                <Typography variant="subtitle2" fontWeight="bold" className="tracking-widest text-white text-xs md:text-sm">HUB INTEGRADO</Typography>
+                            </Row>
+
+                            <Row className="gap-2 bg-[#222] p-1 rounded-lg border border-[#333]">
+                                <Button
+                                    size="small"
+                                    variant={state.currentRoute === 'workspace' ? 'contained' : 'text'}
+                                    onClick={() => controller.changeRoute('workspace')}
+                                    sx={{ textTransform: 'none', borderRadius: 1.5, px: 2, fontSize: '0.75rem', fontWeight: 600 }}
+                                    color="primary"
+                                >
+                                    <span className="material-icons text-[16px] mr-1">dashboard</span>
+                                    <span className="hidden md:inline">Workspace</span>
+                                </Button>
+                                <Button
+                                    size="small"
+                                    variant={state.currentRoute === 'blog' ? 'contained' : 'text'}
+                                    onClick={() => controller.changeRoute('blog')}
+                                    sx={{
+                                        textTransform: 'none', borderRadius: 1.5, px: 2, fontSize: '0.75rem', fontWeight: 600,
+                                        backgroundColor: state.currentRoute === 'blog' ? '#f97316' : 'transparent',
+                                        color: state.currentRoute === 'blog' ? '#fff' : '#9ca3af',
+                                        '&:hover': { backgroundColor: state.currentRoute === 'blog' ? '#ea580c' : '#333' }
+                                    }}
+                                >
+                                    <span className="material-icons text-[16px] mr-1">auto_stories</span>
+                                    <span className="hidden md:inline">Zona da Elétrica</span>
+                                </Button>
+                            </Row>
+                        </div>
+
+                        {/* ROTEAMENTO DE VISÕES */}
+                        <Expanded className="w-full relative">
+                            {state.currentRoute === 'workspace' && <WorkspaceView state={state} controller={controller} />}
+                            {state.currentRoute === 'blog' && <BlogView />}
+                        </Expanded>
+
+                    </Column>
+                </ThemeProvider>
+            );
+        };
+
+        const appModel = new AppModel();
+        const appController = new AppController(appModel);
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App model={appModel} controller={appController} />);
+    </script>
+</body>
+
+</html>

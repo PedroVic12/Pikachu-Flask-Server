@@ -48,9 +48,11 @@
 
 ---
 
-💡 Dicas práticas:
+💡 Dicas práticas
 
   > Execute em ciclos curtos: rodar script → validar → corrigir → repetir
+
+---
 
 # KANBAN + SCRUM + Organização + Planejamento + metodologia ágil
 
@@ -219,6 +221,20 @@ Concluído
 - [ ] minicurso circuitos CC com Sadiku e Python
 
 - [x] Arquivo .md: Astro (blog), quarto (.qmd) e Geração de PowerPoint em PDF tempalte de apresentação ONS PLC
+
+---
+
+# Jogos
+
+- [x] FIFA 19
+- [x] COD Black OPS 1
+- [x] COD Black OPS 2
+- [x] SMITE 2
+- [x] The witcher 3
+- [x] Pokemon Radical RED
+- [x] FIFA 14:
+  - <https://www.reddit.com/r/FifaCareers/comments/1rjnorf/how_to_download_fifa_14_on_pc_for_free/?tl=pt-br>
+  - <https://drive.google.com/file/d/1c8R35D2lMrK827zOIjWrMJ1jP2j0ipgZ/view>
 
 ---
 
