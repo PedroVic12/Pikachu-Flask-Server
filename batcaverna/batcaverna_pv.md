@@ -2,7 +2,7 @@
 
 ---
 
-📅 Data: **05/08/2026**
+📅 Data: **06/08/2026** - *Quinta Feira*
 
 **hello world, novo semestre**
 
@@ -510,8 +510,6 @@ Para a provas da UFF:
 - [ ] Limpeza arpatamento
 - [ ] Alinhamento Espiritual matinal
 - [ ] Banho Gelado - Detox de Dopamina (Banheira de gelo)
-
-
 
 ---
 

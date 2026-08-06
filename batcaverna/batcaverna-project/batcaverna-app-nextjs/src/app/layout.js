@@ -12,8 +12,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "BatCaverna-PV",
-  description: "Dashboard BatCaverna",
+  title: "BatCaverna Multiverse Dashboard",
+  description: "Dashboard BatCaverna & Multiverse Hero System",
 };
 
 export default function RootLayout({ children }) {
@@ -21,8 +21,9 @@ export default function RootLayout({ children }) {
     <html
       lang="pt-BR"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col" suppressHydrationWarning>{children}</body>
     </html>
   );
 }

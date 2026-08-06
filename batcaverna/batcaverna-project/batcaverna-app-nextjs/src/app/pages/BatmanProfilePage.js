@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import htm from 'htm';
 import * as XLSX from 'xlsx';
 import { DataBaseController } from '../controllers/DashboardController.js';
+import gamerTrafficHeroesController, { GAMER_HEROES_STORAGE_KEY } from '../controllers/gamer-traffic-heroes.js';
 import { InfoCard, StatCard, NoteCard, GoalCard } from '../components/UIComponents.js';
 import SkillsWidget from './SkillsWidget.js';
 import HabitTrackerWidget from './HabitTrackerWidget2.js';
@@ -11,104 +12,24 @@ import GamerStoreWidget from './GamerStoreWidget.js';
 
 const html = htm.bind(React.createElement);
 
-class HomemAranhaProfileModel {
-
-  constructor() {
-    this.profileData = {
-      basicInfo: {
-        nomeVerdadeiro: "Peter Parker",
-        profissao: "Fotógrafo e Super-Herói",
-        base: "Nova York, EUA",
-
-      },
-
-      poderes: [],
-
-      habilidades: [],
-
-      conhecimentos: [],
-    }
-  }
-}
-
 // ---------------------------------------------------------------------
-// 2.3 BatmanProfileModel – Dados do perfil (notas, metas, missões)
+// CONTROLLER UNIFICADO DO PERFIL E MULTIVERSO DE HERÓIS
 // ---------------------------------------------------------------------
-export class BatmanProfileModel {
-  constructor() {
-    this.profileData = {
-      basicInfo: {
-        nomeVerdadeiro: "Pedro Victor Rodrigues Veras",
-        ocupacao: "Estudante de Eng. Elétrica na UFF e Estagiário no ONS",
-        base: "Niteroi/CG City, RJ",
-        corOlhos: "Castanhos",
-        corCabelo: "Preto",
-        altura: "1,72 m",
-        peso: "80 kg"
-      },
-      poderes: [],
-
-      habilidades: [],
-
-      conhecimentos: [],
-
-      progress: {
-        perfis: { current: 16, total: 32, percent: 50 },
-        arquivosAudio: { current: 0, total: 29, percent: 0 }
-      },
-      notes: [
-        { id: 1, text: "Monitorar atividades da região SP e SECO com planejamento Mensal e Simulaçoes usando anaREDE e Organon", date: "2025-03-27", category: "ons" },
-        { id: 2, text: "Atualizar e Verificar Sistemas: KanbanPro, Todo List, Planner diários, caderno digital, emails", date: "2024-02-04", category: "tecnologia" },
-        { id: 3, text: "Treinamento de força, alongamentos e hipertrofia", date: "2024-02-03", category: "treinamento" }
-      ],
-      goals: [
-        { id: 1, name: "Ser aprovado com nota máxima em Circuitos Digitais e Circuitos Eletricos CC", progress: 75, deadline: "2026-06-06" },
-        { id: 2, name: "Vencer medos e corrigir hábitos", progress: 40, deadline: "2026-06-06" }
-      ],
-      stats: { forca: 70, agilidade: 80, inteligencia: 88, resistencia: 82, estrategia: 76, sigilo: 94 },
-      missions: [
-        { id: 1, name: "Estudos UFF: Cálculo 4 e Sistemas Digitais", status: "em_andamento" },
-        { id: 2, name: "Uso de ferramentas Python, JS e Office (Word, Excel e PowerPoint)", status: "em_andamento" },
-        { id: 3, name: "Estudos, Quizz Games e Provas antigas da UFF", status: "pendente" }
-      ]
-    };
-  }
-
-  getProfileData() { return this.profileData; }
-
-  addNote(noteText) {
-    const newNote = {
-      id: Date.now(),
-      text: noteText,
-      date: new Date().toISOString().split('T')[0],
-      category: "geral"
-    };
-    this.profileData.notes.unshift(newNote);
-    return this.profileData.notes;
-  }
-
-  deleteNote(noteId) {
-    this.profileData.notes = this.profileData.notes.filter(note => note.id !== noteId);
-    return this.profileData.notes;
-  }
-
-  updateGoalProgress(goalId, newProgress) {
-    const goal = this.profileData.goals.find(g => g.id === goalId);
-    if (goal) goal.progress = Math.min(100, Math.max(0, newProgress));
-    return this.profileData.goals;
-  }
-}
-
 export function useBatmanProfileController() {
-  const [model] = React.useState(() => new BatmanProfileModel());
-  const [activeProfileTab, setActiveProfileTab] = React.useState('info');
-  const [profileData, setProfileData] = React.useState(() => DataBaseController.get(DataBaseController.KEYS.PROFILE, model.getProfileData()));
-  const [newNote, setNewNote] = React.useState('');
-  const [habitXP, setHabitXP] = React.useState(0);
-  const [skillLevel, setSkillLevel] = React.useState(0);
-  const [coins, setCoins] = React.useState(45);
+  const [selectedHeroId, setSelectedHeroId] = useState('batman');
+  const [activeProfileTab, setActiveProfileTab] = useState('info');
+  
+  const [heroes, setHeroes] = useState(() => gamerTrafficHeroesController.getHeroes());
+  const [profileData, setProfileData] = useState(() => DataBaseController.get(DataBaseController.KEYS.PROFILE, heroes.batman));
+  const [levelUpMessage, setLevelUpMessage] = useState('');
 
-  React.useEffect(() => {
+  const [newNote, setNewNote] = useState('');
+  const [newQuestText, setNewQuestText] = useState('');
+  const [habitXP, setHabitXP] = useState(0);
+  const [skillLevel, setSkillLevel] = useState(0);
+  const [coins, setCoins] = useState(45);
+
+  useEffect(() => {
     const habitPlayer = DataBaseController.get(DataBaseController.KEYS.HABIT_PLAYER, { xp: 0 });
     const skills = DataBaseController.get(DataBaseController.KEYS.SKILLS, { level: 0 });
     const gamerTokens = DataBaseController.get(DataBaseController.KEYS.GAMER_TOKENS, { coins: 45 });
@@ -117,37 +38,75 @@ export function useBatmanProfileController() {
     setCoins(gamerTokens.coins || 45);
 
     const handleStorageUpdate = (e) => {
+      if (e.detail.key === GAMER_HEROES_STORAGE_KEY) {
+        setHeroes(gamerTrafficHeroesController.getHeroes());
+      }
       if (e.detail.key === DataBaseController.KEYS.HABIT_PLAYER) setHabitXP(e.detail.value?.xp || 0);
       if (e.detail.key === DataBaseController.KEYS.SKILLS) setSkillLevel(e.detail.value?.level || 0);
       if (e.detail.key === DataBaseController.KEYS.GAMER_TOKENS) setCoins(e.detail.value?.coins || 0);
       if (e.detail.key === DataBaseController.KEYS.PROFILE) setProfileData(e.detail.value);
     };
+
     if (typeof window !== 'undefined') {
       window.addEventListener('bat_storage_update', handleStorageUpdate);
       return () => window.removeEventListener('bat_storage_update', handleStorageUpdate);
     }
   }, []);
 
-  React.useEffect(() => {
-    DataBaseController.set(DataBaseController.KEYS.PROFILE, profileData);
-  }, [profileData]);
+  const currentHero = heroes[selectedHeroId] || heroes.batman;
+
+  const handleCompleteQuest = (quest) => {
+    const result = gamerTrafficHeroesController.completeQuest(selectedHeroId, quest.id);
+    if (result.success) {
+      setHeroes(gamerTrafficHeroesController.getHeroes());
+      if (result.leveledUp) {
+        setLevelUpMessage(`🎉 LEVEL UP! ${result.heroName} subiu para o Nível ${result.newLevel}! (+Atributos Aumentados)`);
+        setTimeout(() => setLevelUpMessage(''), 5000);
+      }
+    }
+  };
+
+  const handleAddCustomQuest = () => {
+    if (newQuestText.trim()) {
+      gamerTrafficHeroesController.addQuest(selectedHeroId, newQuestText.trim());
+      setHeroes(gamerTrafficHeroesController.getHeroes());
+      setNewQuestText('');
+    }
+  };
+
+  const handleResetDailyQuests = () => {
+    gamerTrafficHeroesController.resetDailyQuests();
+    setHeroes(gamerTrafficHeroesController.getHeroes());
+  };
 
   const handleAddNote = () => {
     if (newNote.trim()) {
-      const updatedNotes = model.addNote(newNote.trim());
-      setProfileData(prev => ({ ...prev, notes: [...model.profileData.notes] }));
+      const newNoteObj = {
+        id: Date.now(),
+        text: newNote.trim(),
+        date: new Date().toISOString().split('T')[0],
+        category: "geral"
+      };
+      const updatedNotes = [newNoteObj, ...(profileData.notes || [])];
+      const updatedProfile = { ...profileData, notes: updatedNotes };
+      setProfileData(updatedProfile);
+      DataBaseController.set(DataBaseController.KEYS.PROFILE, updatedProfile);
       setNewNote('');
     }
   };
 
   const handleDeleteNote = (noteId) => {
-    const updatedNotes = model.deleteNote(noteId);
-    setProfileData(prev => ({ ...prev, notes: [...updatedNotes] }));
+    const updatedNotes = (profileData.notes || []).filter(note => note.id !== noteId);
+    const updatedProfile = { ...profileData, notes: updatedNotes };
+    setProfileData(updatedProfile);
+    DataBaseController.set(DataBaseController.KEYS.PROFILE, updatedProfile);
   };
 
   const handleUpdateGoal = (goalId, progress) => {
-    const updatedGoals = model.updateGoalProgress(goalId, progress);
-    setProfileData(prev => ({ ...prev, goals: [...updatedGoals] }));
+    const updatedGoals = (profileData.goals || []).map(g => g.id === goalId ? { ...g, progress } : g);
+    const updatedProfile = { ...profileData, goals: updatedGoals };
+    setProfileData(updatedProfile);
+    DataBaseController.set(DataBaseController.KEYS.PROFILE, updatedProfile);
   };
 
   const getCategoryColor = (category) => {
@@ -171,10 +130,18 @@ export function useBatmanProfileController() {
 
   return {
     profileData,
+    currentHero,
+    HEROES: heroes,
+    selectedHeroId,
+    setSelectedHeroId,
     activeProfileTab,
     setActiveProfileTab,
     newNote,
     setNewNote,
+    newQuestText,
+    setNewQuestText,
+    handleAddCustomQuest,
+    handleResetDailyQuests,
     handleAddNote,
     handleDeleteNote,
     handleUpdateGoal,
@@ -182,24 +149,39 @@ export function useBatmanProfileController() {
     getStatusColor,
     habitXP,
     skillLevel,
-    coins
+    coins,
+    handleCompleteQuest,
+    levelUpMessage
   };
 }
 
 // ---------------------------------------------------------------------
-// 5.6 BatmanProfileWidget
+// BATMAN & MULTIVERSE HERÓIS WIDGET
 // ---------------------------------------------------------------------
 export const BatmanProfileWidget = () => {
   const {
-    profileData, activeProfileTab, setActiveProfileTab, newNote, setNewNote,
+    profileData, currentHero, HEROES, selectedHeroId, setSelectedHeroId, activeProfileTab, setActiveProfileTab,
+    newNote, setNewNote, newQuestText, setNewQuestText, handleAddCustomQuest, handleResetDailyQuests,
     handleAddNote, handleDeleteNote, handleUpdateGoal, getCategoryColor, getStatusColor,
-    habitXP, skillLevel, coins
+    habitXP, skillLevel, coins, handleCompleteQuest, levelUpMessage
   } = useBatmanProfileController();
 
   const [selectedExportKey, setSelectedExportKey] = useState(DataBaseController.KEYS.PROFILE);
   const [backupStatus, setBackupStatus] = useState('');
 
-  // Exportar chave individual para Excel (.XLSX)
+  // Parallax Scroll Effect
+  const [scrollY, setScrollY] = useState(0);
+  useEffect(() => {
+    const handleScroll = (e) => {
+      if (e.target) setScrollY(e.target.scrollTop || 0);
+    };
+    const mainContainer = document.getElementById('hero-profile-scroll-container');
+    if (mainContainer) {
+      mainContainer.addEventListener('scroll', handleScroll);
+      return () => mainContainer.removeEventListener('scroll', handleScroll);
+    }
+  }, []);
+
   const handleExportKeyXlsx = () => {
     const keyName = Object.keys(DataBaseController.KEYS).find(key => DataBaseController.KEYS[key] === selectedExportKey) || 'DATA';
     DataBaseController.exportToXlsx(selectedExportKey, `BatCaverna_${keyName}_${new Date().toISOString().split('T')[0]}`);
@@ -207,18 +189,12 @@ export const BatmanProfileWidget = () => {
     setTimeout(() => setBackupStatus(''), 3000);
   };
 
-  // Exportar Backup Completo com TODAS as chaves para Excel em multiplas abas
   const handleExportFullXlsx = () => {
     const wb = XLSX.utils.book_new();
     Object.entries(DataBaseController.KEYS).forEach(([keyName, storageKey]) => {
       const data = DataBaseController.get(storageKey, null);
       if (data) {
-        let ws;
-        if (Array.isArray(data)) {
-          ws = XLSX.utils.json_to_sheet(data);
-        } else {
-          ws = XLSX.utils.json_to_sheet([data]);
-        }
+        let ws = Array.isArray(data) ? XLSX.utils.json_to_sheet(data) : XLSX.utils.json_to_sheet([data]);
         XLSX.utils.book_append_sheet(wb, ws, keyName.substring(0, 30));
       }
     });
@@ -227,12 +203,12 @@ export const BatmanProfileWidget = () => {
     setTimeout(() => setBackupStatus(''), 3000);
   };
 
-  // Exportar Backup Completo para JSON
   const handleExportFullJson = () => {
     const fullData = {};
     Object.entries(DataBaseController.KEYS).forEach(([keyName, storageKey]) => {
       fullData[storageKey] = DataBaseController.get(storageKey, null);
     });
+    fullData[GAMER_HEROES_STORAGE_KEY] = gamerTrafficHeroesController.getHeroes();
     const jsonStr = JSON.stringify(fullData, null, 2);
     const blob = new Blob([jsonStr], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
@@ -245,7 +221,6 @@ export const BatmanProfileWidget = () => {
     setTimeout(() => setBackupStatus(''), 3000);
   };
 
-  // Importar Backup (Suporta .JSON e .XLSX)
   const handleImportFile = (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -256,9 +231,7 @@ export const BatmanProfileWidget = () => {
         try {
           const parsed = JSON.parse(event.target.result);
           Object.entries(parsed).forEach(([key, value]) => {
-            if (value !== undefined) {
-              DataBaseController.set(key, value);
-            }
+            if (value !== undefined) DataBaseController.set(key, value);
           });
           setBackupStatus(`✅ SUCESSO! Dados restaurados do arquivo JSON.`);
           setTimeout(() => setBackupStatus(''), 4000);
@@ -276,9 +249,7 @@ export const BatmanProfileWidget = () => {
             const worksheet = workbook.Sheets[sheetName];
             const json = XLSX.utils.sheet_to_json(worksheet);
             const matchingKey = Object.values(DataBaseController.KEYS).find(k => k.toLowerCase().includes(sheetName.toLowerCase()) || sheetName.toLowerCase().includes(k.toLowerCase()));
-            if (matchingKey) {
-              DataBaseController.set(matchingKey, json);
-            }
+            if (matchingKey) DataBaseController.set(matchingKey, json);
           });
           setBackupStatus(`✅ SUCESSO! Planilhas do Excel importadas para o LocalStorage.`);
           setTimeout(() => setBackupStatus(''), 4000);
@@ -287,74 +258,252 @@ export const BatmanProfileWidget = () => {
         }
       };
       reader.readAsArrayBuffer(file);
-    } else {
-      setBackupStatus(`❌ Por favor selecione um arquivo .json ou .xlsx`);
     }
   };
 
+  const STUDY_MATERIALS = [
+    { title: "📘 Caderno de Estudos UFF 2026 (Quarto .QMD)", type: "QMD", path: "file:///home/pedrov12/Documentos/GitHub/Jedi-CyberPunk/PVRV/SPRINT%20ATUAL/Estudos_UFF_2026.qmd", desc: "Caderno ativo de metas, Pomodoros e referências da UFF" },
+    { title: "⚡ Sinais e Sistemas Lineares (B.P. Lathi)", type: "PDF", path: "file:///home/pedrov12/Documentos/GitHub/Jedi-CyberPunk/controle%20de%20versão/dev/Plugin%20Organon%20Notepad++/assets/referencias/B.P.%20Lathi%20-%20Sinais%20e%20Sistemas%20Lineares-Bookman%20(2006).pdf", desc: "Transformadas de Laplace, Fourier e Z em Engenharia Elétrica" },
+    { title: "📊 Manual de Simulação ANAREDE (ONS)", type: "PDF", path: "file:///home/pedrov12/Documentos/GitHub/Jedi-CyberPunk/PV%20Batcaverna%20Notes/Gerador%20de%20POSTS%20Instagram%20e%20Linkedin/ONS/Referencias/Manual-Anarede.pdf", desc: "Fluxo de Potência e simulações do Sistema Interligado Nacional" },
+    { title: "🎯 Manual de Otimização FLUPOT (ONS)", type: "PDF", path: "file:///home/pedrov12/Documentos/GitHub/Jedi-CyberPunk/PV%20Batcaverna%20Notes/Gerador%20de%20POSTS%20Instagram%20e%20Linkedin/ONS/Referencias/Manual-Flupot.pdf", desc: "Fluxo de Potência Otimizado (FPO)" },
+    { title: "📄 Apresentação ONS Transformadas (PDF)", type: "PDF", path: "file:///home/pedrov12/Documentos/GitHub/Jedi-CyberPunk/PV%20Batcaverna%20Notes/Gerador%20de%20POSTS%20Instagram%20e%20Linkedin/apresentacao_transformadas_ons.pdf", desc: "Slides de Laplace, Z e Fourier aplicados a conversores ONS" },
+    { title: "📱 Post Instagram Transformadas (PDF)", type: "PDF", path: "file:///home/pedrov12/Documentos/GitHub/Jedi-CyberPunk/PV%20Batcaverna%20Notes/Gerador%20de%20POSTS%20Instagram%20e%20Linkedin/post_instagram_transformadas.pdf", desc: "Carrossel de 3 cards 9:16 gerado automaticamente via Python" }
+  ];
+
   const renderInfoTab = () => html`
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      <${InfoCard} title="INFORMAÇÕES">
-        <table className="w-full">
-          <tbody>
-            ${Object.entries(profileData.basicInfo).map(([key, value]) => html`
-              <tr key=${key} className="border-b border-gray-800 last:border-0">
-                <td className="py-2 text-gray-400 capitalize">${key.replace(/([A-Z])/g, ' $1')}</td>
-                <td className="py-2 text-right text-gray-200">${value}</td>
-              </tr>
-            `)}
-          </tbody>
-        </table>
+      
+      {/* CARD DO HERÓI SELECIONADO & LEVEL BAR */}
+      <${InfoCard} title=${`🦸 CLASSE DO HERÓI: ${currentHero.heroName.toUpperCase()}`}>
+        <div className="space-y-4">
+          <div className="flex items-center justify-between bg-black/40 p-3.5 rounded-xl border border-gray-800">
+            <div>
+              <div className="text-xs text-gray-400">NÍVEL DO HERÓI</div>
+              <div className=${`font-extrabold text-2xl ${currentHero.themeColor}`}>
+                Nível ${currentHero.level}
+              </div>
+              <div className="text-xs text-gray-400 mt-0.5">${currentHero.heroClass}</div>
+            </div>
+            <div className="text-right font-mono">
+              <div className="text-xs text-gray-400">XP DO NÍVEL</div>
+              <div className="text-sm font-bold text-gray-200">${currentHero.xp} / ${currentHero.xpToNextLevel} XP</div>
+            </div>
+          </div>
+
+          {/* Barra de Progresso do Nível do Herói */}
+          <div className="w-full bg-gray-800 rounded-full h-3.5 border border-gray-700/60 overflow-hidden">
+            <div className="h-full bg-gradient-to-r from-yellow-500 via-amber-400 to-yellow-300 transition-all duration-500 rounded-full" style=${{ width: `${Math.min(100, (currentHero.xp / currentHero.xpToNextLevel) * 100)}%` }}></div>
+          </div>
+
+          <table className="w-full">
+            <tbody>
+              ${Object.entries(currentHero.basicInfo || {}).map(([key, value]) => html`
+                <tr key=${key} className="border-b border-gray-800/60 last:border-0">
+                  <td className="py-2 text-gray-400 capitalize font-medium text-xs md:text-sm">${key.replace(/([A-Z])/g, ' $1')}</td>
+                  <td className="py-2 text-right text-gray-200 font-bold text-xs md:text-sm">${value}</td>
+                </tr>
+              `)}
+            </tbody>
+          </table>
+        </div>
       <//>
+
       <${InfoCard} title="INTEGRAÇÃO SISTÊMICA & GAMER WALLET">
         <div className="space-y-4">
-          <div className="flex justify-between items-center bg-black/40 p-3 rounded-lg border border-green-900/50">
+          <div className="flex justify-between items-center bg-black/50 p-3.5 rounded-xl border border-green-500/30">
             <div><div className="text-gray-400 text-xs">HABIT TRACKER</div><div className="text-green-400 font-bold text-lg">${habitXP} XP</div></div>
             <div className="text-2xl">🔥</div>
           </div>
-          <div className="flex justify-between items-center bg-black/40 p-3 rounded-lg border border-blue-900/50">
-            <div><div className="text-gray-400 text-xs">NÍVEL DE HABILIDADES</div><div className="text-blue-400 font-bold text-lg">LVL ${skillLevel}</div></div>
+          <div className="flex justify-between items-center bg-black/50 p-3.5 rounded-xl border border-blue-500/30">
+            <div><div className="text-gray-400 text-xs">NÍVEL DE HABILIDADES</div><div className="text-cyan-400 font-bold text-lg">LVL ${skillLevel}</div></div>
             <div className="text-2xl">⚡</div>
           </div>
-          <div className="flex justify-between items-center bg-black/40 p-3 rounded-lg border border-yellow-500/50">
+          <div className="flex justify-between items-center bg-black/50 p-3.5 rounded-xl border border-yellow-500/30">
             <div><div className="text-gray-400 text-xs">FICHAS PARA GAMES</div><div className="text-yellow-400 font-bold text-lg">$${coins} Fichas</div></div>
             <div className="text-2xl">🎮</div>
           </div>
         </div>
-        <div className="mt-4 p-3 bg-black/30 rounded-lg border border-gray-800">
-          <div className="batman-binary text-center text-sm">0101 1101 E</div>
-          <div className="text-center text-xs text-gray-500 mt-1">Sincronização de Dados no LocalStorage Ativa</div>
+        <div className="mt-4 p-3 bg-black/40 rounded-xl border border-gray-800 text-center">
+          <div className="batman-binary text-xs text-yellow-400/80">0101 1101 GAMER TRAFFIC CORE ACTIVE</div>
+          <div className="text-xs text-gray-500 mt-1">Sincronização gamer-traffic-heroes.js no LocalStorage</div>
         </div>
       <//>
-      <${InfoCard} title="ESTATÍSTICAS" className="lg:col-span-2">
+
+      {/* CHECKLIST E QUESTS DO HERÓI SELECIONADO */}
+      <${InfoCard} title=${`🎯 CHECKLIST DE QUESTS & TAREFAS: ${currentHero.heroName.toUpperCase()}`} className="lg:col-span-2">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mb-4">
+          <p className="text-xs text-gray-400">
+            Conclua as tarefas exclusivas para acumular XP, subir o herói de nível e ganhar Fichas $ para a Loja Gamer!
+          </p>
+          <button onClick=${handleResetDailyQuests} className="px-3 py-1 bg-gray-800 hover:bg-gray-700 text-xs text-gray-300 font-bold rounded-lg transition whitespace-nowrap">
+            🔄 Resetar Quests Diárias
+          </button>
+        </div>
+
+        {/* Adicionar Nova Quest Personalizada */}
+        <div className="flex gap-2 mb-4">
+          <input 
+            type="text" 
+            value=${newQuestText} 
+            onChange=${e => setNewQuestText(e.target.value)} 
+            placeholder=${`Adicionar nova tarefa para ${currentHero.heroName}...`} 
+            className="flex-1 bg-black/50 border border-gray-700 rounded-xl px-4 py-2 text-xs text-gray-200 focus:outline-none focus:border-yellow-500" 
+            onKeyPress=${e => e.key === 'Enter' && handleAddCustomQuest()} 
+          />
+          <button onClick=${handleAddCustomQuest} className="bg-yellow-500 hover:bg-yellow-400 text-black px-4 py-2 rounded-xl font-bold text-xs transition">
+            + Adicionar
+          </button>
+        </div>
+
+        <div className="space-y-3">
+          ${(currentHero.quests || []).map(quest => {
+            const isDone = quest.completed;
+            return html`
+              <div key=${quest.id} className=${`p-4 rounded-xl flex items-center justify-between border transition-all ${isDone ? 'bg-green-950/20 border-green-500/40 opacity-60' : 'bg-black/50 border-gray-800 hover:border-yellow-500/50'}`}>
+                <div className="flex items-center gap-3">
+                  <input type="checkbox" checked=${isDone} onChange=${() => handleCompleteQuest(quest)} disabled=${isDone} className="w-5 h-5 rounded text-yellow-500 cursor-pointer" />
+                  <div>
+                    <div className=${`font-semibold text-sm ${isDone ? 'line-through text-gray-400' : 'text-gray-200'}`}>${quest.text}</div>
+                    <div className="text-xs text-green-400 font-mono mt-0.5">+${quest.xp} XP Herói | +$${quest.coins} Fichas</div>
+                  </div>
+                </div>
+                <button onClick=${() => handleCompleteQuest(quest)} disabled=${isDone} className=${`px-4 py-1.5 rounded-lg text-xs font-bold transition ${isDone ? 'bg-gray-800 text-gray-500' : 'bg-yellow-500 hover:bg-yellow-400 text-black shadow-md'}`}>
+                  ${isDone ? 'Concluído ✓' : 'Concluir Quest'}
+                </button>
+              </div>
+            `;
+          })}
+        </div>
+      <//>
+
+      <${InfoCard} title="ATRIBUTOS E ESTATÍSTICAS" className="lg:col-span-2">
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-          ${Object.entries(profileData.stats).map(([key, value]) => html`<${StatCard} key=${key} label=${key.toUpperCase()} value=${value} />`)}
-        </div>
-      <//>
-      <${InfoCard} title="MISSÕES ATIVAS" className="lg:col-span-2">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          ${profileData.missions.map(mission => html`
-            <div key=${mission.id} className="flex justify-between items-center p-3 bg-black/40 rounded-lg">
-              <div><span className="text-gray-200">${mission.name}</span></div>
-              <span className=${`text-xs px-3 py-1 rounded-full ${getStatusColor(mission.status)}`}>${mission.status.replace('_', ' ').toUpperCase()}</span>
-            </div>
-          `)}
+          ${Object.entries(currentHero.stats || profileData.stats || {}).map(([key, value]) => html`<${StatCard} key=${key} label=${key.toUpperCase()} value=${value} />`)}
         </div>
       <//>
     </div>
   `;
 
+  const renderHeroesTab = () => html`
+    <div className="space-y-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        {/* Card Batman */}
+        <div 
+          onClick=${() => setSelectedHeroId('batman')}
+          className=${`cursor-pointer rounded-2xl p-6 border-2 transition-all duration-300 ${selectedHeroId === 'batman' ? 'bg-yellow-950/30 border-yellow-400 shadow-2xl scale-[1.02]' : 'bg-black/40 border-gray-800 hover:border-gray-600'}`}
+        >
+          <div className="flex items-center gap-4 mb-4">
+            <div className="w-16 h-16 rounded-full bg-yellow-500/20 border border-yellow-400 flex items-center justify-center text-3xl">🦇</div>
+            <div>
+              <h3 className="text-xl font-bold text-yellow-400">Batman (Nv. ${HEROES.batman.level})</h3>
+              <p className="text-xs text-gray-400 font-semibold">${HEROES.batman.heroClass}</p>
+            </div>
+          </div>
+          <div className="space-y-2 text-xs text-gray-300">
+            <div><strong className="text-yellow-400">Poderes:</strong> ${(HEROES.batman.poderes || []).join(', ')}</div>
+            <div><strong className="text-yellow-400">Conhecimentos:</strong> ${(HEROES.batman.conhecimentos || []).join(', ')}</div>
+          </div>
+        </div>
+
+        {/* Card Homem Aranha */}
+        <div 
+          onClick=${() => setSelectedHeroId('spiderman')}
+          className=${`cursor-pointer rounded-2xl p-6 border-2 transition-all duration-300 ${selectedHeroId === 'spiderman' ? 'bg-red-950/30 border-red-500 shadow-2xl scale-[1.02]' : 'bg-black/40 border-gray-800 hover:border-gray-600'}`}
+        >
+          <div className="flex items-center gap-4 mb-4">
+            <div className="w-16 h-16 rounded-full bg-red-500/20 border border-red-500 flex items-center justify-center text-3xl">🕷️</div>
+            <div>
+              <h3 className="text-xl font-bold text-red-500">Homem-Aranha (Nv. ${HEROES.spiderman.level})</h3>
+              <p className="text-xs text-gray-400 font-semibold">${HEROES.spiderman.heroClass}</p>
+            </div>
+          </div>
+          <div className="space-y-2 text-xs text-gray-300">
+            <div><strong className="text-red-400">Poderes:</strong> ${(HEROES.spiderman.poderes || []).join(', ')}</div>
+            <div><strong className="text-red-400">Conhecimentos:</strong> ${(HEROES.spiderman.conhecimentos || []).join(', ')}</div>
+          </div>
+        </div>
+
+        {/* Card Gohan Beast */}
+        <div 
+          onClick=${() => setSelectedHeroId('gohan')}
+          className=${`cursor-pointer rounded-2xl p-6 border-2 transition-all duration-300 ${selectedHeroId === 'gohan' ? 'bg-purple-950/30 border-purple-500 shadow-2xl scale-[1.02]' : 'bg-black/40 border-gray-800 hover:border-gray-600'}`}
+        >
+          <div className="flex items-center gap-4 mb-4">
+            <div className="w-16 h-16 rounded-full bg-purple-500/20 border border-purple-500 flex items-center justify-center text-3xl">🐉</div>
+            <div>
+              <h3 className="text-xl font-bold text-purple-400">Son Gohan (Nv. ${HEROES.gohan.level})</h3>
+              <p className="text-xs text-gray-400 font-semibold">${HEROES.gohan.heroClass}</p>
+            </div>
+          </div>
+          <div className="space-y-2 text-xs text-gray-300">
+            <div><strong className="text-purple-400">Poderes:</strong> ${(HEROES.gohan.poderes || []).join(', ')}</div>
+            <div><strong className="text-purple-400">Conhecimentos:</strong> ${(HEROES.gohan.conhecimentos || []).join(', ')}</div>
+          </div>
+        </div>
+
+        {/* Card Geralt de Rivia */}
+        <div 
+          onClick=${() => setSelectedHeroId('witcher')}
+          className=${`cursor-pointer rounded-2xl p-6 border-2 transition-all duration-300 ${selectedHeroId === 'witcher' ? 'bg-amber-950/30 border-amber-500 shadow-2xl scale-[1.02]' : 'bg-black/40 border-gray-800 hover:border-gray-600'}`}
+        >
+          <div className="flex items-center gap-4 mb-4">
+            <div className="w-16 h-16 rounded-full bg-amber-500/20 border border-amber-500 flex items-center justify-center text-3xl">⚔️</div>
+            <div>
+              <h3 className="text-xl font-bold text-amber-400">Geralt de Rívia (Nv. ${HEROES.witcher.level})</h3>
+              <p className="text-xs text-gray-400 font-semibold">${HEROES.witcher.heroClass}</p>
+            </div>
+          </div>
+          <div className="space-y-2 text-xs text-gray-300">
+            <div><strong className="text-amber-400">Poderes:</strong> ${(HEROES.witcher.poderes || []).join(', ')}</div>
+            <div><strong className="text-amber-400">Conhecimentos:</strong> ${(HEROES.witcher.conhecimentos || []).join(', ')}</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  `;
+
   const renderNotesTab = () => html`
     <div className="space-y-6">
-      <${InfoCard} title="ADICIONAR NOTA">
+      <${InfoCard} title="ADICIONAR NOTA RÁPIDA">
         <div className="flex gap-2">
-          <input type="text" value=${newNote} onChange=${e => setNewNote(e.target.value)} placeholder="Digite uma nova nota..." className="flex-1 bg-black/40 border border-gray-700 rounded-lg px-4 py-2 text-gray-200 focus:outline-none focus:border-yellow-500" onKeyPress=${e => e.key === 'Enter' && handleAddNote()} />
-          <button onClick=${handleAddNote} className="bg-yellow-600 hover:bg-yellow-700 text-white px-4 py-2 rounded-lg font-medium transition">Adicionar</button>
+          <input type="text" value=${newNote} onChange=${e => setNewNote(e.target.value)} placeholder="Digite uma nova nota..." className="flex-1 bg-black/40 border border-gray-700 rounded-xl px-4 py-2.5 text-gray-200 text-sm focus:outline-none focus:border-yellow-500" onKeyPress=${e => e.key === 'Enter' && handleAddNote()} />
+          <button onClick=${handleAddNote} className="bg-yellow-500 hover:bg-yellow-400 text-black px-5 py-2.5 rounded-xl font-bold text-sm transition">Adicionar</button>
         </div>
       <//>
-      <${InfoCard} title="NOTAS">
+      <${InfoCard} title="MINHAS NOTAS DE CAMPO">
         <div className="space-y-4">
-          ${profileData.notes.length === 0 ? html`<div className="text-center py-8 text-gray-500">Nenhuma nota encontrada</div>` : profileData.notes.map(note => html`<${NoteCard} key=${note.id} note=${note} onDelete=${handleDeleteNote} getCategoryColor=${getCategoryColor} />`)}
+          ${(profileData.notes || []).length === 0 ? html`<div className="text-center py-8 text-gray-500">Nenhuma nota encontrada</div>` : profileData.notes.map(note => html`<${NoteCard} key=${note.id} note=${note} onDelete=${handleDeleteNote} getCategoryColor=${getCategoryColor} />`)}
+        </div>
+      <//>
+    </div>
+  `;
+
+  const renderStudyTab = () => html`
+    <div className="space-y-6">
+      <${InfoCard} title="📚 BIBLIOTECA DE ESTUDOS & REFERÊNCIAS UFF / ONS">
+        <p className="text-xs text-gray-400 mb-4">
+          Links dinâmicos em Markdown para cadernos Quarto (.qmd) e livros/relatórios técnicos em PDF.
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          ${STUDY_MATERIALS.map(item => html`
+            <div key=${item.title} className="p-4 bg-black/50 rounded-xl border border-gray-800 hover:border-yellow-500/50 transition">
+              <div className="flex justify-between items-start mb-2">
+                <span className="font-bold text-sm text-yellow-400">${item.title}</span>
+                <span className=${`px-2 py-0.5 rounded text-[10px] font-bold ${item.type === 'QMD' ? 'bg-purple-900/60 text-purple-300' : 'bg-blue-900/60 text-blue-300'}`}>${item.type}</span>
+              </div>
+              <p className="text-xs text-gray-400 mb-3">${item.desc}</p>
+              <a 
+                href=${item.path} 
+                target="_blank" 
+                rel="noreferrer"
+                className="inline-flex items-center gap-1.5 text-xs text-cyan-400 hover:text-cyan-300 font-bold underline"
+              >
+                <span>🔗</span> Abrir Arquivo no Sistema
+              </a>
+            </div>
+          `)}
         </div>
       <//>
     </div>
@@ -362,53 +511,50 @@ export const BatmanProfileWidget = () => {
 
   const renderGoalsTab = () => html`
     <div className="space-y-6">
-      <${InfoCard} title="METAS">
+      <${InfoCard} title="METAS ATIVAS">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          ${profileData.goals.map(goal => html`<${GoalCard} key=${goal.id} goal=${goal} onUpdate=${handleUpdateGoal} getStatusColor=${getStatusColor} />`)}
+          ${(profileData.goals || []).map(goal => html`<${GoalCard} key=${goal.id} goal=${goal} onUpdate=${handleUpdateGoal} getStatusColor=${getStatusColor} />`)}
         </div>
       <//>
 
-      {/* CENTRAL DE BACKUP COMPLETO (IMPORT / EXPORT EXCEL & JSON) */}
-      <${InfoCard} title="💾 CENTRAL DE BACKUP DO LOCALSTORAGE (IMPORTAR / EXPORTAR EXCEL & JSON)">
+      <${InfoCard} title="💾 CENTRAL DE BACKUP (IMPORTAR / EXPORTAR EXCEL & JSON)">
         <div className="space-y-4">
 
-          {backupStatus && (
-            <div className="p-3 bg-yellow-500/20 border border-yellow-500 text-yellow-300 rounded-lg text-xs font-semibold animate-pulse">
+          ${backupStatus && (
+            <div className="p-3 bg-yellow-500/20 border border-yellow-500 text-yellow-300 rounded-xl text-xs font-semibold animate-pulse">
               ${backupStatus}
             </div>
           )}
 
-          {/* Exportação Individual e Completa */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 border-b border-gray-800 pb-4">
             <div>
               <label className="block text-xs text-gray-400 mb-2">Exportar Tabela Individual</label>
-              <select className="w-full bg-black/40 border border-gray-700 rounded-lg px-3 py-2 text-gray-200 text-xs focus:outline-none focus:border-yellow-500" value=${selectedExportKey} onChange=${(e) => setSelectedExportKey(e.target.value)}>
+              <select className="w-full bg-black/40 border border-gray-700 rounded-xl px-3 py-2 text-gray-200 text-xs focus:outline-none focus:border-yellow-500" value=${selectedExportKey} onChange=${(e) => setSelectedExportKey(e.target.value)}>
                 ${Object.entries(DataBaseController.KEYS).map(([key, value]) => html`<option key=${key} value=${value}>${key} (${value})</option>`)}
               </select>
-              <button onClick=${handleExportKeyXlsx} className="w-full mt-2 bg-green-700 hover:bg-green-600 text-white px-3 py-2 rounded-lg text-xs font-bold transition flex items-center justify-center gap-1">
+              <button onClick=${handleExportKeyXlsx} className="w-full mt-2 bg-green-700 hover:bg-green-600 text-white px-3 py-2 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1">
                 <span>📥</span> Baixar Chave (.XLSX)
               </button>
             </div>
 
             <div>
               <label className="block text-xs text-gray-400 mb-2">Backup Completo (Excel Multi-Abas)</label>
-              <button onClick=${handleExportFullXlsx} className="w-full mt-7 bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2.5 rounded-lg text-xs font-bold transition flex items-center justify-center gap-2">
+              <button onClick=${handleExportFullXlsx} className="w-full mt-7 bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2.5 rounded-xl text-xs font-bold transition flex items-center justify-center gap-2">
                 <span>📊</span> Baixar Tudo em Excel (.XLSX)
               </button>
             </div>
 
             <div>
               <label className="block text-xs text-gray-400 mb-2">Backup Completo (Arquivo JSON)</label>
-              <button onClick=${handleExportFullJson} className="w-full mt-7 bg-cyan-600 hover:bg-cyan-500 text-white px-4 py-2.5 rounded-lg text-xs font-bold transition flex items-center justify-center gap-2">
+              <button onClick=${handleExportFullJson} className="w-full mt-7 bg-cyan-600 hover:bg-cyan-500 text-white px-4 py-2.5 rounded-xl text-xs font-bold transition flex items-center justify-center gap-2">
                 <span>📦</span> Baixar Backup JSON
               </button>
             </div>
           </div>
 
-          {/* Importação de Arquivos */}
           <div>
             <label className="block text-xs text-yellow-400 font-bold mb-2">📤 Restaurar ou Importar Dados (.XLSX ou .JSON)</label>
-            <input type="file" accept=".json, .xlsx, .xls" onChange=${handleImportFile} className="w-full bg-black/50 border border-yellow-500/40 rounded-lg p-2 text-xs text-gray-300 file:mr-4 file:py-1.5 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-bold file:bg-yellow-500 file:text-black hover:file:bg-yellow-400 cursor-pointer" />
+            <input type="file" accept=".json, .xlsx, .xls" onChange=${handleImportFile} className="w-full bg-black/50 border border-yellow-500/40 rounded-xl p-2 text-xs text-gray-300 file:mr-4 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-yellow-500 file:text-black hover:file:bg-yellow-400 cursor-pointer" />
             <p className="text-xs text-gray-500 mt-2">
               Envie um arquivo de backup .json ou .xlsx para carregar imediatamente no LocalStorage seus Hábitos, XP, Skills e Fichas Gamer.
             </p>
@@ -416,114 +562,116 @@ export const BatmanProfileWidget = () => {
 
         </div>
       <//>
-
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <${InfoCard} title="PROGRESSO TOTAL">
-          <div className="text-center py-4">
-            <div className="text-3xl font-bold text-yellow-400">${Math.round(profileData.goals.reduce((sum, goal) => sum + goal.progress, 0) / (profileData.goals.length || 1))}%</div>
-            <div className="text-sm text-gray-400 mt-2">Média de Conclusão</div>
-          </div>
-        <//>
-        <${InfoCard} title="METAS ATIVAS">
-          <div className="text-center py-4">
-            <div className="text-3xl font-bold text-yellow-400">${profileData.goals.length}</div>
-            <div className="text-sm text-gray-400 mt-2">Metas em Andamento</div>
-          </div>
-        <//>
-        <${InfoCard} title="PRÓXIMO PRAZO">
-          <div className="text-center py-4">
-            <div className="text-xl font-bold text-yellow-400">${profileData.goals.sort((a, b) => new Date(a.deadline) - new Date(b.deadline))[0]?.deadline || 'N/A'}</div>
-            <div className="text-sm text-gray-400 mt-2">Data Limite</div>
-          </div>
-        <//>
-      </div>
-    </div>
-  `;
-
-  const renderProfileTab = () => html`
-    <div className="space-y-6">
-      <${InfoCard} title="PERFIL COMPLETO">
-        <div className="space-y-4">
-          <div className="flex items-center space-x-4">
-            <div className="w-16 h-16 bg-yellow-900/30 rounded-full flex items-center justify-center text-2xl">🦇</div>
-            <div>
-              <h3 className="text-xl font-bold text-yellow-400">Bruce Wayne / Batman (Pedro Victor)</h3>
-              <p className="text-gray-400">O Cavaleiro das Trevas / Eng. Elétrica UFF & ONS</p>
-            </div>
-          </div>
-          <div className="border-t border-gray-800 pt-4">
-            <h4 className="font-bold text-gray-300 mb-2">DESCRIÇÃO</h4>
-            <p className="text-gray-400 leading-relaxed">Batman é o alter-ego de Pedro Victor, estudante de Engenharia Elétrica na UFF e estagiário no ONS. Treinado em programação, análise de SEP e rotinas de alta performance para manter o equilíbrio entre trabalho, estudo e gaming.</p>
-          </div>
-        </div>
-      <//>
-      <${InfoCard} title="HABILIDADES REGISTRADAS">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          ${["Lógica de Programação (Python/React)", "Análise de Sistemas Elétricos (SEP)", "Calistenia & Treinos de Força", "Gestão TDAH & Hiperfoco", "Simulações Organon/Anarede", "Desenvolvimento Tauri/Next.js"].map(skill => html`<div key=${skill} className="flex items-center p-3 bg-black/40 rounded-lg"><span className="text-yellow-400 mr-2">✓</span><span className="text-gray-300">${skill}</span></div>`)}
-        </div>
-      <//>
-      <${InfoCard} title="EQUIPAMENTOS DE CAMPO">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-          ${[
-      { name: "Batcomputador", icon: "💻" }, { name: "Caderno UFF", icon: "📚" }, { name: "Dashboard ONS", icon: "⚡" }, { name: "Controle Gamer", icon: "🎮" },
-      { name: "Script Python", icon: "🐍" }, { name: "Habit Tracker", icon: "🔥" }, { name: "Relógio Sol", icon: "☀️" }, { name: "Bat-caverna", icon: "🏰" }
-    ].map(item => html`<div key=${item.name} className="text-center p-3 bg-black/40 rounded-lg"><div className="text-2xl mb-1">${item.icon}</div><div className="text-sm text-gray-300">${item.name}</div></div>`)}
-        </div>
-      <//>
     </div>
   `;
 
   return html`
-    <div className="w-full h-full p-2 md:p-4 overflow-y-auto">
-      <div className="max-w-7xl mx-auto">
-        <div className="batman-card p-6 mb-6">
-          <div className="flex flex-col md:flex-row md:items-center justify-between">
-            <div>
-              <h1 className="text-2xl font-bold text-yellow-400">🦇 BAT-CAVERNA HERO PROFILE</h1>
-              <p className="text-gray-400 mt-1">Perfil do Herói, Habilidades, Hábitos e Fichas para Games</p>
+    <div id="hero-profile-scroll-container" className="w-full h-full overflow-y-auto relative bg-[#0a0a1a]">
+      
+      {/* Dynamic Parallax Hero Banner Background */}
+      <div 
+        className="w-full h-80 md:h-96 relative bg-cover bg-center transition-all duration-700 flex items-end p-6 md:p-10 shadow-2xl"
+        style=${{
+          backgroundImage: `url('${currentHero.wallpaper}')`,
+          backgroundAttachment: 'fixed',
+          transform: `translateY(${scrollY * 0.2}px)`
+        }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a1a] via-black/70 to-black/30"></div>
+        
+        <div className="relative z-10 flex flex-col md:flex-row md:items-end justify-between w-full max-w-7xl mx-auto gap-4">
+          <div className="flex items-center gap-4">
+            <div className=${`w-20 h-20 md:w-24 md:h-24 rounded-full border-4 ${currentHero.accentBorder} bg-black/60 backdrop-blur-md flex items-center justify-center text-4xl md:text-5xl shadow-2xl`}>
+              ${selectedHeroId === 'spiderman' ? '🕷️' : selectedHeroId === 'gohan' ? '🐉' : selectedHeroId === 'witcher' ? '⚔️' : '🦇'}
             </div>
-            <div className="mt-4 md:mt-0 text-right">
-              <div className="text-lg font-mono text-yellow-400">${DataBaseController.formatTime(new Date())}</div>
-              <div className="text-sm text-gray-400">${DataBaseController.formatDate(new Date())}</div>
+            <div>
+              <span className="text-xs font-bold tracking-widest text-gray-400 uppercase">HERO LEVEL ${currentHero.level} • ${currentHero.heroClass}</span>
+              <h1 className=${`text-3xl md:text-5xl font-extrabold ${currentHero.themeColor} drop-shadow-md`}>
+                ${currentHero.heroName}
+              </h1>
+              <p className="text-gray-300 text-sm md:text-base font-semibold">
+                ${currentHero.alterEgo}
+              </p>
             </div>
           </div>
-        </div>
 
-        {/* Abas Integradas do Perfil do Herói */}
-        <div className="flex flex-wrap gap-2 mb-6">
+          <div className="flex flex-wrap gap-2 bg-black/60 backdrop-blur-md p-2 rounded-2xl border border-gray-700/50">
+            <button
+              onClick=${() => setSelectedHeroId('batman')}
+              className=${`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 ${selectedHeroId === 'batman' ? 'bg-yellow-500 text-black shadow-lg' : 'text-gray-400 hover:text-white'}`}
+            >
+              <span>🦇</span> Batman (Nv.${HEROES.batman.level})
+            </button>
+            <button
+              onClick=${() => setSelectedHeroId('spiderman')}
+              className=${`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 ${selectedHeroId === 'spiderman' ? 'bg-red-600 text-white shadow-lg' : 'text-gray-400 hover:text-white'}`}
+            >
+              <span>🕷️</span> Spidey (Nv.${HEROES.spiderman.level})
+            </button>
+            <button
+              onClick=${() => setSelectedHeroId('gohan')}
+              className=${`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 ${selectedHeroId === 'gohan' ? 'bg-purple-600 text-white shadow-lg' : 'text-gray-400 hover:text-white'}`}
+            >
+              <span>🐉</span> Gohan (Nv.${HEROES.gohan.level})
+            </button>
+            <button
+              onClick=${() => setSelectedHeroId('witcher')}
+              className=${`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 ${selectedHeroId === 'witcher' ? 'bg-amber-600 text-white shadow-lg' : 'text-gray-400 hover:text-white'}`}
+            >
+              <span>⚔️</span> Witcher (Nv.${HEROES.witcher.level})
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Content Area */}
+      <div className="max-w-7xl mx-auto p-4 md:p-8 space-y-6 relative z-20">
+
+        {/* Level Up Banner Notification */}
+        ${levelUpMessage && html`
+          <div className="p-4 bg-gradient-to-r from-yellow-500 via-amber-400 to-yellow-500 text-black rounded-2xl font-extrabold text-center text-sm md:text-base shadow-2xl animate-bounce">
+            ${levelUpMessage}
+          </div>
+        `}
+
+        {/* Navigation Tabs */}
+        <div className="flex flex-wrap gap-2 bg-black/40 backdrop-blur-md p-2 rounded-2xl border border-gray-800 shadow-xl">
           ${[
-      { id: 'info', label: '📊 Info' },
-      { id: 'notas', label: '📝 Notas' },
-      { id: 'metas', label: '🎯 Metas & Excel' },
-      { id: 'habilidades', label: '⚡ Habilidades' },
-      { id: 'habitos', label: '🔥 Hábitos & Rotinas' },
-      { id: 'loja', label: '🎮 Loja de Fichas ($)' },
-      { id: 'perfil', label: '🦇 Perfil Herói' }
-    ].map(tab => html`
+            { id: 'info', label: '📊 Info & Quests' },
+            { id: 'herois', label: '🦸 Classes Multiverso' },
+            { id: 'estudos', label: '📚 Materiais UFF/ONS' },
+            { id: 'notas', label: '📝 Notas' },
+            { id: 'metas', label: '🎯 Metas & Excel' },
+            { id: 'habilidades', label: '⚡ Habilidades' },
+            { id: 'habitos', label: '🔥 Hábitos & Rotinas' },
+            { id: 'loja', label: '🎮 Loja de Fichas ($)' }
+          ].map(tab => html`
             <button
               key=${tab.id}
               onClick=${() => setActiveProfileTab(tab.id)}
-              className=${`profile-tab-btn ${activeProfileTab === tab.id ? 'active' : ''}`}
+              className=${`px-4 py-2 rounded-xl text-xs md:text-sm font-bold transition-all ${activeProfileTab === tab.id ? 'bg-yellow-500 text-black shadow-md scale-105' : 'text-gray-400 hover:text-white hover:bg-black/30'}`}
             >
               ${tab.label}
             </button>
           `)}
         </div>
 
-        <div className="batman-card p-4 md:p-6">
+        {/* Active Tab Component Render */}
+        <div className="glass-panel !bg-black/40 backdrop-blur-xl p-4 md:p-6 rounded-2xl border border-gray-800">
           ${activeProfileTab === 'info' && renderInfoTab()}
+          ${activeProfileTab === 'herois' && renderHeroesTab()}
+          ${activeProfileTab === 'estudos' && renderStudyTab()}
           ${activeProfileTab === 'notas' && renderNotesTab()}
           ${activeProfileTab === 'metas' && renderGoalsTab()}
           ${activeProfileTab === 'habilidades' && html`<${SkillsWidget} />`}
           ${activeProfileTab === 'habitos' && html`<${HabitTrackerWidget} />`}
           ${activeProfileTab === 'loja' && html`<${GamerStoreWidget} />`}
-          ${activeProfileTab === 'perfil' && renderProfileTab()}
         </div>
 
-        <div className="mt-6 text-center text-xs text-gray-600">
-          <p>Sistema BatCaverna PVRV © 2026. Todos os direitos reservados.</p>
-          <p>Gotham City & UFF/ONS Database v2.0</p>
-        </div>
+        <footer className="text-center text-xs text-gray-500 py-6 border-t border-gray-800/60">
+          <p>BatCaverna & Multiverse Hero System © 2026. Pedro Victor Rodrigues Veras (UFF / ONS).</p>
+        </footer>
+
       </div>
     </div>
   `;
