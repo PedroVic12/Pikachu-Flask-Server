@@ -21,7 +21,6 @@ import {
   Menu,
   X,
   Edit3,
-
   Trash2,
   Upload,
   Download,
@@ -33,26 +32,17 @@ import {
   ChevronLeft,
   ChevronRight,
   Search,
-
   Database,
   Sun,
   Moon,
   Flame,
 } from "lucide-react";
 
-
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { Card, CardContent } from "@/components/ui/card";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
 
-//! updrade separando estilos
+//! upgrade separando estilos
 import colorClasses from "./styles.js";
 
 //! logica de negocios com backend
@@ -60,42 +50,26 @@ import projectRepository, {
   CATEGORIES,
   STATUS_COLUMNS,
 } from "./controllers/Repository.jsx";
-import FileUploaderController from "./controllers/FileUploaderController.js";
 
 // Widget do componente da Coluna Kanban
 import KanbanColumn from "./widgets/KanbanContainer.jsx";
-import ScrumKanbanMetodologia from "./views/components/ScrumKanbanWidget.js";
-
-//! importando compoenentes e outras paginas
-import ApiDataScreen from "./api-data/APIDataScreen.jsx";
-import OlaMundo from "./views/HTML/OlaMundo.jsx";
 import ItemEditor from "./views/components/EditorModalProject.js";
-import PVRVWebDevPage from "./views/pages/PVRVWebDevPage.jsx";
-import DeckStorageController from "./controllers/DeckStorageController.js";
-import MonitoramentoPage from "./views/pages/MonitoramentePage.jsx";
 import PlannerONSPage from "./views/pages/Planner_ONS_Page.jsx";
-import TableScreen from "./views/components/TableContainer.jsx";
-import HabitsPage from "./views/pages/HabitsPage.jsx";
-
-// Usar essa pagina no projeto Dashboard Web SP + SECO para ONS PLC
-//import ProjectHubPage from "./views/pages/ProjectHubPage.jsx";
+import OlaMundo from "./views/HTML/OlaMundo.jsx";
 
 // ========== HOOKS ==========
 const useProjects = () => {
   const [projects, setProjects] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
 
-  // Efeito para carregar os dados da API na inicialização
   useEffect(() => {
     const fetchData = async () => {
       const initialProjects = await projectRepository.loadProjects();
-      setProjects(initialProjects || []); // Garante que seja um array
+      setProjects(initialProjects || []);
       setIsLoaded(true);
     };
     fetchData();
-  }, []); // Roda apenas uma vez, no início
-
-  // O useEffect para salvar automaticamente foi removido para dar prioridade ao botão "Sincronizar"
+  }, []);
 
   const addProject = (project) => {
     setProjects((prev) => [...prev, project]);
@@ -138,33 +112,28 @@ const Sidebar = ({
   onClose,
   isCollapsed,
   onToggleCollapse,
-  theme, // New prop
-  onToggleTheme, // New prop
+  theme,
+  onToggleTheme,
 }) => {
-  // Removed React.FC<SidebarProps>
-  const fileInputRef = useRef(null); // Removed type annotation
+  const fileInputRef = useRef(null);
 
   const handleImportClick = () => {
     fileInputRef.current?.click();
   };
 
   const handleFileChange = (event) => {
-    // Removed type annotation
     const file = event.target.files?.[0];
     if (file) {
       onImport(file);
-      event.target.value = ""; // Reset input
+      event.target.value = "";
     }
   };
 
+  // Menu simplificado e limpo conforme solicitado (Habitos e API removidos por enquanto)
   const menuItems = [
     { id: "dashboard", label: "Dashboard", icon: LayoutDashboard },
     { id: "kanban", label: "Kanban", icon: Kanban },
     { id: "planner", label: "Planner ONS", icon: Table },
-    // { id: "files", label: "Arquivos", icon: FileText },
-    { id: "api-data", label: "API", icon: Database },
-    { id: "habits", label: "Hábitos", icon: Flame },
-    { id: "pvrv-web-dev", label: "PVRV Web DEV", icon: LayoutDashboard },
   ];
 
   const actionItems = [
@@ -188,29 +157,32 @@ const Sidebar = ({
       onClick: onExport,
     },
     {
-      // New theme toggle item
       id: "theme-toggle",
       label: theme === "light" ? "Modo Escuro" : "Modo Claro",
       icon: theme === "light" ? Moon : Sun,
       onClick: onToggleTheme,
-      color:
-        "text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700",
+      color: "text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700",
     },
   ];
 
   return (
     <>
       <div
-        className={`fixed inset-y-0 left-0 z-50 bg-white dark:bg-gray-800 shadow-lg transform transition-transform duration-300 ease-in-out ${isOpen ? "translate-x-0" : "-translate-x-full"
-          } lg:translate-x-0 lg:static lg:inset-0 ${isCollapsed ? "lg:w-20" : "w-64"
-          }`}
+        className={`fixed inset-y-0 left-0 z-50 bg-white dark:bg-gray-800 shadow-lg transform transition-transform duration-300 ease-in-out ${
+          isOpen ? "translate-x-0" : "-translate-x-full"
+        } lg:translate-x-0 lg:static lg:inset-0 ${
+          isCollapsed ? "lg:w-20" : "w-64"
+        }`}
       >
         <div
-          className={`flex items-center justify-between h-16 border-b border-gray-200 dark:border-gray-700 ${isCollapsed ? "px-2" : "px-4"}`}
+          className={`flex items-center justify-between h-16 border-b border-gray-200 dark:border-gray-700 ${
+            isCollapsed ? "px-2" : "px-4"
+          }`}
         >
           <h1
-            className={`text-xl font-bold text-gray-900 dark:text-gray-100 ${isCollapsed ? "hidden" : "block"
-              }`}
+            className={`text-xl font-bold text-gray-900 dark:text-gray-100 ${
+              isCollapsed ? "hidden" : "block"
+            }`}
           >
             Kanban Pro
           </h1>
@@ -249,11 +221,13 @@ const Sidebar = ({
                   onClose();
                 }}
                 title={label}
-                className={`w-full flex items-center ${isCollapsed ? "justify-center px-3" : "px-4"
-                  } py-3 text-left rounded-lg transition-colors ${currentScreen === id
+                className={`w-full flex items-center ${
+                  isCollapsed ? "justify-center px-3" : "px-4"
+                } py-3 text-left rounded-lg transition-colors ${
+                  currentScreen === id
                     ? "bg-blue-100 text-blue-700 border-r-2 border-blue-700 dark:bg-blue-900 dark:text-blue-200 dark:border-blue-200"
                     : "text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
-                  }`}
+                }`}
               >
                 <Icon size={20} className={isCollapsed ? "" : "mr-3"} />
                 {!isCollapsed && label}
@@ -268,9 +242,11 @@ const Sidebar = ({
                   key={id}
                   onClick={onClick}
                   title={label}
-                  className={`w-full flex items-center ${isCollapsed ? "justify-center px-3" : "px-4"
-                    } py-3 text-left rounded-lg transition-colors ${color || "text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"}
-          }`}
+                  className={`w-full flex items-center ${
+                    isCollapsed ? "justify-center px-3" : "px-4"
+                  } py-3 text-left rounded-lg transition-colors ${
+                    color || "text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
+                  }`}
                 >
                   <Icon size={20} className={isCollapsed ? "" : "mr-3"} />
                   {!isCollapsed && label}
@@ -289,7 +265,6 @@ const Sidebar = ({
         />
       </div>
 
-      {/* Overlay for mobile */}
       {isOpen && (
         <div
           className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
@@ -300,8 +275,42 @@ const Sidebar = ({
   );
 };
 
-// ========== MAIN APP COMPONENT ==========
 export default function App() {
+  const [currentScreen, setCurrentScreen] = useState("dashboard");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filterCategory, setFilterCategory] = useState("all");
+  const [editingItem, setEditingItem] = useState(null);
+  const [draggedItem, setDraggedItem] = useState(null);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [showWipModal, setShowWipModal] = useState(false);
+
+  const [theme, setTheme] = useState(() => {
+    if (typeof window !== "undefined") {
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme) return savedTheme;
+      return window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? "dark"
+        : "light";
+    }
+    return "dark";
+  });
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem("theme", theme);
+      if (theme === "dark") {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
+    }
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
+  };
+
   const {
     projects,
     addProject,
@@ -311,90 +320,35 @@ export default function App() {
     setProjects,
   } = useProjects();
 
-  const [currentScreen, setCurrentScreen] = useState("dashboard");
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
-  const [editingItem, setEditingItem] = useState(null); // Removed type annotation
-  const [draggedItem, setDraggedItem] = useState(null); // Removed type annotation
-  const [searchTerm, setSearchTerm] = useState("");
-  const [filterCategory, setFilterCategory] = useState("all"); // Removed type annotation
-  const [theme, setTheme] = useState("light"); // Add theme state
-  const [showWipModal, setShowWipModal] = useState(false);
-  const [lastWipCount, setLastWipCount] = useState(0);
+  useEffect(() => {
+    const inProgressCount = projects.filter((p) => p.status === "in progress").length;
+    if (inProgressCount > 4) {
+      setShowWipModal(true);
+    }
+  }, [projects]);
 
   const getScreenTitle = () => {
     switch (currentScreen) {
-      case "dashboard": return "Dashboard";
-      case "kanban": return "Quadro Kanban";
-      case "planner": return "Planner ONS";
-      case "api-data": return "API Status";
-      case "habits": return "Controle de Hábitos";
-      case "pvrv-web-dev": return "PVRV Web DEV";
-      default: return "Kanban Pro";
+      case "dashboard":
+        return "Dashboard Geral";
+      case "kanban":
+        return "Quadro Kanban PRO";
+      case "planner":
+        return "Planner ONS & PVRV Web DEV Core";
+      default:
+        return "Dashboard";
     }
   };
 
-  // Effect to apply theme class and save to localStorage
-  useEffect(() => {
-    const savedTheme = localStorage.getItem("theme") || "light";
-    setTheme(savedTheme);
-    document.documentElement.classList.toggle("dark", savedTheme === "dark");
-  }, []);
-
-  // Alerta Batcaverna para limites de WIP (In Progress > 4)
-  useEffect(() => {
-    if (projects) {
-      const inProgressCount = projects.filter((p) => p.status === "in progress").length;
-      if (inProgressCount > 4 && inProgressCount > lastWipCount) {
-        setShowWipModal(true);
-      }
-      setLastWipCount(inProgressCount);
-    }
-  }, [projects, lastWipCount]);
-
-  const toggleTheme = () => {
-    setTheme((prevTheme) => {
-      const newTheme = prevTheme === "light" ? "dark" : "light";
-      localStorage.setItem("theme", newTheme);
-      document.documentElement.classList.toggle("dark", newTheme === "dark");
-      return newTheme;
-    });
-  };
-
-  // Event Handlers
   const handleExport = () => {
-    projectRepository.exportToExcel(projects);
+    projectRepository.exportToXLSX(projects);
   };
 
   const handleImport = async (file) => {
-    // Removed type annotation
     try {
-      const importedProjects = await projectRepository.importFromExcel(file);
+      const importedProjects = await projectRepository.importFromXLSX(file);
       setProjects(importedProjects);
-      alert("Dados de projetos importados com sucesso!");
-
-      // Restore functionality: Also add the imported Excel file to the FilesScreen list
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const newFile = {
-          name: file.name,
-          type: "excel",
-          url: e.target.result,
-        };
-        const currentFiles = FileUploaderController.loadFiles() || []; // Defensive check
-        const newFiles = [...currentFiles, newFile];
-        const success = FileUploaderController.saveFiles(newFiles);
-        if (success) {
-          console.log(
-            `Imported Excel file '${file.name}' also saved to file list.`,
-          );
-        } else {
-          console.error(
-            `Failed to save imported Excel file '${file.name}' to file list.`,
-          );
-        }
-      };
-      reader.readAsDataURL(file);
+      alert(`${importedProjects.length} projetos importados com sucesso!`);
     } catch (error) {
       alert(
         error instanceof Error ? error.message : "Erro ao importar arquivo",
@@ -404,23 +358,20 @@ export default function App() {
 
   const handleSync = () => {
     projectRepository.saveProjects(projects);
-    alert("Dados sincronizados!");
+    alert("Dados sincronizados com sucesso!");
   };
 
   const handleDragStart = (e, item) => {
-    // Removed type annotations
     setDraggedItem(item);
     e.dataTransfer.effectAllowed = "move";
   };
 
   const handleDragOver = (e) => {
-    // Removed type annotation
     e.preventDefault();
     e.dataTransfer.dropEffect = "move";
   };
 
   const handleDrop = (e, newStatus) => {
-    // Removed type annotations
     e.preventDefault();
     if (draggedItem) {
       moveProject(draggedItem.id, newStatus);
@@ -429,25 +380,21 @@ export default function App() {
   };
 
   const openItemEditor = (item) => {
-    // Removed type annotation
     setEditingItem(item);
   };
 
   const handleSaveItem = (updates) => {
-    // Removed type annotation
     if (editingItem) {
       updateProject(editingItem.id, updates);
     }
   };
 
   const handleDeleteItem = (itemId) => {
-    // Removed type annotation
     deleteProject(itemId);
     setEditingItem(null);
   };
 
   const createNewItem = (status) => {
-    // Removed type annotation
     const newItem = {
       id: Date.now().toString(),
       title: "Novo Item",
@@ -463,35 +410,15 @@ export default function App() {
     openItemEditor(newItem);
   };
 
-  // Utility Functions
   const getProjectsByStatus = (status) => {
-    // Removed type annotation
     return projects.filter((item) => item.status === status);
-  };
-
-  const getFilteredProjects = () => {
-    let filtered = projects;
-
-    if (searchTerm) {
-      filtered = filtered.filter(
-        (item) =>
-          item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          (item.content || "").toLowerCase().includes(searchTerm.toLowerCase()),
-      );
-    }
-
-    if (filterCategory !== "all") {
-      filtered = filtered.filter((item) => item.category === filterCategory);
-    }
-
-    return filtered;
   };
 
   const getStatusStats = () => {
     return Object.keys(STATUS_COLUMNS).reduce((acc, status) => {
       acc[status] = projects.filter((item) => item.status === status).length;
       return acc;
-    }, {}); // Removed type annotation
+    }, {});
   };
 
   const getCategoryStats = () => {
@@ -500,10 +427,9 @@ export default function App() {
         (item) => item.category === category,
       ).length;
       return acc;
-    }, {}); // Removed type annotation
+    }, {});
   };
 
-  // Screen Components
   const DashboardScreen = () => {
     const statusStats = getStatusStats();
     const categoryStats = getCategoryStats();
@@ -541,99 +467,21 @@ export default function App() {
       },
     ];
 
-    const categoryDataForChart = Object.keys(categoryStats).map(
-      (key, index) => ({
-        name: CATEGORIES[key]?.label || key,
-        value: categoryStats[key],
-        fill: `hsl(var(--chart-${index + 1}))`,
-      }),
-    );
-
-    const getTimeSeriesData = () => {
-      if (!projects || projects.length === 0) return [];
-
-      const statusCountsByDate = projects.reduce((acc, project) => {
-        const date = new Date(project.updatedAt).toISOString().split("T")[0];
-        if (!acc[date]) {
-          acc[date] = {};
-          Object.keys(STATUS_COLUMNS).forEach((status) => {
-            acc[date][STATUS_COLUMNS[status].title] = 0;
-          });
-        }
-        const statusTitle = STATUS_COLUMNS[project.status]?.title;
-        if (statusTitle) {
-          acc[date][statusTitle] = (acc[date][statusTitle] || 0) + 1;
-        }
-        return acc;
-      }, {});
-
-      const chartData = Object.keys(statusCountsByDate)
-        .map((date) => ({
-          date,
-          ...statusCountsByDate[date],
-        }))
-        .sort((a, b) => new Date(a.date) - new Date(b.date));
-
-      return chartData;
-    };
-
-    const timeSeriesData = getTimeSeriesData();
-
-
-    const listarProjetos = () => {
-
-      projects.slice(0, 5).map((project) => {
-        const categoryInfo =
-          CATEGORIES[project.category] || CATEGORIES.ons;
-        return (
-          <div
-            key={project.id}
-            className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg"
-          >
-            <div className="flex items-center">
-              <span className="text-lg mr-3"> {categoryInfo.emoji} </span>
-              <div>
-                <p className="font-medium text-gray-900 dark:text-gray-100">
-                  {" "}
-                  {project.title}{" "}
-                </p>
-                <p className="text-sm text-gray-500 dark:text-gray-300">
-                  {" "}
-                  Atualizado em{" "}
-                  {project.updatedAt.toLocaleDateString("pt-BR")}{" "}
-                </p>
-              </div>
-            </div>
-            <div
-              className={`px-2 py-1 rounded-full text-xs font-medium ${categoryInfo.color}`}
-            >
-              {project.status}
-            </div>
-          </div>
-        );
-      })
-
-    }
-
     return (
       <div className="p-4 lg:p-6 bg-white dark:bg-gray-900">
-        {/* Exemplo de como usar a nova tela */}
         <div className="mb-8">
           <OlaMundo />
         </div>
 
         <div className="mb-6">
           <h1 className="text-2xl lg:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">
-            {" "}
-            Dashboard{" "}
+            Dashboard
           </h1>
           <p className="text-gray-600 dark:text-gray-300">
-            {" "}
-            Visão geral dos seus projetos e atividades{" "}
+            Visão geral dos seus projetos e atividades
           </p>
         </div>
 
-        {/* Stats Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           {statCards.map(({ label, value, icon: Icon, color }) => (
             <div
@@ -643,161 +491,22 @@ export default function App() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm font-medium text-gray-600 dark:text-gray-300">
-                    {" "}
-                    {label}{" "}
+                    {label}
                   </p>
                   <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">
-                    {" "}
-                    {value}{" "}
+                    {value}
                   </p>
                 </div>
-                <div className={`p-3 ${colorClasses[color].bg} rounded-lg`}>
-                  <Icon className={`h-6 w-6 ${colorClasses[color].text}`} />
+                <div className="p-3 bg-blue-50 dark:bg-gray-700 rounded-lg text-blue-600 dark:text-blue-400">
+                  <Icon size={24} />
                 </div>
               </div>
             </div>
           ))}
         </div>
-
-        {/* Charts */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-          <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700 flex flex-col">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
-              Distribuição por Categoria
-            </h3>
-            <div className="flex-1 -mx-4">
-              <ResponsiveContainer width="100%" height={250}>
-                <PieChart>
-                  <Pie
-                    data={categoryDataForChart}
-                    dataKey="value"
-                    nameKey="name"
-                    cx="50%"
-                    cy="50%"
-                    outerRadius={80}
-                    labelLine={false}
-                    label={({ name, percent }) =>
-                      `${name} ${(percent * 100).toFixed(0)}%`
-                    }
-                  >
-                    {categoryDataForChart.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={entry.fill} />
-                    ))}
-                  </Pie>
-                  <Tooltip />
-                </PieChart>
-              </ResponsiveContainer>
-            </div>
-          </div>
-
-          <div className="bg-white dark:bg-gray-800 rounded-xl p-12 shadow-sm border border-gray-200 dark:border-gray-700">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
-              {" "}
-              Status dos Projetos{" "}
-            </h3>
-            <div className="space-y-3">
-              {Object.entries(STATUS_COLUMNS).map(([status, info]) => (
-                <div key={status} className="flex items-center justify-between">
-                  <div className="flex items-center">
-                    <span className="text-lg mr-2"> {info.emoji} </span>
-                    <span className="text-sm text-gray-600 dark:text-gray-300">
-                      {" "}
-                      {info.title}{" "}
-                    </span>
-                  </div>
-                  <div className="flex items-center">
-                    <div className="w-8 h-2 bg-gray-200 rounded-full mr-3">
-                      <div
-                        className="h-2 rounded-full"
-                        style={{
-                          width: `${totalProjects > 0 ? (statusStats[status] / totalProjects) * 100 : 0}%`,
-                          background: "#007bff",
-                          height: "2px",
-                        }}
-                      >
-                        {" "}
-                      </div>
-                    </div>
-                    <span className="text-sm font-medium text-gray-900 dark:text-gray-100">
-                      {" "}
-                      {statusStats[status] || 0}{" "}
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* SCRUM KANBAN METODOLOGIA */}
-
-        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
-            Estrutura do Fluxo (Kanban)
-          </h3>
-          <p className="text-gray-600 text dark:text-gray-300">
-            Um quadro visual como Trello ou Jira para dar visibilidade ao
-            trabalho
-          </p>
-          <ScrumKanbanMetodologia />
-        </div>
-
-        {/* Time Series Chart */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
-            Atividade dos Projetos (Séries Temporais)
-          </h3>
-          <div className="h-80 -mx-4">
-            <ResponsiveContainer width="100%" height="100%">
-              <LineChart
-                data={timeSeriesData}
-                margin={{ top: 5, right: 20, left: -10, bottom: 5 }}
-              >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="date" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                {Object.values(STATUS_COLUMNS).map((statusInfo, index) => (
-                  <Line
-                    key={statusInfo.id}
-                    type="monotone"
-                    dataKey={statusInfo.title}
-                    stroke={`hsl(var(--chart-${index + 1}))`}
-                    strokeWidth={2}
-                  />
-                ))}
-              </LineChart>
-            </ResponsiveContainer>
-          </div>
-        </div>
-
-        {/* Recent Projects */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700 mt-8">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
-            {" "}
-            Projetos Recentes{" "}
-          </h3>
-
-
-          <div className="space-y-3">
-            <TableScreen
-              getFilteredProjects={getFilteredProjects}
-              openItemEditor={openItemEditor}
-              deleteProject={deleteProject}
-              searchTerm={searchTerm}
-              setSearchTerm={setSearchTerm}
-              filterCategory={filterCategory}
-              setFilterCategory={setFilterCategory}
-            />
-          </div>
-        </div>
       </div>
     );
   };
-
-
-  //! Refatorar essas paginas em arquivos separados para melhor organização, mantendo a estrutura de pastas e componentes modularizada.
 
   const KanbanScreen = () => {
     const columns = Object.keys(STATUS_COLUMNS);
@@ -806,14 +515,10 @@ export default function App() {
       <div className="p-4 lg:p-6 bg-white dark:bg-gray-900">
         <div className="mb-6">
           <h1 className="text-2xl lg:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">
-            {" "}
-            Kanban PRO Board 2026{" "}
+            Kanban PRO Board 2026
           </h1>
           <p className="text-gray-600 dark:text-gray-300">
-            {" "}
-            Organize seus projetos visualmente utilizando métodos de SCRUM, XP
-            programming e Design Patterns para programação de softwares Desktop,
-            Websites, Aplicativos Móveis, Robos RPA e muito mais!
+            Organize seus projetos visualmente utilizando métodos de SCRUM, XP e Design Patterns.
           </p>
         </div>
 
@@ -835,27 +540,14 @@ export default function App() {
     );
   };
 
-
-
-
   const renderCurrentScreen = () => {
     switch (currentScreen) {
       case "dashboard":
         return <DashboardScreen />;
       case "kanban":
         return <KanbanScreen />;
-
       case "planner":
-        return <PlannerONSPage />
-
-      case "api-data":
-        return <ApiDataScreen />;
-
-      case "habits":
-        return <HabitsPage />;
-
-      case "pvrv-web-dev":
-        return <PVRVWebDevPage theme={theme} />;
+        return <PlannerONSPage />;
       default:
         return <DashboardScreen />;
     }
@@ -863,7 +555,6 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex">
-      {/* Sidebar */}
       <Sidebar
         currentScreen={currentScreen}
         onScreenChange={setCurrentScreen}
@@ -874,14 +565,11 @@ export default function App() {
         onClose={() => setSidebarOpen(false)}
         isCollapsed={sidebarCollapsed}
         onToggleCollapse={() => setSidebarCollapsed((v) => !v)}
-        // Pass theme props
-        theme={theme} // Pass theme state
-        onToggleTheme={toggleTheme} // Pass toggle function
+        theme={theme}
+        onToggleTheme={toggleTheme}
       />
 
-      {/* Main Content */}
       <div className="flex-1 flex flex-col lg:ml-0 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100">
-        {/* Unified Header */}
         <header className="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700 px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <button
@@ -905,11 +593,9 @@ export default function App() {
           </a>
         </header>
 
-        {/* Screen Content */}
         <main className="flex-1 overflow-auto">{renderCurrentScreen()}</main>
       </div>
 
-      {/* Item Editor */}
       <ItemEditor
         item={editingItem}
         isOpen={!!editingItem}
@@ -918,7 +604,6 @@ export default function App() {
         onClose={() => setEditingItem(null)}
       />
 
-      {/* Batcaverna WIP Warning Modal */}
       {showWipModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-sm">
           <div className="bg-gray-900 border-2 border-red-500 shadow-[0_0_25px_rgba(239,68,68,0.55)] rounded-2xl p-8 max-w-md w-full mx-4 text-center text-white">
@@ -930,8 +615,6 @@ export default function App() {
               Você possui <span className="text-red-400 font-bold">{projects.filter(p => p.status === "in progress").length} tarefas</span> ativas em <span className="text-yellow-400 font-semibold">IN PROGRESS</span>.
               <br /><br />
               Conforme as diretrizes da <b>Batcaverna 2026</b>, seu limite máximo para evitar dispersão mental e sobrecarga é de <b>4 tarefas ativas</b> (sendo no máximo 3 CLT/ONS e 2 Estudos UFF).
-              <br /><br />
-              <span className="text-yellow-300 font-medium">Por favor, finalize ou pause tarefas antes de iniciar novas!</span>
             </p>
             <button
               onClick={() => setShowWipModal(false)}

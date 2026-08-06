@@ -3,9 +3,8 @@
 "use client";
 import './Planner_ONS_Page.css';
 import React, { useState, useEffect, useMemo, useRef, useCallback } from 'react';
-
-
-import { Sun, Moon, } from 'lucide-react';
+import { Sun, Moon } from 'lucide-react';
+import PVRVWebDevPage from './PVRVWebDevPage.jsx';
 
 
 const STORAGE_KEY = 'hub_ons_unified_v1';
@@ -865,54 +864,59 @@ export default function PlannerONSPage() {
         { id: 'gantt', label: 'Planner Timeline', icon: 'view_timeline' },
         { id: 'tasks', label: 'Meus Rascunhos de Ideias', icon: 'check_box' },
         { id: 'checklist', label: 'Checklist / MD', icon: 'fact_check' },
+        { id: 'pvrv-web-dev', label: 'PVRV Web DEV Core', icon: 'code' },
         { id: 'reports', label: 'Dashboard', icon: 'insert_chart' },
         { id: 'config', label: 'Configurações', icon: 'settings' },
     ];
-    const titles = { gantt: 'Planner e Cronograma', tasks: 'Meus Rascunhos de Ideias', checklist: 'Checklist & Planner', reports: 'Dashboard', config: 'Configurações' };
+    const titles = { gantt: 'Planner e Cronograma', tasks: 'Meus Rascunhos de Ideias', checklist: 'Checklist & Planner', 'pvrv-web-dev': 'PVRV Web DEV Core', reports: 'Dashboard', config: 'Configurações' };
 
     return (
         <SnackbarProvider>
             <div className="planner-ons-container" data-theme={data.darkMode ? 'dark' : 'light'}>
-                <div className="planner-ons-app-layout">
-                    <div className={`planner-ons-sidebar ${collapsed ? 'planner-ons-collapsed' : ''}`}>
-                        <div className="planner-ons-sidebar-logo">
-                            <div className="planner-ons-logo-icon">⚡</div>
-                            {!collapsed && <div><div className="planner-ons-logo-text">Planner ONS 2026</div><div className="planner-ons-logo-sub">INTEGRADO v3.1.3</div></div>}
-                        </div>
-                        <div className="planner-ons-nav-section">
-                            {!collapsed && <div className="planner-ons-nav-label">Módulos</div>}
-                            {navItems.map(item => (
-                                <div key={item.id} className={`planner-ons-nav-item ${view === item.id ? 'planner-ons-active' : ''}`} onClick={() => setView(item.id)} title={collapsed ? item.label : ''}>
-                                    <span className="material-icons">{item.icon}</span>
-                                    {!collapsed && item.label}
-                                </div>
-                            ))}
-                        </div>
-                        <div className="planner-ons-sidebar-bottom">
-                            <div className="planner-ons-nav-item" onClick={toggleTheme} title={data.darkMode ? 'Modo Claro' : 'Modo Escuro'}>
-                                <span style={{ display: 'flex', alignItems: 'center' }}>{data.darkMode ? <Moon size={18} /> : <Sun size={18} />}</span>
-                                {!collapsed && (data.darkMode ? 'Modo Claro' : 'Modo Escuro')}
-                            </div>
-                            <div className="planner-ons-nav-item" onClick={() => setCollapsed(!collapsed)} title={collapsed ? 'Expandir' : 'Recolher'}>
-                                <span className="material-icons">{collapsed ? 'chevron_right' : 'chevron_left'}</span>
-                                {!collapsed && 'Recolher'}
-                            </div>
+                {/* FLUTTER-STYLE APPBAR & ROW TEXTBUTTONS */}
+                <div className="planner-ons-flutter-appbar">
+                    <div className="planner-ons-appbar-brand">
+                        <span className="planner-ons-logo-icon">⚡</span>
+                        <div className="planner-ons-brand-text">
+                            <span className="planner-ons-appbar-title">Planner ONS 2026</span>
+                            <span className="planner-ons-appbar-sub">OPERADOR NACIONAL DO SISTEMA ELÉTRICO</span>
                         </div>
                     </div>
-                    <div className="planner-ons-main-area">
-                        <div className="planner-ons-topbar">
-                            <div>
-                                <div className="planner-ons-topbar-title">{titles[view]}</div>
-                                <div className="planner-ons-topbar-sub">ONS · {new Date().toLocaleDateString('pt-BR')}</div>
-                            </div>
-                        </div>
-                        <div className="planner-ons-content-scroll">
-                            {view === 'gantt' && <GanttModule tasks={data.tasks} onUpdate={updateTasks} />}
-                            {view === 'tasks' && <TaskCardsModule tasks={data.tasks} notes={data.notes || ''} onNotesChange={updateNotes} onUpdateTasks={updateTasks} />}
-                            {view === 'checklist' && <ChecklistModule markdown={data.markdown} onSave={updateMarkdown} />}
-                            {view === 'reports' && <ReportsModule tasks={data.tasks} markdown={data.markdown} />}
-                            {view === 'config' && <ConfigModule onReset={reset} darkMode={data.darkMode} onToggleTheme={toggleTheme} />}
-                        </div>
+
+                    <div className="planner-ons-appbar-row">
+                        {navItems.map(item => (
+                            <button
+                                key={item.id}
+                                onClick={() => setView(item.id)}
+                                className={`flutter-text-btn ${view === item.id ? 'active' : ''}`}
+                            >
+                                <span className="material-icons">{item.icon}</span>
+                                <span>{item.label}</span>
+                            </button>
+                        ))}
+                    </div>
+
+                    <div className="planner-ons-appbar-actions">
+                        <button onClick={toggleTheme} className="flutter-icon-btn" title={data.darkMode ? 'Modo Claro' : 'Modo Escuro'}>
+                            {data.darkMode ? <Moon size={18} /> : <Sun size={18} />}
+                        </button>
+                    </div>
+                </div>
+
+                {/* CONTEÚDO PRINCIPAL (TAB VIEW) */}
+                <div className="planner-ons-main-content">
+                    <div className="planner-ons-content-header">
+                        <h2 className="planner-ons-page-title">{titles[view]}</h2>
+                        <span className="planner-ons-page-date">ONS · {new Date().toLocaleDateString('pt-BR')}</span>
+                    </div>
+
+                    <div className="planner-ons-content-scroll">
+                        {view === 'gantt' && <GanttModule tasks={data.tasks} onUpdate={updateTasks} />}
+                        {view === 'tasks' && <TaskCardsModule tasks={data.tasks} notes={data.notes || ''} onNotesChange={updateNotes} onUpdateTasks={updateTasks} />}
+                        {view === 'checklist' && <ChecklistModule markdown={data.markdown} onSave={updateMarkdown} />}
+                        {view === 'pvrv-web-dev' && <PVRVWebDevPage theme={data.darkMode ? 'dark' : 'light'} />}
+                        {view === 'reports' && <ReportsModule tasks={data.tasks} markdown={data.markdown} />}
+                        {view === 'config' && <ConfigModule onReset={reset} darkMode={data.darkMode} onToggleTheme={toggleTheme} />}
                     </div>
                 </div>
             </div>

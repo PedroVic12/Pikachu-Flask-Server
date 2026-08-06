@@ -815,3 +815,130 @@ select.planner-ons-form-input option {
         transform: translateY(0);
     }
 }
+
+/* FLUTTER-STYLE APPBAR & ROW TEXTBUTTONS */
+.planner-ons-flutter-appbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--planner-bg2);
+    border-bottom: 1px solid var(--planner-border);
+    padding: 12px 20px;
+    gap: 16px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    flex-wrap: wrap;
+}
+
+.planner-ons-appbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.planner-ons-brand-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.planner-ons-appbar-title {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--planner-accent);
+}
+
+.planner-ons-appbar-sub {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--planner-muted);
+    letter-spacing: 0.5px;
+}
+
+.planner-ons-appbar-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    overflow-x: auto;
+    padding: 4px 0;
+}
+
+.flutter-text-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 12px;
+    background: transparent;
+    border: 1px solid transparent;
+    color: var(--planner-muted);
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.flutter-text-btn:hover {
+    color: var(--planner-text);
+    background: var(--planner-glass-b);
+    border-color: var(--planner-border);
+}
+
+.flutter-text-btn.active {
+    background: var(--planner-accent);
+    color: #000000;
+    border-color: var(--planner-accent);
+    box-shadow: 0 4px 12px rgba(88, 166, 255, 0.3);
+}
+
+.flutter-text-btn .material-icons {
+    font-size: 18px;
+}
+
+.planner-ons-appbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.flutter-icon-btn {
+    background: var(--planner-glass-b);
+    border: 1px solid var(--planner-border);
+    color: var(--planner-text);
+    padding: 8px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.flutter-icon-btn:hover {
+    background: var(--planner-accent);
+    color: #000000;
+}
+
+.planner-ons-main-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.planner-ons-content-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--planner-border);
+    padding-bottom: 12px;
+}
+
+.planner-ons-page-title {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--planner-text);
+}
+
+.planner-ons-page-date {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--planner-muted);
+    font-family: var(--planner-mono);
+}
