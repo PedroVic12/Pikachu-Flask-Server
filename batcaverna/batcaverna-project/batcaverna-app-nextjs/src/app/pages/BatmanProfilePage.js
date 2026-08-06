@@ -1,12 +1,13 @@
 // ---------------------------------------------------------------------
 // 2.3 BatmanProfileModel – Dados do perfil (notas, metas, missões)
 // ---------------------------------------------------------------------
+
 class BatmanProfileModel {
   constructor() {
     this.profileData = {
       basicInfo: {
         nomeVerdadeiro: "Pedro Victor Rodrigues Veras",
-        ocupacao: "Estudante de Eng. Elétrica na UFF, Cientista de Dados JR de Astronomia e Estagiário da PLC no ONS",
+        ocupacao: "Estudante de Eng. Elétrica na UFF e Estagiário no ONS",
         base: "Niteroi/CG City, RJ",
         corOlhos: "Castanhos",
         corCabelo: "Preto",
@@ -66,7 +67,7 @@ class BatmanProfileModel {
 // ---------------------------------------------------------------------
 // 5.6 BatmanProfileWidget
 // ---------------------------------------------------------------------
-const BatmanProfileWidget = () => {
+export const BatmanProfileWidget = () => {
   const {
     profileData, activeProfileTab, setActiveProfileTab, newNote, setNewNote,
     handleAddNote, handleDeleteNote, handleUpdateGoal, getCategoryColor, getStatusColor,
