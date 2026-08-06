@@ -3,11 +3,12 @@
 import React from 'react';
 import htm from 'htm';
 import { DataBaseController } from '../controllers/DashboardController.js';
+import AudioEffects from '../controllers/AudioEffects.js';
 
 const html = htm.bind(React.createElement);
 
 // ---------------------------------------------------------------------
-// 5.4 HabitTrackerWidget
+// 5.4 HabitTrackerWidget com Efeitos Sonoros Nativos
 // ---------------------------------------------------------------------
 const HabitProgressCircle = ({ radius, stroke, progress, isSuperSaiyan }) => {
   const normalizedRadius = radius - stroke * 2;
@@ -251,6 +252,7 @@ export const HabitTrackerWidget = () => {
 
   React.useEffect(() => {
     if (player.xp >= player.xpToNextLevel) {
+      AudioEffects.playLevelUp();
       setPlayer(prev => ({
         ...prev,
         level: prev.level + 1,
@@ -261,6 +263,13 @@ export const HabitTrackerWidget = () => {
   }, [player.xp, player.xpToNextLevel]);
 
   const handleCompleteHabit = (habit) => {
+    // 🔊 Toca o efeito sonoro correspondente (Bom hábito vs Mau hábito)
+    if (habit.type === 'good') {
+      AudioEffects.playGoodHabit();
+    } else {
+      AudioEffects.playBadHabit();
+    }
+
     const todayFormatted = new Date().toLocaleDateString('pt-BR', { weekday: 'short', day: 'numeric', month: 'short' });
     const updatedHabits = habits.map(h => h.id === habit.id ? { ...h, completed: true, lastCompleted: todayFormatted } : h);
     setHabits(updatedHabits);
@@ -292,6 +301,7 @@ export const HabitTrackerWidget = () => {
   };
 
   const handleAddHabit = ({ text, type }) => {
+    AudioEffects.playClick();
     setHabits([...habits, {
       id: Date.now(),
       icon: type === 'good' ? '⭐' : '⚠️',
@@ -305,8 +315,14 @@ export const HabitTrackerWidget = () => {
   };
 
   const handleResetDay = () => {
+    AudioEffects.playClick();
     if (typeof window !== 'undefined') localStorage.setItem('lastReset', new Date().toDateString());
     setHabits(prev => prev.map(h => ({ ...h, completed: false })));
+  };
+
+  const changeTab = (tabName) => {
+    AudioEffects.playClick();
+    setActiveTab(tabName);
   };
 
   return html`
@@ -315,9 +331,9 @@ export const HabitTrackerWidget = () => {
         <header className="mb-6">
           <h1 className="text-2xl font-bold mb-2 text-yellow-400">🔥 HABIT TRACKER & ROTINAS BATCAVERNA</h1>
           <div className="flex items-center space-x-6 text-gray-400 border-b-2 border-gray-700/60 pb-2">
-            <span className=${`ht-tab cursor-pointer text-sm font-bold ${activeTab === 'habitos' ? 'text-yellow-400 border-b-2 border-yellow-400 pb-2' : ''}`} onClick=${() => setActiveTab('habitos')}>HÁBITOS</span>
-            <span className=${`ht-tab cursor-pointer text-sm font-bold ${activeTab === 'dashboard' ? 'text-yellow-400 border-b-2 border-yellow-400 pb-2' : ''}`} onClick=${() => setActiveTab('dashboard')}>GRÁFICO SEMANAL</span>
-            <span className=${`ht-tab cursor-pointer text-sm font-bold ${activeTab === 'habilidades' ? 'text-yellow-400 border-b-2 border-yellow-400 pb-2' : ''}`} onClick=${() => setActiveTab('habilidades')}>ATRIBUTOS</span>
+            <span className=${`ht-tab cursor-pointer text-sm font-bold ${activeTab === 'habitos' ? 'text-yellow-400 border-b-2 border-yellow-400 pb-2' : ''}`} onClick=${() => changeTab('habitos')}>HÁBITOS</span>
+            <span className=${`ht-tab cursor-pointer text-sm font-bold ${activeTab === 'dashboard' ? 'text-yellow-400 border-b-2 border-yellow-400 pb-2' : ''}`} onClick=${() => changeTab('dashboard')}>GRÁFICO SEMANAL</span>
+            <span className=${`ht-tab cursor-pointer text-sm font-bold ${activeTab === 'habilidades' ? 'text-yellow-400 border-b-2 border-yellow-400 pb-2' : ''}`} onClick=${() => changeTab('habilidades')}>ATRIBUTOS</span>
           </div>
         </header>
         <${HabitPlayerStats} player=${player} isSuperSaiyan=${isSuperSaiyan} status=${status} />

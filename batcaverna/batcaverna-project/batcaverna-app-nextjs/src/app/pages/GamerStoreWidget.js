@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { DataBaseController } from '../controllers/DashboardController.js';
+import AudioEffects from '../controllers/AudioEffects.js';
 
 const INITIAL_STORE_DATA = {
   coins: 45,
@@ -38,10 +39,13 @@ export const GamerStoreWidget = () => {
 
   const handleRedeem = (item) => {
     if (storeData.coins < item.costCoins) {
+      AudioEffects.playBadHabit();
       setMessage(`❌ Saldo insuficiente! Você precisa de $${item.costCoins} Fichas.`);
       setTimeout(() => setMessage(''), 3000);
       return;
     }
+
+    AudioEffects.playCoinSound();
 
     setStoreData(prev => {
       const newInventory = {
@@ -60,12 +64,13 @@ export const GamerStoreWidget = () => {
       };
     });
 
-    setMessage(`🎉 SUCESSO! 1 Ficha de "${item.name}" resgatada! Aproveite a jogatina.`);
+    setMessage(`🎉 SUCESSO! 1 Ficha de ${item.name} resgatada para a sua Mochila Gamer!`);
     setTimeout(() => setMessage(''), 4000);
   };
 
   const handleUseToken = (itemId, itemName) => {
     if ((storeData.inventory[itemId] || 0) <= 0) return;
+    AudioEffects.playCoinSound();
     setStoreData(prev => ({
       ...prev,
       inventory: {
@@ -73,109 +78,92 @@ export const GamerStoreWidget = () => {
         [itemId]: prev.inventory[itemId] - 1
       }
     }));
-    setMessage(`🎮 Ficha ativada! 1 Hora de ${itemName} em andamento. Bom jogo!`);
-    setTimeout(() => setMessage(''), 4000);
+    setMessage(`⏱️ Ficha de ${itemName} ativada! Bom jogo!`);
+    setTimeout(() => setMessage(''), 3000);
   };
 
   return (
-    <div className="w-full h-full p-4 overflow-y-auto">
+    <div className="w-full h-full p-4 overflow-y-auto bg-black/40 backdrop-blur-md rounded-2xl border border-gray-800">
       <div className="max-w-6xl mx-auto space-y-6">
         
-        {/* Header do Banco de Fichas */}
-        <div className="glass-panel !bg-black/40 p-6 border border-yellow-500/30">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <div>
-              <h2 className="text-2xl font-bold text-yellow-400 flex items-center gap-2">
-                <span>🎮</span> LOJA DE FICHAS & GAMER REWARDS
-              </h2>
-              <p className="text-gray-300 text-sm mt-1">
-                Troque seu XP e Hábitos Saudáveis por horas de jogos (COD, FIFA, Smite 2, Pokémon)!
-              </p>
-            </div>
-
-            <div className="flex items-center gap-4 bg-black/50 p-4 rounded-xl border border-yellow-500/40">
-              <div className="text-center">
-                <div className="text-xs text-gray-400">SALDO DE FICHAS</div>
-                <div className="text-2xl font-bold text-yellow-400 font-mono">${storeData.coins}</div>
-              </div>
-              <div className="h-8 w-px bg-gray-700"></div>
-              <div className="text-center">
-                <div className="text-xs text-gray-400">FICHAS DISPONÍVEIS</div>
-                <div className="text-2xl font-bold text-cyan-400 font-mono">
-                  {Object.values(storeData.inventory).reduce((a, b) => a + b, 0)}
-                </div>
-              </div>
-            </div>
+        {/* Header da Loja Gamer */}
+        <div className="p-6 bg-gradient-to-r from-yellow-950/40 via-black to-yellow-950/20 rounded-2xl border border-yellow-500/40 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+          <div>
+            <h1 className="text-2xl font-bold text-yellow-400 flex items-center gap-2">
+              <span>🎮</span> LOJA DE FICHAS & RECOMPENSAS GAMER
+            </h1>
+            <p className="text-xs text-gray-400 mt-1">
+              Troque suas Fichas $ e XP acumulados em Hábitos e Rotinas por horas de Call of Duty, EA FC, Smite 2 e Pokémon!
+            </p>
           </div>
-
-          {message && (
-            <div className="mt-4 p-3 bg-yellow-500/20 border border-yellow-500 text-yellow-300 rounded-lg text-sm font-semibold animate-pulse text-center">
-              {message}
+          <div className="flex items-center gap-4 bg-black/60 p-3.5 rounded-xl border border-yellow-500/50">
+            <div>
+              <div className="text-xs text-gray-400">SALDO DISPONÍVEL</div>
+              <div className="text-2xl font-extrabold text-yellow-400 font-mono">${storeData.coins} Fichas</div>
             </div>
-          )}
+            <div className="text-3xl">🪙</div>
+          </div>
         </div>
 
-        {/* Minha Mochila de Fichas (Fichas Prontas para Jogar) */}
-        <div className="glass-panel !bg-black/20 p-5">
-          <h3 className="text-lg font-bold text-cyan-300 mb-3 flex items-center gap-2">
-            🎒 Minha Mochila de Jogatina (Fichas Adquiridas)
-          </h3>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+        {message && (
+          <div className="p-4 bg-yellow-500/20 border border-yellow-500 text-yellow-300 rounded-xl text-xs md:text-sm font-bold text-center animate-bounce">
+            {message}
+          </div>
+        )}
+
+        {/* MOCHILA / INVENTÁRIO DO JOGADOR */}
+        <div className="p-6 bg-black/50 rounded-2xl border border-gray-800">
+          <h2 className="text-lg font-bold text-cyan-400 mb-3 flex items-center gap-2">
+            <span>🎒</span> MOCHILA DE FICHAS ADQUIRIDAS (ESTOQUE)
+          </h2>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
             {REWARD_CATALOG.map(item => {
               const count = storeData.inventory[item.id] || 0;
               return (
-                <div key={item.id} className={`p-3 rounded-lg border text-center transition-all ${count > 0 ? 'bg-cyan-950/40 border-cyan-500/50' : 'bg-black/20 border-gray-800 opacity-60'}`}>
-                  <div className="text-3xl mb-1">{item.icon}</div>
+                <div key={item.id} className={`p-3 rounded-xl border text-center ${count > 0 ? 'bg-cyan-950/30 border-cyan-500/50' : 'bg-black/40 border-gray-800 opacity-50'}`}>
+                  <div className="text-2xl mb-1">{item.icon}</div>
                   <div className="text-xs font-bold text-gray-200 truncate">{item.name}</div>
-                  <div className="text-sm font-bold text-cyan-400 my-1">{count} Horas</div>
-                  <button
-                    onClick={() => handleUseToken(item.id, item.name)}
-                    disabled={count <= 0}
-                    className={`w-full py-1 text-xs font-bold rounded transition ${count > 0 ? 'bg-cyan-500 hover:bg-cyan-400 text-black cursor-pointer' : 'bg-gray-800 text-gray-500 cursor-not-allowed'}`}
-                  >
-                    {count > 0 ? 'Usar Ficha ⏱️' : 'Sem Fichas'}
-                  </button>
+                  <div className="text-sm font-extrabold text-cyan-300 mt-1">{count} Restantes</div>
+                  {count > 0 && (
+                    <button onClick={() => handleUseToken(item.id, item.name)} className="w-full mt-2 py-1 bg-cyan-500 hover:bg-cyan-400 text-black text-[10px] font-bold rounded-lg transition">
+                      Usar Ficha ⏱️
+                    </button>
+                  )}
                 </div>
               );
             })}
           </div>
         </div>
 
-        {/* Catálogo de Resgate de Fichas */}
-        <div className="glass-panel !bg-black/20 p-5">
-          <h3 className="text-lg font-bold text-yellow-400 mb-4 flex items-center gap-2">
-            🛒 Catálogo de Recompensas (Troca por Fichas $)
-          </h3>
+        {/* CATÁLOGO DE PRODUTOS DA LOJA GAMER */}
+        <div>
+          <h2 className="text-lg font-bold text-yellow-400 mb-4 flex items-center gap-2">
+            <span>🛒</span> CATÁLOGO DE RECOMPENSAS GAMER
+          </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {REWARD_CATALOG.map(item => {
-              const canAfford = storeData.coins >= item.costCoins;
-              return (
-                <div key={item.id} className="bg-black/40 p-4 rounded-xl border border-gray-700/60 hover:border-yellow-500/60 transition flex flex-col justify-between">
-                  <div>
-                    <div className="flex justify-between items-start mb-2">
-                      <span className="text-3xl">{item.icon}</span>
-                      <span className="text-xs bg-yellow-500/20 text-yellow-400 border border-yellow-500/30 px-2 py-1 rounded font-bold font-mono">
-                        ${item.costCoins} Fichas
-                      </span>
-                    </div>
-                    <h4 className="font-bold text-base text-gray-200">{item.name}</h4>
-                    <span className="text-xs text-gray-500 block mb-2">{item.category}</span>
-                    <p className="text-xs text-gray-400">{item.description}</p>
+            {REWARD_CATALOG.map(item => (
+              <div key={item.id} className="p-5 bg-black/60 rounded-2xl border border-gray-800 hover:border-yellow-500/50 transition flex flex-col justify-between">
+                <div>
+                  <div className="flex justify-between items-start mb-3">
+                    <span className="text-3xl p-2 bg-black/40 rounded-xl border border-gray-800">{item.icon}</span>
+                    <span className="px-2.5 py-1 bg-yellow-500/10 border border-yellow-500/30 text-yellow-400 rounded-full text-[10px] font-bold">
+                      {item.category}
+                    </span>
                   </div>
-
-                  <div className="mt-4 pt-3 border-t border-gray-800 flex justify-between items-center">
-                    <span className="text-xs text-gray-500">Ou {item.costXP} XP</span>
-                    <button
-                      onClick={() => handleRedeem(item)}
-                      disabled={!canAfford}
-                      className={`px-4 py-2 rounded-lg text-xs font-bold transition flex items-center gap-1 ${canAfford ? 'bg-yellow-500 hover:bg-yellow-400 text-black cursor-pointer' : 'bg-gray-800 text-gray-500 cursor-not-allowed'}`}
-                    >
-                      <span>🛒</span> Resgatar (${item.costCoins})
-                    </button>
-                  </div>
+                  <h3 className="font-bold text-base text-gray-100">{item.name}</h3>
+                  <p className="text-xs text-gray-400 mt-1">{item.description}</p>
                 </div>
-              );
-            })}
+                <div className="mt-4 pt-3 border-t border-gray-800 flex justify-between items-center">
+                  <div>
+                    <div className="text-xs text-gray-500">PREÇO</div>
+                    <div className="text-sm font-extrabold text-yellow-400 font-mono">${item.costCoins} Fichas</div>
+                  </div>
+                  <button onClick={() => handleRedeem(item)} className="px-4 py-2 bg-yellow-500 hover:bg-yellow-400 text-black font-bold text-xs rounded-xl shadow-lg transition">
+                    Resgatar 🪙
+                  </button>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
 

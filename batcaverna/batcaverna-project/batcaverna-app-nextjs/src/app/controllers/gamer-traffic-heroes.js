@@ -61,7 +61,7 @@ export const INITIAL_HEROES_DATA = {
       altura: "1,78 m",
       peso: "75 kg"
     },
-    poderes: ["Super força", "Agilidade sobre-humana", "Sentido Aranha", "DNA Arquinidiano", "Fluidos de teias"],
+    poderes: ["Super força", "Agilidade sobre-humana", "Sentido Aranha (Sentidos aranhas)", "DNA Arquinidiano", "Fluidos de teias"],
     habilidades: ["Fotografia", "Ciência e Tecnologia", "Combate Corpo a Corpo", "Acrobacias", "Engenharia"],
     conhecimentos: ["Física Quântica", "Química", "Biologia", "Engenharia Elétrica", "Tecnologia", "Robótica", "Vibe Coding"],
     quests: [

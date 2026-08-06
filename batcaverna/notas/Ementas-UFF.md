@@ -14,7 +14,6 @@
 
 ### Lista de documentos enviados e analsiados
 
-
 - [x] RG
 - [x] cpf
 - [x] certidão de nascimento
@@ -30,7 +29,6 @@ com as obrigações militares
 - [x] comprovante de residência
 
 - [x] título eleitoral
-
 
 ## Administração Aplicada a Engenharia
 
@@ -246,9 +244,19 @@ CADEIAS DE MARKOV, MATRIZ DE TRANSIÇÃO, EVOLUÇÃO DO VETOR DE PROBABILIDADES 
 
 ## Termodinamica I
 
-INTRODUÇÃO A FENÔMENOS DE TRANSPORTE. CONCEITOS E DEFINIÇÕES EM TERMODINÂMICA. PROPRIEDADES DE UMA
-SUBSTÂNCIA PURA. TRABALHO E CALOR. PRIMEIRA LEI DA TERMODINÂMICA. SEGUNDA LEI DA TERMODINÂMICA. ENTROPIA.
-NOÇÕES DE CICLOS DE POTÊNCIA A AR E A VAPOR.
+INTRODUÇÃO A FENÔMENOS DE TRANSPORTE.
+
+- CONCEITOS E DEFINIÇÕES EM TERMODINÂMICA. PROPRIEDADES DE UMA SUBSTÂNCIA PURA.
+
+- TRABALHO E CALOR.
+
+- PRIMEIRA LEI DA TERMODINÂMICA.
+
+- SEGUNDA LEI DA TERMODINÂMICA.
+
+- ENTROPIA.
+
+- NOÇÕES DE CICLOS DE POTÊNCIA A AR E A VAPOR.
 
 ## Laboratorio de Eng eletrica e computação
 
