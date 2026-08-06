@@ -29,6 +29,8 @@ Jedi-CyberPunk,59861c5ea,2026-07-20,Pedro Victor,up de arquivo .qmd da ultima se
 Jedi-CyberPunk,ec962db2c,2026-07-19,Pedro Victor Veras,up
 Jedi-CyberPunk,48b422287,2026-07-19,Pedro Victor,up
 Jedi-CyberPunk,6107e7c66,2026-07-18,Pedro Victor Veras,up
+Pikachu-Flask-Server,07d5fa3,2026-07-31,Pedro Victor Veras,Update historico-projetos.csv
+Pikachu-Flask-Server,bcfe1ed,2026-07-31,Pedro Victor,Create Sistema_Computacao_Tecnologo.md
 Pikachu-Flask-Server,a2b7f58,2026-07-31,Pedro Victor Veras,Update kanban.xlsx
 Pikachu-Flask-Server,f9dabce,2026-07-30,Pedro Victor Veras,up
 Pikachu-Flask-Server,1e4421a,2026-07-30,Pedro Victor Veras,up
@@ -37,8 +39,6 @@ Pikachu-Flask-Server,c51d43d,2026-07-24,Pedro Victor,up
 Pikachu-Flask-Server,24b3584,2026-07-24,Pedro Victor,up
 Pikachu-Flask-Server,feb0ba9,2026-07-22,Pedro Victor,Create organizador_clientes_direcional.py
 Pikachu-Flask-Server,799285a,2026-07-22,Pedro Victor,Update Ementas-UFF.md
-Pikachu-Flask-Server,d1ab90e,2026-07-18,Pedro Victor Veras,up
-Pikachu-Flask-Server,d2e3a79,2026-07-16,Pedro Victor Veras,Update historico-projetos.csv
 Repopulation-With-Elite-Set,bd869c0e,2026-06-12,Pedro Victor Veras,Create checklist_kanban_2026.md
 Repopulation-With-Elite-Set,0ad1376f,2026-06-03,Pedro Victor Veras,Update RCE_Framework_Page.py
 Repopulation-With-Elite-Set,967f2e70,2026-06-03,Pedro Victor Veras,update stable version with bug fixes in timelines
@@ -49,6 +49,7 @@ Repopulation-With-Elite-Set,cafbcb61,2026-05-28,Pedro Victor Veras,up
 Repopulation-With-Elite-Set,f5f96763,2026-05-27,Pedro Victor Veras,Update RCE_Framework_Page.py
 Repopulation-With-Elite-Set,f4c8e2ec,2026-05-27,Pedro Victor Veras,up
 Repopulation-With-Elite-Set,3753f985,2026-05-27,Pedro Victor Veras,up
+astro-blog-pedrov12,0d63d832b,2026-07-31,Pedro Victor Veras,up
 astro-blog-pedrov12,2f549e619,2026-07-28,Pedro Victor Veras,UP
 astro-blog-pedrov12,ea18ecf4e,2026-07-15,Pedro Victor Veras,up
 astro-blog-pedrov12,6efd80372,2026-07-06,Pedro Victor Veras,up
@@ -58,7 +59,6 @@ astro-blog-pedrov12,8e1c38ff9,2026-06-17,Pedro Victor Veras,up
 astro-blog-pedrov12,ded29f7c3,2026-06-16,Pedro Victor Veras,update de novas postagens
 astro-blog-pedrov12,e9892d418,2026-06-16,Pedro Victor Veras,Delete RESUMO_PROJETOS.md
 astro-blog-pedrov12,6eabb2d86,2026-06-16,Pedro Victor Veras,Create RESUMO_PROJETOS.md
-astro-blog-pedrov12,682877aa1,2026-06-02,Pedro Victor Veras,Update BaseLayout.astro
 getx-for-qt6,1132492,2026-06-24,Pedro Victor Veras,up
 getx-for-qt6,ec1895f,2026-06-24,Pedro Victor Veras,up
 getx-for-qt6,7380da2,2026-06-24,Pedro Victor Veras,up

@@ -2,7 +2,9 @@
 
 ---
 
-📅 Data: **24/07/2026**
+📅 Data: **05/08/2026**
+
+**hello world, novo semestre**
 
 # ⚡📑 ÍNDICE RÁPIDO
 
@@ -91,32 +93,32 @@ Concluído
 - [x] Diagrama 440kv e 345kv de SP no organon para ajudar nos estudos eletricos
 - [x] Batcaverna PV + Templates em Javascript + backend em Flask
 
-- [ ] Estudos: Flask x FastAPI x Django para programação backend para cada tipo de projeto
+- [FALTA DOCUMENTAÇÃO] Estudos: Flask x FastAPI x Django para programação backend para cada tipo de projeto
 
-- [ ] Estudos: Fronted = Astro, NextJS, React (flask backend), Tauri com JS vanilla, Streamlit e Qt6
-- [ ] Estudos e métricas na Batcavena UI com Habit Tracker pegando dados de checklist criados
+- [X] Estudos: Fronted = Astro, NextJS, React (flask backend), Tauri com JS vanilla, Streamlit e Qt6
+- [X] Estudos e métricas na Batcavena UI com Habit Tracker pegando dados de checklist criados
 
-- [ ] Devolver notebook ONS
-- [ ] Agentes de AI com memorias e contexto
+- [x] Devolver notebook ONS
+- [x] Agentes de AI com memorias e contexto
   - Copilot
   - GPT Jarvis GPT
   - Gemini CLI
   - Gemimi Lumina Aurora
   - Gemini C3po - pc native tools
 
-- [ ] Projetos Github
-- [ ] Mapas Mentais
-- [ ] Estudos UFF
-- [ ] Testes, programação e controle de versões de programas
-- [ ] Sites online + Portfolio
+- [x] Projetos Github
+- [x] Mapas Mentais
+- [x] Estudos UFF
+- [x] Testes, programação e controle de versões de programas
+- [x] Sites online + Portfolio
 - [ ] AnaREDE, Organon, Pandapower
-- [ ] Estudos de conceitos de desenvolvimento de software moderno
+- [x] Estudos de conceitos de desenvolvimento de software moderno
 - [ ] Perfil novo no BatCaverna e União de varios projetos estáticos para um central
 - [ ] Planilha de treinos, rotina(atividades PLC), habitos tracker e planejamento financeiro
 - [ ] Conceitos de cálculo 1,2,3 aplicados na matemática do dia dia. Derivadas em series temporais. Integral aplicados a circuitos RLC e eletromagnetismo
 
 - [ ] Alinhamento espiritual com nova rotina Jedi Cyberpunk + data science
-- [ ] Desligamento oficial do ONS com todos os arquivos solicitados, enviados, projetos
+- [x] Desligamento oficial do ONS com todos os arquivos solicitados, enviados, projetos
 - [ ] Aulas de circuitos digitais I e circuitos eletricos CC (terça e quinta)
 
 - [x] Diagramas, Fluxogramas e mapas mentais sobre projetos no Github e OneDrive realizadas (Scripts,websites, banco de dados, guias, CLI)
@@ -132,7 +134,7 @@ Concluído
 
 - [ ] Guia com Mapa Mental e sumario das atividades de montagem de casos do Mensal
 
-- [ ] Organização e controle de versões do Sharepoint no Github
+- [x] Organização e controle de versões do Sharepoint no Github
 
 - [ ] Montagem do novo Obsidian para Jedi cyberpunk arruamndo a pasta do ONS PLC para ser usada apenas com conteudo de trabalho
 
@@ -149,7 +151,7 @@ Concluído
 
 - [ ] VB: Redespacho de Cargas em MW usando politica energetica com FLOW e Elos CC com ajustes na barras swing
 
-- [ ] ETL Palkia:
+- [x] ETL Palkia:
   - PDF -> Streamlit OCR ou Qt6 OCR
   - .md para PDF ou PowerPoint
   - Extração de tabelas de MUST de SP (EXCEL - SQL - access) como banco de dados microsoft
@@ -226,10 +228,10 @@ Concluído
 
 # Jogos
 
-- [x] FIFA 19
-- [x] COD Black OPS 1
-- [x] COD Black OPS 2
-- [x] SMITE 2
+- [x] FIFA 19 - Modo Carreira 19 e 26
+- [x] COD Black OPS 1 - Guerra Fria
+- [x] COD Black OPS 2 - 2025 Guerra moderna
+- [x] SMITE 2 ou League of Legends Classic ou Dota 2
 - [x] The witcher 3
 - [x] Pokemon Radical RED
 - [x] FIFA 14:
@@ -320,10 +322,10 @@ Concluído
 ## Estudos UFF 2026.1
 
 - [x] Circuitos Digitais P1 (Karnaugh, SOP, teoremas booleanos)
-- [ ] ONS (Python + relatórios + checklist)
-- [ ] Projetos (calculadora + Organon + Pyside6)
+- [x] ONS (Python + relatórios + checklist)
+- [x] Projetos (calculadora + Organon + Pyside6)
 
-- [ ] P2 circuitos digitais
+- [x] P2 circuitos digitais
 - [ ] Provas P2 e P3 de circuitos eletricos CC
 - [ ] Provas de Sinais e Sistemas e Eletromagnetismo
 
@@ -332,8 +334,8 @@ Concluído
 - [ ] Minicurso: Calculo Numero com Python e Julia
 
 - [ ] Resolver sistema de solver de calculadora de EDO e Matrizes com plots em Qt6(sympy)
-- [ ] Plot função (matplotlib)
-- [ ] Integrar no PySide6
+- [x] Plot função (matplotlib)
+- [x] Integrar no PySide6
 
 ---
 
@@ -493,6 +495,23 @@ Para a provas da UFF:
 - apoio: **flashcards + revisão espaçada**
 
 ---
+
+# Rotinas de Dono de Casa (Homem TDAH Adulto)
+
+- Melhores a cada dia
+- respeito
+- Disciplina e Responsabilidaed
+
+- [ ] Tomar banho
+- [ ] Vestir roupas limpas
+- [ ] Lavar o Rosto e fazer Skin Care
+- [ ] Exercicio Físicos
+- [ ] Alongamento de Quadril, Ombra, Colunas e Core
+- [ ] Limpeza arpatamento
+- [ ] Alinhamento Espiritual matinal
+- [ ] Banho Gelado - Detox de Dopamina (Banheira de gelo)
+
+
 
 ---
 

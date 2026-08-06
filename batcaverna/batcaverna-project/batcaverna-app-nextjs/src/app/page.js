@@ -270,7 +270,7 @@ class BatmanProfileModel {
     return this.profileData.notes;
   }
 
-  
+
 
   updateGoalProgress(goalId, newProgress) {
     const goal = this.profileData.goals.find(g => g.id === goalId);
@@ -1714,13 +1714,14 @@ const BatmanProfileWidget = () => {
           </div>
         </div>
         <div className="flex flex-wrap gap-2 mb-6">
-          ${['info', 'notas', 'metas', 'perfil'].map(tab => html`<button key=${tab} onClick=${() => setActiveProfileTab(tab)} className=${`profile-tab-btn ${activeProfileTab === tab ? 'active' : ''}`}>${tab === 'info' ? '📊 Info' : tab === 'notas' ? '📝 Notas' : tab === 'metas' ? '🎯 Metas' : '🦇 Perfil'}</button>`)}
+          ${['info', 'notas', 'metas', 'perfil', 'habilidades'].map(tab => html`<button key=${tab} onClick=${() => setActiveProfileTab(tab)} className=${`profile-tab-btn ${activeProfileTab === tab ? 'active' : ''}`}>${tab === 'info' ? '📊 Info' : tab === 'notas' ? '📝 Notas' : tab === 'metas' ? '🎯 Metas' : '🦇 Perfil'}</button>`)}
         </div>
         <div className="batman-card p-6">
           ${activeProfileTab === 'info' && renderInfoTab()}
           ${activeProfileTab === 'notas' && renderNotesTab()}
           ${activeProfileTab === 'metas' && renderGoalsTab()}
           ${activeProfileTab === 'perfil' && renderProfileTab()}
+          ${activeProfileTab === 'habilidades' && html`<${HabitSkillsView} skills=${profileData.skills} isSuperSaiyan=${false} />`}
         </div>
         <div className="mt-6 text-center text-xs text-gray-600"><p>Sistema Batman © 2024. Todos os direitos reservados.</p><p>Gotham City Database v1.0</p></div>
       </div>
@@ -1753,7 +1754,7 @@ const DashboardPainelPage = () => {
       case 'orbit': return html`<${OrbitWidget} />`;
       case 'habit-tracker': return html`<${HabitTrackerWidget} />`;
       case 'perfil': return html`<${BatmanProfileWidget} />`;
-      case 'skills': return html`<${SkillsWidget} />`;
+      //case 'skills': return html`<${SkillsWidget} />`;
       case 'checklist': return html`<${ChecklistWidget} tasks=${tasks} />`;
       case 'tasks': return html`<${ChartWidget} data=${tasks} />`;
       case 'view-markdown': return html`<${MarkdownViewerWidget} markdownText=${tasksMarkdown} />`;
@@ -1771,7 +1772,7 @@ const DashboardPainelPage = () => {
           <${WeeklyFocus} tasks=${tasks} />
           <p>Aqui entra alguns informações pegando o Pikachu Flask API sobre o dia de hoje e requisições GET de API</p>
         </div>
-        <${LinksPanel} />
+     
         <${Footer} />
       </aside>
       <main className="h-3/5 lg:h-auto flex-1 min-h-0 lg:min-w-0 glass-panel flex flex-col p-0">

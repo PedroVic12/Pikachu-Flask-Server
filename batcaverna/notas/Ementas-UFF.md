@@ -1,5 +1,5 @@
 
-# Ciclo Básico - Engenharia
+# Disciplina Obrigatória (Básica)- Engenharia
 
 ## Estátistica I
 
@@ -11,6 +11,28 @@
 
 <candidato371468@fiap.com.br>
 5cc3cc
+
+### Lista de documentos enviados e analsiados
+
+
+- [x] RG
+- [x] cpf
+- [x] certidão de nascimento
+ou casamento
+- [x] histórico escolar
+
+- [x] certificado de conclusão
+do ensino médio ou diploma
+
+- [x] comprovante de quitação
+com as obrigações militares
+
+- [x] comprovante de residência
+
+- [x] título eleitoral
+
+
+## Administração Aplicada a Engenharia
 
 ## Modelos Probabilísticos em Engenharia de Telecomunicações
 
@@ -144,7 +166,7 @@ CADEIAS DE MARKOV, MATRIZ DE TRANSIÇÃO, EVOLUÇÃO DO VETOR DE PROBABILIDADES 
 
 ## Física 2 - Ondas, Fluidos, Gases e Calorimetria
 
-## Física 4 - Óptica e Relatividade Geral
+## Física 4 -*Óptica e Relatividade Geral*
 
 - [ ] Cap 2 : Otíca Geométrica
 - Propagação, reflexão e refração da Luz.
@@ -219,6 +241,32 @@ CADEIAS DE MARKOV, MATRIZ DE TRANSIÇÃO, EVOLUÇÃO DO VETOR DE PROBABILIDADES 
   - Equação de Fokker-Planck
   - Equação mestra
   - Monte Carlo com modelo Ising
+
+---
+
+## Termodinamica I
+
+INTRODUÇÃO A FENÔMENOS DE TRANSPORTE. CONCEITOS E DEFINIÇÕES EM TERMODINÂMICA. PROPRIEDADES DE UMA
+SUBSTÂNCIA PURA. TRABALHO E CALOR. PRIMEIRA LEI DA TERMODINÂMICA. SEGUNDA LEI DA TERMODINÂMICA. ENTROPIA.
+NOÇÕES DE CICLOS DE POTÊNCIA A AR E A VAPOR.
+
+## Laboratorio de Eng eletrica e computação
+
+## Metodologia TCC - Galileu e Newton
+
+## Concepção e Projeto de Engenharia Eletrica
+
+## Fenomenos de Transporte
+
+## Métodos Numéricos (Calculo Vetorial)
+
+## Estrutura de Dados
+
+## Mecanica Geral V
+
+## Resistencia dos materias
+
+## Programação de Computadores
 
 ---
 
@@ -632,6 +680,10 @@ INTRODUÇÃO À ANÁLISE DE CONTROLE USANDO O PYTHON
 
 ---
 
+# Disciplinas Específicas de Cada Currículo
+
+---
+
 # Curriculo 2 - SEP
 
 ## Análise de SEP I
@@ -789,3 +841,9 @@ INTRODUÇÃO À ANÁLISE DE CONTROLE USANDO O PYTHON
 9. IMPLEMENTAÇÃO DIGITAL DE SISTEMAS DE CONTROLE (08 MÓDULOS DE 50 MINUTOS)
 9.1. SIMULAÇÃO DE ALGORITMOS (04 MÓDULOS);
 9.2. IMPLEMENTAÇÃO DE ALGORITMOS DE CONTROLE VIA COMPUTADOR (04 MÓDULOS).
+
+# Disciplinas Optativas e Atividades Complementares
+
+## Introdução ao Empreendedorismo - A1
+
+QUE É E O QUE NÃO É EMPREENDEDORISMO. FORMAS DE EMPREENDER (TIPOS). QUEM SÃO OS EMPREENDEDORES NO BRASIL? TRANSFORMAÇÕES CONTEMPORÂNEAS E O EMPREENDEDORISMO (MEI, PJ, E EMPREENDIMENTO).  ASPECTOS LEGAIS DE UM EMPREENDIMENTO. COMO NASCE UM EMPREENDIMENTO (EFECTUAL E/OU CAUSAL). CRIATIVIDADE, INOVAÇÃO E SEUS IMPACTOS. COMPORTAMENTO EMPREENDEDOR. ATITUDE EMPREENDEDORA. PROCESSO EMPREENDEDOR, MODELAGEM DE NEGÓCIO E SUAS REPRESENTAÇÕES. VALIDAÇÃO DO MODELO DE NEGÓCIO. FONTES DE RECURSOS PARA EMPREENDER. FINANCIANDO EMPREENDIMENTO TRADICIONAIS E INOVADORES.
