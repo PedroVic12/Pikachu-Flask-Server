@@ -1,11 +1,17 @@
-// =====================================================================
-// 2. MODELOS E CONTROLLERS DE DADOS
-// =====================================================================
+"use client";
+
+import React from 'react';
+import * as XLSX from 'xlsx';
+
+// Configurando o localstorage
+const localStorageRef = typeof window !== 'undefined'
+  ? window.localStorage
+  : { getItem: () => null, setItem: () => null, removeItem: () => null };
 
 // ---------------------------------------------------------------------
 // 2.1 DataBaseController – Gerenciamento localStorage e exportação
 // ---------------------------------------------------------------------
-class DataBaseController {
+export class DataBaseController {
   static KEYS = {
     TASKS: 'bat_tasks_v3',
     SKILLS: 'dashboard-skills-v1',
@@ -17,7 +23,7 @@ class DataBaseController {
   };
 
   static get(key, defaultValue) {
-    const storedValue = localStorage.getItem(key);
+    const storedValue = localStorageRef.getItem(key);
     if (storedValue === null || storedValue === "null") return defaultValue;
     try {
       return storedValue ? JSON.parse(storedValue) : defaultValue;
@@ -27,8 +33,10 @@ class DataBaseController {
   }
 
   static set(key, value) {
-    localStorage.setItem(key, JSON.stringify(value));
-    window.dispatchEvent(new CustomEvent('bat_storage_update', { detail: { key, value } }));
+    localStorageRef.setItem(key, JSON.stringify(value));
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('bat_storage_update', { detail: { key, value } }));
+    }
   }
 
   static formatDate(date) {
@@ -42,7 +50,7 @@ class DataBaseController {
   static exportToXlsx(key, filename) {
     const data = this.get(key, null);
     if (!data) {
-      alert("Nenhum dado encontrado para esta chave.");
+      if (typeof window !== 'undefined') alert("Nenhum dado encontrado para esta chave.");
       return;
     }
     let ws;
@@ -77,7 +85,7 @@ class DataBaseController {
 // ---------------------------------------------------------------------
 // 2.2 DashboardModel – Busca e parse do Markdown (tarefas)
 // ---------------------------------------------------------------------
-class DashboardModel {
+export class DashboardModel {
   async fetchAndProcessMarkdown() {
     const GITHUB_MARKDOWN_URL = "https://raw.githubusercontent.com/PedroVic12/Pikachu-Flask-Server/refs/heads/main/batcaverna/batcaverna_pv.md";
     const DEFAULT_TASKS_MD = `# 🦇 Projetos Bat-Caverna __IN_PROGRESS\n- [ ] Carregando dados do GitHub...`;
@@ -169,4 +177,193 @@ class DashboardModel {
       constellations: constellationsByMonth[now.getMonth()] || []
     };
   }
+}
+
+// ---------------------------------------------------------------------
+// 3.1 useSkillsController – Gerencia habilidades, XP, rotinas
+// ---------------------------------------------------------------------
+export const DEFAULT_SKILLS_DATA = {
+  currentXP: 9311,
+  totalXP: 45000,
+  level: 7,
+  improvementPoints: 1,
+  unlockedSkills: [
+    { id: 'code1', name: 'Lógica em Python & React', category: 'code', description: 'Aumenta a velocidade de codificação em 15%', level: 1, maxLevel: 5 },
+    { id: 'body_mind1', name: 'Calistenia Básica', category: 'body_mind', description: 'Garante energia para codar. Meta: 100 flexões', level: 1, maxLevel: 3 },
+  ],
+  availableSkills: [
+    { id: 'engineering1', name: 'Domínio do Anarede & SEP', category: 'engineering', description: 'Resolve fluxos de potência 30% mais rápido no ONS', xpCost: 1500, requiredLevel: 8 },
+    { id: 'code2', name: 'Arquitetura Tauri v2 (Rust)', category: 'code', description: 'Cria apps desktop consumindo 50% menos RAM', xpCost: 1200, requiredLevel: 7 },
+    { id: 'body_mind2', name: 'Hiperfoco (Gestão TDAH)', category: 'body_mind', description: 'Bloqueia distrações externas por 2 horas', xpCost: 1800, requiredLevel: 9 },
+  ],
+  objectives: [
+    { id: 'obj1', name: 'Engenheiro Full-Stack', description: 'Alcançar o Nível 10 unindo SEP e Desenvolvimento', xpReward: 2000, completed: false },
+    { id: 'obj2', name: 'Mestre das Ferramentas', description: 'Desbloquear 5 habilidades entre Next.js, Python e Matemática', xpReward: 1500, completed: false, current: 2, target: 5 },
+    { id: 'obj3', name: 'Disciplina de Ferro', description: 'Completar o Protocolo Hard Reset 7 vezes', xpReward: 1000, completed: false, current: 3, target: 7 },
+  ],
+  dailyRoutines: [
+    { id: 'morning', name: 'Ignição Matinal', time: '06:30-08:00', tasks: ['Acordar', 'Treino Caseiro (Força/ABS)', 'Alinhar tarefas do dia'], completed: true },
+    { id: 'work', name: 'Estágio ONS (Foco Profundo)', time: '08:30-17:30', tasks: ['Scripts Python/Pandas', 'Simulações Organon/Anarede', 'Revisar pendências'], completed: false },
+    { id: 'study', name: 'Batcaverna (Estudos & Code)', time: '19:30-21:30', tasks: ['Teoria UFF (Sadiku/Stevenson)', 'Codar Projetos Web/Desktop'], completed: false },
+    { id: 'evening', name: 'Descompressão', time: '21:30-23:00', tasks: ['Jogo do Fluzão / The Witcher', 'Jantar', 'Preencher Log_Template.md'], completed: false },
+  ],
+  skillCategories: [
+    { id: 'code', name: 'Desenvolvimento (Code)', total: 25, unlocked: 9 },
+    { id: 'engineering', name: 'Engenharia Elétrica (UFF/ONS)', total: 25, unlocked: 6 },
+    { id: 'body_mind', name: 'Corpo & Mente (Treino/Foco)', total: 25, unlocked: 6 },
+  ]
+};
+
+export function useSkillsController() {
+  const [skillsData, setSkillsData] = React.useState(() => DataBaseController.get(DataBaseController.KEYS.SKILLS, DEFAULT_SKILLS_DATA));
+  const xpPercentage = Math.round((skillsData.currentXP / skillsData.totalXP) * 100);
+  const xpToNextLevel = skillsData.totalXP - skillsData.currentXP;
+
+  const unlockSkill = (skillId) => {
+    setSkillsData(prev => {
+      const skill = prev.availableSkills.find(s => s.id === skillId);
+      if (!skill || prev.improvementPoints <= 0 || prev.currentXP < skill.xpCost || prev.level < skill.requiredLevel) return prev;
+      const newUnlocked = {
+        id: skill.id,
+        name: skill.name,
+        category: skill.category,
+        description: skill.description,
+        level: 1,
+        maxLevel: skill.maxLevel || 3
+      };
+      const updatedSkills = {
+        ...prev,
+        improvementPoints: prev.improvementPoints - 1,
+        currentXP: prev.currentXP - skill.xpCost,
+        unlockedSkills: [...prev.unlockedSkills, newUnlocked],
+        availableSkills: prev.availableSkills.filter(s => s.id !== skillId)
+      };
+      DataBaseController.set(DataBaseController.KEYS.SKILLS, updatedSkills);
+      return updatedSkills;
+    });
+  };
+
+  const completeRoutine = (routineId) => {
+    setSkillsData(prev => {
+      const updatedRoutines = prev.dailyRoutines.map(routine =>
+        routine.id === routineId ? { ...routine, completed: true } : routine
+      );
+      const updatedSkills = {
+        ...prev,
+        dailyRoutines: updatedRoutines,
+        currentXP: prev.currentXP + 250,
+        objectives: prev.objectives.map(obj => {
+          if (obj.id === 'obj3') {
+            const newCurrent = (obj.current || 0) + 1;
+            return { ...obj, current: newCurrent, completed: newCurrent >= obj.target };
+          }
+          return obj;
+        })
+      };
+      DataBaseController.set(DataBaseController.KEYS.SKILLS, updatedSkills);
+      return updatedSkills;
+    });
+  };
+
+  const resetDailyRoutines = () => {
+    setSkillsData(prev => {
+      const updatedSkills = {
+        ...prev,
+        dailyRoutines: prev.dailyRoutines.map(routine => ({ ...routine, completed: false }))
+      };
+      DataBaseController.set(DataBaseController.KEYS.SKILLS, updatedSkills);
+      return updatedSkills;
+    });
+  };
+
+  const completeObjective = (objectiveId) => {
+    setSkillsData(prev => {
+      const objective = prev.objectives.find(obj => obj.id === objectiveId);
+      if (!objective || objective.completed) return prev;
+      const updatedSkills = {
+        ...prev,
+        objectives: prev.objectives.map(obj => obj.id === objectiveId ? { ...obj, completed: true } : obj),
+        currentXP: prev.currentXP + objective.xpReward
+      };
+      DataBaseController.set(DataBaseController.KEYS.SKILLS, updatedSkills);
+      return updatedSkills;
+    });
+  };
+
+  return { skillsData, xpPercentage, xpToNextLevel, unlockSkill, completeRoutine, resetDailyRoutines, completeObjective };
+}
+
+// ---------------------------------------------------------------------
+// 3.2 useDashboardController – Gerencia tarefas, tempo, dados astro
+// ---------------------------------------------------------------------
+export function useDashboardController() {
+  const model = React.useMemo(() => new DashboardModel(), []);
+  const [activeView, setActiveView] = React.useState('kanban');
+  const [currentTime, setCurrentTime] = React.useState('');
+  const [astroData, setAstroData] = React.useState({ moonPhase: {}, fishingForecast: {}, constellations: [] });
+  const [tasksMarkdown, setTasksMarkdown] = React.useState(() => DataBaseController.get(DataBaseController.KEYS.TASKS, ''));
+  const tasks = React.useMemo(() => model.parseTasksFromMarkdown(tasksMarkdown), [tasksMarkdown, model]);
+
+  React.useEffect(() => {
+    const fetchMarkdown = async () => {
+      const GITHUB_MARKDOWN_URL = "https://raw.githubusercontent.com/PedroVic12/Pikachu-Flask-Server/refs/heads/main/batcaverna/batcaverna_pv.md";
+      try {
+        const response = await fetch(GITHUB_MARKDOWN_URL + `?cachebust=${new Date().getTime()}`);
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        const text = await response.text();
+        setTasksMarkdown(currentMarkdown => {
+          if (text !== currentMarkdown) {
+            DataBaseController.set(DataBaseController.KEYS.TASKS, text);
+            return text;
+          }
+          return currentMarkdown;
+        });
+      } catch (error) {
+        console.error("❌ Erro ao buscar markdown, usando local:", error.message);
+      }
+    };
+    fetchMarkdown();
+    const pollInterval = setInterval(fetchMarkdown, 60000);
+    return () => clearInterval(pollInterval);
+  }, []);
+
+  React.useEffect(() => {
+    const intervalId = setInterval(() => {
+      setCurrentTime(new Date().toLocaleTimeString('pt-BR'));
+      setAstroData(model.getAstroData());
+    }, 1000);
+    setCurrentTime(new Date().toLocaleTimeString('pt-BR'));
+    setAstroData(model.getAstroData());
+    return () => clearInterval(intervalId);
+  }, [model]);
+
+  const handleMarkdownChange = (e) => {
+    const newMarkdown = e.target.value;
+    setTasksMarkdown(newMarkdown);
+    DataBaseController.set(DataBaseController.KEYS.TASKS, newMarkdown);
+  };
+
+  const handleKanbanUpdate = (cardLabel, newStatus) => {
+    const lines = tasksMarkdown.split('\n');
+    const categoryIndex = lines.findIndex(line => line.trim().startsWith(`# ${cardLabel}`));
+    if (categoryIndex !== -1) {
+      let headerLine = lines[categoryIndex];
+      headerLine = headerLine.replace(/__([A-Z_]+)$/, '').trim();
+      lines[categoryIndex] = `${headerLine} __${newStatus}`;
+      const newMarkdown = lines.join('\n');
+      setTasksMarkdown(newMarkdown);
+      DataBaseController.set(DataBaseController.KEYS.TASKS, newMarkdown);
+    }
+  };
+
+  return {
+    activeView,
+    setActiveView,
+    currentTime,
+    ...astroData,
+    tasks,
+    tasksMarkdown,
+    handleMarkdownChange,
+    handleKanbanUpdate
+  };
 }
