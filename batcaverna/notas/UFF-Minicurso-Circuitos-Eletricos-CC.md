@@ -1,7 +1,5 @@
 # TCC Pedro Victor
 
-
-
 ## Ideias e INsights
 
 - Geração de Energia Eletrica

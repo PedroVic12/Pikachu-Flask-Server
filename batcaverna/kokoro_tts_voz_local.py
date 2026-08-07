@@ -1,3 +1,5 @@
+import sys
+from pathlib import Path
 from kokoro import KPipeline
 import soundfile as sf
 import numpy as np
@@ -5,6 +7,10 @@ import sounddevice as sd
 import os
 
 # uv pip install kokoro>=0.9.4 soundfile sounddevice numpy  
+
+#! rode no terminal
+
+# uv run kokoro_tts_voz_local.py texto_entrada.txt
 
 VOICES = [
     "af_heart", # default
@@ -22,8 +28,19 @@ pipeline = KPipeline(
     lang_code=LANGUAGE,
 )
 
-def falar_tts_local(texto, voice, playback=False):
-    generator = pipeline(texto, voice=voice)
+
+def carregar_texto(texto_entrada):
+    if isinstance(texto_entrada, (str, os.PathLike)):
+        caminho = Path(texto_entrada)
+        if caminho.exists() and caminho.is_file():
+            return caminho.read_text(encoding="utf-8")
+    return str(texto_entrada)
+
+
+def falar_tts_local(texto, voice, playback=False, output_path="fala_completa.wav"):
+    texto_final = carregar_texto(texto)
+    print(f"Texto de entrada carregado: {texto_final[:120]}...")
+    generator = pipeline(texto_final, voice=voice)
     results = list(generator)
 
     # gerando audios
@@ -33,30 +50,36 @@ def falar_tts_local(texto, voice, playback=False):
         print(f"[{i}] graphemes: {gs}")
         print(f"\n[{i}] phonemes: {ps}")
 
-    # playback
-    if playback and results:
+    if results:
         stream = np.concatenate([audio for _, _, audio in results])
-        sd.play(stream, samplerate=sample_rate)
-        sd.wait()
+
+        if playback:
+            sd.play(stream, samplerate=sample_rate)
+            sd.wait()
+
+        output_file = Path(output_path)
+        sf.write(str(output_file), stream, sample_rate)
+        print(f"Áudio completo salvo como {output_file}")
+    else:
+        print("Nenhum áudio foi gerado.")
 
     return [audio for _, _, audio in results]
 
 
 def main():
     print("\n\nIniciando o Kokoro TTS local...\n\n")
-    texto = "Olá, tudo bem? Eu sou a voz do Kokoro TTS!"
 
-    texto_VIVIANE = """
-    Olá Viviane Gomes, tudo bem? Aqui é a nova voz do Kokoro TTS e estou muito feliz em poder falar com você! O metre Pedro victor sempre fala muito bem de você. Enfim, estou aqui para te atualizar sobre os progessos dos serviços de programação e automação que ele vem desenvolvendo. Agora eu tenho acesso local ao computador dele em Campo Grande, onde posso ativar serviços e disparar diferentes comandos no computador dele, na hora que eu quiser! haha . Ele me pediu para te dar um recado: Ele esta com com Save no jogo do Jurassic park para iniciar um novo jogo do Parque com uma nova familia de dinossauros junto com você, além disso. Ele está no seu aguardo para jogar missão "Vinho do Divino" no jogo The witcher 3, junto com você no Discord. Eu sei que vocês se gostam muito, espero falar com você novamente em breve. Até logo! 
-    """
+    if len(sys.argv) < 2:
+        print("Informe o caminho do arquivo .txt para gerar a fala.")
+        return
 
-    results = falar_tts_local(texto_VIVIANE, VOICE, playback=True)
+    caminho = Path(sys.argv[1])
+    if not caminho.exists() or not caminho.is_file():
+        print(f"Arquivo não encontrado: {caminho}")
+        return
 
-    # salvando os audios gerados
-    for i, audio in enumerate(results):
-        filename = f"output_{i + 1}.wav"
-        sf.write(filename, audio, sample_rate)
-        print(f"Áudio {i + 1} salvo como {filename}")
+    print(f"Lendo texto do arquivo: {caminho}")
+    falar_tts_local(caminho, VOICE, playback=True, output_path="fala_completa.wav")
 
 
 if __name__ == "__main__":
