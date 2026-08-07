@@ -3,38 +3,38 @@
 
 ## 1º Período
 
-- Construção de página web
-- Projeto de Algortimos e Estrutura de Dados
-- Ingles
-- Introdução á informática
+- [x] Construção de página web -> estação hack from Facebook (backend e frontend)
+- [x] Projeto de Algortimos e Estrutura de Dados
+- [x] Ingles
+- [x] Introdução á informática
 
 ## 2º Período
 
-- Fundamentos de algoritmos para computação
-- Fundamentos de programação
-- Organização de computadores
-- Álgebra Linear
+- [x] Fundamentos de algoritmos para computação
+- [x] Fundamentos de programação
+- [x] Organização de computadores
+- [x] Álgebra Linear
 
 ## 3º Período
 
-- Programação com Interfaces Gráficas (PyQt6, C++, Flutter e Tauri V2 (Rust com Javascript) 
-- Matemática para computação
-- Estrutura de Dados
-- Física para computação
+- [x] Programação com Interfaces Gráficas -> PyQt6, C++, Flutter e Tauri V2 (Rust com Javascript) 
+- [x] Matemática para computação
+- [x] Estrutura de Dados
+- [x] Física para computação
 
 
 ## 4º Período
-- Programação Orientada a Objetos
-- Modelagem de informação
-- Probalidade e Estátistica
-- Banco de Dados
-- Sistemas Operacionais (Sistemas de computação)
+- [x] Programação Orientada a Objetos
+- [x] Modelagem de informação
+- [x] Probalidade e Estátistica
+- [x] Banco de Dados
+- [x] Sistemas Operacionais (Sistemas de computação)
 
 ## 5º Período
 
-- Programação de aplicações Web
+- [x] Programação de aplicações Web
 - Análises de Sistemas
-- Engenharia de Software
+- [x] Engenharia de Software
 - Redes de Computadores I
 
 ## 6º Período
