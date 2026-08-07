@@ -240,8 +240,39 @@ Concluído
 
 ---
 
+# Estudos UFF 2026.2
+
+- [ ] Circuitos Elétricos CC
+- [x] Cálculo 1,2,3 e 4 (Até EDOs e Transformada de Laplace - RLC)
+- [x] Estatística I
+- [x] Estatística II
+- [x] Transmissão de calor I
+- [x] Fenomemos de transporte (Mecanica dos fluidos)
+- [x] Controle e qualidade - Administração (Metodos estatísticos)
+
+- [ ] Sinais e Sistemas
+- [x] Cálculo 2 e 3 (cálculo vetorial)
+- [x] Calculo Vetorial com Metodos Numéricos em Julia usando apenas Cálculo 1 e Plots no youtube
+- [x] Minicurso Circuitos eletricos CC (Youtube com resolução de exercicios, python e Julia)
+- [ ] Circuitos Digitais I  
+- [x] Programação para Data Science (Julia, Plots.jl, Pandas, Plotly, Scipy, sympy)
+- [ ] Circuitos Elétricos CA
+- [ ] Eletromagnetismo I - Campos estáticos
+- [ ] Sistemas de controle I, II e III
+- [ ] Análise de SEP I, II
+  - Teorema de Norton e Thevenin
+  - Máx de transf. de potência
+  - Fluxo de potência
+  - Curto circuito
+  - Barra Swing
+
+- [ ] IEEDs
+- [ ] Sistema de computação
+
 # Estudos Elétricos do ONS para SEP
 
+- Transformador em Fase
+- Geradores, Reatores e Transformadores com suas linhas de transmissão. 3 bus, 5 bus, 7 bus...
 - Barra swing
 - Reator Shunt
 - Barras PQ E PV
