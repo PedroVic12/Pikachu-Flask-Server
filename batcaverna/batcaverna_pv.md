@@ -2,7 +2,7 @@
 
 ---
 
-📅 Data: **07/08/2026** - *Sexta Feira*
+📅 Data: *10/08/2026** - *Segunda Feira*
 
 **hello world, novo semestre**
 
