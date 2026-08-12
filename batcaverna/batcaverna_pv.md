@@ -2,11 +2,11 @@
 
 ---
 
-📅 Data: *10/08/2026** - *Segunda Feira*
+📅 Data: *12/08/2026** - *Quarta Feira*
 
 **hello world, novo semestre**
 
-# ⚡📑 ÍNDICE RÁPIDO
+# ⚡📑 ÍNDICE
 
 ## **JOBS**
 
@@ -84,6 +84,161 @@ Concluído
 - Tarefas com entrega com datas claras e acompanhmento do processo em tempo real
 
 ---
+
+# Rotinas de Dono de Casa (Homem TDAH Adulto)
+
+- Melhores a cada dia
+- respeito
+- Disciplina e Responsabilidaed
+
+- [ ] Tomar banho
+- [ ] Vestir roupas limpas
+- [ ] Lavar o Rosto e fazer Skin Care
+- [ ] Exercicio Físicos
+- [ ] Alongamento de Quadril, Ombra, Colunas e Core
+- [ ] Limpeza arpatamento
+- [ ] Alinhamento Espiritual matinal
+- [ ] Banho Gelado - Detox de Dopamina (Banheira de gelo)
+
+---
+
+# Jogos
+
+- [x] FIFA 19 - Modo Carreira 19 e 26
+- [x] COD Black OPS 1 - Guerra Fria
+- [x] COD Black OPS 2 - 2025 Guerra moderna
+- [x] SMITE 2 ou League of Legends Classic ou Dota 2
+- [x] The witcher 3
+- [x] Pokemon Radical RED
+- [x] FIFA 14:
+  - <https://www.reddit.com/r/FifaCareers/comments/1rjnorf/how_to_download_fifa_14_on_pc_for_free/?tl=pt-br>
+  - <https://drive.google.com/file/d/1c8R35D2lMrK827zOIjWrMJ1jP2j0ipgZ/view>
+
+# Corpo x Mente X Espírito
+
+## Mundo espiritual
+
+- alinhamento espíritual do dia
+- rotina de evangelho do dia e salmos
+- leitura de Gênesis, Evangelho, Profetas e Profecias, Atos dos apóstolos, Apocalipse
+
+- periodos do calendário católico
+
+- santo terço e Detox de pensamento ruins e diminuição de ansiedade
+
+- Curso Raízes de Aruanda e postagem no blog
+
+- previsão março de 2026 - hudd (conversar com o bruxo)
+
+- previsão maio e junho de 2026 - hudd
+
+- 2 missões espirituais em 60 dias
+- "ensinar a fazer certa pessoa próxima a encontrar seus talentos no meio de trabalho"
+
+- "minha mente funciona de forma diferente, eu vim para incomodar. Estou aqui para questionar e demonstrar matemática e cientificamente falando assuntos que instiguem na evolução da raça humana."
+
+ programação, engenharia elétrica, ética
+
+- estado de espírito
+
+- Aura, Espírito e Mente
+
+- Campo energético vibracional do ser humano (potencial do campo elétrico do cérebro)
+
+- sessões de confissões de pecados com terço da misericórdia com exame de consciência
+
+---
+
+# PVRV 2026
+
+---
+
+## Terapia TCC 2025-2026
+
+- Fim de relacionamento Danielle
+
+- Desregulação emocional por TDAH e com ma alimentação e falta de treinos
+
+- TCC com cartões de enfrentamento com mudanças de hábitos e tarefas com uso de Atentah e Venvanse em gotas
+
+- Estudos UFF X Coding X JOBS x Treinos X PVRV (jedi cyberpunk)
+
+- Desapego e dependência emocional
+
+- Uso compulsivos de substâncias dopaminergerticas (uso de telas, maconha, masturbação)
+
+- Auto estima, autocríticas, autoconfiança e síndrome do impostor
+
+- timidez e crenças limitantes por traumas infantis
+
+- Soft Skills para UFF e ONS
+
+- Sobrecarga de tarefas com cartões de enfrentamento e ferramentas de produtividade para gerenciamento de tempo e tomadas de decisões baseado em dados
+
+- Início de relacionamento Viviane
+
+- a saúde mental x espiritual na prática
+
+---
+
+# Planejamento e organização PVRV
+
+- [ ] Planejamento financeiro (Financial APP)
+  - [x] Dezembro
+  - [x] Janeiro
+  - [ ] Fevereiro
+  - [ ] Março
+  - [ ] Projeção do grafico com derivdas
+  - [ ] taxa de rendimento do salario ONS com 5% e 10% ao mes
+
+- [ ] Planilhas Horarios + Planilha de controle financeiro + Planilhas de treinos
+
+- [x] planilha de contas a pagar do aluguel em Niterói
+
+- [ ] passar a limpo screenshots e anotações do caderno para os blogs
+
+- [ ] requisitos, responsabilidades e atividades na PLC ONS como guia no Word ou Obsidian
+
+---
+
+# Rotina
+
+- [ ] UFF
+- [ ] CODING
+- [ ] CORPO
+- [ ] MENTE
+- [ ] ESPIRITO
+
+---
+
+# Estudos UFF 2026.2
+
+- [ ] Circuitos Elétricos CC
+- [x] Cálculo 1,2,3 e 4 (Até EDOs e Transformada de Laplace - RLC)
+- [x] Estatística I
+- [x] Estatística II
+- [x] Transmissão de calor I
+- [x] Fenomemos de transporte (Mecanica dos fluidos)
+- [x] Controle e qualidade - Administração (Metodos estatísticos)
+
+- [ ] Sinais e Sistemas
+- [x] Cálculo 2 e 3 (cálculo vetorial)
+- [x] Calculo Vetorial com Metodos Numéricos em Julia usando apenas Cálculo 1 e Plots no youtube
+- [x] Minicurso Circuitos eletricos CC (Youtube com resolução de exercicios, python e Julia)
+- [ ] Circuitos Digitais I  
+- [x] Programação para Data Science (Julia, Plots.jl, Pandas, Plotly, Scipy, sympy)
+- [ ] Circuitos Elétricos CA
+- [ ] Eletromagnetismo I - Campos estáticos
+- [ ] Sistemas de controle I, II e III
+- [ ] Análise de SEP I, II
+  - Teorema de Norton e Thevenin
+  - Máx de transf. de potência
+  - Fluxo de potência
+  - Curto circuito
+  - Barra Swing
+
+- [ ] IEEDs
+- [ ] Sistema de computação
 
 # Atividades e Checklists
 
@@ -226,21 +381,19 @@ Concluído
 
 ---
 
-# Jogos
-
-- [x] FIFA 19 - Modo Carreira 19 e 26
-- [x] COD Black OPS 1 - Guerra Fria
-- [x] COD Black OPS 2 - 2025 Guerra moderna
-- [x] SMITE 2 ou League of Legends Classic ou Dota 2
-- [x] The witcher 3
-- [x] Pokemon Radical RED
-- [x] FIFA 14:
-  - <https://www.reddit.com/r/FifaCareers/comments/1rjnorf/how_to_download_fifa_14_on_pc_for_free/?tl=pt-br>
-  - <https://drive.google.com/file/d/1c8R35D2lMrK827zOIjWrMJ1jP2j0ipgZ/view>
+# Tarefas e Estudos Pendentes
 
 ---
 
+# JOBS 2026
+
+- [ ] Pesquisa e Desenvolvimetno UFF + IA + SEP e Simulações em 3D
+- [ ] Vaga PJ R$ 5000 reais para Analista de dados JR com python,  vba,julia e javascipt
+- [ ] Freelancer SEO com google meu negocio usando webistes vitrine com alcance de clicks dos usuários
+
 # Estudos UFF 2026.2
+
+- [ ] Aulas de robotica com Arduino (Carrinho lutador)
 
 - [ ] Circuitos Elétricos CC
 - [x] Cálculo 1,2,3 e 4 (Até EDOs e Transformada de Laplace - RLC)
@@ -248,92 +401,6 @@ Concluído
 - [x] Estatística II
 - [x] Transmissão de calor I
 - [x] Fenomemos de transporte (Mecanica dos fluidos)
-- [x] Controle e qualidade - Administração (Metodos estatísticos)
-
-- [ ] Sinais e Sistemas
-- [x] Cálculo 2 e 3 (cálculo vetorial)
-- [x] Calculo Vetorial com Metodos Numéricos em Julia usando apenas Cálculo 1 e Plots no youtube
-- [x] Minicurso Circuitos eletricos CC (Youtube com resolução de exercicios, python e Julia)
-- [ ] Circuitos Digitais I  
-- [x] Programação para Data Science (Julia, Plots.jl, Pandas, Plotly, Scipy, sympy)
-- [ ] Circuitos Elétricos CA
-- [ ] Eletromagnetismo I - Campos estáticos
-- [ ] Sistemas de controle I, II e III
-- [ ] Análise de SEP I, II
-  - Teorema de Norton e Thevenin
-  - Máx de transf. de potência
-  - Fluxo de potência
-  - Curto circuito
-  - Barra Swing
-
-- [ ] IEEDs
-- [ ] Sistema de computação
-
-# Estudos Elétricos do ONS para SEP
-
-- Transformador em Fase
-- Geradores, Reatores e Transformadores com suas linhas de transmissão. 3 bus, 5 bus, 7 bus...
-- Barra swing
-- Reator Shunt
-- Barras PQ E PV
-- Transformador em Fase
-- Ferramentas FLOW 9.0
-- anaRede x Organon x Pandapower
-- Casos Máxima e Mínima (Noturna e Diurna)
-- Inércia do sistema
-- análise de circuitos RLC com impedância e reatância (capacitiva ou reativa)
-- Potência Ativa x Reativa
-- fluxo de potência e Curto circuito
-
-- Transmissão X Geração X Distribuição
-- RCE: Agendamento ótimo de análise de contingências para intervenções no Sistema Elétrico
--
-
----
-
-# 🔚 Rotina de Encerramento da Semana
-
----
-
-## 🏭 ONS
-
-## Rotina
-
-- [x] ONS
-- [ ] UFF
-- [ ] CODING
-- [ ] CORPO
-- [ ] MENTE
-- [ ] ESPIRITO
-
-## ✔ Concluído
-
-- [ ] ONS:
-- [ ] Estudos (UFF):
-- [ ] Código/Projetos:
-- [ ] Treino:
-
-## ⚠️ Pendências
-
-## 🔍 Diagnóstico
-
-- O que funcionou:
-- O que faltou:
-- O que cortar:
-
-## 🎯 Top 3 da próxima semana
-
-- [ ] 1.
-- [ ] 2.
-- [ ] 3.
-
----
-
-# Tarefas e Estudos Pendentes
-
----
-
-<a id="tarefas-ons-plc-2026"></a>
 
 - [ ] FastAPI x Flask x Django x Drogon C++ x Nodejs(express) - projetos backend
 
@@ -370,212 +437,29 @@ Concluído
 
 ---
 
-# PVRV 2026
-
 ---
 
-## Terapia TCC 2025-2026
+# Estudos Elétricos do ONS para SEP
 
-- Fim de relacionamento Danielle
+- Transformador em Fase
+- Geradores, Reatores e Transformadores com suas linhas de transmissão. 3 bus, 5 bus, 7 bus...
+- Barra swing
+- Reator Shunt
+- Barras PQ E PV
+- Transformador em Fase
+- Ferramentas FLOW 9.0
+- anaRede x Organon x Pandapower
+- Casos Máxima e Mínima (Noturna e Diurna)
+- Inércia do sistema
+- análise de circuitos RLC com impedância e reatância (capacitiva ou reativa)
+- Potência Ativa x Reativa
+- fluxo de potência e Curto circuito
 
-- Desregulação emocional por TDAH e com ma alimentação e falta de treinos
-
-- TCC com cartões de enfrentamento com mudanças de hábitos e tarefas com uso de Atentah e Venvanse em gotas
-
-- Estudos UFF X Coding X JOBS x Treinos X PVRV (jedi cyberpunk)
-
-- Desapego e dependência emocional
-
-- Uso compulsivos de substâncias dopaminergerticas (uso de telas, maconha, masturbação)
-
-- Auto estima, autocríticas, autoconfiança e síndrome do impostor
-
-- timidez e crenças limitantes por traumas infantis
-
-- Soft Skills para UFF e ONS
-
-- Sobrecarga de tarefas com cartões de enfrentamento e ferramentas de produtividade para gerenciamento de tempo e tomadas de decisões baseado em dados
-
-- Início de relacionamento Viviane
-
-- a saúde mental x espiritual na prática
+- Transmissão X Geração X Distribuição
+- RCE: Agendamento ótimo de análise de contingências para intervenções no Sistema Elétrico
+-
 
 ---
-
-# Planejamento e organização PVRV
-
-- [ ] Planejamento financeiro (Financial APP)
-  - [x] Dezembro
-  - [x] Janeiro
-  - [ ] Fevereiro
-  - [ ] Março
-  - [ ] Projeção do grafico com derivdas
-  - [ ] taxa de rendimento do salario ONS com 5% e 10% ao mes
-
-- [ ] Planilhas Horarios + Planilha de controle financeiro + Planilhas de treinos
-
-- [ ] marcar terapia e nutricionista no Optum digital
-
-- [ ] planilha de contas a pagar do aluguel em Niterói
-
-- [ ] passar a limpo screenshots e anotações do caderno para os blogs
-
-- [ ] requisitos, responsabilidades e atividades na PLC ONS como guia no Word ou Obsidian
-
----
-
-## Sistema único de estudo
-
-Use **1 bloco por tema(assunto)**:
-
-### 1) Captura
-
-- ler aula/lista
-- marcar o que caiu na prova
-
-### 2) Recuperação
-
-- flashcards
-- perguntas em vez de notas
-- Cornell reverso
-
-### 3) Fixação
-
-- simulado / prova antiga
-- explicar em voz alta
-- brain dump no caderno/blog
-
-### 4) Consolidação
-
-- mapa mental
-- revisão em 3 dias / 1 semana / 1 mês
-
----
-
-## Ordem ideal no mesmo bloco
-
-```text
-1. Estudo curto do conteúdo
-2. Fechar o material
-3. Responder de memória
-4. Conferir resposta em 30s
-5. Fazer 1 flashcard
-6. Fazer 1 pergunta Cornell
-7. Desenhar 1 mapa mental pequeno
-8. Registrar no .md
-```
-
-## Planner X Atividade de Rotina PLC x Cronograma
-
----
-
-## Regra prática
-
-- **Se errou** → vira flashcard
-- **Se caiu em prova** → vira questão
-- **Se é conceito central** → vira mapa mental
-- **Se é explicação boa** → vira brain dump resumido
-
----
-
-## Para sua prova de Circuitos Digitais
-
-Priorize só:
-
-- mapas de Karnaugh
-- tabela verdade
-- simplificação booleana
-- portas lógicas
-- formas SOP/POS
-
----
-
-## Template rápido de anotação
-
-```md
-## Tema
-## Questões-chave
-- [ ] ...
-
-## Resposta de memória
-- ...
-
-## Flashcard
-Q:
-A:
-
-## Erros
-- ...
-
-## Revisão
-- 3 dias
-- 1 semana
-- 1 mês
-```
-
----
-
-## Regra anti-ansiedade
-
-Não use as 7 técnicas em tudo.
-Use **2 principais + 2 de apoio** por assunto.
-
-Para a provas da UFF:
-
-- principais: **simulado + perguntas**
-- apoio: **flashcards + revisão espaçada**
-
----
-
-# Rotinas de Dono de Casa (Homem TDAH Adulto)
-
-- Melhores a cada dia
-- respeito
-- Disciplina e Responsabilidaed
-
-- [ ] Tomar banho
-- [ ] Vestir roupas limpas
-- [ ] Lavar o Rosto e fazer Skin Care
-- [ ] Exercicio Físicos
-- [ ] Alongamento de Quadril, Ombra, Colunas e Core
-- [ ] Limpeza arpatamento
-- [ ] Alinhamento Espiritual matinal
-- [ ] Banho Gelado - Detox de Dopamina (Banheira de gelo)
-
----
-
-# Corpo x Mente X Espírito
-
-## Mundo espiritual
-
-- alinhamento espíritual do dia
-- rotina de evangelho do dia e salmos
-- leitura de Gênesis, Evangelho, Profetas e Profecias, Atos dos apóstolos, Apocalipse
-
-- periodos do calendário católico
-
-- santo terço e Detox de pensamento ruins e diminuição de ansiedade
-
-- Curso Raízes de Aruanda e postagem no blog
-
-- previsão março de 2026 - hudd (conversar com o bruxo)
-
-- previsão maio e junho de 2026 - hudd
-
-- 2 missões espirituais em 60 dias
-- "ensinar a fazer certa pessoa próxima a encontrar seus talentos no meio de trabalho"
-
-- "minha mente funciona de forma diferente, eu vim para incomodar. Estou aqui para questionar e demonstrar matemática e cientificamente falando assuntos que instiguem na evolução da raça humana."
-
- programação, engenharia elétrica, ética
-
-- estado de espírito
-
-- Aura, Espírito e Mente
-
-- Campo energético vibracional do ser humano (potencial do campo elétrico do cérebro)
-
-- sessões de confissões de pecados com terço da misericórdia com exame de consciência
 
 ---
 
@@ -625,121 +509,3 @@ Para a provas da UFF:
 - SAPECP: <https://sintegre.ons.org.br/sites/SAPECP/Paginas/VisibilidadeCiclos.aspx>
 
 ---
-
-## 🚀 __TODO Batcaverna & IA - Atividades Recentes e Sprints (2026)
-
- No arquivo plano_gestao_batcaverna.md, propus um pipeline
-automatizado
-  onde:
-
-  1. Suas notas e simulações complexas criadas em Jupyter (
-  .ipynb ) e Quarto ( .qmd ) dentro do seu cofre do Obsidian
-   são convertidas automaticamente para MDX
-  por scripts Python ou Node.js.
-  2. Seu blog em Astro importa e renderiza estes MDX sem
-  perda de performance.
-  3. Seus dados dinâmicos (treino, tarefas e finanças) são  
-  consumidos via endpoints JSON servidos pela Pikachu-API
-  (Next.js/Django/Flask).
-
----
-
-## ✅ Realizado (Ontem e Hoje)
-
-- [x] Consolidar regras de agentes do PVRV em `.agents/AGENTS.md` a partir dos arquivos `.agents` do Jedi-CyberPunk.
-- [x] Mapear o repositório correto contendo os 2 artigos de otimização de agendamento em redes elétricas PIBIC 2025 (`Repopulation-With-Elite-Set`).
-- [x] Criar os 5 boilerplates de servidores backend para portfólio em `C3PO-Assistente-Virtual-BR/backend/` (Express, FastAPI, Flask SQLite, Drogon C++ e Serverless Cloud).
-- [x] Criar banco de dados SQLite e migrações locais automáticas (`migrations.py`) para o aplicativo de calistenia.
-- [x] Criar componente de integração de treinos SQLite (`SqliteWorkouts.jsx`) conectado ao app.
-- [x] Criar script de alertas de voz e alarme nativos no Linux (`c3po_voice_alerts.py`) com 3 estados (error, fixing, running) e prompt interativo de testes.
-- [x] Criar executáveis shell auxiliares (`run_toolbelt.sh`, `c3po_alert.sh`, `run_saiyajin_workout.sh`).
-
-## ⏳ Em Andamento / A Fazer (Sprint Atual)
-
-- [x] Implementar checklist detalhado de séries e repetições com contador interativo para o app de calistenia.
-- [x] Desenvolver cronômetro/timer no aplicativo de calistenia para registrar o tempo sob tensão do treino.
-- [x] Criar dashboard analítico com gráficos ChartJS exibindo frequência de treinos por dia, semana, mês e ano.
-
-Aqui está a lista completa de tudo que realizamos e
-  conversamos até agora no nosso desenvolvimento:
-
----
-
-## 24-06-2026 - Dia de Jogo do Brasil + Terapia TCC Emocional
-
----
-
-### SE VOCE CHEGOU AQUI VC ESTA TREINANDO PARA SER UM JEDI CYBERPUNK
-
----
-
-### 📑 Lista de Tudo que Tratamos até Agora
-
-  1. Diretrizes e Regras do Workspace:
-      • Consolidamos as filosofias e limites dos seus três  
-      arquivos de agentes (copilot_ONS_PLC.md, jarvis_gpt.md e
-      lumina_aurora_gemini.md) no arquivo de regras globais do
-seu
-      ambiente em AGENTS.md.
-  2. Centralização de Ferramentas de Agente (C3PO CLI):
-      • Criamos a ferramenta agent_toolbelt.py e o atalho em  
-      shell run_toolbelt.sh no repositório C3PO-Assistente-
-Virtual-BR.
-  3. Mapeamento de Artigos Científicos:
-      • Identificamos que o seu repositório de artigos sobre
-      algoritmos de otimização e programação linear aplicada
-      a SEP (PIBIC 2025) é o Repopulation-With-Elite-Set.
-  4. Boilerplates de Portfólio (Microserviços Backend):
-      • Estruturamos os cinco servidores em  C3PO-
-      Assistente-Virtual-BR/backend/  (ExpressServerNodeJS,
-      Raichu-Web-Server-fastapi, Pikachu-API-Rest, Charizard-
-Drogon e
-      Rayquaza Web Server Cloud) com código limpo e
-configurações
-      prontas para deploy.
-  5. Aplicativo de Calistenia (Vite + React + Flask +
-  SQLite3):
-      • Desenvolvemos a API em Python e migrações SQLite
-      para os planos de treino em  calistenia-app-saiyajin-
-      workout  (com atalho run_saiyajin_workout.sh), além de
-criar o
-      componente SqliteWorkouts.jsx e integrá-lo no
-      App.jsx.
-  6. Sistema de Alertas de Voz Nativos (Linux):
-      • Criei o script c3po_voice_alerts.py e o atalho
-      c3po_alert.sh rodando síntese de voz nativa ( spd-  
-      say  /  espeak  no Linux, com fallbacks automáticos
-      para  pyttsx3 / gTTS ) para cobrir as três falas
-      solicitadas:
-          •  error : "Atenção mestre Pedro. Algo deu errado.
-          .."
-          •  fixing : "Iniciando rotinas de manutenção. Algo
-          está funcionando e corrigindo..."
-          •  running : "Tudo pronto. Algo está rodando no
-          terminal." (E exibe a confirmação no CLI).
-
-  ──────
-
-### 🧠 Ajuste de Memória e Rotina Diária
-
-  Minha memória está totalmente alinhada ao seu fluxo
-  diário:
-
-  • Foco Rígido: Trabalho ONS (máx 3 tarefas) > Faculdade
-  UFF (máx 2 temas) > Saúde > Projetos Pessoais (máx 1
-  projeto ativo).
-  • Organização Minimalista: Menos Kanban burocrático e foco
-  nas 3 metas diárias cruciais (Post-it Digital) com
-  registro de Dailies e reviews de fechamento na sexta-feira.
-  • Código: Evitar scripts soltos, priorizando o Monorepo de
-  Rotina ( run_CLI.py  ou  ~/Batcaverna-CLI ) e migrações
-  incrementais (Astro aceitando HTML puro antes de
-  refatorar).
-  ──────
-
-### Teste de Execução
-
-  Você deseja rodar o servidor de desenvolvimento do
-  Saiyajin Workout e ver a aplicação rodando no navegador
-  agora para testar o painel e a sincronização com o banco  
-  SQLite?
