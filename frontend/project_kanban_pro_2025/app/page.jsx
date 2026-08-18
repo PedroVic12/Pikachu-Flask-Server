@@ -33,6 +33,7 @@ import {
   ChevronRight,
   Search,
   Database,
+  GitBranch,
   Sun,
   Moon,
   Flame,
@@ -56,6 +57,8 @@ import KanbanColumn from "./widgets/KanbanContainer.jsx";
 import ItemEditor from "./views/components/EditorModalProject.js";
 import PlannerONSPage from "./views/pages/Planner_ONS_Page.jsx";
 import OlaMundo from "./views/HTML/OlaMundo.jsx";
+import ProjectsScreen from "./projects/page.jsx";
+import ApiDataScreen from "./api-data/APIDataScreen.jsx";
 
 // ========== HOOKS ==========
 const useProjects = () => {
@@ -134,6 +137,8 @@ const Sidebar = ({
     { id: "dashboard", label: "Dashboard", icon: LayoutDashboard },
     { id: "kanban", label: "Kanban", icon: Kanban },
     { id: "planner", label: "Planner ONS", icon: Table },
+    { id: "projects", label: "Gestão de Projetos", icon: GitBranch },
+    { id: "api-data", label: "CRM Floricultura", icon: Database },
   ];
 
   const actionItems = [
@@ -335,6 +340,10 @@ export default function App() {
         return "Quadro Kanban PRO";
       case "planner":
         return "Planner ONS & PVRV Web DEV Core";
+      case "projects":
+        return "Gerenciamento de Projetos";
+      case "api-data":
+        return "CRM Floricultura (Dados da API)";
       default:
         return "Dashboard";
     }
@@ -548,6 +557,10 @@ export default function App() {
         return <KanbanScreen />;
       case "planner":
         return <PlannerONSPage />;
+      case "projects":
+        return <ProjectsScreen />;
+      case "api-data":
+        return <ApiDataScreen />;
       default:
         return <DashboardScreen />;
     }

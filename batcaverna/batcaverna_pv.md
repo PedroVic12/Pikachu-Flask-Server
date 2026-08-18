@@ -2,7 +2,18 @@
 
 ---
 
-📅 Data: *12/08/2026** - *Quarta Feira*
+📅 Data: *18/08/2026** - *Terça Feira*
+
+*Segunda Feira* = Root Chakra
+*Terça Feira* = Throat Chakra
+*Quarta Feira* = Heart Chakra
+*Quinta Feira* = Third Eye Chakra
+*Sexta Feira* = Solar Chakra + Dia de Oxalá
+*Sabado* = Folga + Rotina
+*Domingo* = Dia de Missa e Familia
+
+
+
 
 **hello world, novo semestre**
 
@@ -214,6 +225,11 @@ Concluído
 # Estudos UFF 2026.2
 
 - [ ] Circuitos Elétricos CC
+  - [ ] P1
+  - [ ] Minicurso CC - Falstad e Python/Julia
+  - [ ] P2
+  - [ ] P3
+  
 - [x] Cálculo 1,2,3 e 4 (Até EDOs e Transformada de Laplace - RLC)
 - [x] Estatística I
 - [x] Estatística II
@@ -387,13 +403,23 @@ Concluído
 
 # JOBS 2026
 
-- [ ] Pesquisa e Desenvolvimetno UFF + IA + SEP e Simulações em 3D
+- [ ] Trabalho PJ como DEV R$ 5000 ou U$ 1500 - Como Assistente de Análise de Dados ou dev pleno com Python,C++ ou Javascript
+- [ ] Pesquisa e Desenvolimento UFF + IA + SEP e Simulações em 3D
+  - SEP para leigos
+  - AnaREDE x Organon x Pandapower(RCE)
+  - Otimização linear com AG ou metaheuristicas (Análise de Dados)
+  - Astropy x Sympy x Scipy
+  - Resumo minicurso: Astronomia como Soberania Nacional
+
 - [ ] Vaga PJ R$ 5000 reais para Analista de dados JR com python,  vba,julia e javascipt
 - [ ] Freelancer SEO com google meu negocio usando webistes vitrine com alcance de clicks dos usuários
 
 # Estudos UFF 2026.2
 
 - [ ] Aulas de robotica com Arduino (Carrinho lutador)
+  - [x] Fase 1
+  - [ ] Fase 2
+  - Programação em C++ e RPA com Python e Shell Script com conexões API com flask e FastAPI
 
 - [ ] Circuitos Elétricos CC
 - [x] Cálculo 1,2,3 e 4 (Até EDOs e Transformada de Laplace - RLC)

@@ -67,16 +67,18 @@ export default function PikachuDashboard() {
           {features.map((feature) => {
             const colors = colorClasses[feature.color];
             return (
-              <Link href={feature.href} key={feature.title}>
-                <a className={`block p-6 rounded-xl shadow-md transition-transform transform hover:-translate-y-1 ${colors.bg} ${colors.hover}`}>
-                  <div className="flex items-center mb-4">
-                    <div className={`p-3 rounded-lg mr-4 ${colors.bg}`}>
-                      <feature.icon className={`h-8 w-8 ${colors.text}`} />
-                    </div>
-                    <h2 className="text-xl font-semibold text-gray-800">{feature.title}</h2>
+              <Link
+                href={feature.href}
+                key={feature.title}
+                className={`block p-6 rounded-xl shadow-md transition-transform transform hover:-translate-y-1 ${colors.bg} ${colors.hover}`}
+              >
+                <div className="flex items-center mb-4">
+                  <div className={`p-3 rounded-lg mr-4 ${colors.bg}`}>
+                    <feature.icon className={`h-8 w-8 ${colors.text}`} />
                   </div>
-                  <p className="text-gray-600">{feature.description}</p>
-                </a>
+                  <h2 className="text-xl font-semibold text-gray-800">{feature.title}</h2>
+                </div>
+                <p className="text-gray-600">{feature.description}</p>
               </Link>
             );
           })}
