@@ -2,7 +2,7 @@
 
 ---
 
-📅 Data: *18/08/2026** - *Terça Feira*
+📅 Data: *19/08/2026** - *Quarta Feira*
 
 *Segunda Feira* = Root Chakra
 *Terça Feira* = Throat Chakra
@@ -12,10 +12,8 @@
 *Sabado* = Folga + Rotina
 *Domingo* = Dia de Missa e Familia
 
+---
 
-
-
-**hello world, novo semestre**
 
 # ⚡📑 ÍNDICE
 
@@ -96,6 +94,64 @@ Concluído
 
 ---
 
+# Atividades UFF
+
+
+- [ ] minicurso circuitos CC com Sadiku e Python
+- [x] Circuitos Digitais I 
+  - [x] P1: Codigo de hamming, sistemas de numeracação, teoremas booleanos, circuitos logicos combinacionais, mapa de Karnaugh
+- [ ] Circuitos Elétricos CC
+  - [ ] P1
+  - [ ] Minicurso CC - Falstad e Python/Julia
+  - [ ] P2
+  - [ ] P3
+  
+- [ ] Robotica para Iniciantes
+
+- [ ] Guia de Montagem Mensal Word x Anotações Obsidian (VA,VB e SEMENTE)
+
+- [ ] Diagrama SP - Organon 440KV
+- [ ] Conversas com Alexandre Nunes e João Marco
+
+- [x] Guia de Montagem de Decks: Mensal (Word + Obsidian)
+
+- [ ] Guia completo em Word e PDF dos processos de atividades do mensal usando simuladores CEPEL e FLOW
+
+  - VA = Decks de Configuração e Carga para casos SEMENTE
+    - Correção barras ausentes
+    - Planilha SISBAR: Parecer da Área (fix_decks_barras_ausentes.py) = Retorna uma planilha atualizada comparando as barras ausentes do Mes atual e mes anterior utilizando as Respostas PLC no caso correspondente para região SECO
+    - Decks Eletrico/PRD: Script para comentar barras ausentes nos casos (ler_decks_de_carga.py)
+  - VB = Redespacho de Usinas na FLOW usando politica energética + Case Manager no Organon para Fluxo de Potencia Ótimo.
+  - VC = Intercambios
+  - VD = FLUPOT
+  - VF = Ajustes finos de tensão e carga para SECO
+  - VG = AnaTEM
+  - VH = Emissão do Relatórios
+
+- [x] Relatório de Perdas Duplas LTs usando VBA e Plots de 3 gráficos
+
+---
+
+# Estudos UFF 2026.2
+
+- [x] Python e Julia para Astronomia
+
+- [x] Cálculo 1,2,3 e 4 (Até EDOs e Transformada de Laplace - RLC)
+- [x] Estatística I
+- [x] Estatística II
+- [x] Transmissão de calor I
+- [x] Fenomemos de transporte (Mecanica dos fluidos)
+- [x] Controle e qualidade - Administração (Metodos estatísticos)
+
+- [ ] Sinais e Sistemas
+- [x] Cálculo 2 e 3 (cálculo vetorial)
+- [x] Calculo Vetorial com Metodos Numéricos em Julia usando apenas Cálculo 1 e Plots no youtube
+
+- [x] Programação para Data Science (Julia, Plots.jl, Pandas, Plotly, Scipy, sympy)
+
+
+---
+
 # Rotinas de Dono de Casa (Homem TDAH Adulto)
 
 - Melhores a cada dia
@@ -103,11 +159,11 @@ Concluído
 - Disciplina e Responsabilidaed
 
 - [ ] Tomar banho
-- [ ] Vestir roupas limpas
-- [ ] Lavar o Rosto e fazer Skin Care
+- [x] Vestir roupas limpas
+- [x] Lavar o Rosto e fazer Skin Care
 - [ ] Exercicio Físicos
 - [ ] Alongamento de Quadril, Ombra, Colunas e Core
-- [ ] Limpeza arpatamento
+- [x] Limpeza arpatamento
 - [ ] Alinhamento Espiritual matinal
 - [ ] Banho Gelado - Detox de Dopamina (Banheira de gelo)
 
@@ -212,37 +268,7 @@ Concluído
 
 ---
 
-# Rotina
-
-- [ ] UFF
-- [ ] CODING
-- [ ] CORPO
-- [ ] MENTE
-- [ ] ESPIRITO
-
----
-
-# Estudos UFF 2026.2
-
-- [ ] Circuitos Elétricos CC
-  - [ ] P1
-  - [ ] Minicurso CC - Falstad e Python/Julia
-  - [ ] P2
-  - [ ] P3
-  
-- [x] Cálculo 1,2,3 e 4 (Até EDOs e Transformada de Laplace - RLC)
-- [x] Estatística I
-- [x] Estatística II
-- [x] Transmissão de calor I
-- [x] Fenomemos de transporte (Mecanica dos fluidos)
-- [x] Controle e qualidade - Administração (Metodos estatísticos)
-
-- [ ] Sinais e Sistemas
-- [x] Cálculo 2 e 3 (cálculo vetorial)
-- [x] Calculo Vetorial com Metodos Numéricos em Julia usando apenas Cálculo 1 e Plots no youtube
-- [x] Minicurso Circuitos eletricos CC (Youtube com resolução de exercicios, python e Julia)
-- [ ] Circuitos Digitais I  
-- [x] Programação para Data Science (Julia, Plots.jl, Pandas, Plotly, Scipy, sympy)
+# Tarefas e Estudos Pendentes
 - [ ] Circuitos Elétricos CA
 - [ ] Eletromagnetismo I - Campos estáticos
 - [ ] Sistemas de controle I, II e III
@@ -256,148 +282,8 @@ Concluído
 - [ ] IEEDs
 - [ ] Sistema de computação
 
-# Atividades e Checklists
 
-- [x] Correção de templates astro tailwind do blog de petropolis e salvando para novos projetos
-- [x] atualização na sessão de Transmissão do Blog para leigos
-- [x] Correção e testes da função objetivo IEEE 30 no RCE Lancher e apresetação do projeto no ONS para gerencia de PLC
-- [x] Diagrama 440kv e 345kv de SP no organon para ajudar nos estudos eletricos
-- [x] Batcaverna PV + Templates em Javascript + backend em Flask
 
-- [FALTA DOCUMENTAÇÃO] Estudos: Flask x FastAPI x Django para programação backend para cada tipo de projeto
-
-- [X] Estudos: Fronted = Astro, NextJS, React (flask backend), Tauri com JS vanilla, Streamlit e Qt6
-- [X] Estudos e métricas na Batcavena UI com Habit Tracker pegando dados de checklist criados
-
-- [x] Devolver notebook ONS
-- [x] Agentes de AI com memorias e contexto
-  - Copilot
-  - GPT Jarvis GPT
-  - Gemini CLI
-  - Gemimi Lumina Aurora
-  - Gemini C3po - pc native tools
-
-- [x] Projetos Github
-- [x] Mapas Mentais
-- [x] Estudos UFF
-- [x] Testes, programação e controle de versões de programas
-- [x] Sites online + Portfolio
-- [ ] AnaREDE, Organon, Pandapower
-- [x] Estudos de conceitos de desenvolvimento de software moderno
-- [ ] Perfil novo no BatCaverna e União de varios projetos estáticos para um central
-- [ ] Planilha de treinos, rotina(atividades PLC), habitos tracker e planejamento financeiro
-- [ ] Conceitos de cálculo 1,2,3 aplicados na matemática do dia dia. Derivadas em series temporais. Integral aplicados a circuitos RLC e eletromagnetismo
-
-- [ ] Alinhamento espiritual com nova rotina Jedi Cyberpunk + data science
-- [x] Desligamento oficial do ONS com todos os arquivos solicitados, enviados, projetos
-- [ ] Aulas de circuitos digitais I e circuitos eletricos CC (terça e quinta)
-
-- [x] Diagramas, Fluxogramas e mapas mentais sobre projetos no Github e OneDrive realizadas (Scripts,websites, banco de dados, guias, CLI)
-
-- [x] Diagramas SP - 440KV, 345 KV, 138KV
-  - 440kv apenas ajustes finais
-  - 345kv seguindo modelo SIGER e boas praticas de diagramas antigos
-  - 138kv - redes complementares onde possui obras
-
-- [x] Carta de despedida da PLC no Whatsapp
-
-- [x] Post sobre sala de operacao do ONS
-
-- [ ] Guia com Mapa Mental e sumario das atividades de montagem de casos do Mensal
-
-- [x] Organização e controle de versões do Sharepoint no Github
-
-- [ ] Montagem do novo Obsidian para Jedi cyberpunk arruamndo a pasta do ONS PLC para ser usada apenas com conteudo de trabalho
-
-- [ ] Guia de Montagem Mensal no Word e Obsidian para consulta e estudos na UFF futuramente como funcionario do ONS usando os casos de maxima e minima com politica energetica
-
-- [ ] VA - Semente: Configuração e carga do SIN e analise diagnostica na area SECO e principalmente SP
-- [ ] Deckbuilder de casso para VA, VB e VC
-
-- [ ] script de correções de barras mensal - SISBAR e Despacho Historico
-  - script de testes
-  - testes com mes atual
-
-- [x] Parecer da área de barras ausenstes SISBAR
-
-- [ ] VB: Redespacho de Cargas em MW usando politica energetica com FLOW e Elos CC com ajustes na barras swing
-
-- [x] ETL Palkia:
-  - PDF -> Streamlit OCR ou Qt6 OCR
-  - .md para PDF ou PowerPoint
-  - Extração de tabelas de MUST de SP (EXCEL - SQL - access) como banco de dados microsoft
-  - Controle e gestão dos documentos solicitados e enviados com recomendação de ajustes com Big O para verificar o nivel de complexibildiade do caso e criação do documento template com base nas ressalvas usadas
-
-- [x] Planner x Kanban Pro  x Cronograma x SCRUM
-
-- [x] Organização de arquivos .md e .PDF e notebooks usados no ONS PLC
-- [x] Alinhamento tarefas - alexandre
-- [x] Diagrama Organon SP 440KV e 345kv
-- [x] Apresentacao RCE ONS PLC
-
-- [ ] Deckbuild com AnaRede, Pandapower e Organon com aquivos .PWF e .dat
-  - Estudos de fluxo de potencia
-  - criação de SEP com montagem de decks
-  - Uso do PandaPower em conjunto do Diagrama do Organon
-
-- [x] Estudos SEP x Circuitos Elétricos x Circuitos Digitais
-
-- [x] Obsidian X Quarto .md x Blog com .md x Notebooks Python e Julia x Relatórios PDF com Látex
-
-- [x] dashboard de agendamento ótimo de intervenção de redes elétricas RCE
-
-- [x] Levantar requisitos de MUST e Perdas Duplas LTs
-- [ ] Montar apresentação de MUST e ETL de perdas duplas que fiz no ONS PLC em 2025
-- [ ] Estudos de Circuitos digitais + Mini curso circuitos eletricos CC com Python e Fastlad
-- [x] Notebooks feitos para o Github, RCE e ONS PLC
-- [x] Dashboards em MUST, Palkia.
-- [x] Apresentacao RCE UFF ONS PLC (27/05/2026)
-  - Slides
-  - Apresentação com falas no markdown
-  - Blog x Relatorios x Pesquias -> tudo em markdown
-  - script python que faz o PDF em .md com template ONS
-
-- [ ] Planner ONS (organização) x MUST dashbords (controle e gestão) x Cronograma Tarefas PLC (rotina) x Batcaverna PV x KanbanPro 2026 x GohanTreinamentos WebApp (calistenia App)
-
-- [x] Testes de arquivos .md em Astro, PowerPoint, NextJS
-
-- [x] Uso e testes de CLI em python desenvolvidas
-
-- [X] Guia de Montagem Mensal Word x Anotações Obsidian (VA,VB e SEMENTE)
-
-- [x] Diagrama SP - Organon 440KV
-- [x] Conversas com Alexandre Nunes e João Marco
-
-- [x] Guia de Montagem de Decks: Mensal (Word + Obsidian)
-
-- [ ] Guia completo em Word e PDF dos processos de atividades do mensal usando simuladores CEPEL e FLOW
-
-  - VA = Decks de Configuração e Carga para casos SEMENTE
-    - Correção barras ausentes
-    - Planilha SISBAR: Parecer da Área (fix_decks_barras_ausentes.py) = Retorna uma planilha atualizada comparando as barras ausentes do Mes atual e mes anterior utilizando as Respostas PLC no caso correspondente para região SECO
-    - Decks Eletrico/PRD: Script para comentar barras ausentes nos casos (ler_decks_de_carga.py)
-  - VB = Redespacho de Usinas na FLOW usando politica energética + Case Manager no Organon para Fluxo de Potencia Ótimo.
-  - VC = Intercambios
-  - VD = FLUPOT
-  - VF = Ajustes finos de tensão e carga para SECO
-  - VG = AnaTEM
-  - VH = Emissão do Relatórios
-
-- [x] Relatório de Perdas Duplas LTs usando VBA e Plots de 3 gráficos
-
-- [ ] COMUNICAÇÃO + SOFT SKILLS
-- [ ] CLI EM PYTHON (TERMINAL - VA, VB, VC)
-- [x] ETL EM PYTHON (PACOTE OFFICE - PALKIA)
-  - ETL de arquivos PDF relacionados a MUST e salvando tudo num excel que vira um banco de dados no Access Microsoft
-  - Painel Dashboard em Rust + MUST + controle e gestão com banco de dados (Excel e sqlite3) de casos do MUST com deck do AnaREDE como referencia e um algoritmo Big O para prever o nivel de complexibilidade de cada problema.
-
-- [ ] minicurso circuitos CC com Sadiku e Python
-
-- [x] Arquivo .md: Astro (blog), quarto (.qmd) e Geração de PowerPoint em PDF tempalte de apresentação ONS PLC
-
----
-
-# Tarefas e Estudos Pendentes
 
 ---
 

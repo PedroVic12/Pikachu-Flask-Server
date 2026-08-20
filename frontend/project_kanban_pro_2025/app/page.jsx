@@ -476,42 +476,285 @@ export default function App() {
       },
     ];
 
+    const pieData = Object.entries(statusStats)
+      .filter(([_, count]) => count > 0)
+      .map(([status, count]) => ({
+        name: STATUS_COLUMNS[status]?.title || status,
+        value: count,
+      }));
+
+    const categoryData = Object.entries(categoryStats)
+      .filter(([_, count]) => count > 0)
+      .map(([catKey, count]) => ({
+        name: CATEGORIES[catKey]?.label || catKey,
+        count: count,
+      }));
+
+    const COLORS = [
+      "#3b82f6",
+      "#f97316",
+      "#10b981",
+      "#a855f7",
+      "#06b6d4",
+      "#eab308",
+      "#ef4444",
+      "#6366f1",
+    ];
+
+    const quickNavs = [
+      {
+        id: "kanban",
+        title: "Quadro Kanban",
+        desc: "Gerenciar colunas e cartões",
+        icon: Kanban,
+        color: "bg-orange-500 text-white",
+      },
+      {
+        id: "planner",
+        title: "Planner ONS",
+        desc: "Visualizar tarefas em lista",
+        icon: Table,
+        color: "bg-blue-500 text-white",
+      },
+      {
+        id: "projects",
+        title: "Gestão de Projetos",
+        desc: "API de projetos unificados",
+        icon: GitBranch,
+        color: "bg-purple-500 text-white",
+      },
+      {
+        id: "api-data",
+        title: "CRM Floricultura",
+        desc: "Clientes e dados Flask",
+        icon: Database,
+        color: "bg-emerald-500 text-white",
+      },
+    ];
+
     return (
-      <div className="p-4 lg:p-6 bg-white dark:bg-gray-900">
-        <div className="mb-8">
+      <div className="p-4 lg:p-6 bg-white dark:bg-gray-900 min-h-full">
+        <div className="mb-6">
           <OlaMundo />
         </div>
 
-        <div className="mb-6">
-          <h1 className="text-2xl lg:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">
-            Dashboard
-          </h1>
-          <p className="text-gray-600 dark:text-gray-300">
-            Visão geral dos seus projetos e atividades
-          </p>
+        <div className="mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <h1 className="text-2xl lg:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-1">
+              Dashboard Central
+            </h1>
+            <p className="text-gray-600 dark:text-gray-300">
+              Visão geral telemétrica de projetos, tarefas UFF/ONS e métricas em tempo real.
+            </p>
+          </div>
+          <button
+            onClick={() => createNewItem("in progress")}
+            className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md transition-colors"
+          >
+            <Flame size={18} /> Novo Projeto (Sprint)
+          </button>
         </div>
 
+        {/* 4 Stat Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           {statCards.map(({ label, value, icon: Icon, color }) => (
             <div
               key={label}
-              className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700"
+              className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-200 dark:border-gray-700 flex items-center justify-between"
             >
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-gray-600 dark:text-gray-300">
-                    {label}
-                  </p>
-                  <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">
-                    {value}
-                  </p>
-                </div>
-                <div className="p-3 bg-blue-50 dark:bg-gray-700 rounded-lg text-blue-600 dark:text-blue-400">
-                  <Icon size={24} />
-                </div>
+              <div>
+                <p className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                  {label}
+                </p>
+                <p className="text-2xl font-bold text-gray-900 dark:text-gray-100 mt-1">
+                  {value}
+                </p>
+              </div>
+              <div className="p-3 bg-blue-50 dark:bg-gray-700 rounded-xl text-blue-600 dark:text-blue-400">
+                <Icon size={26} />
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Recharts Visualizations */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+          {/* Status Breakdown PieChart */}
+          <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
+            <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4 flex items-center gap-2">
+              <BarChart3 className="text-blue-500" size={20} />
+              Distribuição de Tarefas por Status
+            </h2>
+            <div className="h-64 w-full">
+              {pieData.length > 0 ? (
+                <ResponsiveContainer width="100%" height="100%">
+                  <PieChart>
+                    <Pie
+                      data={pieData}
+                      cx="50%"
+                      cy="50%"
+                      innerRadius={60}
+                      outerRadius={85}
+                      paddingAngle={4}
+                      dataKey="value"
+                    >
+                      {pieData.map((entry, index) => (
+                        <Cell
+                          key={`cell-${index}`}
+                          fill={COLORS[index % COLORS.length]}
+                        />
+                      ))}
+                    </Pie>
+                    <Tooltip
+                      contentStyle={{
+                        backgroundColor: theme === "dark" ? "#1f2937" : "#fff",
+                        borderColor: theme === "dark" ? "#374151" : "#e5e7eb",
+                        color: theme === "dark" ? "#f3f4f6" : "#111827",
+                        borderRadius: "8px",
+                      }}
+                    />
+                    <Legend />
+                  </PieChart>
+                </ResponsiveContainer>
+              ) : (
+                <div className="h-full flex items-center justify-center text-gray-400">
+                  Nenhum projeto cadastrado.
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Categories Bar Distribution */}
+          <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
+            <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4 flex items-center gap-2">
+              <TrendingUp className="text-emerald-500" size={20} />
+              Volume por Categoria (UFF / ONS / Web)
+            </h2>
+            <div className="space-y-4 max-h-64 overflow-y-auto pr-2">
+              {categoryData.length > 0 ? (
+                categoryData.map((cat, idx) => {
+                  const percentage = totalProjects > 0 ? (cat.count / totalProjects) * 100 : 0;
+                  return (
+                    <div key={cat.name}>
+                      <div className="flex justify-between text-sm mb-1 font-medium">
+                        <span className="text-gray-700 dark:text-gray-300">{cat.name}</span>
+                        <span className="text-gray-500 dark:text-gray-400">{cat.count} ({percentage.toFixed(0)}%)</span>
+                      </div>
+                      <div className="w-full bg-gray-100 dark:bg-gray-700 h-2.5 rounded-full overflow-hidden">
+                        <div
+                          className="h-2.5 rounded-full transition-all duration-500"
+                          style={{
+                            width: `${percentage}%`,
+                            backgroundColor: COLORS[idx % COLORS.length],
+                          }}
+                        />
+                      </div>
+                    </div>
+                  );
+                })
+              ) : (
+                <div className="h-48 flex items-center justify-center text-gray-400">
+                  Nenhuma categoria cadastrada.
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Quick Navigation Cards */}
+        <div className="mb-8">
+          <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">
+            Acesso Rápido às Aplicações
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {quickNavs.map((nav) => (
+              <button
+                key={nav.id}
+                onClick={() => setCurrentScreen(nav.id)}
+                className="p-5 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md hover:border-blue-500 transition-all text-left group flex flex-col justify-between"
+              >
+                <div className="flex items-center justify-between mb-3">
+                  <div className={`p-3 rounded-lg ${nav.color}`}>
+                    <nav.icon size={22} />
+                  </div>
+                  <ChevronRight
+                    size={18}
+                    className="text-gray-400 group-hover:text-blue-500 group-hover:translate-x-1 transition-transform"
+                  />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-gray-900 dark:text-gray-100 group-hover:text-blue-600 dark:group-hover:text-blue-400">
+                    {nav.title}
+                  </h3>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                    {nav.desc}
+                  </p>
+                </div>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Recent Projects Table */}
+        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100">
+              Projetos Recentes
+            </h2>
+            <button
+              onClick={() => setCurrentScreen("kanban")}
+              className="text-sm font-semibold text-blue-600 dark:text-blue-400 hover:underline"
+            >
+              Ver Quadro Completo →
+            </button>
+          </div>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+              <thead className="text-xs text-gray-700 dark:text-gray-300 uppercase bg-gray-50 dark:bg-gray-700/50">
+                <tr>
+                  <th className="px-4 py-3">Título</th>
+                  <th className="px-4 py-3">Categoria</th>
+                  <th className="px-4 py-3">Status</th>
+                  <th className="px-4 py-3 text-right">Ação</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
+                {projects.slice(0, 5).map((project) => {
+                  const cat = CATEGORIES[project.category] || {};
+                  const col = STATUS_COLUMNS[project.status] || {};
+                  return (
+                    <tr
+                      key={project.id}
+                      className="hover:bg-gray-50 dark:hover:bg-gray-700/40 transition-colors"
+                    >
+                      <td className="px-4 py-3 font-semibold text-gray-900 dark:text-gray-100">
+                        {project.title}
+                      </td>
+                      <td className="px-4 py-3">
+                        <span className="inline-flex items-center gap-1 text-xs px-2.5 py-1 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 font-medium">
+                          {cat.emoji} {cat.label || project.category}
+                        </span>
+                      </td>
+                      <td className="px-4 py-3">
+                        <span className="inline-flex items-center gap-1 text-xs px-2.5 py-1 rounded-full bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 font-medium">
+                          {col.emoji} {col.title || project.status}
+                        </span>
+                      </td>
+                      <td className="px-4 py-3 text-right">
+                        <button
+                          onClick={() => openItemEditor(project)}
+                          className="p-1.5 text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700"
+                          title="Editar"
+                        >
+                          <Edit3 size={16} />
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     );

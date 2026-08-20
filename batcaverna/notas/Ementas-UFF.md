@@ -7,28 +7,7 @@
 
 ## Ciencia de Dados JR
 
-### FIAP
 
-<candidato371468@fiap.com.br>
-5cc3cc
-
-### Lista de documentos enviados e analsiados
-
-- [x] RG
-- [x] cpf
-- [x] certidão de nascimento
-ou casamento
-- [x] histórico escolar
-
-- [x] certificado de conclusão
-do ensino médio ou diploma
-
-- [x] comprovante de quitação
-com as obrigações militares
-
-- [x] comprovante de residência
-
-- [x] título eleitoral
 
 ## Administração Aplicada a Engenharia
 
@@ -268,6 +247,25 @@ INTRODUÇÃO A FENÔMENOS DE TRANSPORTE.
 
 ## Métodos Numéricos (Calculo Vetorial)
 
+1. INTRODUÇÃO À ARITMÉTICA DA MÁQUINA: ERROS NAS REPRESENTAÇÕES DE NÚMEROS REAIS. ARITMÉTICA DE PONTO FLUTUANTE.
+
+2. ZEROS DE FUNÇÕES REAIS. MÉTODOS: BISSECÇÃO, ITERAÇÃO LINEAR, NEWTON, SECANTE E FALSA POSIÇÃO.
+
+3. RESOLUÇÃO DE SISTEMAS LINEARES. MÉTODOS DIRETOS: ELIMINAÇÃO DE GAUSS E FATORAÇÃO LU.
+
+4. RESOLUÇÃO DE SISTEMAS LINEARES. MÉTODOS ITERATIVOS: GAUSS-JACOBI E GAUSS-SEIDEL.
+
+5. RESOLUÇÃO DE SISTEMAS NÃO-LINEARES. MÉTODO DE NEWTON.
+
+6. INTERPOLAÇÃO: O PROBLEMA; INTERPOLAÇÃO POLINOMIAL; INTERPOLAÇÃO DE LAGRANGE E DE NEWTON; ERRO.
+
+7. AJUSTE DE CURVAS. MÉTODO DOS MÍNIMOS QUADRADOS. APROXIMAÇÕES POLINOMIAIS OU NÃO.
+
+8. INTEGRAÇÃO NUMÉRICA: FÓRMULAS DE NEWTON-COTES E QUADRATURA GAUSSIANA; ERRO.
+
+9. INTRODUÇÃO À RESOLUÇÃO NUMÉRICA DE EQUAÇÕES DIFERENCIAIS ORDINÁRIAS. BREVE APRESENTAÇÃO DOS MÉTODOS BASEADAS NA SÉRIE DE TAYLOR, PARA PROBLEMAS DE VALOR INICIAL.
+
+
 ## Estrutura de Dados
 
 ## Mecanica Geral V
@@ -275,6 +273,80 @@ INTRODUÇÃO A FENÔMENOS DE TRANSPORTE.
 ## Resistencia dos materias
 
 ## Programação de Computadores
+
+## Programação Cientifica com Julia
+
+Symbolic Calculations with Symbolics Module . . . . . . . . . . . . . . .
+5.2.1 Derivative with Symbolics Module . . . . . . . . . . . . . . . . . .
+5.3 Symbolic Calculations with SymEngine Module . . . . . . . . . . . . . .
+5.3.1 Lambdify() Function in SymEngine . . . . . . . . . . . . . . . . .
+5.3.2 Derivative with SymEngine . . . . . . . . . . . . . . . . . . . . . . . .
+5.3.3 SymFunction() in SymEngine . . . . . . . . . . . . . . . . . . . . . .
+5.4 Symbolic Calculations with SymPy Module . . . . . . . . . . . . . . . . . .
+5.4.1 Solve() Function in SymPy . . . . . . . . . . . . . . . . . . . . . . . . .
+5.4.2 Simplify(), Expand(), Factor(), Together(),
+Apart() and .Coeff() Functions . . . . . . . . . . . . . . . . . . . . . .
+5.4.3 Limit, Derivative, Integrate with SymPy . . . . . . . . . . . . . .
+5.4.4 Solutions of Differential Equations with SymPy . . . . . . .
+5.5 PyCall Module with Python Modules
+
+
+8Julia Programming Applications in Electromagnetism . . . . . . . . . . . .
+8.1 Introduction . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+8.2 Electrical Field of a Charge . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+8.3 Lorentz Force . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+8.4 Series and Parallels Circuits . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+8.5 Electrical Force Between Two Charges . . . . . . . . . . . . . . . . . . . . . .
+References . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .173
+173
+173
+176
+179
+182
+184
+9Julia Programming Applications in Waves . . . . . . . . . . . . . . . . . . . . . . .
+9.1 Introduction . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+9.2 Mass-Spring System in the Absence of Friction Effect . . . . . . . . .
+9.3 Damped Oscillation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+9.4 Two-Dimensional Oscillator . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+9.5 Mass-Spring System with Lagrange Mechanics . . . . . . . . . . . . . . .
+9.6 Mass Rotating on a Plane with Constant Radius . . . . . . . . . . . . . . .
+9.7 Problems . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+References . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .185
+185
+185
+187
+193
+196
+200
+202
+202
+10 Julia Programming Applications in Modern Physics . . . . . . . . . . . . . .
+10.1 Introduction . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+10.2 Determination of Planck’s Constant with Photoelectric Data . . . .
+10.3 Wave Packet Concept . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+10.4 Relationship Between Phase and Group Velocity
+and Dispersion Properties of a Medium . . . . . . . . . . . . . . . . . . . . . .
+10.5 Particle Interacting with a Potential Barrier . . . . . . . . . . . . . . . . . . .
+10.6 State of a Particle in a Two-Dimensional Infinite Potential
+Well . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+10.6.1 The First Way . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+10.6.2 The Second Way . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+10.7 Problems . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+References . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .203
+203
+203
+204
+11 Julia Programming Applications in Nuclear Physics . . . . . . . . . . . . . .
+11.1 Introduction . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+11.2 Relationship Between Proton Number and Mass Number
+for Light Nuclei . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+11.3 The Coulomb Energy of a Uniform Spherical Nuclei . . . . . . . . . .
+11.4 The Average Decay Time of a Nucleus Undergoing Two
+Different Decays . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+11.5 A Radioactive Nucleus Bombarded with Neutrons . . . . . . . . . . . .
+11.6 Problems . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+References . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .223
 
 ---
 
