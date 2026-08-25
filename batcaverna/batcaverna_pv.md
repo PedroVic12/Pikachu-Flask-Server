@@ -2,7 +2,7 @@
 
 ---
 
-📅 Data: *19/08/2026** - *Quarta Feira*
+📅 Data: *24/08/2026** - *Segunda Feira*
 
 *Segunda Feira* = Root Chakra
 *Terça Feira* = Throat Chakra
@@ -98,15 +98,26 @@ Concluído
 
 
 - [ ] minicurso circuitos CC com Sadiku e Python
+
+
 - [x] Circuitos Digitais I 
   - [x] P1: Codigo de hamming, sistemas de numeracação, teoremas booleanos, circuitos logicos combinacionais, mapa de Karnaugh
+  
+  
 - [ ] Circuitos Elétricos CC
-  - [ ] P1
+  - [x] P1
+    - 5 Provas antigas
+    - LKC, LKT, Divisor de tensão, divisor de corrent, Potencia em resistores, amplificadores
+    
   - [ ] Minicurso CC - Falstad e Python/Julia
   - [ ] P2
   - [ ] P3
   
-- [ ] Robotica para Iniciantes
+- [x] Robotica para Iniciantes
+  - Conceitos basicos Arduino e programacao em C++
+  - Sensor ultrassonico
+  - Motores e Drivers
+  - Sensor de reflatancia
 
 - [ ] Guia de Montagem Mensal Word x Anotações Obsidian (VA,VB e SEMENTE)
 
@@ -129,6 +140,26 @@ Concluído
   - VH = Emissão do Relatórios
 
 - [x] Relatório de Perdas Duplas LTs usando VBA e Plots de 3 gráficos
+
+---
+
+
+# Tarefas e Estudos Pendentes
+- [ ] Circuitos Elétricos CA
+- [ ] Eletromagnetismo I - Campos estáticos
+- [ ] Sistemas de controle I, II e III
+- [ ] Análise de SEP I, II
+  - Teorema de Norton e Thevenin
+  - Máx de transf. de potência
+  - Fluxo de potência
+  - Curto circuito
+  - Barra Swing
+
+- [ ] IEEDs
+- [ ] Sistema de computação
+
+
+
 
 ---
 
@@ -159,8 +190,8 @@ Concluído
 - Disciplina e Responsabilidaed
 
 - [ ] Tomar banho
-- [x] Vestir roupas limpas
-- [x] Lavar o Rosto e fazer Skin Care
+- [ ] Vestir roupas limpas
+- [ ] Lavar o Rosto e fazer Skin Care
 - [ ] Exercicio Físicos
 - [ ] Alongamento de Quadril, Ombra, Colunas e Core
 - [x] Limpeza arpatamento
@@ -266,24 +297,11 @@ Concluído
 
 - [ ] requisitos, responsabilidades e atividades na PLC ONS como guia no Word ou Obsidian
 
----
+- [ ] Conta de luz com plots em Julia e Python e otimização com derivada de conta de luz
 
-# Tarefas e Estudos Pendentes
-- [ ] Circuitos Elétricos CA
-- [ ] Eletromagnetismo I - Campos estáticos
-- [ ] Sistemas de controle I, II e III
-- [ ] Análise de SEP I, II
-  - Teorema de Norton e Thevenin
-  - Máx de transf. de potência
-  - Fluxo de potência
-  - Curto circuito
-  - Barra Swing
+- [ ] 3 orçamentos gratis com empresas de energia solar para casa em CG
 
-- [ ] IEEDs
-- [ ] Sistema de computação
-
-
-
+- [ ] Planejamento Financeiro, trabalho PJ e MEI
 
 ---
 

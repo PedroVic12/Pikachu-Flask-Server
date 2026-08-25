@@ -14,14 +14,29 @@ const ApiDataScreen = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        // Exemplo: buscando dados da tabela 'cliente' através do Blueprint
-        const response = await fetch(`${API_URL}/floricultura/clientes`);
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
+        let result = null;
+        try {
+          const response = await fetch(`${API_URL}/floricultura/clientes`);
+          if (response.ok) {
+            result = await response.json();
+          }
+        } catch (remoteErr) {
+          console.warn("API Remota indisponível, utilizando endpoint local do Next.js:", remoteErr);
         }
-        const result = await response.json();
-        setData(result);
-        setError(null);
+
+        if (!result) {
+          const localResponse = await fetch('/api/floricultura/clientes');
+          if (localResponse.ok) {
+            result = await localResponse.json();
+          }
+        }
+
+        if (result) {
+          setData(result);
+          setError(null);
+        } else {
+          throw new Error("Não foi possível carregar os dados de clientes da Floricultura.");
+        }
       } catch (e) {
         setError(e.message);
         setData(null);
