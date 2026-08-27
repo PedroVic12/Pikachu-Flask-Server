@@ -45,7 +45,20 @@
 
 - [Projetos GitHub](#projetos-github)
 
-## 03) MENTE - Estudos UFF 2026.2 + artigo tcc + astro blog
+# JOBS 2026
+
+- [ ] Trabalho PJ como DEV R$ 5000 ou U$ 1500 - Como Assistente de Análise de Dados ou dev pleno com Python,C++ ou Javascript
+- [ ] Pesquisa e Desenvolimento UFF + IA + SEP e Simulações em 3D
+  - SEP para leigos
+  - AnaREDE x Organon x Pandapower(RCE)
+  - Otimização linear com AG ou metaheuristicas (Análise de Dados)
+  - Astropy x Sympy x Scipy
+  - Resumo minicurso: Astronomia como Soberania Nacional
+
+- [ ] Vaga PJ R$ 5000 reais para Analista de dados JR com python,  vba,julia e javascipt
+- [ ] Freelancer SEO com google meu negocio usando webistes vitrine com alcance de clicks dos usuários
+
+# 03) MENTE - Estudos UFF 2026.2 + artigo tcc + astro blog
 
 ### 🎯 **DESENVOLVIMENTO PESSOAL**
 
@@ -55,13 +68,13 @@
 
 ### TERAPIA TCC
 
-## 04) CORPO - Academia + Calistenia + karate
+# 04) CORPO - Academia + Calistenia + karate
 
 ## ESPÍRITO - Casa de Deus: Cristão Católico + O Livro dos Espíritos
 
 ---
 
-# Batcaverna 2026
+# 05) Batcaverna 2026
 
 ---
 
@@ -116,7 +129,7 @@ Falta de segurança em mim mesmo
 
 ---
 
-# Atividades UFF
+# 06) Atividades UFF
 
 - [ ] minicurso circuitos CC com Sadiku e Python
 
@@ -227,7 +240,7 @@ Falta de segurança em mim mesmo
   - <https://www.reddit.com/r/FifaCareers/comments/1rjnorf/how_to_download_fifa_14_on_pc_for_free/?tl=pt-br>
   - <https://drive.google.com/file/d/1c8R35D2lMrK827zOIjWrMJ1jP2j0ipgZ/view>
 
-# Corpo x Mente X Espírito
+# 07) Corpo x Mente X Espírito = Equilíbrio
 
 ## Mundo espiritual
 
@@ -262,11 +275,11 @@ Falta de segurança em mim mesmo
 
 ---
 
-# PVRV 2026
+# 08) PVRV 2026 Notes
 
 ---
 
-## Terapia TCC 2025-2026
+# 09) Terapia TCC 2025-2026
 
 - Fim de relacionamento Danielle
 
@@ -294,7 +307,7 @@ Falta de segurança em mim mesmo
 
 ---
 
-# Planejamento e organização PVRV
+# 10) SCRUM Planejamento e organização PVRV
 
 - [ ] Planejamento financeiro (Financial APP)
   - [x] Dezembro
@@ -319,19 +332,6 @@ Falta de segurança em mim mesmo
 - [ ] Planejamento Financeiro, trabalho PJ e MEI
 
 ---
-
-# JOBS 2026
-
-- [ ] Trabalho PJ como DEV R$ 5000 ou U$ 1500 - Como Assistente de Análise de Dados ou dev pleno com Python,C++ ou Javascript
-- [ ] Pesquisa e Desenvolimento UFF + IA + SEP e Simulações em 3D
-  - SEP para leigos
-  - AnaREDE x Organon x Pandapower(RCE)
-  - Otimização linear com AG ou metaheuristicas (Análise de Dados)
-  - Astropy x Sympy x Scipy
-  - Resumo minicurso: Astronomia como Soberania Nacional
-
-- [ ] Vaga PJ R$ 5000 reais para Analista de dados JR com python,  vba,julia e javascipt
-- [ ] Freelancer SEO com google meu negocio usando webistes vitrine com alcance de clicks dos usuários
 
 # Estudos UFF 2026.2
 
