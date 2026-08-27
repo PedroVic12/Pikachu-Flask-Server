@@ -2,22 +2,21 @@
 
 ---
 
-📅 Data: *24/08/2026** - *Segunda Feira*
+📅 Data: *27/08/2026** - *Quinta Feira*
 
-*Segunda Feira* = Root Chakra
-*Terça Feira* = Throat Chakra
-*Quarta Feira* = Heart Chakra
-*Quinta Feira* = Third Eye Chakra
+*Segunda Feira* = Root Chakra + Academia
+*Terça Feira* = Throat Chakra + Circuitos CC e CD + Terapia
+*Quarta Feira* = Heart Chakra + Homeoffice + Artigo TCC
+*Quinta Feira* = Third Eye Chakra + Circuitos CC e CD + Karate
 *Sexta Feira* = Solar Chakra + Dia de Oxalá
-*Sabado* = Folga + Rotina
+*Sabado* = Folga + Rotina + Futebol + Jogos
 *Domingo* = Dia de Missa e Familia
 
 ---
 
+# ⚡📑 01) ÍNDICE
 
-# ⚡📑 ÍNDICE
-
-## **JOBS**
+# 02) **JOBS**
 
 ### Trabalho Cientista de dados JR no ELITE Rede de Ensino
 
@@ -25,15 +24,28 @@
 
 ### Estagio de Engenharia Elétrica: ONS PLC (Planejamento de Curto prazo) e análises de Estudos Elétricos em Regime Permanente (estático) para área de SP de 135KV, 345KV e 440 KV
 
+### Cientista de dados JR (Python, Julia, Javascript)
+
+## 🎓 Roadmap Cientista de Dados
+
+![alt text - ciencia de dados ONS](image-1.png)
+
+### Desenvolvedor Desktop IoT - PQt6 + Tauri V2 (rust) + Banco de dados
+
+### Desenvolvedor web
+
+- Pikachu Flask Server
+- Rayquaza Web Server - FastAPI
+- Kyogre PDV Delivery app
+- Gohan Treinamentos app
+
 - 📋 [Tarefas ONS PLC](#tarefas-ons-plc-2026)
 
 ### 🎯 **PROJETOS GITHUB**
 
 - [Projetos GitHub](#projetos-github)
 
-## MENTE
-
-### ESTUDOS UFF
+## 03) MENTE - Estudos UFF 2026.2 + artigo tcc + astro blog
 
 ### 🎯 **DESENVOLVIMENTO PESSOAL**
 
@@ -43,15 +55,9 @@
 
 ### TERAPIA TCC
 
-## CORPO
+## 04) CORPO - Academia + Calistenia + karate
 
-## ESPÍRITO
-
----
-
-## 🎓 Roadmap Cientista de Dados
-
-![alt text - ciencia de dados ONS](image-1.png)
+## ESPÍRITO - Casa de Deus: Cristão Católico + O Livro dos Espíritos
 
 ---
 
@@ -94,21 +100,34 @@ Concluído
 
 ---
 
-# Atividades UFF
+🧠 Diário de Bordo
 
+Bloqueios?
+
+Questões emocionais
+
+Falta de rotina x Organização e Planejamento
+
+Abstinencia de maconha de 4 dias. Fumei domingo e segunda para aliviar, mas me deu sono e apenas tesão
+
+Falta de foco e clareza no que seguir nos estudos: Ciência de Dados e Eng. Elétrica
+
+Falta de segurança em mim mesmo
+
+---
+
+# Atividades UFF
 
 - [ ] minicurso circuitos CC com Sadiku e Python
 
-
-- [x] Circuitos Digitais I 
+- [x] Circuitos Digitais I
   - [x] P1: Codigo de hamming, sistemas de numeracação, teoremas booleanos, circuitos logicos combinacionais, mapa de Karnaugh
-  
   
 - [ ] Circuitos Elétricos CC
   - [x] P1
     - 5 Provas antigas
     - LKC, LKT, Divisor de tensão, divisor de corrent, Potencia em resistores, amplificadores
-    
+
   - [ ] Minicurso CC - Falstad e Python/Julia
   - [ ] P2
   - [ ] P3
@@ -143,8 +162,8 @@ Concluído
 
 ---
 
-
 # Tarefas e Estudos Pendentes
+
 - [ ] Circuitos Elétricos CA
 - [ ] Eletromagnetismo I - Campos estáticos
 - [ ] Sistemas de controle I, II e III
@@ -157,9 +176,6 @@ Concluído
 
 - [ ] IEEDs
 - [ ] Sistema de computação
-
-
-
 
 ---
 
@@ -179,7 +195,6 @@ Concluído
 - [x] Calculo Vetorial com Metodos Numéricos em Julia usando apenas Cálculo 1 e Plots no youtube
 
 - [x] Programação para Data Science (Julia, Plots.jl, Pandas, Plotly, Scipy, sympy)
-
 
 ---
 
