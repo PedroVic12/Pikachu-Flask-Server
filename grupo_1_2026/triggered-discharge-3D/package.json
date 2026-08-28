@@ -1,0 +1,21 @@
+{
+  "name": "triggered-discharge",
+  "version": "1.0.0",
+  "description": "3-D dielectric breakdown lightning on the GPU: Laplace field solver, NPW growth, Heidler/MTLE return stroke.",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "node scripts/build-single.mjs",
+    "build:bundle": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint src",
+    "format": "prettier --write \"src/**/*.{js,css}\" index.html"
+  },
+  "devDependencies": {
+    "eslint": "^9.0.0",
+    "prettier": "^3.0.0",
+    "vite": "^5.0.0",
+    "vite-plugin-singlefile": "^2.0.0"
+  }
+}

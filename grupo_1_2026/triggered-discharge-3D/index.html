@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>TRIGGERED DISCHARGE — 3D dielectric breakdown</title>
+    <link rel="stylesheet" href="/src/styles/main.css" />
+  </head>
+
+  <body>
+    <canvas id="gpu"></canvas>
+
+    <!-- ---------------- control panel ---------------- -->
+    <details id="panel" open>
+      <summary>
+        <span class="t1">TRIGGERED DISCHARGE</span>
+        <span class="t2">3D DBM · MTLE</span>
+      </summary>
+
+      <div class="body">
+        <!-- live telemetry, written every frame from the sim clock -->
+        <div class="readout">
+          <div class="cell">
+            <b>PHASE</b><span class="phase" id="rPhase">CHARGING</span>
+          </div>
+          <div class="cell"><b>REAL TIME</b><span id="rTime">0 µs</span></div>
+          <div class="cell"><b>SLOW-MOTION</b><span id="rSlow">—</span></div>
+          <div class="cell"><b>CURRENT</b><span id="rAmp">0 kA</span></div>
+          <div class="cell"><b>STROKE</b><span id="rStroke">—</span></div>
+          <div class="cell"><b>CHANNEL</b><span id="rLen">—</span></div>
+          <div class="cell"><b>FRACTAL D</b><span id="rDim">—</span></div>
+          <div class="cell"><b>TIP SPEED</b><span id="rTip">—</span></div>
+          <div class="cell"><b>FIELD RES.</b><span id="rRes">—</span></div>
+          <div class="cell"><b>THUNDER</b><span id="rThun">—</span></div>
+        </div>
+
+        <!-- physics knobs -->
+        <div class="ctl">
+          <label for="eta">
+            <span>η · BRANCHING EXPONENT</span>
+            <output id="oEta">2.00</output>
+          </label>
+          <input type="range" id="eta" min="1" max="4" step="0.05" value="2" />
+        </div>
+        <p class="note">
+          growth p ∝ E<sup>η</sup> on a 3-D lattice — <em>η ≈ 2</em> reproduces
+          the branch sparsity of photographed lightning (η = 1 collapses to a
+          DLA bush). The return stroke carries a Heidler current up the channel
+          at c/3 (MTLE, λ = 2 km); every phase runs on a physical clock, slowed
+          by the factor shown above.
+        </p>
+
+        <div class="ctl">
+          <label for="cur">
+            <span>PEAK CURRENT · kA</span>
+            <output id="oCur">30</output>
+          </label>
+          <input type="range" id="cur" min="10" max="120" step="1" value="30" />
+        </div>
+
+        <div class="ctl">
+          <label for="dil">
+            <span>TIME DILATION · ×</span>
+            <output id="oDil">1.0</output>
+          </label>
+          <input type="range" id="dil" min="0.25" max="4" step="0.05" value="1" />
+        </div>
+
+        <!-- look knobs -->
+        <div class="ctl">
+          <label for="exp">
+            <span>EXPOSURE</span>
+            <output id="oExp">1.20</output>
+          </label>
+          <input type="range" id="exp" min="0.4" max="2.6" step="0.05" value="1.2" />
+        </div>
+
+        <div class="ctl">
+          <label for="blm">
+            <span>BLOOM</span>
+            <output id="oBlm">0.70</output>
+          </label>
+          <input type="range" id="blm" min="0" max="1.6" step="0.05" value="0.7" />
+        </div>
+
+        <div class="btns">
+          <button id="bNew">NEW BOLT</button>
+          <button id="bPause" aria-pressed="false">PAUSE</button>
+          <button id="bSnd" aria-pressed="false">SOUND OFF</button>
+          <button id="bPng">SAVE PNG</button>
+          <button id="bPol" aria-pressed="false">POLARITY −CG</button>
+          <button id="bStorm" aria-pressed="false">STORM</button>
+        </div>
+      </div>
+    </details>
+
+    <!-- ---------------- overlays ---------------- -->
+    <div id="hint">
+      DRAG TO ORBIT · CLICK GROUND TO TRIGGER · SCROLL TO ZOOM
+    </div>
+    <div id="sig">RUNTIME DAMAGE — REAL PHYSICS, NO SHORTCUTS</div>
+
+    <div id="nogpu">
+      <div>
+        <b>WEBGPU UNAVAILABLE</b><br /><br />
+        This simulation solves the 3-D Laplace field equation on the GPU every
+        frame.<br />
+        Use Chrome, Edge or Brave 113+ (or Safari 18+) with WebGPU enabled.
+      </div>
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,246 @@
+/* ---------------- tokens ---------------- */
+:root {
+  --panel: rgba(8, 10, 18, 0.72);
+  --line: rgba(160, 139, 255, 0.22);
+  --accent: #a08bff;
+  --hot: #e6ddff;
+  --dim: #8d86a8;
+}
+
+/* ---------------- page shell ---------------- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+  background: #04050a;
+}
+body {
+  font:
+    11px/1.45 "SF Mono",
+    ui-monospace,
+    Menlo,
+    Consolas,
+    monospace;
+  color: var(--hot);
+  -webkit-font-smoothing: antialiased;
+}
+canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  touch-action: none;
+}
+
+/* ---------------- control panel ---------------- */
+#panel {
+  position: fixed;
+  top: 14px;
+  left: 14px;
+  width: 262px;
+  z-index: 10;
+  background: var(--panel);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  user-select: none;
+}
+summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 10px 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+}
+summary::-webkit-details-marker {
+  display: none;
+}
+.t1 {
+  letter-spacing: 0.14em;
+  font-weight: 700;
+  color: var(--hot);
+}
+.t2 {
+  letter-spacing: 0.1em;
+  color: var(--dim);
+  font-size: 9px;
+}
+.body {
+  padding: 0 12px 12px;
+}
+
+/* ---------------- telemetry grid ---------------- */
+.readout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+.cell {
+  background: rgba(4, 5, 10, 0.7);
+  padding: 6px 8px;
+}
+.cell b {
+  display: block;
+  font-weight: 400;
+  font-size: 8px;
+  letter-spacing: 0.12em;
+  color: var(--dim);
+}
+.cell span {
+  font-size: 11px;
+  color: var(--hot);
+}
+.phase {
+  color: var(--accent) !important;
+}
+
+/* ---------------- sliders ---------------- */
+.ctl {
+  margin: 9px 0 3px;
+}
+label {
+  display: flex;
+  justify-content: space-between;
+  letter-spacing: 0.1em;
+  font-size: 9px;
+  color: var(--dim);
+  margin-bottom: 4px;
+}
+output {
+  color: var(--accent);
+}
+input[type="range"] {
+  width: 100%;
+  height: 16px;
+  appearance: none;
+  background: transparent;
+  cursor: ew-resize;
+}
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 2px;
+  background: var(--line);
+}
+input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  width: 9px;
+  height: 9px;
+  border-radius: 1px;
+  background: var(--accent);
+  margin-top: -3.5px;
+}
+input[type="range"]::-moz-range-track {
+  height: 2px;
+  background: var(--line);
+}
+input[type="range"]::-moz-range-thumb {
+  width: 9px;
+  height: 9px;
+  border: 0;
+  border-radius: 1px;
+  background: var(--accent);
+}
+.note {
+  color: var(--dim);
+  font-size: 9px;
+  line-height: 1.5;
+  margin: 8px 0 2px;
+}
+.note em {
+  color: var(--accent);
+  font-style: normal;
+}
+
+/* ---------------- buttons ---------------- */
+.btns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  margin-top: 10px;
+}
+button {
+  font: inherit;
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  color: var(--hot);
+  background: rgba(160, 139, 255, 0.07);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  padding: 7px 4px;
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    border-color 0.15s;
+}
+button:hover {
+  background: rgba(160, 139, 255, 0.16);
+  border-color: var(--accent);
+}
+button[aria-pressed="true"] {
+  background: rgba(160, 139, 255, 0.22);
+  border-color: var(--accent);
+  color: var(--hot);
+}
+
+/* ---------------- overlays ---------------- */
+#hint {
+  position: fixed;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  color: var(--dim);
+  letter-spacing: 0.2em;
+  font-size: 9px;
+  transition: opacity 1s;
+}
+#sig {
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  z-index: 5;
+  color: rgba(141, 134, 168, 0.55);
+  letter-spacing: 0.16em;
+  font-size: 9px;
+}
+#nogpu {
+  position: fixed;
+  inset: 0;
+  display: none;
+  place-items: center;
+  background: #04050a;
+  z-index: 50;
+  text-align: center;
+  color: var(--dim);
+  letter-spacing: 0.08em;
+  line-height: 2;
+}
+#nogpu.show {
+  display: grid;
+}
+#nogpu b {
+  color: var(--accent);
+}
+
+/* ---------------- narrow screens ---------------- */
+@media (max-width: 520px) {
+  #panel {
+    width: 236px;
+  }
+  #sig {
+    display: none;
+  }
+}
