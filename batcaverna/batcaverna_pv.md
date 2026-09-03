@@ -2,7 +2,7 @@
 
 ---
 
-📅 Data: *02/09/2026** - *Quarta Feira*
+📅 Data: *03/09/2026** - *Quarta Feira*
 
 Rotina Semanal:
 
@@ -20,15 +20,15 @@ Rotina Semanal:
 
 # 02) **JOBS**
 
-### Trabalho Cientista de dados JR no ELITE Rede de Ensino
+### 2.1) Trabalho Cientista de dados JR no ELITE Rede de Ensino
 
-### Trabalho 2023-2024: Estagio: Camorim Serviços Marítimos de Engenharia Elétrica
+### 2.2) Trabalho 2023-2024: Estagio: Camorim Serviços Marítimos de Engenharia Elétrica
 
-### Estagio de Engenharia Elétrica: ONS PLC (Planejamento de Curto prazo) e análises de Estudos Elétricos em Regime Permanente (estático) para área de SP de 135KV, 345KV e 440 KV
+### 2.3) Estagio de Engenharia Elétrica: ONS PLC (Planejamento de Curto prazo) e análises de Estudos Elétricos em Regime Permanente (estático) para área de SP de 135KV, 345KV e 440 KV
 
-### Cientista de dados JR (Python, Julia, Javascript)
+### 2.4) Cientista de dados JR (Python, Julia, Javascript)
 
-## 🎓 Roadmap Cientista de Dados
+##### 🎓 Roadmap Cientista de Dados
 
 ![alt text - ciencia de dados ONS](image-1.png)
 
@@ -62,9 +62,9 @@ Rotina Semanal:
 
 ## 🎯 Checklist Top 3 Diário (Execução do Dia)
 
-- [ ] **Item 1 (UFF)**: Executar os blocos de código do notebook [Circuitos_Digitais_Contadores_FF_JK_P2.ipynb](file:///home/pedrov12/Documentos/GitHub/Jedi-CyberPunk/PVRV/SPRINT%20ATUAL/UFF/Circuitos_Digitais_Contadores_FF_JK_P2.ipynb).
-- [ ] **Item 2 (Cálculo & Física)**: Resolver 3 problemas de circuitos e espaço de estados no caderno digital Xournal++.
-- [ ] **Item 3 (PySide6)**: Carregar uma planilha real no Dashboard PySide6 para validar o filtro de colunas e o Toast Notification:
+- [ ] **Item 1 (UFF)**: Executar os blocos de código do notebook e registar no arquivo Quarto .qmd [Circuitos_Digitais_Contadores_FF_JK_P2.ipynb](file:///home/pedrov12/Documentos/GitHub/Jedi-CyberPunk/PVRV/SPRINT%20ATUAL/UFF/Circuitos_Digitais_Contadores_FF_JK_P2.ipynb).
+- [ ] **Item 2 (Cálculo & Física)**: Resolver 4 problemas de circuitos digitais e elelétricos CC e espaço de estados ou EDO no caderno digital Xournal++.
+- [ ] **Item 3 (PySide6)**: Carregar uma planilha real no Dashboard PySide6 - graficos, tabelas, menu responsivo:
 
 # 03) MENTE - Estudos UFF 2026.2 + artigo tcc + astro blog
 
@@ -74,7 +74,6 @@ Rotina Semanal:
 
 - 📚 [Sessão de ESTUDOS](#sessao-de-estudos-matematica-programacao-e-eng-eletrica)
 
-### TERAPIA TCC
 
 # 04) CORPO - Academia + Calistenia + karate
 
@@ -225,11 +224,11 @@ Falta de segurança em mim mesmo
 - respeito
 - Disciplina e Responsabilidaed
 
-- [ ] Tomar banho
-- [ ] Vestir roupas limpas
+- [x] Tomar banho
+- [x] Vestir roupas limpas
 - [ ] Lavar o Rosto e fazer Skin Care
-- [ ] Exercicio Físicos
-- [ ] Alongamento de Quadril, Ombra, Colunas e Core
+- [x] Exercicio Físicos
+- [x] Alongamento de Quadril, Ombra, Colunas e Core
 - [x] Limpeza arpatamento
 - [ ] Alinhamento Espiritual matinal
 - [ ] Banho Gelado - Detox de Dopamina (Banheira de gelo)
