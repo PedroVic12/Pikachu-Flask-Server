@@ -60,6 +60,7 @@ Rotina Semanal:
 - [ ] Vaga PJ R$ 5000 reais para Analista de dados JR com python,  vba,julia e javascipt
 - [ ] Freelancer SEO com google meu negocio usando webistes vitrine com alcance de clicks dos usuários
 
+## 🎯 Checklist Top 3 Diário (Execução do Dia)
 
 - [ ] **Item 1 (UFF)**: Executar os blocos de código do notebook [Circuitos_Digitais_Contadores_FF_JK_P2.ipynb](file:///home/pedrov12/Documentos/GitHub/Jedi-CyberPunk/PVRV/SPRINT%20ATUAL/UFF/Circuitos_Digitais_Contadores_FF_JK_P2.ipynb).
 - [ ] **Item 2 (Cálculo & Física)**: Resolver 3 problemas de circuitos e espaço de estados no caderno digital Xournal++.
