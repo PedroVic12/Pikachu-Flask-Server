@@ -16,9 +16,7 @@ void configSensorUltraSonico() {
   long duracao;
   float distancia;
 
-  // Gerando o pulso da Onda Digital do sensor ultrasonico
-  //digitalWrite(trig,LOW);
-  //delayMicroseconds(2); 
+  // Gerando o pulso da Onda Digital do sensor ultrasonico 
   digitalWrite(trig, HIGH);
   delayMicroseconds(10);
   digitalWrite(trig,LOW);
@@ -30,13 +28,14 @@ void configSensorUltraSonico() {
   float vel_som = 0.0343;
   distancia = duracao * vel_som / 2;
 
-  //if (distancia <= 10) {
-  //  Serial.println("\n\nPERIGO!");
-  //} 
+  if (distancia <= 20) {
+    Serial.println("\n\nPERIGO!");
+  } 
+    
 
   Serial.print("\nDistancia: ");
   Serial.print(distancia);
-  Serial.print(" cm");
+  Serial.print(" [cm]");
   delay(1000);
 }
 
@@ -71,9 +70,9 @@ void moverFrente() {
   digitalWrite(IN4_MOTOR_DIREITO, HIGH);
 }
 
-// ======================================================
+
 // MOTORES - RÉ
-// ======================================================
+
 void moverRe() {
   digitalWrite(IN1_MOTOR_ESQUERDO, LOW);
   digitalWrite(IN2_MOTOR_ESQUERDO, HIGH);
@@ -82,9 +81,9 @@ void moverRe() {
   digitalWrite(IN4_MOTOR_DIREITO, LOW);
 }
 
-// ======================================================
+
 // PARAR MOTORES
-// ======================================================
+
 void pararMotores() {
   digitalWrite(IN1_MOTOR_ESQUERDO, LOW);
   digitalWrite(IN2_MOTOR_ESQUERDO, LOW);
@@ -93,9 +92,7 @@ void pararMotores() {
   digitalWrite(IN4_MOTOR_DIREITO, LOW);
 }
 
-// ======================================================
-// GIRAR NO SENTIDO HORÁRIO
-// ======================================================
+
 void girarSentidoHorario() {
 
   //const int valor = 255 / 2; // entrada analogica variando entre 0 e 255
@@ -109,9 +106,7 @@ void girarSentidoHorario() {
   analogWrite(IN4_MOTOR_DIREITO, 128);
 }
 
-// ======================================================
-// SETUP
-// ======================================================
+
 void setup() {
   pinMode(IN1_MOTOR_ESQUERDO, OUTPUT);
   pinMode(IN2_MOTOR_ESQUERDO, OUTPUT);
