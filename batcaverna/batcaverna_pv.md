@@ -2,7 +2,7 @@
 
 ---
 
-📅 Data: *03/09/2026** - *Quarta Feira*
+📅 Data: *04/09/2026** - *Sexta Feira*
 
 Rotina Semanal:
 
@@ -73,7 +73,6 @@ Rotina Semanal:
 ### Estudos SEP E ONS
 
 - 📚 [Sessão de ESTUDOS](#sessao-de-estudos-matematica-programacao-e-eng-eletrica)
-
 
 # 04) CORPO - Academia + Calistenia + karate
 
