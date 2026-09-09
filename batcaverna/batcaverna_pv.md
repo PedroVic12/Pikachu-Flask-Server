@@ -2,7 +2,7 @@
 
 ---
 
-📅 Data: *04/09/2026** - *Sexta Feira*
+📅 Data: *09/09/2026** - *Quarta Feira*
 
 Rotina Semanal:
 
@@ -341,12 +341,8 @@ Falta de segurança em mim mesmo
 
 # Estudos UFF 2026.2
 
-- [ ] Aulas de robotica com Arduino (Carrinho lutador)
-  - [x] Fase 1
-  - [ ] Fase 2
-  - Programação em C++ e RPA com Python e Shell Script com conexões API com flask e FastAPI
-
-- [ ] Circuitos Elétricos CC
+- [X] Aulas de robotica com Arduino (Carrinho lutador)
+- [X] Circuitos Elétricos CC
 - [x] Cálculo 1,2,3 e 4 (Até EDOs e Transformada de Laplace - RLC)
 - [x] Estatística I
 - [x] Estatística II
@@ -414,7 +410,7 @@ Falta de segurança em mim mesmo
 
 ---
 
-# Concluidos 2026
+#   Concluidos 2026
 
 - [x] HTML templates para Gohan Treinamentos Refatorado com SOLID, MVC e framework CSS components
 
@@ -460,3 +456,4 @@ Falta de segurança em mim mesmo
 - SAPECP: <https://sintegre.ons.org.br/sites/SAPECP/Paginas/VisibilidadeCiclos.aspx>
 
 ---
+                                                                                                                                                                                                                                                                
