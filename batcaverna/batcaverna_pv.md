@@ -2,7 +2,7 @@
 
 ---
 
-📅 Data: *09/09/2026** - *Quarta Feira*
+📅 Data: *11/09/2026** - *Sexta Feira*
 
 Rotina Semanal:
 
@@ -57,14 +57,11 @@ Rotina Semanal:
   - Astropy x Sympy x Scipy
   - Resumo minicurso: Astronomia como Soberania Nacional
 
+
+## 🎯 Checklist Top 3 Diário (Execução do Dia)
 - [ ] Vaga PJ R$ 5000 reais para Analista de dados JR com python,  vba,julia e javascipt
 - [ ] Freelancer SEO com google meu negocio usando webistes vitrine com alcance de clicks dos usuários
 
-## 🎯 Checklist Top 3 Diário (Execução do Dia)
-
-- [ ] **Item 1 (UFF)**: Executar os blocos de código do notebook e registar no arquivo Quarto .qmd [Circuitos_Digitais_Contadores_FF_JK_P2.ipynb](file:///home/pedrov12/Documentos/GitHub/Jedi-CyberPunk/PVRV/SPRINT%20ATUAL/UFF/Circuitos_Digitais_Contadores_FF_JK_P2.ipynb).
-- [ ] **Item 2 (Cálculo & Física)**: Resolver 4 problemas de circuitos digitais e elelétricos CC e espaço de estados ou EDO no caderno digital Xournal++.
-- [ ] **Item 3 (PySide6)**: Carregar uma planilha real no Dashboard PySide6 - graficos, tabelas, menu responsivo:
 
 # 03) MENTE - Estudos UFF 2026.2 + artigo tcc + astro blog
 
@@ -73,6 +70,26 @@ Rotina Semanal:
 ### Estudos SEP E ONS
 
 - 📚 [Sessão de ESTUDOS](#sessao-de-estudos-matematica-programacao-e-eng-eletrica)
+
+---
+
+# Estudos UFF 2026.2
+
+- [x] Python e Julia para Astronomia
+
+- [x] Cálculo 1,2,3 e 4 (Até EDOs e Transformada de Laplace - RLC)
+- [x] Estatística I
+- [x] Estatística II
+- [x] Transmissão de calor I
+- [x] Fenomemos de transporte (Mecanica dos fluidos)
+- [x] Controle e qualidade - Administração (Metodos estatísticos)
+
+- [ ] Sinais e Sistemas
+- [x] Cálculo 2 e 3 (cálculo vetorial)
+- [x] Calculo Vetorial com Metodos Numéricos em Julia usando apenas Cálculo 1 e Plots no youtube
+
+- [x] Programação para Data Science (Julia, Plots.jl, Pandas, Plotly, Scipy, sympy)
+
 
 # 04) CORPO - Academia + Calistenia + karate
 
@@ -181,7 +198,6 @@ Falta de segurança em mim mesmo
 
 ---
 
-# Tarefas e Estudos Pendentes
 
 - [ ] Circuitos Elétricos CA
 - [ ] Eletromagnetismo I - Campos estáticos
@@ -196,24 +212,6 @@ Falta de segurança em mim mesmo
 - [ ] IEEDs
 - [ ] Sistema de computação
 
----
-
-# Estudos UFF 2026.2
-
-- [x] Python e Julia para Astronomia
-
-- [x] Cálculo 1,2,3 e 4 (Até EDOs e Transformada de Laplace - RLC)
-- [x] Estatística I
-- [x] Estatística II
-- [x] Transmissão de calor I
-- [x] Fenomemos de transporte (Mecanica dos fluidos)
-- [x] Controle e qualidade - Administração (Metodos estatísticos)
-
-- [ ] Sinais e Sistemas
-- [x] Cálculo 2 e 3 (cálculo vetorial)
-- [x] Calculo Vetorial com Metodos Numéricos em Julia usando apenas Cálculo 1 e Plots no youtube
-
-- [x] Programação para Data Science (Julia, Plots.jl, Pandas, Plotly, Scipy, sympy)
 
 ---
 
