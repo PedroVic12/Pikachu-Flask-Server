@@ -2,17 +2,17 @@
 
 ---
 
-📅 Data: *11/09/2026** - *Sexta Feira*
+📅 Data: *14/09/2026** - *Segunndas Feira*
 
 Rotina Semanal:
 
-*Segunda Feira* = Root Chakra + Academia
-*Terça Feira* = Throat Chakra + Circuitos CC e CD + Terapia
-*Quarta Feira* = Heart Chakra + Homeoffice + Artigo TCC
-*Quinta Feira* = Third Eye Chakra + Circuitos CC e CD + Karate
-*Sexta Feira* = Solar Chakra + Dia de Oxalá
-*Sabado* = Folga + Rotina + Futebol + Jogos
-*Domingo* = Dia de Missa e Familia
+- *Segunda Feira* = Root Chakra + Academia
+- *Terça Feira* = Throat Chakra + Circuitos CC e CD + Terapia
+- *Quarta Feira* = Heart Chakra + Homeoffice + Artigo TCC
+- *Quinta Feira* = Third Eye Chakra + Circuitos CC e CD + Karate
+- *Sexta Feira* = Solar Chakra + Dia de Oxalá
+- *Sabado* = Folga + Rotina + Futebol + Jogos
+- *Domingo* = Dia de Missa e Familia
 
 ---
 
@@ -57,11 +57,10 @@ Rotina Semanal:
   - Astropy x Sympy x Scipy
   - Resumo minicurso: Astronomia como Soberania Nacional
 
-
 ## 🎯 Checklist Top 3 Diário (Execução do Dia)
+
 - [ ] Vaga PJ R$ 5000 reais para Analista de dados JR com python,  vba,julia e javascipt
 - [ ] Freelancer SEO com google meu negocio usando webistes vitrine com alcance de clicks dos usuários
-
 
 # 03) MENTE - Estudos UFF 2026.2 + artigo tcc + astro blog
 
@@ -89,7 +88,6 @@ Rotina Semanal:
 - [x] Calculo Vetorial com Metodos Numéricos em Julia usando apenas Cálculo 1 e Plots no youtube
 
 - [x] Programação para Data Science (Julia, Plots.jl, Pandas, Plotly, Scipy, sympy)
-
 
 # 04) CORPO - Academia + Calistenia + karate
 
@@ -198,7 +196,6 @@ Falta de segurança em mim mesmo
 
 ---
 
-
 - [ ] Circuitos Elétricos CA
 - [ ] Eletromagnetismo I - Campos estáticos
 - [ ] Sistemas de controle I, II e III
@@ -211,7 +208,6 @@ Falta de segurança em mim mesmo
 
 - [ ] IEEDs
 - [ ] Sistema de computação
-
 
 ---
 
@@ -408,7 +404,7 @@ Falta de segurança em mim mesmo
 
 ---
 
-#   Concluidos 2026
+# Concluidos 2026
 
 - [x] HTML templates para Gohan Treinamentos Refatorado com SOLID, MVC e framework CSS components
 
@@ -454,4 +450,3 @@ Falta de segurança em mim mesmo
 - SAPECP: <https://sintegre.ons.org.br/sites/SAPECP/Paginas/VisibilidadeCiclos.aspx>
 
 ---
-                                                                                                                                                                                                                                                                
