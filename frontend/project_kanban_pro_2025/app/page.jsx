@@ -349,15 +349,20 @@ export default function App() {
     }
   };
 
-  const handleExport = () => {
-    projectRepository.exportToXLSX(projects);
+  const handleExport = async () => {
+    try {
+      await projectRepository.exportToXLSX(projects);
+      alert(`🎉 Exportado com sucesso! kanban.xlsx baixado e ${projects.length} notas sincronizadas em /batcaverna/notas/*.md.`);
+    } catch (error) {
+      alert("Erro ao exportar arquivo Excel: " + (error instanceof Error ? error.message : String(error)));
+    }
   };
 
   const handleImport = async (file) => {
     try {
       const importedProjects = await projectRepository.importFromXLSX(file);
       setProjects(importedProjects);
-      alert(`${importedProjects.length} projetos importados com sucesso!`);
+      alert(`${importedProjects.length} projetos importados e sincronizados com /batcaverna/notas!`);
     } catch (error) {
       alert(
         error instanceof Error ? error.message : "Erro ao importar arquivo",
@@ -365,9 +370,13 @@ export default function App() {
     }
   };
 
-  const handleSync = () => {
-    projectRepository.saveProjects(projects);
-    alert("Dados sincronizados com sucesso!");
+  const handleSync = async () => {
+    const success = await projectRepository.saveProjects(projects);
+    if (success) {
+      alert(`🟢 Sincronizado! ${projects.length} projetos salvos em /batcaverna/planilhas/kanban.xlsx e notas .md.`);
+    } else {
+      alert("⚠️ Dados salvos localmente, porém houve falha ao comunicar com API do backend.");
+    }
   };
 
   const handleDragStart = (e, item) => {
@@ -837,6 +846,10 @@ export default function App() {
             <h1 className="text-xl font-bold text-gray-900 dark:text-gray-100">
               {getScreenTitle()}
             </h1>
+            <div className="hidden sm:flex items-center gap-2 px-3 py-1 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800/50 rounded-full text-xs font-semibold">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span>Sincronizado: /batcaverna/notas ({projects.length} arquivos .md)</span>
+            </div>
           </div>
           
           <a

@@ -137,12 +137,12 @@ const CustomizableMarkdownEditor = ({ markdown, onChange }) => {
   const renderEditorArea = () => (
     <div className="h-full flex flex-col flex-1">
       {renderEditorControls()}
-      <div className="flex items-center justify-between px-4 py-2 border-b border-gray-200 bg-gray-50">
-        <div className="flex items-center ">
-          <Edit3 size={16} className="text-gray-500" />
-          <h3 className="text-sm font-medium text-gray-700">Editor</h3>
+      <div className="flex items-center justify-between px-4 py-2 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
+        <div className="flex items-center gap-2">
+          <Edit3 size={16} className="text-gray-500 dark:text-gray-400" />
+          <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300">Editor Markdown</h3>
         </div>
-        <span className="text-xs text-gray-500">Markdown suportado</span>
+        <span className="text-xs text-gray-500 dark:text-gray-400">Markdown suportado</span>
       </div>
 
       <textarea

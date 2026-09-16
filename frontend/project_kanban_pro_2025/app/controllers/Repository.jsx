@@ -146,12 +146,18 @@ class ProjectRepository {
       if (!response.ok) {
         console.error("Falha ao salvar projetos no Excel API/Markdown");
       }
+      return true;
     } catch (error) {
       console.error("Erro ao chamar API de salvamento do Excel:", error);
+      return false;
     }
   }
 
-  exportToExcel(projects) {
+  async exportToXLSX(projects) {
+    // 1. Save to backend API (kanban.xlsx and /batcaverna/notas/*.md)
+    await this.saveProjects(projects);
+
+    // 2. Client-side download trigger
     const exportData = projects.map((item) => {
       const createdAt =
         item.createdAt instanceof Date
@@ -179,13 +185,22 @@ class ProjectRepository {
     const ws = XLSX.utils.json_to_sheet(exportData);
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, "Projetos");
-    XLSX.writeFile(wb, "kanban-backup.xlsx");
+    XLSX.writeFile(wb, "kanban.xlsx");
+    return true;
+  }
+
+  exportToExcel(projects) {
+    return this.exportToXLSX(projects);
+  }
+
+  importFromXLSX(file) {
+    return this.importFromExcel(file);
   }
 
   importFromExcel(file) {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
-      reader.onload = (e) => {
+      reader.onload = async (e) => {
         try {
           const data = new Uint8Array(e.target?.result);
           const workbook = XLSX.read(data, { type: "array", cellDates: true });
@@ -204,6 +219,9 @@ class ProjectRepository {
             updatedAt: parseDateForExcel(row["Atualizado em"]),
             files: [],
           }));
+
+          // Sync imported projects with backend API
+          await this.saveProjects(importedProjects);
           resolve(importedProjects);
         } catch (error) {
           reject(new Error("Erro ao importar arquivo Excel: " + error.message));
