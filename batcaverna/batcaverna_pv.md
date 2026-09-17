@@ -275,35 +275,7 @@ Falta de segurança em mim mesmo
 
 ---
 
-# 08) PVRV 2026 Notes
-
----
-
-# 09) Terapia TCC 2025-2026
-
-- Fim de relacionamento Danielle
-
-- Desregulação emocional por TDAH e com ma alimentação e falta de treinos
-
-- TCC com cartões de enfrentamento com mudanças de hábitos e tarefas com uso de Atentah e Venvanse em gotas
-
-- Estudos UFF X Coding X JOBS x Treinos X PVRV (jedi cyberpunk)
-
-- Desapego e dependência emocional
-
-- Uso compulsivos de substâncias dopaminergerticas (uso de telas, maconha, masturbação)
-
-- Auto estima, autocríticas, autoconfiança e síndrome do impostor
-
-- timidez e crenças limitantes por traumas infantis
-
-- Soft Skills para UFF e ONS
-
-- Sobrecarga de tarefas com cartões de enfrentamento e ferramentas de produtividade para gerenciamento de tempo e tomadas de decisões baseado em dados
-
-- Início de relacionamento Viviane
-
-- a saúde mental x espiritual na prática
+# 09) PVRV 2026 Notes
 
 ---
 
