@@ -1,0 +1,177 @@
+title: "Análise de Sistema Trifásico Residencial 127V/220V e Desbalanceamento de Carga"
+subtitle: "Modelagem Matemática, Formulações e Simulações em Julia com Plots.jl"
+author: "Engenharia Elétrica"
+date: today
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    code-fold: show
+    theme: cosmo
+    number-sections: true
+    highlight-style: github
+  pdf:
+    toc: true
+    number-sections: true
+    colorlinks: true
+execute:
+  echo: true
+  warning: false
+---
+
+# Introdução e Contexto
+
+No padrão de fornecimento residencial em grande parte das concessionárias brasileiras (como Enel RJ, Light, etc.), o atendimento trifásico ocorre na topologia **Estrela com 4 fios ($Y$ com Neutro aterrado)**, fornecendo tensões nominais de **127 V** (fase-neutro) e **220 V** (fase-fase).
+
+Um problema frequente em instalações residenciais é a **má distribuição das cargas monofásicas nos barramentos do Quadro de Distribuição de Circuitos (QDC)**. Quando quase todos os aparelhos de 127 V (tomadas de uso geral, iluminação, geladeira, micro-ondas, ferro de passar) são alimentados a partir de uma única fase (ex.: Fase A), ocorrem consequências graves:
+1. **Sobrecarga térmica e disparo intempestivo** do disjuntor da Fase A ou do disjuntor geral termomagnético.
+2. **Subutilização** da capacidade contratada das Fases B e C.
+3. **Corrente excessiva no condutor neutro** ($I_N \approx I_A$), que não passa por disjuntor e pode sofrer superaquecimento.
+4. **Queda de tensão excessiva** na fase sobrecarregada ($\Delta V$), reduzindo a eficiência e vida útil de eletrodomésticos.
+5. **Aumento significativo das perdas por efeito Joule** ($R \cdot I^2$) na fiação.
+
+---
+
+# Formulações de Circuitos Trifásicos Residenciais
+
+## Relações de Tensão (Fase e Linha)
+
+Em uma topologia estrela simétrica equilibrada com sequência positiva ($ABC$):
+
+$$\\begin{aligned}
+\\dot{V}_A &= V_f \\angle 0^\\circ = 127 \\angle 0^\\circ\\text{ V} \\\\
+\\dot{V}_B &= V_f \\angle -120^\\circ = 127 \\angle -120^\\circ\\text{ V} \\\\
+\\dot{V}_C &= V_f \\angle 120^\\circ = 127 \\angle 120^\\circ\\text{ V}
+\\end{aligned}$$
+
+A tensão de linha ($V_L$) é obtida pela diferença de potencial entre duas fases:
+
+$$\\dot{V}_{AB} = \\dot{V}_A - \\dot{V}_B = V_f (1 - \\cos(-120^\\circ) - j\\sin(-120^\\circ)) = \\sqrt{3} V_f \\angle 30^\\circ$$
+
+Relação de módulo:
+$$V_L = \\sqrt{3} \\cdot V_f = \\sqrt{3} \\times 127\\text{ V} \\approx 220\\text{ V}$$
+
+O valor de pico instantâneo é:
+$$V_{\\text{pico}} = \\sqrt{2} \\cdot V_{\\text{rms}} = \\sqrt{2} \\times 127\\text{ V} \\approx 179{,}6\\text{ V}$$
+
+---
+
+## Leis de Kirchhoff e Corrente no Neutro
+
+Pela Primeira Lei de Kirchhoff aplicada ao nó central (barramento de neutro):
+
+$$\\dot{I}_N + \\dot{I}_A + \\dot{I}_B + \\dot{I}_C = 0 \\implies \\dot{I}_N = -(\\dot{I}_A + \\dot{I}_B + \\dot{I}_C)$$
+
+Adotando a convenção de corrente que flui de volta pela fiação de neutro:
+$$\\dot{I}_N = \\dot{I}_A + \\dot{I}_B + \\dot{I}_C$$
+
+### Caso 1: Sistema Perfeitamente Equilibrado
+Se $\\dot{I}_A = I \\angle 0^\\circ$, $\\dot{I}_B = I \\angle -120^\\circ$, $\\dot{I}_C = I \\angle 120^\\circ$:
+
+$$\\dot{I}_N = I(1 - 0{,}5 - j0{,}866 - 0{,}5 + j0{,}866) = 0\\text{ A}$$
+
+O condutor neutro não conduz corrente.
+
+### Caso 2: Concentração em Apenas 1 Fase (Problema em Questão)
+Se todas as cargas monofásicas estiverem conectadas à Fase A:
+$$\\dot{I}_A = I_A \\angle -\\phi_A, \\quad \\dot{I}_B = 0\\text{ A}, \\quad \\dot{I}_C = 0\\text{ A}$$
+
+$$\\dot{I}_N = \\dot{I}_A \\implies |\\dot{I}_N| = |\\dot{I}_A|$$
+
+Todo o retorno da corrente é suportado pelo condutor neutro, anulando a vantagem de cancelamento do sistema trifásico.
+
+---
+
+## Balanço de Potência e Fator de Potência
+
+Para cada fase $k \\in \\{A, B, C\\}$:
+
+$$\\begin{aligned}
+S_k &= V_{f,k} \\cdot I_k^* = P_k + j Q_k \\quad [\\text{VA}] \\\\
+P_k &= V_{f,k} \\cdot I_k \\cdot \\cos(\\phi_k) \\quad [\\text{W}] \\\\
+Q_k &= V_{f,k} \\cdot I_k \\cdot \\sin(\\phi_k) \\quad [\\text{VAr}] \\\\
+FP_k &= \\cos(\\phi_k) = \\frac{P_k}{S_k}
+\\end{aligned}$$
+
+Potência Total do Sistema (desequilibrado):
+$$P_{\\text{total}} = P_A + P_B + P_C$$
+$$Q_{\\text{total}} = Q_A + Q_B + Q_C$$
+$$S_{\\text{total}} = \\sqrt{P_{\\text{total}}^2 + Q_{\\text{total}}^2}$$
+
+Se o sistema fosse equilibrado com corrente de linha $I_L = I_f$:
+$$P_{3\\phi} = 3 \\cdot V_f \\cdot I_f \\cdot \\cos(\\phi) = \\sqrt{3} \\cdot V_L \\cdot I_L \\cdot \\cos(\\phi)$$
+
+---
+
+## Queda de Tensão e Perdas Joule no Ramal Monofásico vs Trifásico
+
+Considere a resistência de cada condutor como $R$.
+
+### Quando toda a carga $I$ está apenas na Fase A:
+A corrente passa pelo condutor da Fase A e retorna pelo Neutro:
+$$\\Delta V_A = I \\cdot (R_{\\text{fase}} + R_{\\text{neutro}}) = 2 \\cdot R \\cdot I$$
+
+Perdas por efeito Joule na instalação:
+$$P_{\\text{perdas, 1 fase}} = R \\cdot I_A^2 + R \\cdot I_N^2 = 2 \\cdot R \\cdot I^2$$
+
+### Quando a mesma potência é dividida igualmente entre as 3 fases ($I_k = I/3$):
+A corrente no neutro é nula ($I_N = 0$):
+$$\\Delta V = R \\cdot \\left(\\frac{I}{3}\\right) = \\frac{R \\cdot I}{3} \\quad (\\text{redução de } 83{,}3\\%)$$
+
+Perdas Joule totais:
+$$P_{\\text{perdas, 3 fases}} = 3 \\cdot R \\cdot \\left(\\frac{I}{3}\\right)^2 = \\frac{R \\cdot I^2}{3} \\quad (\\text{redução de perdas em um fator de } 6!)$$
+
+---
+
+# Implementação em Julia com Plots.jl
+
+O código abaixo modela o sistema trifásico, plota as três tensões de fase defasadas em 120°, a situação patológica de sobrecarga na Fase A com corrente de retorno pelo neutro, e o diagrama fasorial.
+
+```{julia}
+using Plots
+using LaTeXStrings
+
+# Configuração de parâmetros da rede
+f = 60.0                      # Frequência em Hz
+omega = 2 * pi * f            # Frequência angular (rad/s)
+V_rms = 127.0                 # Tensão de fase eficaz (V)
+V_peak = V_rms * sqrt(2)      # Tensão de pico (~179.6 V)
+t = range(0.0, 0.04, length=1000) # Intervalo de 40 ms (~2.4 ciclos)
+
+# Tensões de Fase
+v_A = @. V_peak * sin(omega * t)
+v_B = @. V_peak * sin(omega * t - 2pi/3)
+v_C = @. V_peak * sin(omega * t + 2pi/3)
+
+# Correntes com desequilíbrio: Carga de 35A pico na Fase A, Fases B e C zeradas
+i_A = @. 35.0 * sin(omega * t - deg2rad(20)) # defasagem indutiva
+i_B = zeros(length(t))
+i_C = zeros(length(t))
+i_N = @. i_A + i_B + i_C                     # Retorno pelo neutro
+
+# Plot 1: Formas de onda no tempo
+p1 = plot(t .* 1000, [v_A v_B v_C],
+    label=["Fase A (127V rms)" "Fase B (127V rms)" "Fase C (127V rms)"],
+    color=[:red :orange :green],
+    lw=2,
+    ylabel="Tensão (V)",
+    title="Tensões de Fase no Sistema Trifásico Estrela 127V/220V",
+    legend=:topright,
+    grid=true)
+hline!(p1, [0], color=:gray, linestyle=:dash, label=false)
+
+p2 = plot(t .* 1000, [i_A i_B i_C i_N],
+    label=["Corrente Fase A (Sobrecarga)" "Corrente Fase B (0 A)" "Corrente Fase C (0 A)" "Corrente Neutro (In = Ia)"],
+    color=[:red :orange :green :blue],
+    lw=[2.2 1.5 1.5 2.0],
+    linestyle=[:solid :dash :dot :dashdot],
+    xlabel="Tempo (ms)",
+    ylabel="Corrente (A)",
+    title="Desbalanceamento Severo: Todo Retorno Ocorre pelo Neutro",
+    legend=:topright,
+    grid=true)
+hline!(p2, [0], color=:gray, linestyle=:dash, label=false)
+
+plot_tempo = plot(p1, p2, layout=(2,1), size=(850, 600))
+savefig(plot_tempo, "formas_onda_julia.png")
+plot_tempo

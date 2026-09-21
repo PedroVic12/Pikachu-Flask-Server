@@ -2,7 +2,7 @@
 
 ---
 
-📅 Data: *14/09/2026** - *Segunndas Feira*
+📅 Data: *21/09/2026** - *Segunda Feira*
 
 Rotina Semanal:
 

@@ -1,0 +1,248 @@
+
+# Anotações sobre C++ do livro (C++ How to Program, 8th Edition) de Deitel & Deitel
+
+## Introdução a Classes, Objetos e Strings - pag 103
+
+```cpp
+
+#include <iostream>
+using namespace std;
+#include <cmath>
+#include <string> // biblioteca para manipulação de strings
+
+class GradeBook {
+
+    // funções membro definidas na classe GradeBook
+    public:
+        void setCourseName(string name) {
+            courseName = name;
+        }
+
+        string getCourseName() {
+            return courseName;
+        }
+
+        void displayMessage() {
+            cout << "Bem vindo ao livro de notas para\n" << getCourseName() << "!" << endl;
+        }
+    private:
+        string courseName; // nome do curso para esse GradeBook
+
+
+
+    GradeBook(string name) { // construtor inicializa courseName com name
+        setCourseName(name); // chama a função setCourseName para inicializar courseName
+    }
+}
+
+int main(){
+    string nomeDoCurso;
+    GradeBook myGradeBook("Circuitos Digitais"); // cria um objeto GradeBook e inicializa courseName
+    GradeBook myGradeBook2("Circuitos Elétricos CC e CA"); // cria um objeto GradeBook e inicializa courseName
+
+    cout << "Digite o nome do curso: ";
+    getline(cin, nomeDoCurso);
+    cout << endl;
+
+    // chama a função setCourseName para armazenar o nome do curso
+    myGradeBook.setCourseName(nomeDoCurso);
+    myGradeBook.displayMessage();
+
+    // chama a função setCourseName para armazenar o nome do curso
+    myGradeBook2.setCourseName(nomeDoCurso);
+    myGradeBook2.displayMessage();
+}
+
+```
+
+
+## Colocando classes em arquivos separados
+
+```cpp
+// Arquivo Headers: GradeBook.h
+
+#include <iostream>
+using namespace std;
+#include <cmath>
+#include <string> // biblioteca para manipulação de strings
+
+class GradeBook {
+
+    // funções membro definidas na classe GradeBook
+    public:
+        void setCourseName(string name) {
+            courseName = name;
+        }
+
+        string getCourseName() {
+            return courseName;
+        }
+
+        void displayMessage() {
+            cout << "Bem vindo ao livro de notas para\n" << getCourseName() << "!" << endl;
+        }
+
+        void determineClassAverage(); // protótipo da função determineClassAverage
+
+    private:
+        string courseName; // nome do curso para esse GradeBook
+    
+
+
+
+    GradeBook(string name) { // construtor inicializa courseName com name
+        setCourseName(name); // chama a função setCourseName para inicializar courseName
+    }
+}
+
+```
+
+
+```cpp
+
+// Arquivo de implementação: GradeBook.cpp
+#include "GradeBook.h"
+#include <iostream>
+using namespace std;
+
+
+
+void GradeBook:determineClassAverage() {
+    int total; // soma das notas inseridas pelo usuário
+    int gradeCounter; // número de notas inseridas
+    int nota; // uma nota
+    double average; // média das notas
+
+    total = 0; // inicializa total
+    gradeCounter = 0; // inicializa gradeCounter
+
+    cout << "Digite a nota ou -1 para encerrar: ";
+    cin >> nota; // lê a primeira nota do usuário
+
+    while (nota != -1) { // enquanto nota não for -1
+        total = total + nota; // adiciona nota ao total
+        gradeCounter = gradeCounter + 1; // incrementa contador de notas
+
+        cout << "Digite a nota ou -1 para encerrar: "; // solicita a próxima nota
+        cin >> nota;
+    }
+
+    if (gradeCounter != 0) { // evita divisão por zero
+        average = static_cast<double>(total) / gradeCounter; // calcula média
+        cout << "\nTotal das notas é " << total << endl;
+        cout << "Número de notas é " << gradeCounter << endl;
+        cout << "Média da classe é " << average << endl;
+    } else {
+        cout << "Nenhuma nota foi inserida" << endl;
+    }
+}
+
+int main(){
+
+    string nomeDoCurso;
+    GradeBook myGradeBook("Circuitos Digitais"); // cria um objeto GradeBook e inicializa courseName
+    GradeBook myGradeBook2("Circuitos Elétricos CC e CA"); // cria um objeto GradeBook e inicializa courseName
+
+    cout << "Digite o nome do curso: ";
+    getline(cin, nomeDoCurso);
+    cout << endl;
+
+    // chama a função setCourseName para armazenar o nome do curso
+    myGradeBook.setCourseName(nomeDoCurso);
+    myGradeBook.displayMessage();
+
+    // chama a função setCourseName para armazenar o nome do curso
+    myGradeBook2.setCourseName(nomeDoCurso);
+    myGradeBook2.displayMessage();
+
+    myGradeBook2.determineClassAverage();
+}
+
+```
+
+
+## Controle de fluxo, funções e escopo - pag 188
+
+
+### While LOOP
+
+```cpp
+
+#include <iostream>
+using namespace std;
+
+int main(){
+    int counter = 1;
+
+    while (counter <= 10) { // loop enquanto counter for menor ou igual a 10
+        cout << counter << " "; // exibe o valor de counter
+        ++counter; // incrementa counter em 1
+    }
+
+    cout << endl; // exibe uma nova linha
+}
+
+```
+
+
+### For LOOP
+
+```cpp
+
+#include <iostream>
+using namespace std;
+
+int main() {
+    for (int counter = 1; counter <= 10; ++counter) { // loop de 1 a 10
+        cout << counter << " "; // exibe o valor de counter
+    }
+    cout << endl; // exibe uma nova linha
+}
+
+
+```
+
+### Aplicação de uso:
+
+Considerando seguinte problema: Uma pessoa investe R$ 1000,00 em sua conta poupança por com 5% de juros ao ano. Calcule e print na tela o montante do dinheiro na sua conta apos 10 anos usando uma formula matematica
+
+$\$A = P(1 + r)^n$
+
+onde:
+- A = O montante do dinheiro na conta após n anos
+- P = O valor principal (o valor inicial investido)
+- r = A taxa de juros anual (em decimal)
+- n = O número de anos que o dinheiro é investido
+
+
+```cpp
+
+#include <iostream>
+#include <iomanip> // biblioteca para manipulação de formatação de saída
+#include <cmath> // biblioteca para funções matemáticas
+using namespace std;
+
+int main(){
+
+    double amount;
+    double principal = 1000.0; // valor inicial investido
+    double rate = 0.05; // taxa de juros anual (5%)
+
+    cout << "Ano" << setw(20) << "Montante na conta" << endl; // cabeçalho da tabela
+
+    cout << fixed << setprecision(2); // define a precisão para 2 casas decimais
+
+    //calcular o valor do montante depositado a cada ano
+
+    for (int year = 1; year <= 10; ++year) { // loop de 1 a 10 anos
+        amount = principal * pow(1.0 + rate, year); // calcula o montante usando a fórmula
+        cout << year << setw(20) << amount << endl; // exibe o ano e o montante na conta
+    }
+
+}
+
+```
+
+
+## Funções e introdução a recursividade - pag 228
+
