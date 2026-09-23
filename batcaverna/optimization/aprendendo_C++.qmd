@@ -206,7 +206,7 @@ int main() {
 
 Considerando seguinte problema: Uma pessoa investe R$ 1000,00 em sua conta poupança por com 5% de juros ao ano. Calcule e print na tela o montante do dinheiro na sua conta apos 10 anos usando uma formula matematica
 
-$\$A = P(1 + r)^n$
+\$\$A = P(1 + r)^n$
 
 onde:
 - A = O montante do dinheiro na conta após n anos
@@ -222,14 +222,16 @@ onde:
 #include <cmath> // biblioteca para funções matemáticas
 using namespace std;
 
+
+
+double amount;
+double principal = 1000.0; // valor inicial investido
+double rate = 0.05; // taxa de juros anual (5%)
+
 int main(){
 
-    double amount;
-    double principal = 1000.0; // valor inicial investido
-    double rate = 0.05; // taxa de juros anual (5%)
 
     cout << "Ano" << setw(20) << "Montante na conta" << endl; // cabeçalho da tabela
-
     cout << fixed << setprecision(2); // define a precisão para 2 casas decimais
 
     //calcular o valor do montante depositado a cada ano
