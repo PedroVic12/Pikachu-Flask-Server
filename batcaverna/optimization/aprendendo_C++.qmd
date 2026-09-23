@@ -245,6 +245,104 @@ int main(){
 
 ```
 
+### Mesmo exemplo só que agora usando python
+
+```py
+
+print(100*(1+5/100)**7) # calcula o montante após 7 anos com juros de 5% ao ano 
+
+#variaveis
+P=100
+r = 5.0
+N = 7
+
+def deposito_inteligente(P, r, N):
+    return P*(1+r/100)**N
+
+# varíaveis com clean code
+
+primary = 100
+r = 5.0
+n = 7
+amount = primary*(1+r/100)**n
+print(f"Montante após {n} anos: R${amount:.2f}")
+
+
+primeiro_deposito = 100 
+interest_rate = 5.0
+num_years = 7
+final_amount = primeiro_deposito * (1 + interest_rate / 100) ** num_years
+print(f"Montante após {num_years} anos: R${final_amount:.2f}")
+
+
+
+
+```
+## Função com biblioteca cmath - pag 222 e math do Python
+
+---
+
+```cpp
+#include <iostream>
+
+
+```
+
+---
+
+```py
+
+
+
+```
+
+---
+
+
+
 
 ## Funções e introdução a recursividade - pag 228
+
+
+---
+
+```cpp
+#include <iostream>
+
+
+```
+
+---
+
+```py
+
+
+
+```
+
+---
+
+
+
+## Funções com parâmetros e argumentos - pag 229
+
+---
+
+```cpp
+#include <iostream>
+
+
+```
+
+---
+
+```py
+
+
+
+```
+
+---
+
+
 
