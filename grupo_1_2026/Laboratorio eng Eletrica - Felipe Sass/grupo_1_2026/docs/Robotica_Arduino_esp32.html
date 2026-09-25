@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Grupo 1">
+<meta name="dcterms.date" content="2026-07-17">
+
+<title>Robótica para Iniciantes</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="Robotica_Arduino_esp32_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Robotica_Arduino_esp32_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="Robotica_Arduino_esp32_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="Robotica_Arduino_esp32_files/libs/quarto-html/popper.min.js"></script>
+<script src="Robotica_Arduino_esp32_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Robotica_Arduino_esp32_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Robotica_Arduino_esp32_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Robotica_Arduino_esp32_files/libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Robotica_Arduino_esp32_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Robotica_Arduino_esp32_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Robotica_Arduino_esp32_files/libs/bootstrap/bootstrap-215b371544c282197b31c8aa00ce3677.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#fase-0-conceitos-básicos-e-fundamentos" id="toc-fase-0-conceitos-básicos-e-fundamentos" class="nav-link active" data-scroll-target="#fase-0-conceitos-básicos-e-fundamentos">Fase 0: Conceitos básicos e Fundamentos</a></li>
+  <li><a href="#fase-1-introdução-à-robótica-e-programação-em-c" id="toc-fase-1-introdução-à-robótica-e-programação-em-c" class="nav-link" data-scroll-target="#fase-1-introdução-à-robótica-e-programação-em-c">Fase 1: Introdução à Robótica e programação em C++</a>
+  <ul class="collapse">
+  <li><a href="#componentes-que-serão-utilizados" id="toc-componentes-que-serão-utilizados" class="nav-link" data-scroll-target="#componentes-que-serão-utilizados">Componentes que serão utilizados</a></li>
+  </ul></li>
+  <li><a href="#arquitetura-geral" id="toc-arquitetura-geral" class="nav-link" data-scroll-target="#arquitetura-geral">1. Arquitetura geral</a>
+  <ul class="collapse">
+  <li><a href="#arduino-nano-l298n" id="toc-arduino-nano-l298n" class="nav-link" data-scroll-target="#arduino-nano-l298n">2. Arduino Nano → L298N</a>
+  <ul class="collapse">
+  <li><a href="#motores" id="toc-motores" class="nav-link" data-scroll-target="#motores">Motores</a></li>
+  </ul></li>
+  <li><a href="#alimentação-do-arduino-nano" id="toc-alimentação-do-arduino-nano" class="nav-link" data-scroll-target="#alimentação-do-arduino-nano">3. Alimentação do Arduino Nano</a></li>
+  <li><a href="#hc-sr04---sensor-ultrassônico" id="toc-hc-sr04---sensor-ultrassônico" class="nav-link" data-scroll-target="#hc-sr04---sensor-ultrassônico">4. HC-SR04 - Sensor Ultrassônico</a></li>
+  <li><a href="#sensor-de-refletância-qre" id="toc-sensor-de-refletância-qre" class="nav-link" data-scroll-target="#sensor-de-refletância-qre">6. Sensor de refletância QRE</a></li>
+  <li><a href="#receptor-ir-ky-022-vs1838b" id="toc-receptor-ir-ky-022-vs1838b" class="nav-link" data-scroll-target="#receptor-ir-ky-022-vs1838b">7. Receptor IR KY-022 / VS1838B</a></li>
+  <li><a href="#mapa-completo-do-arduino-com-todos-os-componentes" id="toc-mapa-completo-do-arduino-com-todos-os-componentes" class="nav-link" data-scroll-target="#mapa-completo-do-arduino-com-todos-os-componentes">8. Mapa completo do Arduino com todos os componentes:</a></li>
+  </ul></li>
+  <li><a href="#missões-27-08-2026" id="toc-missões-27-08-2026" class="nav-link" data-scroll-target="#missões-27-08-2026">Missões (27-08-2026)</a>
+  <ul class="collapse">
+  <li><a href="#x-1-gravação-de-código---ok" id="toc-x-1-gravação-de-código---ok" class="nav-link" data-scroll-target="#x-1-gravação-de-código---ok">- [x] 1 Gravação de Código - OK</a></li>
+  <li><a href="#x-2-comunicação-serial" id="toc-x-2-comunicação-serial" class="nav-link" data-scroll-target="#x-2-comunicação-serial">- [x] 2 Comunicação Serial</a></li>
+  <li><a href="#x-3-sensor-ultrassônico" id="toc-x-3-sensor-ultrassônico" class="nav-link" data-scroll-target="#x-3-sensor-ultrassônico">- [x] 3 Sensor Ultrassônico</a></li>
+  <li><a href="#driver-e-motores" id="toc-driver-e-motores" class="nav-link" data-scroll-target="#driver-e-motores">- [ ] 4 Driver e Motores</a></li>
+  <li><a href="#desafio-1-modo-radar" id="toc-desafio-1-modo-radar" class="nav-link" data-scroll-target="#desafio-1-modo-radar">- [ ] DESAFIO 1 (Modo Radar)</a></li>
+  <li><a href="#sensor-de-refletância" id="toc-sensor-de-refletância" class="nav-link" data-scroll-target="#sensor-de-refletância">- [ ] 6 Sensor de Refletância</a></li>
+  <li><a href="#desafio-2-vai-e-volta" id="toc-desafio-2-vai-e-volta" class="nav-link" data-scroll-target="#desafio-2-vai-e-volta">- [ ] 7 DESAFIO 2 (Vai e Volta)</a></li>
+  <li><a href="#controle-remoto" id="toc-controle-remoto" class="nav-link" data-scroll-target="#controle-remoto">- [ ] 8 Controle Remoto</a></li>
+  <li><a href="#desafio-3-sumô-básico" id="toc-desafio-3-sumô-básico" class="nav-link" data-scroll-target="#desafio-3-sumô-básico">- [ ] 9 DESAFIO 3 (Sumô Básico)</a></li>
+  <li><a href="#sensores-laterais" id="toc-sensores-laterais" class="nav-link" data-scroll-target="#sensores-laterais">- [ ] 10 Sensores Laterais</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Robótica para Iniciantes</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Grupo 1 </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">July 17, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="fase-0-conceitos-básicos-e-fundamentos" class="level2">
+<h2 class="anchored" data-anchor-id="fase-0-conceitos-básicos-e-fundamentos">Fase 0: Conceitos básicos e Fundamentos</h2>
+<ul class="task-list">
+<li><label><input type="checkbox" checked="">Introdução</label></li>
+<li><label><input type="checkbox" checked="">Circuito LED com bateria de 5v</label></li>
+<li><label><input type="checkbox" checked="">Circuito Blink (Hello World no Arduino IDE)</label></li>
+<li><label><input type="checkbox" checked="">Semáforo</label></li>
+<li><label><input type="checkbox" checked="">Comunicação Serial</label></li>
+<li><label><input type="checkbox" checked="">Conversão “A/D”</label></li>
+<li><label><input type="checkbox" checked="">PWM - Pulse Width Modulation</label></li>
+<li><label><input type="checkbox" checked="">Botão Interruptor (Pull Up e Pull Down)</label></li>
+<li><label><input type="checkbox" checked="">LED RGB</label></li>
+</ul>
+</section>
+<section id="fase-1-introdução-à-robótica-e-programação-em-c" class="level2">
+<h2 class="anchored" data-anchor-id="fase-1-introdução-à-robótica-e-programação-em-c">Fase 1: Introdução à Robótica e programação em C++</h2>
+<section id="componentes-que-serão-utilizados" class="level3">
+<h3 class="anchored" data-anchor-id="componentes-que-serão-utilizados">Componentes que serão utilizados</h3>
+<ul>
+<li>Arduino Nano</li>
+<li>Placa de Expansão para Arduino Nano</li>
+<li>Sensor Ultrassônico - HC-SR04</li>
+<li>Sensor de Refletância QRE - Analógico</li>
+<li>Módulo Receptor Infravermelho IR VS1838B KY-022</li>
+<li>Motor DC 3-6V com Caixa de Redução de Aço</li>
+<li>Mini Ponte H Dupla L298N</li>
+<li>Pack de 2 Baterias (2S) Li-Ion 18650 7,4 com Placa BMS.</li>
+</ul>
+<blockquote class="blockquote">
+<p><strong>IMPORTANTE</strong>: Mencionem a função do BMS. VL53L0X Sensor de Distância Laser.</p>
+</blockquote>
+</section>
+</section>
+<section id="arquitetura-geral" class="level1">
+<h1>1. Arquitetura geral</h1>
+<pre class="text"><code>                 PACK 2S Li-Ion
+                   7,4 V nominal
+                       │
+                 ┌─────┴─────┐
+                 │           │
+                 ▼           ▼
+             L298N        Buck 5 V
+           alimentação      │
+             motores        │
+                 │          ▼
+              Motores     Arduino Nano
+                             │
+                ┌─────────────┼─────────────┐
+                │             │             │
+                ▼             ▼             ▼
+             HC-SR04        QRE          KY-022
+           ultrassônico    reflexão       IR</code></pre>
+<p><strong>Todos os GND precisam estar em comum.</strong></p>
+<hr>
+<section id="arduino-nano-l298n" class="level2">
+<h2 class="anchored" data-anchor-id="arduino-nano-l298n">2. Arduino Nano → L298N</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Arduino Nano</th>
+<th>L298N</th>
+<th>Função</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>D5</td>
+<td>ENA</td>
+<td>PWM Motor A</td>
+</tr>
+<tr class="even">
+<td>D7</td>
+<td>IN1</td>
+<td>Direção A</td>
+</tr>
+<tr class="odd">
+<td>D8</td>
+<td>IN2</td>
+<td>Direção A</td>
+</tr>
+<tr class="even">
+<td>D6</td>
+<td>ENB</td>
+<td>PWM Motor B</td>
+</tr>
+<tr class="odd">
+<td>D9</td>
+<td>IN3</td>
+<td>Direção B</td>
+</tr>
+<tr class="even">
+<td>D10</td>
+<td>IN4</td>
+<td>Direção B</td>
+</tr>
+<tr class="odd">
+<td>GND</td>
+<td>GND</td>
+<td>Ground</td>
+</tr>
+</tbody>
+</table>
+<section id="motores" class="level3">
+<h3 class="anchored" data-anchor-id="motores">Motores</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>L298N</th>
+<th>Motor</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>OUT1</td>
+<td>Motor A fio 1</td>
+</tr>
+<tr class="even">
+<td>OUT2</td>
+<td>Motor A fio 2</td>
+</tr>
+<tr class="odd">
+<td>OUT3</td>
+<td>Motor B fio 1</td>
+</tr>
+<tr class="even">
+<td>OUT4</td>
+<td>Motor B fio 2</td>
+</tr>
+</tbody>
+</table>
+<p>Se um motor estiver girando invertido, inverta a polaridade dos fios daquele motor.</p>
+<hr>
+</section>
+</section>
+<section id="alimentação-do-arduino-nano" class="level2">
+<h2 class="anchored" data-anchor-id="alimentação-do-arduino-nano">3. Alimentação do Arduino Nano</h2>
+<pre class="text"><code>Bateria 7,4 V ──► Buck 5 V ──┬──► Nano 5V
+                             └──► Sensores 5V</code></pre>
+<p>Entrada e Saída:</p>
+<pre class="text"><code>Buck 5V  ─────► Nano 5V
+Buck GND ─────► Nano GND</code></pre>
+<p>E o GND continua comum ao aterramento:</p>
+<pre class="text"><code>Nano GND ──┬── L298N GND
+           ├── HC-SR04 GND
+           ├── QRE GND
+           └── KY-022 GND</code></pre>
+<p>Os sinais PWM e sensores têm a mesma referência elétrica.</p>
+<hr>
+</section>
+<section id="hc-sr04---sensor-ultrassônico" class="level2">
+<h2 class="anchored" data-anchor-id="hc-sr04---sensor-ultrassônico">4. HC-SR04 - Sensor Ultrassônico</h2>
+<p>Usando:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>HC-SR04</th>
+<th>Arduino Nano</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>VCC</td>
+<td>5V</td>
+</tr>
+<tr class="even">
+<td>GND</td>
+<td>GND</td>
+</tr>
+<tr class="odd">
+<td>TRIG</td>
+<td>D2</td>
+</tr>
+<tr class="even">
+<td>ECHO</td>
+<td>D3</td>
+</tr>
+</tbody>
+</table>
+<p>Ligações:</p>
+<pre class="text"><code>VCC  ─────► 5V
+GND  ─────► GND
+TRIG ─────► D2
+ECHO ─────► D3</code></pre>
+<hr>
+</section>
+<section id="sensor-de-refletância-qre" class="level2">
+<h2 class="anchored" data-anchor-id="sensor-de-refletância-qre">6. Sensor de refletância QRE</h2>
+<p>Como você especificou uma versão <strong>analógica</strong>, podemos usar A0.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>QRE</th>
+<th>Arduino Nano</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>VCC</td>
+<td>5V</td>
+</tr>
+<tr class="even">
+<td>GND</td>
+<td>GND</td>
+</tr>
+<tr class="odd">
+<td>AO</td>
+<td>A0</td>
+</tr>
+</tbody>
+</table>
+<p>Ligações:</p>
+<pre class="text"><code>VCC ───► 5V
+GND ───► GND
+AO  ───► A0</code></pre>
+<p>No Arduino:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> leitura <span class="op">=</span> analogRead<span class="op">(</span>A0<span class="op">);</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+<section id="receptor-ir-ky-022-vs1838b" class="level2">
+<h2 class="anchored" data-anchor-id="receptor-ir-ky-022-vs1838b">7. Receptor IR KY-022 / VS1838B</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>KY-022</th>
+<th>Arduino</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>S</td>
+<td>D4</td>
+</tr>
+<tr class="even">
+<td>+</td>
+<td>5V</td>
+</tr>
+<tr class="odd">
+<td>-</td>
+<td>GND</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="mapa-completo-do-arduino-com-todos-os-componentes" class="level2">
+<h2 class="anchored" data-anchor-id="mapa-completo-do-arduino-com-todos-os-componentes">8. Mapa completo do Arduino com todos os componentes:</h2>
+<pre class="text"><code>                 ARDUINO NANO
+        ┌─────────────────────────┐
+        │                         │
+HC-SR04 │ D2  ◄── TRIG            │
+        │ D3  ◄── ECHO            │
+        │                         │
+KY-022  │ D4  ◄── S               │
+        │                         │
+L298N   │ D5  ───► ENA            │
+        │ D6  ───► ENB            │
+        │ D7  ───► IN1            │
+        │ D8  ───► IN2            │
+        │ D9  ───► IN3            │
+        │ D10 ───► IN4            │
+        │                         │
+QRE     │ A0  ◄── AO              │
+        │                         │
+        │ 5V ───► sensores        │
+        │ GND ──► GND comum       │
+        └─────────────────────────┘</code></pre>
+</section>
+</section>
+<section id="missões-27-08-2026" class="level1">
+<h1>Missões (27-08-2026)</h1>
+<p>Item postado: 25 de jul.</p>
+<section id="x-1-gravação-de-código---ok" class="level2">
+<h2 class="anchored" data-anchor-id="x-1-gravação-de-código---ok">- [x] 1 Gravação de Código - OK</h2>
+<p>Procurem o exemplo Blink, disponível na IDE do Arduino, e façam a gravação do código no Arduino Nano.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">// The setup function runs once when you press reset or power the board</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> setup<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Initialize digital pin LED_BUILTIN as an output.</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  pinMode<span class="op">(</span>LED_BUILTIN<span class="op">,</span> OUTPUT<span class="op">);</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co">// The loop function runs over and over again forever</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  digitalWrite<span class="op">(</span>LED_BUILTIN<span class="op">,</span> HIGH<span class="op">);</span> <span class="co">// Change state of the LED by setting the pin to the HIGH voltage level</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  delay<span class="op">(</span><span class="dv">1000</span><span class="op">);</span>                      <span class="co">// Wait for a second</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  digitalWrite<span class="op">(</span>LED_BUILTIN<span class="op">,</span> LOW<span class="op">);</span>  <span class="co">// Change state of the LED by setting the pin to the LOW voltage level</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  delay<span class="op">(</span><span class="dv">1000</span><span class="op">);</span>                      <span class="co">// Wait for a second</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="x-2-comunicação-serial" class="level2">
+<h2 class="anchored" data-anchor-id="x-2-comunicação-serial">- [x] 2 Comunicação Serial</h2>
+<p>Façam um código que envie a mensagem “Hello World!!!” pelo terminal serial a cada 1s. Mostrem para um professor que conseguiram cumprir a missão e expliquem o funcionamento do código.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> setup<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>begin<span class="op">(</span><span class="dv">9600</span><span class="op">);</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>println<span class="op">(</span><span class="st">"Hello world!"</span><span class="op">);</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  delay<span class="op">(</span><span class="dv">1000</span><span class="op">);</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="x-3-sensor-ultrassônico" class="level2">
+<h2 class="anchored" data-anchor-id="x-3-sensor-ultrassônico">- [x] 3 Sensor Ultrassônico</h2>
+<p>Façam um código que envie pelo terminal serial a distância lida pelo sensor ultrassônico a cada 1s. Mostrem para um professor que conseguiram cumprir a missão e expliquem o funcionamento do código.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Variáveis</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#define trig </span><span class="dv">2</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#define echo </span><span class="dv">3</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> setup<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>begin<span class="op">(</span><span class="dv">9600</span><span class="op">);</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Configurando os pinos digitais</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  pinMode<span class="op">(</span>trig<span class="op">,</span> OUTPUT<span class="op">);</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  pinMode<span class="op">(</span>echo<span class="op">,</span> INPUT<span class="op">);</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>  <span class="dt">long</span> duracao<span class="op">;</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>  <span class="dt">float</span> distancia<span class="op">;</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Gerando o pulso da Onda Digital do sensor ultrassônico</span></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>  digitalWrite<span class="op">(</span>trig<span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>  delayMicroseconds<span class="op">(</span><span class="dv">2</span><span class="op">);</span></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>  digitalWrite<span class="op">(</span>trig<span class="op">,</span> HIGH<span class="op">);</span></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>  delayMicroseconds<span class="op">(</span><span class="dv">10</span><span class="op">);</span></span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>  digitalWrite<span class="op">(</span>trig<span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Medindo o tempo de retorno</span></span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>  duracao <span class="op">=</span> pulseIn<span class="op">(</span>echo<span class="op">,</span> HIGH<span class="op">);</span></span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Calcula a distância em cm</span></span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a>  <span class="dt">float</span> vel_som <span class="op">=</span> <span class="fl">0.0343</span><span class="op">;</span></span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a>  distancia <span class="op">=</span> duracao <span class="op">*</span> vel_som <span class="op">/</span> <span class="dv">2</span><span class="op">;</span></span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>print<span class="op">(</span><span class="st">"Distancia: "</span><span class="op">);</span></span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>print<span class="op">(</span>distancia<span class="op">);</span></span>
+<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>println<span class="op">(</span><span class="st">" cm"</span><span class="op">);</span></span>
+<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a>  delay<span class="op">(</span><span class="dv">1000</span><span class="op">);</span></span>
+<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="driver-e-motores" class="level2">
+<h2 class="anchored" data-anchor-id="driver-e-motores">- [ ] 4 Driver e Motores</h2>
+<p>Façam um código que controle o funcionamento dos motores de acordo com o fluxograma anexado nesta atividade. <img src="images/paste-1.png" class="img-fluid" alt="Fluxograma Motor"> Mostrem para um professor que conseguiram cumprir a missão e expliquem o funcionamento do código.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">/*</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co">* Arduino Nano + L298N</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co">* 2 motores DC</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co">*/</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co">// Variáveis e Configurações</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">int</span> PWM_max <span class="op">=</span> <span class="dv">255</span><span class="op">;</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">int</span> PWM_50 <span class="op">=</span> <span class="dv">128</span><span class="op">;</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">unsigned</span> <span class="dt">long</span> TEMPO_ESPERA <span class="op">=</span> <span class="dv">5000</span><span class="op">;</span> <span class="co">// 5 segundos</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="co">// Motor esquerdo</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">int</span> PWM_MOTOR_ESQUERDO <span class="op">=</span> <span class="dv">5</span><span class="op">;</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">int</span> IN1_MOTOR_ESQUERDO <span class="op">=</span> <span class="dv">7</span><span class="op">;</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">int</span> IN2_MOTOR_ESQUERDO <span class="op">=</span> <span class="dv">8</span><span class="op">;</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="co">// Motor direito</span></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">int</span> PWM_MOTOR_DIREITO <span class="op">=</span> <span class="dv">6</span><span class="op">;</span></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">int</span> IN3_MOTOR_DIREITO <span class="op">=</span> <span class="dv">9</span><span class="op">;</span></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">int</span> IN4_MOTOR_DIREITO <span class="op">=</span> <span class="dv">10</span><span class="op">;</span></span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a><span class="co">// ======================================================</span></span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a><span class="co">// FUNÇÕES DOS MOTORES</span></span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a><span class="co">// ======================================================</span></span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> moverFrente<span class="op">(</span><span class="dt">int</span> velocidadePWM<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>  <span class="co">/*</span></span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a><span class="co">  * MOTOR ESQUERDO</span></span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a><span class="co">  * Isso cria uma polaridade no motor, considerando a ligação dos fios,</span></span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a><span class="co">  * faz a roda esquerda girar para frente.</span></span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a><span class="co">  */</span></span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a>  digitalWrite<span class="op">(</span>IN1_MOTOR_ESQUERDO<span class="op">,</span> HIGH<span class="op">);</span></span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a>  digitalWrite<span class="op">(</span>IN2_MOTOR_ESQUERDO<span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a>  <span class="co">/*</span></span>
+<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a><span class="co">  * MOTOR DIREITO</span></span>
+<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a><span class="co">  */</span></span>
+<span id="cb12-36"><a href="#cb12-36" aria-hidden="true" tabindex="-1"></a>  digitalWrite<span class="op">(</span>IN3_MOTOR_DIREITO<span class="op">,</span> HIGH<span class="op">);</span></span>
+<span id="cb12-37"><a href="#cb12-37" aria-hidden="true" tabindex="-1"></a>  digitalWrite<span class="op">(</span>IN4_MOTOR_DIREITO<span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb12-38"><a href="#cb12-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-39"><a href="#cb12-39" aria-hidden="true" tabindex="-1"></a>  <span class="co">/*</span></span>
+<span id="cb12-40"><a href="#cb12-40" aria-hidden="true" tabindex="-1"></a><span class="co">  * ENA e ENB recebem PWM.</span></span>
+<span id="cb12-41"><a href="#cb12-41" aria-hidden="true" tabindex="-1"></a><span class="co">  * 0 = motor desligado</span></span>
+<span id="cb12-42"><a href="#cb12-42" aria-hidden="true" tabindex="-1"></a><span class="co">  * 128 ≈ 50%</span></span>
+<span id="cb12-43"><a href="#cb12-43" aria-hidden="true" tabindex="-1"></a><span class="co">  * 255 = potência máxima</span></span>
+<span id="cb12-44"><a href="#cb12-44" aria-hidden="true" tabindex="-1"></a><span class="co">  */</span></span>
+<span id="cb12-45"><a href="#cb12-45" aria-hidden="true" tabindex="-1"></a>  analogWrite<span class="op">(</span>PWM_MOTOR_ESQUERDO<span class="op">,</span> velocidadePWM<span class="op">);</span></span>
+<span id="cb12-46"><a href="#cb12-46" aria-hidden="true" tabindex="-1"></a>  analogWrite<span class="op">(</span>PWM_MOTOR_DIREITO<span class="op">,</span> velocidadePWM<span class="op">);</span></span>
+<span id="cb12-47"><a href="#cb12-47" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb12-48"><a href="#cb12-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-49"><a href="#cb12-49" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> moverRe<span class="op">(</span><span class="dt">int</span> velocidadePWM<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb12-50"><a href="#cb12-50" aria-hidden="true" tabindex="-1"></a>  <span class="co">/*</span></span>
+<span id="cb12-51"><a href="#cb12-51" aria-hidden="true" tabindex="-1"></a><span class="co">  * MOTOR ESQUERDO</span></span>
+<span id="cb12-52"><a href="#cb12-52" aria-hidden="true" tabindex="-1"></a><span class="co">  * Invertemos a polaridade:</span></span>
+<span id="cb12-53"><a href="#cb12-53" aria-hidden="true" tabindex="-1"></a><span class="co">  * IN1 = LOW</span></span>
+<span id="cb12-54"><a href="#cb12-54" aria-hidden="true" tabindex="-1"></a><span class="co">  * IN2 = HIGH</span></span>
+<span id="cb12-55"><a href="#cb12-55" aria-hidden="true" tabindex="-1"></a><span class="co">  * Agora a corrente atravessa o motor no sentido oposto ao movimento para frente.</span></span>
+<span id="cb12-56"><a href="#cb12-56" aria-hidden="true" tabindex="-1"></a><span class="co">  */</span></span>
+<span id="cb12-57"><a href="#cb12-57" aria-hidden="true" tabindex="-1"></a>  digitalWrite<span class="op">(</span>IN1_MOTOR_ESQUERDO<span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb12-58"><a href="#cb12-58" aria-hidden="true" tabindex="-1"></a>  digitalWrite<span class="op">(</span>IN2_MOTOR_ESQUERDO<span class="op">,</span> HIGH<span class="op">);</span></span>
+<span id="cb12-59"><a href="#cb12-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-60"><a href="#cb12-60" aria-hidden="true" tabindex="-1"></a>  <span class="co">/*</span></span>
+<span id="cb12-61"><a href="#cb12-61" aria-hidden="true" tabindex="-1"></a><span class="co">  * MOTOR DIREITO</span></span>
+<span id="cb12-62"><a href="#cb12-62" aria-hidden="true" tabindex="-1"></a><span class="co">  */</span></span>
+<span id="cb12-63"><a href="#cb12-63" aria-hidden="true" tabindex="-1"></a>  digitalWrite<span class="op">(</span>IN3_MOTOR_DIREITO<span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb12-64"><a href="#cb12-64" aria-hidden="true" tabindex="-1"></a>  digitalWrite<span class="op">(</span>IN4_MOTOR_DIREITO<span class="op">,</span> HIGH<span class="op">);</span></span>
+<span id="cb12-65"><a href="#cb12-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-66"><a href="#cb12-66" aria-hidden="true" tabindex="-1"></a>  <span class="co">// PWM</span></span>
+<span id="cb12-67"><a href="#cb12-67" aria-hidden="true" tabindex="-1"></a>  analogWrite<span class="op">(</span>PWM_MOTOR_ESQUERDO<span class="op">,</span> velocidadePWM<span class="op">);</span></span>
+<span id="cb12-68"><a href="#cb12-68" aria-hidden="true" tabindex="-1"></a>  analogWrite<span class="op">(</span>PWM_MOTOR_DIREITO<span class="op">,</span> velocidadePWM<span class="op">);</span></span>
+<span id="cb12-69"><a href="#cb12-69" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb12-70"><a href="#cb12-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-71"><a href="#cb12-71" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> pararMotores<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb12-72"><a href="#cb12-72" aria-hidden="true" tabindex="-1"></a>  <span class="co">// PWM = 0. Retiramos a energia efetiva enviada aos motores.</span></span>
+<span id="cb12-73"><a href="#cb12-73" aria-hidden="true" tabindex="-1"></a>  analogWrite<span class="op">(</span>PWM_MOTOR_ESQUERDO<span class="op">,</span> <span class="dv">0</span><span class="op">);</span></span>
+<span id="cb12-74"><a href="#cb12-74" aria-hidden="true" tabindex="-1"></a>  analogWrite<span class="op">(</span>PWM_MOTOR_DIREITO<span class="op">,</span> <span class="dv">0</span><span class="op">);</span></span>
+<span id="cb12-75"><a href="#cb12-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-76"><a href="#cb12-76" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Não existe diferença de potencial aplicada entre os terminais do motor.</span></span>
+<span id="cb12-77"><a href="#cb12-77" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Motor A → parado</span></span>
+<span id="cb12-78"><a href="#cb12-78" aria-hidden="true" tabindex="-1"></a>  digitalWrite<span class="op">(</span>IN1_MOTOR_ESQUERDO<span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb12-79"><a href="#cb12-79" aria-hidden="true" tabindex="-1"></a>  digitalWrite<span class="op">(</span>IN2_MOTOR_ESQUERDO<span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb12-80"><a href="#cb12-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-81"><a href="#cb12-81" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Motor B → parado</span></span>
+<span id="cb12-82"><a href="#cb12-82" aria-hidden="true" tabindex="-1"></a>  digitalWrite<span class="op">(</span>IN3_MOTOR_DIREITO<span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb12-83"><a href="#cb12-83" aria-hidden="true" tabindex="-1"></a>  digitalWrite<span class="op">(</span>IN4_MOTOR_DIREITO<span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb12-84"><a href="#cb12-84" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb12-85"><a href="#cb12-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-86"><a href="#cb12-86" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> girarSentidoHorario<span class="op">(</span><span class="dt">int</span> velocidadePWM<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb12-87"><a href="#cb12-87" aria-hidden="true" tabindex="-1"></a>  <span class="co">/*</span></span>
+<span id="cb12-88"><a href="#cb12-88" aria-hidden="true" tabindex="-1"></a><span class="co">  * Para girar sobre o próprio eixo,</span></span>
+<span id="cb12-89"><a href="#cb12-89" aria-hidden="true" tabindex="-1"></a><span class="co">  * fazemos uma roda andar para frente</span></span>
+<span id="cb12-90"><a href="#cb12-90" aria-hidden="true" tabindex="-1"></a><span class="co">  * enquanto a outra anda para trás.</span></span>
+<span id="cb12-91"><a href="#cb12-91" aria-hidden="true" tabindex="-1"></a><span class="co">  *</span></span>
+<span id="cb12-92"><a href="#cb12-92" aria-hidden="true" tabindex="-1"></a><span class="co">  * MOTOR ESQUERDO → FRENTE</span></span>
+<span id="cb12-93"><a href="#cb12-93" aria-hidden="true" tabindex="-1"></a><span class="co">  * IN1 = HIGH</span></span>
+<span id="cb12-94"><a href="#cb12-94" aria-hidden="true" tabindex="-1"></a><span class="co">  * IN2 = LOW</span></span>
+<span id="cb12-95"><a href="#cb12-95" aria-hidden="true" tabindex="-1"></a><span class="co">  */</span></span>
+<span id="cb12-96"><a href="#cb12-96" aria-hidden="true" tabindex="-1"></a>  digitalWrite<span class="op">(</span>IN1_MOTOR_ESQUERDO<span class="op">,</span> HIGH<span class="op">);</span></span>
+<span id="cb12-97"><a href="#cb12-97" aria-hidden="true" tabindex="-1"></a>  digitalWrite<span class="op">(</span>IN2_MOTOR_ESQUERDO<span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb12-98"><a href="#cb12-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-99"><a href="#cb12-99" aria-hidden="true" tabindex="-1"></a>  <span class="co">/*</span></span>
+<span id="cb12-100"><a href="#cb12-100" aria-hidden="true" tabindex="-1"></a><span class="co">  * MOTOR DIREITO → RÉ</span></span>
+<span id="cb12-101"><a href="#cb12-101" aria-hidden="true" tabindex="-1"></a><span class="co">  * IN3 = LOW</span></span>
+<span id="cb12-102"><a href="#cb12-102" aria-hidden="true" tabindex="-1"></a><span class="co">  * IN4 = HIGH</span></span>
+<span id="cb12-103"><a href="#cb12-103" aria-hidden="true" tabindex="-1"></a><span class="co">  */</span></span>
+<span id="cb12-104"><a href="#cb12-104" aria-hidden="true" tabindex="-1"></a>  digitalWrite<span class="op">(</span>IN3_MOTOR_DIREITO<span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb12-105"><a href="#cb12-105" aria-hidden="true" tabindex="-1"></a>  digitalWrite<span class="op">(</span>IN4_MOTOR_DIREITO<span class="op">,</span> HIGH<span class="op">);</span></span>
+<span id="cb12-106"><a href="#cb12-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-107"><a href="#cb12-107" aria-hidden="true" tabindex="-1"></a>  <span class="co">/*</span></span>
+<span id="cb12-108"><a href="#cb12-108" aria-hidden="true" tabindex="-1"></a><span class="co">  * PWM de ambos os motores.</span></span>
+<span id="cb12-109"><a href="#cb12-109" aria-hidden="true" tabindex="-1"></a><span class="co">  * velocidadePWM = 128 (aproximadamente 50% do duty cycle).</span></span>
+<span id="cb12-110"><a href="#cb12-110" aria-hidden="true" tabindex="-1"></a><span class="co">  */</span></span>
+<span id="cb12-111"><a href="#cb12-111" aria-hidden="true" tabindex="-1"></a>  analogWrite<span class="op">(</span>PWM_MOTOR_ESQUERDO<span class="op">,</span> velocidadePWM<span class="op">);</span></span>
+<span id="cb12-112"><a href="#cb12-112" aria-hidden="true" tabindex="-1"></a>  analogWrite<span class="op">(</span>PWM_MOTOR_DIREITO<span class="op">,</span> velocidadePWM<span class="op">);</span></span>
+<span id="cb12-113"><a href="#cb12-113" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb12-114"><a href="#cb12-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-115"><a href="#cb12-115" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> setup<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb12-116"><a href="#cb12-116" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Motor Esquerdo</span></span>
+<span id="cb12-117"><a href="#cb12-117" aria-hidden="true" tabindex="-1"></a>  pinMode<span class="op">(</span>PWM_MOTOR_ESQUERDO<span class="op">,</span> OUTPUT<span class="op">);</span></span>
+<span id="cb12-118"><a href="#cb12-118" aria-hidden="true" tabindex="-1"></a>  pinMode<span class="op">(</span>IN1_MOTOR_ESQUERDO<span class="op">,</span> OUTPUT<span class="op">);</span></span>
+<span id="cb12-119"><a href="#cb12-119" aria-hidden="true" tabindex="-1"></a>  pinMode<span class="op">(</span>IN2_MOTOR_ESQUERDO<span class="op">,</span> OUTPUT<span class="op">);</span></span>
+<span id="cb12-120"><a href="#cb12-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-121"><a href="#cb12-121" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Motor Direito</span></span>
+<span id="cb12-122"><a href="#cb12-122" aria-hidden="true" tabindex="-1"></a>  pinMode<span class="op">(</span>PWM_MOTOR_DIREITO<span class="op">,</span> OUTPUT<span class="op">);</span></span>
+<span id="cb12-123"><a href="#cb12-123" aria-hidden="true" tabindex="-1"></a>  pinMode<span class="op">(</span>IN3_MOTOR_DIREITO<span class="op">,</span> OUTPUT<span class="op">);</span></span>
+<span id="cb12-124"><a href="#cb12-124" aria-hidden="true" tabindex="-1"></a>  pinMode<span class="op">(</span>IN4_MOTOR_DIREITO<span class="op">,</span> OUTPUT<span class="op">);</span></span>
+<span id="cb12-125"><a href="#cb12-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-126"><a href="#cb12-126" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Estado inicial -&gt; parado</span></span>
+<span id="cb12-127"><a href="#cb12-127" aria-hidden="true" tabindex="-1"></a>  pararMotores<span class="op">();</span></span>
+<span id="cb12-128"><a href="#cb12-128" aria-hidden="true" tabindex="-1"></a>  delay<span class="op">(</span><span class="dv">1000</span><span class="op">);</span></span>
+<span id="cb12-129"><a href="#cb12-129" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb12-130"><a href="#cb12-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-131"><a href="#cb12-131" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb12-132"><a href="#cb12-132" aria-hidden="true" tabindex="-1"></a>  <span class="co">// 1. ANDAR PARA FRENTE - POTÊNCIA MÁXIMA</span></span>
+<span id="cb12-133"><a href="#cb12-133" aria-hidden="true" tabindex="-1"></a>  moverFrente<span class="op">(</span>PWM_max<span class="op">);</span></span>
+<span id="cb12-134"><a href="#cb12-134" aria-hidden="true" tabindex="-1"></a>  delay<span class="op">(</span>TEMPO_ESPERA<span class="op">);</span></span>
+<span id="cb12-135"><a href="#cb12-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-136"><a href="#cb12-136" aria-hidden="true" tabindex="-1"></a>  <span class="co">// 2. Parar e esperar 5 segundos</span></span>
+<span id="cb12-137"><a href="#cb12-137" aria-hidden="true" tabindex="-1"></a>  pararMotores<span class="op">();</span></span>
+<span id="cb12-138"><a href="#cb12-138" aria-hidden="true" tabindex="-1"></a>  delay<span class="op">(</span>TEMPO_ESPERA<span class="op">);</span></span>
+<span id="cb12-139"><a href="#cb12-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-140"><a href="#cb12-140" aria-hidden="true" tabindex="-1"></a>  <span class="co">// 3. RÉ - POTÊNCIA MÁXIMA</span></span>
+<span id="cb12-141"><a href="#cb12-141" aria-hidden="true" tabindex="-1"></a>  moverRe<span class="op">(</span>PWM_max<span class="op">);</span></span>
+<span id="cb12-142"><a href="#cb12-142" aria-hidden="true" tabindex="-1"></a>  delay<span class="op">(</span>TEMPO_ESPERA<span class="op">);</span></span>
+<span id="cb12-143"><a href="#cb12-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-144"><a href="#cb12-144" aria-hidden="true" tabindex="-1"></a>  <span class="co">// 4. Parar e esperar 5 segundos</span></span>
+<span id="cb12-145"><a href="#cb12-145" aria-hidden="true" tabindex="-1"></a>  pararMotores<span class="op">();</span></span>
+<span id="cb12-146"><a href="#cb12-146" aria-hidden="true" tabindex="-1"></a>  delay<span class="op">(</span>TEMPO_ESPERA<span class="op">);</span></span>
+<span id="cb12-147"><a href="#cb12-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-148"><a href="#cb12-148" aria-hidden="true" tabindex="-1"></a>  <span class="co">// 5. GIRAR NO SENTIDO HORÁRIO (PWM = 50%)</span></span>
+<span id="cb12-149"><a href="#cb12-149" aria-hidden="true" tabindex="-1"></a>  girarSentidoHorario<span class="op">(</span>PWM_50<span class="op">);</span></span>
+<span id="cb12-150"><a href="#cb12-150" aria-hidden="true" tabindex="-1"></a>  delay<span class="op">(</span>TEMPO_ESPERA<span class="op">);</span></span>
+<span id="cb12-151"><a href="#cb12-151" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="desafio-1-modo-radar" class="level2">
+<h2 class="anchored" data-anchor-id="desafio-1-modo-radar">- [ ] DESAFIO 1 (Modo Radar)</h2>
+<p>Façam um código que controle o funcionamento dos motores de acordo com o fluxograma anexado nesta atividade. Mostrem para um professor que conseguiram cumprir a missão e expliquem o funcionamento do código. Após o professor anotar na planilha de acompanhamento (Checklist) que a tarefa foi cumprida, 1 integrante de cada equipe (apenas 1) deve fazer a entrega do arquivo do Arduino (*.ino) no Google Classroom. O aluno que entregar a atividade deve indicar (nos comentários) os nomes dos colegas que participaram ativamente do desenvolvimento da tarefa.</p>
+</section>
+<section id="sensor-de-refletância" class="level2">
+<h2 class="anchored" data-anchor-id="sensor-de-refletância">- [ ] 6 Sensor de Refletância</h2>
+<p>Façam um código que interprete o sinal de saída do sensor de refletância, indicando quanto o robô está na parte preta da arena e quando o mesmo se encontra em cima da borda branca. Envie o resultado da conversão AD (número de 0 à 1023) e o resultado da análise (PRETO ou BRANCO) pela porta serial, atualizando a informação a cada 1s. Exemplo fictício do texto a ser enviado pelo terminal serial: “512 / PRETO”. Mostrem para um professor que conseguiram cumprir a missão e expliquem o funcionamento do código. Após o professor anotar na planilha de acompanhamento (Checklist) que a tarefa foi cumprida, 1 integrante de cada equipe (apenas 1) deve fazer a entrega do arquivo do Arduino (*.ino) no Google Classroom. O aluno que entregar a atividade deve indicar (nos comentários) os nomes dos colegas que participaram ativamente do desenvolvimento da tarefa.</p>
+</section>
+<section id="desafio-2-vai-e-volta" class="level2">
+<h2 class="anchored" data-anchor-id="desafio-2-vai-e-volta">- [ ] 7 DESAFIO 2 (Vai e Volta)</h2>
+<p>Façam um código que controle o funcionamento dos motores de acordo com o fluxograma anexado nesta atividade. Mostrem para um professor que conseguiram cumprir a missão e expliquem o funcionamento do código. Após o professor anotar na planilha de acompanhamento (Checklist) que a tarefa foi cumprida, 1 integrante de cada equipe (apenas 1) deve fazer a entrega do arquivo do Arduino (*.ino) no Google Classroom. O aluno que entregar a atividade deve indicar (nos comentários) os nomes dos colegas que participaram ativamente do desenvolvimento da tarefa.</p>
+</section>
+<section id="controle-remoto" class="level2">
+<h2 class="anchored" data-anchor-id="controle-remoto">- [ ] 8 Controle Remoto</h2>
+<p>Estudem o código exemplo anexado na atividade e testem seu funcionamento. Façam um código que controle o funcionamento dos motores de acordo com o fluxograma anexado nesta atividade. Mostrem para um professor que conseguiram cumprir a missão e expliquem o funcionamento do código. Após o professor anotar na planilha de acompanhamento (Checklist) que a tarefa foi cumprida, 1 integrante de cada equipe (apenas 1) deve fazer a entrega do arquivo do Arduino (*.ino) no Google Classroom. O aluno que entregar a atividade deve indicar (nos comentários) os nomes dos colegas que participaram ativamente do desenvolvimento da tarefa. DICA: O código exemplo pode ser testado no Tinkercad (ver imagem em anexo). No entanto, as linhas 6, 7 e 8 precisam ser modificadas, visto que o modelo de controle utilizado no Tinkercad é diferente do que usamos em sala. Recomendamos que tentem adiantar esta tarefa em casa, pois ela é a mais difícil até o momento.</p>
+</section>
+<section id="desafio-3-sumô-básico" class="level2">
+<h2 class="anchored" data-anchor-id="desafio-3-sumô-básico">- [ ] 9 DESAFIO 3 (Sumô Básico)</h2>
+<p>Façam um código que controle o funcionamento dos motores de acordo com o fluxograma anexado nesta atividade. Mostrem para um professor que conseguiram cumprir a missão e expliquem o funcionamento do código. Após o professor anotar na planilha de acompanhamento (Checklist) que a tarefa foi cumprida, 1 integrante de cada equipe (apenas 1) deve fazer a entrega do arquivo do Arduino (*.ino) no Google Classroom. O aluno que entregar a atividade deve indicar (nos comentários) os nomes dos colegas que participaram ativamente do desenvolvimento da tarefa. DICA: Esta missão utiliza conceitos aprendidos nas missões anteriores. Consultem os seus códigos.</p>
+</section>
+<section id="sensores-laterais" class="level2">
+<h2 class="anchored" data-anchor-id="sensores-laterais">- [ ] 10 Sensores Laterais</h2>
+<ol type="1">
+<li><p>Parabéns! Você chegou na última missão da FASE 2 e desbloqueou um item, o sensor de distância laser VL53L0X. Este sensor se comunica com microcontrolador através do protocolo de comunicação I2C. Portanto, antes de iniciar a missão você precisa entender o que é isso. Assista ao vídeo “O que é I2C ? - Explorando o Arduino - Aula 10”, disponível no link: https://www.youtube.com/watch?v=3cPDAQvu6ng</p></li>
+<li><p>Agora que você entende o protocolo I2C é hora de testar o sensor. Estude e teste o código apresentado no artigo “DISTANCE MEASUREMENT WITH VL53LOX”, disponível no link: https://arduinoproyek.wordpress.com/distance-measurement-with-vl53lox/</p></li>
+<li><p>O robô que está sendo desenvolvido para a competição utiliza 2 sensores VL53L0X. A complexidade aumenta um pouco, então recomendamos que você leia o artigo “Usando Múltiplos Sensores de Distância Laser VL53L0X”, disponível em: https://blog.smartkits.com.br/usando-multiplos-sensores-de-distancia-laser-vl53l0x/</p></li>
+<li><p>Agora sim, você está pronto para iniciar a missão: Façam um código que envie pelo terminal serial a distância lida pelos 2 sensores a cada 1s. Mostrem para um professor que conseguiram cumprir a missão e expliquem o funcionamento do código. Após o professor anotar na planilha de acompanhamento (Checklist) que a tarefa foi cumprida, 1 integrante de cada equipe (apenas 1) deve fazer a entrega do arquivo do Arduino (*.ino) no Google Classroom. O aluno que entregar a atividade deve indicar (nos comentários) os nomes dos colegas que participaram ativamente do desenvolvimento da tarefa.</p></li>
+</ol>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

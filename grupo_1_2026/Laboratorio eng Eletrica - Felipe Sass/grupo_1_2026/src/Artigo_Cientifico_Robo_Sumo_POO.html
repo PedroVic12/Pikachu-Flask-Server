@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Pedro Victor | Prof.&nbsp;Felipe Sass (Grupo 1)">
+<meta name="dcterms.date" content="2026-09-18">
+
+<title>Projeto e Implementação Orientada a Objetos de Robô Lutador de Sumô com Controle IR Sony</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="Artigo_Cientifico_Robo_Sumo_POO_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Artigo_Cientifico_Robo_Sumo_POO_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="Artigo_Cientifico_Robo_Sumo_POO_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="Artigo_Cientifico_Robo_Sumo_POO_files/libs/quarto-html/popper.min.js"></script>
+<script src="Artigo_Cientifico_Robo_Sumo_POO_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Artigo_Cientifico_Robo_Sumo_POO_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Artigo_Cientifico_Robo_Sumo_POO_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Artigo_Cientifico_Robo_Sumo_POO_files/libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Artigo_Cientifico_Robo_Sumo_POO_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Artigo_Cientifico_Robo_Sumo_POO_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Artigo_Cientifico_Robo_Sumo_POO_files/libs/bootstrap/bootstrap-215b371544c282197b31c8aa00ce3677.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#resumo" id="toc-resumo" class="nav-link active" data-scroll-target="#resumo">Resumo</a></li>
+  <li><a href="#arquitetura-eletrotécnica-e-alimentação" id="toc-arquitetura-eletrotécnica-e-alimentação" class="nav-link" data-scroll-target="#arquitetura-eletrotécnica-e-alimentação">1. Arquitetura Eletrotécnica e Alimentação</a>
+  <ul class="collapse">
+  <li><a href="#especificações-da-eletrônica-de-potência-e-controle" id="toc-especificações-da-eletrônica-de-potência-e-controle" class="nav-link" data-scroll-target="#especificações-da-eletrônica-de-potência-e-controle">1.1 Especificações da Eletrônica de Potência e Controle</a></li>
+  </ul></li>
+  <li><a href="#tabela-verdade-e-soma-de-produtos-sop-álgebra-booleana" id="toc-tabela-verdade-e-soma-de-produtos-sop-álgebra-booleana" class="nav-link" data-scroll-target="#tabela-verdade-e-soma-de-produtos-sop-álgebra-booleana">2. Tabela Verdade e Soma de Produtos (SOP / Álgebra Booleana)</a>
+  <ul class="collapse">
+  <li><a href="#tabela-verdade-gerada-via-python-pandas" id="toc-tabela-verdade-gerada-via-python-pandas" class="nav-link" data-scroll-target="#tabela-verdade-gerada-via-python-pandas">2.1 Tabela Verdade Gerada via Python (Pandas)</a></li>
+  <li><a href="#equações-minimizadas-de-soma-de-produtos-sop" id="toc-equações-minimizadas-de-soma-de-produtos-sop" class="nav-link" data-scroll-target="#equações-minimizadas-de-soma-de-produtos-sop">2.2 Equações Minimizadas de Soma de Produtos (SOP)</a></li>
+  </ul></li>
+  <li><a href="#modelagem-orientada-a-objetos-c-em-arduino" id="toc-modelagem-orientada-a-objetos-c-em-arduino" class="nav-link" data-scroll-target="#modelagem-orientada-a-objetos-c-em-arduino">3. Modelagem Orientada a Objetos (C++ em Arduino)</a></li>
+  <li><a href="#solução-do-fluxograma-trava-no-estado-fim" id="toc-solução-do-fluxograma-trava-no-estado-fim" class="nav-link" data-scroll-target="#solução-do-fluxograma-trava-no-estado-fim">4. Solução do Fluxograma: Trava no Estado FIM</a>
+  <ul class="collapse">
+  <li><a href="#problema-apresentado" id="toc-problema-apresentado" class="nav-link" data-scroll-target="#problema-apresentado">4.1 Problema Apresentado</a></li>
+  <li><a href="#solução-implementada-em-poo" id="toc-solução-implementada-em-poo" class="nav-link" data-scroll-target="#solução-implementada-em-poo">4.2 Solução Implementada em POO</a></li>
+  </ul></li>
+  <li><a href="#código-fonte-c-completo-do-robô" id="toc-código-fonte-c-completo-do-robô" class="nav-link" data-scroll-target="#código-fonte-c-completo-do-robô">5. Código Fonte C++ Completo do Robô</a></li>
+  <li><a href="#conclusão" id="toc-conclusão" class="nav-link" data-scroll-target="#conclusão">6. Conclusão</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="Artigo_Cientifico_Robo_Sumo_POO.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Projeto e Implementação Orientada a Objetos de Robô Lutador de Sumô com Controle IR Sony</h1>
+<p class="subtitle lead">Laboratório de Engenharia Elétrica — UFF 2026.2</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Pedro Victor | Prof.&nbsp;Felipe Sass (Grupo 1) </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">September 18, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="resumo" class="level1">
+<h1>Resumo</h1>
+<p>Este artigo documenta a modelagem, a análise de circuitos e a implementação orientada a objetos (POO em C++) do robô autonomo de combate tipo Sumô do Grupo 1 para a disciplina de Laboratório de Engenharia Elétrica da Universidade Federal Fluminense (UFF). A arquitetura eletrotécnica inclui alimentação primária por bateria Li-Ion 2S (7,4V), regulador chaveado Buck 5V, ponte H L298N para controle de potência dos motores DC, receptor infravermelho KY-022 decodificando comandos da fabricante Sony (teclas 1 a 4), sensor ultrassônico HC-SR04 para detecção do oponente e fotorresistor de refletância QRE1113 para segurança da borda da arena. São apresentadas a tabela verdade completa em Pandas com minimização lógica via Soma de Produtos (SOP) e a solução em máquina de estados finitos (<code>robotState</code>) que resolve a retenção no estado de término (FIM).</p>
+<hr>
+</section>
+<section id="arquitetura-eletrotécnica-e-alimentação" class="level1">
+<h1>1. Arquitetura Eletrotécnica e Alimentação</h1>
+<p>A malha elétrica do robô distribui energia em dois níveis de tensão para isolar o ruído gerado pelas comutações indutivas dos motores:</p>
+<pre class="text"><code>                 PACK 2S Li-Ion
+                   7,4 V nominal
+                       │
+                 ┌─────┴─────┐
+                 │           │
+                 ▼           ▼
+             L298N        Buck 5 V
+           alimentação      │
+             motores        │
+                 │          ▼
+              Motores     Arduino Nano
+                             │
+                ┌─────────────┼─────────────┐
+                │             │             │
+                ▼             ▼             ▼
+             HC-SR04        QRE          KY-022
+           ultrassônico    reflexão       IR</code></pre>
+<section id="especificações-da-eletrônica-de-potência-e-controle" class="level2">
+<h2 class="anchored" data-anchor-id="especificações-da-eletrônica-de-potência-e-controle">1.1 Especificações da Eletrônica de Potência e Controle</h2>
+<ol type="1">
+<li><strong>Pack 2S Li-Ion (7,4V Nominal):</strong> Fornece tensão de potência direta para o barramento <span class="math inline">\(V_{CC}\)</span> da Ponte H L298N.</li>
+<li><strong>Módulo Regulador Buck (5V DC):</strong> Rebaixa os 7,4V para 5V regulados e alimenta o <strong>Arduino Nano</strong> e os sensores periféricos.</li>
+<li><strong>Ponte H L298N:</strong> Aciona 2 motores DC através de sinais PWM digitais gerados pelos pinos D5, D6, D9 e D10.</li>
+</ol>
+<hr>
+</section>
+</section>
+<section id="tabela-verdade-e-soma-de-produtos-sop-álgebra-booleana" class="level1">
+<h1>2. Tabela Verdade e Soma de Produtos (SOP / Álgebra Booleana)</h1>
+<p>As decisões de combate e movimentação do robô são modeladas como uma função lógica combinacional das 4 variáveis digitais de entrada do sistema:</p>
+<ul>
+<li><span class="math inline">\(E_3\)</span> (IR Sony Botão 3 / Stop): <span class="math inline">\(1\)</span> se o botão PARAR for ativado.</li>
+<li><span class="math inline">\(E_2\)</span> (IR Sony Botão 2 / Start): <span class="math inline">\(1\)</span> se a varredura/combate for ativada.</li>
+<li><span class="math inline">\(E_1\)</span> (Sensor Ultrassônico HC-SR04): <span class="math inline">\(1\)</span> se o oponente for detectado a menos de <span class="math inline">\(20\,\text{cm}\)</span>.</li>
+<li><span class="math inline">\(E_0\)</span> (Sensor QRE1113 Refletância): <span class="math inline">\(1\)</span> se a borda branca da arena for detectada.</li>
+</ul>
+<section id="tabela-verdade-gerada-via-python-pandas" class="level2">
+<h2 class="anchored" data-anchor-id="tabela-verdade-gerada-via-python-pandas">2.1 Tabela Verdade Gerada via Python (Pandas)</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 10%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;"><span class="math inline">\(E_3\)</span> (Stop)</th>
+<th style="text-align: center;"><span class="math inline">\(E_2\)</span> (Start)</th>
+<th style="text-align: center;"><span class="math inline">\(E_1\)</span> (Inimigo)</th>
+<th style="text-align: center;"><span class="math inline">\(E_0\)</span> (Borda)</th>
+<th style="text-align: center;"><span class="math inline">\(S_{\text{Frente}}\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(S_{\text{Ré}}\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(S_{\text{Parar}}\)</span></th>
+<th style="text-align: left;">Estado do Robô (<code>robotState</code>)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: left;"><code>ESTADO_PARADO</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: left;"><code>ESTADO_ESQUIVAR_BORDA</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: left;"><code>ESTADO_PARADO</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: left;"><code>ESTADO_ESQUIVAR_BORDA</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: left;"><code>ESTADO_BUSCAR</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: left;"><code>ESTADO_ESQUIVAR_BORDA</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;"><strong>1</strong></td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: left;"><strong><code>ESTADO_ATACAR</code></strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: left;"><code>ESTADO_ESQUIVAR_BORDA</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><strong>1</strong></td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;"><strong>1</strong></td>
+<td style="text-align: left;"><strong><code>ESTADO_PARADO_DEFINITIVO (FIM)</code></strong></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="equações-minimizadas-de-soma-de-produtos-sop" class="level2">
+<h2 class="anchored" data-anchor-id="equações-minimizadas-de-soma-de-produtos-sop">2.2 Equações Minimizadas de Soma de Produtos (SOP)</h2>
+<ul>
+<li><p><strong>Avançar Frente (<span class="math inline">\(S_{\text{Frente}}\)</span> - Carga Máxima):</strong> <span class="math display">\[S_{\text{Frente}} = \overline{E_3} \cdot E_2 \cdot E_1 \cdot \overline{E_0}\]</span></p></li>
+<li><p><strong>Marcha Ré / Busca (<span class="math inline">\(S_{\text{Ré}}\)</span>):</strong> <span class="math display">\[S_{\text{Ré}} = \overline{E_3} \cdot E_0 + \overline{E_3} \cdot E_2 \cdot \overline{E_1}\]</span></p></li>
+<li><p><strong>Parar Motores / Emergência (<span class="math inline">\(S_{\text{Parar}}\)</span>):</strong> <span class="math display">\[S_{\text{Parar}} = E_3 + \overline{E_2} \cdot \overline{E_0}\]</span></p></li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="modelagem-orientada-a-objetos-c-em-arduino" class="level1">
+<h1>3. Modelagem Orientada a Objetos (C++ em Arduino)</h1>
+<p>A arquitetura de software implementa as 4 leis fundamentais da POO:</p>
+<pre class="mermaid"><code>classDiagram
+    class Sensor {
+        &lt;&lt;abstract&gt;&gt;
+        +iniciar()*
+        +atualizar()*
+    }
+    class SensorRefletancia {
+        +int pino
+        +int limiar
+        +EstadoSensor estado
+        +iniciar()
+        +atualizar()
+        +isBordaBranca() bool
+    }
+    class SensorUltrassonico {
+        +int pinoTrig
+        +int pinoEcho
+        +float distanciaCm
+        +iniciar()
+        +atualizar()
+        +getDistancia() float
+    }
+    class Carro {
+        +PinosMotor pinos
+        +ConfigPWM configPwm
+        +SensorRefletancia sensorLinha
+        +SensorUltrassonico sensorUltrassonico
+        +iniciar()
+        +moverFrente()
+        +moverRe()
+        +parar()
+    }
+    class RoboLutador {
+        +robotState estadoAtual
+        +iniciar()
+        +processarComandoIR()
+        +executarLogica()
+    }
+    class Logger {
+        -bool ativado
+        +iniciar()
+        +info()
+        +warn()
+        +error()
+    }
+
+    Sensor &lt;|-- SensorRefletancia
+    Sensor &lt;|-- SensorUltrassonico
+    Carro &lt;|-- RoboLutador
+    Carro --&gt; SensorRefletancia
+    Carro --&gt; SensorUltrassonico
+    RoboLutador --&gt; Logger</code></pre>
+<hr>
+</section>
+<section id="solução-do-fluxograma-trava-no-estado-fim" class="level1">
+<h1>4. Solução do Fluxograma: Trava no Estado FIM</h1>
+<section id="problema-apresentado" class="level2">
+<h2 class="anchored" data-anchor-id="problema-apresentado">4.1 Problema Apresentado</h2>
+<p>No fluxograma clássico de loops de Arduino, ao pressionar o botão de parada (Botão 3), a função <code>loop()</code> reinicia continuamente, fazendo o robô retornar ao início do programa e voltar a se mover caso não haja retenção de estado.</p>
+</section>
+<section id="solução-implementada-em-poo" class="level2">
+<h2 class="anchored" data-anchor-id="solução-implementada-em-poo">4.2 Solução Implementada em POO</h2>
+<p>Definiu-se a enumeração de estados <code>robotState</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">enum</span> robotState <span class="op">{</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    ESTADO_PARADO<span class="op">,</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    ESTADO_PREPARAR<span class="op">,</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    ESTADO_BUSCAR<span class="op">,</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    ESTADO_ATACAR<span class="op">,</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    ESTADO_ESQUIVAR_BORDA<span class="op">,</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    ESTADO_PARADO_DEFINITIVO <span class="co">// ESTADO FIM DO FLUXOGRAMA</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Quando o <strong>Botão 3 (<code>0x82</code>)</strong> é decodificado pelo receptor IR Sony: 1. A variável de membro <code>estadoAtual</code> transita para <code>ESTADO_PARADO_DEFINITIVO</code>. 2. A função <code>parar()</code> desliga imediatamente todas as saídas da Ponte H L298N. 3. No <code>switch (estadoAtual)</code>, a função <code>executarLogica()</code> permanece no caso <code>ESTADO_PARADO_DEFINITIVO</code>, garantindo que o robô fique inerte em repouso absoluto sem retornar à rotina de busca de combate.</p>
+<hr>
+</section>
+</section>
+<section id="código-fonte-c-completo-do-robô" class="level1">
+<h1>5. Código Fonte C++ Completo do Robô</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">// ===================================================================================</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">// ARDUINO SKETCH: ROBÔ LUTADOR SUMÔ (POO &amp; FSM) - UFF 2026</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">// ===================================================================================</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;IRremote.hpp&gt;</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">"headers.h"</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">"Logger.h"</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>Logger logger<span class="op">(</span><span class="kw">true</span><span class="op">,</span> LOG_INFO<span class="op">);</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co">// Classe Base Abstrata: Sensor</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Sensor <span class="op">{</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span><span class="op">:</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">virtual</span> <span class="dt">void</span> iniciar<span class="op">()</span> <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">virtual</span> <span class="dt">void</span> atualizar<span class="op">()</span> <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">virtual</span> <span class="op">~</span>Sensor<span class="op">()</span> <span class="op">{}</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="co">// Subclasse SensorRefletancia (QRE1113)</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> SensorRefletancia <span class="op">:</span> <span class="kw">public</span> Sensor <span class="op">{</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span><span class="op">:</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> pino<span class="op">;</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> limiar<span class="op">;</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>    EstadoSensor estado<span class="op">;</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>    SensorRefletancia<span class="op">(</span><span class="dt">int</span> pinoSensor<span class="op">,</span> <span class="dt">int</span> limiarBranco <span class="op">=</span> LIMIAR_BORDA_QRE<span class="op">)</span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>        <span class="op">:</span> pino<span class="op">(</span>pinoSensor<span class="op">),</span> limiar<span class="op">(</span>limiarBranco<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>        estado<span class="op">.</span>valorQRE <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>        estado<span class="op">.</span>naBordaBranca <span class="op">=</span> <span class="kw">false</span><span class="op">;</span></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> iniciar<span class="op">()</span> <span class="kw">override</span> <span class="op">{</span> pinMode<span class="op">(</span>pino<span class="op">,</span> INPUT<span class="op">);</span> <span class="op">}</span></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> atualizar<span class="op">()</span> <span class="kw">override</span> <span class="op">{</span></span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>        estado<span class="op">.</span>valorQRE <span class="op">=</span> analogRead<span class="op">(</span>pino<span class="op">);</span></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>        estado<span class="op">.</span>naBordaBranca <span class="op">=</span> <span class="op">(</span>estado<span class="op">.</span>valorQRE <span class="op">&lt;</span> limiar<span class="op">);</span></span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>    <span class="dt">bool</span> isBordaBranca<span class="op">()</span> <span class="at">const</span> <span class="op">{</span> <span class="cf">return</span> estado<span class="op">.</span>naBordaBranca<span class="op">;</span> <span class="op">}</span></span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a><span class="co">// Subclasse SensorUltrassonico (HC-SR04)</span></span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> SensorUltrassonico <span class="op">:</span> <span class="kw">public</span> Sensor <span class="op">{</span></span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span><span class="op">:</span></span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> pinoTrig<span class="op">,</span> pinoEcho<span class="op">;</span></span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>    <span class="dt">float</span> distanciaCm<span class="op">;</span></span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>    SensorUltrassonico<span class="op">(</span><span class="dt">int</span> trigPin<span class="op">,</span> <span class="dt">int</span> echoPin<span class="op">)</span></span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>        <span class="op">:</span> pinoTrig<span class="op">(</span>trigPin<span class="op">),</span> pinoEcho<span class="op">(</span>echoPin<span class="op">),</span> distanciaCm<span class="op">(</span><span class="fl">999.0</span><span class="op">)</span> <span class="op">{}</span></span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> iniciar<span class="op">()</span> <span class="kw">override</span> <span class="op">{</span></span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>        pinMode<span class="op">(</span>pinoTrig<span class="op">,</span> OUTPUT<span class="op">);</span></span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a>        pinMode<span class="op">(</span>pinoEcho<span class="op">,</span> INPUT<span class="op">);</span></span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a>        digitalWrite<span class="op">(</span>pinoTrig<span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> atualizar<span class="op">()</span> <span class="kw">override</span> <span class="op">{</span></span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a>        digitalWrite<span class="op">(</span>pinoTrig<span class="op">,</span> LOW<span class="op">);</span> delayMicroseconds<span class="op">(</span><span class="dv">2</span><span class="op">);</span></span>
+<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a>        digitalWrite<span class="op">(</span>pinoTrig<span class="op">,</span> HIGH<span class="op">);</span> delayMicroseconds<span class="op">(</span><span class="dv">10</span><span class="op">);</span></span>
+<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a>        digitalWrite<span class="op">(</span>pinoTrig<span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a>        <span class="dt">long</span> duracao <span class="op">=</span> pulseIn<span class="op">(</span>pinoEcho<span class="op">,</span> HIGH<span class="op">,</span> <span class="dv">25000</span><span class="op">);</span></span>
+<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a>        distanciaCm <span class="op">=</span> <span class="op">(</span>duracao <span class="op">==</span> <span class="dv">0</span><span class="op">)</span> <span class="op">?</span> <span class="fl">999.0</span> <span class="op">:</span> <span class="op">(</span>duracao <span class="op">*</span> <span class="fl">0.0343</span><span class="op">)</span> <span class="op">/</span> <span class="fl">2.0</span><span class="op">;</span></span>
+<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a>    <span class="dt">float</span> getDistancia<span class="op">()</span> <span class="at">const</span> <span class="op">{</span> <span class="cf">return</span> distanciaCm<span class="op">;</span> <span class="op">}</span></span>
+<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span>
+<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a><span class="co">// Classe Pública Carro</span></span>
+<span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Carro <span class="op">{</span></span>
+<span id="cb4-68"><a href="#cb4-68" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span><span class="op">:</span></span>
+<span id="cb4-69"><a href="#cb4-69" aria-hidden="true" tabindex="-1"></a>    PinosMotor pinos<span class="op">;</span></span>
+<span id="cb4-70"><a href="#cb4-70" aria-hidden="true" tabindex="-1"></a>    ConfigPWM configPwm<span class="op">;</span></span>
+<span id="cb4-71"><a href="#cb4-71" aria-hidden="true" tabindex="-1"></a>    SensorRefletancia sensorLinha<span class="op">;</span></span>
+<span id="cb4-72"><a href="#cb4-72" aria-hidden="true" tabindex="-1"></a>    SensorUltrassonico sensorUltrassonico<span class="op">;</span></span>
+<span id="cb4-73"><a href="#cb4-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-74"><a href="#cb4-74" aria-hidden="true" tabindex="-1"></a>    Carro<span class="op">(</span><span class="dt">int</span> pinoLinha<span class="op">,</span> <span class="dt">int</span> trigPin<span class="op">,</span> <span class="dt">int</span> echoPin<span class="op">,</span> PinosMotor pinosM<span class="op">,</span> ConfigPWM pwm<span class="op">)</span></span>
+<span id="cb4-75"><a href="#cb4-75" aria-hidden="true" tabindex="-1"></a>        <span class="op">:</span> pinos<span class="op">(</span>pinosM<span class="op">),</span> configPwm<span class="op">(</span>pwm<span class="op">),</span></span>
+<span id="cb4-76"><a href="#cb4-76" aria-hidden="true" tabindex="-1"></a>          sensorLinha<span class="op">(</span>pinoLinha<span class="op">),</span> sensorUltrassonico<span class="op">(</span>trigPin<span class="op">,</span> echoPin<span class="op">)</span> <span class="op">{}</span></span>
+<span id="cb4-77"><a href="#cb4-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-78"><a href="#cb4-78" aria-hidden="true" tabindex="-1"></a>    <span class="kw">virtual</span> <span class="dt">void</span> iniciar<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb4-79"><a href="#cb4-79" aria-hidden="true" tabindex="-1"></a>        pinMode<span class="op">(</span>pinos<span class="op">.</span>in1<span class="op">,</span> OUTPUT<span class="op">);</span> pinMode<span class="op">(</span>pinos<span class="op">.</span>in2<span class="op">,</span> OUTPUT<span class="op">);</span></span>
+<span id="cb4-80"><a href="#cb4-80" aria-hidden="true" tabindex="-1"></a>        pinMode<span class="op">(</span>pinos<span class="op">.</span>in3<span class="op">,</span> OUTPUT<span class="op">);</span> pinMode<span class="op">(</span>pinos<span class="op">.</span>in4<span class="op">,</span> OUTPUT<span class="op">);</span></span>
+<span id="cb4-81"><a href="#cb4-81" aria-hidden="true" tabindex="-1"></a>        sensorLinha<span class="op">.</span>iniciar<span class="op">();</span> sensorUltrassonico<span class="op">.</span>iniciar<span class="op">();</span></span>
+<span id="cb4-82"><a href="#cb4-82" aria-hidden="true" tabindex="-1"></a>        parar<span class="op">();</span></span>
+<span id="cb4-83"><a href="#cb4-83" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb4-84"><a href="#cb4-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-85"><a href="#cb4-85" aria-hidden="true" tabindex="-1"></a>    <span class="kw">virtual</span> <span class="dt">void</span> atualizarSensores<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb4-86"><a href="#cb4-86" aria-hidden="true" tabindex="-1"></a>        sensorLinha<span class="op">.</span>atualizar<span class="op">();</span></span>
+<span id="cb4-87"><a href="#cb4-87" aria-hidden="true" tabindex="-1"></a>        sensorUltrassonico<span class="op">.</span>atualizar<span class="op">();</span></span>
+<span id="cb4-88"><a href="#cb4-88" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb4-89"><a href="#cb4-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-90"><a href="#cb4-90" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> moverFrente<span class="op">(</span><span class="dt">int</span> vel <span class="op">=</span> <span class="op">-</span><span class="dv">1</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-91"><a href="#cb4-91" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int</span> v <span class="op">=</span> <span class="op">(</span>vel <span class="op">&lt;</span> <span class="dv">0</span><span class="op">)</span> <span class="op">?</span> configPwm<span class="op">.</span>maxPotencia <span class="op">:</span> vel<span class="op">;</span></span>
+<span id="cb4-92"><a href="#cb4-92" aria-hidden="true" tabindex="-1"></a>        analogWrite<span class="op">(</span>pinos<span class="op">.</span>in1<span class="op">,</span> v<span class="op">);</span> digitalWrite<span class="op">(</span>pinos<span class="op">.</span>in2<span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb4-93"><a href="#cb4-93" aria-hidden="true" tabindex="-1"></a>        analogWrite<span class="op">(</span>pinos<span class="op">.</span>in3<span class="op">,</span> v<span class="op">);</span> digitalWrite<span class="op">(</span>pinos<span class="op">.</span>in4<span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb4-94"><a href="#cb4-94" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb4-95"><a href="#cb4-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-96"><a href="#cb4-96" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> moverRe<span class="op">(</span><span class="dt">int</span> vel <span class="op">=</span> <span class="op">-</span><span class="dv">1</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-97"><a href="#cb4-97" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int</span> v <span class="op">=</span> <span class="op">(</span>vel <span class="op">&lt;</span> <span class="dv">0</span><span class="op">)</span> <span class="op">?</span> configPwm<span class="op">.</span>re <span class="op">:</span> vel<span class="op">;</span></span>
+<span id="cb4-98"><a href="#cb4-98" aria-hidden="true" tabindex="-1"></a>        digitalWrite<span class="op">(</span>pinos<span class="op">.</span>in1<span class="op">,</span> LOW<span class="op">);</span> analogWrite<span class="op">(</span>pinos<span class="op">.</span>in2<span class="op">,</span> v<span class="op">);</span></span>
+<span id="cb4-99"><a href="#cb4-99" aria-hidden="true" tabindex="-1"></a>        digitalWrite<span class="op">(</span>pinos<span class="op">.</span>in3<span class="op">,</span> LOW<span class="op">);</span> analogWrite<span class="op">(</span>pinos<span class="op">.</span>in4<span class="op">,</span> v<span class="op">);</span></span>
+<span id="cb4-100"><a href="#cb4-100" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb4-101"><a href="#cb4-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-102"><a href="#cb4-102" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> parar<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb4-103"><a href="#cb4-103" aria-hidden="true" tabindex="-1"></a>        digitalWrite<span class="op">(</span>pinos<span class="op">.</span>in1<span class="op">,</span> LOW<span class="op">);</span> digitalWrite<span class="op">(</span>pinos<span class="op">.</span>in2<span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb4-104"><a href="#cb4-104" aria-hidden="true" tabindex="-1"></a>        digitalWrite<span class="op">(</span>pinos<span class="op">.</span>in3<span class="op">,</span> LOW<span class="op">);</span> digitalWrite<span class="op">(</span>pinos<span class="op">.</span>in4<span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb4-105"><a href="#cb4-105" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb4-106"><a href="#cb4-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-107"><a href="#cb4-107" aria-hidden="true" tabindex="-1"></a>    <span class="dt">bool</span> detectouBorda<span class="op">()</span> <span class="at">const</span> <span class="op">{</span> <span class="cf">return</span> sensorLinha<span class="op">.</span>isBordaBranca<span class="op">();</span> <span class="op">}</span></span>
+<span id="cb4-108"><a href="#cb4-108" aria-hidden="true" tabindex="-1"></a>    <span class="dt">float</span> getDistanciaOponente<span class="op">()</span> <span class="at">const</span> <span class="op">{</span> <span class="cf">return</span> sensorUltrassonico<span class="op">.</span>getDistancia<span class="op">();</span> <span class="op">}</span></span>
+<span id="cb4-109"><a href="#cb4-109" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span>
+<span id="cb4-110"><a href="#cb4-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-111"><a href="#cb4-111" aria-hidden="true" tabindex="-1"></a><span class="co">// Classe Final RoboLutador</span></span>
+<span id="cb4-112"><a href="#cb4-112" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> RoboLutador <span class="op">:</span> <span class="kw">public</span> Carro <span class="op">{</span></span>
+<span id="cb4-113"><a href="#cb4-113" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span><span class="op">:</span></span>
+<span id="cb4-114"><a href="#cb4-114" aria-hidden="true" tabindex="-1"></a>    robotState estadoAtual<span class="op">;</span></span>
+<span id="cb4-115"><a href="#cb4-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-116"><a href="#cb4-116" aria-hidden="true" tabindex="-1"></a>    RoboLutador<span class="op">(</span><span class="dt">int</span> pinoLinha<span class="op">,</span> <span class="dt">int</span> trigPin<span class="op">,</span> <span class="dt">int</span> echoPin<span class="op">,</span> PinosMotor pinosM<span class="op">,</span> ConfigPWM pwm<span class="op">)</span></span>
+<span id="cb4-117"><a href="#cb4-117" aria-hidden="true" tabindex="-1"></a>        <span class="op">:</span> Carro<span class="op">(</span>pinoLinha<span class="op">,</span> trigPin<span class="op">,</span> echoPin<span class="op">,</span> pinosM<span class="op">,</span> pwm<span class="op">),</span> estadoAtual<span class="op">(</span>ESTADO_PARADO<span class="op">)</span> <span class="op">{}</span></span>
+<span id="cb4-118"><a href="#cb4-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-119"><a href="#cb4-119" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> iniciar<span class="op">()</span> <span class="kw">override</span> <span class="op">{</span></span>
+<span id="cb4-120"><a href="#cb4-120" aria-hidden="true" tabindex="-1"></a>        Carro<span class="op">::</span>iniciar<span class="op">();</span></span>
+<span id="cb4-121"><a href="#cb4-121" aria-hidden="true" tabindex="-1"></a>        IrReceiver<span class="op">.</span>begin<span class="op">(</span>IR_RECEIVE_PIN<span class="op">);</span></span>
+<span id="cb4-122"><a href="#cb4-122" aria-hidden="true" tabindex="-1"></a>        estadoAtual <span class="op">=</span> ESTADO_PARADO<span class="op">;</span></span>
+<span id="cb4-123"><a href="#cb4-123" aria-hidden="true" tabindex="-1"></a>        logger<span class="op">.</span>info<span class="op">(</span>F<span class="op">(</span><span class="st">"🤖 RoboLutador Inicializado!"</span><span class="op">));</span></span>
+<span id="cb4-124"><a href="#cb4-124" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb4-125"><a href="#cb4-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-126"><a href="#cb4-126" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> processarComandoIR<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb4-127"><a href="#cb4-127" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>IrReceiver<span class="op">.</span>decode<span class="op">())</span> <span class="op">{</span></span>
+<span id="cb4-128"><a href="#cb4-128" aria-hidden="true" tabindex="-1"></a>            <span class="dt">uint32_t</span> codigo <span class="op">=</span> IrReceiver<span class="op">.</span>decodedIRData<span class="op">.</span>decodedRawData<span class="op">;</span></span>
+<span id="cb4-129"><a href="#cb4-129" aria-hidden="true" tabindex="-1"></a>            IrReceiver<span class="op">.</span>resume<span class="op">();</span></span>
+<span id="cb4-130"><a href="#cb4-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-131"><a href="#cb4-131" aria-hidden="true" tabindex="-1"></a>            <span class="cf">switch</span> <span class="op">(</span>codigo<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-132"><a href="#cb4-132" aria-hidden="true" tabindex="-1"></a>                <span class="cf">case</span> BUTTON_1_CODE<span class="op">:</span> estadoAtual <span class="op">=</span> ESTADO_PREPARAR<span class="op">;</span> <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb4-133"><a href="#cb4-133" aria-hidden="true" tabindex="-1"></a>                <span class="cf">case</span> BUTTON_2_CODE<span class="op">:</span> estadoAtual <span class="op">=</span> ESTADO_BUSCAR<span class="op">;</span> <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb4-134"><a href="#cb4-134" aria-hidden="true" tabindex="-1"></a>                <span class="cf">case</span> BUTTON_3_CODE<span class="op">:</span> estadoAtual <span class="op">=</span> ESTADO_PARADO_DEFINITIVO<span class="op">;</span> parar<span class="op">();</span> <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb4-135"><a href="#cb4-135" aria-hidden="true" tabindex="-1"></a>                <span class="cf">case</span> BUTTON_4_CODE<span class="op">:</span> estadoAtual <span class="op">=</span> ESTADO_PARADO<span class="op">;</span> parar<span class="op">();</span> <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb4-136"><a href="#cb4-136" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span></span>
+<span id="cb4-137"><a href="#cb4-137" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb4-138"><a href="#cb4-138" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb4-139"><a href="#cb4-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-140"><a href="#cb4-140" aria-hidden="true" tabindex="-1"></a>    <span class="kw">virtual</span> <span class="dt">void</span> executarLogica<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb4-141"><a href="#cb4-141" aria-hidden="true" tabindex="-1"></a>        atualizarSensores<span class="op">();</span></span>
+<span id="cb4-142"><a href="#cb4-142" aria-hidden="true" tabindex="-1"></a>        processarComandoIR<span class="op">();</span></span>
+<span id="cb4-143"><a href="#cb4-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-144"><a href="#cb4-144" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>detectouBorda<span class="op">()</span> <span class="op">&amp;&amp;</span> estadoAtual <span class="op">!=</span> ESTADO_PARADO <span class="op">&amp;&amp;</span> estadoAtual <span class="op">!=</span> ESTADO_PARADO_DEFINITIVO<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-145"><a href="#cb4-145" aria-hidden="true" tabindex="-1"></a>            estadoAtual <span class="op">=</span> ESTADO_ESQUIVAR_BORDA<span class="op">;</span></span>
+<span id="cb4-146"><a href="#cb4-146" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb4-147"><a href="#cb4-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-148"><a href="#cb4-148" aria-hidden="true" tabindex="-1"></a>        <span class="cf">switch</span> <span class="op">(</span>estadoAtual<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-149"><a href="#cb4-149" aria-hidden="true" tabindex="-1"></a>            <span class="cf">case</span> ESTADO_PARADO<span class="op">:</span> parar<span class="op">();</span> <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb4-150"><a href="#cb4-150" aria-hidden="true" tabindex="-1"></a>            <span class="cf">case</span> ESTADO_PREPARAR<span class="op">:</span> moverFrente<span class="op">(</span><span class="dv">150</span><span class="op">);</span> <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb4-151"><a href="#cb4-151" aria-hidden="true" tabindex="-1"></a>            <span class="cf">case</span> ESTADO_BUSCAR<span class="op">:</span> <span class="op">{</span></span>
+<span id="cb4-152"><a href="#cb4-152" aria-hidden="true" tabindex="-1"></a>                <span class="dt">float</span> D <span class="op">=</span> getDistanciaOponente<span class="op">();</span></span>
+<span id="cb4-153"><a href="#cb4-153" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> <span class="op">(</span>D <span class="op">&lt;</span> DISTANCIA_ATENCAO_CM<span class="op">)</span> estadoAtual <span class="op">=</span> ESTADO_ATACAR<span class="op">;</span></span>
+<span id="cb4-154"><a href="#cb4-154" aria-hidden="true" tabindex="-1"></a>                <span class="cf">else</span> moverRe<span class="op">(</span>configPwm<span class="op">.</span>re<span class="op">);</span></span>
+<span id="cb4-155"><a href="#cb4-155" aria-hidden="true" tabindex="-1"></a>                <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb4-156"><a href="#cb4-156" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span></span>
+<span id="cb4-157"><a href="#cb4-157" aria-hidden="true" tabindex="-1"></a>            <span class="cf">case</span> ESTADO_ATACAR<span class="op">:</span></span>
+<span id="cb4-158"><a href="#cb4-158" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> <span class="op">(</span>getDistanciaOponente<span class="op">()</span> <span class="op">&lt;</span> <span class="fl">50.0</span><span class="op">)</span> moverFrente<span class="op">(</span>configPwm<span class="op">.</span>maxPotencia<span class="op">);</span></span>
+<span id="cb4-159"><a href="#cb4-159" aria-hidden="true" tabindex="-1"></a>                <span class="cf">else</span> estadoAtual <span class="op">=</span> ESTADO_BUSCAR<span class="op">;</span></span>
+<span id="cb4-160"><a href="#cb4-160" aria-hidden="true" tabindex="-1"></a>                <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb4-161"><a href="#cb4-161" aria-hidden="true" tabindex="-1"></a>            <span class="cf">case</span> ESTADO_ESQUIVAR_BORDA<span class="op">:</span></span>
+<span id="cb4-162"><a href="#cb4-162" aria-hidden="true" tabindex="-1"></a>                moverRe<span class="op">(</span>configPwm<span class="op">.</span>re<span class="op">);</span> delay<span class="op">(</span><span class="dv">400</span><span class="op">);</span></span>
+<span id="cb4-163"><a href="#cb4-163" aria-hidden="true" tabindex="-1"></a>                estadoAtual <span class="op">=</span> ESTADO_BUSCAR<span class="op">;</span></span>
+<span id="cb4-164"><a href="#cb4-164" aria-hidden="true" tabindex="-1"></a>                <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb4-165"><a href="#cb4-165" aria-hidden="true" tabindex="-1"></a>            <span class="cf">case</span> ESTADO_PARADO_DEFINITIVO<span class="op">:</span></span>
+<span id="cb4-166"><a href="#cb4-166" aria-hidden="true" tabindex="-1"></a>                parar<span class="op">();</span> <span class="co">// Estado FIM travado</span></span>
+<span id="cb4-167"><a href="#cb4-167" aria-hidden="true" tabindex="-1"></a>                <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb4-168"><a href="#cb4-168" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb4-169"><a href="#cb4-169" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb4-170"><a href="#cb4-170" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span>
+<span id="cb4-171"><a href="#cb4-171" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-172"><a href="#cb4-172" aria-hidden="true" tabindex="-1"></a>PinosMotor pinosMotores <span class="op">=</span> <span class="op">{</span> IN1_MOTOR_ESQUERDO<span class="op">,</span> IN2_MOTOR_ESQUERDO<span class="op">,</span> IN3_MOTOR_DIREITO<span class="op">,</span> IN4_MOTOR_DIREITO <span class="op">};</span></span>
+<span id="cb4-173"><a href="#cb4-173" aria-hidden="true" tabindex="-1"></a>ConfigPWM configuracaoPwm <span class="op">=</span> <span class="op">{</span> <span class="dv">255</span><span class="op">,</span> <span class="dv">200</span><span class="op">,</span> <span class="dv">190</span> <span class="op">};</span></span>
+<span id="cb4-174"><a href="#cb4-174" aria-hidden="true" tabindex="-1"></a>RoboLutador robo<span class="op">(</span>PIN_SENSOR_QRE_LINHA<span class="op">,</span> PIN_ULTRASSONICO_TRIG<span class="op">,</span> PIN_ULTRASSONICO_ECHO<span class="op">,</span> pinosMotores<span class="op">,</span> configuracaoPwm<span class="op">);</span></span>
+<span id="cb4-175"><a href="#cb4-175" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-176"><a href="#cb4-176" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> setup<span class="op">()</span> <span class="op">{</span> logger<span class="op">.</span>iniciar<span class="op">(</span><span class="dv">9600</span><span class="op">);</span> robo<span class="op">.</span>iniciar<span class="op">();</span> <span class="op">}</span></span>
+<span id="cb4-177"><a href="#cb4-177" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span> robo<span class="op">.</span>executarLogica<span class="op">();</span> <span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+<section id="conclusão" class="level1">
+<h1>6. Conclusão</h1>
+<p>A arquitetura desenvolvida une o rigor conceitual da Engenharia Elétrica (alimentação de motores via L298N isolada por Buck 5V) ao formalismo da Ciência da Computação (POO em C++ com <code>Sensor</code>, <code>Carro</code>, <code>RoboLutador</code>, <code>Logger</code> e a máquina de estados <code>robotState</code>). A modelagem booleana comprovou a consistência lógica das manobras de ataque e segurança, enquanto a transição para o estado <code>ESTADO_PARADO_DEFINITIVO</code> resolveu a retenção segura no término do loop de combate.</p>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
