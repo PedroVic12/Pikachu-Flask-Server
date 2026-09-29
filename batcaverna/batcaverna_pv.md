@@ -2,33 +2,31 @@
 
 ---
 
-📅 Data: *24/09/2026** - *Quinta Feira*
+📅 Data: *29/08/2026** - *Terça Feira*
 
-Rotina Semanal:
-
-- *Segunda Feira* = Root Chakra + Academia
-- *Terça Feira* = Throat Chakra + Circuitos CC e CD + Terapia
-- *Quarta Feira* = Heart Chakra + Homeoffice + Artigo TCC
-- *Quinta Feira* = Third Eye Chakra + Circuitos CC e CD + Karate
-- *Sexta Feira* = Solar Chakra + Dia de Oxalá
-- *Sabado* = Folga + Rotina + Futebol + Jogos
-- *Domingo* = Dia de Missa e Familia
+*Segunda Feira* = Root Chakra + Academia
+*Terça Feira* = Throat Chakra + Circuitos CC e CD + Terapia
+*Quarta Feira* = Heart Chakra + Homeoffice + Artigo TCC
+*Quinta Feira* = Third Eye Chakra + Circuitos CC e CD + Karate
+*Sexta Feira* = Solar Chakra + Dia de Oxalá + Dia que Jesus Cristo sacrificou sua vida
+*Sabado* = Folga + Rotina + Futebol + Jogos
+*Domingo* = Dia de Missa e Familia
 
 ---
 
 # ⚡📑 01) ÍNDICE
-
+****
 # 02) **JOBS**
 
-### 2.1) Trabalho Cientista de dados JR no ELITE Rede de Ensino
+### Trabalho Cientista de dados JR no ELITE Rede de Ensino
 
-### 2.2) Trabalho 2023-2024: Estagio: Camorim Serviços Marítimos de Engenharia Elétrica
+### Trabalho 2023-2024: Estagio: Camorim Serviços Marítimos de Engenharia Elétrica
 
-### 2.3) Estagio de Engenharia Elétrica: ONS PLC (Planejamento de Curto prazo) e análises de Estudos Elétricos em Regime Permanente (estático) para área de SP de 135KV, 345KV e 440 KV
+### Estagio de Engenharia Elétrica: ONS PLC (Planejamento de Curto prazo) e análises de Estudos Elétricos em Regime Permanente (estático) para área de SP de 135KV, 345KV e 440 KV
 
-### 2.4) Cientista de dados JR (Python, Julia, Javascript)
+### Cientista de dados JR (Python, Julia, Javascript)
 
-##### 🎓 Roadmap Cientista de Dados
+## 🎓 Roadmap Cientista de Dados
 
 ![alt text - ciencia de dados ONS](image-1.png)
 
@@ -57,8 +55,6 @@ Rotina Semanal:
   - Astropy x Sympy x Scipy
   - Resumo minicurso: Astronomia como Soberania Nacional
 
-## 🎯 Checklist Top 3 Diário (Execução do Dia)
-
 - [ ] Vaga PJ R$ 5000 reais para Analista de dados JR com python,  vba,julia e javascipt
 - [ ] Freelancer SEO com google meu negocio usando webistes vitrine com alcance de clicks dos usuários
 
@@ -70,24 +66,7 @@ Rotina Semanal:
 
 - 📚 [Sessão de ESTUDOS](#sessao-de-estudos-matematica-programacao-e-eng-eletrica)
 
----
-
-# Estudos UFF 2026.2
-
-- [x] Python e Julia para Astronomia
-
-- [x] Cálculo 1,2,3 e 4 (Até EDOs e Transformada de Laplace - RLC)
-- [x] Estatística I
-- [x] Estatística II
-- [x] Transmissão de calor I
-- [x] Fenomemos de transporte (Mecanica dos fluidos)
-- [x] Controle e qualidade - Administração (Metodos estatísticos)
-
-- [ ] Sinais e Sistemas
-- [x] Cálculo 2 e 3 (cálculo vetorial)
-- [x] Calculo Vetorial com Metodos Numéricos em Julia usando apenas Cálculo 1 e Plots no youtube
-
-- [x] Programação para Data Science (Julia, Plots.jl, Pandas, Plotly, Scipy, sympy)
+### TERAPIA TCC
 
 # 04) CORPO - Academia + Calistenia + karate
 
@@ -196,6 +175,8 @@ Falta de segurança em mim mesmo
 
 ---
 
+# Tarefas e Estudos Pendentes
+
 - [ ] Circuitos Elétricos CA
 - [ ] Eletromagnetismo I - Campos estáticos
 - [ ] Sistemas de controle I, II e III
@@ -211,17 +192,36 @@ Falta de segurança em mim mesmo
 
 ---
 
+# Estudos UFF 2026.2
+
+- [x] Python e Julia para Astronomia
+
+- [x] Cálculo 1,2,3 e 4 (Até EDOs e Transformada de Laplace - RLC)
+- [x] Estatística I
+- [x] Estatística II
+- [x] Transmissão de calor I
+- [x] Fenomemos de transporte (Mecanica dos fluidos)
+- [x] Controle e qualidade - Administração (Metodos estatísticos)
+
+- [ ] Sinais e Sistemas
+- [x] Cálculo 2 e 3 (cálculo vetorial)
+- [x] Calculo Vetorial com Metodos Numéricos em Julia usando apenas Cálculo 1 e Plots no youtube
+
+- [x] Programação para Data Science (Julia, Plots.jl, Pandas, Plotly, Scipy, sympy)
+
+---
+
 # Rotinas de Dono de Casa (Homem TDAH Adulto)
 
 - Melhores a cada dia
 - respeito
 - Disciplina e Responsabilidaed
 
-- [x] Tomar banho
-- [x] Vestir roupas limpas
+- [ ] Tomar banho
+- [ ] Vestir roupas limpas
 - [ ] Lavar o Rosto e fazer Skin Care
-- [x] Exercicio Físicos
-- [x] Alongamento de Quadril, Ombra, Colunas e Core
+- [ ] Exercicio Físicos
+- [ ] Alongamento de Quadril, Ombra, Colunas e Core
 - [x] Limpeza arpatamento
 - [ ] Alinhamento Espiritual matinal
 - [ ] Banho Gelado - Detox de Dopamina (Banheira de gelo)
@@ -275,7 +275,35 @@ Falta de segurança em mim mesmo
 
 ---
 
-# 09) PVRV 2026 Notes
+# 08) PVRV 2026 Notes
+
+---
+
+# 09) Terapia TCC 2025-2026
+
+- Fim de relacionamento Danielle
+
+- Desregulação emocional por TDAH e com ma alimentação e falta de treinos
+
+- TCC com cartões de enfrentamento com mudanças de hábitos e tarefas com uso de Atentah e Venvanse em gotas
+
+- Estudos UFF X Coding X JOBS x Treinos X PVRV (jedi cyberpunk)
+
+- Desapego e dependência emocional
+
+- Uso compulsivos de substâncias dopaminergerticas (uso de telas, maconha, masturbação)
+
+- Auto estima, autocríticas, autoconfiança e síndrome do impostor
+
+- timidez e crenças limitantes por traumas infantis
+
+- Soft Skills para UFF e ONS
+
+- Sobrecarga de tarefas com cartões de enfrentamento e ferramentas de produtividade para gerenciamento de tempo e tomadas de decisões baseado em dados
+
+- Início de relacionamento Viviane
+
+- a saúde mental x espiritual na prática
 
 ---
 
@@ -307,8 +335,12 @@ Falta de segurança em mim mesmo
 
 # Estudos UFF 2026.2
 
-- [X] Aulas de robotica com Arduino (Carrinho lutador)
-- [X] Circuitos Elétricos CC
+- [ ] Aulas de robotica com Arduino (Carrinho lutador)
+  - [x] Fase 1
+  - [ ] Fase 2
+  - Programação em C++ e RPA com Python e Shell Script com conexões API com flask e FastAPI
+
+- [ ] Circuitos Elétricos CC
 - [x] Cálculo 1,2,3 e 4 (Até EDOs e Transformada de Laplace - RLC)
 - [x] Estatística I
 - [x] Estatística II
