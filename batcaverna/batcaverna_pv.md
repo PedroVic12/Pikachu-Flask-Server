@@ -15,29 +15,88 @@
 ---
 
 # ⚡📑 01) ÍNDICE
-****
+
 # 02) **JOBS**
 
 ### Trabalho Cientista de dados JR no ELITE Rede de Ensino
 
+- Análise de Dados utilizando, VBA, Python, Excel e Power BI.
+- Sistemas web com JavaScript em Planilhas Google.
+- Dashboards em Excel e Streamlit.
+- Correção de simulados e provas de alunos do militar e 9 ano usando VBA e Python.
+
 ### Trabalho 2023-2024: Estagio: Camorim Serviços Marítimos de Engenharia Elétrica
 
-### Estagio de Engenharia Elétrica: ONS PLC (Planejamento de Curto prazo) e análises de Estudos Elétricos em Regime Permanente (estático) para área de SP de 135KV, 345KV e 440 KV
+- Uso de Visão computacional com Python para manipulação e extração de informações em Documentos PDF e notas fiscais de compras com OCR e Regex.
+- Automações e Análise de dados com Python.
+- Desenvolvimentos de Web Apps para gestão e manutenção usando Flutter e IA generativa 
+- Planos de manutenção Corretiva, Preventiva e Diagnóstica
+- Criação e acompanhamento de Relatórios Técnicos da oficina elétrica.
+
+### Estagio de Engenharia Elétrica: ONS PLC (Planejamento de Curto prazo) 
+
+- Análises de Estudos Elétricos em Regime Permanente (estático) para área de SP de 135KV, 345KV e 440 KV
+- Estudos e planejamento de curto prazo para Sistemas Elétricos de Potência do SIN usando simuladores em Python, AnaREDE, ANATEM e Organon.
+- Diagramas da área de SP no Organon
+
+- [x] Guia de Montagem Mensal Word x Anotações Obsidian (VA,VB e SEMENTE)
+- [x] Relatório de Perdas Duplas LTs usando VBA e Plots de 3 gráficos
+- [x] Guia de Montagem de Decks: Mensal (Word + Obsidian)
+
+- [x] Guia completo em Word e PDF dos processos de atividades do mensal usando simuladores CEPEL e FLOW (Redespacho)
+
+- [x] Montagem de Quadros Mensal e Quadrimensal (Flow)
+
+  - VA = Decks de Configuração e Carga para casos SEMENTE
+    - Correção barras ausentes
+    - Planilha SISBAR: Parecer da Área (fix_decks_barras_ausentes.py) = Retorna uma planilha atualizada comparando as barras ausentes do Mes atual e mes anterior utilizando as Respostas PLC no caso correspondente para região SECO
+    - Decks Eletrico/PRD: Script para comentar barras ausentes nos casos (ler_decks_de_carga.py)
+  
+  - VB = Redespacho de Usinas na FLOW usando politica energética + Case Manager no Organon para Fluxo de Potencia Ótimo.
+  
+  - VC = Intercambios
+  - VD = FLUPOT
+  - VF = Ajustes finos de tensão e carga para SECO
+  - VG = AnaTEM
+  - VH = Emissão do Relatórios
+
+---
 
 ### Cientista de dados JR (Python, Julia, Javascript)
+
+- "Agendamento ótimo de manutenção de Redes Elétricas utilizando otimização com algoritmos genéticos e um simulador Desktop usando Python e Pandapower em um sistema elétrico SIN 45 barras da região RJ/SP" (2025)
+- 
+- Dashboards
+- Datasets publicos
+- Modelos preditivos de series temporais
+- Modelos de classificacao ML e DL
+- Modelos de recomendação
+- Analise de dados com otmização e programação linear
+
+- "Estratégias de diversificação em meta-heurísticas aplicadas a problemas de Otimização em Engenharia Elétrica usando Algoritimos Evolutivos com Python" (2024)
+- 
 
 ## 🎓 Roadmap Cientista de Dados
 
 ![alt text - ciencia de dados ONS](image-1.png)
 
-### Desenvolvedor Desktop IoT - PQt6 + Tauri V2 (rust) + Banco de dados
+### Desenvolvedor Desktop IoT 
+
+- PyQt6
+- QML - KDE - C++
+- Rust/Tauri V2
+- Electron JS
 
 ### Desenvolvedor web
 
 - Pikachu Flask Server
 - Rayquaza Web Server - FastAPI
 - Kyogre PDV Delivery app
-- Gohan Treinamentos app
+- Gohan Treinamentos Web app
+- Astroblog Pedrov12
+- Astro Webiste para viagens: Pedro + Vivi <3 <3
+- Electrical System Simulator: SEP para leigos
+- 
 
 - 📋 [Tarefas ONS PLC](#tarefas-ons-plc-2026)
 
@@ -58,7 +117,8 @@
   - Astropy x Sympy x Scipy
   - Resumo minicurso: Astronomia como Soberania Nacional
 
-- [ ] Vaga PJ R$ 5000 reais para Analista de dados JR com python,  vba,julia e javascipt
+- [ ] Vaga PJ R$ 5000 reais para Analista de dados JR com Python, Javascript, C++, Julia e Lua
+  
 - [ ] Freelancer SEO com google meu negocio usando webistes vitrine com alcance de clicks dos usuários
 
 # 03) MENTE - Estudos UFF 2026.2 + artigo tcc + astro blog
@@ -69,7 +129,6 @@
 
 - 📚 [Sessão de ESTUDOS](#sessao-de-estudos-matematica-programacao-e-eng-eletrica)
 
-### TERAPIA TCC
 
 # 04) CORPO - Academia + Calistenia + karate
 
@@ -135,6 +194,27 @@ Concluído
 
 # 06) Atividades UFF
 
+---
+
+## Estudos UFF 
+
+- [x] Python e Julia para Astronomia
+
+- [x] Cálculo 1,2,3 e 4 (Até EDOs e Transformada de Laplace - RLC)
+- [x] Estatística I
+- [x] Estatística II
+- [x] Transmissão de calor I
+- [x] Fenomemos de transporte (Mecanica dos fluidos)
+- [x] Controle e qualidade - Administração (Metodos estatísticos)
+
+- [ ] Sinais e Sistemas
+- [x] Cálculo 2 e 3 (cálculo vetorial)
+- [x] Calculo Vetorial com Metodos Numéricos em Julia usando apenas Cálculo 1 e Plots no youtube
+
+- [x] Programação para Data Science (Julia, Plots.jl, Pandas, Plotly, Scipy, sympy)
+
+
+
 - [ ] minicurso circuitos CC com Sadiku e Python
 
 - [x] Circuitos Digitais I
@@ -147,6 +227,9 @@ Concluído
 
   - [ ] Minicurso CC - Falstad e Python/Julia
   - [ ] P2
+    - Analise Nodal
+    - Analise Malhas
+    - 
   - [ ] P3
   
 - [x] Robotica para Iniciantes
@@ -155,31 +238,11 @@ Concluído
   - Motores e Drivers
   - Sensor de reflatancia
 
-- [ ] Guia de Montagem Mensal Word x Anotações Obsidian (VA,VB e SEMENTE)
-
-- [ ] Diagrama SP - Organon 440KV
-- [ ] Conversas com Alexandre Nunes e João Marco
-
-- [x] Guia de Montagem de Decks: Mensal (Word + Obsidian)
-
-- [ ] Guia completo em Word e PDF dos processos de atividades do mensal usando simuladores CEPEL e FLOW
-
-  - VA = Decks de Configuração e Carga para casos SEMENTE
-    - Correção barras ausentes
-    - Planilha SISBAR: Parecer da Área (fix_decks_barras_ausentes.py) = Retorna uma planilha atualizada comparando as barras ausentes do Mes atual e mes anterior utilizando as Respostas PLC no caso correspondente para região SECO
-    - Decks Eletrico/PRD: Script para comentar barras ausentes nos casos (ler_decks_de_carga.py)
-  - VB = Redespacho de Usinas na FLOW usando politica energética + Case Manager no Organon para Fluxo de Potencia Ótimo.
-  - VC = Intercambios
-  - VD = FLUPOT
-  - VF = Ajustes finos de tensão e carga para SECO
-  - VG = AnaTEM
-  - VH = Emissão do Relatórios
-
-- [x] Relatório de Perdas Duplas LTs usando VBA e Plots de 3 gráficos
 
 
 
-# Estudos UFF 2026.2
+
+## Estudos UFF 2026.2
 
 - [ ] Aulas de robotica com Arduino (Carrinho lutador)
 
@@ -207,7 +270,7 @@ Concluído
 
 ---
 
-# Estudos Elétricos do ONS para SEP
+## Estudos Elétricos do ONS para SEP
 
 - Transformador em Fase
 - Geradores, Reatores e Transformadores com suas linhas de transmissão. 3 bus, 5 bus, 7 bus...
@@ -226,25 +289,6 @@ Concluído
 - Transmissão X Geração X Distribuição
 - RCE: Agendamento ótimo de análise de contingências para intervenções no Sistema Elétrico
 -
-
----
-
-# Estudos UFF 2026.2
-
-- [x] Python e Julia para Astronomia
-
-- [x] Cálculo 1,2,3 e 4 (Até EDOs e Transformada de Laplace - RLC)
-- [x] Estatística I
-- [x] Estatística II
-- [x] Transmissão de calor I
-- [x] Fenomemos de transporte (Mecanica dos fluidos)
-- [x] Controle e qualidade - Administração (Metodos estatísticos)
-
-- [ ] Sinais e Sistemas
-- [x] Cálculo 2 e 3 (cálculo vetorial)
-- [x] Calculo Vetorial com Metodos Numéricos em Julia usando apenas Cálculo 1 e Plots no youtube
-
-- [x] Programação para Data Science (Julia, Plots.jl, Pandas, Plotly, Scipy, sympy)
 
 
 ---
