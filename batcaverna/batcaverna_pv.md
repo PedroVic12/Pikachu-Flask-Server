@@ -48,6 +48,9 @@
 # JOBS 2026
 
 - [ ] Trabalho PJ como DEV R$ 5000 ou U$ 1500 - Como Assistente de Análise de Dados ou dev pleno com Python,C++ ou Javascript
+
+- [ ] Desenvolvedor Fullstack: Software Desktop x Websites x Aplicativos x Dashboards x Robôs x Bots 
+
 - [ ] Pesquisa e Desenvolimento UFF + IA + SEP e Simulações em 3D
   - SEP para leigos
   - AnaREDE x Organon x Pandapower(RCE)
@@ -95,13 +98,13 @@ Concluído
 - Entregas ageis
 - Kanban para divisão de tarefas BACKLOG, IN PROGRESS, TESTING e CONCLUIDO
 
-### Gerenciamento do tempo
+
+
+
+### Gerenciamento de Tempo e Prioridades
 
 - Pomodoros: 50/10
 - Divisão de tarefas em atividades gerenciais
-
-### Gerenciamento de Prioridades
-
 - Matriz Eiseingher: Urgente e Não urgente
 - Eat the frog first
 - Prioridade de 3 tarefas principais do dia
@@ -113,19 +116,20 @@ Concluído
 
 ---
 
-🧠 Diário de Bordo
+### 🧠 Diário de Bordo
 
-Bloqueios?
+- Postagens em blog com Jupyter Notebooks e relatórios em Quarto
 
-Questões emocionais
+- Bloqueios?
+  - Falta de rotina x Organização e Planejamento
 
-Falta de rotina x Organização e Planejamento
+  - Abstinencia de maconha de 4 dias. Fumei domingo e segunda para aliviar, mas me deu sono e apenas tesão
 
-Abstinencia de maconha de 4 dias. Fumei domingo e segunda para aliviar, mas me deu sono e apenas tesão
+- Questões emocionais?
 
-Falta de foco e clareza no que seguir nos estudos: Ciência de Dados e Eng. Elétrica
+  - Falta de foco e clareza no que seguir nos estudos: Ciência de Dados e Eng. Elétrica
 
-Falta de segurança em mim mesmo
+  - Falta de segurança em mim mesmo
 
 ---
 
@@ -173,22 +177,55 @@ Falta de segurança em mim mesmo
 
 - [x] Relatório de Perdas Duplas LTs usando VBA e Plots de 3 gráficos
 
+
+
+# Estudos UFF 2026.2
+
+- [ ] Aulas de robotica com Arduino (Carrinho lutador)
+
+  - Programação em C++ e RPA com Python e Shell Script com conexões API com flask e FastAPI
+
+- [x] Cálculo 1,2,3 e 4 (Até EDOs e Transformada de Laplace - RLC)
+- [x] Estatística I
+- [x] Estatística II
+- [x] Transmissão de calor I
+- [x] Fenomemos de transporte (Mecanica dos fluidos)
+
+- [ ] FastAPI x Flask x Django x Drogon C++ x Nodejs(express) - projetos backend
+
+- [ ] Estudos de Somatorios, Funções de
+ Potencias, Circuitos Eletricos CC e Circuitos Digitais
+
+- [ ] Matriz admtancia + Geração x Transmissão e Distrbuição SIN pelo ONS
+
+- [ ] Metodos númericos em Matlab para engenharia usando Python (pelo livro de moetodos numericos)
+
+- [ ] Solver ML/DL para cada X,Y de conjunto de dado
+
+- [ ] Python com Sympy para calculo de EDO de 1 e 2 ordem para Circuitos CC (RL,RC e RLC)
+
+
 ---
 
-# Tarefas e Estudos Pendentes
+# Estudos Elétricos do ONS para SEP
 
-- [ ] Circuitos Elétricos CA
-- [ ] Eletromagnetismo I - Campos estáticos
-- [ ] Sistemas de controle I, II e III
-- [ ] Análise de SEP I, II
-  - Teorema de Norton e Thevenin
-  - Máx de transf. de potência
-  - Fluxo de potência
-  - Curto circuito
-  - Barra Swing
+- Transformador em Fase
+- Geradores, Reatores e Transformadores com suas linhas de transmissão. 3 bus, 5 bus, 7 bus...
+- Barra swing
+- Reator Shunt
+- Barras PQ E PV
+- Transformador em Fase
+- Ferramentas FLOW 9.0
+- anaRede x Organon x Pandapower
+- Casos Máxima e Mínima (Noturna e Diurna)
+- Inércia do sistema
+- análise de circuitos RLC com impedância e reatância (capacitiva ou reativa)
+- Potência Ativa x Reativa
+- fluxo de potência e Curto circuito
 
-- [ ] IEEDs
-- [ ] Sistema de computação
+- Transmissão X Geração X Distribuição
+- RCE: Agendamento ótimo de análise de contingências para intervenções no Sistema Elétrico
+-
 
 ---
 
@@ -209,19 +246,35 @@ Falta de segurança em mim mesmo
 
 - [x] Programação para Data Science (Julia, Plots.jl, Pandas, Plotly, Scipy, sympy)
 
+
+---
+
+# Tarefas e Estudos Pendentes
+
+- [ ] Circuitos Elétricos CA
+- [ ] Eletromagnetismo I - Campos estáticos
+- [ ] Sistemas de controle I, II e III
+- [ ] Análise de SEP I, II
+  - Teorema de Norton e Thevenin
+  - Máx de transf. de potência
+  - Fluxo de potência
+  - Curto circuito
+  - Barra Swing
+
+- [ ] IEEDs
+- [ ] Sistema de computação
+
 ---
 
 # Rotinas de Dono de Casa (Homem TDAH Adulto)
 
-- Melhores a cada dia
-- respeito
-- Disciplina e Responsabilidaed
+- [x] Disciplina e Responsabilidade
 
-- [ ] Tomar banho
-- [ ] Vestir roupas limpas
-- [ ] Lavar o Rosto e fazer Skin Care
-- [ ] Exercicio Físicos
-- [ ] Alongamento de Quadril, Ombra, Colunas e Core
+- [x] Tomar banho gelado
+- [x] Vestir roupas limpas
+- [x] Lavar o Rosto e fazer Skin Care
+- [x] Exercicio Físicos
+- [x] Alongamento de Quadril, Ombra, Colunas e Core
 - [x] Limpeza arpatamento
 - [ ] Alinhamento Espiritual matinal
 - [ ] Banho Gelado - Detox de Dopamina (Banheira de gelo)
@@ -263,7 +316,6 @@ Falta de segurança em mim mesmo
 
 - "minha mente funciona de forma diferente, eu vim para incomodar. Estou aqui para questionar e demonstrar matemática e cientificamente falando assuntos que instiguem na evolução da raça humana."
 
- programação, engenharia elétrica, ética
 
 - estado de espírito
 
@@ -277,49 +329,38 @@ Falta de segurança em mim mesmo
 
 # 08) PVRV 2026 Notes
 
----
 
-# 09) Terapia TCC 2025-2026
 
-- Fim de relacionamento Danielle
-
-- Desregulação emocional por TDAH e com ma alimentação e falta de treinos
-
-- TCC com cartões de enfrentamento com mudanças de hábitos e tarefas com uso de Atentah e Venvanse em gotas
-
-- Estudos UFF X Coding X JOBS x Treinos X PVRV (jedi cyberpunk)
-
-- Desapego e dependência emocional
-
-- Uso compulsivos de substâncias dopaminergerticas (uso de telas, maconha, masturbação)
-
-- Auto estima, autocríticas, autoconfiança e síndrome do impostor
-
-- timidez e crenças limitantes por traumas infantis
-
-- Soft Skills para UFF e ONS
-
-- Sobrecarga de tarefas com cartões de enfrentamento e ferramentas de produtividade para gerenciamento de tempo e tomadas de decisões baseado em dados
-
-- Início de relacionamento Viviane
-
-- a saúde mental x espiritual na prática
 
 ---
 
-# 10) SCRUM Planejamento e organização PVRV
+# 09) SCRUM Planejamento e organização PVRV
 
 - [ ] Planejamento financeiro (Financial APP)
   - [x] Dezembro
   - [x] Janeiro
   - [ ] Fevereiro
   - [ ] Março
-  - [ ] Projeção do grafico com derivdas
-  - [ ] taxa de rendimento do salario ONS com 5% e 10% ao mes
+  - [ ] Abril
+  - [ ] Maio
+  - [ ] Junho
+  - [ ] Julho
+  - [ ] Agosto
+  - [ ] Setembro
+  - [ ] Outubro
+  - [ ] Novembro
+  - [ ] Dezembro
+
+- [x] Plotagem dos valores de geração em KWH de 2023 até 2026
+
+- [ ] Projeção do grafico com derivdas
+- [ ] taxa de rendimento do salario ONS com 5% e 10% ao mes
 
 - [ ] Planilhas Horarios + Planilha de controle financeiro + Planilhas de treinos
 
 - [x] planilha de contas a pagar do aluguel em Niterói
+
+- [ ] Planilha de gasto com transporte publico CG x Niteroi
 
 - [ ] passar a limpo screenshots e anotações do caderno para os blogs
 
@@ -331,80 +372,8 @@ Falta de segurança em mim mesmo
 
 - [ ] Planejamento Financeiro, trabalho PJ e MEI
 
----
 
-# Estudos UFF 2026.2
 
-- [ ] Aulas de robotica com Arduino (Carrinho lutador)
-  - [x] Fase 1
-  - [ ] Fase 2
-  - Programação em C++ e RPA com Python e Shell Script com conexões API com flask e FastAPI
-
-- [ ] Circuitos Elétricos CC
-- [x] Cálculo 1,2,3 e 4 (Até EDOs e Transformada de Laplace - RLC)
-- [x] Estatística I
-- [x] Estatística II
-- [x] Transmissão de calor I
-- [x] Fenomemos de transporte (Mecanica dos fluidos)
-
-- [ ] FastAPI x Flask x Django x Drogon C++ x Nodejs(express) - projetos backend
-
-- [ ] Estudos de Somatorios, Funções de
- Potencias, Circuitos Eletricos CC e Circuitos Digitais
-
-- [ ] Matriz admtancia + Geração x Transmissão e Distrbuição SIN pelo ONS
-
-- [ ] Metodos númericos em Matlab para engenharia usando Python (pelo livro de moetodos numericos)
-
-- [ ] Solver ML/DL para cada X,Y de conjunto de dado
-
-- [ ] Python com Sympy para calculo de EDO de 1 e 2 ordem para Circuitos CC (RL,RC e RLC)
-
-# ⚡ Bloco de Estudos Circuitos Digitais + Nivelamento ONS PLC
-
-## Estudos UFF 2026.1
-
-- [x] Circuitos Digitais P1 (Karnaugh, SOP, teoremas booleanos)
-- [x] ONS (Python + relatórios + checklist)
-- [x] Projetos (calculadora + Organon + Pyside6)
-
-- [x] P2 circuitos digitais
-- [ ] Provas P2 e P3 de circuitos eletricos CC
-- [ ] Provas de Sinais e Sistemas e Eletromagnetismo
-
-- [ ] Provas do ENEM: matematica e Fisica no youtube
-
-- [ ] Minicurso: Calculo Numero com Python e Julia
-
-- [ ] Resolver sistema de solver de calculadora de EDO e Matrizes com plots em Qt6(sympy)
-- [x] Plot função (matplotlib)
-- [x] Integrar no PySide6
-
----
-
----
-
-# Estudos Elétricos do ONS para SEP
-
-- Transformador em Fase
-- Geradores, Reatores e Transformadores com suas linhas de transmissão. 3 bus, 5 bus, 7 bus...
-- Barra swing
-- Reator Shunt
-- Barras PQ E PV
-- Transformador em Fase
-- Ferramentas FLOW 9.0
-- anaRede x Organon x Pandapower
-- Casos Máxima e Mínima (Noturna e Diurna)
-- Inércia do sistema
-- análise de circuitos RLC com impedância e reatância (capacitiva ou reativa)
-- Potência Ativa x Reativa
-- fluxo de potência e Curto circuito
-
-- Transmissão X Geração X Distribuição
-- RCE: Agendamento ótimo de análise de contingências para intervenções no Sistema Elétrico
--
-
----
 
 ---
 
@@ -421,7 +390,13 @@ Falta de segurança em mim mesmo
 - [x] Pyside6 x Tauri x Flutter - projetos desktop
 - [x] NextJS x Astro - projetos web
 - [x] Organização e planejamento de Automaçôes ONS PLC 2026
-
+- [x] Resolver sistema de solver de calculadora de EDO e Matrizes com plots em Qt6(sympy)
+- [x] Plot função (matplotlib)
+- [x] Integrar no PySide6
+- [x] Circuitos Digitais P1 (Karnaugh, SOP, teoremas booleanos)
+- [x] ONS (Python + relatórios + checklist)
+- [x] Projetos (calculadora + Organon + Pyside6)
+- [x] P1 circuitos digitais
 ---
 
 ### 🚀 Projetos GitHub
