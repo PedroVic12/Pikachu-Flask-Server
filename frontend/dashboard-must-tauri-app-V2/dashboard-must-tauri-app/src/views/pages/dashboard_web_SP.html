@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProjectHub Enterprise - Controle e Gestão</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- React & ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    
+    <!-- Babel -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- SheetJS (Excel) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+    <!-- Estilos Globais -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; overflow: hidden; }
+        
+        .custom-scrollbar::-webkit-scrollbar { width: 8px; height: 8px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; border: 2px solid #f1f5f9; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        
+        .fade-in { animation: fadeIn 0.3s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .sidebar-transition { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        
+        .cell-input { width: 100%; background: transparent; border: 1px solid transparent; padding: 4px 6px; border-radius: 4px; font-size: inherit; color: #334155; transition: all 0.2s; }
+        .cell-input:focus { background: #fff; border-color: #3b82f6; outline: none; box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1); }
+        .cell-input:hover { background: #f8fafc; border-color: #e2e8f0; }
+
+        .cell-textarea { width: 100%; min-height: 42px; background: transparent; border: 1px solid transparent; padding: 4px 6px; border-radius: 4px; font-size: inherit; color: #334155; resize: vertical; transition: all 0.2s; line-height: 1.4; }
+        .cell-textarea:focus { background: #fff; border-color: #3b82f6; outline: none; box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1); position: relative; z-index: 10; min-height: 80px; }
+        .cell-textarea:hover { background: #f8fafc; border-color: #e2e8f0; }
+
+        .resizable-th { position: relative; }
+        .resizer {
+            position: absolute; right: 0; top: 0; bottom: 0; width: 15px;
+            cursor: col-resize; user-select: none; touch-action: none;
+            background-color: transparent; z-index: 20; display: flex; justify-content: center;
+        }
+        .resizer::after { content: ''; width: 1px; height: 100%; background: #e2e8f0; }
+        .resizer:hover::after, .resizing::after { background-color: #3b82f6; width: 2px; }
+        
+        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 50; display: flex; justify-content: center; align-items: center; }
+        .modal-content { background: white; padding: 20px; border-radius: 12px; width: 90%; max-width: 500px; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); animation: scaleIn 0.2s ease-out; }
+        @keyframes scaleIn { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+        /* Gráfico Donut/Pie customizado via CSS */
+        .chart-circle { position: relative; border-radius: 50%; }
+        .chart-center { position: absolute; inset: 0; margin: auto; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-direction: column; }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useMemo, useRef, useCallback } = React;
+
+        // --- 1. CONFIGURAÇÃO DE ÍCONES ---
+        const Icon = ({ path, className, onClick }) => (
+            <svg onClick={onClick} xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className} style={ { cursor: onClick ? 'pointer' : 'inherit' } }>
+                {path}
+            </svg>
+        );
+        // Ícones mapeados
+        const Icons = {
+            Menu: (p) => <Icon {...p} path={<><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></>} />,
+            Layout: (p) => <Icon {...p} path={<><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></>} />,
+            Table: (p) => <Icon {...p} path={<><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></>} />,
+            BarChart: (p) => <Icon {...p} path={<><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></>} />,
+            Columns: (p) => <Icon {...p} path={<><path d="M12 3h7a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-7m0-18H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h7m0-18v18"/></>} />,
+            Grid: (p) => <Icon {...p} path={<><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></>} />,
+            ThumbsUp: (p) => <Icon {...p} path={<><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></>} />,
+            Trash2: (p) => <Icon {...p} path={<><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></>} />,
+            Plus: (p) => <Icon {...p} path={<><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></>} />,
+            Upload: (p) => <Icon {...p} path={<><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></>} />,
+            Download: (p) => <Icon {...p} path={<><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></>} />,
+            Calendar: (p) => <Icon {...p} path={<><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></>} />,
+            ChevronLeft: (p) => <Icon {...p} path={<><polyline points="15 18 9 12 15 6"/></>} />,
+            ChevronRight: (p) => <Icon {...p} path={<><polyline points="9 18 15 12 9 6"/></>} />,
+            CheckCircle: (p) => <Icon {...p} path={<><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></>} />,
+            AlertCircle: (p) => <Icon {...p} path={<><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></>} />,
+            Filter: (p) => <Icon {...p} path={<><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></>} />,
+            Search: (p) => <Icon {...p} path={<><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></>} />,
+            Users: (p) => <Icon {...p} path={<><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></>} />,
+            ZoomIn: (p) => <Icon {...p} path={<><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></>} />,
+            ZoomOut: (p) => <Icon {...p} path={<><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/></>} />,
+            WrapText: (p) => <Icon {...p} path={<><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="15" y2="12"/><line x1="3" y1="18" x2="12" y2="18"/><path d="M18 12l2 2 2-2"/></>} />,
+            Close: (p) => <Icon {...p} path={<><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></>} />,
+            Info: (p) => <Icon {...p} path={<><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></>} />,
+            Link: (p) => <Icon {...p} path={<><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></>} />,
+            Clock: (p) => <Icon {...p} path={<><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></>} />
+        };
+
+        // --- 2. CLASSE UTILITÁRIA (Helpers) ---
+        class Utils {
+            static parseDate(d) {
+                if (!d) return null;
+                if (d instanceof Date) return new Date(d.setHours(0,0,0,0));
+                if (typeof d === 'number') return new Date((d - (25567 + 2)) * 86400 * 1000);
+                if (typeof d === 'string') {
+                    const t = d.trim();
+                    let m = t.match(/^(\d{4})[-/](\d{1,2})[-/](\d{1,2})$/);
+                    if (m) return new Date(parseInt(m[1]), parseInt(m[2])-1, parseInt(m[3]));
+                    m = t.match(/^(\d{1,2})[-/](\d{1,2})[-/](\d{4})$/);
+                    if (m) return new Date(parseInt(m[3]), parseInt(m[2])-1, parseInt(m[1]));
+                }
+                return null;
+            }
+            static formatDate(d) { return d instanceof Date && !isNaN(d) ? d.toLocaleDateString("pt-BR") : ""; }
+            static dateToLocalISO(d) {
+                if (!d || isNaN(d)) return '';
+                const offset = d.getTimezoneOffset();
+                const localDate = new Date(d.getTime() - (offset * 60 * 1000));
+                return localDate.toISOString().split('T')[0];
+            }
+            static getTodayString() { return new Date().toLocaleDateString('pt-BR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }); }
+            static daysInMonth(month, year) { return new Date(year, month + 1, 0).getDate(); }
+            static calculateWorkdays(dueDate) {
+                if (!dueDate || isNaN(dueDate.getTime())) return 0;
+                let today = new Date(); today.setHours(0,0,0,0); dueDate.setHours(0,0,0,0);
+                if (dueDate.getTime() === today.getTime()) return 0;
+                let count = 0, current = new Date(today);
+                const isFuture = dueDate > today;
+                if (isFuture) {
+                    current.setDate(current.getDate() + 1);
+                    while (current <= dueDate) {
+                        const day = current.getDay(); if (day !== 0 && day !== 6) count++; current.setDate(current.getDate() + 1);
+                    }
+                    return count; 
+                } else {
+                    while (current > dueDate) {
+                        current.setDate(current.getDate() - 1);
+                        const day = current.getDay(); if (day !== 0 && day !== 6) count--;
+                    }
+                    return count; 
+                }
+            }
+        }
+
+        // --- 3. CLASSE REPOSITORY (Padrão de Projeto) ---
+        class DataRepository {
+            constructor(storageKey = 'project_db_v6') {
+                this.storageKey = storageKey;
+            }
+
+            load() {
+                const saved = localStorage.getItem(this.storageKey);
+                if (saved) {
+                    try {
+                        const parsed = JSON.parse(saved);
+                        if (parsed.detailedActivities) parsed.detailedActivities.forEach(a => a.dueDate = Utils.parseDate(a.dueDate));
+                        if (parsed.simpleTasks) parsed.simpleTasks.forEach(a => a.date = a.date ? a.date : '');
+                        return parsed;
+                    } catch (e) { console.error("Repo Load Error", e); }
+                }
+                return this.getInitialState();
+            }
+
+            save(data) {
+                localStorage.setItem(this.storageKey, JSON.stringify(data));
+            }
+
+            getInitialState() {
+                return {
+                    simpleTasks: [
+                        {id: 1, title: 'Reunião Inicial', category: 'Geral', assignee: 'Ana', done: true, date: '2026-01-20', obs: 'Definição de escopo.'},
+                        {id: 2, title: 'Desenvolvimento', category: 'TI', assignee: 'Carlos', done: false, date: '2026-01-25', obs: ''}
+                    ],
+                    detailedActivities: [],
+                    planner: {backlog:[], mon:[], tue:[], wed:[], thu:[], fri:[], sat:[], sun:[]},
+                    eisenhower: {urgentImportant:[], notUrgentImportant:[], urgentNotImportant:[], notUrgentNotImportant:[]},
+                    prosCons: {pros:[], cons:[]}
+                };
+            }
+
+            // --- Lógica Excel para PLC ---
+            importPLC(file, callback) {
+                const reader = new FileReader();
+                reader.onload = (evt) => {
+                    const wb = XLSX.read(evt.target.result, {type:'binary'});
+                    const ws = wb.Sheets[wb.SheetNames[0]];
+                    const json = XLSX.utils.sheet_to_json(ws);
+                    const mapped = json.map((r, i) => ({
+                        id: Date.now()+i,
+                        title: r['Tarefa']||r['Atividade']||r['Title']||'Sem Título',
+                        category: r['Categoria']||'Geral',
+                        assignee: r['Responsável']||r['Responsavel']||'',
+                        done: (r['Status']||'').toLowerCase() === 'concluído' || (r['Concluído']||'').toLowerCase() === 'sim',
+                        date: r['Data']||r['Inicio']||'',
+                        obs: r['Obs']||r['Observação']||''
+                    }));
+                    callback(mapped);
+                };
+                reader.readAsBinaryString(file);
+            }
+
+            exportPLC(tasks) {
+                const ws = XLSX.utils.json_to_sheet(tasks.map(t => ({
+                    'Tarefa': t.title, 'Categoria': t.category, 'Responsável': t.assignee, 
+                    'Concluído': t.done ? 'Sim' : 'Não', 'Data': t.date, 'Obs': t.obs
+                })));
+                const wb = XLSX.utils.book_new();
+                XLSX.utils.book_append_sheet(wb, ws, "Tarefas PLC");
+                XLSX.writeFile(wb, "Tarefas_PLC_ONS.xlsx");
+            }
+
+            // --- Lógica Excel para Must ---
+            importMust(file, callback) {
+                const reader = new FileReader();
+                reader.onload = (evt) => {
+                    const wb = XLSX.read(evt.target.result, {type:'binary'});
+                    let all = [];
+                    wb.SheetNames.forEach(sheet => {
+                        const json = XLSX.utils.sheet_to_json(wb.Sheets[sheet]);
+                        all = [...all, ...json.map((r,i) => ({
+                            id: `${sheet}-${i}`, sheetName: sheet,
+                            atividade: r['ATIVIDADES']||r['Atividade']||'',
+                            responsavel: r['RESPONSÁVEL']||r['Responsável']||'',
+                            status: sheet.toUpperCase().includes('CONCLUÍDO') ? 'Concluído' : 'Pendente',
+                            dueDate: Utils.parseDate(r['DATA LIMITE']||r['Data']||r['PREVISÃO']),
+                            obs: r['OBSERVAÇÃO']||r['Obs']||''
+                        }))];
+                    });
+                    callback(all);
+                };
+                reader.readAsBinaryString(file);
+            }
+        }
+
+        // --- 4. CLASSE CHART FACTORY (Fábrica de Gráficos) ---
+        class ChartFactory {
+            // Processa dados e retorna configuração para o componente visual
+            static processData(data, xKey, yKey, type) {
+                if (type === 'pie_status') {
+                    const total = data.length;
+                    const done = data.filter(i => (i[xKey]||'').toLowerCase().includes('conclu') || i.done === true).length;
+                    const pending = total - done;
+                    const percent = total > 0 ? Math.round((done/total)*100) : 0;
+                    
+                    return {
+                        type: 'pie',
+                        total: total,
+                        primaryValue: done,
+                        secondaryValue: pending,
+                        percent: percent,
+                        gradient: `conic-gradient(#10b981 0% ${percent}%, #f59e0b ${percent}% 100%)`,
+                        labels: ['Concluído', 'Pendente']
+                    };
+                }
+                
+                if (type === 'pie_boolean') { // Ex: Com ressalva vs Sem
+                    const total = data.length;
+                    const hasVal = data.filter(i => i[xKey] && i[xKey].trim().length > 0).length; // xKey = 'obs'
+                    const noVal = total - hasVal;
+                    const percent = total > 0 ? Math.round((hasVal/total)*100) : 0;
+                    
+                    return {
+                        type: 'pie',
+                        total: total,
+                        primaryValue: hasVal,
+                        secondaryValue: noVal,
+                        percent: percent,
+                        gradient: `conic-gradient(#ef4444 0% ${percent}%, #e2e8f0 ${percent}% 100%)`,
+                        labels: ['Com Ressalva', 'Sem Ressalva']
+                    };
+                }
+
+                if (type === 'stacked_bar_volume') {
+                    // Agrupamento normalizado
+                    const map = {};
+                    data.forEach(item => {
+                        const rawName = item[xKey]; // Ex: responsavel
+                        if (!rawName) return;
+                        const key = rawName.trim().toLowerCase();
+                        let displayName = rawName.trim();
+                        // Capitalize first letter logic simplificada
+                        if (displayName === displayName.toLowerCase()) displayName = displayName.charAt(0).toUpperCase() + displayName.slice(1);
+
+                        if (!map[key]) map[key] = { name: displayName, done: 0, total: 0 };
+                        
+                        // Check status (yKey can be boolean or string status)
+                        const isDone = item.done === true || (item[yKey]||'').toLowerCase().includes('conclu');
+                        if(isDone) map[key].done++;
+                        map[key].total++;
+                    });
+                    
+                    // Ordenar por volume total descrescente
+                    const sorted = Object.values(map).sort((a,b) => b.total - a.total);
+                    const max = Math.max(...sorted.map(s => s.total), 1);
+                    
+                    return {
+                        type: 'bar',
+                        data: sorted.map(s => ({
+                            name: s.name,
+                            total: s.total,
+                            done: s.done,
+                            pending: s.total - s.done,
+                            widthPercent: (s.total / max) * 100
+                        }))
+                    };
+                }
+            }
+        }
+
+        // --- 5. COMPONENTES VISUAIS ---
+
+        // Componente Genérico de Gráfico que usa a Factory
+        const GenericChart = ({ data, xKey, yKey, type, title }) => {
+            const config = useMemo(() => ChartFactory.processData(data, xKey, yKey, type), [data, xKey, yKey, type]);
+
+            if (config.type === 'pie') {
+                return (
+                    <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col items-center">
+                        <h3 className="text-sm font-bold text-slate-600 uppercase mb-6 w-full border-b pb-2">{title}</h3>
+                        <div className="chart-circle pie-chart" style={ { background: config.gradient, width: '100px', height: '100px' } }>
+                            <div className="chart-center pie-center" style={ { width: '60px', height: '60px' } }>
+                                <span>{config.percent}%</span>
+                            </div>
+                        </div>
+                        <div className="flex gap-4 mt-6 text-xs font-medium">
+                            <span className="flex items-center gap-1"><div className="w-2 h-2 rounded-full bg-emerald-500"></div> {config.labels[0]} ({config.primaryValue})</span>
+                            <span className="flex items-center gap-1"><div className="w-2 h-2 rounded-full bg-amber-500"></div> {config.labels[1]} ({config.secondaryValue})</span>
+                        </div>
+                    </div>
+                );
+            }
+
+            if (config.type === 'bar') {
+                return (
+                    <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col overflow-hidden">
+                        <h3 className="text-sm font-bold text-slate-600 uppercase mb-4 w-full border-b pb-2">{title}</h3>
+                        <div className="flex-grow overflow-y-auto custom-scrollbar pr-2" style={ { maxHeight: '300px' } }>
+                            {config.data.map((r, i) => (
+                                <div key={i} className="mb-4">
+                                    <div className="flex justify-between items-end text-xs mb-1.5">
+                                        <span className="font-bold text-slate-700 truncate mr-2" title={r.name}>{r.name}</span>
+                                        <span className="text-slate-500 font-mono">{r.total}</span>
+                                    </div>
+                                    <div className="w-full bg-slate-50 rounded-r-full h-5 flex items-center pr-2">
+                                        <div className="h-full flex rounded-r-md overflow-hidden relative" 
+                                             style={ { width: `${r.widthPercent}%`, minWidth: '8px', transition: 'width 0.5s' } }>
+                                            {r.done > 0 && (<div className="bg-emerald-500 h-full flex items-center justify-center text-[9px] text-white font-bold leading-none" style={ { width: `${(r.done / r.total) * 100}%` } } title={`Concluído: ${r.done}`}>{r.done >= 3 && r.done}</div>)}
+                                            {r.pending > 0 && (<div className="bg-amber-400 h-full flex items-center justify-center text-[9px] text-white font-bold leading-none" style={ { width: `${(r.pending / r.total) * 100}%` } } title={`Pendente: ${r.pending}`}>{r.pending >= 3 && r.pending}</div>)}
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                );
+            }
+
+            if (config.type === "line") {
+                // Implementação para gráficos de linha
+                return (
+                    <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col items-center">
+                        <h3 className="text-sm font-bold text-slate-600 uppercase mb-6 w-full border-b pb-2">{title}</h3>
+                        <p>Gráfico de linha não implementado.</p>
+                    </div>
+                );
+
+            }
+
+
+
+            return null;
+        };
+
+        const ResizableHeader = ({ children, width, minWidth = 50, onResize }) => {
+            const [isResizing, setIsResizing] = useState(false);
+            const handleMouseDown = (e) => {
+                e.preventDefault(); e.stopPropagation(); setIsResizing(true);
+                const startX = e.pageX; const startWidth = width;
+                const handleMouseMove = (moveEvent) => {
+                    const newWidth = Math.max(minWidth, startWidth + (moveEvent.pageX - startX));
+                    onResize(newWidth); 
+                };
+                const handleMouseUp = () => { setIsResizing(false); document.removeEventListener('mousemove', handleMouseMove); document.removeEventListener('mouseup', handleMouseUp); };
+                document.addEventListener('mousemove', handleMouseMove); document.addEventListener('mouseup', handleMouseUp);
+            };
+            return (
+                <th className={`p-3 border-b text-left relative bg-slate-100 font-bold text-slate-700 select-none ${isResizing ? 'bg-blue-50' : ''}`} style={ { width: width, minWidth: width } }>
+                    <div className="flex items-center justify-between h-full"><span className="truncate w-full block">{children}</span><div className={`resizer ${isResizing ? 'resizing' : ''}`} onMouseDown={handleMouseDown}></div></div>
+                </th>
+            );
+        };
+
+        const TaskDetailModal = ({ task, onClose }) => {
+            if (!task) return null;
+            return (
+                <div className="modal-overlay" onClick={onClose}>
+                    <div className="modal-content" onClick={e => e.stopPropagation()}>
+                        <div className="flex justify-between items-center mb-4 border-b pb-2"><h3 className="text-lg font-bold text-slate-800">Detalhes da Tarefa</h3><button onClick={onClose}><Icons.Close className="w-5 h-5 text-slate-400"/></button></div>
+                        <div className="space-y-4">
+                            <div><label className="text-xs font-bold text-slate-500 uppercase">Tarefa</label><p className="text-slate-800 font-medium">{task.title || 'Sem título'}</p></div>
+                            <div className="grid grid-cols-2 gap-4">
+                                <div><label className="text-xs font-bold text-slate-500 uppercase">Categoria</label><p className="text-slate-700 text-sm">{task.category || '-'}</p></div>
+                                <div><label className="text-xs font-bold text-slate-500 uppercase">Responsável</label><p className="text-slate-700 text-sm">{task.assignee || '-'}</p></div>
+                                <div><label className="text-xs font-bold text-slate-500 uppercase">Data</label><p className="text-slate-700 text-sm">{task.date ? Utils.formatDate(Utils.parseDate(task.date)) : '-'}</p></div>
+                                <div><label className="text-xs font-bold text-slate-500 uppercase">Status</label><span className={`inline-block px-2 py-0.5 rounded text-xs font-bold ${task.done ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700'}`}>{task.done ? 'Concluído' : 'Pendente'}</span></div>
+                            </div>
+                            <div><label className="text-xs font-bold text-slate-500 uppercase">Observações</label><div className="bg-slate-50 p-3 rounded border text-sm text-slate-600 min-h-[80px] whitespace-pre-wrap">{task.obs || 'Nenhuma observação.'}</div></div>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        // --- VIEWS ---
+
+        // DASHBOARD VIEW (Modularizado)
+        const DashboardView = ({ detailedActivities }) => {
+            const total = detailedActivities.length;
+            const done = detailedActivities.filter(t => (t.status||'').toLowerCase().includes('conclu')).length;
+            const pending = total - done;
+            const efficiency = total > 0 ? Math.round((done/total)*100) : 0;
+            const uniqueResp = new Set(detailedActivities.map(a => a.responsavel).filter(Boolean)).size;
+
+            return (
+                <div className="space-y-6 fade-in pb-10">
+                    <h2 className="text-xl font-bold text-slate-800">Dashboard: Atividades SP MUST</h2>
+                    {/* KPI Cards */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between"><div><p className="text-xs font-bold text-slate-400 uppercase tracking-wide">Total</p><p className="text-2xl font-bold text-slate-800 mt-1">{total}</p></div><div className="bg-blue-50 p-2 rounded-lg text-blue-600"><Icons.Layout/></div></div>
+                        <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between"><div><p className="text-xs font-bold text-slate-400 uppercase tracking-wide">Resp.</p><p className="text-2xl font-bold text-indigo-600 mt-1">{uniqueResp}</p></div><div className="bg-indigo-50 p-2 rounded-lg text-indigo-600"><Icons.Users/></div></div>
+                        <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between"><div><p className="text-xs font-bold text-slate-400 uppercase tracking-wide">Pendentes</p><p className="text-2xl font-bold text-amber-500 mt-1">{pending}</p></div><div className="bg-amber-50 p-2 rounded-lg text-amber-500"><Icons.AlertCircle/></div></div>
+                        <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between"><div><p className="text-xs font-bold text-slate-400 uppercase tracking-wide">Eficiência</p><p className="text-2xl font-bold text-emerald-600 mt-1">{efficiency}%</p></div><div className="bg-emerald-50 p-2 rounded-lg text-emerald-600"><Icons.BarChart/></div></div>
+                    </div>
+                    {/* Gráficos gerados pela Factory */}
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <GenericChart data={detailedActivities} xKey="status" yKey="status" type="pie_status" title="Status Geral" />
+                        <GenericChart data={detailedActivities} xKey="obs" yKey="" type="pie_boolean" title="Atividades c/ Ressalva" />
+                        <GenericChart data={detailedActivities} xKey="responsavel" yKey="status" type="stacked_bar_volume" title="Atividades por Responsável" />
+                    </div>
+                </div>
+            );
+        };
+
+        // PLC TABLE VIEW (Com Excel Próprio via Repository)
+        const PLCTableView = ({ tasks, onUpdate, onDelete, onAdd, repo, onRefresh }) => {
+            const [filterCategory, setFilterCategory] = useState('Todas');
+            const [filterStatus, setFilterStatus] = useState('Todos');
+            const [filterText, setFilterText] = useState('');
+            const [selectedTask, setSelectedTask] = useState(null);
+            const [colWidths, setColWidths] = useState({ check: 40, title: 300, category: 120, assignee: 120, date: 130, obs: 250, actions: 50 });
+            const fileRef = useRef(null);
+
+            const uniqueCategories = useMemo(() => ['Todas', ...new Set(tasks.map(t => t.category).filter(Boolean))], [tasks]);
+            const filteredTasks = useMemo(() => tasks.filter(t => {
+                const matchCat = filterCategory === 'Todas' || t.category === filterCategory;
+                const matchStatus = filterStatus === 'Todos' || (filterStatus === 'Concluído' ? t.done : !t.done);
+                const matchText = filterText === '' || t.title.toLowerCase().includes(filterText.toLowerCase()) || (t.obs && t.obs.toLowerCase().includes(filterText.toLowerCase()));
+                return matchCat && matchStatus && matchText;
+            }), [tasks, filterCategory, filterStatus, filterText]);
+
+            const handleImport = (e) => {
+                if(e.target.files[0]) repo.importPLC(e.target.files[0], (newTasks) => {
+                    onRefresh(newTasks); // Callback para atualizar estado pai
+                    alert('Tarefas PLC Importadas com Sucesso!');
+                });
+            };
+
+            return (
+                <div className="flex flex-col h-full fade-in">
+                    <div className="flex flex-col gap-4 mb-4 bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                        <div className="flex justify-between items-center">
+                            <h2 className="text-lg font-bold text-slate-800 flex items-center gap-2"><Icons.Layout className="text-blue-600"/> Tarefas PLC ONS</h2>
+                            <div className="flex gap-2">
+                                <button onClick={()=>fileRef.current.click()} className="flex items-center gap-2 px-3 py-1.5 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded hover:bg-emerald-100 text-xs font-medium transition"><Icons.Upload className="w-3 h-3"/> Importar Excel</button>
+                                <input type="file" ref={fileRef} hidden accept=".xlsx, .xls" onChange={handleImport} />
+                                <button onClick={()=>repo.exportPLC(tasks)} className="flex items-center gap-2 px-3 py-1.5 bg-blue-50 text-blue-700 border border-blue-200 rounded hover:bg-blue-100 text-xs font-medium transition"><Icons.Download className="w-3 h-3"/> Exportar Excel</button>
+                            </div>
+                        </div>
+                        <div className="flex flex-col md:flex-row items-end gap-3 pt-2 border-t border-slate-100 mt-2">
+                            <div className="flex flex-col w-full md:w-auto"><label className="text-[10px] font-bold text-slate-400 uppercase">Busca</label><div className="relative"><input type="text" className="w-full md:w-64 text-sm border rounded pl-8 pr-2 py-1" value={filterText} onChange={(e) => setFilterText(e.target.value)} /><div className="absolute left-2.5 top-1.5 text-slate-400"><Icons.Search className="w-3.5 h-3.5" /></div></div></div>
+                            <div className="flex flex-col"><label className="text-[10px] font-bold text-slate-400 uppercase">Categoria</label><select className="text-sm border rounded px-2 py-1 bg-white min-w-[120px]" value={filterCategory} onChange={(e) => setFilterCategory(e.target.value)}>{uniqueCategories.map(c=><option key={c} value={c}>{c}</option>)}</select></div>
+                            <div className="flex flex-col"><label className="text-[10px] font-bold text-slate-400 uppercase">Status</label><select className="text-sm border rounded px-2 py-1 bg-white min-w-[120px]" value={filterStatus} onChange={(e) => setFilterStatus(e.target.value)}><option value="Todos">Todos</option><option value="Pendente">Pendente</option><option value="Concluído">Concluído</option></select></div>
+                        </div>
+                    </div>
+                    <div className="bg-white border rounded-xl shadow-sm flex-grow overflow-hidden flex flex-col">
+                        <div className="overflow-auto h-full custom-scrollbar">
+                            <table className="text-left border-collapse table-fixed" style={ { minWidth: '100%', fontSize: '13px' } }>
+                                <colgroup><col style={ {width: colWidths.check} } /><col style={ {width: colWidths.title} } /><col style={ {width: colWidths.category} } /><col style={ {width: colWidths.date} } /><col style={ {width: colWidths.assignee} } /><col style={ {width: colWidths.obs} } /><col style={ {width: colWidths.actions} } /></colgroup>
+                                <thead className="bg-slate-100 text-slate-700 font-bold sticky top-0 z-10 shadow-sm text-sm">
+                                    <tr>
+                                        <th className="p-3 border-b text-center"><input type="checkbox" disabled /></th>
+                                        <ResizableHeader width={colWidths.title} onResize={(w)=>setColWidths({...colWidths, title: w})}>Tarefa</ResizableHeader>
+                                        <ResizableHeader width={colWidths.category} onResize={(w)=>setColWidths({...colWidths, category: w})}>Categoria</ResizableHeader>
+                                        <ResizableHeader width={colWidths.date} onResize={(w)=>setColWidths({...colWidths, date: w})}>Data</ResizableHeader>
+                                        <ResizableHeader width={colWidths.assignee} onResize={(w)=>setColWidths({...colWidths, assignee: w})}>Responsável</ResizableHeader>
+                                        <ResizableHeader width={colWidths.obs} onResize={(w)=>setColWidths({...colWidths, obs: w})}>Observações</ResizableHeader>
+                                        <th className="p-3 border-b text-center"></th>
+                                    </tr>
+                                </thead>
+                                <tbody className="divide-y divide-slate-100">
+                                    {filteredTasks.map((task) => {
+                                        const cellClass = `p-2 border-r border-transparent group-hover:border-slate-100 align-top`;
+                                        return (
+                                            <tr key={task.id} className={`hover:bg-slate-50 transition-colors group ${task.done ? 'bg-slate-50/50' : ''}`}>
+                                                <td className="p-2 text-center align-top pt-3"><input type="checkbox" checked={task.done || false} onChange={e=>onUpdate(task.id, 'done', e.target.checked)} className="w-4 h-4 text-blue-600 rounded cursor-pointer" /></td>
+                                                <td className={cellClass}><div className="flex items-center"><input className={`cell-input font-medium flex-grow ${task.done ? 'line-through text-slate-400' : 'text-slate-700'}`} value={task.title} onChange={e=>onUpdate(task.id,'title',e.target.value)} placeholder="Nova tarefa..." /><button onClick={()=>setSelectedTask(task)} className="ml-2 text-slate-300 hover:text-blue-500"><Icons.Info className="w-4 h-4"/></button></div></td>
+                                                <td className={cellClass}><input className="cell-input" value={task.category || ''} onChange={e=>onUpdate(task.id,'category',e.target.value)} placeholder="Geral" /></td>
+                                                <td className={cellClass}><input type="date" className="cell-input text-xs text-slate-500" value={task.date || ''} onChange={e=>onUpdate(task.id,'date',e.target.value)} /></td>
+                                                <td className={cellClass}><input className="cell-input" value={task.assignee} onChange={e=>onUpdate(task.id,'assignee',e.target.value)} placeholder="Nome" /></td>
+                                                <td className={cellClass}><textarea className="cell-textarea" value={task.obs || ''} onChange={e=>onUpdate(task.id,'obs',e.target.value)} placeholder="Detalhes..." /></td>
+                                                <td className="p-2 text-center align-top pt-3"><button onClick={()=>onDelete(task.id)} className="text-slate-300 hover:text-red-500 transition"><Icons.Trash2 width="16"/></button></td>
+                                            </tr>
+                                        );
+                                    })}
+                                </tbody>
+                            </table>
+                        </div>
+                        <button onClick={onAdd} className="w-full py-3 text-center text-sm text-blue-600 hover:bg-blue-50 font-medium border-t flex items-center justify-center gap-2 transition-colors"><Icons.Plus width="16"/> Adicionar Nova Linha</button>
+                    </div>
+                    <TaskDetailModal task={selectedTask} onClose={()=>setSelectedTask(null)} />
+                </div>
+            );
+        };
+
+        // DETAILED REPORT VIEW
+        const DetailedReportView = ({ activities, onImport }) => {
+            const [filterOrigin, setFilterOrigin] = useState('Consolidado');
+            const [filterResponsible, setFilterResponsible] = useState('Todos');
+            const [searchTerm, setSearchTerm] = useState('');
+            const fileRef = useRef(null);
+            const [colWidths, setColWidths] = useState({ origem: 100, atividade: 350, responsavel: 150, data: 100, dias: 80, obs: 200 });
+
+            const uniqueOrigins = useMemo(() => ['Consolidado', ...new Set(activities.map(a => a.sheetName).filter(Boolean))], [activities]);
+            const uniqueResponsibles = useMemo(() => ['Todos', ...new Set(activities.map(a => a.responsavel).filter(Boolean))], [activities]);
+
+            const filtered = useMemo(() => activities.filter(item => {
+                const mO = filterOrigin === 'Consolidado' || item.sheetName === filterOrigin;
+                const mR = filterResponsible === 'Todos' || item.responsavel === filterResponsible;
+                const mS = searchTerm === '' || item.atividade.toLowerCase().includes(searchTerm.toLowerCase()) || (item.obs && item.obs.toLowerCase().includes(searchTerm.toLowerCase()));
+                return mO && mR && mS;
+            }), [activities, filterOrigin, filterResponsible, searchTerm]);
+
+            return (
+                <div className="flex flex-col h-full fade-in">
+                    <div className="flex flex-col gap-4 mb-4 bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                        <div className="flex justify-between items-center">
+                            <div><h2 className="text-lg font-bold text-slate-800 flex items-center gap-2"><Icons.Table className="text-purple-600"/> Atividades MUST</h2></div>
+                            <div className="flex gap-2"><button onClick={()=>fileRef.current.click()} className="flex items-center gap-2 px-3 py-1.5 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded text-xs font-medium"><Icons.Upload className="w-3 h-3"/> Importar</button><input type="file" ref={fileRef} hidden accept=".xlsx, .xls" onChange={onImport} /></div>
+                        </div>
+                        <div className="flex flex-col md:flex-row items-end gap-3 pt-2 border-t border-slate-100 mt-2">
+                            <div className="flex flex-col w-full md:flex-grow"><label className="text-[10px] font-bold text-slate-400 uppercase">Busca</label><div className="relative"><input type="text" className="w-full text-sm border rounded pl-8 pr-2 py-1" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} /><div className="absolute left-2.5 top-1.5 text-slate-400"><Icons.Search className="w-3.5 h-3.5" /></div></div></div>
+                            <div className="flex gap-2"><div className="flex flex-col"><label className="text-[10px] font-bold text-slate-400 uppercase">Origem</label><select className="text-sm border rounded px-2 py-1 bg-white" value={filterOrigin} onChange={(e) => setFilterOrigin(e.target.value)}>{uniqueOrigins.map(o=><option key={o} value={o}>{o}</option>)}</select></div><div className="flex flex-col"><label className="text-[10px] font-bold text-slate-400 uppercase">Resp.</label><select className="text-sm border rounded px-2 py-1 bg-white" value={filterResponsible} onChange={(e) => setFilterResponsible(e.target.value)}>{uniqueResponsibles.map(r=><option key={r} value={r}>{r}</option>)}</select></div></div>
+                        </div>
+                    </div>
+                    <div className="bg-white border rounded-xl shadow-sm flex-grow overflow-hidden flex flex-col">
+                        <div className="overflow-auto h-full custom-scrollbar">
+                            <table className="text-left border-collapse table-fixed" style={ { minWidth: '100%', fontSize: '13px' } }>
+                                <colgroup><col style={ { width: colWidths.origem } } /><col style={ { width: colWidths.atividade } } /><col style={ { width: colWidths.responsavel } } /><col style={ { width: colWidths.data } } /><col style={ { width: colWidths.dias } } /><col style={ { width: colWidths.obs } } /></colgroup>
+                                <thead className="bg-slate-100 text-slate-700 font-bold sticky top-0 z-10 shadow-sm text-sm"><tr><ResizableHeader width={colWidths.origem} onResize={(w)=>setColWidths({...colWidths, origem: w})}>Origem</ResizableHeader><ResizableHeader width={colWidths.atividade} onResize={(w)=>setColWidths({...colWidths, atividade: w})}>Atividade</ResizableHeader><ResizableHeader width={colWidths.responsavel} onResize={(w)=>setColWidths({...colWidths, responsavel: w})}>Resp.</ResizableHeader><ResizableHeader width={colWidths.data} onResize={(w)=>setColWidths({...colWidths, data: w})}>Prazo</ResizableHeader><ResizableHeader width={colWidths.dias} onResize={(w)=>setColWidths({...colWidths, dias: w})}>Dias</ResizableHeader><ResizableHeader width={colWidths.obs} onResize={(w)=>setColWidths({...colWidths, obs: w})}>Obs</ResizableHeader></tr></thead>
+                                <tbody className="divide-y divide-slate-100">{filtered.map((row, i) => { const wd = Utils.calculateWorkdays(row.dueDate); return (<tr key={i} className="hover:bg-slate-50 transition-colors group"><td className="p-3 border-r border-transparent group-hover:border-slate-100 text-slate-500 font-bold text-[0.8em]">{row.sheetName}</td><td className="p-3 border-r border-transparent group-hover:border-slate-100 font-medium text-slate-700">{row.atividade}</td><td className="p-3 border-r border-transparent group-hover:border-slate-100 text-slate-600">{row.responsavel}</td><td className="p-3 border-r border-transparent group-hover:border-slate-100 text-center">{Utils.formatDate(row.dueDate)}</td><td className="p-3 text-center align-top"><span className={`px-2 py-0.5 rounded ${wd<0?'text-red-600 bg-red-50':wd<5?'text-amber-600':'text-emerald-600'}`}>{wd}</span></td><td className="p-3 border-r border-transparent group-hover:border-slate-100 text-slate-500 italic">{row.obs}</td></tr>); })}</tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        // PLANNER VIEW (WEEK & MONTH)
+        const PlannerView = ({ plannerData, setPlannerData, allTasks }) => {
+            const [mode, setMode] = useState('week'); 
+            const [currentDate, setCurrentDate] = useState(new Date()); 
+
+            const startOfWeek = useMemo(() => {
+                const d = new Date(currentDate);
+                const day = d.getDay();
+                const diff = d.getDate() - day + (day === 0 ? -6 : 1); 
+                return new Date(d.setDate(diff));
+            }, [currentDate]);
+
+            const weekDates = useMemo(() => {
+                let dates = [];
+                for(let i=0; i<7; i++) {
+                    const d = new Date(startOfWeek);
+                    d.setDate(startOfWeek.getDate() + i);
+                    dates.push(d);
+                }
+                return dates;
+            }, [startOfWeek]);
+
+            const navigateWeek = (direction) => {
+                const newDate = new Date(currentDate);
+                newDate.setDate(currentDate.getDate() + (direction * 7));
+                setCurrentDate(newDate);
+            };
+
+            const [dragItem, setDragItem] = useState(null);
+            const onDragStart = (e, item, list) => setDragItem({item, list});
+            const onDrop = (e, targetList) => {
+                if(!dragItem) return;
+                const { item, list } = dragItem;
+                if(list !== targetList) {
+                    setPlannerData(prev => {
+                        const newState = {...prev};
+                        newState[list] = newState[list].filter(i => i.id !== item.id);
+                        newState[targetList] = [...newState[targetList], item];
+                        return newState;
+                    });
+                }
+                setDragItem(null);
+            };
+            const addItem = (list, text) => { if(text.trim()) setPlannerData(prev => ({...prev, [list]: [...prev[list], {id: Date.now(), text}]})); };
+            const removeItem = (list, id) => { setPlannerData(prev => ({...prev, [list]: prev[list].filter(i => i.id !== id)})); };
+            
+            const WeekColumn = ({ title, listKey, items = [], date }) => {
+                const tasksForDay = useMemo(() => {
+                    if(!date) return [];
+                    const dateStr = Utils.dateToLocalISO(date);
+                    return allTasks.filter(t => t.date === dateStr || (t.dueDate && Utils.dateToLocalISO(t.dueDate) === dateStr));
+                }, [allTasks, date]);
+
+                return (
+                    <div className="min-w-[220px] flex-shrink-0 flex flex-col bg-slate-50 rounded-lg border h-full" onDragOver={e => e.preventDefault()} onDrop={e => onDrop(e, listKey)}>
+                        <div className="p-3 border-b bg-white rounded-t-lg flex flex-col border-l-4 border-l-transparent">
+                            <div className="flex justify-between items-center font-bold text-sm text-slate-700">
+                                <span>{title}</span>
+                                <span className="bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full text-xs">{items.length + tasksForDay.length}</span>
+                            </div>
+                            {date && <span className="text-[10px] text-slate-400 font-normal mt-1">{date.toLocaleDateString('pt-BR')}</span>}
+                        </div>
+                        <div className="flex-grow p-2 space-y-2 overflow-y-auto custom-scrollbar bg-slate-50/50">
+                            {tasksForDay.map((task, i) => {
+                                const isDone = task.done || (task.status === 'done') || (task.status && task.status.toLowerCase().includes('conclu'));
+                                const borderColor = isDone ? 'border-emerald-500' : 'border-rose-400';
+                                const bgColor = isDone ? 'bg-emerald-50' : 'bg-white';
+                                const textColor = isDone ? 'text-emerald-800' : 'text-slate-700';
+                                const IconStatus = isDone ? Icons.CheckCircle : Icons.Clock;
+                                return (
+                                    <div key={`plc-${i}`} className={`p-2.5 rounded border border-l-4 ${borderColor} ${bgColor} shadow-sm text-xs relative group cursor-pointer hover:shadow-md transition`}>
+                                        <div className="flex items-start gap-1.5 mb-1.5">
+                                            <div className={`mt-0.5 ${isDone ? 'text-emerald-600' : 'text-rose-500'}`}><IconStatus className="w-3.5 h-3.5"/></div>
+                                            <span className={`font-bold ${textColor} leading-snug text-[13px]`}>{task.title || task.atividade}</span>
+                                        </div>
+                                        <div className="flex justify-between items-center pl-5"><span className="text-[11px] font-medium text-slate-500 bg-white/50 px-1.5 rounded border border-slate-100 truncate max-w-[120px]">{task.assignee || task.responsavel || 'N/A'}</span></div>
+                                    </div>
+                                );
+                            })}
+                            {items.map(item => (
+                                <div key={item.id} draggable onDragStart={e => onDragStart(e, item, listKey)} className="bg-white p-2.5 rounded border shadow-sm text-xs relative group cursor-grab hover:border-blue-300 transition">
+                                    <p className="leading-tight text-slate-700">{item.text}</p>
+                                    <button onClick={()=>removeItem(listKey, item.id)} className="absolute top-1 right-1 text-slate-300 hover:text-red-500 opacity-0 group-hover:opacity-100"><Icons.Trash2 width="12"/></button>
+                                </div>
+                            ))}
+                        </div>
+                        <div className="p-2 border-t bg-white rounded-b-lg"><input className="w-full text-xs p-2 border rounded focus:ring-2 focus:ring-blue-100 outline-none transition" placeholder="+ Item rápido" onKeyDown={e=>{if(e.key==='Enter'){addItem(listKey, e.target.value); e.target.value='';}}} /></div>
+                    </div>
+                );
+            };
+            
+            const MonthCalendar = () => {
+                const today = new Date();
+                const [currentMonth, setCurrentMonth] = useState(today.getMonth());
+                const [currentYear, setCurrentYear] = useState(today.getFullYear());
+                const daysInMonth = Utils.daysInMonth(currentMonth, currentYear);
+                const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+                const blanks = Array(firstDay).fill(null);
+                const days = Array.from({length: daysInMonth}, (_, i) => i + 1);
+                const monthName = new Date(currentYear, currentMonth).toLocaleString('pt-BR', { month: 'long' });
+                const getTasksForDay = (day) => {
+                    const cellDate = new Date(currentYear, currentMonth, day);
+                    const dateStr = Utils.dateToLocalISO(cellDate);
+                    return allTasks.filter(t => t.date === dateStr || (t.dueDate && Utils.dateToLocalISO(t.dueDate) === dateStr));
+                };
+                return (
+                    <div className="bg-white rounded-xl border p-4 h-full flex flex-col">
+                        <div className="flex justify-between items-center mb-4"><button onClick={()=>setCurrentMonth(p=>p===0?11:p-1)} className="p-1 hover:bg-slate-100 rounded"><Icons.ChevronLeft/></button><h3 className="font-bold capitalize text-lg text-slate-800">{monthName} {currentYear}</h3><button onClick={()=>setCurrentMonth(p=>p===11?0:p+1)} className="p-1 hover:bg-slate-100 rounded"><Icons.ChevronRight/></button></div>
+                        <div className="grid grid-cols-7 gap-2 mb-2 text-center font-bold text-slate-400 text-xs uppercase"><div>Dom</div><div>Seg</div><div>Ter</div><div>Qua</div><div>Qui</div><div>Sex</div><div>Sáb</div></div>
+                        <div className="grid grid-cols-7 gap-2 flex-grow overflow-y-auto custom-scrollbar">
+                            {blanks.map((_, i) => <div key={`b-${i}`} className="bg-slate-50/50 rounded min-h-[80px]"></div>)}
+                            {days.map(d => {
+                                const dayTasks = getTasksForDay(d);
+                                const isToday = d === today.getDate() && currentMonth === today.getMonth();
+                                return (
+                                    <div key={d} className={`border rounded p-1 flex flex-col min-h-[100px] overflow-hidden ${isToday ? 'border-blue-400 bg-blue-50/30' : 'border-slate-100'}`}>
+                                        <span className={`text-xs font-bold mb-1 ${isToday ? 'text-blue-600' : 'text-slate-400'}`}>{d}</span>
+                                        <div className="flex-grow space-y-1 overflow-y-auto custom-scrollbar">
+                                            {dayTasks.map((t, i) => (<div key={i} className={`text-[10px] px-1 py-0.5 rounded truncate border ${t.id && String(t.id).startsWith('EX') ? 'bg-purple-100 text-purple-700 border-purple-200' : 'bg-blue-100 text-blue-700 border-blue-200'}`} title={t.title || t.atividade}>{t.title || t.atividade}</div>))}
+                                        </div>
+                                    </div>
+                                )
+                            })}
+                        </div>
+                    </div>
+                );
+            };
+
+            return (
+                <div className="h-full flex flex-col fade-in">
+                    <div className="flex justify-between items-center bg-white p-4 rounded-xl border shadow-sm mb-4">
+                        <div><h2 className="font-bold text-lg flex items-center gap-2 text-slate-800"><Icons.Columns className="text-indigo-600"/> Planner</h2></div>
+                        <div className="flex items-center gap-2 bg-slate-100 p-1 rounded-lg">
+                            {mode === 'week' && (
+                                <div className="flex items-center mr-2">
+                                    <button onClick={()=>navigateWeek(-1)} className="p-1 hover:bg-white rounded"><Icons.ChevronLeft className="w-4 h-4"/></button>
+                                    <span className="text-xs font-medium px-2 w-24 text-center">{startOfWeek.toLocaleDateString('pt-BR')}</span>
+                                    <button onClick={()=>navigateWeek(1)} className="p-1 hover:bg-white rounded"><Icons.ChevronRight className="w-4 h-4"/></button>
+                                </div>
+                            )}
+                            <button onClick={()=>setMode('week')} className={`px-4 py-1.5 rounded-md text-sm font-medium transition ${mode==='week'?'bg-white shadow text-slate-800':'text-slate-500'}`}>Semana</button>
+                            <button onClick={()=>setMode('month')} className={`px-4 py-1.5 rounded-md text-sm font-medium transition ${mode==='month'?'bg-white shadow text-slate-800':'text-slate-500'}`}>Mês</button>
+                        </div>
+                    </div>
+                    {mode === 'week' ? (
+                        <div className="flex-grow overflow-x-auto pb-2 flex gap-3">
+                            <WeekColumn title="Backlog" listKey="backlog" items={plannerData.backlog} />
+                            {weekDates.map((d, i) => {
+                                const listKeys = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+                                return <WeekColumn key={i} title={d.toLocaleDateString('pt-BR', {weekday: 'long'})} listKey={listKeys[i]} items={plannerData[listKeys[i]]} date={d} />
+                            })}
+                        </div>
+                    ) : ( <MonthCalendar /> )}
+                </div>
+            );
+        };
+
+        const EisenhowerView = ({ eisenData, setEisenData }) => {
+            // (Código de Eisenhower mantido igual, omitido aqui para brevidade pois não houve alteração lógica, mas incluído no HTML final)
+            // ... (implementação padrão de quadrantes)
+            // Como este bloco é repetitivo e não foi o foco, vou incluir a versão simplificada funcional
+            const addItem = (list, text) => { if(text.trim()) setEisenData(prev => ({...prev, [list]: [...prev[list], {id: Date.now(), text}]})); };
+            const removeItem = (list, id) => { setEisenData(prev => ({...prev, [list]: prev[list].filter(i => i.id !== id)})); };
+            const Quadrant = ({ title, listKey, bg, color }) => {
+                const [input, setInput] = useState('');
+                return (<div className={`p-4 rounded-xl border flex flex-col ${bg} ${color} h-full`}>
+                    <h3 className="font-bold mb-3 uppercase text-xs tracking-wider opacity-80">{title}</h3>
+                    <div className="flex-grow space-y-2 overflow-y-auto custom-scrollbar" style={ {minHeight:'100px'} }>
+                        {eisenData[listKey].map(item => (<div key={item.id} className="bg-white p-3 rounded shadow-sm text-sm text-slate-800 flex justify-between group hover:shadow-md transition"><span>{item.text}</span><button onClick={()=>removeItem(listKey, item.id)} className="text-slate-300 hover:text-red-500 opacity-0 group-hover:opacity-100"><Icons.Trash2 width="14"/></button></div>))}
+                    </div>
+                    <input className="mt-3 w-full text-xs p-2 rounded border-0 shadow-sm focus:ring-2 focus:ring-opacity-50 focus:ring-blue-500 text-slate-800" placeholder="Adicionar..." value={input} onChange={e=>setInput(e.target.value)} onKeyDown={e=>{if(e.key==='Enter'){addItem(listKey, input); setInput('');}}} />
+                </div>);
+            };
+            return (<div className="h-full flex flex-col fade-in overflow-hidden"><h2 className="font-bold text-lg mb-4 text-slate-800 flex items-center gap-2"><Icons.Grid className="text-indigo-600"/> Matriz Eisenhower</h2><div className="flex-grow grid grid-cols-1 md:grid-cols-2 grid-rows-2 gap-4 overflow-y-auto pb-2"><Quadrant title="Urgente & Importante" listKey="urgentImportant" bg="bg-red-50 border-red-200" color="text-red-800" /><Quadrant title="Não Urgente & Importante" listKey="notUrgentImportant" bg="bg-blue-50 border-blue-200" color="text-blue-800" /><Quadrant title="Urgente & Não Importante" listKey="urgentNotImportant" bg="bg-amber-50 border-amber-200" color="text-amber-800" /><Quadrant title="Não Urgente & Não Importante" listKey="notUrgentNotImportant" bg="bg-slate-100 border-slate-200" color="text-slate-700" /></div></div>);
+        };
+
+        const ProsConsView = ({ pcData, setPcData }) => {
+            const addItem = (type, text) => { if(text.trim()) setPcData(prev => ({...prev, [type]: [...prev[type], {id: Date.now(), text}]})); };
+            const removeItem = (type, id) => { setPcData(prev => ({...prev, [type]: prev[type].filter(i => i.id !== id)})); };
+            const List = ({ type, items, color, bg }) => {
+                const [input, setInput] = useState('');
+                return (<div className={`flex-1 p-6 rounded-xl border flex flex-col ${bg} ${color}`}><h3 className="font-bold text-lg mb-4 flex items-center gap-2">{type==='pros'?<Icons.ThumbsUp/>:<Icons.ThumbsUp className="rotate-180"/>} {type==='pros'?'Prós / Vantagens':'Contras / Desvantagens'}</h3><ul className="flex-grow space-y-3 overflow-y-auto custom-scrollbar">{items.map(item => (<li key={item.id} className="flex items-center group bg-white/60 p-3 rounded-lg shadow-sm"><div className={`w-2 h-2 rounded-full mr-3 ${type==='pros'?'bg-emerald-400':'bg-rose-400'}`}></div><span className="flex-grow text-slate-700 font-medium">{item.text}</span><button onClick={()=>removeItem(type, item.id)} className="text-slate-300 hover:text-red-500 opacity-0 group-hover:opacity-100"><Icons.Trash2 width="14"/></button></li>))}</ul><div className="mt-4 bg-white rounded-lg p-1 shadow-sm border border-slate-200 flex"><input className="flex-grow p-2 text-sm outline-none bg-transparent text-slate-700" placeholder="Adicionar argumento..." value={input} onChange={e=>setInput(e.target.value)} onKeyDown={e=>{if(e.key==='Enter'){addItem(type, input); setInput('');}}} /><button onClick={()=>{addItem(type, input); setInput('');}} className="px-3 py-1 rounded bg-slate-100 hover:bg-slate-200 text-slate-600"><Icons.Plus width="16"/></button></div></div>);
+            };
+            return (<div className="h-full flex flex-col fade-in"><h2 className="font-bold text-lg mb-4 text-slate-800 flex items-center gap-2"><Icons.ThumbsUp className="text-indigo-600"/> Análise de Decisão</h2><div className="flex-grow flex flex-col md:flex-row gap-6 overflow-y-auto pb-2"><List type="pros" items={pcData.pros} bg="bg-emerald-50 border-emerald-100" color="text-emerald-800" /><List type="cons" items={pcData.cons} bg="bg-rose-50 border-rose-100" color="text-rose-800" /></div></div>);
+        };
+
+        // --- APP MAIN ---
+        function App() {
+            const [currentView, setCurrentView] = useState('dashboard');
+            const [sidebarOpen, setSidebarOpen] = useState(window.innerWidth > 768);
+            const repo = useMemo(() => new DataRepository(), []);
+            const [data, setData] = useState(repo.load());
+
+            // Salvar no localStorage sempre que 'data' mudar
+            useEffect(() => { repo.save(data); }, [data, repo]);
+
+            const handleUpdatePLC = (id, field, val) => setData(prev => ({...prev, simpleTasks: prev.simpleTasks.map(t => t.id === id ? {...t, [field]: val} : t)}));
+            const handleAddPLC = () => setData(prev => ({...prev, simpleTasks: [...prev.simpleTasks, {id: Date.now(), title: '', category: 'Geral', assignee: '', done: false, date: '', obs: ''}]}));
+            const handleDeletePLC = (id) => setData(prev => ({...prev, simpleTasks: prev.simpleTasks.filter(t => t.id !== id)}));
+            
+            // Handlers para Planner/Eisen/ProsCons (State Wrappers)
+            const setPlannerData = (fn) => setData(prev => ({...prev, planner: typeof fn === 'function' ? fn(prev.planner) : fn}));
+            const setEisenData = (fn) => setData(prev => ({...prev, eisenhower: typeof fn === 'function' ? fn(prev.eisenhower) : fn}));
+            const setPcData = (fn) => setData(prev => ({...prev, prosCons: typeof fn === 'function' ? fn(prev.prosCons) : fn}));
+
+            return (
+                <div className="flex h-screen bg-slate-50 overflow-hidden relative">
+                    {/* MOBILE OVERLAY */}
+                    {sidebarOpen && window.innerWidth < 768 && <div className="fixed inset-0 bg-black/50 z-20" onClick={()=>setSidebarOpen(false)}></div>}
+                    
+                    {/* SIDEBAR */}
+                    <aside className={`fixed md:relative z-30 h-full bg-slate-900 text-white flex flex-col shadow-xl sidebar-transition ${sidebarOpen ? 'w-64 translate-x-0' : '-translate-x-full md:translate-x-0 md:w-20'}`}>
+                        <div className="h-16 flex items-center justify-between px-6 border-b border-slate-800 bg-slate-900 shrink-0">
+                            <div className="flex items-center gap-3"><div className="bg-blue-600 p-1.5 rounded"><Icons.Layout className="text-white"/></div>{sidebarOpen && <span className="font-bold text-lg">ProjectHub</span>}</div>
+                            {sidebarOpen && window.innerWidth < 768 && <button onClick={()=>setSidebarOpen(false)}><Icons.Close className="w-5 h-5 text-slate-400"/></button>}
+                        </div>
+                        <nav className="flex-grow py-4 px-2 space-y-1 overflow-y-auto custom-scrollbar">
+                            {[ {id:'dashboard', icon:<Icons.BarChart/>, label:'Dashboard'}, {id:'plc', icon:<Icons.Layout/>, label:'Tarefas PLC'}, {id:'detailed', icon:<Icons.Table/>, label:'Atividades SP Must'}, {id:'planner', icon:<Icons.Columns/>, label:'Planner'}, {id:'eisenhower', icon:<Icons.Grid/>, label:'Matriz Eisenhower'}, {id:'proscons', icon:<Icons.ThumbsUp/>, label:'Prós/Contras'} ].map(item => (
+                                <button key={item.id} onClick={()=>{setCurrentView(item.id); if(window.innerWidth<768) setSidebarOpen(false);}} className={`w-full flex items-center p-3 rounded-lg transition-all ${currentView===item.id ? 'bg-blue-600 text-white' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}`} title={!sidebarOpen ? item.label : ''}>
+                                    <span className="shrink-0">{item.icon}</span><span className={`ml-3 font-medium text-sm transition-opacity duration-300 ${sidebarOpen ? 'opacity-100' : 'opacity-0 md:hidden'}`}>{item.label}</span>
+                                </button>
+                            ))}
+                        </nav>
+                        <div className="p-4 border-t border-slate-800 flex justify-center bg-slate-900 hidden md:flex">
+                            <button onClick={()=>setSidebarOpen(!sidebarOpen)} className="p-2 rounded-lg bg-slate-800 text-slate-400 hover:text-white transition shadow-sm border border-slate-700"><Icons.Menu/></button>
+                        </div>
+                    </aside>
+
+                    {/* MAIN CONTENT */}
+                    <main className="flex-grow flex flex-col h-full overflow-hidden relative w-full">
+                        <header className="h-16 bg-white border-b flex items-center justify-between px-4 md:px-8 shadow-sm shrink-0 z-10">
+                            <div className="flex items-center gap-3">
+                                <button onClick={()=>setSidebarOpen(true)} className="md:hidden p-2 -ml-2 text-slate-600"><Icons.Menu className="w-6 h-6"/></button>
+                                <h1 className="text-lg md:text-xl font-bold text-slate-800 truncate">
+                                    {currentView==='dashboard'?'Visão Geral':currentView==='plc'?'Tarefas PLC':currentView==='detailed'?'Relatório Must':currentView==='planner'?'Planner':currentView==='eisenhower'?'Matriz Eisenhower':'Prós e Contras'}
+                                </h1>
+                            </div>
+                            <div className="text-xs text-slate-500 font-medium bg-slate-100 px-3 py-1.5 rounded-full border border-slate-200 hidden sm:block">{Utils.getTodayString()}</div>
+                        </header>
+                        <div className="flex-grow p-3 md:p-6 overflow-auto bg-slate-50/50 relative">
+                            {currentView==='dashboard' && <DashboardView detailedActivities={data.detailedActivities} />}
+                            {currentView==='plc' && <PLCTableView tasks={data.simpleTasks} onUpdate={handleUpdatePLC} onDelete={handleDeletePLC} onAdd={handleAddPLC} repo={repo} onRefresh={(newTasks)=>setData(p=>({...p, simpleTasks: newTasks}))} />}
+                            {currentView==='detailed' && <DetailedReportView activities={data.detailedActivities} onImport={(e) => {
+                                if(e.target.files[0]) repo.importMust(e.target.files[0], (allRows) => setData(p => ({...p, detailedActivities: allRows})));
+                            }} />}
+                            {currentView==='planner' && <PlannerView plannerData={data.planner} setPlannerData={setPlannerData} allTasks={[...data.simpleTasks, ...data.detailedActivities]} />}
+                            {currentView==='eisenhower' && <EisenhowerView eisenData={data.eisenhower} setEisenData={setEisenData} />}
+                            {currentView==='proscons' && <ProsConsView pcData={data.prosCons} setPcData={setPcData} />}
+                        </div>
+                    </main>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>

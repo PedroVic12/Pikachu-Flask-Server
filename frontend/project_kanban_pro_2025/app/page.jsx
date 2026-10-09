@@ -60,6 +60,7 @@ import OlaMundo from "./views/HTML/OlaMundo.jsx";
 import ProjectsScreen from "./projects/page.jsx";
 import ApiDataScreen from "./api-data/APIDataScreen.jsx";
 import ProtocoloSaudeMentalPage from "./views/components/ProtocoloSaudeMental.jsx";
+import Dashboard_MUST_Page from "./views/pages/Dashboard_MUST_Page.jsx";
 
 // ========== HOOKS ==========
 const useProjects = () => {
@@ -348,6 +349,8 @@ export default function App() {
         return "CRM Floricultura (Dados da API)";
       case "protocolo-saude-mental":
         return "Protocolo de Saúde Mental";
+      case "dashboard-MUST-SP":
+        return "Dashboard MUST-SP";
       default:
         return "Dashboard";
     }
@@ -819,6 +822,8 @@ export default function App() {
         return <ApiDataScreen />;
       case "protocolo-saude-mental":
         return <ProtocoloSaudeMentalPage />;
+      case "dashboard-MUST-SP":
+        return <Dashboard_MUST_Page />;
       default:
         return <DashboardScreen />;
     }
