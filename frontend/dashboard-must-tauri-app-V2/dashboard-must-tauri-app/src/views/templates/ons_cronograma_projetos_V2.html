@@ -1,0 +1,1524 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HUB ONS — Integrado</title>
+
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+
+    <style>
+        :root {
+            --bg: #0d1117;
+            --bg2: #161b22;
+            --bg3: #21262d;
+            --glass: rgba(255, 255, 255, 0.04);
+            --glass-b: rgba(255, 255, 255, 0.08);
+            --border: rgba(255, 255, 255, 0.10);
+            --accent: #58a6ff;
+            --accent2: #3fb950;
+            --warn: #f78166;
+            --muted: rgba(255, 255, 255, 0.45);
+            --text: #e6edf3;
+            --radius: 14px;
+            --font: 'Inter', sans-serif;
+            --mono: 'JetBrains Mono', monospace;
+            --shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+        }
+
+        [data-theme="light"] {
+            --bg: #f0f4f8;
+            --bg2: #ffffff;
+            --bg3: #f8fafc;
+            --glass: rgba(0, 0, 0, 0.02);
+            --glass-b: rgba(0, 0, 0, 0.05);
+            --border: rgba(0, 0, 0, 0.10);
+            --accent: #0284c7;
+            --accent2: #16a34a;
+            --warn: #dc2626;
+            --muted: rgba(0, 0, 0, 0.45);
+            --text: #0f172a;
+            --shadow: 0 4px 24px rgba(0, 0, 0, 0.10);
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        html,
+        body,
+        #root {
+            height: 100%;
+            width: 100%
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font);
+            overflow: hidden;
+            transition: background .25s, color .25s
+        }
+
+        .app-layout {
+            display: flex;
+            height: 100vh
+        }
+
+        .sidebar {
+            width: 240px;
+            min-width: 240px;
+            height: 100vh;
+            background: var(--bg2);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            transition: width .25s, min-width .25s;
+            overflow: hidden;
+            position: relative;
+            z-index: 100
+        }
+
+        .sidebar.collapsed {
+            width: 64px;
+            min-width: 64px
+        }
+
+        .sidebar-logo {
+            padding: 20px 16px 16px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-height: 64px
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 18px
+        }
+
+        .logo-text {
+            font-weight: 800;
+            font-size: 13px;
+            letter-spacing: .08em;
+            color: var(--text);
+            white-space: nowrap
+        }
+
+        .logo-sub {
+            font-size: 10px;
+            color: var(--muted);
+            letter-spacing: .05em
+        }
+
+        .nav-section {
+            padding: 12px 8px;
+            flex: 1;
+            overflow: hidden
+        }
+
+        .nav-label {
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: .12em;
+            color: var(--muted);
+            padding: 4px 8px 8px;
+            text-transform: uppercase;
+            white-space: nowrap
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 12px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background .15s, color .15s;
+            color: var(--muted);
+            font-size: 13px;
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            margin-bottom: 2px
+        }
+
+        .nav-item:hover {
+            background: var(--glass-b);
+            color: var(--text)
+        }
+
+        .nav-item.active {
+            background: rgba(88, 166, 255, .15);
+            color: var(--accent)
+        }
+
+        [data-theme="light"] .nav-item.active {
+            background: rgba(2, 132, 199, .12)
+        }
+
+        .nav-item .material-icons {
+            font-size: 20px;
+            flex-shrink: 0
+        }
+
+        .sidebar-bottom {
+            padding: 12px 8px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            gap: 4px
+        }
+
+        .main-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            overflow: hidden
+        }
+
+        .topbar {
+            height: 56px;
+            border-bottom: 1px solid var(--border);
+            background: var(--bg2);
+            display: flex;
+            align-items: center;
+            padding: 0 24px;
+            gap: 16px;
+            flex-shrink: 0;
+            justify-content: space-between
+        }
+
+        .topbar-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text)
+        }
+
+        .topbar-sub {
+            font-size: 12px;
+            color: var(--muted)
+        }
+
+        .content-scroll {
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 24px
+        }
+
+        .content-scroll::-webkit-scrollbar {
+            width: 6px
+        }
+
+        .content-scroll::-webkit-scrollbar-track {
+            background: transparent
+        }
+
+        .content-scroll::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 3px
+        }
+
+        .glass {
+            background: var(--glass);
+            backdrop-filter: blur(20px) saturate(1.4);
+            -webkit-backdrop-filter: blur(20px) saturate(1.4);
+            border: 1px solid var(--border);
+            border-radius: var(--radius)
+        }
+
+        [data-theme="light"] .glass {
+            background: #fff;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, .08)
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            font-family: var(--font);
+            cursor: pointer;
+            border: 1px solid transparent;
+            transition: all .15s
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #0d1117;
+            border-color: var(--accent)
+        }
+
+        .btn-primary:hover {
+            filter: brightness(1.12)
+        }
+
+        [data-theme="light"] .btn-primary {
+            color: #fff
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--muted);
+            border-color: var(--border)
+        }
+
+        .btn-ghost:hover {
+            background: var(--glass-b);
+            color: var(--text)
+        }
+
+        .btn-green {
+            background: rgba(63, 185, 80, .15);
+            color: var(--accent2);
+            border-color: rgba(63, 185, 80, .3)
+        }
+
+        .btn-green:hover {
+            background: rgba(63, 185, 80, .25)
+        }
+
+        .btn-danger {
+            background: rgba(247, 129, 102, .12);
+            color: var(--warn);
+            border-color: rgba(247, 129, 102, .25)
+        }
+
+        .btn-danger:hover {
+            background: rgba(247, 129, 102, .22)
+        }
+
+        .btn .material-icons {
+            font-size: 16px
+        }
+
+        /* Gantt */
+        .gantt-wrap {
+            overflow-x: auto;
+            position: relative
+        }
+
+        .gantt-table {
+            min-width: 1100px;
+            width: 100%;
+            border-collapse: collapse
+        }
+
+        .gantt-header th {
+            background: var(--bg3);
+            padding: 10px 8px;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--muted);
+            letter-spacing: .06em;
+            border-bottom: 1px solid var(--border);
+            text-align: center
+        }
+
+        .gantt-header th:first-child {
+            text-align: left;
+            padding-left: 16px;
+            width: 200px
+        }
+
+        .gantt-cat-row td {
+            padding: 6px 8px 6px 16px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            background: rgba(88, 166, 255, .04);
+            border-bottom: 1px solid var(--border)
+        }
+
+        .gantt-task-row td {
+            border-bottom: 1px solid rgba(255, 255, 255, .04);
+            height: 52px;
+            padding: 0 4px
+        }
+
+        [data-theme="light"] .gantt-task-row td {
+            border-bottom: 1px solid rgba(0, 0, 0, .04)
+        }
+
+        .gantt-task-row td:first-child {
+            padding: 0 16px;
+            font-size: 12px;
+            color: var(--muted);
+            font-family: var(--mono)
+        }
+
+        .gantt-cell {
+            position: relative
+        }
+
+        .task-bar {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 28px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+            font-size: 11px;
+            font-weight: 700;
+            color: rgba(0, 0, 0, .85);
+            cursor: pointer;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, .3);
+            transition: filter .15s, transform .15s
+        }
+
+        .task-bar:hover {
+            filter: brightness(1.15);
+            transform: translateY(calc(-50% - 1px))
+        }
+
+        .today-line {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--warn), transparent);
+            z-index: 20;
+            pointer-events: none
+        }
+
+        .today-badge {
+            position: absolute;
+            top: 2px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--warn);
+            color: white;
+            font-size: 9px;
+            font-weight: 800;
+            padding: 2px 5px;
+            border-radius: 4px;
+            letter-spacing: .05em;
+            white-space: nowrap
+        }
+
+        /* Checklist */
+        .md-tabs {
+            display: flex;
+            gap: 4px;
+            padding: 12px 16px 0;
+            border-bottom: 1px solid var(--border);
+            overflow-x: auto
+        }
+
+        .md-tab {
+            padding: 8px 16px;
+            border-radius: 8px 8px 0 0;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            color: var(--muted);
+            transition: all .15s;
+            white-space: nowrap;
+            border: 1px solid transparent;
+            border-bottom: none
+        }
+
+        .md-tab.active {
+            color: var(--accent);
+            background: rgba(88, 166, 255, .08);
+            border-color: var(--border)
+        }
+
+        .md-tab:hover:not(.active) {
+            color: var(--text);
+            background: var(--glass)
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background .12s;
+            user-select: none
+        }
+
+        .checklist-item:hover {
+            background: var(--glass)
+        }
+
+        .checklist-item.sub {
+            margin-left: 32px;
+            border-left: 2px solid var(--border);
+            padding-left: 20px
+        }
+
+        .check-box {
+            width: 18px;
+            height: 18px;
+            border-radius: 5px;
+            border: 2px solid var(--border);
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all .15s;
+            background: transparent
+        }
+
+        .check-box.checked {
+            background: var(--accent2);
+            border-color: var(--accent2)
+        }
+
+        .check-box.checked::after {
+            content: '✓';
+            font-size: 11px;
+            color: #fff;
+            font-weight: 900
+        }
+
+        .check-text {
+            font-size: 13px;
+            font-weight: 500;
+            transition: all .15s;
+            flex: 1;
+            color: var(--text)
+        }
+
+        .check-text.done {
+            text-decoration: line-through;
+            opacity: .4
+        }
+
+        .tag-pill {
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: .06em
+        }
+
+        .tag-ons {
+            background: rgba(88, 166, 255, .15);
+            color: #79bbff;
+            border: 1px solid rgba(88, 166, 255, .3)
+        }
+
+        .tag-todo {
+            background: rgba(247, 186, 66, .15);
+            color: #f7ba42;
+            border: 1px solid rgba(247, 186, 66, .3)
+        }
+
+        .tag-done {
+            background: rgba(63, 185, 80, .15);
+            color: var(--accent2);
+            border: 1px solid rgba(63, 185, 80, .3)
+        }
+
+        .tag-wip {
+            background: rgba(163, 113, 247, .15);
+            color: #c08ff5;
+            border: 1px solid rgba(163, 113, 247, .3)
+        }
+
+        .tag-block {
+            background: rgba(247, 129, 102, .15);
+            color: var(--warn);
+            border: 1px solid rgba(247, 129, 102, .25)
+        }
+
+        .md-editor {
+            width: 100%;
+            background: var(--bg3);
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 16px;
+            font-family: var(--mono);
+            font-size: 13px;
+            line-height: 1.7;
+            resize: vertical;
+            min-height: 400px;
+            outline: none;
+            transition: border-color .15s
+        }
+
+        .md-editor:focus {
+            border-color: var(--accent)
+        }
+
+        /* Modal */
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .6);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center
+        }
+
+        .modal-box {
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px;
+            width: 460px;
+            max-width: 95vw;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow)
+        }
+
+        .modal-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--text)
+        }
+
+        .form-group {
+            margin-bottom: 16px
+        }
+
+        .form-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--muted);
+            letter-spacing: .08em;
+            margin-bottom: 6px;
+            display: block
+        }
+
+        .form-input {
+            width: 100%;
+            background: var(--bg3);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 10px 12px;
+            color: var(--text);
+            font-family: var(--font);
+            font-size: 13px;
+            outline: none;
+            transition: border-color .15s
+        }
+
+        .form-input:focus {
+            border-color: var(--accent)
+        }
+
+        select.form-input option {
+            background: var(--bg2)
+        }
+
+        .form-row {
+            display: flex;
+            gap: 12px
+        }
+
+        .form-row .form-group {
+            flex: 1
+        }
+
+        /* Progress */
+        .prog-bar {
+            background: var(--border);
+            border-radius: 4px;
+            height: 4px;
+            overflow: hidden;
+            margin-top: 4px
+        }
+
+        .prog-fill {
+            height: 100%;
+            border-radius: 4px;
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            transition: width .5s
+        }
+
+        /* Task cards */
+        .task-card {
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            cursor: pointer;
+            transition: transform .15s, box-shadow .15s
+        }
+
+        .task-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow)
+        }
+
+        .task-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 16px
+        }
+
+        /* Notes sticky */
+        .notes-box {
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 16px 20px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px
+        }
+
+        .notes-box textarea {
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            resize: vertical;
+            color: var(--text);
+            font-family: var(--font);
+            font-size: 13px;
+            line-height: 1.6;
+            min-height: 40px
+        }
+
+        /* Reports */
+        .report-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 16px;
+            margin-top: 16px
+        }
+
+        .report-stat {
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px
+        }
+
+        .report-stat-value {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--text)
+        }
+
+        .report-stat-label {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-top: 4px
+        }
+
+        /* Config */
+        .config-section {
+            margin-bottom: 24px
+        }
+
+        .config-label {
+            font-size: 12px;
+            color: var(--muted);
+            margin-bottom: 8px;
+            line-height: 1.8
+        }
+
+        /* Scrollbar */
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: var(--border) transparent
+        }
+
+        /* Snackbar */
+        .snackbar {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 8px
+        }
+
+        .snack {
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 12px 18px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text);
+            box-shadow: var(--shadow);
+            animation: snack-in .2s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px
+        }
+
+        .snack.success {
+            border-left: 4px solid var(--accent2)
+        }
+
+        .snack.error {
+            border-left: 4px solid var(--warn)
+        }
+
+        .snack.info {
+            border-left: 4px solid var(--accent)
+        }
+
+        @keyframes snack-in {
+            from {
+                opacity: 0;
+                transform: translateY(12px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        const { useState, useEffect, useMemo, useRef, useCallback } = React;
+
+        const STORAGE_KEY = 'hub_ons_unified_v1';
+        const PROJECT_START = new Date(2025, 9, 1);
+        const MONTHS = ['Out/25', 'Nov/25', 'Dez/25', 'Jan/26', 'Fev/26', 'Mar/26', 'Abr/26', 'Mai/26', 'Jun/26', 'Jul/26'];
+        const CATEGORIES = { 'Gestão': '#1e293b', 'Planejamento': '#16a34a', 'Engenharia': '#3b82f6', 'Obras': '#f59e0b' };
+        const CAT_COLORS = { 'Gestão': '#94a3b8', 'Planejamento': '#4ade80', 'Engenharia': '#60a5fa', 'Obras': '#fbbf24' };
+
+        const DEFAULT_MD = `## Geral
+- [ ] 1.1: Kickoff do projeto __ONS
+- [ ] 1.2: Definir responsáveis __TODO
+  - [ ] Nomear líder técnico __TODO
+  - [ ] Revisar contratos __ONS
+
+## Engenharia
+- [x] 2.1: Setup do repositório __DONE
+- [ ] 2.2: Integrar API Astro Core __ONS
+  - [ ] Copiar rotas astro.py __WIP
+  - [ ] Criar Blueprint Flask __TODO
+- [ ] 2.3: Autenticação JWT __BLOCK
+
+## Obras
+- [ ] 3.1: Levantamento de campo __ONS
+- [ ] 3.2: Relatório topográfico __TODO
+`;
+
+        const DEFAULT_TASKS = [
+            { id: 1, title: 'Kickoff & Planejamento', category: 'Gestão', startMonth: 0, duration: 1, color: '#475569', description: '', notes: '' },
+            { id: 2, title: 'Arquitetura da API', category: 'Engenharia', startMonth: 0.5, duration: 2, color: '#3b82f6', description: '', notes: '' },
+            { id: 3, title: 'Integração Astro Core', category: 'Engenharia', startMonth: 2, duration: 3, color: '#6366f1', description: '', notes: '' },
+            { id: 4, title: 'Levantamento de Campo', category: 'Obras', startMonth: 1, duration: 2.5, color: '#f59e0b', description: '', notes: '' },
+            { id: 5, title: 'Cronograma Executivo', category: 'Planejamento', startMonth: 0, duration: 4, color: '#16a34a', description: '', notes: '' },
+        ];
+
+        // ── Model ──
+        const Model = {
+            load() {
+                try { const d = localStorage.getItem(STORAGE_KEY); if (d) return JSON.parse(d); } catch { }
+                return { tasks: DEFAULT_TASKS, markdown: DEFAULT_MD, notes: '', darkMode: true };
+            },
+            save(data) { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch { } },
+            reset() { localStorage.removeItem(STORAGE_KEY); }
+        };
+
+        // ── Markdown Parser (corrigido: qualquer # heading + sub-items com 2+ espaços) ──
+        const parseMarkdown = (md) => {
+            const result = {};
+            let tab = 'Geral';
+            result[tab] = [];
+            for (const raw of (md || '').split('\n')) {
+                const trimmed = raw.trim();
+                if (/^#{1,6}\s+/.test(trimmed)) {
+                    tab = trimmed.replace(/^#{1,6}\s+/, '').trim();
+                    if (!result[tab]) result[tab] = [];
+                    continue;
+                }
+                const m = raw.match(/^(\s*)- \[([ xX])\] (.+)$/);
+                if (m) {
+                    const indent = m[1].length;
+                    const checked = m[2].toLowerCase() === 'x';
+                    const text = m[3].trim();
+                    const tagM = text.match(/__([A-Z_]+)\s*$/);
+                    const tag = tagM ? tagM[1] : null;
+                    const cleanText = tag ? text.replace(/__[A-Z_]+\s*$/, '').trim() : text;
+                    if (!result[tab]) result[tab] = [];
+                    result[tab].push({ checked, text: cleanText, tag, sub: indent >= 2 });
+                }
+            }
+            return result;
+        };
+
+        const rebuildMarkdown = (parsed) => {
+            let md = '';
+            for (const t of Object.keys(parsed)) {
+                md += `## ${t}\n`;
+                for (const item of parsed[t]) {
+                    const pre = item.sub ? '  ' : '';
+                    const cb = item.checked ? '[x]' : '[ ]';
+                    const tag = item.tag ? ` __${item.tag}` : '';
+                    md += `${pre}- ${cb} ${item.text}${tag}\n`;
+                }
+                md += '\n';
+            }
+            return md.trim();
+        };
+
+        const calcProgress = (md) => {
+            if (!md) return { total: 0, completed: 0, pct: 0 };
+            const checked = (md.match(/-\s+\[x\]/gi) || []).length;
+            const unchecked = (md.match(/-\s+\[ \]/g) || []).length;
+            const total = checked + unchecked;
+            return { total, completed: checked, pct: total === 0 ? 0 : Math.round((checked / total) * 100) };
+        };
+
+        // ── Snackbar ──
+        const SnackbarCtx = React.createContext(null);
+        const SnackbarProvider = ({ children }) => {
+            const [snacks, setSnacks] = useState([]);
+            const push = useCallback((msg, type = 'info') => {
+                const id = Date.now();
+                setSnacks(s => [...s, { id, msg, type }]);
+                setTimeout(() => setSnacks(s => s.filter(x => x.id !== id)), 3500);
+            }, []);
+            return (
+                <SnackbarCtx.Provider value={push}>
+                    {children}
+                    <div className="snackbar">
+                        {snacks.map(s => (
+                            <div key={s.id} className={`snack ${s.type}`}>
+                                <span className="material-icons" style={{ fontSize: 16 }}>
+                                    {s.type === 'success' ? 'check_circle' : s.type === 'error' ? 'error' : 'info'}
+                                </span>
+                                {s.msg}
+                            </div>
+                        ))}
+                    </div>
+                </SnackbarCtx.Provider>
+            );
+        };
+        const useSnack = () => React.useContext(SnackbarCtx);
+
+        // ══════════════════════════════════════════════════
+        //  GANTT MODULE
+        // ══════════════════════════════════════════════════
+        const GanttModule = ({ tasks, onUpdate }) => {
+            const snack = useSnack();
+            const [modal, setModal] = useState(null);
+            const fileRef = useRef(null);
+            const todayPct = useMemo(() => Math.min(Math.max(((new Date() - PROJECT_START) / 86400000 / 300) * 100, 0), 100), []);
+
+            const saveModal = () => {
+                if (!modal.title.trim()) return;
+                const updated = modal.id
+                    ? tasks.map(t => t.id === modal.id ? modal : t)
+                    : [...tasks, { ...modal, id: Date.now() }];
+                onUpdate(updated);
+                setModal(null);
+                snack(modal.id ? 'Tarefa atualizada.' : 'Tarefa criada.', 'success');
+            };
+            const deleteModal = () => { onUpdate(tasks.filter(t => t.id !== modal.id)); setModal(null); snack('Eliminada.', 'info'); };
+
+            const exportExcel = () => {
+                const ws_data = [['ID', 'Título', 'Categoria', 'Início (mês)', 'Duração (meses)', 'Cor', 'Descrição', 'Notas'],
+                ...tasks.map(t => [t.id, t.title, t.category, t.startMonth, t.duration, t.color, t.description || '', t.notes || ''])];
+                const wb = XLSX.utils.book_new(), ws = XLSX.utils.aoa_to_sheet(ws_data);
+                ws['!cols'] = [{ wch: 8 }, { wch: 30 }, { wch: 15 }, { wch: 14 }, { wch: 18 }, { wch: 10 }, { wch: 40 }, { wch: 30 }];
+                XLSX.utils.book_append_sheet(wb, ws, 'Cronograma');
+                XLSX.writeFile(wb, `cronograma_ons_${new Date().toISOString().split('T')[0]}.xlsx`);
+                snack('Excel exportado!', 'success');
+            };
+
+            const importExcel = (e) => {
+                const file = e.target.files[0]; if (!file) return;
+                const reader = new FileReader();
+                reader.onload = (ev) => {
+                    try {
+                        const wb = XLSX.read(ev.target.result, { type: 'binary' });
+                        const rows = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]], { header: 1 });
+                        const imported = rows.slice(1).filter(r => r[1]).map((r, i) => ({
+                            id: r[0] || Date.now() + i, title: String(r[1] || ''), category: r[2] || 'Gestão',
+                            startMonth: parseFloat(r[3]) || 0, duration: parseFloat(r[4]) || 1,
+                            color: r[5] || '#3b82f6', description: r[6] || '', notes: r[7] || ''
+                        }));
+                        onUpdate(imported);
+                        snack(`${imported.length} tarefas importadas!`, 'success');
+                    } catch (err) { snack('Erro: ' + err.message, 'error'); }
+                };
+                reader.readAsBinaryString(file);
+                e.target.value = '';
+            };
+
+            const byCategory = Object.keys(CATEGORIES).reduce((acc, cat) => { acc[cat] = tasks.filter(t => t.category === cat); return acc }, {});
+
+            return (
+                <div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20, flexWrap: 'wrap', gap: 12 }}>
+                        <div>
+                            <div style={{ fontSize: 20, fontWeight: 800 }}>Cronograma Integrado</div>
+                            <div style={{ fontSize: 12, color: 'var(--muted)', marginTop: 2 }}>{tasks.length} atividade(s) · Out/2025 → Jul/2026</div>
+                        </div>
+                        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                            <label className="btn btn-green" style={{ cursor: 'pointer' }}>
+                                <span className="material-icons">upload_file</span> Importar Excel
+                                <input type="file" accept=".xlsx,.xls" style={{ display: 'none' }} ref={fileRef} onChange={importExcel} />
+                            </label>
+                            <button className="btn btn-ghost" onClick={exportExcel}><span className="material-icons">download</span> Exportar Excel</button>
+                            <button className="btn btn-primary" onClick={() => setModal({ id: null, title: '', category: 'Gestão', startMonth: 0, duration: 1, color: '#3b82f6', description: '', notes: '' })}>
+                                <span className="material-icons">add</span> Nova Tarefa
+                            </button>
+                        </div>
+                    </div>
+                    <div className="glass" style={{ overflow: 'hidden' }}>
+                        <div className="gantt-wrap">
+                            <table className="gantt-table">
+                                <thead>
+                                    <tr className="gantt-header">
+                                        <th>Fase / Atividade</th>
+                                        {MONTHS.map(m => <th key={m}>{m}</th>)}
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {Object.keys(CATEGORIES).map(cat => {
+                                        const catTasks = byCategory[cat];
+                                        return (
+                                            <React.Fragment key={cat}>
+                                                <tr className="gantt-cat-row"><td colSpan={11} style={{ color: CAT_COLORS[cat] }}>▸ {cat}</td></tr>
+                                                {catTasks.length === 0 ? (
+                                                    <tr className="gantt-task-row">
+                                                        <td style={{ color: 'var(--muted)', fontSize: 11, fontStyle: 'italic' }}>— sem tarefas —</td>
+                                                        <td colSpan={10} className="gantt-cell"></td>
+                                                    </tr>
+                                                ) : catTasks.map((task, i) => (
+                                                    <tr key={task.id} className="gantt-task-row">
+                                                        <td>{task.title}</td>
+                                                        <td className="gantt-cell" colSpan={10} style={{ position: 'relative' }}>
+                                                            {i === 0 && <div className="today-line" style={{ left: `${todayPct}%` }}><div className="today-badge">HOJE</div></div>}
+                                                            <div className="task-bar" style={{ left: `${(task.startMonth / 10) * 100}%`, width: `${(task.duration / 10) * 100}%`, backgroundColor: task.color }} onClick={() => setModal({ ...task })}>
+                                                                {task.title}
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                ))}
+                                            </React.Fragment>
+                                        );
+                                    })}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    {modal && (
+                        <div className="modal-backdrop" onClick={() => setModal(null)}>
+                            <div className="modal-box" onClick={e => e.stopPropagation()}>
+                                <div className="modal-title">{modal.id ? '✏️ Editar Tarefa' : '➕ Nova Tarefa'}</div>
+                                <div className="form-group"><label className="form-label">TÍTULO</label>
+                                    <input className="form-input" value={modal.title} onChange={e => setModal({ ...modal, title: e.target.value })} placeholder="Ex: Integração API" />
+                                </div>
+                                <div className="form-group"><label className="form-label">CATEGORIA</label>
+                                    <select className="form-input" value={modal.category} onChange={e => setModal({ ...modal, category: e.target.value })}>
+                                        {Object.keys(CATEGORIES).map(c => <option key={c}>{c}</option>)}
+                                    </select>
+                                </div>
+                                <div className="form-row">
+                                    <div className="form-group"><label className="form-label">INÍCIO (0–10)</label>
+                                        <input className="form-input" type="number" min="0" max="10" step="0.5" value={modal.startMonth} onChange={e => setModal({ ...modal, startMonth: parseFloat(e.target.value) || 0 })} />
+                                    </div>
+                                    <div className="form-group"><label className="form-label">DURAÇÃO (meses)</label>
+                                        <input className="form-input" type="number" min="0.5" max="10" step="0.5" value={modal.duration} onChange={e => setModal({ ...modal, duration: parseFloat(e.target.value) || 1 })} />
+                                    </div>
+                                </div>
+                                <div className="form-group"><label className="form-label">COR</label>
+                                    <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+                                        <input type="color" value={modal.color} onChange={e => setModal({ ...modal, color: e.target.value })} style={{ width: 44, height: 36, border: '1px solid var(--border)', borderRadius: 8, cursor: 'pointer', background: 'none' }} />
+                                        <input className="form-input" style={{ flex: 1 }} value={modal.color} onChange={e => setModal({ ...modal, color: e.target.value })} placeholder="#3b82f6" />
+                                    </div>
+                                </div>
+                                <div className="form-group"><label className="form-label">NOTAS</label>
+                                    <textarea className="form-input" rows={2} style={{ resize: 'vertical' }} value={modal.notes || ''} onChange={e => setModal({ ...modal, notes: e.target.value })} placeholder="Observações sobre a tarefa…" />
+                                </div>
+                                <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 8, marginTop: 16 }}>
+                                    {modal.id && <button className="btn btn-danger" onClick={deleteModal}>Excluir</button>}
+                                    <button className="btn btn-ghost" onClick={() => setModal(null)}>Cancelar</button>
+                                    <button className="btn btn-primary" onClick={saveModal}>Salvar</button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            );
+        };
+
+        // ══════════════════════════════════════════════════
+        //  TASK CARDS MODULE
+        // ══════════════════════════════════════════════════
+        const TaskCardsModule = ({ tasks, notes, onNotesChange, onUpdateTasks }) => {
+            const snack = useSnack();
+            const [editTask, setEditTask] = useState(null);
+
+            const saveEdit = () => {
+                onUpdateTasks(tasks.map(t => t.id === editTask.id ? editTask : t));
+                setEditTask(null);
+                snack('Tarefa atualizada.', 'success');
+            };
+
+            const totalStats = useMemo(() => {
+                let total = 0, done = 0;
+                tasks.forEach(t => { const p = calcProgress(t.description || ''); total += p.total; done += p.completed; });
+                return { total, done, pct: total === 0 ? 0 : Math.round((done / total) * 100) };
+            }, [tasks]);
+
+            return (
+                <div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+                        <div>
+                            <div style={{ fontSize: 20, fontWeight: 800 }}>Minhas Tarefas</div>
+                            <div style={{ fontSize: 12, color: 'var(--muted)', marginTop: 2 }}>{tasks.length} projeto(s) · {totalStats.pct}% concluído</div>
+                        </div>
+                        <button className="btn btn-primary" onClick={() => {
+                            const novo = { id: Date.now(), title: 'Nova Tarefa', category: 'Gestão', startMonth: 0, duration: 1, color: '#0284c7', description: '## Entregáveis\n- [ ] Sub-tarefa 1\n  - [ ] Sub-tarefa 1.1', notes: '' };
+                            onUpdateTasks([...tasks, novo]);
+                            snack('Nova tarefa criada.', 'success');
+                        }}>
+                            <span className="material-icons">add</span> Nova Tarefa
+                        </button>
+                    </div>
+
+                    {/* Anotação Geral — sempre visível e persistida */}
+                    <div className="notes-box">
+                        <span className="material-icons" style={{ color: 'var(--accent)', flexShrink: 0, marginTop: 2, fontSize: 20 }}>sticky_note_2</span>
+                        <div style={{ flex: 1 }}>
+                            <div style={{ fontSize: 11, fontWeight: 600, color: 'var(--muted)', letterSpacing: '0.08em', marginBottom: 6 }}>ANOTAÇÃO GERAL</div>
+                            <textarea
+                                value={notes}
+                                onChange={e => onNotesChange(e.target.value)}
+                                placeholder="Escreva anotações gerais aqui… (salvo automaticamente)"
+                                rows={3}
+                                style={{ width: '100%', background: 'transparent', border: 'none', outline: 'none', resize: 'vertical', color: 'var(--text)', fontFamily: 'var(--font)', fontSize: 13, lineHeight: 1.6 }}
+                            />
+                        </div>
+                    </div>
+
+                    <div className="task-cards-grid">
+                        {tasks.map(task => {
+                            const p = calcProgress(task.description || '');
+                            return (
+                                <div key={task.id} className="task-card" onClick={() => setEditTask({ ...task })}>
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 12 }}>
+                                        <div style={{ width: 40, height: 40, borderRadius: 10, background: task.color, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'rgba(0,0,0,0.7)', flexShrink: 0 }}>
+                                            <span className="material-icons">assignment</span>
+                                        </div>
+                                        <span style={{ fontSize: 11, fontWeight: 600, color: 'var(--muted)', background: 'var(--glass-b)', padding: '3px 10px', borderRadius: 20 }}>
+                                            {task.category || 'Projeto'}
+                                        </span>
+                                    </div>
+                                    <div style={{ fontWeight: 700, fontSize: 14, marginBottom: 4, color: 'var(--text)' }}>{task.title}</div>
+                                    {task.notes && (
+                                        <div style={{ fontSize: 12, color: 'var(--muted)', marginBottom: 12, borderLeft: '2px solid var(--border)', paddingLeft: 8, lineHeight: 1.5, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+                                            {task.notes}
+                                        </div>
+                                    )}
+                                    <div style={{ marginTop: 'auto', paddingTop: 12 }}>
+                                        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, marginBottom: 4 }}>
+                                            <span style={{ color: 'var(--muted)' }}>Progresso</span>
+                                            <span style={{ fontWeight: 700 }}>{p.pct}%</span>
+                                        </div>
+                                        <div className="prog-bar"><div className="prog-fill" style={{ width: `${p.pct}%`, background: task.color }} /></div>
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+
+                    {editTask && (
+                        <div className="modal-backdrop" onClick={() => setEditTask(null)}>
+                            <div className="modal-box" onClick={e => e.stopPropagation()} style={{ width: 600 }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 20 }}>
+                                    <input type="color" value={editTask.color} onChange={e => setEditTask({ ...editTask, color: e.target.value })} style={{ width: 36, height: 36, borderRadius: 8, border: '1px solid var(--border)', cursor: 'pointer', background: 'none' }} />
+                                    <input className="form-input" style={{ flex: 1, fontSize: 15, fontWeight: 700 }} value={editTask.title} onChange={e => setEditTask({ ...editTask, title: e.target.value })} />
+                                </div>
+                                <div className="form-group"><label className="form-label">CATEGORIA</label>
+                                    <select className="form-input" value={editTask.category || 'Gestão'} onChange={e => setEditTask({ ...editTask, category: e.target.value })}>
+                                        {Object.keys(CATEGORIES).map(c => <option key={c}>{c}</option>)}
+                                    </select>
+                                </div>
+                                <div className="form-group"><label className="form-label">NOTAS / OBS</label>
+                                    <textarea className="form-input" rows={3} style={{ resize: 'vertical' }} value={editTask.notes || ''} onChange={e => setEditTask({ ...editTask, notes: e.target.value })} placeholder="Observações sobre esta tarefa…" />
+                                </div>
+                                <div className="form-group"><label className="form-label">DESCRIÇÃO / CHECKLIST (Markdown)</label>
+                                    <textarea className="form-input md-editor" style={{ minHeight: 220, resize: 'vertical', fontFamily: 'var(--mono)', fontSize: 12 }} value={editTask.description || ''} onChange={e => setEditTask({ ...editTask, description: e.target.value })} placeholder={"## Entregáveis\n- [ ] Tarefa principal\n  - [ ] Sub-tarefa aninhada\n- [x] Já concluída"} />
+                                    <div style={{ fontSize: 11, color: 'var(--muted)', marginTop: 4 }}>Dica: use 2 espaços antes de "- [ ]" para sub-tarefas aninhadas.</div>
+                                </div>
+                                <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 8, marginTop: 16 }}>
+                                    <button className="btn btn-danger" onClick={() => { onUpdateTasks(tasks.filter(t => t.id !== editTask.id)); setEditTask(null); snack('Tarefa eliminada.', 'info'); }}>Excluir</button>
+                                    <button className="btn btn-ghost" onClick={() => setEditTask(null)}>Cancelar</button>
+                                    <button className="btn btn-primary" onClick={saveEdit}>Salvar</button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            );
+        };
+
+        // ══════════════════════════════════════════════════
+        //  CHECKLIST MODULE
+        // ══════════════════════════════════════════════════
+        const ChecklistModule = ({ markdown, onSave }) => {
+            const snack = useSnack();
+            const [rawMd, setRawMd] = useState(markdown);
+            const [editMode, setEditMode] = useState(false);
+            const [activeTab, setActiveTab] = useState(0);
+            const fileRef = useRef(null);
+
+            useEffect(() => { setRawMd(markdown); }, [markdown]);
+
+            const parsed = useMemo(() => parseMarkdown(rawMd), [rawMd]);
+            const tabs = Object.keys(parsed);
+            const safeTab = Math.min(activeTab, tabs.length - 1);
+
+            const progress = (tab) => {
+                const items = parsed[tab] || [];
+                if (!items.length) return 0;
+                return Math.round((items.filter(i => i.checked).length / items.length) * 100);
+            };
+
+            const toggle = (tabName, idx) => {
+                const updated = { ...parsed };
+                updated[tabName] = updated[tabName].map((item, i) => i === idx ? { ...item, checked: !item.checked } : item);
+                const newMd = rebuildMarkdown(updated);
+                setRawMd(newMd); onSave(newMd);
+            };
+
+            const handleEditorChange = (val) => { setRawMd(val); onSave(val); };
+
+            const downloadMd = () => {
+                const a = document.createElement('a');
+                a.href = URL.createObjectURL(new Blob([rawMd], { type: 'text/markdown' }));
+                a.download = 'plano_ons.md'; a.click();
+                snack('Markdown baixado.', 'success');
+            };
+
+            const exportExcel = () => {
+                const rows = [['Aba', 'Sub-tarefa', 'Concluído', 'Tag']];
+                for (const tab of tabs) {
+                    for (const item of (parsed[tab] || [])) {
+                        rows.push([tab, (item.sub ? '  ' : '') + item.text, item.checked ? 'Sim' : 'Não', item.tag || '']);
+                    }
+                }
+                const wb = XLSX.utils.book_new(), ws = XLSX.utils.aoa_to_sheet(rows);
+                ws['!cols'] = [{ wch: 18 }, { wch: 40 }, { wch: 12 }, { wch: 10 }];
+                XLSX.utils.book_append_sheet(wb, ws, 'Checklist');
+                XLSX.writeFile(wb, `checklist_ons_${new Date().toISOString().split('T')[0]}.xlsx`);
+                snack('Excel exportado!', 'success');
+            };
+
+            const importFile = (e) => {
+                const file = e.target.files[0]; if (!file) return;
+                const reader = new FileReader();
+                if (file.name.endsWith('.md') || file.name.endsWith('.txt')) {
+                    reader.onload = ev => { const txt = ev.target.result; setRawMd(txt); onSave(txt); snack('Markdown importado!', 'success'); };
+                    reader.readAsText(file);
+                } else {
+                    reader.onload = ev => {
+                        try {
+                            const wb = XLSX.read(ev.target.result, { type: 'binary' });
+                            const rows = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]], { header: 1 });
+                            const byTab = {};
+                            for (const r of rows.slice(1)) {
+                                const tab = String(r[0] || 'Geral').trim(), text = String(r[1] || '').trim();
+                                if (!text) continue;
+                                if (!byTab[tab]) byTab[tab] = [];
+                                byTab[tab].push({ checked: String(r[2] || '').toLowerCase() === 'sim', text: text.trim(), tag: r[3] ? String(r[3]).toUpperCase() : null, sub: text.startsWith('  ') });
+                            }
+                            const newMd = rebuildMarkdown(byTab); setRawMd(newMd); onSave(newMd);
+                            snack('Excel importado!', 'success');
+                        } catch (err) { snack('Erro: ' + err.message, 'error'); }
+                    };
+                    reader.readAsBinaryString(file);
+                }
+                e.target.value = '';
+            };
+
+            return (
+                <div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20, flexWrap: 'wrap', gap: 12 }}>
+                        <div>
+                            <div style={{ fontSize: 20, fontWeight: 800 }}>Checklist & Planner</div>
+                            <div style={{ fontSize: 12, color: 'var(--muted)', marginTop: 2 }}>Markdown · tags __ONS · __TODO · __WIP · __BLOCK · __DONE</div>
+                        </div>
+                        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                            <label className="btn btn-green" style={{ cursor: 'pointer' }}>
+                                <span className="material-icons">upload_file</span> Importar
+                                <input type="file" accept=".xlsx,.xls,.md,.txt" style={{ display: 'none' }} ref={fileRef} onChange={importFile} />
+                            </label>
+                            <button className="btn btn-ghost" onClick={exportExcel}><span className="material-icons">table_chart</span> Excel</button>
+                            <button className="btn btn-ghost" onClick={downloadMd}><span className="material-icons">download</span> .md</button>
+                            <button className={`btn ${editMode ? 'btn-primary' : 'btn-ghost'}`} onClick={() => setEditMode(!editMode)}>
+                                <span className="material-icons">{editMode ? 'visibility' : 'edit'}</span>
+                                {editMode ? 'Ver Widgets' : 'Editar MD'}
+                            </button>
+                        </div>
+                    </div>
+
+                    {editMode ? (
+                        <div className="glass" style={{ padding: 16 }}>
+                            <div style={{ fontSize: 11, color: 'var(--muted)', marginBottom: 8, fontFamily: 'var(--mono)' }}>
+                                Sintaxe: ## Aba · - [ ] item __TAG · &nbsp;&nbsp;- [ ] sub-item __TAG
+                            </div>
+                            <textarea className="md-editor" value={rawMd} onChange={e => handleEditorChange(e.target.value)} spellCheck={false} />
+                        </div>
+                    ) : (
+                        <div className="glass" style={{ overflow: 'hidden' }}>
+                            <div className="md-tabs">
+                                {tabs.map((tab, i) => (
+                                    <div key={tab} className={`md-tab ${safeTab === i ? 'active' : ''}`} onClick={() => setActiveTab(i)}>
+                                        {tab}
+                                        <span style={{ marginLeft: 6, fontSize: 10, color: progress(tab) === 100 ? 'var(--accent2)' : 'var(--muted)' }}>
+                                            {progress(tab)}%
+                                        </span>
+                                    </div>
+                                ))}
+                            </div>
+                            <div style={{ padding: '8px 16px 0' }}>
+                                <div className="prog-bar"><div className="prog-fill" style={{ width: `${progress(tabs[safeTab])}%` }} /></div>
+                            </div>
+                            <div style={{ padding: '8px 0 12px' }}>
+                                {(parsed[tabs[safeTab]] || []).map((item, idx) => (
+                                    <div key={idx} className={`checklist-item ${item.sub ? 'sub' : ''}`} onClick={() => toggle(tabs[safeTab], idx)}>
+                                        <div className={`check-box ${item.checked ? 'checked' : ''}`} />
+                                        <span className={`check-text ${item.checked ? 'done' : ''}`}>{item.text}</span>
+                                        {item.tag && <span className={`tag-pill tag-${item.tag.toLowerCase()}`}>{item.tag}</span>}
+                                    </div>
+                                ))}
+                                {(parsed[tabs[safeTab]] || []).length === 0 && (
+                                    <div style={{ padding: '20px 16px', color: 'var(--muted)', fontSize: 13, fontStyle: 'italic' }}>
+                                        Nenhum item nesta aba. Use o editor MD para adicionar.
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    )}
+                </div>
+            );
+        };
+
+        // ══════════════════════════════════════════════════
+        //  REPORTS MODULE
+        // ══════════════════════════════════════════════════
+        const ReportsModule = ({ tasks, markdown }) => {
+            const stats = useMemo(() => {
+                let tC = 0, dC = 0;
+                tasks.forEach(t => { const p = calcProgress(t.description || ''); tC += p.total; dC += p.completed; });
+                const parsed = parseMarkdown(markdown);
+                let mT = 0, mD = 0;
+                Object.values(parsed).forEach(items => items.forEach(i => { mT++; if (i.checked) mD++; }));
+                return { totalTasks: tasks.length, taskItems: tC, taskDone: dC, taskPct: tC === 0 ? 0 : Math.round((dC / tC) * 100), mdItems: mT, mdDone: mD, mdPct: mT === 0 ? 0 : Math.round((mD / mT) * 100) };
+            }, [tasks, markdown]);
+
+            const SC = ({ value, sub, label, color }) => (
+                <div className="report-stat">
+                    <div className="report-stat-value" style={{ color: color || 'var(--text)' }}>
+                        {value}<span style={{ fontSize: 18, color: 'var(--muted)', fontWeight: 400 }}>{sub}</span>
+                    </div>
+                    <div className="report-stat-label">{label}</div>
+                    <div className="prog-bar" style={{ marginTop: 12 }}><div className="prog-fill" style={{ width: '100%' }} /></div>
+                </div>
+            );
+
+            return (
+                <div>
+                    <div style={{ fontSize: 20, fontWeight: 800, marginBottom: 4 }}>Painel de Controle</div>
+                    <div style={{ fontSize: 12, color: 'var(--muted)', marginBottom: 20 }}>Visão consolidada de todos os módulos</div>
+                    <div className="report-grid">
+                        <SC value={stats.totalTasks} sub="" label="PROJETOS NO GANTT" color="var(--accent)" />
+                        <SC value={stats.taskPct} sub="%" label="PROGRESSO DAS TAREFAS" color="var(--accent2)" />
+                        <SC value={stats.taskDone} sub={` / ${stats.taskItems}`} label="CHECKLISTS CONCLUÍDOS" />
+                        <SC value={stats.mdPct} sub="%" label="PROGRESSO DO PLANNER" color="#c08ff5" />
+                        <SC value={stats.mdDone} sub={` / ${stats.mdItems}`} label="ITENS DO PLANNER FEITOS" />
+                    </div>
+                    <div style={{ marginTop: 32, fontSize: 14, fontWeight: 700, marginBottom: 12 }}>Detalhamento por Projeto</div>
+                    <div className="glass" style={{ overflow: 'hidden' }}>
+                        {tasks.map((task, i) => {
+                            const p = calcProgress(task.description || '');
+                            return (
+                                <div key={task.id} style={{ display: 'flex', alignItems: 'center', gap: 16, padding: '14px 20px', borderBottom: i < tasks.length - 1 ? '1px solid var(--border)' : 'none' }}>
+                                    <div style={{ width: 10, height: 10, borderRadius: '50%', background: task.color, flexShrink: 0 }} />
+                                    <div style={{ flex: 1, minWidth: 0 }}>
+                                        <div style={{ fontWeight: 600, fontSize: 13, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{task.title}</div>
+                                        <div style={{ fontSize: 11, color: 'var(--muted)' }}>{task.category || ''}</div>
+                                    </div>
+                                    <div style={{ width: 100, flexShrink: 0 }}>
+                                        <div className="prog-bar"><div className="prog-fill" style={{ width: `${p.pct}%`, background: task.color }} /></div>
+                                    </div>
+                                    <div style={{ fontSize: 12, fontWeight: 700, width: 36, textAlign: 'right' }}>{p.pct}%</div>
+                                </div>
+                            );
+                        })}
+                    </div>
+                </div>
+            );
+        };
+
+        // ══════════════════════════════════════════════════
+        //  CONFIG MODULE
+        // ══════════════════════════════════════════════════
+        const ConfigModule = ({ onReset, darkMode, onToggleTheme }) => (
+            <div>
+                <div style={{ fontSize: 20, fontWeight: 800, marginBottom: 20 }}>Configurações</div>
+                <div className="glass" style={{ padding: 24 }}>
+                    <div className="config-section">
+                        <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 12 }}>Aparência</div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+                            <span className="material-icons" style={{ color: 'var(--muted)' }}>{darkMode ? 'dark_mode' : 'light_mode'}</span>
+                            <span style={{ fontSize: 13, color: 'var(--text)' }}>{darkMode ? 'Modo Escuro ativo' : 'Modo Claro ativo'}</span>
+                            <button className="btn btn-ghost" onClick={onToggleTheme}>
+                                <span className="material-icons">{darkMode ? 'light_mode' : 'dark_mode'}</span>
+                                Alternar para {darkMode ? 'Claro' : 'Escuro'}
+                            </button>
+                        </div>
+                    </div>
+                    <div className="config-section" style={{ marginTop: 24 }}>
+                        <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 8 }}>Dados Locais</div>
+                        <div className="config-label">Os dados são armazenados no localStorage do navegador.</div>
+                        <button className="btn btn-danger" onClick={() => { if (confirm('Resetar todos os dados?')) onReset(); }}>
+                            <span className="material-icons">delete_forever</span> Limpar Base de Dados
+                        </button>
+                    </div>
+                    <div className="config-section" style={{ marginTop: 24 }}>
+                        <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 8 }}>Tags Suportadas no Planner</div>
+                        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                            {['ONS', 'TODO', 'WIP', 'BLOCK', 'DONE'].map(t => <span key={t} className={`tag-pill tag-${t.toLowerCase()}`}>{t}</span>)}
+                        </div>
+                        <div className="config-label" style={{ marginTop: 8 }}>Use __NOMEATAG no final de cada linha no Markdown.</div>
+                    </div>
+                    <div className="config-section" style={{ marginTop: 24 }}>
+                        <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 8 }}>Módulos & Fixes</div>
+                        <div className="config-label">
+                            <b>Cronograma:</b> Gantt com categorias, Import/Export Excel (.xlsx)<br />
+                            <b>Minhas Tarefas:</b> Cards com checklist MD, anotação geral fixa e persistida<br />
+                            <b>Checklist/Planner:</b> Parser MD corrigido (# ## ###, sub-itens 2+ espaços), Export Excel + .md<br />
+                            <b>Relatórios:</b> Estatísticas consolidadas de todos os módulos<br />
+                            <b>Tema:</b> Dark / Light com CSS variables, toggle na sidebar e aqui
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+
+        // ══════════════════════════════════════════════════
+        //  APP
+        // ══════════════════════════════════════════════════
+        function App() {
+            const [data, setData] = useState(() => Model.load());
+            const [view, setView] = useState('gantt');
+            const [collapsed, setCollapsed] = useState(false);
+
+            useEffect(() => { Model.save(data); }, [data]);
+            useEffect(() => { document.documentElement.setAttribute('data-theme', data.darkMode ? 'dark' : 'light'); }, [data.darkMode]);
+
+            const updateTasks = tasks => setData(d => ({ ...d, tasks }));
+            const updateMarkdown = markdown => setData(d => ({ ...d, markdown }));
+            const updateNotes = notes => setData(d => ({ ...d, notes }));
+            const toggleTheme = () => setData(d => ({ ...d, darkMode: !d.darkMode }));
+            const reset = () => { Model.reset(); setData({ tasks: DEFAULT_TASKS, markdown: DEFAULT_MD, notes: '', darkMode: true }); };
+
+            const navItems = [
+                { id: 'gantt', label: 'Cronograma', icon: 'view_timeline' },
+                { id: 'tasks', label: 'Minhas Tarefas', icon: 'check_box' },
+                { id: 'checklist', label: 'Checklist / MD', icon: 'fact_check' },
+                { id: 'reports', label: 'Relatórios', icon: 'insert_chart' },
+                { id: 'config', label: 'Configurações', icon: 'settings' },
+            ];
+            const titles = { gantt: 'Cronograma', tasks: 'Minhas Tarefas', checklist: 'Checklist & Planner', reports: 'Painel de Controle', config: 'Configurações' };
+
+            return (
+                <SnackbarProvider>
+                    <div className="app-layout">
+                        <div className={`sidebar ${collapsed ? 'collapsed' : ''}`}>
+                            <div className="sidebar-logo">
+                                <div className="logo-icon">⚡</div>
+                                {!collapsed && <div><div className="logo-text">HUB ONS</div><div className="logo-sub">INTEGRADO v1.0</div></div>}
+                            </div>
+                            <div className="nav-section">
+                                {!collapsed && <div className="nav-label">Módulos</div>}
+                                {navItems.map(item => (
+                                    <div key={item.id} className={`nav-item ${view === item.id ? 'active' : ''}`} onClick={() => setView(item.id)} title={collapsed ? item.label : ''}>
+                                        <span className="material-icons">{item.icon}</span>
+                                        {!collapsed && item.label}
+                                    </div>
+                                ))}
+                            </div>
+                            <div className="sidebar-bottom">
+                                <div className="nav-item" onClick={toggleTheme} title={data.darkMode ? 'Modo Claro' : 'Modo Escuro'}>
+                                    <span className="material-icons">{data.darkMode ? 'light_mode' : 'dark_mode'}</span>
+                                    {!collapsed && (data.darkMode ? 'Modo Claro' : 'Modo Escuro')}
+                                </div>
+                                <div className="nav-item" onClick={() => setCollapsed(!collapsed)} title={collapsed ? 'Expandir' : 'Recolher'}>
+                                    <span className="material-icons">{collapsed ? 'chevron_right' : 'chevron_left'}</span>
+                                    {!collapsed && 'Recolher'}
+                                </div>
+                            </div>
+                        </div>
+                        <div className="main-area">
+                            <div className="topbar">
+                                <div>
+                                    <div className="topbar-title">{titles[view]}</div>
+                                    <div className="topbar-sub">ONS · {new Date().toLocaleDateString('pt-BR')}</div>
+                                </div>
+                            </div>
+                            <div className="content-scroll">
+                                {view === 'gantt' && <GanttModule tasks={data.tasks} onUpdate={updateTasks} />}
+                                {view === 'tasks' && <TaskCardsModule tasks={data.tasks} notes={data.notes || ''} onNotesChange={updateNotes} onUpdateTasks={updateTasks} />}
+                                {view === 'checklist' && <ChecklistModule markdown={data.markdown} onSave={updateMarkdown} />}
+                                {view === 'reports' && <ReportsModule tasks={data.tasks} markdown={data.markdown} />}
+                                {view === 'config' && <ConfigModule onReset={reset} darkMode={data.darkMode} onToggleTheme={toggleTheme} />}
+                            </div>
+                        </div>
+                    </div>
+                </SnackbarProvider>
+            );
+        }
+
+        ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+    </script>
+</body>
+
+</html>

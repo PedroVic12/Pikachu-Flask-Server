@@ -21,7 +21,7 @@ import {
   Menu,
   X,
   Edit3,
-  Trash2,
+  Heart,
   Upload,
   Download,
   FolderSync as Sync,
@@ -59,6 +59,7 @@ import PlannerONSPage from "./views/pages/Planner_ONS_Page.jsx";
 import OlaMundo from "./views/HTML/OlaMundo.jsx";
 import ProjectsScreen from "./projects/page.jsx";
 import ApiDataScreen from "./api-data/APIDataScreen.jsx";
+import ProtocoloSaudeMentalPage from "./views/components/ProtocoloSaudeMental.jsx";
 
 // ========== HOOKS ==========
 const useProjects = () => {
@@ -139,6 +140,7 @@ const Sidebar = ({
     { id: "planner", label: "Planner ONS", icon: Table },
     { id: "projects", label: "Gestão de Projetos", icon: GitBranch },
     { id: "api-data", label: "CRM Floricultura", icon: Database },
+    { id: "protocolo-saude-mental", label: "Protocolo Saúde Mental", icon: Heart },
   ];
 
   const actionItems = [
@@ -344,6 +346,8 @@ export default function App() {
         return "Gerenciamento de Projetos";
       case "api-data":
         return "CRM Floricultura (Dados da API)";
+      case "protocolo-saude-mental":
+        return "Protocolo de Saúde Mental";
       default:
         return "Dashboard";
     }
@@ -813,6 +817,8 @@ export default function App() {
         return <ProjectsScreen />;
       case "api-data":
         return <ApiDataScreen />;
+      case "protocolo-saude-mental":
+        return <ProtocoloSaudeMentalPage />;
       default:
         return <DashboardScreen />;
     }
@@ -853,12 +859,12 @@ export default function App() {
           </div>
           
           <a
-            href="http://localhost:5173"
+            href="https://gohan-treinamentos-web-app-one.vercel.app/home"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 px-3 py-1.5 text-xs sm:text-sm font-semibold text-cyan-600 hover:text-cyan-700 dark:text-cyan-400 dark:hover:text-cyan-300 hover:bg-cyan-50 dark:hover:bg-cyan-950/20 border border-cyan-200 dark:border-cyan-800/50 rounded-lg transition-all"
           >
-            🏋️ Ir para Gohan Treinamentos
+            🏋️ Ir para Gohan Treinamentos Web App
           </a>
         </header>
 

@@ -57,7 +57,7 @@ const ProtocolCard = ({ title, items, variant = 'orange' }) => {
 /**
  * Componente Principal que organiza o Grid (Equivalente ao seu ScrumKanbanMetodologia)
  */
-const RecoveryProtocol = () => {
+const ProtocoloSaudeMentalPage = () => {
   const protocolData = [
     {
       title: "Digital",
@@ -121,4 +121,4 @@ const RecoveryProtocol = () => {
   );
 };
 
-export default RecoveryProtocol;
+export default ProtocoloSaudeMentalPage;

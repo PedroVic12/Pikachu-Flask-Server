@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard MUST TAURI - ONS PLC - Controle e Gestão</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- React & ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <!-- Babel -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- SheetJS (Excel) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+    <!-- Estilos Globais -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            overflow: hidden;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+            border: 2px solid #f1f5f9;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .sidebar-transition {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .cell-input {
+            width: 100%;
+            background: transparent;
+            border: 1px solid transparent;
+            padding: 4px 6px;
+            border-radius: 4px;
+            font-size: inherit;
+            color: #334155;
+            transition: all 0.2s;
+        }
+
+        .cell-input:focus {
+            background: #fff;
+            border-color: #3b82f6;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+        }
+
+        .cell-input:hover {
+            background: #f8fafc;
+            border-color: #e2e8f0;
+        }
+
+        .cell-textarea {
+            width: 100%;
+            min-height: 42px;
+            background: transparent;
+            border: 1px solid transparent;
+            padding: 4px 6px;
+            border-radius: 4px;
+            font-size: inherit;
+            color: #334155;
+            resize: vertical;
+            transition: all 0.2s;
+            line-height: 1.4;
+        }
+
+        .cell-textarea:focus {
+            background: #fff;
+            border-color: #3b82f6;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+            position: relative;
+            z-index: 10;
+            min-height: 80px;
+        }
+
+        .cell-textarea:hover {
+            background: #f8fafc;
+            border-color: #e2e8f0;
+        }
+
+        .resizable-th {
+            position: relative;
+        }
+
+        .resizer {
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 15px;
+            cursor: col-resize;
+            user-select: none;
+            touch-action: none;
+            background-color: transparent;
+            z-index: 20;
+            display: flex;
+            justify-content: center;
+        }
+
+        .resizer::after {
+            content: '';
+            width: 1px;
+            height: 100%;
+            background: #e2e8f0;
+        }
+
+        .resizer:hover::after,
+        .resizing::after {
+            background-color: #3b82f6;
+            width: 2px;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 50;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            animation: scaleIn 0.2s ease-out;
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0.95);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* Gráfico Donut/Pie customizado via CSS */
+        .chart-circle {
+            position: relative;
+            border-radius: 50%;
+        }
+
+        .chart-center {
+            position: absolute;
+            inset: 0;
+            margin: auto;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script src="controllers/repository.js"></script>
+
+
+    <script type="text/babel" src="views/DashboardView.js"></script>
+
+    <!-- Movendo toda a tag script num arquivo separado para depois usar modulos. -->
+    <script type="text/babel" src="views/HomePage.js"></script>
+
+</body>
+
+</html>

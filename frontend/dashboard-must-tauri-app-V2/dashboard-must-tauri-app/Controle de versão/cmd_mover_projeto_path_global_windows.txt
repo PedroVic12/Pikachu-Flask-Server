@@ -1,0 +1,3 @@
+Copy-Item -Path "C:\Users\pedrovictor.veras\OneDrive - Operador Nacional do Sistema Eletrico\Documentos\GitHub\dashboard-website-template\dashboard-must-tauri-app\*" `
+          -Destination "C:\Users\pedrovictor.veras\must_dashboard_rust" `
+          -Recurse -Force -Exclude "target"

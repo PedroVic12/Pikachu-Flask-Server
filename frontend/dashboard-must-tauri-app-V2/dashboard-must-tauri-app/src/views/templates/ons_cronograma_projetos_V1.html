@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ONS - Cronograma do Projeto</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .grid-timeline {
+            display: grid;
+            grid-template-columns: 160px repeat(10, 1fr);
+            min-width: 1000px;
+            /* Base para permitir scroll horizontal no mobile */
+        }
+
+        @media (min-width: 768px) {
+            .grid-timeline {
+                grid-template-columns: 200px repeat(10, 1fr);
+                min-width: 1200px;
+            }
+        }
+
+        .today-line {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #16a34a;
+            z-index: 20;
+            pointer-events: none;
+        }
+
+        .today-label {
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+            color: #16a34a;
+            font-weight: bold;
+            font-size: 10px;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 font-sans text-gray-800">
+
+    <!-- Header -->
+    <header
+        class="bg-white border-b p-3 md:p-4 flex flex-col md:flex-row justify-between items-center sticky top-0 z-50 gap-4">
+        <div class="flex flex-col md:flex-row items-center gap-3 md:gap-6 w-full md:w-auto">
+            <h1 class="text-lg md:text-xl font-bold text-gray-700">Cronograma do Projeto</h1>
+            <div class="flex gap-2 w-full md:w-auto justify-center">
+                <button id="btnExport"
+                    class="flex-1 md:flex-none text-[10px] md:text-xs bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-2 rounded border transition flex items-center justify-center gap-2">
+                    <i class="fas fa-file-export"></i> Exportar
+                </button>
+                <button id="btnImport"
+                    class="flex-1 md:flex-none text-[10px] md:text-xs bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-2 rounded border transition flex items-center justify-center gap-2">
+                    <i class="fas fa-file-import"></i> Importar
+                </button>
+                <input type="file" id="inputImport" class="hidden" accept=".csv">
+            </div>
+        </div>
+
+        <div class="flex items-center justify-between md:justify-end gap-4 w-full md:w-auto">
+            <button id="btnOpenModal"
+                class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition font-medium shadow-md text-sm md:text-base">
+                <i class="fas fa-plus"></i> <span class="hidden sm:inline">Novo Item</span><span
+                    class="sm:hidden">Novo</span>
+            </button>
+            <div class="text-right border-l pl-4 flex items-center gap-2">
+                <div>
+                    <span class="text-[10px] font-bold text-green-600 uppercase block">ONS</span>
+                    <p class="text-[9px] leading-tight hidden sm:block">Operador Nacional<br>do Sistema Elétrico</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="p-3 md:p-6 overflow-x-auto">
+        <div class="bg-white rounded-xl shadow-sm border overflow-hidden relative" id="timelineContainer">
+            <div class="grid-timeline bg-yellow-50 border-b" id="timelineHeader"></div>
+            <div class="relative" id="timelineBody"></div>
+        </div>
+        <p class="text-center text-gray-400 text-[10px] mt-8">Deslize lateralmente para ver todo o cronograma</p>
+    </main>
+
+    <!-- Modal de Cadastro/Edição -->
+    <div id="modalTask"
+        class="fixed inset-0 bg-black/60 hidden items-center justify-center z-[100] p-2 md:p-4 backdrop-blur-sm">
+        <div class="bg-white rounded-2xl w-full max-w-4xl max-h-[95vh] overflow-hidden shadow-2xl flex flex-col">
+            <div class="p-4 md:p-6 border-b flex justify-between items-center bg-gray-50">
+                <div class="flex items-center gap-3">
+                    <div id="colorIndicator" class="w-4 h-4 rounded-full shadow-sm"></div>
+                    <h2 class="text-lg md:text-xl font-bold" id="modalTitle">Detalhes do Item</h2>
+                </div>
+                <button id="btnCloseModal" class="text-gray-400 hover:text-gray-600 p-2"><i
+                        class="fas fa-times text-xl"></i></button>
+            </div>
+
+            <form id="taskForm" class="flex-1 overflow-y-auto p-4 md:p-8">
+                <input type="hidden" id="taskId">
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
+                    <!-- Esquerda -->
+                    <div class="space-y-4">
+                        <h3 class="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-2">Informações
+                            Básicas</h3>
+                        <div>
+                            <label class="block text-sm font-semibold mb-1 text-gray-700">Título</label>
+                            <input type="text" id="taskTitle" required
+                                class="w-full border-2 border-gray-100 rounded-xl px-4 py-2 focus:border-blue-500 outline-none transition">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold mb-1 text-gray-700">Categoria (Processo)</label>
+                            <select id="taskCategory"
+                                class="w-full border-2 border-gray-100 rounded-xl px-4 py-2 bg-white focus:border-blue-500 outline-none transition text-sm">
+                                <option value="Gestão">Gestão de Projeto</option>
+                                <option value="Planejamento">Planejamento</option>
+                                <option value="Entendimento">Entendimento da Situação</option>
+                                <option value="Desenho">Desenho Organizacional</option>
+                                <option value="Implantação">Implantação</option>
+                                <option value="Operação">Operação Assistida</option>
+                            </select>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-semibold mb-1 text-gray-700">Início (Mês)</label>
+                                <input type="number" id="startMonth" min="0" max="9.5" step="0.5"
+                                    class="w-full border-2 border-gray-100 rounded-xl px-4 py-2 outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold mb-1 text-gray-700">Duração</label>
+                                <input type="number" id="duration" min="0.5" max="10" step="0.5"
+                                    class="w-full border-2 border-gray-100 rounded-xl px-4 py-2 outline-none">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold mb-1 text-gray-700">Cor</label>
+                            <input type="color" id="taskColor"
+                                class="w-full h-10 border-2 border-gray-100 rounded-xl p-1 cursor-pointer">
+                        </div>
+                    </div>
+
+                    <!-- Direita -->
+                    <div class="flex flex-col h-full min-h-[250px]">
+                        <h3
+                            class="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-2 flex justify-between">
+                            Notas (Markdown)
+                            <i class="fab fa-markdown text-lg"></i>
+                        </h3>
+                        <textarea id="taskNotes"
+                            class="flex-1 w-full border-2 border-gray-100 rounded-xl px-4 py-3 focus:border-blue-500 outline-none transition font-mono text-xs md:text-sm bg-gray-50/50 resize-none"></textarea>
+                    </div>
+                </div>
+
+                <!-- Footer Modal -->
+                <div class="mt-8 pt-6 border-t flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <button type="button" id="btnDeleteTask"
+                        class="hidden text-red-500 hover:text-red-700 font-bold text-sm flex items-center gap-2 py-2">
+                        <i class="fas fa-trash-alt"></i> Excluir Item
+                    </button>
+                    <div class="flex gap-3 w-full sm:w-auto">
+                        <button type="button" id="btnCancel"
+                            class="flex-1 sm:flex-none bg-gray-100 text-gray-600 font-bold py-3 px-6 rounded-xl hover:bg-gray-200 transition">Sair</button>
+                        <button type="submit"
+                            class="flex-1 sm:flex-none bg-blue-600 text-white font-bold py-3 px-10 rounded-xl hover:bg-blue-700 shadow-lg shadow-blue-200 transition">Salvar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- REPOSITORY: Lógica de Persistência -->
+    <script>
+        class TaskRepository {
+            constructor(storageKey) {
+                this.storageKey = storageKey;
+            }
+
+            getAll() {
+                const data = localStorage.getItem(this.storageKey);
+                if (!data) return this._getDefaults();
+                try {
+                    return JSON.parse(data);
+                } catch (e) {
+                    return this._getDefaults();
+                }
+            }
+
+            save(tasks) {
+                localStorage.setItem(this.storageKey, JSON.stringify(tasks));
+            }
+
+            _getDefaults() {
+                return [
+                    { id: '1', title: 'Gestão Estratégica', category: 'Gestão', startMonth: 0, duration: 10, color: '#374151', notes: '# Gestão Central' },
+                    { id: '2', title: 'Planejamento Inicial', category: 'Planejamento', startMonth: 0, duration: 1.5, color: '#166534', notes: '' }
+                ];
+            }
+        }
+    </script>
+
+    <!-- MODEL: Task.js -->
+    <script>
+        class Task {
+            constructor(id, title, category, startMonth, duration, color, notes = '') {
+                this.id = id || Date.now().toString();
+                this.title = title;
+                this.category = category;
+                this.startMonth = parseFloat(startMonth);
+                this.duration = parseFloat(duration);
+                this.color = color;
+                this.notes = notes;
+            }
+        }
+    </script>
+
+    <!-- VIEW: TimelineView.js -->
+    <script>
+        class TimelineView {
+            constructor() {
+                this.header = document.getElementById('timelineHeader');
+                this.body = document.getElementById('timelineBody');
+                this.months = [
+                    { name: 'Out', yr: '25' }, { name: 'Nov', yr: '25' }, { name: 'Dez', yr: '25' },
+                    { name: 'Jan', yr: '26' }, { name: 'Fev', yr: '26' }, { name: 'Mar', yr: '26' },
+                    { name: 'Abr', yr: '26' }, { name: 'Mai', yr: '26' }, { name: 'Jun', yr: '26' },
+                    { name: 'Jul', yr: '26' }
+                ];
+                this.categories = {
+                    'Gestão': { label: 'Gestão de Projeto', color: 'bg-gray-700 text-white' },
+                    'Planejamento': { label: 'Planejamento', color: 'bg-green-800 text-white' },
+                    'Entendimento': { label: 'Entendimento Atual', color: 'bg-green-600 text-white' },
+                    'Desenho': { label: 'Desenho Modelo', color: 'bg-yellow-500 text-white' },
+                    'Implantação': { label: 'Transição', color: 'bg-slate-600 text-white' },
+                    'Operação': { label: 'Operação Assistida', color: 'bg-gray-400 text-white' }
+                };
+            }
+
+            renderHeader() {
+                let html = '<div class="p-4 border-r font-bold text-xs md:text-sm flex items-center justify-center bg-white sticky left-0 z-30 shadow-[4px_0_10px_-5px_rgba(0,0,0,0.1)]">Processos</div>';
+                this.months.forEach(m => {
+                    html += `
+                        <div class="p-2 border-r text-center">
+                            <span class="block font-bold text-[10px] md:text-xs uppercase">${m.name}</span>
+                            <span class="text-[9px] text-gray-400">${m.yr}</span>
+                        </div>
+                    `;
+                });
+                this.header.innerHTML = html;
+            }
+
+            renderTimeline(tasks, onTaskClick) {
+                this.body.innerHTML = '<div class="today-line" style="left: calc(200px + ( (100% - 200px) * 0.55 ));"><span class="today-label">Hoje</span></div>';
+                if (window.innerWidth < 768) {
+                    // Ajuste de linha de "hoje" para mobile se necessário
+                    this.body.querySelector('.today-line').style.left = 'calc(160px + ( (100% - 160px) * 0.55 ))';
+                }
+
+                Object.keys(this.categories).forEach(catKey => {
+                    const info = this.categories[catKey];
+                    const catTasks = tasks.filter(t => t.category === catKey);
+
+                    const row = document.createElement('div');
+                    row.className = 'grid-timeline border-b min-h-[80px] md:min-h-[100px] hover:bg-gray-50/50 transition';
+                    row.innerHTML = `
+                        <div class="${info.color} p-2 md:p-4 text-[9px] md:text-[11px] uppercase tracking-wider font-bold flex items-center border-r shadow-sm z-30 sticky left-0 leading-tight">
+                            ${info.label}
+                        </div>
+                        <div class="col-span-10 relative bg-white grid grid-cols-10 pointer-events-none">
+                            ${Array(10).fill('<div class="border-r border-gray-100/30 h-full"></div>').join('')}
+                            <div class="absolute inset-0 p-2 md:p-3 space-y-1 pointer-events-auto flex flex-col justify-center" id="container-${catKey}"></div>
+                        </div>
+                    `;
+
+                    const container = row.querySelector(`#container-${catKey}`);
+                    catTasks.forEach(task => {
+                        const bar = this._createTaskBar(task);
+                        bar.onclick = (e) => { e.stopPropagation(); onTaskClick(task); };
+                        container.appendChild(bar);
+                    });
+                    this.body.appendChild(row);
+                });
+            }
+
+            _createTaskBar(task) {
+                const el = document.createElement('div');
+                el.className = 'relative cursor-pointer transition-transform active:scale-95';
+                el.style.width = `${(task.duration / 10) * 100}%`;
+                el.style.marginLeft = `${(task.startMonth / 10) * 100}%`;
+
+                const hasNotes = task.notes && task.notes.trim() !== '';
+                el.innerHTML = `
+                    <div class="h-8 md:h-10 rounded-lg shadow-sm text-[9px] md:text-[10px] flex items-center px-2 md:px-4 text-white font-bold truncate transition-all hover:brightness-110 border-r-2 md:border-r-4 border-black/10"
+                         style="background-color: ${task.color}">
+                        <span class="truncate">${task.title}</span>
+                        ${hasNotes ? '<i class="fas fa-sticky-note ml-auto text-[8px] md:text-xs opacity-70"></i>' : ''}
+                    </div>
+                `;
+                return el;
+            }
+        }
+    </script>
+
+    <!-- CONTROLLER: TimelineController.js -->
+    <script>
+        class TimelineController {
+            constructor(view, repository) {
+                this.view = view;
+                this.repository = repository;
+                this.tasks = this.repository.getAll();
+                this.init();
+            }
+
+            init() {
+                this.view.renderHeader();
+                this.render();
+                this.setupEventListeners();
+                window.onresize = () => this.render();
+            }
+
+            render() {
+                this.view.renderTimeline(this.tasks, (t) => this.openEditModal(t));
+            }
+
+            openEditModal(task = null) {
+                const modal = document.getElementById('modalTask');
+                const form = document.getElementById('taskForm');
+                const deleteBtn = document.getElementById('btnDeleteTask');
+
+                if (task) {
+                    document.getElementById('modalTitle').innerText = 'Editar Item';
+                    document.getElementById('taskId').value = task.id;
+                    document.getElementById('taskTitle').value = task.title;
+                    document.getElementById('taskCategory').value = task.category;
+                    document.getElementById('startMonth').value = task.startMonth;
+                    document.getElementById('duration').value = task.duration;
+                    document.getElementById('taskColor').value = task.color;
+                    document.getElementById('taskNotes').value = task.notes || '';
+                    document.getElementById('colorIndicator').style.backgroundColor = task.color;
+                    deleteBtn.classList.remove('hidden');
+                } else {
+                    document.getElementById('modalTitle').innerText = 'Novo Item';
+                    form.reset();
+                    document.getElementById('taskId').value = '';
+                    document.getElementById('colorIndicator').style.backgroundColor = '#16a34a';
+                    deleteBtn.classList.add('hidden');
+                }
+                modal.classList.replace('hidden', 'flex');
+            }
+
+            setupEventListeners() {
+                const modal = document.getElementById('modalTask');
+                const form = document.getElementById('taskForm');
+
+                document.getElementById('btnOpenModal').onclick = () => this.openEditModal();
+                document.getElementById('btnCloseModal').onclick = () => modal.classList.replace('flex', 'hidden');
+                document.getElementById('btnCancel').onclick = () => modal.classList.replace('flex', 'hidden');
+
+                document.getElementById('taskColor').oninput = (e) => {
+                    document.getElementById('colorIndicator').style.backgroundColor = e.target.value;
+                };
+
+                document.getElementById('btnDeleteTask').onclick = () => {
+                    const id = document.getElementById('taskId').value;
+                    if (confirm("Excluir este item permanentemente?")) {
+                        this.tasks = this.tasks.filter(t => t.id !== id);
+                        this.saveAndRefresh();
+                        modal.classList.replace('flex', 'hidden');
+                    }
+                };
+
+                form.onsubmit = (e) => {
+                    e.preventDefault();
+                    const id = document.getElementById('taskId').value;
+                    const data = {
+                        title: document.getElementById('taskTitle').value,
+                        category: document.getElementById('taskCategory').value,
+                        start: document.getElementById('startMonth').value,
+                        duration: document.getElementById('duration').value,
+                        color: document.getElementById('taskColor').value,
+                        notes: document.getElementById('taskNotes').value
+                    };
+
+                    if (id) {
+                        const idx = this.tasks.findIndex(t => t.id === id);
+                        this.tasks[idx] = new Task(id, data.title, data.category, data.start, data.duration, data.color, data.notes);
+                    } else {
+                        this.tasks.push(new Task(null, data.title, data.category, data.start, data.duration, data.color, data.notes));
+                    }
+
+                    this.saveAndRefresh();
+                    modal.classList.replace('flex', 'hidden');
+                };
+
+                document.getElementById('btnExport').onclick = () => this.exportToCSV();
+                document.getElementById('btnImport').onclick = () => document.getElementById('inputImport').click();
+                document.getElementById('inputImport').onchange = (e) => this.importFromCSV(e);
+            }
+
+            saveAndRefresh() {
+                this.repository.save(this.tasks);
+                this.render();
+            }
+
+            exportToCSV() {
+                const sanitize = (t) => `"${(t || '').replace(/"/g, '""')}"`;
+                const headers = ['id', 'title', 'category', 'startMonth', 'duration', 'color', 'notes'];
+                const rows = this.tasks.map(t => [t.id, sanitize(t.title), sanitize(t.category), t.startMonth, t.duration, t.color, sanitize(t.notes)].join(';'));
+                const content = "\ufeff" + [headers.join(';'), ...rows].join('\n');
+                const blob = new Blob([content], { type: 'text/csv;charset=utf-8;' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = `backup_ons_${new Date().toISOString().slice(0, 10)}.csv`;
+                link.click();
+            }
+
+            importFromCSV(event) {
+                const file = event.target.files[0];
+                if (!file) return;
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    try {
+                        const lines = this._parseCSV(e.target.result);
+                        const newTasks = lines.slice(1).map(r => new Task(r[0], r[1], r[2], r[3], r[4], r[5], r[6]));
+                        if (confirm(`Importar ${newTasks.length} itens?`)) {
+                            this.tasks = newTasks;
+                            this.saveAndRefresh();
+                        }
+                    } catch (err) { alert("Erro no arquivo."); }
+                };
+                reader.readAsText(file);
+            }
+
+            _parseCSV(text) {
+                const rows = []; let row = []; let col = ""; let inQuote = false;
+                for (let i = 0; i < text.length; i++) {
+                    const c = text[i];
+                    if (c === '"' && inQuote && text[i + 1] === '"') { col += '"'; i++; }
+                    else if (c === '"') { inQuote = !inQuote; }
+                    else if (c === ';' && !inQuote) { row.push(col); col = ""; }
+                    else if (c === '\n' && !inQuote) { row.push(col); rows.push(row); row = []; col = ""; }
+                    else { col += c; }
+                }
+                if (col || row.length) { row.push(col); rows.push(row); }
+                return rows;
+            }
+        }
+    </script>
+
+    <!-- BOOTSTRAP -->
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const repo = new TaskRepository('ons_timeline_v2_data');
+            const view = new TimelineView();
+            new TimelineController(view, repo);
+        });
+    </script>
+</body>
+
+</html>
