@@ -135,9 +135,26 @@ const componentStyles = `@import url('https://fonts.googleapis.com/css2?family=I
                 if (saved) {
                     try {
                         const parsed = JSON.parse(saved);
-                        if (parsed.detailedActivities) parsed.detailedActivities.forEach(a => a.dueDate = Utils.parseDate(a.dueDate));
-                        if (parsed.simpleTasks) parsed.simpleTasks.forEach(a => a.date = a.date ? a.date : '');
-                        return parsed;
+                        const initialState = this.getInitialState();
+                        const detailedActivities = Array.isArray(parsed.detailedActivities)
+                            ? parsed.detailedActivities.map(activity => ({
+                                ...activity,
+                                dueDate: Utils.parseDate(activity.dueDate)
+                            }))
+                            : initialState.detailedActivities;
+
+                        return {
+                            ...initialState,
+                            ...parsed,
+                            simpleTasks: Array.isArray(parsed.simpleTasks)
+                                ? parsed.simpleTasks
+                                : initialState.simpleTasks,
+                            detailedActivities,
+                            lastPLCImport: parsed.lastPLCImport || null,
+                            planner: { ...initialState.planner, ...parsed.planner },
+                            eisenhower: { ...initialState.eisenhower, ...parsed.eisenhower },
+                            prosCons: { ...initialState.prosCons, ...parsed.prosCons }
+                        };
                     } catch (e) { console.error("Repo Load Error", e); }
                 }
                 return this.getInitialState();
@@ -154,6 +171,7 @@ const componentStyles = `@import url('https://fonts.googleapis.com/css2?family=I
                         {id: 2, title: 'Desenvolvimento', category: 'TI', assignee: 'Carlos', done: false, date: '2026-01-25', obs: ''}
                     ],
                     detailedActivities: [],
+                    lastPLCImport: null,
                     planner: {backlog:[], mon:[], tue:[], wed:[], thu:[], fri:[], sat:[], sun:[]},
                     eisenhower: {urgentImportant:[], notUrgentImportant:[], urgentNotImportant:[], notUrgentNotImportant:[]},
                     prosCons: {pros:[], cons:[]}
@@ -161,24 +179,42 @@ const componentStyles = `@import url('https://fonts.googleapis.com/css2?family=I
             }
 
             // --- Lógica Excel para PLC ---
-            importPLC(file, callback) {
-                const reader = new FileReader();
-                reader.onload = (evt) => {
-                    const wb = XLSX.read(evt.target.result, {type:'binary'});
-                    const ws = wb.Sheets[wb.SheetNames[0]];
-                    const json = XLSX.utils.sheet_to_json(ws);
-                    const mapped = json.map((r, i) => ({
-                        id: Date.now()+i,
-                        title: r['Tarefa']||r['Atividade']||r['Title']||'Sem Título',
-                        category: r['Categoria']||'Geral',
-                        assignee: r['Responsável']||r['Responsavel']||'',
-                        done: (r['Status']||'').toLowerCase() === 'concluído' || (r['Concluído']||'').toLowerCase() === 'sim',
-                        date: r['Data']||r['Inicio']||'',
-                        obs: r['Obs']||r['Observação']||''
-                    }));
-                    callback(mapped);
+            async importPLC(file) {
+                const workbook = XLSX.read(await file.arrayBuffer(), { type: 'array', cellDates: true });
+                const firstSheetName = workbook.SheetNames[0];
+                const worksheet = firstSheetName && workbook.Sheets[firstSheetName];
+
+                if (!worksheet) {
+                    throw new Error('A planilha não contém uma aba com dados para importar.');
+                }
+
+                const rows = XLSX.utils.sheet_to_json(worksheet, { defval: '' });
+                const normalizeText = (value) => String(value ?? '').trim();
+                const normalizeStatus = (value) => normalizeText(value)
+                    .normalize('NFD')
+                    .replace(/[\u0300-\u036f]/g, '')
+                    .toLowerCase();
+                const normalizeDate = (value) => {
+                    if (!value) return '';
+                    const date = value instanceof Date ? value : Utils.parseDate(value);
+                    return date ? Utils.dateToLocalISO(date) : normalizeText(value);
                 };
-                reader.readAsBinaryString(file);
+
+                return rows.map((row, index) => {
+                    const status = normalizeStatus(row['Status'] || row['Concluído']);
+                    const title = row['Tarefa'] || row['Atividade'] || row['Title'];
+                    const date = row['Data'] || row['Inicio'];
+
+                    return {
+                        id: `${Date.now()}-${index}`,
+                        title: normalizeText(title) || 'Sem Título',
+                        category: normalizeText(row['Categoria']) || 'Geral',
+                        assignee: normalizeText(row['Responsável'] || row['Responsavel']),
+                        done: status === 'concluido' || status === 'sim',
+                        date: normalizeDate(date),
+                        obs: normalizeText(row['Obs'] || row['Observação'])
+                    };
+                });
             }
 
             exportPLC(tasks) {
@@ -220,7 +256,7 @@ const componentStyles = `@import url('https://fonts.googleapis.com/css2?family=I
             static processData(data, xKey, yKey, type) {
                 if (type === 'pie_status') {
                     const total = data.length;
-                    const done = data.filter(i => (i[xKey]||'').toLowerCase().includes('conclu') || i.done === true).length;
+                    const done = data.filter(i => String(i[xKey] || '').toLowerCase().includes('conclu') || i.done === true).length;
                     const pending = total - done;
                     const percent = total > 0 ? Math.round((done/total)*100) : 0;
                     
@@ -237,7 +273,10 @@ const componentStyles = `@import url('https://fonts.googleapis.com/css2?family=I
                 
                 if (type === 'pie_boolean') { // Ex: Com ressalva vs Sem
                     const total = data.length;
-                    const hasVal = data.filter(i => i[xKey] && i[xKey].trim().length > 0).length; // xKey = 'obs'
+                    const hasVal = data.filter(i => {
+                        const value = i[xKey];
+                        return typeof value === 'string' ? value.trim().length > 0 : Boolean(value);
+                    }).length;
                     const noVal = total - hasVal;
                     const percent = total > 0 ? Math.round((hasVal/total)*100) : 0;
                     
@@ -256,7 +295,7 @@ const componentStyles = `@import url('https://fonts.googleapis.com/css2?family=I
                     // Agrupamento normalizado
                     const map = {};
                     data.forEach(item => {
-                        const rawName = item[xKey]; // Ex: responsavel
+                        const rawName = String(item[xKey] || '').trim(); // Ex: responsavel
                         if (!rawName) return;
                         const key = rawName.trim().toLowerCase();
                         let displayName = rawName.trim();
@@ -266,7 +305,7 @@ const componentStyles = `@import url('https://fonts.googleapis.com/css2?family=I
                         if (!map[key]) map[key] = { name: displayName, done: 0, total: 0 };
                         
                         // Check status (yKey can be boolean or string status)
-                        const isDone = item.done === true || (item[yKey]||'').toLowerCase().includes('conclu');
+                        const isDone = item.done === true || String(item[yKey] || '').toLowerCase().includes('conclu');
                         if(isDone) map[key].done++;
                         map[key].total++;
                     });
@@ -396,16 +435,16 @@ const componentStyles = `@import url('https://fonts.googleapis.com/css2?family=I
         // --- VIEWS ---
 
         // DASHBOARD VIEW (Modularizado)
-        const DashboardView = ({ detailedActivities }) => {
-            const total = detailedActivities.length;
-            const done = detailedActivities.filter(t => (t.status||'').toLowerCase().includes('conclu')).length;
+        const DashboardView = ({ activities }) => {
+            const total = activities.length;
+            const done = activities.filter(t => t.done || (t.status||'').toLowerCase().includes('conclu')).length;
             const pending = total - done;
             const efficiency = total > 0 ? Math.round((done/total)*100) : 0;
-            const uniqueResp = new Set(detailedActivities.map(a => a.responsavel).filter(Boolean)).size;
+            const uniqueResp = new Set(activities.map(a => a.responsavel || a.assignee).filter(Boolean)).size;
 
             return (
                 <div className="space-y-6 fade-in pb-10">
-                    <h2 className="text-xl font-bold text-slate-800">Dashboard: Atividades SP MUST</h2>
+                    <h2 className="text-xl font-bold text-slate-800">Dashboard: Atividades SP MUST e Tarefas PLC</h2>
                     {/* KPI Cards */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                         <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between"><div><p className="text-xs font-bold text-slate-400 uppercase tracking-wide">Total</p><p className="text-2xl font-bold text-slate-800 mt-1">{total}</p></div><div className="bg-blue-50 p-2 rounded-lg text-blue-600"><Icons.Layout/></div></div>
@@ -415,16 +454,16 @@ const componentStyles = `@import url('https://fonts.googleapis.com/css2?family=I
                     </div>
                     {/* Gráficos gerados pela Factory */}
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                        <GenericChart data={detailedActivities} xKey="status" yKey="status" type="pie_status" title="Status Geral" />
-                        <GenericChart data={detailedActivities} xKey="obs" yKey="" type="pie_boolean" title="Atividades c/ Ressalva" />
-                        <GenericChart data={detailedActivities} xKey="responsavel" yKey="status" type="stacked_bar_volume" title="Atividades por Responsável" />
+                        <GenericChart data={activities} xKey="status" yKey="status" type="pie_status" title="Status Geral" />
+                        <GenericChart data={activities} xKey="obs" yKey="" type="pie_boolean" title="Atividades c/ Ressalva" />
+                        <GenericChart data={activities} xKey="responsavel" yKey="status" type="stacked_bar_volume" title="Atividades por Responsável" />
                     </div>
                 </div>
             );
         };
 
         // PLC TABLE VIEW (Com Excel Próprio via Repository)
-        const PLCTableView = ({ tasks, onUpdate, onDelete, onAdd, repo, onRefresh }) => {
+        const PLCTableView = ({ tasks, lastImport, onUpdate, onDelete, onAdd, repo, onRefresh }) => {
             const [filterCategory, setFilterCategory] = useState('Todas');
             const [filterStatus, setFilterStatus] = useState('Todos');
             const [filterText, setFilterText] = useState('');
@@ -440,11 +479,23 @@ const componentStyles = `@import url('https://fonts.googleapis.com/css2?family=I
                 return matchCat && matchStatus && matchText;
             }), [tasks, filterCategory, filterStatus, filterText]);
 
-            const handleImport = (e) => {
-                if(e.target.files[0]) repo.importPLC(e.target.files[0], (newTasks) => {
-                    onRefresh(newTasks); // Callback para atualizar estado pai
-                    alert('Tarefas PLC Importadas com Sucesso!');
-                });
+            const handleImport = async (e) => {
+                const file = e.target.files?.[0];
+                if (!file) return;
+
+                try {
+                    const newTasks = await repo.importPLC(file);
+                    onRefresh(newTasks, {
+                        fileName: file.name,
+                        importedAt: new Date().toISOString()
+                    });
+                    alert(`Tarefas PLC importadas com sucesso: ${newTasks.length} registros.`);
+                } catch (error) {
+                    console.error('Erro ao importar planilha PLC:', error);
+                    alert(`Não foi possível importar a planilha PLC: ${error instanceof Error ? error.message : String(error)}`);
+                } finally {
+                    e.target.value = '';
+                }
             };
 
             return (
@@ -457,6 +508,12 @@ const componentStyles = `@import url('https://fonts.googleapis.com/css2?family=I
                                 <input type="file" ref={fileRef} hidden accept=".xlsx, .xls" onChange={handleImport} />
                                 <button onClick={()=>repo.exportPLC(tasks)} className="flex items-center gap-2 px-3 py-1.5 bg-blue-50 text-blue-700 border border-blue-200 rounded hover:bg-blue-100 text-xs font-medium transition"><Icons.Download className="w-3 h-3"/> Exportar Excel</button>
                             </div>
+                            {lastImport && (
+                                <p className="text-xs text-slate-500">
+                                    Último Excel carregado: <span className="font-medium text-slate-700">{lastImport.fileName}</span>
+                                    {' · '}{new Date(lastImport.importedAt).toLocaleString('pt-BR')}
+                                </p>
+                            )}
                         </div>
                         <div className="flex flex-col md:flex-row items-end gap-3 pt-2 border-t border-slate-100 mt-2">
                             <div className="flex flex-col w-full md:w-auto"><label className="text-[10px] font-bold text-slate-400 uppercase">Busca</label><div className="relative"><input type="text" className="w-full md:w-64 text-sm border rounded pl-8 pr-2 py-1" value={filterText} onChange={(e) => setFilterText(e.target.value)} /><div className="absolute left-2.5 top-1.5 text-slate-400"><Icons.Search className="w-3.5 h-3.5" /></div></div></div>
@@ -740,6 +797,14 @@ const componentStyles = `@import url('https://fonts.googleapis.com/css2?family=I
             const repo = useMemo(() => new DataRepository(), []);
             const [data, setData] = useState(() => repo.getInitialState());
             const [isLoaded, setIsLoaded] = useState(false);
+            const dashboardActivities = useMemo(() => [
+                ...data.detailedActivities,
+                ...data.simpleTasks.map(task => ({
+                    ...task,
+                    responsavel: task.assignee,
+                    status: task.done ? 'Concluído' : 'Pendente'
+                }))
+            ], [data.detailedActivities, data.simpleTasks]);
 
             // Salvar no localStorage sempre que 'data' mudar
             useEffect(() => {
@@ -847,8 +912,8 @@ const componentStyles = `@import url('https://fonts.googleapis.com/css2?family=I
                             <div className="text-xs text-slate-500 font-medium bg-slate-100 px-3 py-1.5 rounded-full border border-slate-200 hidden sm:block">{Utils.getTodayString()}</div>
                         </header>
                         <div className="flex-grow p-3 md:p-6 overflow-auto bg-slate-50/50 relative">
-                            {currentView==='dashboard' && <DashboardView detailedActivities={data.detailedActivities} />}
-                            {currentView==='plc' && <PLCTableView tasks={data.simpleTasks} onUpdate={handleUpdatePLC} onDelete={handleDeletePLC} onAdd={handleAddPLC} repo={repo} onRefresh={(newTasks)=>setData(p=>({...p, simpleTasks: newTasks}))} />}
+                            {currentView==='dashboard' && <DashboardView activities={dashboardActivities} />}
+                            {currentView==='plc' && <PLCTableView tasks={data.simpleTasks} lastImport={data.lastPLCImport} onUpdate={handleUpdatePLC} onDelete={handleDeletePLC} onAdd={handleAddPLC} repo={repo} onRefresh={(newTasks, lastPLCImport)=>setData(p=>({...p, simpleTasks: newTasks, lastPLCImport}))} />}
                             {currentView==='detailed' && <DetailedReportView activities={data.detailedActivities} onImport={(e) => {
                                 if(e.target.files[0]) repo.importMust(e.target.files[0], (allRows) => setData(p => ({...p, detailedActivities: allRows})));
                             }} />}

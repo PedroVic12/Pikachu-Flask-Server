@@ -138,13 +138,16 @@ void loop() {
 }
 ```
 
-### OBS: Programação em C++
+### OBS 1: Programação em C++
+
+
+### OBS 2: Programação Orientada a objetos
 
 
 ---
 
 
-## - \[x] 2 Comunicação Serial
+## - [x] 2 Comunicação Serial
 
 ```cpp
 void setup() {
@@ -159,14 +162,13 @@ void loop() {
 
 ### OBS: Comunicação Python e Julia e Python e Arduino
 
-## - \[x] 3 Sensor Ultrassônico
+## - [x] 3 Sensor Ultrassônico
 
 Façam um código que envie pelo terminal serial a distância lida pelo sensor ultrassônico a cada 1s. Mostrem para um professor que conseguiram cumprir a missão e expliquem o funcionamento do código.
 
 ### Forma procedural
 
 ```cpp
-// Variáveis
 #define trig 2
 #define echo 3
 
@@ -202,9 +204,9 @@ void loop() {
 }
 ```
 
-### Programação Orientada a objetos
+---
 
-## - \[x] 4 Driver e Motores
+## - [x] 4 Driver e Motores
 
 ![](images/paste-2.png)
 
@@ -356,20 +358,16 @@ void loop() {
 }
 ```
 
-------------------------------------------------------------------------
+---
 
-### OBS: Linguagem Lua x Bash Shell Scripiting
-
-------------------------------------------------------------------------
-
-## - \[x] DESAFIO 1 (Modo Radar)
+## - [x] DESAFIO 1 (Modo Radar)
 
 ![](images/paste-3.png)
 
 
 ------------------------------------------------------------------------
 
-## - \[x] 6 Sensor de Refletância
+## - [x] 6 Sensor de Refletância
 
 #### Código que interprete o sinal de saída do sensor de refletância, indicando quanto o robô está na parte preta da arena e quando o mesmo se encontra em cima da borda branca. Envie o resultado da conversão AD (número de 0 à 1023) e o resultado da análise (PRETO ou BRANCO) pela porta serial, atualizando a informação a cada 1s. Exemplo fictício do texto a ser enviado pelo terminal serial: "512 / PRETO". 
 
@@ -616,7 +614,7 @@ void loop() {
 
 ------------------------------------------------------------------------
 
-## - \[x] 8 Controle Remoto
+## - [x] 8 Controle Remoto
 
 O código exemplo pode ser testado no Tinkercad (ver imagem em anexo). No entanto, as linhas 6, 7 e 8 precisam ser modificadas, visto que o modelo de controle utilizado no Tinkercad é diferente do que usamos em sala. Recomendamos que tentem adiantar esta tarefa em casa, pois ela é a mais difícil até o momento.
 
