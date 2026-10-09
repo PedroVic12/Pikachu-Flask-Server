@@ -142,6 +142,7 @@ const Sidebar = ({
     { id: "projects", label: "Gestão de Projetos", icon: GitBranch },
     { id: "api-data", label: "CRM Floricultura", icon: Database },
     { id: "protocolo-saude-mental", label: "Protocolo Saúde Mental", icon: Heart },
+    { id: "dashboard-MUST-SP", label: "Dashboard MUST-SP", icon: BarChart3 },
   ];
 
   const actionItems = [

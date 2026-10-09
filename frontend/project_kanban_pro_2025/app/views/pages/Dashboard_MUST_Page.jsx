@@ -762,6 +762,17 @@ const componentStyles = `@import url('https://fonts.googleapis.com/css2?family=I
                 return () => window.removeEventListener('resize', syncViewport);
             }, []);
 
+            useEffect(() => {
+                if (!isMobile || !sidebarOpen) return;
+
+                const closeOnEscape = (event) => {
+                    if (event.key === 'Escape') setSidebarOpen(false);
+                };
+
+                window.addEventListener('keydown', closeOnEscape);
+                return () => window.removeEventListener('keydown', closeOnEscape);
+            }, [isMobile, sidebarOpen]);
+
             const handleUpdatePLC = (id, field, val) => setData(prev => ({...prev, simpleTasks: prev.simpleTasks.map(t => t.id === id ? {...t, [field]: val} : t)}));
             const handleAddPLC = () => setData(prev => ({...prev, simpleTasks: [...prev.simpleTasks, {id: Date.now(), title: '', category: 'Geral', assignee: '', done: false, date: '', obs: ''}]}));
             const handleDeletePLC = (id) => setData(prev => ({...prev, simpleTasks: prev.simpleTasks.filter(t => t.id !== id)}));
@@ -772,13 +783,25 @@ const componentStyles = `@import url('https://fonts.googleapis.com/css2?family=I
             const setPcData = (fn) => setData(prev => ({...prev, prosCons: typeof fn === 'function' ? fn(prev.prosCons) : fn}));
 
             return (
-                <div className="dashboard-must-page flex h-screen bg-slate-50 overflow-hidden relative">
+                <div className="dashboard-must-page relative flex h-[calc(100dvh-4.5rem)] min-h-[32rem] overflow-hidden bg-slate-50">
                     <style>{componentStyles}</style>
                     {/* MOBILE OVERLAY */}
-                    {sidebarOpen && isMobile && <div className="fixed inset-0 bg-black/50 z-20" onClick={()=>setSidebarOpen(false)}></div>}
+                    {sidebarOpen && isMobile && (
+                        <button
+                            type="button"
+                            aria-label="Fechar menu"
+                            className="fixed inset-0 z-20 cursor-default bg-black/50 md:hidden"
+                            onClick={() => setSidebarOpen(false)}
+                        />
+                    )}
                     
                     {/* SIDEBAR */}
-                    <aside className={`fixed md:relative z-30 h-full bg-slate-900 text-white flex flex-col shadow-xl sidebar-transition ${sidebarOpen ? 'w-64 translate-x-0' : '-translate-x-full md:translate-x-0 md:w-20'}`}>
+                    <aside
+                        id="dashboard-must-navigation"
+                        aria-label="Menu do Dashboard MUST-SP"
+                        aria-hidden={isMobile && !sidebarOpen}
+                        className={`fixed inset-y-0 left-0 z-30 flex h-dvh w-64 max-w-[85vw] flex-col bg-slate-900 text-white shadow-xl sidebar-transition md:sticky md:top-0 md:h-full md:max-w-none md:translate-x-0 ${sidebarOpen ? 'translate-x-0 md:w-64' : '-translate-x-full md:w-20'}`}
+                    >
                         <div className="h-16 flex items-center justify-between px-6 border-b border-slate-800 bg-slate-900 shrink-0">
                             <div className="flex items-center gap-3"><div className="bg-blue-600 p-1.5 rounded"><Icons.Layout className="text-white"/></div>{sidebarOpen && <span className="font-bold text-lg">ProjectHub</span>}</div>
                             {sidebarOpen && isMobile && <button onClick={()=>setSidebarOpen(false)}><Icons.Close className="w-5 h-5 text-slate-400"/></button>}
@@ -790,16 +813,33 @@ const componentStyles = `@import url('https://fonts.googleapis.com/css2?family=I
                                 </button>
                             ))}
                         </nav>
-                        <div className="p-4 border-t border-slate-800 flex justify-center bg-slate-900 hidden md:flex">
-                            <button onClick={()=>setSidebarOpen(!sidebarOpen)} className="p-2 rounded-lg bg-slate-800 text-slate-400 hover:text-white transition shadow-sm border border-slate-700"><Icons.Menu/></button>
+                        <div className="hidden border-t border-slate-800 bg-slate-900 p-4 md:flex md:justify-center">
+                            <button
+                                type="button"
+                                onClick={() => setSidebarOpen(!sidebarOpen)}
+                                className="rounded-lg border border-slate-700 bg-slate-800 p-2 text-slate-400 shadow-sm transition hover:text-white"
+                                aria-label={sidebarOpen ? 'Recolher menu' : 'Expandir menu'}
+                                aria-expanded={sidebarOpen}
+                            >
+                                <Icons.Menu />
+                            </button>
                         </div>
                     </aside>
 
                     {/* MAIN CONTENT */}
-                    <main className="flex-grow flex flex-col h-full overflow-hidden relative w-full">
+                    <main className="relative flex h-full min-w-0 w-full flex-grow flex-col overflow-hidden">
                         <header className="h-16 bg-white border-b flex items-center justify-between px-4 md:px-8 shadow-sm shrink-0 z-10">
                             <div className="flex items-center gap-3">
-                                <button onClick={()=>setSidebarOpen(true)} className="md:hidden p-2 -ml-2 text-slate-600"><Icons.Menu className="w-6 h-6"/></button>
+                                <button
+                                    type="button"
+                                    onClick={() => setSidebarOpen(true)}
+                                    className="md:hidden -ml-2 rounded-md p-2 text-slate-600 hover:bg-slate-100"
+                                    aria-label="Abrir menu"
+                                    aria-controls="dashboard-must-navigation"
+                                    aria-expanded={sidebarOpen}
+                                >
+                                    <Icons.Menu className="w-6 h-6" />
+                                </button>
                                 <h1 className="text-lg md:text-xl font-bold text-slate-800 truncate">
                                     {currentView==='dashboard'?'Visão Geral':currentView==='plc'?'Tarefas PLC':currentView==='detailed'?'Relatório Must':currentView==='planner'?'Planner':currentView==='eisenhower'?'Matriz Eisenhower':'Prós e Contras'}
                                 </h1>
