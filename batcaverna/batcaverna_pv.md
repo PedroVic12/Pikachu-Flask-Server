@@ -137,57 +137,6 @@
 
 # 05) Batcaverna 2026
 
----
-
-💡 Dicas práticas
-
-  > Execute em ciclos curtos: rodar script → validar → corrigir → repetir
-
----
-
-# KANBAN + SCRUM + Organização + Planejamento + metodologia ágil
-
-Aguardando envio
-
-Pendências | importante
-
-Concluído
-
-- Entregas ageis
-- Kanban para divisão de tarefas BACKLOG, IN PROGRESS, TESTING e CONCLUIDO
-
-### Gerenciamento de Tempo e Prioridades
-
-- Pomodoros: 50/10
-- Divisão de tarefas em atividades gerenciais
-- Matriz Eiseingher: Urgente e Não urgente
-- Eat the frog first
-- Prioridade de 3 tarefas principais do dia
-
-### Planejamento e Metas
-
-- Planner otimizado com rotinas automatizadas toda segunda e sexta
-- Tarefas com entrega com datas claras e acompanhmento do processo em tempo real
-
----
-
-### 🧠 Diário de Bordo
-
-- Postagens em blog com Jupyter Notebooks e relatórios em Quarto
-
-- Bloqueios?
-  - Falta de rotina x Organização e Planejamento
-
-  - Abstinencia de maconha de 4 dias. Fumei domingo e segunda para aliviar, mas me deu sono e apenas tesão
-
-- Questões emocionais?
-
-  - Falta de foco e clareza no que seguir nos estudos: Ciência de Dados e Eng. Elétrica
-
-  - Falta de segurança em mim mesmo
-
----
-
 # 06) Atividades UFF
 
 ---
