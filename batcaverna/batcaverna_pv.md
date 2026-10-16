@@ -14,7 +14,7 @@
 
 ---
 
-# ⚡📑 01) ÍNDICE
+# 01) SUMÁRIO
 
 # 02) **JOBS**
 
@@ -320,13 +320,40 @@ Concluído
   - Algebra e calculo relacional
   - Segurança e Otimização
 
+- [ ] Eng. de Software: Uma abordagem profissional - Roger S. Pressman
+
 - [ ] Otimizações em Julia
+  - basico
+  - funções
+  - fisica 1 - mecanica
+  - fisica 2 - eletromagnetismo
+  - fisica 2 e 3 - Optica e Ondas
 
 - [ ] SEP - Stevenson
 
 - [ ] Ogata - Sistema de Controle moderno
 
-- [ ]  Elementos de eletronica digital - Capuano e Edoeta - 42eds
+- [ ]  Elementos de eletronica digital - Capuano e Edoeta - 42ed
+
+- [ ] Código limpo
+  - Como escrever bons códigos
+  - Como dar nomes a funções e objetos
+  - Tratamento de erros
+  - Legibilidade
+  - Testes TDD
+  - Desenvolvimento voltado a testes
+  
+- [x] Storytelling com dados
+
+- [ ] Statistcs: A very short introduction
+
+- [ ] Learn analytics - Use Data to build a better startup faster - Eric Ries
+
+- [ ] Data Strategy - Bernard Marr - How to profit from a world of big data. analytics and the IoT
+
+- [x] Eletronica para makers
+
+- [x] Eletronica para inventores -
 
 ---
 
@@ -347,33 +374,6 @@ s
 - Termodinamica
 
 ---
-
-# Rotinas de Dono de Casa (Homem TDAH Adulto)
-
-- [x] Disciplina e Responsabilidade
-
-- [x] Tomar banho gelado
-- [x] Vestir roupas limpas
-- [x] Lavar o Rosto e fazer Skin Care
-- [x] Exercicio Físicos
-- [x] Alongamento de Quadril, Ombra, Colunas e Core
-- [x] Limpeza arpatamento
-- [ ] Alinhamento Espiritual matinal
-- [ ] Banho Gelado - Detox de Dopamina (Banheira de gelo)
-
----
-
-# Jogos
-
-- [x] FIFA 19 - Modo Carreira 19 e 26
-- [x] COD Black OPS 1 - Guerra Fria
-- [x] COD Black OPS 2 - 2025 Guerra moderna
-- [x] SMITE 2 ou League of Legends Classic ou Dota 2
-- [x] The witcher 3
-- [x] Pokemon Radical RED
-- [x] FIFA 14:
-  - <https://www.reddit.com/r/FifaCareers/comments/1rjnorf/how_to_download_fifa_14_on_pc_for_free/?tl=pt-br>
-  - <https://drive.google.com/file/d/1c8R35D2lMrK827zOIjWrMJ1jP2j0ipgZ/view>
 
 # 07) Corpo x Mente X Espírito = Equilíbrio
 
@@ -410,68 +410,32 @@ s
 
 # 08) PVRV 2026 Notes
 
----
+# Rotinas de Dono de Casa (Homem TDAH Adulto)
 
-# 09) SCRUM Planejamento e organização PVRV
+- [x] Disciplina e Responsabilidade
 
-- [ ] Planejamento financeiro (Financial APP)
-  - [x] Dezembro
-  - [x] Janeiro
-  - [ ] Fevereiro
-  - [ ] Março
-  - [ ] Abril
-  - [ ] Maio
-  - [ ] Junho
-  - [ ] Julho
-  - [ ] Agosto
-  - [ ] Setembro
-  - [ ] Outubro
-  - [ ] Novembro
-  - [ ] Dezembro
-
-- [x] Plotagem dos valores de geração em KWH de 2023 até 2026
-
-- [ ] Projeção do grafico com derivdas
-- [ ] taxa de rendimento do salario ONS com 5% e 10% ao mes
-
-- [ ] Planilhas Horarios + Planilha de controle financeiro + Planilhas de treinos
-
-- [x] planilha de contas a pagar do aluguel em Niterói
-
-- [ ] Planilha de gasto com transporte publico CG x Niteroi
-
-- [ ] passar a limpo screenshots e anotações do caderno para os blogs
-
-- [ ] requisitos, responsabilidades e atividades na PLC ONS como guia no Word ou Obsidian
-
-- [ ] Conta de luz com plots em Julia e Python e otimização com derivada de conta de luz
-
-- [ ] 3 orçamentos gratis com empresas de energia solar para casa em CG
-
-- [ ] Planejamento Financeiro, trabalho PJ e MEI
+- [x] Tomar banho gelado
+- [x] Vestir roupas limpas
+- [x] Lavar o Rosto e fazer Skin Care
+- [x] Exercicio Físicos
+- [x] Alongamento de Quadril, Ombra, Colunas e Core
+- [x] Limpeza arpatamento
+- [ ] Alinhamento Espiritual matinal
+- [ ] Banho Gelado - Detox de Dopamina (Banheira de gelo)
 
 ---
 
-# Concluidos 2026
+# Jogos
 
-- [x] HTML templates para Gohan Treinamentos Refatorado com SOLID, MVC e framework CSS components
-
-- [x] Juntar todos sites estaticos em HTML que tenho num unico projeto NextJS com rotas e MVC (Gohan Treinamentos, Legado PVRV, Pomodoro)
-- [x] Kanban, Scrum, Planejamento e metas (Segunda e sexta)
-- [x] Organização de arquivos .MD
-- [x] Organização projetos Github
-- [x] Update Diagrama Organon 440KV - Completo
-- [x] Organização de Word e Excel usados para a semana no ONS
-- [x] Pyside6 x Tauri x Flutter - projetos desktop
-- [x] NextJS x Astro - projetos web
-- [x] Organização e planejamento de Automaçôes ONS PLC 2026
-- [x] Resolver sistema de solver de calculadora de EDO e Matrizes com plots em Qt6(sympy)
-- [x] Plot função (matplotlib)
-- [x] Integrar no PySide6
-- [x] Circuitos Digitais P1 (Karnaugh, SOP, teoremas booleanos)
-- [x] ONS (Python + relatórios + checklist)
-- [x] Projetos (calculadora + Organon + Pyside6)
-- [x] P1 circuitos digitais
+- [x] FIFA 19 - Modo Carreira 19 e 26
+- [x] COD Black OPS 1 - Guerra Fria
+- [x] COD Black OPS 2 - 2025 Guerra moderna
+- [x] SMITE 2 ou League of Legends Classic ou Dota 2
+- [x] The witcher 3
+- [x] Pokemon Radical RED
+- [x] FIFA 14:
+  - <https://www.reddit.com/r/FifaCareers/comments/1rjnorf/how_to_download_fifa_14_on_pc_for_free/?tl=pt-br>
+  - <https://drive.google.com/file/d/1c8R35D2lMrK827zOIjWrMJ1jP2j0ipgZ/view>
 
 ---
 
