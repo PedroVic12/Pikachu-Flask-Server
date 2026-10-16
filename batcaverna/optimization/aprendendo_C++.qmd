@@ -1,6 +1,17 @@
 
 # Anotações sobre C++ do livro (C++ How to Program, 8th Edition) de Deitel & Deitel
 
+
+- Olá mundo
+- variáveis
+- loops
+- controle de condição
+- Ponteiros
+- Gerenciamento de memorias
+- POO
+
+
+
 ## Introdução a Classes, Objetos e Strings - pag 103
 
 ```cpp
