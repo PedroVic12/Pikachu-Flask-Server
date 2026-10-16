@@ -2,7 +2,7 @@
 
 ---
 
-📅 Data: *09/10/2026** - *Sexta Feira*
+📅 Data: *16/10/2026** - *Sexta Feira*
 
 *Segunda Feira* = Root Chakra + Academia
 *Terça Feira* = Throat Chakra + Circuitos CC e CD + Terapia
@@ -29,11 +29,11 @@
 
 - Uso de Visão computacional com Python para manipulação e extração de informações em Documentos PDF e notas fiscais de compras com OCR e Regex.
 - Automações e Análise de dados com Python.
-- Desenvolvimentos de Web Apps para gestão e manutenção usando Flutter e IA generativa 
+- Desenvolvimentos de Web Apps para gestão e manutenção usando Flutter e IA generativa
 - Planos de manutenção Corretiva, Preventiva e Diagnóstica
 - Criação e acompanhamento de Relatórios Técnicos da oficina elétrica.
 
-### Estagio de Engenharia Elétrica: ONS PLC (Planejamento de Curto prazo) 
+### Estagio de Engenharia Elétrica: ONS PLC (Planejamento de Curto prazo)
 
 - Análises de Estudos Elétricos em Regime Permanente (estático) para área de SP de 135KV, 345KV e 440 KV
 - Estudos e planejamento de curto prazo para Sistemas Elétricos de Potência do SIN usando simuladores em Python, AnaREDE, ANATEM e Organon.
@@ -65,7 +65,7 @@
 ### Cientista de dados JR (Python, Julia, Javascript)
 
 - "Agendamento ótimo de manutenção de Redes Elétricas utilizando otimização com algoritmos genéticos e um simulador Desktop usando Python e Pandapower em um sistema elétrico SIN 45 barras da região RJ/SP" (2025)
-- 
+-
 - Dashboards
 - Datasets publicos
 - Modelos preditivos de series temporais
@@ -74,13 +74,13 @@
 - Analise de dados com otmização e programação linear
 
 - "Estratégias de diversificação em meta-heurísticas aplicadas a problemas de Otimização em Engenharia Elétrica usando Algoritimos Evolutivos com Python" (2024)
-- 
+-
 
 ## 🎓 Roadmap Cientista de Dados
 
 ![alt text - ciencia de dados ONS](image-1.png)
 
-### Desenvolvedor Desktop IoT 
+### Desenvolvedor Desktop IoT
 
 - PyQt6
 - QML - KDE - C++
@@ -96,7 +96,7 @@
 - Astroblog Pedrov12
 - Astro Webiste para viagens: Pedro + Vivi <3 <3
 - Electrical System Simulator: SEP para leigos
-- 
+-
 
 - 📋 [Tarefas ONS PLC](#tarefas-ons-plc-2026)
 
@@ -108,7 +108,7 @@
 
 - [ ] Trabalho PJ como DEV R$ 5000 ou U$ 1500 - Como Assistente de Análise de Dados ou dev pleno com Python,C++ ou Javascript
 
-- [ ] Desenvolvedor Fullstack: Software Desktop x Websites x Aplicativos x Dashboards x Robôs x Bots 
+- [ ] Desenvolvedor Fullstack: Software Desktop x Websites x Aplicativos x Dashboards x Robôs x Bots
 
 - [ ] Pesquisa e Desenvolimento UFF + IA + SEP e Simulações em 3D
   - SEP para leigos
@@ -128,7 +128,6 @@
 ### Estudos SEP E ONS
 
 - 📚 [Sessão de ESTUDOS](#sessao-de-estudos-matematica-programacao-e-eng-eletrica)
-
 
 # 04) CORPO - Academia + Calistenia + karate
 
@@ -156,9 +155,6 @@ Concluído
 
 - Entregas ageis
 - Kanban para divisão de tarefas BACKLOG, IN PROGRESS, TESTING e CONCLUIDO
-
-
-
 
 ### Gerenciamento de Tempo e Prioridades
 
@@ -196,7 +192,7 @@ Concluído
 
 ---
 
-## Estudos UFF 
+## Estudos UFF
 
 - [x] Python e Julia para Astronomia
 
@@ -213,8 +209,6 @@ Concluído
 
 - [x] Programação para Data Science (Julia, Plots.jl, Pandas, Plotly, Scipy, sympy)
 
-
-
 - [ ] minicurso circuitos CC com Sadiku e Python
 
 - [x] Circuitos Digitais I
@@ -229,7 +223,7 @@ Concluído
   - [ ] P2
     - Analise Nodal
     - Analise Malhas
-    - 
+    -
   - [ ] P3
   
 - [x] Robotica para Iniciantes
@@ -237,10 +231,6 @@ Concluído
   - Sensor ultrassonico
   - Motores e Drivers
   - Sensor de reflatancia
-
-
-
-
 
 ## Estudos UFF 2026.2
 
@@ -267,7 +257,6 @@ Concluído
 
 - [ ] Python com Sympy para calculo de EDO de 1 e 2 ordem para Circuitos CC (RL,RC e RLC)
 
-
 ---
 
 ## Estudos Elétricos do ONS para SEP
@@ -289,7 +278,6 @@ Concluído
 - Transmissão X Geração X Distribuição
 - RCE: Agendamento ótimo de análise de contingências para intervenções no Sistema Elétrico
 -
-
 
 ---
 
@@ -360,7 +348,6 @@ Concluído
 
 - "minha mente funciona de forma diferente, eu vim para incomodar. Estou aqui para questionar e demonstrar matemática e cientificamente falando assuntos que instiguem na evolução da raça humana."
 
-
 - estado de espírito
 
 - Aura, Espírito e Mente
@@ -372,9 +359,6 @@ Concluído
 ---
 
 # 08) PVRV 2026 Notes
-
-
-
 
 ---
 
@@ -416,9 +400,6 @@ Concluído
 
 - [ ] Planejamento Financeiro, trabalho PJ e MEI
 
-
-
-
 ---
 
 # Concluidos 2026
@@ -441,6 +422,7 @@ Concluído
 - [x] ONS (Python + relatórios + checklist)
 - [x] Projetos (calculadora + Organon + Pyside6)
 - [x] P1 circuitos digitais
+
 ---
 
 ### 🚀 Projetos GitHub
