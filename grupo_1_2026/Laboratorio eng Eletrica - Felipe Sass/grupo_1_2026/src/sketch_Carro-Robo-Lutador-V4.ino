@@ -4,6 +4,8 @@
 #include <Wire.h>
 #include <VL53L0X.h>
 
+// https://simplifycpp.org/
+
 #define IR_RECEIVE_PIN 11     // Receptor infravermelho
 #define SENSOR_LINHA   A0     // Sensor de refletância (borda branca)
 #define TRIG           A2     // Ultrassônico
