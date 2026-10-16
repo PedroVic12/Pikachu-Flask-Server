@@ -881,7 +881,7 @@ void loop() {
 
 ------------------------------------------------------------------------
 
-## - \[ ] 9 DESAFIO 3 (Robo Sumô Básico)
+## - [x] 9 DESAFIO 3 (Robo Sumô Básico)
 
 Façam um código que controle o funcionamento dos motores de acordo com o fluxograma anexado nesta atividade. Mostrem para um professor que conseguiram cumprir a missão e expliquem o funcionamento do código. Após o professor anotar na planilha de acompanhamento (Checklist) que a tarefa foi cumprida, 1 integrante de cada equipe (apenas 1) deve fazer a entrega do arquivo do Arduino (\*.ino) no Google Classroom. O aluno que entregar a atividade deve indicar (nos comentários) os nomes dos colegas que participaram ativamente do desenvolvimento da tarefa. DICA: Esta missão utiliza conceitos aprendidos nas missões anteriores. Consultem os seus códigos.
 
@@ -889,7 +889,7 @@ Façam um código que controle o funcionamento dos motores de acordo com o fluxo
 
 ------------------------------------------------------------------------
 
-## - \[ ] 10 Sensores Laterais
+## - [x] 10 Sensores Laterais
 
 1)  Parabéns! Você chegou na última missão da FASE 2 e desbloqueou um item, o sensor de distância laser VL53L0X. Este sensor se comunica com microcontrolador através do protocolo de comunicação I2C. Portanto, antes de iniciar a missão você precisa entender o que é isso. Assista ao vídeo "O que é I2C ? - Explorando o Arduino - Aula 10", disponível no link: https://www.youtube.com/watch?v=3cPDAQvu6ng
 
