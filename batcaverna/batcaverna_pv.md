@@ -302,7 +302,7 @@
 
 - [x] Eletronica para makers
 
-- [x] Eletronica para inventores -
+- [ ] Eletronica prática para inventores - 3ed - Scherz and Monk
 
 ---
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Edit3, GripVertical, Plus } from 'lucide-react';
 
 // ========== HELPERS ==========
@@ -24,6 +24,15 @@ const calculateProgress = (content) => { // Removed type annotations
 
     const percentage = Math.round((completed / total) * 100);
     return { total, completed, percentage };
+};
+
+const getUpdatedAtTimestamp = (project) => {
+    const updatedAt = project.updatedAt ?? project.createdAt;
+    const timestamp = updatedAt instanceof Date
+        ? updatedAt.getTime()
+        : Date.parse(updatedAt);
+
+    return Number.isNaN(timestamp) ? 0 : timestamp;
 };
 
 
@@ -71,7 +80,9 @@ const ProjectCard = ({ project, onEdit, onDragStart }) => { // Removed React.FC<
                 <div className="mt-3">
                     <div className="flex justify-between items-center mb-1">
                         <span className="text-base font-bold text-gray-900 dark:text-gray-100">Progresso</span>
-                        <span className="text-lg font-bold text-gray-200 dark:text-white-500">{completed}/{total}</span>
+                        <span className="inline-flex min-w-12 justify-center rounded-full border border-blue-200 bg-blue-100 px-2.5 py-1 text-sm font-bold text-blue-800 shadow-sm dark:border-blue-700 dark:bg-blue-900/70 dark:text-blue-100">
+                            {completed}/{total}
+                        </span>
                     </div>
                     <div className="w-full bg-gray-200/70 dark:bg-gray-700 rounded-full h-1.5">
                         <div
@@ -120,10 +131,23 @@ const KanbanColumn = ({
     onDrop,
     onDragStart
 }) => { // Removed React.FC<KanbanColumnProps> and type annotations
+    const [sortMode, setSortMode] = useState('recent');
     const columnInfo = STATUS_COLUMNS[status];
 
     // The colorClass now contains light and dark variants
     const colorClass = getColumnColorClass(columnInfo?.title || status);
+    const sortedProjects = [...projects].sort((a, b) => {
+        if (sortMode === 'fewestCompleted' || sortMode === 'mostCompleted') {
+            const completedDifference =
+                calculateProgress(a.content).completed -
+                calculateProgress(b.content).completed;
+            return sortMode === 'fewestCompleted'
+                ? completedDifference
+                : -completedDifference;
+        }
+
+        return getUpdatedAtTimestamp(b) - getUpdatedAtTimestamp(a);
+    });
 
     return (
         <div
@@ -148,9 +172,32 @@ const KanbanColumn = ({
                 </button>
             </div>
 
+            <div className="mb-3 flex gap-1.5" role="group" aria-label={`Ordenar cartões da coluna ${columnInfo.title}`}>
+                {[
+                    { value: 'recent', label: 'Recentes', title: 'Mais recentes primeiro' },
+                    { value: 'fewestCompleted', label: 'Menos concl.', title: 'Menor número de checklists concluídos' },
+                    { value: 'mostCompleted', label: 'Mais concl.', title: 'Maior número de checklists concluídos' },
+                ].map((option) => (
+                    <button
+                        key={option.value}
+                        type="button"
+                        title={option.title}
+                        aria-pressed={sortMode === option.value}
+                        onClick={() => setSortMode(option.value)}
+                        className={`flex-1 rounded-lg border px-1.5 py-1.5 text-[11px] font-semibold transition-colors ${
+                            sortMode === option.value
+                                ? 'border-blue-600 bg-blue-600 text-white shadow-sm'
+                                : 'border-gray-300 bg-white/70 text-gray-700 hover:bg-white dark:border-gray-600 dark:bg-gray-800/70 dark:text-gray-200 dark:hover:bg-gray-700'
+                        }`}
+                    >
+                        {option.label}
+                    </button>
+                ))}
+            </div>
+
             < div className="space-y-3" >
                 {
-                    projects.map((project) => (
+                    sortedProjects.map((project) => (
                         <ProjectCard
                             key={project.id}
                             project={project}

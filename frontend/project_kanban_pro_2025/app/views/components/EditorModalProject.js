@@ -152,7 +152,14 @@ const ItemEditor = ({ item, isOpen, onSave, onDelete, onClose }) => {
           Progresso: {progressPercent}% ({lineCount}/500 linhas)
         </b>
         <span className="text-gray-500 dark:text-gray-400">
-          • {charCount} caracteres
+          •{" "}
+          <span
+            key={charCount}
+            className="inline-block rounded-full bg-blue-100 px-2 py-0.5 font-bold text-blue-800 dark:bg-blue-950/70 dark:text-blue-200 motion-reduce:animate-none animate-counter-bump"
+            aria-live="polite"
+          >
+            {charCount} caracteres
+          </span>
         </span>
       </div>
 

@@ -77,10 +77,17 @@ const config = {
             height: '0',
           },
         },
+        'counter-bump': {
+          '0%, 100%': { transform: 'scale(1) translateX(0) rotate(0)' },
+          '25%': { transform: 'scale(1.2) translateX(-2px) rotate(-3deg)' },
+          '50%': { transform: 'scale(1.2) translateX(2px) rotate(3deg)' },
+          '75%': { transform: 'scale(1.1) translateX(-1px) rotate(-2deg)' },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+        'counter-bump': 'counter-bump 0.35s ease-in-out',
       },
     },
   },
