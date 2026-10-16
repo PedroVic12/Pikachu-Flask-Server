@@ -214,29 +214,36 @@ Concluído
 - [x] Circuitos Digitais I
   - [x] P1: Codigo de hamming, sistemas de numeracação, teoremas booleanos, circuitos logicos combinacionais, mapa de Karnaugh
   
-- [ ] Circuitos Elétricos CC
+- [x] Circuitos Elétricos CC
   - [x] P1
     - 5 Provas antigas
     - LKC, LKT, Divisor de tensão, divisor de corrent, Potencia em resistores, amplificadores
 
   - [ ] Minicurso CC - Falstad e Python/Julia
-  - [ ] P2
+  - [x] P2
     - Analise Nodal
+    - Super Nó
     - Analise Malhas
-    -
+    - Super Malha
+    - Linearidade e Superposição
+    - Thevenin
+    - Norton
+    - Transformação de fontes
+    - Máx. Transferencia de potencia
+
   - [ ] P3
-  
+    - Circuitos RL
+    - Circuitos RC
+    - Circuitos RLC
+    - Taxa de amortecimento
+    - EDO -> Laplace
+
 - [x] Robotica para Iniciantes
   - Conceitos basicos Arduino e programacao em C++
-  - Sensor ultrassonico
-  - Motores e Drivers
-  - Sensor de reflatancia
+  - Sensor ultrassonico, Motores e Drivers, Sensor de reflatancia, sensor lateral, motores
+  - Sketch POO e funcional de um robo lutador por fluxogramas
 
-## Estudos UFF 2026.2
-
-- [ ] Aulas de robotica com Arduino (Carrinho lutador)
-
-  - Programação em C++ e RPA com Python e Shell Script com conexões API com flask e FastAPI
+- [ ] Programação em C++ e RPA com Python e Shell Script com conexões API com flask e FastAPI
 
 - [x] Cálculo 1,2,3 e 4 (Até EDOs e Transformada de Laplace - RLC)
 - [x] Estatística I
@@ -295,6 +302,49 @@ Concluído
 
 - [ ] IEEDs
 - [ ] Sistema de computação
+
+# Livros de estudos e tecnologia
+
+- [ ] Eletromagnetimo + Circuitos Elétricos CC -> Sadiku
+- [ ] Como programar em C++ (Deitail)
+- [ ] Circuitos CA - Sadiku
+
+- [ ] Python para analise e engenharia de dados usando aprendizado de maquina em projetos reais
+
+- [ ] Banco de dados (C.J Date) 7ed
+  - Normalização de dados
+  - Relacionamento de tabelas
+  - Modelagem em SQL
+  - Cardialidade x Integridade
+  - Arquitetura de banco de dados
+  - Algebra e calculo relacional
+  - Segurança e Otimização
+
+- [ ] Otimizações em Julia
+
+- [ ] SEP - Stevenson
+
+- [ ] Ogata - Sistema de Controle moderno
+
+- [ ]  Elementos de eletronica digital - Capuano e Edoeta - 42eds
+
+---
+
+## Estudos UFF 2027.1
+
+- [ ] Circuitos CA
+  - [ ] Impedancia complexa
+  - [ ] Reatancia capactitiva
+  - [ ] Reatnacia indutiva
+  - [ ] Teorema de Thevenin e Norton
+  - [ ] Max. Transferência de Potência
+s
+
+- Sinais e Sistemas
+
+- Eletromagnetismo
+
+- Termodinamica
 
 ---
 
