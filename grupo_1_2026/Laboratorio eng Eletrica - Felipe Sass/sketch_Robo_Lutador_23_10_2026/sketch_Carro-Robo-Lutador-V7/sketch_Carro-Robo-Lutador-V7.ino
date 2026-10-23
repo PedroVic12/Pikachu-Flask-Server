@@ -163,6 +163,7 @@ int lerDistanciaLaserCm(VL53L0X &sensor)
         return 0;
     }
 
+
     return milimetros / 10;
 }
 
@@ -424,6 +425,18 @@ void loop()
     const int distanciaSensor2 = lerDistanciaLaserCm(Sensor2);
     const bool alvoSensor1 = distanciaSensor1 > 0 && distanciaSensor1 < DISTANCIA_LASER_CM;
     const bool alvoSensor2 = distanciaSensor2 > 0 && distanciaSensor2 < DISTANCIA_LASER_CM;
+
+
+    Serial.println("Distancia Sensor Ultrassonico:");
+    Serial.print(distanciaFrontal);
+    Serial.print("cm");
+    Serial.println("Distancia sensor lateral 1");
+    Serial.print(distanciaSensor1);
+    Serial.print("cm");
+    Serial.println("Distancia sensor lateral 2");
+    Serial.print(distanciaSensor2);
+    Serial.print("cm");
+
 
     if ((distanciaFrontal > 0 && distanciaFrontal < DISTANCIA_ATAQUE_CM) ||
         (alvoSensor1 && alvoSensor2))
