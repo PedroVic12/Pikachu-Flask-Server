@@ -2,7 +2,7 @@
 
 ---
 
-📅 Data: *16/10/2026** - *Sexta Feira*
+📅 Data: *28/10/2026** - *Quarta Feira*
 
 *Segunda Feira* = Root Chakra + Academia
 *Terça Feira* = Throat Chakra + Circuitos CC e CD + Terapia
