@@ -63,6 +63,35 @@ int pwmAtualEsq = 0;
 int pwmAtualDir = 0;
 const char* acaoAtual = "PARADO";
 
+void aguardarInicio()
+{
+    Serial.println(F("\n================ SIMULADOR DE COMBATE NO UNO ================"));
+    Serial.println(F("1) Envie '7', '8' ou '9' para escolher a estrategia."));
+    Serial.println(F("2) Envie '2' para iniciar a luta."));
+    Serial.println(F("Durante a luta, envie: [w]=Frente [a]=Esq [d]=Dir [s]=Limpo [b]=Borda [1]=Pausa"));
+    Serial.println(F("============================================================="));
+
+    while (true)
+    {
+        unsigned long codigo = lerControleESimulacao();
+        if (codigo == STRATEGY_7_CODE || codigo == STRATEGY_8_CODE || codigo == STRATEGY_9_CODE)
+        {
+            selecionarEstrategia(codigo);
+        }
+        else if (codigo == START_CODE)
+        {
+            if (estrategia == Estrategia::Nenhuma)
+                Serial.println(F("[!] Escolha primeiro a estrategia 7, 8 ou 9!"));
+            else
+            {
+                Serial.println(F("\n>>> COMBATE INICIADO! <<<"));
+                return;
+            }
+        }
+    }
+}
+
+
 unsigned long lerControleESimulacao()
 {
     if (Serial.available() > 0)
@@ -180,33 +209,6 @@ void selecionarEstrategia(unsigned long codigo)
     ultimaMudancaBusca = millis();
 }
 
-void aguardarInicio()
-{
-    Serial.println(F("\n================ SIMULADOR DE COMBATE NO UNO ================"));
-    Serial.println(F("1) Envie '7', '8' ou '9' para escolher a estrategia."));
-    Serial.println(F("2) Envie '2' para iniciar a luta."));
-    Serial.println(F("Durante a luta, envie: [w]=Frente [a]=Esq [d]=Dir [s]=Limpo [b]=Borda [1]=Pausa"));
-    Serial.println(F("============================================================="));
-
-    while (true)
-    {
-        unsigned long codigo = lerControleESimulacao();
-        if (codigo == STRATEGY_7_CODE || codigo == STRATEGY_8_CODE || codigo == STRATEGY_9_CODE)
-        {
-            selecionarEstrategia(codigo);
-        }
-        else if (codigo == START_CODE)
-        {
-            if (estrategia == Estrategia::Nenhuma)
-                Serial.println(F("[!] Escolha primeiro a estrategia 7, 8 ou 9!"));
-            else
-            {
-                Serial.println(F("\n>>> COMBATE INICIADO! <<<"));
-                return;
-            }
-        }
-    }
-}
 
 bool processarControles()
 {
