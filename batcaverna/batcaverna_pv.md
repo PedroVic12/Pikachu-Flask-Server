@@ -2,7 +2,7 @@
 
 ---
 
-📅 Data: *28/10/2026** - *Quarta Feira*
+📅 Data: *03/11/2026** - *Terça Feira*
 
 *Segunda Feira* = Root Chakra + Academia
 *Terça Feira* = Throat Chakra + Circuitos CC e CD + Terapia
@@ -362,7 +362,6 @@ s
 # Rotinas de Dono de Casa (Homem TDAH Adulto)
 
 - [x] Disciplina e Responsabilidade
-
 - [x] Tomar banho gelado
 - [x] Vestir roupas limpas
 - [x] Lavar o Rosto e fazer Skin Care
@@ -371,6 +370,14 @@ s
 - [x] Limpeza arpatamento
 - [ ] Alinhamento Espiritual matinal
 - [ ] Banho Gelado - Detox de Dopamina (Banheira de gelo)
+- [ ] Rotina = Saúde Mental
+- [ ] Organização + Planejamento = SCRUM
+- [ ] Exercicíos físicos + Alongamentos = Saúde Física + Mental
+
+
+
+
+
 
 ---
 
