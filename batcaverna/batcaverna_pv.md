@@ -2,14 +2,48 @@
 
 ---
 
-📅 Data: *03/11/2026** - *Terça Feira*
+📅 Data: *04/11/2026** - *Quarta Feira*
 
 *Segunda Feira* = Root Chakra + Academia
+- [x] treinamentos
+- [x] Meta de estudos uff
+- [ ] Meta de programação github - 40h
+- [x] Beber dois litros de agua
+- [ ] Meditação e Santo terço do dia
+
 *Terça Feira* = Throat Chakra + Circuitos CC e CD + Terapia
+*Segunda Feira* = Root Chakra + Academia
+- [x] treinamentos
+- [x] Meta de estudos uff
+- [ ] Meta de programação github - 40h
+- [x] Beber dois litros de agua
+- [ ] Meditação e Santo terço do dia
+
+
 *Quarta Feira* = Heart Chakra + Homeoffice + Artigo TCC
+- [ ] treinamentos
+- [ ] Meta de estudos uff
+- [ ] Meta de programação github - 40h
+- [ ] Beber dois litros de agua
+- [ ] Meditação e Santo terço do dia
+
 *Quinta Feira* = Third Eye Chakra + Circuitos CC e CD + Karate
+- [ ] treinamentos
+- [ ] Meta de estudos uff
+- [ ] Meta de programação github - 40h
+- [ ] Beber dois litros de agua
+- [ ] Meditação e Santo terço do dia
+
 *Sexta Feira* = Solar Chakra + Dia de Oxalá + Dia que Jesus Cristo sacrificou sua vida
+- [ ] treinamentos
+- [ ] Meta de estudos uff
+- [ ] Meta de programação github - 40h
+- [ ] Beber dois litros de agua
+- [ ] Meditação e Santo terço do dia
+
 *Sabado* = Folga + Rotina + Futebol + Jogos
+
+
 *Domingo* = Dia de Missa e Familia
 
 ---
