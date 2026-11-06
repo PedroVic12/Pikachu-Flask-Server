@@ -41,8 +41,19 @@ constexpr unsigned long INTERVALO_BUSCA_9 = 2000;
 constexpr long DISTANCIA_ATAQUE_CM = 40;
 constexpr int DISTANCIA_LASER_CM = 25;
 
-enum class Estrategia : uint8_t { Nenhuma, AvancoAgressivo, VarreduraHorario, VarreduraAntiHorario };
-enum class FaseBorda : uint8_t { Normal, Recuando, Girando };
+enum class Estrategia : uint8_t
+{
+    Nenhuma,
+    AvancoAgressivo,
+    VarreduraHorario,
+    VarreduraAntiHorario
+};
+enum class FaseBorda : uint8_t
+{
+    Normal,
+    Recuando,
+    Girando
+};
 
 Estrategia estrategia = Estrategia::Nenhuma;
 FaseBorda faseBorda = FaseBorda::Normal;
@@ -61,7 +72,7 @@ bool mockBordaBranca = false;
 // Estado atual dos motores para exibir no Log
 int pwmAtualEsq = 0;
 int pwmAtualDir = 0;
-const char* acaoAtual = "PARADO";
+const char *acaoAtual = "PARADO";
 
 void aguardarInicio()
 {
@@ -91,7 +102,6 @@ void aguardarInicio()
     }
 }
 
-
 unsigned long lerControleESimulacao()
 {
     if (Serial.available() > 0)
@@ -100,12 +110,18 @@ unsigned long lerControleESimulacao()
         switch (c)
         {
         // Controles da partida
-        case '1': return READY_CODE;
-        case '2': return START_CODE;
-        case '3': return STOP_CODE;
-        case '7': return STRATEGY_7_CODE;
-        case '8': return STRATEGY_8_CODE;
-        case '9': return STRATEGY_9_CODE;
+        case '1':
+            return READY_CODE;
+        case '2':
+            return START_CODE;
+        case '3':
+            return STOP_CODE;
+        case '7':
+            return STRATEGY_7_CODE;
+        case '8':
+            return STRATEGY_8_CODE;
+        case '9':
+            return STRATEGY_9_CODE;
 
         // Injeção de Sensores Falsos para testar a lógica
         case 'w':
@@ -156,12 +172,24 @@ unsigned long lerControleESimulacao()
 void configurarMotor(uint8_t pinoFrente, uint8_t pinoRe, int potencia)
 {
     potencia = constrain(potencia, -PWM_MAX, PWM_MAX);
-    if (potencia > 0) { analogWrite(pinoRe, 0); analogWrite(pinoFrente, potencia); }
-    else if (potencia < 0) { analogWrite(pinoFrente, 0); analogWrite(pinoRe, -potencia); }
-    else { analogWrite(pinoFrente, 0); analogWrite(pinoRe, 0); }
+    if (potencia > 0)
+    {
+        analogWrite(pinoRe, 0);
+        analogWrite(pinoFrente, potencia);
+    }
+    else if (potencia < 0)
+    {
+        analogWrite(pinoFrente, 0);
+        analogWrite(pinoRe, -potencia);
+    }
+    else
+    {
+        analogWrite(pinoFrente, 0);
+        analogWrite(pinoRe, 0);
+    }
 }
 
-void definirMotores(int potenciaEsquerda, int potenciaDireita, const char* descricaoAcao)
+void definirMotores(int potenciaEsquerda, int potenciaDireita, const char *descricaoAcao)
 {
     pwmAtualEsq = potenciaEsquerda;
     pwmAtualDir = potenciaDireita;
@@ -171,10 +199,10 @@ void definirMotores(int potenciaEsquerda, int potenciaDireita, const char* descr
 }
 
 void parar() { definirMotores(0, 0, "PARADO"); }
-void andarFrente(int p, const char* msg = "AVANCANDO FRENTE") { definirMotores(p, p, msg); }
+void andarFrente(int p, const char *msg = "AVANCANDO FRENTE") { definirMotores(p, p, msg); }
 void andarTras(int p) { definirMotores(-p, -p, "RECUANDO (BORDA)"); }
-void girarHorario(int p, const char* msg = "GIRANDO HORARIO (DIR)") { definirMotores(p, -p, msg); }
-void girarAntiHorario(int p, const char* msg = "GIRANDO ANTI-HORARIO (ESQ)") { definirMotores(-p, p, msg); }
+void girarHorario(int p, const char *msg = "GIRANDO HORARIO (DIR)") { definirMotores(p, -p, msg); }
+void girarAntiHorario(int p, const char *msg = "GIRANDO ANTI-HORARIO (ESQ)") { definirMotores(-p, p, msg); }
 
 bool bordaBrancaDetectada()
 {
@@ -209,7 +237,6 @@ void selecionarEstrategia(unsigned long codigo)
     ultimaMudancaBusca = millis();
 }
 
-
 bool processarControles()
 {
     unsigned long codigo = lerControleESimulacao();
@@ -226,7 +253,8 @@ bool processarControles()
         ultimaMudancaBusca = millis();
         Serial.println(F("|> RETOMANDO COMBATE!"));
     }
-    if (pausado) parar();
+    if (pausado)
+        parar();
     return pausado;
 }
 
@@ -275,8 +303,10 @@ void executarBusca()
         sentidoBusca = -sentidoBusca;
         ultimaMudancaBusca = millis();
     }
-    if (sentidoBusca > 0) girarHorario(PWM_BUSCA, "BUSCA: VARREDURA DIR");
-    else girarAntiHorario(PWM_BUSCA, "BUSCA: VARREDURA ESQ");
+    if (sentidoBusca > 0)
+        girarHorario(PWM_BUSCA, "BUSCA: VARREDURA DIR");
+    else
+        girarAntiHorario(PWM_BUSCA, "BUSCA: VARREDURA ESQ");
 }
 
 void imprimirTelemetria()
@@ -314,7 +344,8 @@ void setup()
 
 void loop()
 {
-    if (processarControles()) return;
+    if (processarControles())
+        return;
 
     if (!processarRecuperacaoBorda())
     {

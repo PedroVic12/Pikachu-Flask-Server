@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Celebrando Você ❤️ | 06/12/1998</title>
+
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Fontes Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,800;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Three.js via CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <!-- React & ReactDOM via CDN -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+
+    <!-- Babel para compilar JSX no navegador -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        navy: {
+                            950: '#040714',
+                            900: '#0a1026',
+                            800: '#111b40',
+                        },
+                        metallicRed: {
+                            DEFAULT: '#b91c1c',
+                            light: '#ef4444',
+                            dark: '#7f1d1d',
+                            glow: '#ff2a4b'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Estilos customizados para Vermelho Metálico, Glassmorphism e Animações */
+        body {
+            background-color: #040714;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        .metallic-red-bg {
+            background: linear-gradient(135deg, #630812 0%, #b91c1c 30%, #ff4d6d 50%, #991b1b 70%, #45060c 100%);
+            background-size: 200% 200%;
+            animation: shimmer 5s ease infinite;
+            box-shadow: 0 10px 30px -5px rgba(225, 29, 72, 0.5), inset 0 1px 2px rgba(255, 255, 255, 0.4);
+        }
+
+        .metallic-red-text {
+            background: linear-gradient(to right, #ff758f, #ff1e42, #fca5a5, #e11d48);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% auto;
+            animation: shimmer 4s linear infinite;
+        }
+
+        .navy-card {
+            background: linear-gradient(160deg, rgba(17, 27, 64, 0.85) 0%, rgba(4, 7, 20, 0.95) 100%);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(236, 72, 153, 0.25);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.15);
+        }
+
+        .pink-purple-gradient {
+            background: linear-gradient(135deg, rgba(236, 72, 153, 0.15) 0%, rgba(126, 34, 206, 0.25) 50%, rgba(10, 16, 38, 0.9) 100%);
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        @keyframes floatSlow {
+
+            0%,
+            100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-10px) rotate(2deg);
+            }
+        }
+
+        .animate-float {
+            animation: floatSlow 4s ease-in-out infinite;
+        }
+
+        /* Esconder barra de rolagem mantendo funcionalidade */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #040714;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(to bottom, #ec4899, #7e22ce, #111b40);
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body class="font-sans antialiased selection:bg-pink-500 selection:text-white">
+
+    <!-- Canvas 3D do Three.js (Fundo Interativo) -->
+    <canvas id="bg-canvas" class="fixed inset-0 w-full h-full pointer-events-none z-0"></canvas>
+
+    <!-- Container Raiz do React -->
+    <div id="root" class="relative z-10"></div>
+
+    <!-- Script com Arquitetura POO e Componentes React -->
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+
+        // ==========================================
+        // 1. ARQUITETURA POO (ORIENTAÇÃO A OBJETOS)
+        // ==========================================
+
+        /**
+         * Classe BirthdayOracle
+         * Responsável por todos os cálculos de tempo relacionados à data 06/12/1998.
+         */
+        class BirthdayOracle {
+            constructor(day = 6, month = 12, year = 1998) {
+                this.birthDay = day;
+                this.birthMonth = month;
+                this.birthYear = year;
+                // Mês no JS é 0-indexado (11 = Dezembro)
+                this.birthDate = new Date(year, month - 1, day, 0, 0, 0);
+            }
+
+            // Calcula quanto tempo falta para o próximo aniversário de 06/12
+            getNextBirthdayCountdown() {
+                const now = new Date();
+                let targetYear = now.getFullYear();
+                let nextBday = new Date(targetYear, this.birthMonth - 1, this.birthDay, 0, 0, 0);
+
+                // Verifica se hoje é o dia do aniversário!
+                const isBirthdayToday = (
+                    now.getDate() === this.birthDay &&
+                    now.getMonth() === (this.birthMonth - 1)
+                );
+
+                if (now > nextBday && !isBirthdayToday) {
+                    targetYear += 1;
+                    nextBday = new Date(targetYear, this.birthMonth - 1, this.birthDay, 0, 0, 0);
+                }
+
+                const diff = Math.max(0, nextBday - now);
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+                const minutes = Math.floor((diff / 1000 / 60) % 60);
+                const seconds = Math.floor((diff / 1000) % 60);
+
+                return {
+                    days: String(days).padStart(2, '0'),
+                    hours: String(hours).padStart(2, '0'),
+                    minutes: String(minutes).padStart(2, '0'),
+                    seconds: String(seconds).padStart(2, '0'),
+                    upcomingAge: targetYear - this.birthYear,
+                    isBirthdayToday
+                };
+            }
+
+            // Calcula há exatos quantos dias, horas, minutos e segundos ela ilumina o mundo desde 06/12/1998
+            getLifeTimeStats() {
+                const now = new Date();
+                const diff = Math.max(0, now - this.birthDate);
+
+                const totalDays = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+                const minutes = Math.floor((diff / 1000 / 60) % 60);
+                const seconds = Math.floor((diff / 1000) % 60);
+
+                // Cálculo preciso da idade atual
+                let currentAge = now.getFullYear() - this.birthYear;
+                const m = now.getMonth() - (this.birthMonth - 1);
+                if (m < 0 || (m === 0 && now.getDate() < this.birthDay)) {
+                    currentAge--;
+                }
+
+                return {
+                    currentAge,
+                    totalDays: totalDays.toLocaleString('pt-BR'),
+                    hours: String(hours).padStart(2, '0'),
+                    minutes: String(minutes).padStart(2, '0'),
+                    seconds: String(seconds).padStart(2, '0')
+                };
+            }
+        }
+
+        /**
+         * Classe TimelineMilestone
+         * Representa cada memória/momento na linha do tempo com imagem 4:3 e segredo.
+         */
+        class TimelineMilestone {
+            constructor(id, dateLabel, title, description, emoji, secretReveal, svgTheme, parallaxFactor) {
+                this.id = id;
+                this.dateLabel = dateLabel;
+                this.title = title;
+                this.description = description;
+                this.emoji = emoji;
+                this.secretReveal = secretReveal;
+                this.svgTheme = svgTheme;
+                this.parallaxFactor = parallaxFactor;
+            }
+        }
+
+        /**
+         * Classe RomanticUniverse3D
+         * Gerencia toda a cena 3D em Three.js usando Orientação a Objetos.
+         */
+        class RomanticUniverse3D {
+            constructor(canvasId) {
+                this.canvas = document.getElementById(canvasId);
+                if (!this.canvas || !window.THREE) return;
+
+                this.scene = new THREE.Scene();
+                this.camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+                this.camera.position.z = 35;
+
+                this.renderer = new THREE.WebGLRenderer({
+                    canvas: this.canvas,
+                    alpha: true,
+                    antialias: true
+                });
+                this.renderer.setSize(window.innerWidth, window.innerHeight);
+                this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+                this.mouseX = 0;
+                this.mouseY = 0;
+                this.scrollY = 0;
+                this.hearts = [];
+
+                this.initLights();
+                this.createStarfield();
+                this.createFloating3DHearts();
+                this.bindEvents();
+                this.animate();
+            }
+
+            initLights() {
+                const ambientLight = new THREE.AmbientLight(0xffb3c6, 0.7);
+                this.scene.add(ambientLight);
+
+                const pointLight1 = new THREE.PointLight(0xff1e42, 2.5, 100);
+                pointLight1.position.set(15, 20, 20);
+                this.scene.add(pointLight1);
+
+                const pointLight2 = new THREE.PointLight(0x9333ea, 2, 100);
+                pointLight2.position.set(-20, -15, 15);
+                this.scene.add(pointLight2);
+            }
+
+            createStarfield() {
+                const geometry = new THREE.BufferGeometry();
+                const count = 900;
+                const positions = new Float32Array(count * 3);
+                const colors = new Float32Array(count * 3);
+
+                const palette = [
+                    new THREE.Color('#ff1e42'), // Vermelho Metálico
+                    new THREE.Color('#ec4899'), // Rosa
+                    new THREE.Color('#a855f7'), // Roxo
+                    new THREE.Color('#38bdf8')  // Brilho Azul Celeste
+                ];
+
+                for (let i = 0; i < count * 3; i += 3) {
+                    positions[i] = (Math.random() - 0.5) * 120;
+                    positions[i + 1] = (Math.random() - 0.5) * 140;
+                    positions[i + 2] = (Math.random() - 0.5) * 80;
+
+                    const randomColor = palette[Math.floor(Math.random() * palette.length)];
+                    colors[i] = randomColor.r;
+                    colors[i + 1] = randomColor.g;
+                    colors[i + 2] = randomColor.b;
+                }
+
+                geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+                geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+                const material = new THREE.PointsMaterial({
+                    size: 0.45,
+                    vertexColors: true,
+                    transparent: true,
+                    opacity: 0.85
+                });
+
+                this.particles = new THREE.Points(geometry, material);
+                this.scene.add(this.particles);
+            }
+
+            createFloating3DHearts() {
+                // Desenhando uma geometria de coração em 3D
+                const x = 0, y = 0;
+                const heartShape = new THREE.Shape();
+                heartShape.moveTo(x + 0.5, y + 0.5);
+                heartShape.bezierCurveTo(x + 0.5, y + 0.5, x + 0.4, y, x, y);
+                heartShape.bezierCurveTo(x - 0.6, y, x - 0.6, y + 0.7, x - 0.6, y + 0.7);
+                heartShape.bezierCurveTo(x - 0.6, y + 1.1, x - 0.3, y + 1.54, x + 0.5, y + 1.9);
+                heartShape.bezierCurveTo(x + 1.2, y + 1.54, x + 1.6, y + 1.1, x + 1.6, y + 0.7);
+                heartShape.bezierCurveTo(x + 1.6, y + 0.7, x + 1.6, y, x + 1.0, y);
+                heartShape.bezierCurveTo(x + 0.7, y, x + 0.5, y + 0.5, x + 0.5, y + 0.5);
+
+                const extrudeSettings = {
+                    depth: 0.3,
+                    bevelEnabled: true,
+                    bevelSegments: 3,
+                    steps: 1,
+                    bevelSize: 0.15,
+                    bevelThickness: 0.15
+                };
+
+                const geometry = new THREE.ExtrudeGeometry(heartShape, extrudeSettings);
+                geometry.center();
+
+                // Material Vermelho Metálico 3D
+                const metallicMaterial = new THREE.MeshStandardMaterial({
+                    color: 0xd90429,
+                    metalness: 0.75,
+                    roughness: 0.2,
+                    emissive: 0x3a0007
+                });
+
+                for (let i = 0; i < 14; i++) {
+                    const mesh = new THREE.Mesh(geometry, metallicMaterial);
+                    mesh.position.set(
+                        (Math.random() - 0.5) * 55,
+                        (Math.random() - 0.5) * 65,
+                        (Math.random() - 0.5) * 25 - 5
+                    );
+                    mesh.rotation.z = Math.PI; // Corrige orientação do coração
+                    mesh.rotation.x = Math.random() * Math.PI;
+                    mesh.rotation.y = Math.random() * Math.PI;
+
+                    const scale = Math.random() * 0.65 + 0.35;
+                    mesh.scale.set(scale, scale, scale);
+
+                    this.hearts.push({
+                        mesh,
+                        rotSpeedX: (Math.random() - 0.5) * 0.015,
+                        rotSpeedY: (Math.random() - 0.5) * 0.02,
+                        floatSpeed: Math.random() * 0.015 + 0.005,
+                        offset: Math.random() * Math.PI * 2
+                    });
+
+                    this.scene.add(mesh);
+                }
+            }
+
+            bindEvents() {
+                window.addEventListener('resize', () => {
+                    this.camera.aspect = window.innerWidth / window.innerHeight;
+                    this.camera.updateProjectionMatrix();
+                    this.renderer.setSize(window.innerWidth, window.innerHeight);
+                });
+
+                window.addEventListener('mousemove', (e) => {
+                    this.mouseX = (e.clientX / window.innerWidth - 0.5) * 4;
+                    this.mouseY = (e.clientY / window.innerHeight - 0.5) * 4;
+                });
+
+                window.addEventListener('touchmove', (e) => {
+                    if (e.touches.length > 0) {
+                        this.mouseX = (e.touches[0].clientX / window.innerWidth - 0.5) * 4;
+                        this.mouseY = (e.touches[0].clientY / window.innerHeight - 0.5) * 4;
+                    }
+                });
+
+                window.addEventListener('scroll', () => {
+                    this.scrollY = window.scrollY;
+                });
+            }
+
+            animate() {
+                requestAnimationFrame(() => this.animate());
+
+                const time = performance.now() * 0.001;
+
+                if (this.particles) {
+                    this.particles.rotation.y = time * 0.04 + this.scrollY * 0.0003;
+                    this.particles.rotation.x = this.scrollY * 0.0002;
+                }
+
+                this.hearts.forEach((h) => {
+                    h.mesh.rotation.y += h.rotSpeedY;
+                    h.mesh.rotation.x += h.rotSpeedX;
+                    h.mesh.position.y += Math.sin(time * 2 + h.offset) * 0.015;
+                });
+
+                // Suavização de câmera com Parallax de mouse e scroll
+                this.camera.position.x += (this.mouseX - this.camera.position.x) * 0.05;
+                this.camera.position.y += (-this.mouseY - (this.scrollY * 0.006) - this.camera.position.y) * 0.05;
+                this.camera.lookAt(0, -(this.scrollY * 0.006), 0);
+
+                this.renderer.render(this.scene, this.camera);
+            }
+        }
+
+        // Instanciando os objetos POO da aplicação
+        const oracle = new BirthdayOracle(6, 12, 1998);
+
+        const milestonesList = [
+            new TimelineMilestone(
+                1,
+                "06 de Dezembro de 1998 🌟",
+                "O Dia em que o Mundo Ficou Mais Lindo",
+                "Nesse dia especial nascia a mulher que mudaria completamente o meu destino e traria as cores mais vibrantes para a minha vida.",
+                "👶✨💖",
+                "Segredo revelado: Desde 06/12/1998 o universo já estava preparando o nosso encontro! Cada detalhe seu é a minha obra de arte favorita. 🥰",
+                "starBirth",
+                0.08
+            ),
+            new TimelineMilestone(
+                2,
+                "O Nosso Primeiro Olhar 😍",
+                "Quando Meu Coração Disparou",
+                "Lembro exatamente da sensação de quando nossos caminhos se cruzaram. Seu sorriso virou o meu lugar de paz instantaneamente.",
+                "💘🦋🌹",
+                "Segredo revelado: Naquele momento eu já sabia que queria dividir todos os meus dias, sonhos e risadas com você! 💑",
+                "firstMeet",
+                -0.06
+            ),
+            new TimelineMilestone(
+                3,
+                "Nossas Aventuras e Risadas 📸",
+                "Construindo Memórias Inesquecíveis",
+                "De momentos simples aos dias mais intensos, estar ao seu lado transforma qualquer segundo comum em um filme perfeito.",
+                "🥂🌙✨",
+                "Segredo revelado: Meu passatempo preferido no mundo inteiro é ouvir a sua risada e ver seus olhinhos brilhando de felicidade! ❤️",
+                "adventures",
+                0.08
+            ),
+            new TimelineMilestone(
+                4,
+                "Hoje, Amanhã e Sempre ♾️",
+                "Celebrando a Sua Vida!",
+                "Ver a mulher incrível, forte, carinhosa e brilhante que você é me enche de orgulho todos os dias. Te amo além das estrelas!",
+                "👑🎂🎁",
+                "Segredo revelado: Meu maior presente de aniversário é ter você como minha namorada. Preparada para o nosso convite no final da página? 🍿👇",
+                "forever",
+                -0.05
+            )
+        ];
+
+        // ==========================================
+        // 2. COMPONENTES VISUAIS & ILUSTRAÇÕES 4:3
+        // ==========================================
+
+        // Arte romântica em proporção 4:3 com suporte a upload de foto personalizada do casal
+        const Illustration4x3 = ({ theme, customImage, onUploadPhoto }) => {
+            const fileInputRef = useRef(null);
+
+            const handleFileChange = (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (event) => {
+                        onUploadPhoto(event.target.result);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            };
+
+            return (
+                <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl border border-pink-500/40 group bg-navy-900">
+                    {customImage ? (
+                        <img
+                            src={customImage}
+                            alt="Nossa memória"
+                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        />
+                    ) : (
+                        <div className="w-full h-full relative">
+                            {theme === "starBirth" && (
+                                <svg viewBox="0 0 800 600" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                                    <defs>
+                                        <linearGradient id="bg1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                            <stop offset="0%" stopColor="#040714" />
+                                            <stop offset="50%" stopColor="#4c1d95" />
+                                            <stop offset="100%" stopColor="#be123c" />
+                                        </linearGradient>
+                                        <radialGradient id="glow1" cx="50%" cy="50%" r="50%">
+                                            <stop offset="0%" stopColor="#ff4d6d" stopOpacity="0.8" />
+                                            <stop offset="100%" stopColor="#ff4d6d" stopOpacity="0" />
+                                        </radialGradient>
+                                    </defs>
+                                    <rect width="800" height="600" fill="url(#bg1)" />
+                                    <circle cx="400" cy="280" r="220" fill="url(#glow1)" />
+                                    {/* Constelação 06/12/1998 */}
+                                    <g stroke="#fbcfe8" strokeWidth="2" opacity="0.7">
+                                        <line x1="220" y1="180" x2="310" y2="140" />
+                                        <line x1="310" y1="140" x2="420" y2="190" />
+                                        <line x1="420" y1="190" x2="540" y2="130" />
+                                        <line x1="540" y1="130" x2="600" y2="230" />
+                                    </g>
+                                    <circle cx="220" cy="180" r="6" fill="#fff" />
+                                    <circle cx="310" cy="140" r="8" fill="#f472b6" />
+                                    <circle cx="420" cy="190" r="7" fill="#fff" />
+                                    <circle cx="540" cy="130" r="9" fill="#fb7185" />
+                                    <circle cx="600" cy="230" r="6" fill="#fff" />
+                                    {/* Estrela Principal */}
+                                    <path d="M400 160 L425 245 L510 270 L425 295 L400 380 L375 295 L290 270 L375 245 Z" fill="#fff1f2" />
+                                    <text x="400" y="485" textAnchor="middle" fill="#ffe4e6" fontSize="38" fontFamily="Playfair Display" fontWeight="bold">06 • 12 • 1998</text>
+                                    <text x="400" y="525" textAnchor="middle" fill="#f9a8d4" fontSize="20" fontFamily="Plus Jakarta Sans" letterSpacing="4">NASCEU A MINHA ESTRELA FAVORITA</text>
+                                </svg>
+                            )}
+
+                            {theme === "firstMeet" && (
+                                <svg viewBox="0 0 800 600" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                                    <defs>
+                                        <linearGradient id="bg2" x1="0%" y1="0%" x2="100%" y2="100%">
+                                            <stop offset="0%" stopColor="#0a1026" />
+                                            <stop offset="55%" stopColor="#831843" />
+                                            <stop offset="100%" stopColor="#b91c1c" />
+                                        </linearGradient>
+                                    </defs>
+                                    <rect width="800" height="600" fill="url(#bg2)" />
+                                    <circle cx="400" cy="300" r="170" fill="#f43f5e" opacity="0.25" />
+                                    <circle cx="400" cy="300" r="120" fill="#ec4899" opacity="0.35" />
+                                    {/* Dois Corações Conectados */}
+                                    <path d="M350 260 C350 220 290 200 260 240 C230 280 260 340 350 400 C440 340 470 280 440 240 C410 200 350 220 350 260 Z" fill="#e11d48" opacity="0.9" />
+                                    <path d="M460 240 C460 200 400 180 370 220 C340 260 370 320 460 380 C550 320 580 260 550 220 C520 180 460 200 460 240 Z" fill="#f472b6" opacity="0.85" />
+                                    <text x="400" y="495" textAnchor="middle" fill="#fff1f2" fontSize="32" fontFamily="Playfair Display" fontStyle="italic">"Foi no seu olhar que encontrei meu lar"</text>
+                                </svg>
+                            )}
+
+                            {theme === "adventures" && (
+                                <svg viewBox="0 0 800 600" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                                    <defs>
+                                        <linearGradient id="bg3" x1="0%" y1="0%" x2="0%" y2="100%">
+                                            <stop offset="0%" stopColor="#040714" />
+                                            <stop offset="60%" stopColor="#581c87" />
+                                            <stop offset="100%" stopColor="#db2777" />
+                                        </linearGradient>
+                                    </defs>
+                                    <rect width="800" height="600" fill="url(#bg3)" />
+                                    {/* Lua Romântica e Montanhas */}
+                                    <circle cx="550" cy="180" r="75" fill="#fdf2f8" opacity="0.9" />
+                                    <circle cx="525" cy="165" r="70" fill="#3b0764" opacity="0.3" />
+                                    <polygon points="0,600 220,320 450,600" fill="#1e1b4b" />
+                                    <polygon points="280,600 520,290 800,600" fill="#0f172a" />
+                                    <polygon points="120,600 380,380 650,600" fill="#311042" />
+                                    <text x="400" y="530" textAnchor="middle" fill="#fbcfe8" fontSize="28" fontFamily="Playfair Display">Cada segundo com você é mágico ✨</text>
+                                </svg>
+                            )}
+
+                            {theme === "forever" && (
+                                <svg viewBox="0 0 800 600" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                                    <defs>
+                                        <linearGradient id="bg4" x1="0%" y1="100%" x2="100%" y2="0%">
+                                            <stop offset="0%" stopColor="#0a1026" />
+                                            <stop offset="50%" stopColor="#9d174d" />
+                                            <stop offset="100%" stopColor="#dc2626" />
+                                        </linearGradient>
+                                    </defs>
+                                    <rect width="800" height="600" fill="url(#bg4)" />
+                                    {/* Símbolo do Infinito Brilhante */}
+                                    <path d="M260 300 C180 200 180 400 260 300 C340 200 460 400 540 300 C620 200 620 400 540 300 C460 200 340 400 260 300 Z" fill="none" stroke="#fda4af" strokeWidth="16" strokeLinecap="round" />
+                                    <circle cx="400" cy="300" r="18" fill="#fff" />
+                                    <text x="400" y="485" textAnchor="middle" fill="#ffffff" fontSize="34" fontFamily="Playfair Display" fontWeight="bold">Parabéns, Meu Amor! 🎂❤️</text>
+                                </svg>
+                            )}
+                        </div>
+                    )}
+
+                    {/* Badge 4:3 + Botão para ela ou você colocar uma foto real do casal na hora */}
+                    <div className="absolute top-3 left-3 bg-navy-950/80 backdrop-blur-md px-3 py-1 rounded-full border border-pink-500/30 text-xs text-pink-200 flex items-center gap-1.5">
+                        <span>📸 Memória 4:3</span>
+                    </div>
+
+                    <button
+                        onClick={() => fileInputRef.current?.click()}
+                        className="absolute bottom-3 right-3 bg-navy-950/85 hover:bg-pink-600/90 text-xs text-white px-3.5 py-2 rounded-xl border border-pink-400/40 backdrop-blur-md transition-all duration-300 flex items-center gap-1.5 shadow-lg"
+                        title="Trocar por uma foto nossa da galeria"
+                    >
+                        <span>🖼️ Colocar Foto Nossa</span>
+                    </button>
+                    <input
+                        ref={fileInputRef}
+                        type="file"
+                        accept="image/*"
+                        onChange={handleFileChange}
+                        className="hidden"
+                    />
+                </div>
+            );
+        };
+
+        // ==========================================
+        // 3. COMPONENTE TIMELINE CARD COM PARALLAX & REVELAÇÃO
+        // ==========================================
+        const TimelineCard = ({ item, index, scrollY }) => {
+            const [revealed, setRevealed] = useState(false);
+            const [customPhoto, setCustomPhoto] = useState(null);
+            const cardRef = useRef(null);
+            const [isVisible, setIsVisible] = useState(false);
+
+            // IntersectionObserver para revelação suave ao rolar a tela
+            useEffect(() => {
+                const observer = new IntersectionObserver(
+                    ([entry]) => {
+                        if (entry.isIntersecting) {
+                            setIsVisible(true);
+                        }
+                    },
+                    { threshold: 0.18 }
+                );
+                if (cardRef.current) observer.observe(cardRef.current);
+                return () => observer.disconnect();
+            }, []);
+
+            // Cálculo de deslocamento Parallax suave para as imagens 4:3
+            const parallaxOffset = Math.max(-35, Math.min(35, (scrollY - (index * 450)) * item.parallaxFactor));
+            const isEven = index % 2 === 0;
+
+            return (
+                <div
+                    ref={cardRef}
+                    className={`relative flex flex-col md:flex-row items-center gap-6 md:gap-12 my-12 md:my-20 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-16'
+                        } ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'}`}
+                >
+                    {/* Ponto Central na Linha do Tempo (Visível em Desktop) */}
+                    <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 w-12 h-12 rounded-full metallic-red-bg items-center justify-center z-20 border-4 border-navy-950 shadow-xl">
+                        <span className="text-lg">{item.emoji.slice(0, 2)}</span>
+                    </div>
+
+                    {/* Coluna da Imagem 4:3 com Efeito Parallax */}
+                    <div className="w-full md:w-1/2 px-2">
+                        <div
+                            style={{ transform: `translateY(${parallaxOffset}px)` }}
+                            className="transition-transform duration-200 ease-out"
+                        >
+                            <Illustration4x3
+                                theme={item.svgTheme}
+                                customImage={customPhoto}
+                                onUploadPhoto={setCustomPhoto}
+                            />
+                        </div>
+                    </div>
+
+                    {/* Coluna de Conteúdo e Botão de Revelação JS */}
+                    <div className="w-full md:w-1/2 px-2">
+                        <div className="navy-card p-6 sm:p-8 rounded-3xl relative overflow-hidden group hover:border-pink-500/60 transition-all duration-500">
+                            {/* Brilho Rosa/Roxo de Fundo */}
+                            <div className="absolute -right-12 -top-12 w-36 h-36 bg-gradient-to-br from-pink-500/20 to-purple-600/20 rounded-full blur-2xl pointer-events-none"></div>
+
+                            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-pink-500/20 to-purple-600/20 border border-pink-400/30 text-pink-300 text-xs sm:text-sm font-semibold mb-4">
+                                <span>{item.dateLabel}</span>
+                            </div>
+
+                            <h3 className="font-serif text-2xl sm:text-3xl font-bold text-white mb-3 leading-tight">
+                                {item.title}
+                            </h3>
+
+                            <p className="text-slate-300 text-sm sm:text-base leading-relaxed mb-5">
+                                {item.description}
+                            </p>
+
+                            <div className="text-2xl mb-5 tracking-widest">
+                                {item.emoji}
+                            </div>
+
+                            {/* Botão de Revelação Interativa em JS */}
+                            <button
+                                onClick={() => setRevealed(!revealed)}
+                                className={`w-full py-3.5 px-5 rounded-2xl font-semibold text-sm sm:text-base transition-all duration-300 flex items-center justify-center gap-2 ${revealed
+                                    ? 'bg-gradient-to-r from-purple-700 to-pink-600 text-white shadow-lg shadow-pink-500/25'
+                                    : 'metallic-red-bg text-white hover:scale-[1.02] active:scale-95'
+                                    }`}
+                            >
+                                <span>{revealed ? '🔓 Ocultar Mensagem Secreta' : '💌 Toque para Revelar uma Mensagem Fofa'}</span>
+                            </button>
+
+                            {/* Caixa de Revelação com Animação */}
+                            <div className={`overflow-hidden transition-all duration-500 ease-in-out ${revealed ? 'max-h-60 opacity-100 mt-4' : 'max-h-0 opacity-0 mt-0'
+                                }`}>
+                                <div className="p-4 rounded-2xl bg-gradient-to-r from-pink-950/80 via-purple-950/80 to-navy-900/90 border border-pink-400/40 text-pink-100 text-sm sm:text-base italic shadow-inner">
+                                    {item.secretReveal}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        // ==========================================
+        // 4. COMPONENTE PRINCIPAL (APP)
+        // ==========================================
+        const App = () => {
+            const [countdown, setCountdown] = useState(() => oracle.getNextBirthdayCountdown());
+            const [lifeStats, setLifeStats] = useState(() => oracle.getLifeTimeStats());
+            const [activeTab, setActiveTab] = useState('nextBday'); // 'nextBday' ou 'lifeTime'
+            const [scrollY, setScrollY] = useState(0);
+
+            // Estados para o Convite da Série no Final
+            const [selectedGenre, setSelectedGenre] = useState('Romance & Drama 🥰');
+            const [selectedSnack, setSelectedSnack] = useState('Pipoca + Chocolate 🍿🍫');
+            const [customSerieName, setCustomSerieName] = useState('');
+            const [inviteAccepted, setInviteAccepted] = useState(false);
+            const [floatingEmojis, setFloatingEmojis] = useState([]);
+
+            // Inicializa o Universo 3D Three.js e o Loop de Tempo POO
+            useEffect(() => {
+                const universe3D = new RomanticUniverse3D('bg-canvas');
+
+                const timer = setInterval(() => {
+                    setCountdown(oracle.getNextBirthdayCountdown());
+                    setLifeStats(oracle.getLifeTimeStats());
+                }, 1000);
+
+                const handleScroll = () => {
+                    setScrollY(window.scrollY);
+                };
+
+                window.addEventListener('scroll', handleScroll, { passive: true });
+                return () => {
+                    clearInterval(timer);
+                    window.removeEventListener('scroll', handleScroll);
+                };
+            }, []);
+
+            // Dispara chuva de corações e emojis na tela
+            const triggerRomanticExplosion = () => {
+                const emojis = ['❤️', '💖', '🍿', '🎬', '🥰', '✨', '🌹', '🎂', '😍'];
+                const newParticles = Array.from({ length: 24 }).map((_, i) => ({
+                    id: Date.now() + i,
+                    emoji: emojis[Math.floor(Math.random() * emojis.length)],
+                    left: Math.random() * 92 + 4,
+                    duration: Math.random() * 2 + 2.2
+                }));
+                setFloatingEmojis(newParticles);
+                setTimeout(() => setFloatingEmojis([]), 4500);
+            };
+
+            // Gera o link direto para chamar no WhatsApp com a mensagem personalizada da série
+            const getWhatsAppInviteLink = () => {
+                const serieText = customSerieName.trim()
+                    ? `a série "${customSerieName.trim()}"`
+                    : `uma série de ${selectedGenre}`;
+                const msg = `Oi amor! ❤️ Amei a surpresa de aniversário de 06/12/1998! Aceito o convite para vermos ${serieText} juntinhos com ${selectedSnack}! 🍿🎬🥰`;
+                return `https://wa.me/?text=${encodeURIComponent(msg)}`;
+            };
+
+            return (
+                <div className="min-h-screen flex flex-col justify-between pb-16">
+
+                    {/* Chuva de Emojis Interativa quando acionada */}
+                    <div className="fixed inset-0 pointer-events-none z-50 overflow-hidden">
+                        {floatingEmojis.map((item) => (
+                            <div
+                                key={item.id}
+                                style={{
+                                    left: `${item.left}%`,
+                                    animation: `floatSlow ${item.duration}s ease-in-out forwards`
+                                }}
+                                className="absolute bottom-4 text-3xl sm:text-4xl animate-bounce"
+                            >
+                                {item.emoji}
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* HEADER / NAVEGAÇÃO MOBILE-FIRST */}
+                    <header className="sticky top-0 z-40 backdrop-blur-xl bg-navy-950/75 border-b border-pink-500/20 px-4 py-3.5">
+                        <div className="max-w-5xl mx-auto flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                                <span className="w-8 h-8 rounded-full metallic-red-bg flex items-center justify-center text-sm shadow-md">
+                                    ❤️
+                                </span>
+                                <span className="font-serif font-bold text-lg sm:text-xl tracking-wide bg-gradient-to-r from-pink-300 via-rose-400 to-purple-400 bg-clip-text text-transparent">
+                                    ANIVERSÁRIO DA VIVI - 06 • 12 • 1998
+                                </span>
+                            </div>
+
+                            <nav className="flex items-center gap-2 sm:gap-4 text-xs sm:text-sm font-medium">
+                                <a href="#contador" className="px-3 py-1.5 rounded-full hover:bg-pink-500/20 text-pink-200 transition">
+                                    ⏳ Contador
+                                </a>
+                                <a href="#linha-do-tempo" className="px-3 py-1.5 rounded-full hover:bg-pink-500/20 text-pink-200 transition">
+                                    📸 Nossa História
+                                </a>
+                                <a href="#convite-serie" className="px-3.5 py-1.5 rounded-full metallic-red-bg text-white font-semibold shadow-md">
+                                    🍿 Ver Série
+                                </a>
+                            </nav>
+                        </div>
+                    </header>
+
+                    {/* HERO & SEÇÃO DE CONTADOR (AZUL MARINHO PARA OS CARDS DE TEMPO) */}
+                    <section id="contador" className="px-4 pt-10 pb-16 sm:py-20 max-w-5xl mx-auto w-full text-center">
+
+                        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-pink-500/20 via-purple-500/20 to-red-500/20 border border-pink-400/40 text-pink-200 text-xs sm:text-sm mb-6 animate-float">
+                            <span>✨ Edição Especial para a Mulher da Minha Vida ✨</span>
+                        </div>
+
+                        <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl font-extrabold mb-4 leading-tight">
+                            <span className="block text-white">Celebrando o Seu Dia</span>
+                            <span className="metallic-red-text">06 de Dezembro de 1998</span>
+                        </h1>
+
+                        <p className="text-slate-100  mx-auto text-4xl leading-relaxed mb-16 px-2">Se um dia nossos caminhos se encontrarem novamente, que não seja apenas porque sentimos falta um do outro, mas porque aprendemos a cuidar melhor daquilo que um dia tivemos. 💖</p>
+
+
+                        <p className="text-slate-300 max-w-2xl mx-auto text-sm sm:text-lg leading-relaxed mb-8 px-2">
+                            Cada segundo que passa é mais um motivo para agradecer ao universo por você existir.
+                            Acompanhe em tempo real a contagem do seu aniversário e o tempo em que você ilumina o mundo! 💖
+                        </p>
+
+                        {/* Seletor de Modo do Contador */}
+                        <div className="inline-flex p-1.5 rounded-2xl bg-navy-900/90 border border-pink-500/30 mb-8 max-w-full overflow-x-auto">
+                            <button
+                                onClick={() => setActiveTab('nextBday')}
+                                className={`px-4 sm:px-6 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-300 ${activeTab === 'nextBday'
+                                    ? 'metallic-red-bg text-white shadow-lg'
+                                    : 'text-pink-200/70 hover:text-white'
+                                    }`}
+                            >
+                                🎂 Próximo Aniversário ({countdown.upcomingAge} Anos)
+                            </button>
+                            <button
+                                onClick={() => setActiveTab('lifeTime')}
+                                className={`px-4 sm:px-6 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-300 ${activeTab === 'lifeTime'
+                                    ? 'bg-gradient-to-r from-pink-600 to-purple-700 text-white shadow-lg'
+                                    : 'text-pink-200/70 hover:text-white'
+                                    }`}
+                            >
+                                🌟 Iluminando o Mundo desde 06/12/1998
+                            </button>
+                        </div>
+
+                        {/* PAINEL DOS CONTADORES EM AZUL MARINHO COM BORDA ROSA/ROXO E DETALHES VERMELHO METÁLICO */}
+                        {activeTab === 'nextBday' ? (
+                            <div>
+                                {countdown.isBirthdayToday && (
+                                    <div className="mb-6 p-4 rounded-2xl metallic-red-bg text-white font-bold text-lg animate-bounce">
+                                        🎉 HOJE É O SEU ANIVERSÁRIO! PARABÉNS, MEU AMOR! 🎂❤️
+                                    </div>
+                                )}
+
+                                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-6 max-w-3xl mx-auto">
+                                    {/* Card Dias - Azul Marinho Profundo */}
+                                    <div className="navy-card rounded-3xl p-5 sm:p-7 flex flex-col items-center justify-center relative overflow-hidden group">
+                                        <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-red-500 via-pink-500 to-purple-600"></div>
+                                        <span className="text-xs uppercase tracking-widest text-pink-300/80 font-semibold mb-1">Dias</span>
+                                        <span className="font-serif text-4xl sm:text-6xl font-extrabold text-white tracking-tight">
+                                            {countdown.days}
+                                        </span>
+                                        <span className="text-[11px] text-purple-300 mt-2">Para 06/12 ✨</span>
+                                    </div>
+
+                                    {/* Card Horas - Azul Marinho Profundo */}
+                                    <div className="navy-card rounded-3xl p-5 sm:p-7 flex flex-col items-center justify-center relative overflow-hidden group">
+                                        <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-pink-500 via-purple-500 to-red-500"></div>
+                                        <span className="text-xs uppercase tracking-widest text-pink-300/80 font-semibold mb-1">Horas</span>
+                                        <span className="font-serif text-4xl sm:text-6xl font-extrabold text-white tracking-tight">
+                                            {countdown.hours}
+                                        </span>
+                                        <span className="text-[11px] text-purple-300 mt-2">De expectativa 💫</span>
+                                    </div>
+
+                                    {/* Card Minutos - Azul Marinho Profundo */}
+                                    <div className="navy-card rounded-3xl p-5 sm:p-7 flex flex-col items-center justify-center relative overflow-hidden group">
+                                        <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-purple-500 via-pink-500 to-red-500"></div>
+                                        <span className="text-xs uppercase tracking-widest text-pink-300/80 font-semibold mb-1">Minutos</span>
+                                        <span className="font-serif text-4xl sm:text-6xl font-extrabold text-white tracking-tight">
+                                            {countdown.minutes}
+                                        </span>
+                                        <span className="text-[11px] text-purple-300 mt-2">Contando... 💖</span>
+                                    </div>
+
+                                    {/* Card Segundos - Azul Marinho com Pulso Vermelho Metálico */}
+                                    <div className="navy-card rounded-3xl p-5 sm:p-7 flex flex-col items-center justify-center relative overflow-hidden border-red-500/50">
+                                        <div className="absolute inset-x-0 top-0 h-1 metallic-red-bg"></div>
+                                        <span className="text-xs uppercase tracking-widest text-rose-300 font-semibold mb-1">Segundos</span>
+                                        <span className="font-serif text-4xl sm:text-6xl font-extrabold metallic-red-text tracking-tight">
+                                            {countdown.seconds}
+                                        </span>
+                                        <span className="text-[11px] text-rose-300 mt-2">Bate coração 💓</span>
+                                    </div>
+                                </div>
+                            </div>
+                        ) : (
+                            <div className="max-w-3xl mx-auto">
+                                <div className="mb-4 inline-block px-4 py-1.5 rounded-full bg-navy-800 border border-purple-400/30 text-pink-200 text-xs sm:text-sm">
+                                    👑 Idade Atual: <strong className="text-white">{lifeStats.currentAge} anos</strong> de pura perfeição
+                                </div>
+                                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-6">
+                                    <div className="navy-card rounded-3xl p-5 sm:p-7 flex flex-col items-center justify-center">
+                                        <span className="text-xs uppercase tracking-widest text-pink-300/80 font-semibold mb-1">Dias Vividos</span>
+                                        <span className="font-serif text-3xl sm:text-4xl font-extrabold text-white">
+                                            {lifeStats.totalDays}
+                                        </span>
+                                        <span className="text-[11px] text-purple-300 mt-2">Desde 06/12/1998 🌟</span>
+                                    </div>
+                                    <div className="navy-card rounded-3xl p-5 sm:p-7 flex flex-col items-center justify-center">
+                                        <span className="text-xs uppercase tracking-widest text-pink-300/80 font-semibold mb-1">Horas</span>
+                                        <span className="font-serif text-4xl sm:text-5xl font-extrabold text-white">
+                                            {lifeStats.hours}
+                                        </span>
+                                        <span className="text-[11px] text-purple-300 mt-2">Espalhando luz ✨</span>
+                                    </div>
+                                    <div className="navy-card rounded-3xl p-5 sm:p-7 flex flex-col items-center justify-center">
+                                        <span className="text-xs uppercase tracking-widest text-pink-300/80 font-semibold mb-1">Minutos</span>
+                                        <span className="font-serif text-4xl sm:text-5xl font-extrabold text-white">
+                                            {lifeStats.minutes}
+                                        </span>
+                                        <span className="text-[11px] text-purple-300 mt-2">De encanto 😍</span>
+                                    </div>
+                                    <div className="navy-card rounded-3xl p-5 sm:p-7 flex flex-col items-center justify-center">
+                                        <span className="text-xs uppercase tracking-widest text-rose-300 font-semibold mb-1">Segundos</span>
+                                        <span className="font-serif text-4xl sm:text-5xl font-extrabold metallic-red-text">
+                                            {lifeStats.seconds}
+                                        </span>
+                                        <span className="text-[11px] text-rose-300 mt-2">Sendo incrível ❤️</span>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+                    </section>
+
+                    {/* SEÇÃO DE LINHA DO TEMPO COM PARALLAX E IMAGENS 4:3 */}
+                    <section id="linha-do-tempo" className="px-4 py-16 relative max-w-5xl mx-auto w-full">
+                        <div className="text-center mb-12 sm:mb-20">
+                            <span className="px-4 py-1.5 rounded-full bg-pink-500/15 border border-pink-500/30 text-pink-300 text-xs sm:text-sm font-semibold uppercase tracking-wider">
+                                Parallax & Memórias 4:3
+                            </span>
+                            <h2 className="font-serif text-3xl sm:text-5xl font-bold mt-4 mb-3 bg-gradient-to-r from-white via-pink-200 to-purple-300 bg-clip-text text-transparent">
+                                A Linha do Tempo do Nosso Amor
+                            </h2>
+                            <p className="text-slate-300 text-sm sm:text-base max-w-xl mx-auto">
+                                Role a página para sentir o efeito parallax nas molduras 4:3, toque nos botões para revelar mensagens secretas ou adicione fotos nossas! 🥰
+                            </p>
+                        </div>
+
+                        {/* Linha vertical central (Rosa -> Roxo -> Vermelho Metálico) */}
+                        <div className="relative">
+                            <div className="hidden md:block absolute left-1/2 top-4 bottom-4 -translate-x-1/2 w-1 bg-gradient-to-b from-red-600 via-pink-500 to-purple-700 rounded-full opacity-60"></div>
+
+                            {milestonesList.map((item, index) => (
+                                <TimelineCard
+                                    key={item.id}
+                                    item={item}
+                                    index={index}
+                                    scrollY={scrollY}
+                                />
+                            ))}
+                        </div>
+                    </section>
+
+                    {/* SEÇÃO FINAL: CONVITE INTERATIVO PARA VER UMA SÉRIE JUNTOS */}
+                    <section id="convite-serie" className="px-4 pt-12 pb-8 max-w-4xl mx-auto w-full">
+                        <div className="rounded-3xl p-6 sm:p-12 pink-purple-gradient border border-pink-500/40 shadow-2xl relative overflow-hidden">
+
+                            {/* Brilho Decorativo */}
+                            <div className="absolute -top-24 -left-24 w-64 h-64 bg-rose-600/25 rounded-full blur-3xl pointer-events-none"></div>
+                            <div className="absolute -bottom-24 -right-24 w-64 h-64 bg-purple-600/30 rounded-full blur-3xl pointer-events-none"></div>
+
+                            <div className="relative z-10 text-center">
+                                <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl metallic-red-bg text-3xl mb-4 shadow-xl animate-float">
+                                    🍿
+                                </div>
+
+                                <h2 className="font-serif text-3xl sm:text-5xl font-extrabold text-white mb-3">
+                                    Tenho um Convite Especial Para Depois... 🎬❤️
+                                </h2>
+
+                                <p className="text-pink-100/90 text-sm sm:text-lg max-w-xl mx-auto mb-8 leading-relaxed">
+                                    Depois de comemorarmos você, que tal ficarmos bem agarradinhos no sofá ou na cama assistindo uma série juntos? Escolha o nosso combo perfeito abaixo:
+                                </p>
+
+                                {/* Seletores Interativos do Date */}
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-left mb-6">
+                                    {/* Escolha do Estilo da Série */}
+                                    <div className="navy-card p-5 rounded-2xl">
+                                        <label className="block text-xs font-bold uppercase tracking-wider text-pink-300 mb-3">
+                                            1. Qual vibe de série você quer ver hoje? 📺
+                                        </label>
+                                        <div className="grid grid-cols-1 gap-2">
+                                            {[
+                                                'Romance & Drama 🥰',
+                                                'Comédia para rirmos muito 😂',
+                                                'Suspense / Mistério 🕵️‍♀️',
+                                                'Nossa série favorita de sempre 💖'
+                                            ].map((genre) => (
+                                                <button
+                                                    key={genre}
+                                                    type="button"
+                                                    onClick={() => setSelectedGenre(genre)}
+                                                    className={`px-4 py-2.5 rounded-xl text-xs sm:text-sm font-medium text-left transition-all flex items-center justify-between ${selectedGenre === genre
+                                                        ? 'metallic-red-bg text-white font-semibold'
+                                                        : 'bg-navy-950/70 text-slate-300 hover:bg-navy-800'
+                                                        }`}
+                                                >
+                                                    <span>{genre}</span>
+                                                    {selectedGenre === genre && <span>✓</span>}
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    {/* Escolha do Lanche e Nome da Série */}
+                                    <div className="navy-card p-5 rounded-2xl flex flex-col justify-between">
+                                        <div>
+                                            <label className="block text-xs font-bold uppercase tracking-wider text-pink-300 mb-3">
+                                                2. O que não pode faltar no nosso date? 🍫
+                                            </label>
+                                            <div className="grid grid-cols-1 gap-2 mb-4">
+                                                {[
+                                                    'Pipoca + Chocolate 🍿🍫',
+                                                    'Pizza + Refrigerante 🍕🥤',
+                                                    'Docinhos + Cobertor Quentinho 🍓🧸'
+                                                ].map((snack) => (
+                                                    <button
+                                                        key={snack}
+                                                        type="button"
+                                                        onClick={() => setSelectedSnack(snack)}
+                                                        className={`px-4 py-2.5 rounded-xl text-xs sm:text-sm font-medium text-left transition-all flex items-center justify-between ${selectedSnack === snack
+                                                            ? 'bg-gradient-to-r from-pink-600 to-purple-600 text-white font-semibold'
+                                                            : 'bg-navy-950/70 text-slate-300 hover:bg-navy-800'
+                                                            }`}
+                                                    >
+                                                        <span>{snack}</span>
+                                                        {selectedSnack === snack && <span>✓</span>}
+                                                    </button>
+                                                ))}
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <label className="block text-xs font-bold uppercase tracking-wider text-pink-300 mb-1.5">
+                                                Tem alguma série específica em mente? (Opcional)
+                                            </label>
+                                            <input
+                                                type="text"
+                                                value={customSerieName}
+                                                onChange={(e) => setCustomSerieName(e.target.value)}
+                                                placeholder="Ex: Bridgerton, Friends, Dorama..."
+                                                className="w-full px-4 py-2.5 rounded-xl bg-navy-950/90 border border-pink-500/40 text-white placeholder-slate-400 text-sm focus:outline-none focus:border-pink-400"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Botões de Ação e Link Direto */}
+                                <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8">
+                                    <a
+                                        href={getWhatsAppInviteLink()}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        onClick={() => {
+                                            setInviteAccepted(true);
+                                            triggerRomanticExplosion();
+                                        }}
+                                        className="w-full sm:w-auto px-8 py-4 rounded-2xl metallic-red-bg text-white font-bold text-base sm:text-lg shadow-2xl hover:scale-105 active:scale-95 transition-all duration-300 flex items-center justify-center gap-2"
+                                    >
+                                        <span>💌 Aceitar Convite & Me Chamar para Ver a Série!</span>
+                                    </a>
+
+                                    <button
+                                        type="button"
+                                        onClick={() => {
+                                            setInviteAccepted(true);
+                                            triggerRomanticExplosion();
+                                        }}
+                                        className="w-full sm:w-auto px-6 py-4 rounded-2xl bg-navy-900/90 hover:bg-navy-800 border border-pink-400/40 text-pink-200 font-semibold text-sm sm:text-base transition-all"
+                                    >
+                                        ✨ Celebrar na Tela!
+                                    </button>
+                                </div>
+
+                                {/* Confirmação Fofa caso ela clique */}
+                                {inviteAccepted && (
+                                    <div className="mt-6 p-4 rounded-2xl bg-navy-950/90 border border-pink-500/50 text-pink-200 text-sm sm:text-base animate-pulse">
+                                        🥰 <strong>Encontro Confirmado!</strong> Prepare o coração (e o cobertor) porque a nossa sessão de{' '}
+                                        <span className="text-white font-bold">{customSerieName || selectedGenre}</span> com{' '}
+                                        <span className="text-white font-bold">{selectedSnack}</span> vai ser inesquecível! Te amo! ❤️
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* RODAPÉ ROMÂNTICO */}
+                    <footer className="text-center py-6 px-4 text-xs sm:text-sm text-slate-400">
+                        <p>
+                            Feito com todo o amor do mundo especialmente para você ❤️ • <span className="text-pink-400 font-semibold">06/12/1998</span>
+                        </p>
+                    </footer>
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+
+</html>
