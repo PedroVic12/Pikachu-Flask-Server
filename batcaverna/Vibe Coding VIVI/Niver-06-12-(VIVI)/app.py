@@ -58,7 +58,9 @@ def next_photo_name() -> str:
     used_numbers = set()
     if IMAGE_DIR.exists():
         for path in IMAGE_DIR.iterdir():
-            match = re.fullmatch(r"foto([1-9][0-9]*)\.(jpg|jpeg|png|webp|gif)", path.name)
+            match = re.fullmatch(
+                r"foto([1-9][0-9]*)\.(jpg|jpeg|png|webp|gif)", path.name
+            )
             if match:
                 used_numbers.add(int(match.group(1)))
     number = 1
@@ -76,10 +78,7 @@ def index():
 def list_photos():
     photos = load_photo_index()
     return jsonify(
-        photos={
-            theme: photo_details(filename)
-            for theme, filename in photos.items()
-        },
+        photos={theme: photo_details(filename) for theme, filename in photos.items()},
         nextName=next_photo_name(),
     )
 
