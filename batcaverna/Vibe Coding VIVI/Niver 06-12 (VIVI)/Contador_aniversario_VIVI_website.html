@@ -483,14 +483,28 @@
         const Illustration4x3 = ({ theme, customImage, onUploadPhoto }) => {
             const fileInputRef = useRef(null);
 
-            const handleFileChange = (e) => {
-                const file = e.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = (event) => {
-                        onUploadPhoto(event.target.result);
-                    };
-                    reader.readAsDataURL(file);
+            const handleFileChange = async (e) => {
+                const input = e.target;
+                const file = input.files?.[0];
+                input.value = '';
+                if (!file) return;
+
+                const suggestedName = customImage?.name || 'foto1';
+                const name = window.prompt(
+                    'Salve esta imagem como foto1, foto2, foto3...:',
+                    suggestedName
+                );
+                if (name === null) return;
+                if (!name.trim()) {
+                    window.alert('Digite um nome para a foto, como foto1.');
+                    return;
+                }
+
+                try {
+                    await onUploadPhoto(file, name.trim());
+                } catch (error) {
+                    console.error('Não foi possível salvar a foto:', error);
+                    window.alert(error.message || 'Não foi possível salvar a foto.');
                 }
             };
 
@@ -498,7 +512,7 @@
                 <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl border border-pink-500/40 group bg-navy-900">
                     {customImage ? (
                         <img
-                            src={customImage}
+                            src={customImage.url}
                             alt="Nossa memória"
                             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                         />
@@ -622,9 +636,8 @@
         // ==========================================
         // 3. COMPONENTE TIMELINE CARD COM PARALLAX & REVELAÇÃO
         // ==========================================
-        const TimelineCard = ({ item, index, scrollY }) => {
+        const TimelineCard = ({ item, index, scrollY, customImage, onUploadPhoto }) => {
             const [revealed, setRevealed] = useState(false);
-            const [customPhoto, setCustomPhoto] = useState(null);
             const cardRef = useRef(null);
             const [isVisible, setIsVisible] = useState(false);
 
@@ -665,8 +678,8 @@
                         >
                             <Illustration4x3
                                 theme={item.svgTheme}
-                                customImage={customPhoto}
-                                onUploadPhoto={setCustomPhoto}
+                                customImage={customImage}
+                                onUploadPhoto={(file, name) => onUploadPhoto(item.svgTheme, file, name)}
                             />
                         </div>
                     </div>
@@ -725,6 +738,8 @@
             const [lifeStats, setLifeStats] = useState(() => oracle.getLifeTimeStats());
             const [activeTab, setActiveTab] = useState('nextBday'); // 'nextBday' ou 'lifeTime'
             const [scrollY, setScrollY] = useState(0);
+            const [savedPhotos, setSavedPhotos] = useState({});
+            const [photoLoadError, setPhotoLoadError] = useState('');
 
             // Estados para o Convite da Série no Final
             const [selectedGenre, setSelectedGenre] = useState('Romance & Drama 🥰');
@@ -752,6 +767,51 @@
                     window.removeEventListener('scroll', handleScroll);
                 };
             }, []);
+
+            useEffect(() => {
+                let cancelled = false;
+                fetch('/api/fotos')
+                    .then(async (response) => {
+                        const data = await response.json();
+                        if (!response.ok) throw new Error(data.error || 'Erro ao carregar as fotos.');
+                        return data.photos;
+                    })
+                    .then((photos) => {
+                        if (!cancelled) setSavedPhotos(photos);
+                    })
+                    .catch((error) => {
+                        console.error('Não foi possível carregar as fotos salvas:', error);
+                        if (!cancelled) setPhotoLoadError(error.message);
+                    });
+                return () => {
+                    cancelled = true;
+                };
+            }, []);
+
+            const savePhoto = async (theme, file, name, overwrite = false) => {
+                const formData = new FormData();
+                formData.append('theme', theme);
+                formData.append('name', name);
+                formData.append('photo', file);
+                if (overwrite) formData.append('overwrite', 'true');
+
+                const response = await fetch('/api/fotos', {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await response.json();
+
+                if (response.status === 409 && !overwrite) {
+                    if (window.confirm(data.error)) {
+                        return savePhoto(theme, file, name, true);
+                    }
+                    return;
+                }
+                if (!response.ok) throw new Error(data.error || 'Erro ao salvar a foto.');
+
+                setSavedPhotos((current) => ({ ...current, [theme]: data.photo }));
+                setPhotoLoadError('');
+            };
 
             // Dispara chuva de corações e emojis na tela
             const triggerRomanticExplosion = () => {
@@ -964,6 +1024,11 @@
                             <p className="text-slate-300 text-sm sm:text-base max-w-xl mx-auto">
                                 Role a página para sentir o efeito parallax nas molduras 4:3, toque nos botões para revelar mensagens secretas ou adicione fotos nossas! 🥰
                             </p>
+                            {photoLoadError && (
+                                <p className="mt-3 text-sm text-rose-300">
+                                    Fotos salvas indisponíveis: {photoLoadError}. Inicie a página pelo servidor Flask.
+                                </p>
+                            )}
                         </div>
 
                         {/* Linha vertical central (Rosa -> Roxo -> Vermelho Metálico) */}
@@ -976,6 +1041,8 @@
                                     item={item}
                                     index={index}
                                     scrollY={scrollY}
+                                    customImage={savedPhotos[item.svgTheme]}
+                                    onUploadPhoto={savePhoto}
                                 />
                             ))}
                         </div>
