@@ -83,6 +83,11 @@ def list_photos():
     )
 
 
+@app.get("/imagens/vision-quest.jpeg")
+def serve_vision_quest():
+    return send_from_directory(IMAGE_DIR, "vision-quest.jpeg", max_age=0)
+
+
 @app.post("/api/fotos")
 def upload_photo():
     theme = request.form.get("theme", "")
