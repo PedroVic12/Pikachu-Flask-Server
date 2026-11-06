@@ -58,7 +58,7 @@ void setup() {
 
   IrReceiver.resume();
 
-  Serial.print("oi");
+ 
   //Desliga todos os VL53L0X.
   pinMode(XSHUT_Sensor1, OUTPUT);
   pinMode(XSHUT_Sensor2, OUTPUT);

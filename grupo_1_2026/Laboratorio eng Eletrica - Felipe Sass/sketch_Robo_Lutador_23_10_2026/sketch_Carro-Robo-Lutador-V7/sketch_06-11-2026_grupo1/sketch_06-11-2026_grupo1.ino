@@ -378,8 +378,8 @@ void CurvaLadoDireito() {
 void CurvaLadoEsquerdo() {
     // Curva para um lado
         definirMotores(
-            PWM_ARCO_INTERNO,
-            PWM_ARCO_EXTERNO
+            PWM_ARCO_EXTERNO,
+            PWM_ARCO_INTERNO
         );
 }
 
@@ -466,7 +466,7 @@ void loop()
     }
 }
 
-
+// 06-11-2026: ULTIMA AULA ANTES DA COMPETIÇÃo!
 // código feito em 23-11-2026
 
 // alteração em 06-11-2026
@@ -475,4 +475,5 @@ void loop()
 
 // documentação: 20-11-2026
 
+// algortimo de avanço agressivo ao achar o adversário.
 
