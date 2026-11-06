@@ -135,5 +135,6 @@ def file_too_large(_error):
     return jsonify(error="A imagem deve ter no máximo 8 MB."), 413
 
 
+# server flask para armazenar as fotos
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=5000, debug=False)
