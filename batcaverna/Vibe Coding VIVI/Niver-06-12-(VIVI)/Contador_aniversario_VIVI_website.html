@@ -517,7 +517,7 @@
                     ) : (
                         <div className="w-full h-full relative">
                             {theme === "starBirth" && (
-                                <svg viewBox="0 0 800 600" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                                <svg viewBox="0 0 1000 600" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                                     <defs>
                                         <linearGradient id="bg1" x1="0%" y1="0%" x2="100%" y2="100%">
                                             <stop offset="0%" stopColor="#040714" />
@@ -529,7 +529,7 @@
                                             <stop offset="100%" stopColor="#ff4d6d" stopOpacity="0" />
                                         </radialGradient>
                                     </defs>
-                                    <rect width="800" height="600" fill="url(#bg1)" />
+                                    <rect width="1000" height="600" fill="url(#bg1)" />
                                     <circle cx="400" cy="280" r="220" fill="url(#glow1)" />
                                     {/* Constelação 06/12/1998 */}
                                     <g stroke="#fbcfe8" strokeWidth="2" opacity="0.7">
@@ -551,7 +551,7 @@
                             )}
 
                             {theme === "firstMeet" && (
-                                <svg viewBox="0 0 800 600" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                                <svg viewBox="0 0 1000 600" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                                     <defs>
                                         <linearGradient id="bg2" x1="0%" y1="0%" x2="100%" y2="100%">
                                             <stop offset="0%" stopColor="#0a1026" />
@@ -559,7 +559,7 @@
                                             <stop offset="100%" stopColor="#b91c1c" />
                                         </linearGradient>
                                     </defs>
-                                    <rect width="800" height="600" fill="url(#bg2)" />
+                                    <rect width="1000" height="600" fill="url(#bg2)" />
                                     <circle cx="400" cy="300" r="170" fill="#f43f5e" opacity="0.25" />
                                     <circle cx="400" cy="300" r="120" fill="#ec4899" opacity="0.35" />
                                     {/* Dois Corações Conectados */}
@@ -570,7 +570,7 @@
                             )}
 
                             {theme === "adventures" && (
-                                <svg viewBox="0 0 800 600" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                                <svg viewBox="0 0 1000 600" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                                     <defs>
                                         <linearGradient id="bg3" x1="0%" y1="0%" x2="0%" y2="100%">
                                             <stop offset="0%" stopColor="#040714" />
@@ -578,7 +578,7 @@
                                             <stop offset="100%" stopColor="#db2777" />
                                         </linearGradient>
                                     </defs>
-                                    <rect width="800" height="600" fill="url(#bg3)" />
+                                    <rect width="1000" height="600" fill="url(#bg3)" />
                                     {/* Lua Romântica e Montanhas */}
                                     <circle cx="550" cy="180" r="75" fill="#fdf2f8" opacity="0.9" />
                                     <circle cx="525" cy="165" r="70" fill="#3b0764" opacity="0.3" />
@@ -590,7 +590,7 @@
                             )}
 
                             {theme === "forever" && (
-                                <svg viewBox="0 0 800 600" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                                <svg viewBox="0 0 1000 600" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                                     <defs>
                                         <linearGradient id="bg4" x1="0%" y1="100%" x2="100%" y2="0%">
                                             <stop offset="0%" stopColor="#0a1026" />
@@ -598,7 +598,7 @@
                                             <stop offset="100%" stopColor="#dc2626" />
                                         </linearGradient>
                                     </defs>
-                                    <rect width="800" height="600" fill="url(#bg4)" />
+                                    <rect width="1000" height="600" fill="url(#bg4)" />
                                     {/* Símbolo do Infinito Brilhante */}
                                     <path d="M260 300 C180 200 180 400 260 300 C340 200 460 400 540 300 C620 200 620 400 540 300 C460 200 340 400 260 300 Z" fill="none" stroke="#fda4af" strokeWidth="16" strokeLinecap="round" />
                                     <circle cx="400" cy="300" r="18" fill="#fff" />
@@ -831,13 +831,21 @@
             };
 
             // Gera o link direto para chamar no WhatsApp com a mensagem personalizada da série
+            // Gera o link direto para chamar no WhatsApp com a mensagem personalizada da série
             const getWhatsAppInviteLink = () => {
+                // Variável com o seu número de telefone (apenas números, com DDI e DDD)
+                const phoneNumber = "5521999289987";
+
                 const serieText = customSerieName.trim()
                     ? `a série "${customSerieName.trim()}"`
                     : `uma série de ${selectedGenre}`;
+
                 const msg = `Oi! ❤️ Amei a surpresa de aniversário de 06/12/1998! Aceito o convite para vermos ${serieText} juntinhos com ${selectedSnack}! 🍿🎬🥰`;
-                return `https://wa.me/?text=${encodeURIComponent(msg)}`;
+
+                // Inserindo o número antes do parâmetro de texto
+                return `https://wa.me{phoneNumber}?text=${encodeURIComponent(msg)}`;
             };
+
 
             return (
                 <div className="min-h-screen flex flex-col justify-between pb-16">
@@ -1162,7 +1170,7 @@
                                         }}
                                         className="w-full sm:w-auto px-8 py-4 rounded-2xl metallic-red-bg text-white font-bold text-base sm:text-lg shadow-2xl hover:scale-105 active:scale-95 transition-all duration-300 flex items-center justify-center gap-2"
                                     >
-                                        <img src="/fotos/vision-quest.jpeg" alt="" srcset=""> </img>
+                                        <img src="fotos/vision-quest.jpeg" alt="" srcset=""> </img>
 
                                         <span>💌 Aceitar Convite & Me Chamar para Ver a Série!</span>
                                     </a>
