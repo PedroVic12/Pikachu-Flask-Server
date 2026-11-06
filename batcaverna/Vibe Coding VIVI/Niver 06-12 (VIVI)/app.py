@@ -54,6 +54,19 @@ def photo_details(filename: str) -> dict[str, str]:
     }
 
 
+def next_photo_name() -> str:
+    used_numbers = set()
+    if IMAGE_DIR.exists():
+        for path in IMAGE_DIR.iterdir():
+            match = re.fullmatch(r"foto([1-9][0-9]*)\.(jpg|jpeg|png|webp|gif)", path.name)
+            if match:
+                used_numbers.add(int(match.group(1)))
+    number = 1
+    while number in used_numbers:
+        number += 1
+    return f"foto{number}"
+
+
 @app.get("/")
 def index():
     return send_from_directory(BASE_DIR, PAGE_NAME)
@@ -66,7 +79,8 @@ def list_photos():
         photos={
             theme: photo_details(filename)
             for theme, filename in photos.items()
-        }
+        },
+        nextName=next_photo_name(),
     )
 
 
@@ -103,7 +117,7 @@ def upload_photo():
     finally:
         temp_path.unlink(missing_ok=True)
 
-    return jsonify(photo=photo_details(destination.name))
+    return jsonify(photo=photo_details(destination.name), nextName=next_photo_name())
 
 
 @app.get("/imagens/<path:filename>")

@@ -480,7 +480,7 @@
         // ==========================================
 
         // Arte romântica em proporção 4:3 com suporte a upload de foto personalizada do casal
-        const Illustration4x3 = ({ theme, customImage, onUploadPhoto }) => {
+        const Illustration4x3 = ({ theme, customImage, nextPhotoName, onUploadPhoto }) => {
             const fileInputRef = useRef(null);
 
             const handleFileChange = async (e) => {
@@ -489,7 +489,7 @@
                 input.value = '';
                 if (!file) return;
 
-                const suggestedName = customImage?.name || 'foto1';
+                const suggestedName = customImage?.name || nextPhotoName;
                 const name = window.prompt(
                     'Salve esta imagem como foto1, foto2, foto3...:',
                     suggestedName
@@ -636,7 +636,7 @@
         // ==========================================
         // 3. COMPONENTE TIMELINE CARD COM PARALLAX & REVELAÇÃO
         // ==========================================
-        const TimelineCard = ({ item, index, scrollY, customImage, onUploadPhoto }) => {
+        const TimelineCard = ({ item, index, scrollY, customImage, nextPhotoName, onUploadPhoto }) => {
             const [revealed, setRevealed] = useState(false);
             const cardRef = useRef(null);
             const [isVisible, setIsVisible] = useState(false);
@@ -679,6 +679,7 @@
                             <Illustration4x3
                                 theme={item.svgTheme}
                                 customImage={customImage}
+                                nextPhotoName={nextPhotoName}
                                 onUploadPhoto={(file, name) => onUploadPhoto(item.svgTheme, file, name)}
                             />
                         </div>
@@ -739,6 +740,7 @@
             const [activeTab, setActiveTab] = useState('nextBday'); // 'nextBday' ou 'lifeTime'
             const [scrollY, setScrollY] = useState(0);
             const [savedPhotos, setSavedPhotos] = useState({});
+            const [nextPhotoName, setNextPhotoName] = useState('foto1');
             const [photoLoadError, setPhotoLoadError] = useState('');
 
             // Estados para o Convite da Série no Final
@@ -774,10 +776,13 @@
                     .then(async (response) => {
                         const data = await response.json();
                         if (!response.ok) throw new Error(data.error || 'Erro ao carregar as fotos.');
-                        return data.photos;
+                        return data;
                     })
-                    .then((photos) => {
-                        if (!cancelled) setSavedPhotos(photos);
+                    .then(({ photos, nextName }) => {
+                        if (!cancelled) {
+                            setSavedPhotos(photos);
+                            setNextPhotoName(nextName);
+                        }
                     })
                     .catch((error) => {
                         console.error('Não foi possível carregar as fotos salvas:', error);
@@ -810,6 +815,7 @@
                 if (!response.ok) throw new Error(data.error || 'Erro ao salvar a foto.');
 
                 setSavedPhotos((current) => ({ ...current, [theme]: data.photo }));
+                setNextPhotoName(data.nextName);
                 setPhotoLoadError('');
             };
 
@@ -1042,6 +1048,7 @@
                                     index={index}
                                     scrollY={scrollY}
                                     customImage={savedPhotos[item.svgTheme]}
+                                    nextPhotoName={nextPhotoName}
                                     onUploadPhoto={savePhoto}
                                 />
                             ))}
