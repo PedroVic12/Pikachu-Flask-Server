@@ -11,7 +11,13 @@ PHOTO_INDEX = BASE_DIR / ".fotos.json"
 PAGE_NAME = "Contador_aniversario_VIVI_website.html"
 PHOTO_NAME_PATTERN = re.compile(r"foto[1-9][0-9]*\Z")
 ALLOWED_EXTENSIONS = {".jpg", ".jpeg", ".png", ".webp", ".gif"}
-ALLOWED_THEMES = {"starBirth", "firstMeet", "adventures", "forever"}
+ALLOWED_THEMES = {
+    "starBirth",
+    "firstMeet",
+    "viagens",
+    "hojeAmanhaSempre",
+    "visionQuest",
+}
 
 app = Flask(__name__)
 app.config["MAX_CONTENT_LENGTH"] = 8 * 1024 * 1024
