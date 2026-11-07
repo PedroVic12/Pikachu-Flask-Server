@@ -855,7 +855,7 @@
                 const msg = `Oi! ❤️ Amei a surpresa de aniversário de 06/12/1998! Aceito o convite para vermos ${serieText} juntinhos com ${selectedSnack}! 🍿🎬🥰`;
 
                 // Inserindo o número antes do parâmetro de texto
-                return `https://wa.me{phoneNumber}?text=${encodeURIComponent(msg)}`;
+                return `https://wa.me${phoneNumber}?text=${encodeURIComponent(msg)}`;
             };
 
 
@@ -1039,6 +1039,13 @@
                             </div>
                         )}
                     </section>
+
+                    <video width="640" height="360" controls>
+                      <source src="video-casal.mp4" type="video/mp4">
+
+                      Seu navegador não suporta a tag de vídeo.
+                    </video>
+
 
                     {/* SEÇÃO DE LINHA DO TEMPO COM PARALLAX E IMAGENS 4:3 */}
                     <section id="linha-do-tempo" className="px-4 py-16 relative max-w-5xl mx-auto w-full">
