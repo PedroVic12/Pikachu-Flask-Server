@@ -93,6 +93,10 @@ def list_photos():
 def serve_vision_quest():
     return send_from_directory(IMAGE_DIR, "vision-quest.jpeg", max_age=0)
 
+@app.get("/video-casal.mp4")
+def serve_video_casal():
+    return send_from_directory(BASE_DIR, "video-casal.mp4", max_age=0)
+
 
 @app.post("/api/fotos")
 def upload_photo():
