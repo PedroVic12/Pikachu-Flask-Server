@@ -1,54 +1,85 @@
 Projeto,Hash,Data,Autor,Mensagem
-C3PO-Assistente-Virtual-BR,f324e67,2026-07-30,Pedro Victor Veras,up c3po
-C3PO-Assistente-Virtual-BR,235aa29,2026-07-21,Pedro Victor Veras,up
-C3PO-Assistente-Virtual-BR,dfc8ee9,2026-07-20,Pedro Victor Veras,up
-C3PO-Assistente-Virtual-BR,8e5814c,2026-07-18,Pedro Victor Veras,Update .gitignore
-C3PO-Assistente-Virtual-BR,cbeafa5,2026-07-18,Pedro Victor Veras,update de modelos e nova VOZ em ptbr
-C3PO-Assistente-Virtual-BR,f5f1c74,2026-06-27,Pedro Victor Veras,update de projetos moderno como tools no pc linux
-C3PO-Assistente-Virtual-BR,af84cbc,2026-06-25,Pedro Victor Veras,up
-C3PO-Assistente-Virtual-BR,c06953b,2026-06-24,Pedro Victor Veras,agora ele fala com agy
-C3PO-Assistente-Virtual-BR,683986c,2026-06-24,Pedro Victor Veras,up
-C3PO-Assistente-Virtual-BR,79ed842,2025-05-22,Pedro Victor,up
+C3PO-Assistente-Virtual-BR,c574f1c,2026-11-04,Pedro Victor Veras,up
+C3PO-Assistente-Virtual-BR,c0756dd,2026-10-27,Pedro Victor Veras,up - scrum 1- 27--10-2025
+C3PO-Assistente-Virtual-BR,b854ea8,2026-10-21,Pedro Victor Veras,up
+C3PO-Assistente-Virtual-BR,b9e601e,2026-10-21,Pedro Victor Veras,up
+C3PO-Assistente-Virtual-BR,a1af11c,2026-10-05,Pedro Victor Veras,up
+C3PO-Assistente-Virtual-BR,8eab844,2026-09-30,Pedro Victor,uop
+C3PO-Assistente-Virtual-BR,d63894b,2026-09-23,Pedro Victor Veras,ip
+C3PO-Assistente-Virtual-BR,70f7191,2026-09-18,Pedro Victor Veras,up
+C3PO-Assistente-Virtual-BR,2c0226a,2026-09-16,Pedro Victor Veras,up
+C3PO-Assistente-Virtual-BR,df3f3cb,2026-09-11,Pedro Victor Veras,up
+Electrical-System-Simulator,ef929a5a,2026-10-16,Pedro Victor Veras,delete projetos duplicados
+Electrical-System-Simulator,eb9047a6,2026-05-29,Pedro Victor Veras,Create START_HERE.md
+Electrical-System-Simulator,b8ee972d,2026-05-29,Pedro Victor Veras,update de cores
+Electrical-System-Simulator,933268d4,2026-05-29,Pedro Victor Veras,up
+Electrical-System-Simulator,d182dc8e,2026-05-29,Pedro Victor Veras,update
+Electrical-System-Simulator,865ac796,2026-05-29,Pedro Victor Veras,Update page.jsx
+Electrical-System-Simulator,552bc53c,2026-05-29,Pedro Victor Veras,Update page.jsx
+Electrical-System-Simulator,0036355d,2026-05-29,Pedro Victor Veras,Update page.jsx
+Electrical-System-Simulator,3ea550fd,2026-05-29,Pedro Victor Veras,Update page.jsx
+Electrical-System-Simulator,ebf4d522,2026-05-19,Pedro Victor Veras,update
+Gohan-treinamentos-web-app,d1ac2d4,2026-10-28,Pedro Victor Veras,up reels
+Gohan-treinamentos-web-app,e3afbb3,2026-10-21,Pedro Victor Veras,up
+Gohan-treinamentos-web-app,5f7d568,2026-09-24,Pedro Victor Veras,Update calistenia_app_mui.tsx
+Gohan-treinamentos-web-app,785903c,2026-09-23,Pedro Victor Veras,Update calistenia_app_mui.tsx
+Gohan-treinamentos-web-app,a23d35d,2026-09-18,Pedro Victor Veras,up
+Gohan-treinamentos-web-app,76f47b8,2026-09-14,Pedro Victor Veras,Update initialTasks.ts
+Gohan-treinamentos-web-app,8c4ed1f,2026-09-14,Pedro Victor Veras,update and bug fixes
+Gohan-treinamentos-web-app,ea6293a,2026-09-14,Pedro Victor Veras,up novas rotinas
+Gohan-treinamentos-web-app,f1d82e4,2026-09-14,Pedro Victor Veras,up
 Gohan-treinamentos-web-app,b97a312,2026-07-07,Pedro Victor Veras,Update questions_circuitos_digitais.js
-Gohan-treinamentos-web-app,a548aee,2026-07-07,Pedro Victor Veras,Update questions_circuitos_digitais.js
-Gohan-treinamentos-web-app,fa9c52e,2026-07-06,Pedro Victor Veras,up workout page
-Gohan-treinamentos-web-app,99a0dea,2026-07-06,Pedro Victor Veras,p
-Gohan-treinamentos-web-app,5509426,2026-07-06,Pedro Victor Veras,Update App.tsx
-Gohan-treinamentos-web-app,7378d4e,2026-07-06,Pedro Victor Veras,up
-Gohan-treinamentos-web-app,cc9a802,2026-07-06,Pedro Victor Veras,up
-Gohan-treinamentos-web-app,3f1dbde,2026-07-06,Pedro Victor Veras,up
-Gohan-treinamentos-web-app,b000ffb,2026-07-06,Pedro Victor Veras,up
-Gohan-treinamentos-web-app,27959e9,2026-07-06,Pedro Victor Veras,up
-Jedi-CyberPunk,f55f8d9fc,2026-07-30,Pedro Victor Veras,up
-Jedi-CyberPunk,77f82b753,2026-07-30,Pedro Victor Veras,mudanca de arquivos
-Jedi-CyberPunk,d3cb00832,2026-07-27,Pedro Victor Veras,inicio perdiodo uff 2026.2 jubilado
-Jedi-CyberPunk,09a4135d5,2026-07-22,Pedro Victor,up
-Jedi-CyberPunk,6cb33734a,2026-07-21,Pedro Victor,Create sync_astro_blog.sh
-Jedi-CyberPunk,766a7425b,2026-07-21,Pedro Victor Veras,nova notas de estudos
-Jedi-CyberPunk,59861c5ea,2026-07-20,Pedro Victor,up de arquivo .qmd da ultima semana
-Jedi-CyberPunk,ec962db2c,2026-07-19,Pedro Victor Veras,up
-Jedi-CyberPunk,48b422287,2026-07-19,Pedro Victor,up
-Jedi-CyberPunk,6107e7c66,2026-07-18,Pedro Victor Veras,up
-Pikachu-Flask-Server,07d5fa3,2026-07-31,Pedro Victor Veras,Update historico-projetos.csv
-Pikachu-Flask-Server,bcfe1ed,2026-07-31,Pedro Victor,Create Sistema_Computacao_Tecnologo.md
-Pikachu-Flask-Server,a2b7f58,2026-07-31,Pedro Victor Veras,Update kanban.xlsx
-Pikachu-Flask-Server,f9dabce,2026-07-30,Pedro Victor Veras,up
-Pikachu-Flask-Server,1e4421a,2026-07-30,Pedro Victor Veras,up
-Pikachu-Flask-Server,9177d72,2026-07-27,Pedro Victor Veras,pull de pc de cg e agora novos proejtos kanban
-Pikachu-Flask-Server,c51d43d,2026-07-24,Pedro Victor,up
-Pikachu-Flask-Server,24b3584,2026-07-24,Pedro Victor,up
-Pikachu-Flask-Server,feb0ba9,2026-07-22,Pedro Victor,Create organizador_clientes_direcional.py
-Pikachu-Flask-Server,799285a,2026-07-22,Pedro Victor,Update Ementas-UFF.md
-Repopulation-With-Elite-Set,bd869c0e,2026-06-12,Pedro Victor Veras,Create checklist_kanban_2026.md
-Repopulation-With-Elite-Set,0ad1376f,2026-06-03,Pedro Victor Veras,Update RCE_Framework_Page.py
-Repopulation-With-Elite-Set,967f2e70,2026-06-03,Pedro Victor Veras,update stable version with bug fixes in timelines
-Repopulation-With-Elite-Set,683e0f65,2026-05-29,Pedro Victor Veras,Delete streamlit_v2_launch.log
-Repopulation-With-Elite-Set,9bd855ea,2026-05-28,Pedro Victor Veras,new version 2.1.3
-Repopulation-With-Elite-Set,2678e287,2026-05-28,Pedro Victor Veras,Update options.json
-Repopulation-With-Elite-Set,cafbcb61,2026-05-28,Pedro Victor Veras,up
-Repopulation-With-Elite-Set,f5f96763,2026-05-27,Pedro Victor Veras,Update RCE_Framework_Page.py
-Repopulation-With-Elite-Set,f4c8e2ec,2026-05-27,Pedro Victor Veras,up
-Repopulation-With-Elite-Set,3753f985,2026-05-27,Pedro Victor Veras,up
+Jedi-CyberPunk,d8801aec7,2026-11-11,Pedro Victor Veras,dia portal de receber conhecimento e levar de volta para o mundo
+Jedi-CyberPunk,ac31c2910,2026-11-11,Pedro Victor Veras,up
+Jedi-CyberPunk,87a6028bc,2026-11-10,Pedro Victor Veras,up
+Jedi-CyberPunk,e476101a5,2026-11-10,Pedro Victor Veras,up
+Jedi-CyberPunk,73e6c3b84,2026-11-09,Pedro Victor Veras,up
+Jedi-CyberPunk,fea531f58,2026-11-07,Pedro Victor Veras,Create POO - Mundo 4 - Programação Orientado a Objetos.md
+Jedi-CyberPunk,6639f506f,2026-11-07,Pedro Victor Veras,Add README with usage instructions for QR Code CLI
+Jedi-CyberPunk,2e7b1a0f9,2026-11-07,Pedro Victor Veras,Update CLI.py
+Jedi-CyberPunk,55eb3a73c,2026-11-07,Pedro Victor Veras,Update ifood_scraper.py
+Jedi-CyberPunk,e8f6e91f3,2026-11-07,Pedro Victor Veras,Add QR code generator function
+ML-astronomy-simulation-electrical-enginerring,a2e50a9,2026-05-22,Felix Köhler,Emulator Superiority Slides
+ML-astronomy-simulation-electrical-enginerring,b8ee2b1,2026-05-11,Felix Köhler,Revise CITATION.cff with updated metadata
+ML-astronomy-simulation-electrical-enginerring,14e7d95,2026-02-14,Felix Koehler,2D & 3D KS without videos
+ML-astronomy-simulation-electrical-enginerring,dd0bc02,2026-02-14,Felix Koehler,Using Exponax for KS in 2D & 3D
+ML-astronomy-simulation-electrical-enginerring,19b340a,2025-12-22,Jaemin Oh,fix typo (#24)
+ML-astronomy-simulation-electrical-enginerring,934b85a,2025-06-08,Felix Köhler,rm widget outputs to fix GH render
+ML-astronomy-simulation-electrical-enginerring,dbef7a2,2025-06-08,Felix Köhler,Embed image differently
+ML-astronomy-simulation-electrical-enginerring,b2322a9,2025-06-08,Felix Köhler,Add transformer schematic
+ML-astronomy-simulation-electrical-enginerring,b0e4312,2025-06-08,Felix Köhler,Transformer Emulator in JAX
+ML-astronomy-simulation-electrical-enginerring,0700336,2025-04-04,Felix Köhler,Approximate full Lyapunov spectrum using autodiff
+Pikachu-Flask-Server,f954d51,2026-11-11,Pedro Victor Veras,UP
+Pikachu-Flask-Server,051036a,2026-11-10,Pedro Victor Veras,Update and rename sketch_06-11-2026_grupo1.ino to sketch_10-11-2026_grupo1.ino
+Pikachu-Flask-Server,d4f2101,2026-11-06,Pedro Victor Veras,Update Contador_aniversario_VIVI_website.html
+Pikachu-Flask-Server,a7ad7fc,2026-11-06,Pedro Victor Veras,Update Contador_aniversario_VIVI_website.html
+Pikachu-Flask-Server,36150ff,2026-11-06,Pedro Victor Veras,uo
+Pikachu-Flask-Server,198cd32,2026-11-06,Pedro Victor Veras,up
+Pikachu-Flask-Server,09b4325,2026-11-06,Pedro Victor Veras,up
+Pikachu-Flask-Server,65f289b,2026-11-06,Pedro Victor Veras,up
+Pikachu-Flask-Server,284d29d,2026-11-06,Pedro Victor Veras,Update app.py
+Pikachu-Flask-Server,0b38fcd,2026-11-06,Pedro Victor Veras,up
+Portfolio-Pedro-Victor,399f331,2026-11-07,Pedro Victor,Update page.js
+Portfolio-Pedro-Victor,fd64970,2026-11-07,Pedro Victor,Update page.js
+Portfolio-Pedro-Victor,b1d11d9,2026-11-06,Pedro Victor Veras,novo portfolio com vite online
+Portfolio-Pedro-Victor,36f914e,2026-11-06,Pedro Victor Veras,metadados react
+Portfolio-Pedro-Victor,66629cc,2026-11-06,Pedro Victor Veras,run build
+Portfolio-Pedro-Victor,0fa4d60,2026-11-06,Pedro Victor Veras,up template simples para 2026
+Portfolio-Pedro-Victor,11913a0,2026-11-06,Pedro Victor Veras,Update page.js
+Portfolio-Pedro-Victor,08d9e7d,2026-10-05,Pedro Victor Veras,Update RepositoryProjetos.js
+Portfolio-Pedro-Victor,9dcc6e3,2026-09-23,Pedro Victor Veras,Update page.js
+Portfolio-Pedro-Victor,d6df33d,2026-09-16,Pedro Victor Veras,tem que atualizar mais
+Repopulation-With-Elite-Set,1c19f7ee,2026-10-28,Pedro Victor Veras,reset
+Repopulation-With-Elite-Set,e746171f,2026-10-23,Pedro Victor Veras,up
+Repopulation-With-Elite-Set,25f1ae52,2026-10-23,Pedro Victor Veras,Update sketch_Carro-Robo-Lutador with test notes
+Repopulation-With-Elite-Set,cfb079e1,2026-10-23,Pedro Victor Veras,up
+Repopulation-With-Elite-Set,41454f61,2026-10-16,Pedro Victor Veras,up
+Repopulation-With-Elite-Set,6aa33c3b,2026-10-16,Pedro Victor Veras,up
+Repopulation-With-Elite-Set,a756400c,2026-10-16,Pedro Victor Veras,up
+Repopulation-With-Elite-Set,cbad763c,2026-10-13,Pedro Victor Veras,Update circuit_schematic.png
+Repopulation-With-Elite-Set,8a31d68d,2026-10-09,Pedro Victor Veras,Update exemplo_rede_eletrica_pandapower.md
+Repopulation-With-Elite-Set,a93e5dec,2026-10-08,Pedro Victor Veras,Update smart_grid_power_system_circuitos.py
+astro-blog-pedrov12,ccaef2890,2026-08-05,Pedro Victor Veras,uo
 astro-blog-pedrov12,0d63d832b,2026-07-31,Pedro Victor Veras,up
 astro-blog-pedrov12,2f549e619,2026-07-28,Pedro Victor Veras,UP
 astro-blog-pedrov12,ea18ecf4e,2026-07-15,Pedro Victor Veras,up
@@ -58,7 +89,9 @@ astro-blog-pedrov12,fd0aa28a3,2026-06-25,Pedro Victor Veras,up
 astro-blog-pedrov12,8e1c38ff9,2026-06-17,Pedro Victor Veras,up
 astro-blog-pedrov12,ded29f7c3,2026-06-16,Pedro Victor Veras,update de novas postagens
 astro-blog-pedrov12,e9892d418,2026-06-16,Pedro Victor Veras,Delete RESUMO_PROJETOS.md
-astro-blog-pedrov12,6eabb2d86,2026-06-16,Pedro Victor Veras,Create RESUMO_PROJETOS.md
+getx-for-qt6,56cc5ad,2026-09-10,Pedro Victor Veras,up
+getx-for-qt6,92ede1c,2026-09-10,Pedro Victor Veras,up
+getx-for-qt6,291e0da,2026-09-09,Pedro Victor Veras,up
 getx-for-qt6,1132492,2026-06-24,Pedro Victor Veras,up
 getx-for-qt6,ec1895f,2026-06-24,Pedro Victor Veras,up
 getx-for-qt6,7380da2,2026-06-24,Pedro Victor Veras,up
@@ -66,6 +99,13 @@ getx-for-qt6,c766673,2026-04-16,Pedro Victor Veras,Delete create_qt6_mvc_app.sh~
 getx-for-qt6,0d78b1a,2026-03-17,Pedro Victor Veras,Create limpar_cache.sh
 getx-for-qt6,505f03a,2026-03-17,Pedro Victor Veras,limpeza
 getx-for-qt6,20328c4,2026-03-17,Pedro Victor Veras,up
-getx-for-qt6,591c4f0,2026-03-17,Pedro Victor Veras,update
-getx-for-qt6,bc9de25,2026-03-12,Pedro Victor Veras,novas notas
-getx-for-qt6,627e5cb,2026-03-12,Pedro Victor Veras,up
+my-flutter-getx-template-app,fbaf7fd,2026-02-18,Pedro Victor Veras,migraçao para tauri desktop em rust
+my-flutter-getx-template-app,0718ce6,2025-09-07,Pedro Victor Veras,up
+my-flutter-getx-template-app,a62b366,2025-08-19,Pedro Victor Veras,up
+my-flutter-getx-template-app,5bdedfd,2025-08-18,Pedro Victor Veras,updatr
+my-flutter-getx-template-app,bec8a7d,2025-08-17,Pedro Victor Veras,up
+my-flutter-getx-template-app,09b5720,2025-08-14,Pedro Victor Veras,up
+my-flutter-getx-template-app,54b491d,2025-07-29,Pedro Victor Veras,up
+my-flutter-getx-template-app,e982655,2025-07-29,Pedro Victor Veras,Update kanban_index_template.html
+my-flutter-getx-template-app,6d290a6,2025-07-29,Pedro Victor Veras,up
+my-flutter-getx-template-app,f697720,2025-07-28,Pedro Victor Veras,Update main.dart
