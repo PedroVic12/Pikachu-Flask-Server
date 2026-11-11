@@ -1,23 +1,8 @@
-# Documentacao do robo lutador
+# Documentacao Grupo 1
+
+---
 
 Este documento descreve os arquivos encontrados nesta pasta. Os diagramas usam Mermaid; para visualiza-los, abra este arquivo em um visualizador compativel, como o preview de Markdown do VS Code.
-
-## Visao geral
-
-Existem tres implementacoes do robo em arquivos `.ino`. Elas compartilham boa parte da logica, mas sao variantes, nao modulos que devam ser compilados juntos. Todas definem funcoes e variaveis globais com os mesmos nomes, como `setup()`, `loop()`, `Sensor1` e `Sensor2`.
-
-`Logger.h`, `headers.h` e `headers.cpp` formam componentes auxiliares separados. Os sketches listados nao incluem `Logger.h` nem `headers.h`; portanto, esses auxiliares nao participam diretamente dos fluxos abaixo.
-
-| Arquivo | Papel |
-|---|---|
-| `sketch_Carro-Robo-Lutador-V7.ino` | Variante V7, com ataque frontal por ultrassom ou pelos dois sensores laser. |
-| `sketch_Carro_Robo_POO-stable.ino` | Variante estavel, com logica de combate semelhante a V7 e parametros diferentes. Apesar de `POO` no nome, o sketch tambem e procedural. |
-| `sketch_23-10-2026_grupo1.ino` | Variante do grupo 1; sensores laser podem detectar o alvo individualmente para orientar o giro. |
-| `Logger.h` | Classe reutilizavel para logs pela Serial com niveis. |
-| `headers.h` | Declaracoes de pinos, configuracao, estruturas e estados do robo. |
-| `headers.cpp` | Instancias globais com configuracoes padrao declaradas em `headers.h`. |
-
-> **Compilacao:** os tres `.ino` devem ser tratados como alternativas. Coloca-los juntos como arquivos de um mesmo sketch Arduino pode juntar suas definicoes e causar conflitos de multiplas definicoes. Selecione uma variante por vez. Os arquivos `headers.h`/`headers.cpp` parecem pertencer a outra organizacao de codigo e nao sao usados diretamente pelos tres sketches acima.
 
 ## Modelo dos sketches
 
@@ -96,9 +81,9 @@ flowchart TD
 
 **Leitura do ciclo:** a parada/pausa tem prioridade; em seguida vem a recuperacao da borda. So depois o robo le as distancias e decide entre atacar, apontar para um sensor que detectou o alvo ou executar a estrategia de busca.
 
-### `sketch_Carro_Robo_POO-stable.ino`
+`sketch_Carro_Robo_POO-stable.ino`
 
-#### Estrutura
+### Estrutura
 
 O desenho de responsabilidades e igual ao da variante V7: estado global e sensores alimentam as rotinas procedurais de controle, leitura, recuperacao e busca. Este sketch tambem nao declara classes.
 
@@ -269,7 +254,7 @@ Nao existe `loop()` ou fluxo ciclico neste arquivo: ele apenas inicializa os dad
 ## Diferencas entre os sketches
 
 | Aspecto | V7 | POO-stable | grupo1 |
-|---|---:|---:|---:|
+| --- | ---: | ---: | ---: |
 | `PWM_AVANCO_AGRESSIVO` | 255 | 200 | 200 |
 | `TEMPO_GIRO` da recuperacao de borda | 900 ms | 500 ms | 500 ms |
 | Intervalos das buscas 8 / 9 | 2000 / 2000 ms | 500 / 300 ms | 500 / 300 ms |
@@ -284,7 +269,7 @@ Em todos os tres, o limiar de ataque do ultrassom e 40 cm, o limiar laser e 25 c
 As funcoes abaixo existem, com pequenas diferencas de parametros, nos tres arquivos `.ino`.
 
 | Funcao | O que faz |
-|---|---|
+| --- | --- |
 | `lerControle()` | Consulta o receptor IR. Sem dado novo, retorna `0`; com dado, retorna o codigo recebido e libera a recepcao seguinte. |
 | `configurarMotor()` / `definirMotores()` | Convertem potencia com sinal em PWM e aplicam a potencia aos dois lados da ponte H. `0` desliga o motor; a potencia e limitada a `-255..255`. |
 | `parar()`, `andarFrente()`, `andarTras()`, `girarHorario()`, `girarAntiHorario()` | Atalhos de movimento que definem a potencia dos motores esquerdo e direito. |
@@ -302,7 +287,7 @@ As funcoes abaixo existem, com pequenas diferencas de parametros, nos tres arqui
 ### Pinos e sensores usados pelos sketches
 
 | Componente | Pino/endereco |
-|---|---|
+| --- | --- |
 | Receptor infravermelho | D11 |
 | Sensor de linha | A0 |
 | Ultrassom TRIG / ECHO | A2 / A3 |

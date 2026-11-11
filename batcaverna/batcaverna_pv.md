@@ -2,21 +2,21 @@
 
 ---
 
-📅 Data: *04/11/2026** - *Quarta Feira*
+📅 Data: *11/11/2026** - *Quinta Feira*
 
 *Segunda Feira* = Root Chakra + Academia
-- [x] treinamentos
-- [x] Meta de estudos uff
+- [ ] treinamentos
+- [ ] Meta de estudos uff
 - [ ] Meta de programação github - 40h
-- [x] Beber dois litros de agua
+- [ ] Beber dois litros de agua
 - [ ] Meditação e Santo terço do dia
 
 *Terça Feira* = Throat Chakra + Circuitos CC e CD + Terapia
 *Segunda Feira* = Root Chakra + Academia
-- [x] treinamentos
-- [x] Meta de estudos uff
+- [ ] treinamentos
+- [ ] Meta de estudos uff
 - [ ] Meta de programação github - 40h
-- [x] Beber dois litros de agua
+- [ ] Beber dois litros de agua
 - [ ] Meditação e Santo terço do dia
 
 

@@ -141,7 +141,7 @@ bool configurarSensoresLaser()
     Sensor1.startContinuous();
     Sensor2.startContinuous();
 
-    Serial.println("Sensores carregados com sucesso");
+    Serial.println("Sensores de Laser carregados com sucesso");
     return true;
 }
 
@@ -158,7 +158,7 @@ bool configurarPinos()
 
     digitalWrite(TRIG, LOW);
     //parar();
-    cout("Pinos digitais e analogicos configurados");
+    Serial.println("Pinos digitais e analogicos configurados");
     return configurarSensoresLaser();
 }
 
@@ -484,12 +484,17 @@ void setup()
         } */
     }
 
-    piscarLedInicializacao();
+    //piscarLedInicializacao();
     aguardarInicio();
+
+    Serial.println("Configuração Finalizada!");
 }
 
 void loop()
 {
+    piscarLedInicializacao();
+
+
     if (processarControles())
     {
         return;
