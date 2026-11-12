@@ -6,7 +6,7 @@ const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'Kanban PRO - PVRV',
-  description: 'Fullstack website using Nextjs and Flask Rest API',
+  description: 'Fullstack website using Nextjs and Flask Rest API and Excel Files with LocalStorage as database in cache',
 };
 
 export default function RootLayout({

@@ -114,19 +114,19 @@ export default function HabitsPage() {
       prev.map((h) => {
         if (h.id === id) {
           const newCount = Math.min(h.count + 1, 15);
-          
+
           // Triggers/Alertas motivacionais de Goku
           if (newCount === 5) {
             alert(`🔥 Incrível! Você completou 5 metas do hábito: "${h.title}". Continue firme no caminho da excelência!`);
           }
-          
+
           const newTotal = totalCount + 1;
           if (newTotal === 25) {
             alert("🌟 Parabéns meu jovem Padawan! Você está com a energia vibrando alto! Busque a paz e equilíbrio! Que a Força esteja com você, Pedro Victor!");
           } else if (newTotal === 40) {
             alert("⚡ ESTÁ COMPLETO! Você alcançou o nível Super Sayajin nesta semana! Corpo, Mente e Espírito integrados perfeitamente!");
           }
-          
+
           return { ...h, count: newCount };
         }
         return h;
@@ -221,7 +221,7 @@ export default function HabitsPage() {
                   <span>Conclusões na semana (Máx: 15)</span>
                   <span className={`${h.textColor} font-bold`}>{h.count} / 15</span>
                 </div>
-                
+
                 {/* Mini progress bar */}
                 <div className="w-full bg-gray-100 dark:bg-gray-700 h-2 rounded-full overflow-hidden">
                   <div

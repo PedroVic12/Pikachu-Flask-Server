@@ -1,0 +1,5 @@
+numpy
+scipy
+schemdraw
+pydantic>=2,<3
+PyQt6
