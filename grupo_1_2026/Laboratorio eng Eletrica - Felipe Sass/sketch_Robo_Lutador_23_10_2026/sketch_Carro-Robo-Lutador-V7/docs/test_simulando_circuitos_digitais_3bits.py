@@ -1,0 +1,123 @@
+import importlib.util
+import math
+import os
+import sys
+from pathlib import Path
+
+import pytest
+
+os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
+
+SCRIPT = Path(__file__).with_name("simulando_circuitos_digitais_3bits.py")
+SPEC = importlib.util.spec_from_file_location("circuit_app_under_test", SCRIPT)
+assert SPEC is not None and SPEC.loader is not None
+circuit_app = importlib.util.module_from_spec(SPEC)
+sys.modules[SPEC.name] = circuit_app
+SPEC.loader.exec_module(circuit_app)
+
+from PyQt6 import QtWidgets
+
+
+@pytest.fixture(scope="module")
+def qt_app():
+    return QtWidgets.QApplication.instance() or QtWidgets.QApplication([])
+
+
+@pytest.fixture
+def main_window(qt_app):
+    window = circuit_app.MainApp()
+    yield window
+    window.close()
+
+
+@pytest.mark.parametrize("kind", ["RC", "RL", "RLC"])
+def test_analog_presets_and_transient_solver(main_window, kind):
+    main_window.load_preset(kind)
+
+    assert main_window.circuit_type == kind
+    assert len(main_window.engine.t) == 600
+    assert all(math.isfinite(value) for value in main_window.engine.current)
+    assert len(main_window.wires) == len(main_window.components)
+
+    source, passive_components = main_window._series_topology()
+    assert source.comp_type == "V"
+    assert len(passive_components) == len(main_window.components) - 1
+    assert all(wire.flow_sign == 1 for wire in main_window.wires)
+
+
+def test_wire_direction_follows_source_positive_to_negative(main_window):
+    main_window.load_preset("RC")
+    wire = main_window.wires[0]
+    wire.item1, wire.item2 = wire.item2, wire.item1
+    wire.term1, wire.term2 = wire.term2, wire.term1
+
+    main_window._series_topology()
+
+    assert wire.flow_sign == -1
+
+
+def test_jk_counter_counts_up_and_down_with_wraparound():
+    counter = circuit_app.JKCounterModel(bit_count=3, direction="UP")
+    assert [counter.clock() for _ in range(9)] == [
+        "001", "010", "011", "100", "101", "110", "111", "000", "001"
+    ]
+
+    counter = circuit_app.JKCounterModel(bit_count=4, direction="DOWN")
+    assert [counter.clock() for _ in range(5)] == ["1111", "1110", "1101", "1100", "1011"]
+    assert all(ff.q_bar == 1 - ff.q for ff in counter.flip_flops)
+
+
+def test_invalid_project_values_and_wire_references_are_rejected():
+    with pytest.raises(ValueError):
+        circuit_app.CircuitProjectComponent(
+            name="R1\n.end", comp_type="R", value=1000, unit="Ω", x=1, y=1
+        )
+    with pytest.raises(ValueError):
+        circuit_app.CircuitProjectComponent(
+            name="R1", comp_type="R", value=float("inf"), unit="Ω", x=1, y=1
+        )
+    with pytest.raises(ValueError):
+        circuit_app.CircuitProjectModel(
+            components=[],
+            wires=[
+                circuit_app.CircuitProjectWire(
+                    start_component=0,
+                    start_terminal=1,
+                    end_component=1,
+                    end_terminal=2,
+                )
+            ],
+        )
+
+
+def test_json_project_round_trip_and_spice_export(main_window, tmp_path):
+    main_window.load_preset("RLC")
+    project = circuit_app.CircuitProjectModel(
+        circuit_type=main_window.circuit_type,
+        components=[
+            circuit_app.CircuitProjectComponent(**item.model.model_dump())
+            for item in main_window.components
+        ],
+        wires=[
+            circuit_app.CircuitProjectWire(
+                start_component=main_window.components.index(wire.item1),
+                start_terminal=wire.term1,
+                end_component=main_window.components.index(wire.item2),
+                end_terminal=wire.term2,
+            )
+            for wire in main_window.wires
+        ],
+    )
+    project_path = tmp_path / "circuit.json"
+    project_path.write_text(project.model_dump_json(), encoding="utf-8")
+    loaded = circuit_app.CircuitProjectModel.model_validate_json(
+        project_path.read_text(encoding="utf-8")
+    )
+    main_window.load_project_model(loaded)
+    main_window.generate_spice_netlist()
+
+    netlist = main_window.txtSpiceOutput.toPlainText()
+    assert main_window.circuit_type == "RLC"
+    assert "L1 2 3 0.01" in netlist
+    assert "C1 3 0 1e-05" in netlist
+    assert netlist.endswith(".end")

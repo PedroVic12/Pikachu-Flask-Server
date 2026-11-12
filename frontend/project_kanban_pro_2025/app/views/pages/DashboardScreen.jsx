@@ -71,6 +71,33 @@ const DashboardScreen = ({ projects, getCategoryStats, getStatusStats, CATEGORIE
 
   const timeSeriesData = getTimeSeriesData();
 
+  const totalCount = projects.reduce((sum, project) => sum + (project.status === 'completed' ? 1 : 0), 0);
+  const maxWeeklyCount = 15; // Limite máximo de conclusões por semana
+  const progressPercent = (totalCount / maxWeeklyCount) * 100;
+
+  const StatsCards = () => {
+    {/* Stats Cards */ }
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8" >
+      {
+        statCards.map(({ label, value, icon: Icon, color }) => (
+          <div key={label} className="bg-white rounded-xl p-6 shadow-sm border border-gray-200" >
+            <div className="flex items-center justify-between" >
+              <div>
+                <p className="text-sm font-medium text-gray-600" > {label} </p>
+                < p className="text-2xl font-bold text-gray-900" > {value} </p>
+              </div>
+              < div className={`p-3 ${colorClasses[color].bg} rounded-lg`} >
+                <Icon className={`h-6 w-6 ${colorClasses[color].text}`} />
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  }
+
+
+
   return (
     <div className="p-4 lg:p-6" >
       <div className="mb-6" >
@@ -79,23 +106,7 @@ const DashboardScreen = ({ projects, getCategoryStats, getStatusStats, CATEGORIE
       </div>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8" >
-        {
-          statCards.map(({ label, value, icon: Icon, color }) => (
-            <div key={label} className="bg-white rounded-xl p-6 shadow-sm border border-gray-200" >
-              <div className="flex items-center justify-between" >
-                <div>
-                  <p className="text-sm font-medium text-gray-600" > {label} </p>
-                  < p className="text-2xl font-bold text-gray-900" > {value} </p>
-                </div>
-                < div className={`p-3 ${colorClasses[color].bg} rounded-lg`} >
-                  <Icon className={`h-6 w-6 ${colorClasses[color].text}`} />
-                </div>
-              </div>
-            </div>
-          ))
-        }
-      </div>
+      {StatsCards()}
 
       {/* Charts */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8" >

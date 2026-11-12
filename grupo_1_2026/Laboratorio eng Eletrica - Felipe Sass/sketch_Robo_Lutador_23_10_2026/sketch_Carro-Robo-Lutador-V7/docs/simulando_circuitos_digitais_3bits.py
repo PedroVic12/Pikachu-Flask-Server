@@ -1,6 +1,7 @@
 import io
 import json
 import math
+import re
 import sys
 from typing import Literal
 
@@ -21,9 +22,9 @@ class PySpiceComponentModel(BaseModel):
 
     model_config = ConfigDict(str_strip_whitespace=True, extra="forbid")
 
-    name: str = Field(..., min_length=1)
+    name: str = Field(..., min_length=1, pattern=r"^[A-Za-z][A-Za-z0-9_]*$")
     comp_type: Literal["V", "R", "L", "C"]
-    value: float = Field(..., gt=0)
+    value: float = Field(..., gt=0, allow_inf_nan=False)
     unit: str = "V"
     node1: int = 1
     node2: int = 0
@@ -32,8 +33,8 @@ class PySpiceComponentModel(BaseModel):
     @field_validator("name")
     @classmethod
     def validate_name(cls, value: str) -> str:
-        if not value:
-            raise ValueError("O nome do componente não pode ser vazio.")
+        if not re.fullmatch(r"[A-Za-z][A-Za-z0-9_]*", value):
+            raise ValueError("O nome SPICE deve começar por letra e conter apenas letras, números ou underscore.")
         return value
 
     def as_spice_line(self) -> str:
@@ -62,12 +63,12 @@ class PySpiceCircuitModel(BaseModel):
 
 
 class CircuitProjectComponent(BaseModel):
-    name: str = Field(..., min_length=1)
+    name: str = Field(..., min_length=1, pattern=r"^[A-Za-z][A-Za-z0-9_]*$")
     comp_type: Literal["V", "R", "L", "C"]
-    value: float = Field(..., gt=0)
+    value: float = Field(..., gt=0, allow_inf_nan=False)
     unit: str
-    x: float
-    y: float
+    x: float = Field(allow_inf_nan=False)
+    y: float = Field(allow_inf_nan=False)
     rotation: int = Field(default=0, ge=0, lt=360)
 
 
@@ -108,6 +109,7 @@ class JKCounterModel(BaseModel):
     flip_flops: list[JKFlipFlopState] = Field(default_factory=list)
 
     def model_post_init(self, __context):
+        del __context
         if self.state >= (1 << self.bit_count):
             raise ValueError("O estado inicial excede a quantidade de bits do contador.")
         self._sync_flip_flops()
@@ -248,11 +250,11 @@ class ComponentModel(BaseModel):
     model_config = ConfigDict(str_strip_whitespace=True, extra="forbid", validate_assignment=True)
 
     comp_type: Literal["V", "R", "L", "C"]
-    name: str = Field(..., min_length=1)
-    value: float = Field(..., gt=0)
+    name: str = Field(..., min_length=1, pattern=r"^[A-Za-z][A-Za-z0-9_]*$")
+    value: float = Field(..., gt=0, allow_inf_nan=False)
     unit: str = "V"
-    x: float = 200
-    y: float = 200
+    x: float = Field(default=200, allow_inf_nan=False)
+    y: float = Field(default=200, allow_inf_nan=False)
     rotation: int = Field(default=0, ge=0, lt=360)
 
     @field_validator("name")
@@ -473,6 +475,7 @@ class AnimatedWireItem(QtWidgets.QGraphicsLineItem):
         self.item1, self.term1 = item1, term1
         self.item2, self.term2 = item2, term2
         self.phase = 0.0
+        self.flow_sign = 1.0
         self.current_value = 0.0
         self.setPen(QtGui.QPen(QtGui.QColor("#888888"), 2))
         self.update_positions()
@@ -482,10 +485,14 @@ class AnimatedWireItem(QtWidgets.QGraphicsLineItem):
         p2 = self.item2.get_terminal_scene_pos(self.term2)
         self.setLine(QtCore.QLineF(p1, p2))
 
+    def boundingRect(self) -> QtCore.QRectF:
+        return super().boundingRect().adjusted(-8, -8, 8, 8)
+
     def advance_animation(self, current_val: float):
         self.update_positions()
-        self.current_value = current_val
-        self.phase = (self.phase + current_val * 15.0) % 1.0
+        oriented_current = current_val * self.flow_sign
+        self.current_value = oriented_current
+        self.phase = (self.phase + oriented_current * 15.0) % 1.0
         self.update()
 
     def paint(self, painter: QtGui.QPainter, option, widget=None):
@@ -651,9 +658,9 @@ class MainApp(QtWidgets.QMainWindow):
         self.scopeLayout.addWidget(self.scope)
 
         self.engine = TransientEngine()
-        self.components = []
-        self.wires = []
-        self.pending_terminal = None
+        self.components: list[ElectronicGraphicsItem] = []
+        self.wires: list[AnimatedWireItem] = []
+        self.pending_terminal: tuple[ElectronicGraphicsItem, int] | None = None
         self.comp_counter = {"V": 1, "R": 1, "L": 1, "C": 1}
         self.circuit_type: Literal["RC", "RL", "RLC"] = "RC"
         self.counter = JKCounterModel()
@@ -688,7 +695,11 @@ class MainApp(QtWidgets.QMainWindow):
             if shortcut:
                 item.setShortcut(QtGui.QKeySequence(shortcut))
                 item.setShortcutContext(QtCore.Qt.ShortcutContext.WindowShortcut)
-            item.triggered.connect(lambda _checked=False: callback())
+            def invoke(_checked=False):
+                del _checked
+                callback()
+
+            item.triggered.connect(invoke)
             self.addAction(item)
             return item
 
@@ -703,7 +714,10 @@ class MainApp(QtWidgets.QMainWindow):
         self.action_help = action("Ajuda", "F1", self.show_help)
         self.action_about = action("Sobre", "", self.show_about)
 
-        file_menu = self.menuBar().addMenu("&Arquivo")
+        menu_bar = self.menuBar()
+        assert menu_bar is not None
+        file_menu = menu_bar.addMenu("&Arquivo")
+        assert file_menu is not None
         for item in (self.action_new, self.action_import, self.action_save):
             file_menu.addAction(item)
         file_menu.addSeparator()
@@ -712,7 +726,8 @@ class MainApp(QtWidgets.QMainWindow):
         file_menu.addSeparator()
         file_menu.addAction("Sair", self.close)
 
-        component_menu = self.menuBar().addMenu("&Componentes")
+        component_menu = menu_bar.addMenu("&Componentes")
+        assert component_menu is not None
         component_menu.addAction("Adicionar fonte", lambda: self.add_component("V", 5.0, "V"))
         component_menu.addAction("Adicionar resistor", lambda: self.add_component("R", 1000.0, "Ω"))
         component_menu.addAction("Adicionar indutor", lambda: self.add_component("L", 0.01, "H"))
@@ -720,13 +735,15 @@ class MainApp(QtWidgets.QMainWindow):
         component_menu.addSeparator()
         component_menu.addAction(self.action_rotate)
 
-        simulation_menu = self.menuBar().addMenu("&Simulação")
+        simulation_menu = menu_bar.addMenu("&Simulação")
+        assert simulation_menu is not None
         simulation_menu.addAction(self.action_simulate)
         simulation_menu.addAction(self.action_clock)
         simulation_menu.addAction("Resetar contador JK", self.reset_counter)
         simulation_menu.addAction("Montar circuito selecionado", self.load_selected_preset)
 
-        help_menu = self.menuBar().addMenu("&Ajuda")
+        help_menu = menu_bar.addMenu("&Ajuda")
+        assert help_menu is not None
         help_menu.addAction(self.action_help)
         help_menu.addAction(self.action_about)
 
@@ -862,6 +879,7 @@ class MainApp(QtWidgets.QMainWindow):
         self.status_bar.showMessage(f"{len(selected)} componente(s) girado(s).", 3000)
 
     def configure_counter(self, _index=None):
+        del _index
         bit_count = 3 if self.comboCounterBits.currentIndex() == 0 else 4
         direction = "UP" if self.comboCounterDirection.currentIndex() == 0 else "DOWN"
         self.counter = JKCounterModel(bit_count=bit_count, direction=direction)
@@ -926,8 +944,122 @@ class MainApp(QtWidgets.QMainWindow):
         self.pending_terminal = None
         self.status_bar.clearMessage()
 
+    def _series_topology(self):
+        expected_types = {
+            "RC": {"V": 1, "R": 1, "C": 1},
+            "RL": {"V": 1, "R": 1, "L": 1},
+            "RLC": {"V": 1, "R": 1, "L": 1, "C": 1},
+        }[self.circuit_type]
+        actual_types = {}
+        for item in self.components:
+            kind = item.model.comp_type
+            actual_types[kind] = actual_types.get(kind, 0) + 1
+        if actual_types != expected_types:
+            raise ValueError(
+                f"O modo {self.circuit_type} requer exatamente estes componentes: "
+                f"{', '.join(expected_types)}. Monte o circuito padrão ou corrija os componentes."
+            )
+        if len(self.wires) != len(self.components):
+            raise ValueError("A malha precisa estar fechada, com um fio para cada componente.")
+
+        adjacency: dict[
+            tuple[int, int],
+            list[tuple[tuple[int, int], str, AnimatedWireItem | ElectronicGraphicsItem, bool]],
+        ] = {}
+        terminal_connections: dict[tuple[int, int], AnimatedWireItem] = {}
+
+        def node(item: ElectronicGraphicsItem, terminal: int) -> tuple[int, int]:
+            return id(item), terminal
+
+        def add_edge(
+            start: tuple[int, int],
+            end: tuple[int, int],
+            kind: Literal["wire", "component"],
+            edge_item: AnimatedWireItem | ElectronicGraphicsItem,
+            forward: bool,
+        ):
+            adjacency.setdefault(start, []).append((end, kind, edge_item, forward))
+            adjacency.setdefault(end, []).append((start, kind, edge_item, not forward))
+
+        for wire in self.wires:
+            start = node(wire.item1, wire.term1)
+            end = node(wire.item2, wire.term2)
+            if start in terminal_connections or end in terminal_connections:
+                raise ValueError("Cada terminal deve ter exatamente um fio conectado.")
+            terminal_connections[start] = wire
+            terminal_connections[end] = wire
+            add_edge(start, end, "wire", wire, True)
+
+        source_item = next(item for item in self.components if item.model.comp_type == "V")
+        passive_items = [item for item in self.components if item is not source_item]
+        for item in passive_items:
+            pin1, pin2 = node(item, 1), node(item, 2)
+            if pin1 not in terminal_connections or pin2 not in terminal_connections:
+                raise ValueError(f"Os dois terminais de {item.model.name} precisam estar conectados.")
+            add_edge(pin1, pin2, "component", item, True)
+
+        start = node(source_item, 2)
+        finish = node(source_item, 1)
+        if start not in terminal_connections or finish not in terminal_connections:
+            raise ValueError("Os polos positivo e negativo da fonte precisam fechar a malha.")
+
+        previous: dict[
+            tuple[int, int],
+            tuple[tuple[int, int], str, AnimatedWireItem | ElectronicGraphicsItem, bool] | None,
+        ] = {start: None}
+        queue = [start]
+        for current_node in queue:
+            if current_node == finish:
+                break
+            for neighbor, kind, edge_item, forward in adjacency.get(current_node, []):
+                if neighbor not in previous:
+                    previous[neighbor] = (current_node, kind, edge_item, forward)
+                    queue.append(neighbor)
+        if finish not in previous:
+            raise ValueError("Não existe um caminho fechado da fonte positiva à negativa.")
+
+        path_edges = []
+        current_node = finish
+        while current_node != start:
+            predecessor = previous[current_node]
+            if predecessor is None:
+                raise RuntimeError("Falha ao reconstruir o caminho elétrico da malha.")
+            parent, kind, edge_item, forward = predecessor
+            path_edges.append((kind, edge_item, forward))
+            current_node = parent
+        path_edges.reverse()
+        path_wires = []
+        path_components = []
+        for kind, edge_item, _ in path_edges:
+            if kind == "wire":
+                if not isinstance(edge_item, AnimatedWireItem):
+                    raise RuntimeError("A malha contém uma conexão inválida.")
+                path_wires.append(edge_item)
+            else:
+                if not isinstance(edge_item, ElectronicGraphicsItem):
+                    raise RuntimeError("A malha contém um componente inválido.")
+                path_components.append(edge_item)
+        if {id(wire) for wire in path_wires} != {id(wire) for wire in self.wires}:
+            raise ValueError("A ligação tem derivações ou componentes fora da malha em série.")
+        if {id(item) for item in path_components} != {id(item) for item in passive_items}:
+            raise ValueError("A malha precisa passar por todos os componentes em série.")
+        for kind, edge_item, forward in path_edges:
+            if kind == "wire":
+                edge_item.flow_sign = 1.0 if forward else -1.0
+        return source_item.model, path_components
+
     def load_selected_preset(self):
-        self.load_preset(self.comboCircuitType.currentText())
+        self.load_preset(self.selected_circuit_type())
+
+    def selected_circuit_type(self) -> Literal["RC", "RL", "RLC"]:
+        index = self.comboCircuitType.currentIndex()
+        if index == 0:
+            return "RC"
+        if index == 1:
+            return "RL"
+        if index == 2:
+            return "RLC"
+        raise ValueError(f"Seleção de topologia inválida: {index}")
 
     def load_preset(self, circuit_type: Literal["RC", "RL", "RLC"]):
         self.clear_canvas()
@@ -963,30 +1095,28 @@ class MainApp(QtWidgets.QMainWindow):
         self.scope.set_data([], [], [], [])
 
     def run_simulation(self, show_errors=True):
-        self.circuit_type = self.comboCircuitType.currentText()
-        resistor = next((c.model for c in self.components if c.model.comp_type == "R"), None)
-        inductor = next((c.model for c in self.components if c.model.comp_type == "L"), None)
-        capacitor = next((c.model for c in self.components if c.model.comp_type == "C"), None)
-        source = next((c.model for c in self.components if c.model.comp_type == "V"), None)
-        if resistor is None:
-            message = "Adicione um resistor ou monte um circuito padrão antes de simular."
+        try:
+            self.circuit_type = self.selected_circuit_type()
+            source, passive_components = self._series_topology()
+            resistor = next(item for item in passive_components if item.model.comp_type == "R").model
+            inductor = next(
+                (item.model for item in passive_components if item.model.comp_type == "L"),
+                None,
+            )
+            capacitor = next(
+                (item.model for item in passive_components if item.model.comp_type == "C"),
+                None,
+            )
+        except (ValueError, StopIteration) as exc:
             if show_errors:
-                QtWidgets.QMessageBox.warning(self, "Circuito incompleto", message)
-            return
-        if self.circuit_type in ("RC", "RLC") and capacitor is None:
-            message = f"A topologia {self.circuit_type} precisa de um capacitor."
-            if show_errors:
-                QtWidgets.QMessageBox.warning(self, "Circuito incompleto", message)
-            return
-        if self.circuit_type in ("RL", "RLC") and inductor is None:
-            message = f"A topologia {self.circuit_type} precisa de um indutor."
-            if show_errors:
-                QtWidgets.QMessageBox.warning(self, "Circuito incompleto", message)
+                QtWidgets.QMessageBox.warning(self, "Circuito incompleto", str(exc))
+            else:
+                self.status_bar.showMessage(str(exc), 5000)
             return
         r_val = float(resistor.value)
         l_val = float(inductor.value) if inductor else 0.01
         c_val = float(capacitor.value) if capacitor else 1e-5
-        amp = float(source.value) if source else 5.0
+        amp = float(source.value)
         wave = self.comboWave.currentText()
         freq = self.spinFreq.value()
         try:
@@ -1013,15 +1143,15 @@ class MainApp(QtWidgets.QMainWindow):
         self.scope.step_cursor()
 
     def generate_spice_netlist(self):
-        source = next((item.model for item in self.components if item.model.comp_type == "V"), None)
-        passive_components = [
-            item.model for item in self.components if item.model.comp_type in ("R", "L", "C")
-        ]
-        if source is None or not passive_components:
+        try:
+            self.circuit_type = self.selected_circuit_type()
+            source, ordered_components = self._series_topology()
+        except ValueError as exc:
             QtWidgets.QMessageBox.warning(
-                self, "Circuito incompleto", "Adicione uma fonte e componentes passivos antes de gerar o netlist."
+                self, "Circuito incompleto", str(exc)
             )
             return
+        passive_components = [item.model for item in ordered_components]
         components = [
             PySpiceComponentModel(
                 name=source.name,
