@@ -1,7 +1,7 @@
 import io
 import math
 import sys
-from typing import Any, Literal
+from typing import Literal
 
 import numpy as np
 import schemdraw
@@ -235,6 +235,8 @@ class ElectronicGraphicsItem(QtWidgets.QGraphicsItem):
         return self.mapToScene(self.term1_offset if index == 1 else self.term2_offset)
 
     def mousePressEvent(self, event):
+        if event is None:
+            return
         pos = event.pos()
         if (pos - self.term1_offset).manhattanLength() < 12:
             self.on_terminal_click(self, 1)
@@ -257,8 +259,11 @@ class ElectronicGraphicsItem(QtWidgets.QGraphicsItem):
         if ok:
             self.model.value = val
             self.update()
+        if event is not None:
+            event.accept()
 
-    def paint(self, painter: QtGui.QPainter, option, widget=None):
+    def paint(self, painter: QtGui.QPainter, _option, _widget=None):
+        del _option, _widget
         pen_color = QtGui.QColor("#00aaff") if self.isSelected() else QtGui.QColor("#00ff88")
         painter.setPen(QtGui.QPen(pen_color, 2))
 
@@ -358,7 +363,8 @@ class OscilloscopeWidget(QtWidgets.QWidget):
             self.cursor_idx = (self.cursor_idx + 2) % len(self.t)
             self.update()
 
-    def paintEvent(self, event):
+    def paintEvent(self, _event):
+        _event.accept()
         painter = QtGui.QPainter(self)
         painter.setRenderHint(QtGui.QPainter.RenderHint.Antialiasing)
         w, h = max(self.width(), 1), max(self.height(), 1)
@@ -411,11 +417,27 @@ class OscilloscopeWidget(QtWidgets.QWidget):
 # ==============================================================================
 class MainApp(QtWidgets.QMainWindow):
     circuitView: QtWidgets.QGraphicsView
+    scopeLayout: QtWidgets.QVBoxLayout
+    comboWave: QtWidgets.QComboBox
+    spinFreq: QtWidgets.QDoubleSpinBox
+    btnAddSource: QtWidgets.QPushButton
+    btnAddResistor: QtWidgets.QPushButton
+    btnAddCapacitor: QtWidgets.QPushButton
+    btnClear: QtWidgets.QPushButton
+    btnRunSim: QtWidgets.QPushButton
+    btnExportSchemdraw: QtWidgets.QPushButton
+    btnGenSpice: QtWidgets.QPushButton
+    txtSpiceOutput: QtWidgets.QTextEdit
 
     def __init__(self):
         super().__init__()
         ui_stream = io.StringIO(PAGE_UI_XML)
-        uic.loadUi(ui_stream, self)
+        load_ui = getattr(uic, "loadUi", None)
+        if load_ui is None:
+            raise RuntimeError("PyQt6 não disponibiliza uic.loadUi.")
+        load_ui(ui_stream, self)
+        self.status_bar = QtWidgets.QStatusBar(self)
+        self.setStatusBar(self.status_bar)
 
         self.scene = QtWidgets.QGraphicsScene(0, 0, 1000, 600)
         self.scene.setBackgroundBrush(QtGui.QBrush(QtGui.QColor("#181818")))
@@ -452,7 +474,14 @@ class MainApp(QtWidgets.QMainWindow):
         for y in range(0, 600, 20):
             self.scene.addLine(0, y, 1000, y, pen)
 
-    def add_component(self, comp_type: str, default_val: float, unit: str, x=200, y=200):
+    def add_component(
+        self,
+        comp_type: Literal["V", "R", "C"],
+        default_val: float,
+        unit: str,
+        x: float = 200,
+        y: float = 200,
+    ):
         idx = self.comp_counter[comp_type]
         self.comp_counter[comp_type] += 1
         model = ComponentModel(comp_type=comp_type, name=f"{comp_type}{idx}", value=default_val, unit=unit)
@@ -464,7 +493,7 @@ class MainApp(QtWidgets.QMainWindow):
     def handle_terminal_click(self, item: ElectronicGraphicsItem, term_idx: int):
         if self.pending_terminal is None:
             self.pending_terminal = (item, term_idx)
-            self.statusBar().showMessage("Clique em outro terminal para conectar o fio...")
+            self.status_bar.showMessage("Clique em outro terminal para conectar o fio...")
             return
 
         item1, term1 = self.pending_terminal
@@ -473,7 +502,7 @@ class MainApp(QtWidgets.QMainWindow):
             self.scene.addItem(wire)
             self.wires.append(wire)
         self.pending_terminal = None
-        self.statusBar().clearMessage()
+        self.status_bar.clearMessage()
 
     def load_default_circuit(self):
         v1 = self.add_component("V", 5.0, "V", 160, 200)
@@ -506,7 +535,7 @@ class MainApp(QtWidgets.QMainWindow):
             QtWidgets.QMessageBox.warning(self, "Erro de simulação", str(exc))
             return
         self.scope.set_data(t, vin, vout)
-        self.statusBar().showMessage(f"Simulação SciPy concluída: R={r_val}Ω, C={c_val}F, Freq={freq}Hz")
+        self.status_bar.showMessage(f"Simulação SciPy concluída: R={r_val}Ω, C={c_val}F, Freq={freq}Hz")
 
     def on_animation_tick(self):
         if len(self.engine.current) == 0:
@@ -531,7 +560,7 @@ class MainApp(QtWidgets.QMainWindow):
                         unit=model.unit,
                         node1=node,
                         node2=0,
-                        waveform="PULSE(0 5 0 1u 1u 10m 20m)",
+                        waveform=f"PULSE(0 {float(model.value):g} 0 1u 1u 10m 20m)",
                     )
                 )
             elif model.comp_type == "R":
