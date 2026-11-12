@@ -548,5 +548,5 @@ void loop()
 // 6) alteração no sensor ultrassonico
 // 7) algoritimo do loop sempre for agressivo se for o oponente
 
-
+// preparação e teste sno dia 12/11/2026
 

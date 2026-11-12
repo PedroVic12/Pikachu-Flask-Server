@@ -1,17 +1,17 @@
 import React from 'react';
-import { 
-  Timer, 
-  Smartphone, 
-  BellOff, 
-  Moon, 
-  Activity, 
-  Utensils, 
-  BookOpen, 
-  Puzzle, 
-  Brain, 
-  Trees, 
-  Users, 
-  CalendarX 
+import {
+  Timer,
+  Smartphone,
+  BellOff,
+  Moon,
+  Activity,
+  Utensils,
+  BookOpen,
+  Puzzle,
+  Brain,
+  Trees,
+  Users,
+  CalendarX
 } from 'lucide-react';
 
 /**
@@ -108,7 +108,7 @@ const ProtocoloSaudeMentalPage = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {protocolData.map((data, index) => (
-            <ProtocolCard 
+            <ProtocolCard
               key={index}
               title={data.title}
               variant={data.variant}

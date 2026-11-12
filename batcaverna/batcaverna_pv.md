@@ -6,23 +6,23 @@
 
 *Segunda Feira* = Root Chakra + Academia
 - [ ] treinamentos
-- [ ] Meta de estudos uff
+- [x] Meta de estudos uff
 - [ ] Meta de programação github - 40h
-- [ ] Beber dois litros de agua
+- [x] Beber dois litros de agua
 - [ ] Meditação e Santo terço do dia
 
 *Terça Feira* = Throat Chakra + Circuitos CC e CD + Terapia
 *Segunda Feira* = Root Chakra + Academia
-- [ ] treinamentos
-- [ ] Meta de estudos uff
-- [ ] Meta de programação github - 40h
-- [ ] Beber dois litros de agua
+- [x] treinamentos
+- [x] Meta de estudos uff
+- [x] Meta de programação github - 40h
+- [x] Beber dois litros de agua
 - [ ] Meditação e Santo terço do dia
 
 
 *Quarta Feira* = Heart Chakra + Homeoffice + Artigo TCC
 - [ ] treinamentos
-- [ ] Meta de estudos uff
+- [x] Meta de estudos uff
 - [ ] Meta de programação github - 40h
 - [ ] Beber dois litros de agua
 - [ ] Meditação e Santo terço do dia
