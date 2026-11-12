@@ -6,6 +6,27 @@ Instale as dependências no ambiente Python usado pelo VS Code:
 python -m pip install -r requirements-simulacao.txt
 ```
 
+### Notebook visual (recomendado)
+
+Abra `notebooks/laboratorio_circuitos_e_contador_jk.ipynb` no VS Code ou Jupyter
+e execute as células em ordem. O notebook mostra gráficos interativos de
+tensão, corrente e energia para circuitos série RC, RL e RLC, com opção de
+abrir a chave para observar a descarga. Também permite configurar contadores
+JK binários crescentes/decrescentes com qualquer largura positiva e consultar
+a tabela de excitação dos flip-flops para todos os estados.
+
+O módulo `circuit_lab.py` contém os modelos numéricos reutilizáveis sem a
+interface gráfica. São circuitos concentrados ideais; informe os parâmetros e
+condições iniciais do problema que deseja analisar.
+
+Para validar os modelos:
+
+```bash
+python -m pytest -q test_circuit_lab.py
+```
+
+### Aplicação desktop existente
+
 Inicie a aplicação a partir desta pasta:
 
 ```bash
@@ -36,5 +57,5 @@ Atalhos gerais: `Ctrl+N` novo, `Ctrl+O` importar JSON, `Ctrl+S` salvar,
 Testes:
 
 ```bash
-python -m pytest -q test_simulando_circuitos_digitais_3bits.py
+python -m pytest -q test_circuit_lab.py test_simulando_circuitos_digitais_3bits.py
 ```

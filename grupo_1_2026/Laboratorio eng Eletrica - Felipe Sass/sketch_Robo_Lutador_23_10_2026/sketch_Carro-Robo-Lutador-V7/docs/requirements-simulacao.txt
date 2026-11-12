@@ -5,3 +5,6 @@ pydantic>=2,<3
 PyQt6
 PySpice>=1.5
 sympy
+matplotlib
+ipykernel
+ipywidgets

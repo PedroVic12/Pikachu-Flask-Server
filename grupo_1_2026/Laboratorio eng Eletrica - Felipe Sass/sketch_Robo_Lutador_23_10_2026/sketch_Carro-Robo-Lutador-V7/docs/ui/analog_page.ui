@@ -62,7 +62,7 @@
        <item><layout class="QHBoxLayout" name="simulationControls">
         <item><widget class="QLabel" name="lblWave"><property name="text"><string>Entrada</string></property></widget></item>
         <item><widget class="QComboBox" name="comboWave">
-         <property name="minimumWidth"><number>190</number></property>
+         <property name="minimumWidth"><number>150</number></property>
          <item><property name="text"><string>Onda Quadrada (Arduino PWM)</string></property></item>
          <item><property name="text"><string>Onda Senoidal (AC)</string></property></item>
          <item><property name="text"><string>Degrau DC (5V)</string></property></item>
@@ -70,10 +70,11 @@
         </widget></item>
         <item><widget class="QLabel" name="lblFreq"><property name="text"><string>Hz</string></property></widget></item>
         <item><widget class="QDoubleSpinBox" name="spinFreq">
+         <property name="maximumWidth"><number>92</number></property>
          <property name="minimum"><double>1.0</double></property><property name="maximum"><double>1000.0</double></property><property name="value"><double>50.0</double></property><property name="suffix"><string> Hz</string></property>
         </widget></item>
         <item><widget class="QPushButton" name="btnSwitch"><property name="text"><string>●  Chave fechada</string></property><property name="checkable"><bool>true</bool></property><property name="checked"><bool>true</bool></property><property name="toolTip"><string>Alterne a chave e veja a carga ou descarga do elemento reativo</string></property></widget></item>
-        <item><widget class="QPushButton" name="btnRunSim"><property name="text"><string>▶  Simular (F5)</string></property></widget></item>
+        <item><widget class="QPushButton" name="btnRunSim"><property name="text"><string>▶  Simular</string></property><property name="toolTip"><string>Executar simulação transiente (F5)</string></property></widget></item>
        </layout></item>
       </layout>
      </widget></item>

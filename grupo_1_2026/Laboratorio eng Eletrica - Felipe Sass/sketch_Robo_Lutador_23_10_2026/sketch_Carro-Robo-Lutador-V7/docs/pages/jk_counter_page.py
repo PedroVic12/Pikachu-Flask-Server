@@ -34,6 +34,7 @@ class JKCounterPage(QtWidgets.QWidget):
         self.counter = JKCounterModel()
         self.highlighted_bits: set[int] = set()
         self.btnClock.clicked.connect(self.clock_counter)
+        self.btnClock.setProperty("primary", True)
         self.btnReset.clicked.connect(self.reset_counter)
         self.comboBits.currentIndexChanged.connect(self.configure_counter)
         self.comboDirection.currentIndexChanged.connect(self.configure_counter)

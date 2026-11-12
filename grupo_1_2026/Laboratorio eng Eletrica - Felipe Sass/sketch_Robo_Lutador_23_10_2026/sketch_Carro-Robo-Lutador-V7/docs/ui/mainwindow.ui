@@ -55,7 +55,7 @@
         <item><widget class="QLabel" name="lblHeaderHint"><property name="text"><string>RC   /   RL   /   RLC   •   PySpice + SymPy</string></property><property name="styleSheet"><string notr="true">color: #98a7be;</string></property></widget></item>
        </layout>
       </widget></item>
-      <item><widget class="QStackedWidget" name="mainStack"><property name="currentIndex"><number>0</number></property><widget class="QWidget" name="analogPageHost"/><widget class="QWidget" name="jkPageHost"/></widget></item>
+      <item><widget class="QStackedWidget" name="mainStack"><property name="currentIndex"><number>0</number></property></widget></item>
      </layout>
     </item>
    </layout>

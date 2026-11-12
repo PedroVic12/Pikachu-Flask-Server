@@ -73,8 +73,6 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.analog_page = AnalogCircuitPage(self)
         self.jk_page = JKCounterPage(self)
-        self.mainStack.removeWidget(self.mainStack.widget(0))
-        self.mainStack.removeWidget(self.mainStack.widget(0))
         self.mainStack.addWidget(self.analog_page)
         self.mainStack.addWidget(self.jk_page)
         self.sidebar_expanded = True

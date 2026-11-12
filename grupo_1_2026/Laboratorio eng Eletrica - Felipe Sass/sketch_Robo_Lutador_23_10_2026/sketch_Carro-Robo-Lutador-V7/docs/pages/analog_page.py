@@ -83,6 +83,8 @@ class AnalogCircuitPage(QtWidgets.QWidget):
         self.btnRotate.clicked.connect(self.rotate_selected_component)
         self.btnClear.clicked.connect(self.new_project)
         self.btnRunSim.clicked.connect(self.run_simulation)
+        self.btnRunSim.setProperty("primary", True)
+        self.btnLoadPreset.setProperty("primary", True)
         self.btnSwitch.toggled.connect(self.handle_switch_toggle)
         self.comboWave.currentIndexChanged.connect(self.update_switch_controls)
         self.btnGenSpice.clicked.connect(self.generate_spice_netlist)
@@ -231,7 +233,7 @@ class AnalogCircuitPage(QtWidgets.QWidget):
             else "Selecione Chave manual para controlar a carga e descarga."
         )
         self.btnSwitch.setText(
-            "●  Chave fechada" if self.btnSwitch.isChecked() else "○  Chave aberta"
+            "●  Chave ON" if self.btnSwitch.isChecked() else "○  Chave OFF"
         )
 
     def handle_switch_toggle(self, closed: bool):
@@ -383,7 +385,12 @@ class AnalogCircuitPage(QtWidgets.QWidget):
                 QtWidgets.QMessageBox.warning(self, "Circuito sem simulação", str(exc))
             self.set_status(str(exc))
             return
-        self.scope.set_data(t, vin, vout, current)
+        output_label = (
+            "Vc (capacitor)"
+            if self.circuit_type in ("RC", "RLC")
+            else "VR (resistor)"
+        )
+        self.scope.set_data(t, vin, vout, current, output_label)
         if manual_switch and len(t):
             if self.circuit_type == "RC":
                 self._switch_initial_state = (float(vout[-1]), 0.0)
@@ -608,13 +615,15 @@ class OscilloscopeWidget(QtWidgets.QWidget):
         self.v_in = np.array([])
         self.v_out = np.array([])
         self.current = np.array([])
+        self.output_label = "Vout"
         self.cursor_idx = 0
 
-    def set_data(self, t, v_in, v_out, current=None):
+    def set_data(self, t, v_in, v_out, current=None, output_label="Vout"):
         self.t = np.asarray(t, dtype=float)
         self.v_in = np.asarray(v_in, dtype=float)
         self.v_out = np.asarray(v_out, dtype=float)
         self.current = np.asarray(current if current is not None else [], dtype=float)
+        self.output_label = output_label
         if not (len(self.t) == len(self.v_in) == len(self.v_out)) or (
             len(self.current) not in (0, len(self.t))
         ):
@@ -698,7 +707,17 @@ class OscilloscopeWidget(QtWidgets.QWidget):
         painter.setPen(QtGui.QColor("#63d9ff"))
         painter.drawText(15, 20, f"Vin: {self.v_in[self.cursor_idx]:.2f} V")
         painter.setPen(QtGui.QColor("#ffbd69"))
-        painter.drawText(160, 20, f"Vreativo: {self.v_out[self.cursor_idx]:.2f} V")
+        painter.drawText(
+            160,
+            20,
+            f"{self.output_label}: {self.v_out[self.cursor_idx]:.2f} V",
+        )
+        painter.setPen(QtGui.QColor("#b7c5da"))
+        painter.drawText(
+            max(width - 145, 300),
+            20,
+            f"t = {self.t[self.cursor_idx]:.4g} s",
+        )
         if len(self.current) == len(self.t):
             painter.setPen(QtGui.QColor("#91d6b0"))
             painter.drawText(
