@@ -3,7 +3,7 @@ import json
 import math
 import re
 import sys
-from typing import Literal
+from typing import Literal, Sequence
 
 import numpy as np
 import schemdraw
@@ -284,6 +284,8 @@ class TransientEngine:
         self.circuit_type = "RC"
 
     def get_input_voltage(self, t: float, wave_type: str, freq: float, amp: float = 5.0) -> float:
+        if "Chave manual" in wave_type:
+            return amp
         if "Quadrada" in wave_type:
             return amp if math.sin(2 * math.pi * freq * t) >= 0 else 0.0
         if "Senoidal" in wave_type:
@@ -299,6 +301,8 @@ class TransientEngine:
         wave_type: str,
         freq: float,
         amp: float = 5.0,
+        initial_state: Sequence[float] | None = None,
+        duration: float | None = None,
     ):
         """Resolve a resposta de uma malha RLC série com corrente convencional."""
         R, L, C, freq, amp = float(R), float(L), float(C), float(freq), float(amp)
@@ -313,11 +317,13 @@ class TransientEngine:
             raise ValueError("A indutância deve ser maior que zero.")
         if circuit_type not in ("RC", "RL", "RLC"):
             raise ValueError(f"Topologia não suportada: {circuit_type}")
+        if duration is not None and (not math.isfinite(duration) or duration <= 0):
+            raise ValueError("A duração da simulação deve ser positiva e finita.")
 
         self.circuit_type = circuit_type
-        t_span = (0.0, 3.0 / freq)
+        t_span = (0.0, duration if duration is not None else 3.0 / freq)
         t_eval = np.linspace(t_span[0], t_span[1], 600)
-        max_step = 1.0 / (freq * 100.0)
+        max_step = min(1.0 / (freq * 100.0), t_span[1] / 300.0)
 
         def ode_system(_t, y):
             vin = self.get_input_voltage(_t, wave_type, freq, amp)
@@ -330,11 +336,16 @@ class TransientEngine:
             current, capacitor_voltage = y
             return [(vin - R * current - capacitor_voltage) / L, current / C]
 
-        initial_state = [0.0, 0.0] if circuit_type == "RLC" else [0.0]
+        default_state = [0.0, 0.0] if circuit_type == "RLC" else [0.0]
+        state = list(initial_state) if initial_state is not None else default_state
+        if len(state) != len(default_state) or not all(
+            math.isfinite(float(value)) for value in state
+        ):
+            raise ValueError(f"Estado inicial inválido para o circuito {circuit_type}.")
         sol = solve_ivp(
             ode_system,
             t_span,
-            initial_state,
+            state,
             t_eval=t_eval,
             method="RK45",
             max_step=max_step,

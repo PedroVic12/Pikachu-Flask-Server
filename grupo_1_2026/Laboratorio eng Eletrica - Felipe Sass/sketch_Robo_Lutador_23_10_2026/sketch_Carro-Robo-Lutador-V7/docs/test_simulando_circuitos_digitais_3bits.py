@@ -127,10 +127,9 @@ def test_json_project_round_trip_and_spice_export(main_window, tmp_path):
 
 def test_main_app_has_distinct_analog_and_jk_screens(_qt_app):
     window = MainWindow()
-    assert [window.mainTabs.tabText(i) for i in range(window.mainTabs.count())] == [
-        "Circuitos analógicos",
-        "Contador síncrono FF JK",
-    ]
+    assert window.mainStack.count() == 2
+    assert window.btnAnalogNav.text().endswith("Circuitos analógicos")
+    assert window.btnJKNav.text().endswith("Contador FF JK")
 
     window.analog_page.load_preset("RLC")
     assert [item.model.comp_type for item in window.analog_page.components] == [
@@ -142,5 +141,57 @@ def test_main_app_has_distinct_analog_and_jk_screens(_qt_app):
     window.jk_page.comboDirection.setCurrentIndex(0)
     window.jk_page.clock_counter()
     assert window.jk_page.counter.bits == "0001"
+    assert window.jk_page.counterTruthTable.rowCount() == 16
+    assert window.jk_page.jkTruthTable.rowCount() == 8
+    assert "FF0:" in window.jk_page.lblEquations.text()
     assert len(window.jk_page.scene.items()) > 4
+    window.set_active_page(1)
+    assert window.mainStack.currentIndex() == 1
+    window.close()
+
+
+def test_manual_switch_charges_and_discharges_reactive_component(_qt_app):
+    window = MainWindow()
+    page = window.analog_page
+    page.load_preset("RC")
+    page.comboWave.setCurrentText("Chave manual (carga/descarga)")
+    page.btnSwitch.setChecked(True)
+    page.run_simulation()
+    charged_voltage = float(page.scope.v_out[-1])
+
+    page.btnSwitch.setChecked(False)
+
+    assert page.btnSwitch.isEnabled()
+    assert charged_voltage > 4.0
+    assert page.scope.v_in.max() == 0.0
+    assert page.scope.v_out[0] > page.scope.v_out[-1]
+    assert page.scope.v_out[-1] < 0.1
+    window.close()
+
+
+def test_pyspice_netlist_is_built_from_real_circuit_objects(_qt_app):
+    window = MainWindow()
+    page = window.analog_page
+    page.load_preset("RLC")
+    page.generate_spice_netlist()
+
+    netlist = page.spiceOutput.toPlainText()
+    assert ".title Circuito RLC" in netlist
+    assert "V1 1 0 PULSE(" in netlist
+    assert "R1 1 2 1000" in netlist
+    assert "L1 2 3 0.01" in netlist
+    assert "C1 3 0 1e-05" in netlist
+    assert netlist.endswith(".end")
+    window.close()
+
+
+def test_sidebar_collapses_at_narrow_window_width(_qt_app):
+    window = MainWindow()
+    window.resize(850, 700)
+    window._update_sidebar()
+    assert window.sidebar.width() == 72
+    assert window.btnAnalogNav.text() == "◉"
+    window.resize(1200, 800)
+    window._update_sidebar()
+    assert window.sidebar.width() == 224
     window.close()

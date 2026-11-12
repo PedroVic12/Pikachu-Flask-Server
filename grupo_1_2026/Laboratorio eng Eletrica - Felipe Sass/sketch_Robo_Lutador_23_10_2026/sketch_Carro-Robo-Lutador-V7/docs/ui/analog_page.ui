@@ -3,68 +3,95 @@
  <class>AnalogPage</class>
  <widget class="QWidget" name="AnalogPage">
   <layout class="QVBoxLayout" name="pageLayout">
-   <item>
-    <layout class="QHBoxLayout" name="circuitControls">
-     <item><widget class="QLabel" name="lblTopology"><property name="text"><string>Topologia</string></property></widget></item>
-     <item>
-      <widget class="QComboBox" name="comboCircuitType">
-       <item><property name="text"><string>RC</string></property></item>
-       <item><property name="text"><string>RL</string></property></item>
-       <item><property name="text"><string>RLC</string></property></item>
-      </widget>
-     </item>
-     <item><widget class="QPushButton" name="btnLoadPreset"><property name="text"><string>Montar padrão</string></property></widget></item>
-     <item><widget class="QPushButton" name="btnAddSource"><property name="text"><string>+ Fonte</string></property></widget></item>
-     <item><widget class="QPushButton" name="btnAddResistor"><property name="text"><string>+ Resistor</string></property></widget></item>
-     <item><widget class="QPushButton" name="btnAddInductor"><property name="text"><string>+ Indutor</string></property></widget></item>
-     <item><widget class="QPushButton" name="btnAddCapacitor"><property name="text"><string>+ Capacitor</string></property></widget></item>
-     <item><widget class="QPushButton" name="btnRotate"><property name="text"><string>Girar (R)</string></property></widget></item>
-     <item><widget class="QPushButton" name="btnClear"><property name="text"><string>Novo</string></property></widget></item>
-    </layout>
-   </item>
-   <item>
-    <layout class="QHBoxLayout" name="simulationControls">
-     <item><widget class="QLabel" name="lblWave"><property name="text"><string>Entrada</string></property></widget></item>
-     <item>
-      <widget class="QComboBox" name="comboWave">
-       <item><property name="text"><string>Onda Quadrada (Arduino PWM)</string></property></item>
-       <item><property name="text"><string>Onda Senoidal (AC)</string></property></item>
-       <item><property name="text"><string>Degrau DC (5V)</string></property></item>
-      </widget>
-     </item>
-     <item><widget class="QLabel" name="lblFreq"><property name="text"><string>Frequência (Hz)</string></property></widget></item>
-     <item><widget class="QDoubleSpinBox" name="spinFreq">
-      <property name="minimum"><double>1.0</double></property>
-      <property name="maximum"><double>1000.0</double></property>
-      <property name="value"><double>50.0</double></property>
-     </widget></item>
-     <item><widget class="QPushButton" name="btnRunSim"><property name="text"><string>▶ Simular (F5)</string></property></widget></item>
-     <item><widget class="QPushButton" name="btnGenSpice"><property name="text"><string>Gerar netlist SPICE</string></property></widget></item>
-     <item><widget class="QPushButton" name="btnExportSchemdraw"><property name="text"><string>Exportar SVG</string></property></widget></item>
-    </layout>
-   </item>
-   <item>
-    <widget class="QSplitter" name="analogSplitter">
-     <property name="orientation"><enum>Qt::Vertical</enum></property>
-     <widget class="QGraphicsView" name="circuitView">
-      <property name="minimumSize"><size><width>0</width><height>320</height></size></property>
-      <property name="renderHints"><set>QPainter::Antialiasing</set></property>
-     </widget>
-     <widget class="QWidget" name="scopeAndNetlist">
-      <property name="minimumSize"><size><width>0</width><height>250</height></size></property>
-      <layout class="QHBoxLayout" name="outputLayout">
-       <item><widget class="QWidget" name="scopeHost" native="true">
-        <layout class="QVBoxLayout" name="scopeLayout"/>
-       </widget></item>
-       <item><widget class="QPlainTextEdit" name="spiceOutput">
-        <property name="readOnly"><bool>true</bool></property>
-        <property name="placeholderText"><string>Netlist SPICE...</string></property>
-       </widget></item>
+   <property name="spacing"><number>14</number></property>
+   <property name="leftMargin"><number>18</number></property>
+   <property name="topMargin"><number>12</number></property>
+   <property name="rightMargin"><number>18</number></property>
+   <property name="bottomMargin"><number>12</number></property>
+   <item><layout class="QHBoxLayout" name="pageHeadingLayout">
+    <item><layout class="QVBoxLayout" name="pageTitleLayout">
+     <item><widget class="QLabel" name="lblPageTitle"><property name="text"><string>Editor de circuitos</string></property><property name="styleSheet"><string notr="true">font-size: 21px; font-weight: 700;</string></property></widget></item>
+     <item><widget class="QLabel" name="lblPageSubtitle"><property name="text"><string>Desenhe a malha, conecte os terminais e acompanhe a resposta transiente.</string></property><property name="styleSheet"><string notr="true">color: #98a7be;</string></property></widget></item>
+    </layout></item>
+    <item><spacer name="headingSpacer"><property name="orientation"><enum>Qt::Horizontal</enum></property><property name="sizeHint" stdset="0"><size><width>40</width><height>20</height></size></property></spacer></item>
+    <item><widget class="QLabel" name="lblSimulationBadge"><property name="text"><string>PySpice model  •  SciPy transient</string></property><property name="styleSheet"><string notr="true">color: #91d6b0; background: #193329; border-radius: 8px; padding: 8px;</string></property></widget></item>
+   </layout></item>
+   <item><layout class="QHBoxLayout" name="analogWorkspace">
+    <property name="spacing"><number>12</number></property>
+    <item><widget class="QFrame" name="toolPanel">
+     <property name="minimumSize"><size><width>152</width><height>0</height></size></property>
+     <property name="maximumSize"><size><width>190</width><height>16777215</height></size></property>
+     <property name="frameShape"><enum>QFrame::NoFrame</enum></property>
+     <layout class="QVBoxLayout" name="toolPanelLayout">
+      <property name="spacing"><number>8</number></property>
+      <property name="leftMargin"><number>12</number></property>
+      <property name="topMargin"><number>14</number></property>
+      <property name="rightMargin"><number>12</number></property>
+      <property name="bottomMargin"><number>12</number></property>
+      <item><widget class="QLabel" name="lblComponents"><property name="text"><string>COMPONENTES</string></property><property name="styleSheet"><string notr="true">font-size: 10px; font-weight: 700; color: #8190a8;</string></property></widget></item>
+      <item><widget class="QPushButton" name="btnAddSource"><property name="text"><string>＋  Fonte DC</string></property><property name="toolTip"><string>Adicionar uma fonte de tensão ao canvas</string></property></widget></item>
+      <item><widget class="QPushButton" name="btnAddResistor"><property name="text"><string>＋  Resistor</string></property></widget></item>
+      <item><widget class="QPushButton" name="btnAddCapacitor"><property name="text"><string>＋  Capacitor</string></property></widget></item>
+      <item><widget class="QPushButton" name="btnAddInductor"><property name="text"><string>＋  Indutor</string></property></widget></item>
+      <item><spacer name="toolSpacer"><property name="orientation"><enum>Qt::Vertical</enum></property><property name="sizeHint" stdset="0"><size><width>20</width><height>16</height></size></property></spacer></item>
+      <item><widget class="QLabel" name="lblCanvasTools"><property name="text"><string>CANVAS</string></property><property name="styleSheet"><string notr="true">font-size: 10px; font-weight: 700; color: #8190a8;</string></property></widget></item>
+      <item><widget class="QPushButton" name="btnRotate"><property name="text"><string>↻  Girar peça</string></property><property name="toolTip"><string>Girar componente selecionado (R)</string></property></widget></item>
+      <item><widget class="QPushButton" name="btnClear"><property name="text"><string>Novo circuito</string></property></widget></item>
+      <item><spacer name="toolBottomSpacer"><property name="orientation"><enum>Qt::Vertical</enum></property><property name="sizeHint" stdset="0"><size><width>20</width><height>80</height></size></property></spacer></item>
+      <item><widget class="QLabel" name="lblCanvasHint"><property name="text"><string>Arraste para mover. Clique em dois terminais para conectar.</string></property><property name="wordWrap"><bool>true</bool></property><property name="styleSheet"><string notr="true">color: #98a7be; font-size: 11px;</string></property></widget></item>
+     </layout>
+    </widget></item>
+    <item><layout class="QVBoxLayout" name="editorLayout">
+     <property name="spacing"><number>10</number></property>
+     <item><widget class="QFrame" name="simulationPanel">
+      <property name="frameShape"><enum>QFrame::NoFrame</enum></property>
+      <layout class="QVBoxLayout" name="simulationPanelLayout">
+       <property name="spacing"><number>8</number></property>
+       <property name="leftMargin"><number>12</number></property>
+       <property name="topMargin"><number>10</number></property>
+       <property name="rightMargin"><number>12</number></property>
+       <property name="bottomMargin"><number>10</number></property>
+       <item><layout class="QHBoxLayout" name="circuitControls">
+        <item><widget class="QLabel" name="lblTopology"><property name="text"><string>Topologia</string></property></widget></item>
+        <item><widget class="QComboBox" name="comboCircuitType"><property name="minimumWidth"><number>92</number></property><item><property name="text"><string>RC</string></property></item><item><property name="text"><string>RL</string></property></item><item><property name="text"><string>RLC</string></property></item></widget></item>
+        <item><widget class="QPushButton" name="btnLoadPreset"><property name="text"><string>Montar padrão</string></property></widget></item>
+        <item><spacer name="controlSpacer"><property name="orientation"><enum>Qt::Horizontal</enum></property><property name="sizeHint" stdset="0"><size><width>18</width><height>20</height></size></property></spacer></item>
+        <item><widget class="QPushButton" name="btnGenSpice"><property name="text"><string>Gerar netlist PySpice</string></property></widget></item>
+        <item><widget class="QPushButton" name="btnExportSchemdraw"><property name="text"><string>Exportar SVG</string></property></widget></item>
+       </layout></item>
+       <item><layout class="QHBoxLayout" name="simulationControls">
+        <item><widget class="QLabel" name="lblWave"><property name="text"><string>Entrada</string></property></widget></item>
+        <item><widget class="QComboBox" name="comboWave">
+         <property name="minimumWidth"><number>190</number></property>
+         <item><property name="text"><string>Onda Quadrada (Arduino PWM)</string></property></item>
+         <item><property name="text"><string>Onda Senoidal (AC)</string></property></item>
+         <item><property name="text"><string>Degrau DC (5V)</string></property></item>
+         <item><property name="text"><string>Chave manual (carga/descarga)</string></property></item>
+        </widget></item>
+        <item><widget class="QLabel" name="lblFreq"><property name="text"><string>Hz</string></property></widget></item>
+        <item><widget class="QDoubleSpinBox" name="spinFreq">
+         <property name="minimum"><double>1.0</double></property><property name="maximum"><double>1000.0</double></property><property name="value"><double>50.0</double></property><property name="suffix"><string> Hz</string></property>
+        </widget></item>
+        <item><widget class="QPushButton" name="btnSwitch"><property name="text"><string>●  Chave fechada</string></property><property name="checkable"><bool>true</bool></property><property name="checked"><bool>true</bool></property><property name="toolTip"><string>Alterne a chave e veja a carga ou descarga do elemento reativo</string></property></widget></item>
+        <item><widget class="QPushButton" name="btnRunSim"><property name="text"><string>▶  Simular (F5)</string></property></widget></item>
+       </layout></item>
       </layout>
-     </widget>
-    </widget>
-   </item>
-   <item><widget class="QLabel" name="statusLabel"><property name="text"><string>Corrente convencional sai do terminal positivo da fonte.</string></property></widget></item>
+     </widget></item>
+     <item><widget class="QSplitter" name="analogSplitter">
+      <property name="orientation"><enum>Qt::Vertical</enum></property>
+      <widget class="QGraphicsView" name="circuitView"><property name="minimumSize"><size><width>0</width><height>260</height></size></property><property name="renderHints"><set>QPainter::Antialiasing</set></property></widget>
+      <widget class="QWidget" name="scopeAndNetlist">
+       <property name="minimumSize"><size><width>0</width><height>230</height></size></property>
+       <layout class="QHBoxLayout" name="outputLayout">
+        <property name="spacing"><number>10</number></property>
+        <item><widget class="QWidget" name="scopeHost" native="true"><layout class="QVBoxLayout" name="scopeLayout"><property name="leftMargin"><number>0</number></property><property name="topMargin"><number>0</number></property><property name="rightMargin"><number>0</number></property><property name="bottomMargin"><number>0</number></property></layout></widget></item>
+        <item><widget class="QPlainTextEdit" name="spiceOutput"><property name="minimumWidth"><number>200</number></property><property name="maximumWidth"><number>360</number></property><property name="readOnly"><bool>true</bool></property><property name="placeholderText"><string>Netlist PySpice gerado...</string></property></widget></item>
+       </layout>
+      </widget>
+     </widget></item>
+     <item><widget class="QLabel" name="statusLabel"><property name="text"><string>Corrente convencional sai do terminal positivo da fonte.</string></property><property name="wordWrap"><bool>true</bool></property><property name="styleSheet"><string notr="true">color: #a9bad1;</string></property></widget></item>
+    </layout></item>
+   </layout></item>
   </layout>
  </widget>
  <resources/>

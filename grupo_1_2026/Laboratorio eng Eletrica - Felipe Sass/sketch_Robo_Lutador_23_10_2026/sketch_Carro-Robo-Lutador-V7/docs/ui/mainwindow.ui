@@ -2,38 +2,61 @@
 <ui version="4.0">
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
-  <property name="geometry">
-   <rect><x>0</x><y>0</y><width>1280</width><height>820</height></rect>
-  </property>
-  <property name="windowTitle">
-   <string>PyEDA Suite — Circuitos e Contadores</string>
-  </property>
-  <property name="styleSheet">
-   <string notr="true">
-    QMainWindow, QWidget { background-color: #1e1e1e; color: #e0e0e0; }
-    QTabWidget::pane { border: 1px solid #3e3e42; }
-    QTabBar::tab { background: #252526; color: #d4d4d4; padding: 9px 18px; }
-    QTabBar::tab:selected { background: #007acc; color: white; }
-    QPushButton { background-color: #2d2d30; color: #fff; border: 1px solid #3e3e42; padding: 7px; border-radius: 4px; }
-    QPushButton:hover { background-color: #3e3e42; border-color: #007acc; }
-    QLabel, QComboBox, QDoubleSpinBox { color: #e0e0e0; }
-    QComboBox, QDoubleSpinBox, QPlainTextEdit { background-color: #252526; border: 1px solid #3e3e42; padding: 4px; }
-   </string>
-  </property>
+  <property name="geometry"><rect><x>0</x><y>0</y><width>1440</width><height>920</height></rect></property>
+  <property name="minimumSize"><size><width>760</width><height>620</height></size></property>
+  <property name="windowTitle"><string>PyEDA Studio — Laboratório de circuitos</string></property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="centralLayout">
+   <layout class="QHBoxLayout" name="shellLayout">
+    <property name="spacing"><number>0</number></property>
+    <property name="leftMargin"><number>0</number></property>
+    <property name="topMargin"><number>0</number></property>
+    <property name="rightMargin"><number>0</number></property>
+    <property name="bottomMargin"><number>0</number></property>
     <item>
-     <widget class="QTabWidget" name="mainTabs">
-      <property name="currentIndex"><number>0</number></property>
-      <widget class="QWidget" name="analogTab">
-       <attribute name="title"><string>Circuitos analógicos</string></attribute>
-       <layout class="QVBoxLayout" name="analogTabLayout"/>
-      </widget>
-      <widget class="QWidget" name="jkTab">
-       <attribute name="title"><string>Contador síncrono FF JK</string></attribute>
-       <layout class="QVBoxLayout" name="jkTabLayout"/>
-      </widget>
+     <widget class="QFrame" name="sidebar">
+      <property name="minimumSize"><size><width>68</width><height>0</height></size></property>
+      <property name="frameShape"><enum>QFrame::NoFrame</enum></property>
+      <layout class="QVBoxLayout" name="sidebarLayout">
+       <property name="spacing"><number>10</number></property>
+       <property name="leftMargin"><number>12</number></property>
+       <property name="topMargin"><number>18</number></property>
+       <property name="rightMargin"><number>12</number></property>
+       <property name="bottomMargin"><number>16</number></property>
+       <item><layout class="QHBoxLayout" name="brandLayout">
+        <item><widget class="QToolButton" name="btnCollapseSidebar"><property name="text"><string>☰</string></property><property name="toolTip"><string>Recolher ou expandir o menu</string></property><property name="autoRaise"><bool>true</bool></property></widget></item>
+        <item><widget class="QLabel" name="lblBrand"><property name="text"><string>PyEDA Studio</string></property><property name="styleSheet"><string notr="true">font-size: 17px; font-weight: 700;</string></property></widget></item>
+       </layout></item>
+       <item><widget class="QLabel" name="lblNavCaption"><property name="text"><string>ESPAÇOS DE TRABALHO</string></property><property name="styleSheet"><string notr="true">font-size: 10px; font-weight: 700; color: #8190a8; padding: 14px 4px 5px;</string></property></widget></item>
+       <item><widget class="QPushButton" name="btnAnalogNav"><property name="text"><string>◉   Circuitos analógicos</string></property><property name="checkable"><bool>true</bool></property><property name="checked"><bool>true</bool></property><property name="toolTip"><string>Editor e simulador de circuitos RC, RL e RLC</string></property></widget></item>
+       <item><widget class="QPushButton" name="btnJKNav"><property name="text"><string>▦   Contador FF JK</string></property><property name="checkable"><bool>true</bool></property><property name="toolTip"><string>Contador síncrono, equações e tabelas-verdade</string></property></widget></item>
+       <item><spacer name="sidebarSpacer"><property name="orientation"><enum>Qt::Vertical</enum></property><property name="sizeHint" stdset="0"><size><width>20</width><height>40</height></size></property></spacer></item>
+       <item><widget class="QLabel" name="lblSidebarFooter"><property name="text"><string>SIMULAÇÃO • EDUCAÇÃO</string></property><property name="styleSheet"><string notr="true">font-size: 9px; color: #8190a8; padding: 4px;</string></property></widget></item>
+      </layout>
      </widget>
+    </item>
+    <item>
+     <layout class="QVBoxLayout" name="contentLayout">
+      <property name="spacing"><number>0</number></property>
+      <property name="leftMargin"><number>0</number></property>
+      <property name="topMargin"><number>0</number></property>
+      <property name="rightMargin"><number>0</number></property>
+      <property name="bottomMargin"><number>0</number></property>
+      <item><widget class="QFrame" name="topBar">
+       <property name="minimumSize"><size><width>0</width><height>58</height></size></property>
+       <property name="maximumSize"><size><width>16777215</width><height>58</height></size></property>
+       <property name="frameShape"><enum>QFrame::NoFrame</enum></property>
+       <layout class="QHBoxLayout" name="topBarLayout">
+        <property name="leftMargin"><number>22</number></property>
+        <property name="topMargin"><number>8</number></property>
+        <property name="rightMargin"><number>22</number></property>
+        <property name="bottomMargin"><number>8</number></property>
+        <item><widget class="QLabel" name="lblPageHeading"><property name="text"><string>Circuitos analógicos</string></property><property name="styleSheet"><string notr="true">font-size: 18px; font-weight: 700;</string></property></widget></item>
+        <item><spacer name="headerSpacer"><property name="orientation"><enum>Qt::Horizontal</enum></property><property name="sizeHint" stdset="0"><size><width>40</width><height>20</height></size></property></spacer></item>
+        <item><widget class="QLabel" name="lblHeaderHint"><property name="text"><string>RC   /   RL   /   RLC   •   PySpice + SymPy</string></property><property name="styleSheet"><string notr="true">color: #98a7be;</string></property></widget></item>
+       </layout>
+      </widget></item>
+      <item><widget class="QStackedWidget" name="mainStack"><property name="currentIndex"><number>0</number></property><widget class="QWidget" name="analogPageHost"/><widget class="QWidget" name="jkPageHost"/></widget></item>
+     </layout>
     </item>
    </layout>
   </widget>

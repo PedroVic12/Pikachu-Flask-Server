@@ -6,6 +6,7 @@ import numpy as np
 import schemdraw
 import schemdraw.elements as elm
 from PyQt6 import QtCore, QtGui, QtWidgets, uic
+from PySpice.Spice.Netlist import Circuit as PySpiceCircuit
 
 from simulando_circuitos_digitais_3bits import (
     AnimatedWireItem,
@@ -40,6 +41,7 @@ class AnalogCircuitPage(QtWidgets.QWidget):
     btnRotate: QtWidgets.QPushButton
     btnClear: QtWidgets.QPushButton
     btnRunSim: QtWidgets.QPushButton
+    btnSwitch: QtWidgets.QPushButton
     btnGenSpice: QtWidgets.QPushButton
     btnExportSchemdraw: QtWidgets.QPushButton
     spiceOutput: QtWidgets.QPlainTextEdit
@@ -53,7 +55,7 @@ class AnalogCircuitPage(QtWidgets.QWidget):
             raise RuntimeError("PyQt6 não disponibiliza uic.loadUi.")
         load_ui(str(ui_path), self)
 
-        self.scene = QtWidgets.QGraphicsScene(0, 0, 1000, 600, self)
+        self.scene = QtWidgets.QGraphicsScene(0, 0, 1600, 900, self)
         self.scene.setBackgroundBrush(QtGui.QBrush(QtGui.QColor("#181818")))
         self.circuitView.setScene(self.scene)
         self.draw_grid()
@@ -67,6 +69,7 @@ class AnalogCircuitPage(QtWidgets.QWidget):
         self.comp_counter = {"V": 1, "R": 1, "L": 1, "C": 1}
         self.circuit_type: CircuitType = "RC"
         self._project_path: str | None = None
+        self._switch_initial_state = (0.0, 0.0)
 
         self.animation_timer = QtCore.QTimer(self)
         self.animation_timer.timeout.connect(self.on_animation_tick)
@@ -80,9 +83,15 @@ class AnalogCircuitPage(QtWidgets.QWidget):
         self.btnRotate.clicked.connect(self.rotate_selected_component)
         self.btnClear.clicked.connect(self.new_project)
         self.btnRunSim.clicked.connect(self.run_simulation)
+        self.btnSwitch.toggled.connect(self.handle_switch_toggle)
+        self.comboWave.currentIndexChanged.connect(self.update_switch_controls)
         self.btnGenSpice.clicked.connect(self.generate_spice_netlist)
         self.btnExportSchemdraw.clicked.connect(self.export_schemdraw)
 
+        self.circuitView.setDragMode(
+            QtWidgets.QGraphicsView.DragMode.RubberBandDrag
+        )
+        self.update_switch_controls()
         self.load_preset("RC")
 
     def set_status(self, message: str):
@@ -91,22 +100,26 @@ class AnalogCircuitPage(QtWidgets.QWidget):
 
     def draw_grid(self):
         pen = QtGui.QPen(QtGui.QColor("#252525"), 1)
-        for x in range(0, 1000, 20):
-            self.scene.addLine(x, 0, x, 600, pen)
-        for y in range(0, 600, 20):
-            self.scene.addLine(0, y, 1000, y, pen)
+        for x in range(0, 1600, 20):
+            self.scene.addLine(x, 0, x, 900, pen)
+        for y in range(0, 900, 20):
+            self.scene.addLine(0, y, 1600, y, pen)
 
     def add_component(
         self,
         comp_type: Literal["V", "R", "L", "C"],
         value: float,
         unit: str,
-        x: float = 200,
-        y: float = 200,
+        x: float | None = None,
+        y: float | None = None,
         name: str | None = None,
     ) -> ElectronicGraphicsItem:
         index = self.comp_counter[comp_type]
         self.comp_counter[comp_type] += 1
+        if x is None or y is None:
+            position_index = len(self.components)
+            x = 180 + (position_index % 5) * 260
+            y = 160 + (position_index // 5) * 150
         model = ComponentModel(
             comp_type=comp_type,
             name=name or f"{comp_type}{index}",
@@ -184,6 +197,7 @@ class AnalogCircuitPage(QtWidgets.QWidget):
         self.pending_terminal = None
         self.comp_counter = {"V": 1, "R": 1, "L": 1, "C": 1}
         self.engine.current = np.array([])
+        self._switch_initial_state = (0.0, 0.0)
         self.scope.set_data([], [], [], [])
 
     def new_project(self):
@@ -206,6 +220,35 @@ class AnalogCircuitPage(QtWidgets.QWidget):
             item.setRotation((item.rotation() + 90) % 360)
             item.model.rotation = int(item.rotation())
         self.set_status(f"{len(selected)} componente(s) girado(s) em 90°.")
+
+    def update_switch_controls(self, _index=None):
+        del _index
+        manual_mode = "Chave manual" in self.comboWave.currentText()
+        self.btnSwitch.setEnabled(manual_mode)
+        self.btnSwitch.setToolTip(
+            "Chave fechada: carrega. Chave aberta: descarrega pelo resistor."
+            if manual_mode
+            else "Selecione Chave manual para controlar a carga e descarga."
+        )
+        self.btnSwitch.setText(
+            "●  Chave fechada" if self.btnSwitch.isChecked() else "○  Chave aberta"
+        )
+
+    def handle_switch_toggle(self, closed: bool):
+        del closed
+        self.update_switch_controls()
+        if "Chave manual" in self.comboWave.currentText():
+            self.run_simulation(show_errors=False)
+
+    def _switch_simulation_duration(
+        self, resistance: float, inductance: float, capacitance: float
+    ) -> float:
+        time_constants = []
+        if self.circuit_type in ("RC", "RLC"):
+            time_constants.append(resistance * capacitance)
+        if self.circuit_type in ("RL", "RLC"):
+            time_constants.append(inductance / resistance)
+        return max(5.0 * max(time_constants), 1.0 / self.spinFreq.value())
 
     def _series_topology(self):
         expected = {
@@ -306,14 +349,34 @@ class AnalogCircuitPage(QtWidgets.QWidget):
             resistor = next(item.model for item in ordered if item.model.comp_type == "R")
             inductor = next((item.model for item in ordered if item.model.comp_type == "L"), None)
             capacitor = next((item.model for item in ordered if item.model.comp_type == "C"), None)
+            manual_switch = "Chave manual" in self.comboWave.currentText()
+            resistance = float(resistor.value)
+            inductance = float(inductor.value) if inductor else 0.01
+            capacitance = float(capacitor.value) if capacitor else 1e-5
+            if self.circuit_type == "RLC":
+                initial_state = self._switch_initial_state
+            else:
+                initial_state = self._switch_initial_state[:1]
             t, vin, vout, current = self.engine.solve_circuit_transient(
                 self.circuit_type,
-                float(resistor.value),
-                float(inductor.value) if inductor else 0.01,
-                float(capacitor.value) if capacitor else 1e-5,
+                resistance,
+                inductance,
+                capacitance,
                 self.comboWave.currentText(),
                 self.spinFreq.value(),
-                float(source.value),
+                (
+                    float(source.value)
+                    if not manual_switch or self.btnSwitch.isChecked()
+                    else 0.0
+                ),
+                initial_state=initial_state if manual_switch else None,
+                duration=(
+                    self._switch_simulation_duration(
+                        resistance, inductance, capacitance
+                    )
+                    if manual_switch
+                    else None
+                ),
             )
         except (ValueError, StopIteration, RuntimeError) as exc:
             if show_errors:
@@ -321,9 +384,24 @@ class AnalogCircuitPage(QtWidgets.QWidget):
             self.set_status(str(exc))
             return
         self.scope.set_data(t, vin, vout, current)
+        if manual_switch and len(t):
+            if self.circuit_type == "RC":
+                self._switch_initial_state = (float(vout[-1]), 0.0)
+            elif self.circuit_type == "RL":
+                self._switch_initial_state = (float(current[-1]), 0.0)
+            else:
+                self._switch_initial_state = (float(current[-1]), float(vout[-1]))
+            phase = "carga" if self.btnSwitch.isChecked() else "descarga"
+            self.set_status(
+                f"Chave {'fechada' if self.btnSwitch.isChecked() else 'aberta'}: "
+                f"simulação de {phase} concluída. Curvas de tensão e corrente "
+                "animadas no osciloscópio."
+            )
+            return
         self.set_status(
             f"{self.circuit_type} simulado. Corrente convencional no sentido "
-            "da fonte (+) para a carga e retorno ao (−)."
+            "da fonte (+) para a carga e retorno ao (−). Modelo PySpice; "
+            "análise transiente SciPy."
         )
 
     def on_animation_tick(self):
@@ -350,7 +428,10 @@ class AnalogCircuitPage(QtWidgets.QWidget):
 
         frequency = self.spinFreq.value()
         stop_time = 3.0 / frequency
-        if "Quadrada" in self.comboWave.currentText():
+        if "Chave manual" in self.comboWave.currentText():
+            switch_voltage = float(source.value) if self.btnSwitch.isChecked() else 0.0
+            waveform = f"DC {switch_voltage:g}"
+        elif "Quadrada" in self.comboWave.currentText():
             period = 1.0 / frequency
             waveform = f"PULSE(0 {float(source.value):g} 0 1u 1u {period / 2:g} {period:g})"
         elif "Senoidal" in self.comboWave.currentText():
@@ -387,13 +468,36 @@ class AnalogCircuitPage(QtWidgets.QWidget):
             )
             if not last:
                 node += 1
-        circuit = PySpiceCircuitModel(
+        circuit_model = PySpiceCircuitModel(
             title=f"Circuito {self.circuit_type}",
             components=spice_components,
             transient=f".tran 0 {stop_time:g}",
         )
-        self.spiceOutput.setPlainText("\n".join(circuit.build_netlist()))
-        self.set_status("Netlist SPICE gerado.")
+        pyspice_circuit = PySpiceCircuit(circuit_model.title)
+        for component in circuit_model.components:
+            component_name = component.name[1:]
+            if component.comp_type == "V":
+                pyspice_circuit.V(
+                    component_name,
+                    component.node1,
+                    component.node2,
+                    component.waveform,
+                )
+            else:
+                getattr(pyspice_circuit, component.comp_type)(
+                    component_name,
+                    component.node1,
+                    component.node2,
+                    component.value,
+                )
+        netlist = str(pyspice_circuit).rstrip()
+        self.spiceOutput.setPlainText(
+            f"{netlist}\n{circuit_model.transient}\n.end"
+        )
+        self.set_status(
+            "Circuito PySpice construído e netlist transiente gerado. "
+            "Para executar no NgSpice, instale o motor NgSpice no sistema."
+        )
 
     def export_schemdraw(self):
         filename, _ = QtWidgets.QFileDialog.getSaveFileName(
@@ -539,16 +643,28 @@ class OscilloscopeWidget(QtWidgets.QWidget):
             painter.drawText(20, 30, "Osciloscópio aguardando simulação...")
             return
 
-        vmax = max(float(np.max(np.abs(self.v_in))), float(np.max(np.abs(self.v_out))), 5.5)
-        mid_y, scale_y = height / 2.0, height * 0.4 / vmax
+        voltage_top = 38.0
+        voltage_height = height * 0.48
+        current_top = height * 0.65
+        current_height = height * 0.25
+        voltage_max = max(
+            float(np.max(np.abs(self.v_in))),
+            float(np.max(np.abs(self.v_out))),
+            1.0,
+        )
+        current_max = (
+            max(float(np.max(np.abs(self.current))), 1e-9)
+            if len(self.current) == len(self.t)
+            else 1.0
+        )
 
-        def draw_trace(data, color):
+        def draw_trace(data, color, top, chart_height, maximum):
             painter.setPen(QtGui.QPen(QtGui.QColor(color), 2))
             path = QtGui.QPainterPath()
             for index, value in enumerate(data):
                 point = QtCore.QPointF(
                     index / (len(data) - 1) * width,
-                    mid_y - value * scale_y,
+                    top + chart_height / 2 - value / maximum * chart_height / 2,
                 )
                 if index == 0:
                     path.moveTo(point)
@@ -556,17 +672,37 @@ class OscilloscopeWidget(QtWidgets.QWidget):
                     path.lineTo(point)
             painter.drawPath(path)
 
-        draw_trace(self.v_in, "#00e5ff")
-        draw_trace(self.v_out, "#ffaa00")
+        painter.setPen(QtGui.QPen(QtGui.QColor("#29384d"), 1))
+        painter.drawLine(
+            0,
+            int(voltage_top + voltage_height),
+            width,
+            int(voltage_top + voltage_height),
+        )
+        painter.drawLine(0, int(current_top), width, int(current_top))
+        draw_trace(self.v_in, "#63d9ff", voltage_top, voltage_height, voltage_max)
+        draw_trace(self.v_out, "#ffbd69", voltage_top, voltage_height, voltage_max)
+        if len(self.current) == len(self.t):
+            draw_trace(
+                self.current,
+                "#91d6b0",
+                current_top,
+                current_height,
+                current_max,
+            )
         self.cursor_idx = min(self.cursor_idx, len(self.t) - 1)
         cursor_x = self.cursor_idx / (len(self.t) - 1) * width
         painter.setPen(QtGui.QPen(QtGui.QColor("#ff3366"), 1, QtCore.Qt.PenStyle.DashLine))
-        painter.drawLine(int(cursor_x), 0, int(cursor_x), height)
+        painter.drawLine(int(cursor_x), int(voltage_top), int(cursor_x), height)
         painter.setFont(QtGui.QFont("Consolas", 9))
-        painter.setPen(QtGui.QColor("#00e5ff"))
+        painter.setPen(QtGui.QColor("#63d9ff"))
         painter.drawText(15, 20, f"Vin: {self.v_in[self.cursor_idx]:.2f} V")
-        painter.setPen(QtGui.QColor("#ffaa00"))
-        painter.drawText(140, 20, f"Vout: {self.v_out[self.cursor_idx]:.2f} V")
+        painter.setPen(QtGui.QColor("#ffbd69"))
+        painter.drawText(160, 20, f"Vreativo: {self.v_out[self.cursor_idx]:.2f} V")
         if len(self.current) == len(self.t):
-            painter.setPen(QtGui.QColor("#a6e3a1"))
-            painter.drawText(280, 20, f"I convencional: {self.current[self.cursor_idx]:.4f} A")
+            painter.setPen(QtGui.QColor("#91d6b0"))
+            painter.drawText(
+                15,
+                int(current_top + 15),
+                f"Corrente I: {self.current[self.cursor_idx]:.5g} A",
+            )

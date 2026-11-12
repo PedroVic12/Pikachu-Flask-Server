@@ -2,6 +2,7 @@ from pathlib import Path
 
 from PyQt6 import QtCore, QtGui, QtWidgets, uic
 
+from pages.logic_models import jk_counter_equations, jk_truth_table_rows
 from simulando_circuitos_digitais_3bits import JKCounterModel
 
 
@@ -13,7 +14,11 @@ class JKCounterPage(QtWidgets.QWidget):
     btnClock: QtWidgets.QPushButton
     btnReset: QtWidgets.QPushButton
     lblState: QtWidgets.QLabel
+    lblEquations: QtWidgets.QLabel
     flipFlopView: QtWidgets.QGraphicsView
+    jkTablesTabs: QtWidgets.QTabWidget
+    jkTruthTable: QtWidgets.QTableWidget
+    counterTruthTable: QtWidgets.QTableWidget
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -32,7 +37,13 @@ class JKCounterPage(QtWidgets.QWidget):
         self.btnReset.clicked.connect(self.reset_counter)
         self.comboBits.currentIndexChanged.connect(self.configure_counter)
         self.comboDirection.currentIndexChanged.connect(self.configure_counter)
+        self.jkTruthTable.setHorizontalHeaderLabels(["J", "K", "Q(t)", "Q(t+1)"])
+        self.counterTruthTable.setHorizontalHeaderLabels(
+            ["Q(t)", "J por FF", "K por FF", "Q(t+1)", "Decimal"]
+        )
+        self._populate_jk_truth_table()
         self.draw_counter()
+        self._update_logic_views()
 
     def set_status(self, message: str):
         self.statusChanged.emit(message)
@@ -44,6 +55,7 @@ class JKCounterPage(QtWidgets.QWidget):
         self.counter = JKCounterModel(bit_count=bit_count, direction=direction)
         self.highlighted_bits.clear()
         self.draw_counter()
+        self._update_logic_views()
         self.set_status(f"Contador JK de {bit_count} bits, direção {direction.lower()}.")
 
     def draw_counter(self):
@@ -117,6 +129,58 @@ class JKCounterPage(QtWidgets.QWidget):
         item.setFont(font)
         item.setDefaultTextColor(QtGui.QColor("#e0e0e0"))
         item.setPos(x, y)
+
+    def _populate_jk_truth_table(self):
+        rows = jk_truth_table_rows()
+        self.jkTruthTable.setRowCount(len(rows))
+        for row_index, row in enumerate(rows):
+            for column_index, value in enumerate(row):
+                item = QtWidgets.QTableWidgetItem(str(value))
+                item.setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                self.jkTruthTable.setItem(row_index, column_index, item)
+        self._format_table(self.jkTruthTable)
+
+    def _update_logic_views(self):
+        equations = jk_counter_equations(
+            self.counter.bit_count,
+            self.counter.direction,
+        )
+        self.lblEquations.setText("\n".join(equations))
+        transition_rows = []
+        modulus = 1 << self.counter.bit_count
+        step = 1 if self.counter.direction == "UP" else -1
+        for state in range(modulus):
+            counter = JKCounterModel(
+                bit_count=self.counter.bit_count,
+                direction=self.counter.direction,
+                state=state,
+            )
+            next_state = (state + step) % modulus
+            j_values = "".join(str(ff.j) for ff in reversed(counter.flip_flops))
+            k_values = "".join(str(ff.k) for ff in reversed(counter.flip_flops))
+            transition_rows.append(
+                (
+                    counter.bits,
+                    j_values,
+                    k_values,
+                    format(next_state, f"0{self.counter.bit_count}b"),
+                    str(next_state),
+                )
+            )
+        self.counterTruthTable.setRowCount(len(transition_rows))
+        for row_index, row in enumerate(transition_rows):
+            for column_index, value in enumerate(row):
+                item = QtWidgets.QTableWidgetItem(value)
+                item.setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                self.counterTruthTable.setItem(row_index, column_index, item)
+        self._format_table(self.counterTruthTable)
+
+    @staticmethod
+    def _format_table(table: QtWidgets.QTableWidget):
+        table.horizontalHeader().setSectionResizeMode(
+            QtWidgets.QHeaderView.ResizeMode.Stretch
+        )
+        table.verticalHeader().setVisible(False)
 
     def clock_counter(self):
         previous_state = self.counter.state

@@ -3,40 +3,61 @@
  <class>JKCounterPage</class>
  <widget class="QWidget" name="JKCounterPage">
   <layout class="QVBoxLayout" name="pageLayout">
-   <item><widget class="QLabel" name="lblTitle">
-    <property name="text"><string>Contador binário síncrono construído com flip-flops JK</string></property>
-    <property name="styleSheet"><string notr="true">font-size: 20px; font-weight: bold; padding: 10px;</string></property>
-   </widget></item>
-   <item>
-    <layout class="QHBoxLayout" name="counterControls">
-     <item><widget class="QLabel" name="lblBits"><property name="text"><string>Resolução</string></property></widget></item>
-     <item><widget class="QComboBox" name="comboBits">
-      <item><property name="text"><string>3 bits — módulo 8</string></property></item>
-      <item><property name="text"><string>4 bits — módulo 16</string></property></item>
-     </widget></item>
-     <item><widget class="QLabel" name="lblDirection"><property name="text"><string>Direção</string></property></widget></item>
-     <item><widget class="QComboBox" name="comboDirection">
-      <item><property name="text"><string>Crescente</string></property></item>
-      <item><property name="text"><string>Decrescente</string></property></item>
-     </widget></item>
-     <item><widget class="QPushButton" name="btnClock"><property name="text"><string>▲ Pulso de clock (Espaço)</string></property></widget></item>
-     <item><widget class="QPushButton" name="btnReset"><property name="text"><string>Reset assíncrono</string></property></widget></item>
+   <property name="spacing"><number>12</number></property>
+   <property name="leftMargin"><number>18</number></property>
+   <property name="topMargin"><number>12</number></property>
+   <property name="rightMargin"><number>18</number></property>
+   <property name="bottomMargin"><number>12</number></property>
+   <item><layout class="QHBoxLayout" name="pageHeadingLayout">
+    <item><layout class="QVBoxLayout" name="titleLayout">
+     <item><widget class="QLabel" name="lblTitle"><property name="text"><string>Contador síncrono FF JK</string></property><property name="styleSheet"><string notr="true">font-size: 21px; font-weight: 700;</string></property></widget></item>
+     <item><widget class="QLabel" name="lblSubtitle"><property name="text"><string>Diagrama do contador, equações com SymPy e tabelas de transição.</string></property><property name="styleSheet"><string notr="true">color: #98a7be;</string></property></widget></item>
+    </layout></item>
+    <item><spacer name="titleSpacer"><property name="orientation"><enum>Qt::Horizontal</enum></property><property name="sizeHint" stdset="0"><size><width>40</width><height>20</height></size></property></spacer></item>
+    <item><widget class="QLabel" name="lblState"><property name="text"><string>Q = 000  •  decimal = 0</string></property><property name="styleSheet"><string notr="true">font-family: Consolas; font-size: 20px; color: #79c0ff; padding: 10px; background: #172439; border-radius: 8px;</string></property><property name="alignment"><set>Qt::AlignCenter</set></property></widget></item>
+   </layout></item>
+   <item><widget class="QFrame" name="counterControlsPanel">
+    <property name="frameShape"><enum>QFrame::NoFrame</enum></property>
+    <layout class="QVBoxLayout" name="counterControls">
+     <property name="spacing"><number>8</number></property>
+     <property name="leftMargin"><number>12</number></property><property name="topMargin"><number>10</number></property><property name="rightMargin"><number>12</number></property><property name="bottomMargin"><number>10</number></property>
+     <item><layout class="QHBoxLayout" name="counterSettings">
+      <item><widget class="QLabel" name="lblBits"><property name="text"><string>Bits</string></property></widget></item>
+      <item><widget class="QComboBox" name="comboBits"><property name="minimumWidth"><number>155</number></property><item><property name="text"><string>3 bits — módulo 8</string></property></item><item><property name="text"><string>4 bits — módulo 16</string></property></item></widget></item>
+      <item><widget class="QLabel" name="lblDirection"><property name="text"><string>Contagem</string></property></widget></item>
+      <item><widget class="QComboBox" name="comboDirection"><property name="minimumWidth"><number>130</number></property><item><property name="text"><string>Crescente</string></property></item><item><property name="text"><string>Decrescente</string></property></item></widget></item>
+      <item><spacer name="settingsSpacer"><property name="orientation"><enum>Qt::Horizontal</enum></property><property name="sizeHint" stdset="0"><size><width>30</width><height>20</height></size></property></spacer></item>
+     </layout></item>
+     <item><layout class="QHBoxLayout" name="counterActions">
+      <item><widget class="QPushButton" name="btnClock"><property name="text"><string>▲  Pulso de clock (Espaço)</string></property></widget></item>
+      <item><widget class="QPushButton" name="btnReset"><property name="text"><string>↺  Reset assíncrono</string></property></widget></item>
+      <item><spacer name="actionSpacer"><property name="orientation"><enum>Qt::Horizontal</enum></property><property name="sizeHint" stdset="0"><size><width>40</width><height>20</height></size></property></spacer></item>
+     </layout></item>
     </layout>
-   </item>
-   <item><widget class="QLabel" name="lblState">
-    <property name="text"><string>Q = 000   |   decimal = 0</string></property>
-    <property name="styleSheet"><string notr="true">font-family: Consolas; font-size: 24px; color: #00e5ff; padding: 12px;</string></property>
-    <property name="alignment"><set>Qt::AlignCenter</set></property>
    </widget></item>
-   <item><widget class="QGraphicsView" name="flipFlopView">
-    <property name="minimumSize"><size><width>0</width><height>310</height></size></property>
-    <property name="renderHints"><set>QPainter::Antialiasing</set></property>
+   <item><widget class="QSplitter" name="counterSplitter">
+    <property name="orientation"><enum>Qt::Vertical</enum></property>
+    <widget class="QGraphicsView" name="flipFlopView"><property name="minimumSize"><size><width>0</width><height>270</height></size></property><property name="renderHints"><set>QPainter::Antialiasing</set></property></widget>
+    <widget class="QTabWidget" name="jkTablesTabs">
+     <property name="minimumSize"><size><width>0</width><height>230</height></size></property>
+     <widget class="QWidget" name="equationTab">
+      <attribute name="title"><string>Equações SymPy</string></attribute>
+      <layout class="QVBoxLayout" name="equationLayout">
+       <item><widget class="QLabel" name="lblEquations"><property name="text"><string>Equações lógicas do contador.</string></property><property name="wordWrap"><bool>true</bool></property><property name="textInteractionFlags"><set>Qt::TextSelectableByMouse</set></property><property name="styleSheet"><string notr="true">font-family: Consolas; font-size: 13px; padding: 12px; color: #c9d8ed;</string></property></widget></item>
+       <item><widget class="QLabel" name="lblEquationNote"><property name="text"><string>Equação característica do FF JK: Q(t+1) = J·¬Q(t) + ¬K·Q(t). Os pinos J e K de cada bit são determinados pela condição de alternância do contador.</string></property><property name="wordWrap"><bool>true</bool></property><property name="styleSheet"><string notr="true">color: #98a7be; padding: 8px;</string></property></widget></item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="jkTruthTab">
+      <attribute name="title"><string>Tabela-verdade JK</string></attribute>
+      <layout class="QVBoxLayout" name="jkTruthLayout"><item><widget class="QTableWidget" name="jkTruthTable"><property name="editTriggers"><set>QAbstractItemView::NoEditTriggers</set></property><property name="selectionMode"><enum>QAbstractItemView::NoSelection</enum></property><property name="alternatingRowColors"><bool>true</bool></property></widget></item></layout>
+     </widget>
+     <widget class="QWidget" name="counterTruthTab">
+      <attribute name="title"><string>Transições do contador</string></attribute>
+      <layout class="QVBoxLayout" name="counterTruthLayout"><item><widget class="QTableWidget" name="counterTruthTable"><property name="editTriggers"><set>QAbstractItemView::NoEditTriggers</set></property><property name="selectionMode"><enum>QAbstractItemView::NoSelection</enum></property><property name="alternatingRowColors"><bool>true</bool></property></widget></item></layout>
+     </widget>
+    </widget>
    </widget></item>
-   <item><widget class="QLabel" name="lblExplanation">
-    <property name="text"><string>Contador síncrono: todos os FFs recebem o mesmo clock. J = K = 1 no bit menos significativo; os demais alternam quando todos os bits inferiores satisfazem a condição da direção selecionada. Q̅ é sempre o complemento de Q.</string></property>
-    <property name="wordWrap"><bool>true</bool></property>
-    <property name="styleSheet"><string notr="true">padding: 10px; color: #cdd6f4;</string></property>
-   </widget></item>
+   <item><widget class="QLabel" name="lblExplanation"><property name="text"><string>Todos os FFs recebem o mesmo clock. J=K=1 permite alternar; Q̅ é sempre o complemento de Q.</string></property><property name="wordWrap"><bool>true</bool></property><property name="styleSheet"><string notr="true">color: #98a7be;</string></property></widget></item>
   </layout>
  </widget>
  <resources/>
