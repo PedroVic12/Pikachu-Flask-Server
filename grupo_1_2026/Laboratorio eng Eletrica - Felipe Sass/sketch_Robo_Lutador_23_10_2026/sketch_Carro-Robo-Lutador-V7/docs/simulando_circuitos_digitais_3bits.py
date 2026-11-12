@@ -119,10 +119,18 @@ class JKCounterModel(BaseModel):
         return format(self.state, f"0{self.bit_count}b")
 
     def _sync_flip_flops(self):
-        self.flip_flops = [
-            JKFlipFlopState(q=(self.state >> index) & 1, q_bar=1 - ((self.state >> index) & 1))
-            for index in range(self.bit_count)
-        ]
+        flip_flops = []
+        for index in range(self.bit_count):
+            lower_mask = (1 << index) - 1
+            lower_bits = self.state & lower_mask
+            should_toggle = index == 0 or (
+                lower_bits == lower_mask if self.direction == "UP" else lower_bits == 0
+            )
+            q = (self.state >> index) & 1
+            flip_flops.append(
+                JKFlipFlopState(j=int(should_toggle), k=int(should_toggle), q=q, q_bar=1 - q)
+            )
+        self.flip_flops = flip_flops
 
     def reset(self):
         self.state = 0
@@ -716,8 +724,8 @@ class MainApp(QtWidgets.QMainWindow):
 
         menu_bar = self.menuBar()
         assert menu_bar is not None
-        file_menu = menu_bar.addMenu("&Arquivo")
-        assert file_menu is not None
+        file_menu = QtWidgets.QMenu("&Arquivo", self)
+        menu_bar.addMenu(file_menu)
         for item in (self.action_new, self.action_import, self.action_save):
             file_menu.addAction(item)
         file_menu.addSeparator()
@@ -726,8 +734,8 @@ class MainApp(QtWidgets.QMainWindow):
         file_menu.addSeparator()
         file_menu.addAction("Sair", self.close)
 
-        component_menu = menu_bar.addMenu("&Componentes")
-        assert component_menu is not None
+        component_menu = QtWidgets.QMenu("&Componentes", self)
+        menu_bar.addMenu(component_menu)
         component_menu.addAction("Adicionar fonte", lambda: self.add_component("V", 5.0, "V"))
         component_menu.addAction("Adicionar resistor", lambda: self.add_component("R", 1000.0, "Ω"))
         component_menu.addAction("Adicionar indutor", lambda: self.add_component("L", 0.01, "H"))
@@ -735,15 +743,15 @@ class MainApp(QtWidgets.QMainWindow):
         component_menu.addSeparator()
         component_menu.addAction(self.action_rotate)
 
-        simulation_menu = menu_bar.addMenu("&Simulação")
-        assert simulation_menu is not None
+        simulation_menu = QtWidgets.QMenu("&Simulação", self)
+        menu_bar.addMenu(simulation_menu)
         simulation_menu.addAction(self.action_simulate)
         simulation_menu.addAction(self.action_clock)
         simulation_menu.addAction("Resetar contador JK", self.reset_counter)
         simulation_menu.addAction("Montar circuito selecionado", self.load_selected_preset)
 
-        help_menu = menu_bar.addMenu("&Ajuda")
-        assert help_menu is not None
+        help_menu = QtWidgets.QMenu("&Ajuda", self)
+        menu_bar.addMenu(help_menu)
         help_menu.addAction(self.action_help)
         help_menu.addAction(self.action_about)
 
@@ -1003,30 +1011,32 @@ class MainApp(QtWidgets.QMainWindow):
         if start not in terminal_connections or finish not in terminal_connections:
             raise ValueError("Os polos positivo e negativo da fonte precisam fechar a malha.")
 
-        previous: dict[
-            tuple[int, int],
-            tuple[tuple[int, int], str, AnimatedWireItem | ElectronicGraphicsItem, bool] | None,
-        ] = {start: None}
+        Edge = tuple[str, AnimatedWireItem | ElectronicGraphicsItem, bool]
+        previous: dict[tuple[int, int], tuple[int, int]] = {}
+        previous_edge: dict[tuple[int, int], Edge] = {}
+        visited = {start}
         queue = [start]
         for current_node in queue:
             if current_node == finish:
                 break
             for neighbor, kind, edge_item, forward in adjacency.get(current_node, []):
-                if neighbor not in previous:
-                    previous[neighbor] = (current_node, kind, edge_item, forward)
+                if neighbor not in visited:
+                    visited.add(neighbor)
+                    previous[neighbor] = current_node
+                    previous_edge[neighbor] = (kind, edge_item, forward)
                     queue.append(neighbor)
-        if finish not in previous:
+        if finish not in visited:
             raise ValueError("Não existe um caminho fechado da fonte positiva à negativa.")
 
-        path_edges = []
+        path_edges: list[Edge] = []
         current_node = finish
         while current_node != start:
-            predecessor = previous[current_node]
-            if predecessor is None:
+            predecessor = previous.get(current_node)
+            edge = previous_edge.get(current_node)
+            if predecessor is None or edge is None:
                 raise RuntimeError("Falha ao reconstruir o caminho elétrico da malha.")
-            parent, kind, edge_item, forward = predecessor
-            path_edges.append((kind, edge_item, forward))
-            current_node = parent
+            path_edges.append(edge)
+            current_node = predecessor
         path_edges.reverse()
         path_wires = []
         path_components = []
@@ -1152,6 +1162,20 @@ class MainApp(QtWidgets.QMainWindow):
             )
             return
         passive_components = [item.model for item in ordered_components]
+        stop_time = 3.0 / self.spinFreq.value()
+        if "Quadrada" in self.comboWave.currentText():
+            period = 1.0 / self.spinFreq.value()
+            waveform = (
+                f"PULSE(0 {float(source.value):g} 0 1u 1u "
+                f"{period / 2:g} {period:g})"
+            )
+        elif "Senoidal" in self.comboWave.currentText():
+            waveform = f"SIN(0 {float(source.value):g} {self.spinFreq.value():g})"
+        else:
+            waveform = (
+                f"PULSE(0 {float(source.value):g} 2m 1u 1u "
+                f"{stop_time:g} {2 * stop_time:g})"
+            )
         components = [
             PySpiceComponentModel(
                 name=source.name,
@@ -1160,7 +1184,7 @@ class MainApp(QtWidgets.QMainWindow):
                 unit=source.unit,
                 node1=1,
                 node2=0,
-                waveform=f"PULSE(0 {float(source.value):g} 0 1u 1u 10m 20m)",
+                waveform=waveform,
             )
         ]
         node = 1
@@ -1178,7 +1202,6 @@ class MainApp(QtWidgets.QMainWindow):
             )
             if not is_last:
                 node += 1
-        stop_time = 3.0 / self.spinFreq.value()
         circuit = PySpiceCircuitModel(
             title=f"Circuito {self.circuit_type} gerado pela PyEDA Suite",
             components=components,
@@ -1195,19 +1218,18 @@ class MainApp(QtWidgets.QMainWindow):
         if not filename.lower().endswith(".svg"):
             filename += ".svg"
         try:
-            drawing = schemdraw.Drawing(file=filename, show=False)
-            for c in self.components:
-                m = c.model
-                if m.comp_type == "V":
-                    drawing += elm.SourcePulse().up().label(f"{m.name}\n{m.value}V")
-                elif m.comp_type == "R":
-                    drawing += elm.Resistor().right().label(f"{m.name}\n{m.value}Ω")
-                elif m.comp_type == "L":
-                    drawing += elm.Inductor().right().label(f"{m.name}\n{m.value}H")
-                elif m.comp_type == "C":
-                    drawing += elm.Capacitor().down().label(f"{m.name}\n{m.value}F")
-            drawing += elm.Ground()
-            drawing.draw()
+            with schemdraw.Drawing(file=filename, show=False) as drawing:
+                for c in self.components:
+                    m = c.model
+                    if m.comp_type == "V":
+                        drawing += elm.SourcePulse().up().label(f"{m.name}\n{m.value}V")
+                    elif m.comp_type == "R":
+                        drawing += elm.Resistor().right().label(f"{m.name}\n{m.value}Ω")
+                    elif m.comp_type == "L":
+                        drawing += elm.Inductor().right().label(f"{m.name}\n{m.value}H")
+                    elif m.comp_type == "C":
+                        drawing += elm.Capacitor().down().label(f"{m.name}\n{m.value}F")
+                drawing += elm.Ground()
         except (OSError, ValueError, AttributeError) as exc:
             QtWidgets.QMessageBox.critical(self, "Falha na exportação", str(exc))
             return
@@ -1215,7 +1237,6 @@ class MainApp(QtWidgets.QMainWindow):
 
 
 if __name__ == "__main__":
-    app = QtWidgets.QApplication(sys.argv)
-    window = MainApp()
-    window.show()
-    sys.exit(app.exec())
+    from main import main
+
+    sys.exit(main())

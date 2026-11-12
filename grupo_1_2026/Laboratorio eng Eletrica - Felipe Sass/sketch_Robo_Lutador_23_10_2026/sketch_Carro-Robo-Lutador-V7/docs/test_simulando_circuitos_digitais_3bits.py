@@ -9,6 +9,7 @@ import pytest
 os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
 
 SCRIPT = Path(__file__).with_name("simulando_circuitos_digitais_3bits.py")
+sys.path.insert(0, str(SCRIPT.parent))
 SPEC = importlib.util.spec_from_file_location("circuit_app_under_test", SCRIPT)
 assert SPEC is not None and SPEC.loader is not None
 circuit_app = importlib.util.module_from_spec(SPEC)
@@ -16,15 +17,16 @@ sys.modules[SPEC.name] = circuit_app
 SPEC.loader.exec_module(circuit_app)
 
 from PyQt6 import QtWidgets
+from app import MainWindow
 
 
 @pytest.fixture(scope="module")
-def qt_app():
+def _qt_app():
     return QtWidgets.QApplication.instance() or QtWidgets.QApplication([])
 
 
 @pytest.fixture
-def main_window(qt_app):
+def main_window(_qt_app):
     window = circuit_app.MainApp()
     yield window
     window.close()
@@ -121,3 +123,24 @@ def test_json_project_round_trip_and_spice_export(main_window, tmp_path):
     assert "L1 2 3 0.01" in netlist
     assert "C1 3 0 1e-05" in netlist
     assert netlist.endswith(".end")
+
+
+def test_main_app_has_distinct_analog_and_jk_screens(_qt_app):
+    window = MainWindow()
+    assert [window.mainTabs.tabText(i) for i in range(window.mainTabs.count())] == [
+        "Circuitos analógicos",
+        "Contador síncrono FF JK",
+    ]
+
+    window.analog_page.load_preset("RLC")
+    assert [item.model.comp_type for item in window.analog_page.components] == [
+        "V", "R", "L", "C"
+    ]
+    assert len(window.analog_page.engine.current) == 600
+
+    window.jk_page.comboBits.setCurrentIndex(1)
+    window.jk_page.comboDirection.setCurrentIndex(0)
+    window.jk_page.clock_counter()
+    assert window.jk_page.counter.bits == "0001"
+    assert len(window.jk_page.scene.items()) > 4
+    window.close()

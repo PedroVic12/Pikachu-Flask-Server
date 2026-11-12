@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>AnalogPage</class>
+ <widget class="QWidget" name="AnalogPage">
+  <layout class="QVBoxLayout" name="pageLayout">
+   <item>
+    <layout class="QHBoxLayout" name="circuitControls">
+     <item><widget class="QLabel" name="lblTopology"><property name="text"><string>Topologia</string></property></widget></item>
+     <item>
+      <widget class="QComboBox" name="comboCircuitType">
+       <item><property name="text"><string>RC</string></property></item>
+       <item><property name="text"><string>RL</string></property></item>
+       <item><property name="text"><string>RLC</string></property></item>
+      </widget>
+     </item>
+     <item><widget class="QPushButton" name="btnLoadPreset"><property name="text"><string>Montar padrão</string></property></widget></item>
+     <item><widget class="QPushButton" name="btnAddSource"><property name="text"><string>+ Fonte</string></property></widget></item>
+     <item><widget class="QPushButton" name="btnAddResistor"><property name="text"><string>+ Resistor</string></property></widget></item>
+     <item><widget class="QPushButton" name="btnAddInductor"><property name="text"><string>+ Indutor</string></property></widget></item>
+     <item><widget class="QPushButton" name="btnAddCapacitor"><property name="text"><string>+ Capacitor</string></property></widget></item>
+     <item><widget class="QPushButton" name="btnRotate"><property name="text"><string>Girar (R)</string></property></widget></item>
+     <item><widget class="QPushButton" name="btnClear"><property name="text"><string>Novo</string></property></widget></item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="simulationControls">
+     <item><widget class="QLabel" name="lblWave"><property name="text"><string>Entrada</string></property></widget></item>
+     <item>
+      <widget class="QComboBox" name="comboWave">
+       <item><property name="text"><string>Onda Quadrada (Arduino PWM)</string></property></item>
+       <item><property name="text"><string>Onda Senoidal (AC)</string></property></item>
+       <item><property name="text"><string>Degrau DC (5V)</string></property></item>
+      </widget>
+     </item>
+     <item><widget class="QLabel" name="lblFreq"><property name="text"><string>Frequência (Hz)</string></property></widget></item>
+     <item><widget class="QDoubleSpinBox" name="spinFreq">
+      <property name="minimum"><double>1.0</double></property>
+      <property name="maximum"><double>1000.0</double></property>
+      <property name="value"><double>50.0</double></property>
+     </widget></item>
+     <item><widget class="QPushButton" name="btnRunSim"><property name="text"><string>▶ Simular (F5)</string></property></widget></item>
+     <item><widget class="QPushButton" name="btnGenSpice"><property name="text"><string>Gerar netlist SPICE</string></property></widget></item>
+     <item><widget class="QPushButton" name="btnExportSchemdraw"><property name="text"><string>Exportar SVG</string></property></widget></item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QSplitter" name="analogSplitter">
+     <property name="orientation"><enum>Qt::Vertical</enum></property>
+     <widget class="QGraphicsView" name="circuitView">
+      <property name="minimumSize"><size><width>0</width><height>320</height></size></property>
+      <property name="renderHints"><set>QPainter::Antialiasing</set></property>
+     </widget>
+     <widget class="QWidget" name="scopeAndNetlist">
+      <property name="minimumSize"><size><width>0</width><height>250</height></size></property>
+      <layout class="QHBoxLayout" name="outputLayout">
+       <item><widget class="QWidget" name="scopeHost" native="true">
+        <layout class="QVBoxLayout" name="scopeLayout"/>
+       </widget></item>
+       <item><widget class="QPlainTextEdit" name="spiceOutput">
+        <property name="readOnly"><bool>true</bool></property>
+        <property name="placeholderText"><string>Netlist SPICE...</string></property>
+       </widget></item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+   <item><widget class="QLabel" name="statusLabel"><property name="text"><string>Corrente convencional sai do terminal positivo da fonte.</string></property></widget></item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

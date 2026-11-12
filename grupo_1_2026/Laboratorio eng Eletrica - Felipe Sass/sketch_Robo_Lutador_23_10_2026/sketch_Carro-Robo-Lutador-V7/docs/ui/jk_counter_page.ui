@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>JKCounterPage</class>
+ <widget class="QWidget" name="JKCounterPage">
+  <layout class="QVBoxLayout" name="pageLayout">
+   <item><widget class="QLabel" name="lblTitle">
+    <property name="text"><string>Contador binário síncrono construído com flip-flops JK</string></property>
+    <property name="styleSheet"><string notr="true">font-size: 20px; font-weight: bold; padding: 10px;</string></property>
+   </widget></item>
+   <item>
+    <layout class="QHBoxLayout" name="counterControls">
+     <item><widget class="QLabel" name="lblBits"><property name="text"><string>Resolução</string></property></widget></item>
+     <item><widget class="QComboBox" name="comboBits">
+      <item><property name="text"><string>3 bits — módulo 8</string></property></item>
+      <item><property name="text"><string>4 bits — módulo 16</string></property></item>
+     </widget></item>
+     <item><widget class="QLabel" name="lblDirection"><property name="text"><string>Direção</string></property></widget></item>
+     <item><widget class="QComboBox" name="comboDirection">
+      <item><property name="text"><string>Crescente</string></property></item>
+      <item><property name="text"><string>Decrescente</string></property></item>
+     </widget></item>
+     <item><widget class="QPushButton" name="btnClock"><property name="text"><string>▲ Pulso de clock (Espaço)</string></property></widget></item>
+     <item><widget class="QPushButton" name="btnReset"><property name="text"><string>Reset assíncrono</string></property></widget></item>
+    </layout>
+   </item>
+   <item><widget class="QLabel" name="lblState">
+    <property name="text"><string>Q = 000   |   decimal = 0</string></property>
+    <property name="styleSheet"><string notr="true">font-family: Consolas; font-size: 24px; color: #00e5ff; padding: 12px;</string></property>
+    <property name="alignment"><set>Qt::AlignCenter</set></property>
+   </widget></item>
+   <item><widget class="QGraphicsView" name="flipFlopView">
+    <property name="minimumSize"><size><width>0</width><height>310</height></size></property>
+    <property name="renderHints"><set>QPainter::Antialiasing</set></property>
+   </widget></item>
+   <item><widget class="QLabel" name="lblExplanation">
+    <property name="text"><string>Contador síncrono: todos os FFs recebem o mesmo clock. J = K = 1 no bit menos significativo; os demais alternam quando todos os bits inferiores satisfazem a condição da direção selecionada. Q̅ é sempre o complemento de Q.</string></property>
+    <property name="wordWrap"><bool>true</bool></property>
+    <property name="styleSheet"><string notr="true">padding: 10px; color: #cdd6f4;</string></property>
+   </widget></item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

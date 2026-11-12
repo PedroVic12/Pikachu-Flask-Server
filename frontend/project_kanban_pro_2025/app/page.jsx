@@ -534,7 +534,7 @@ export default function App() {
       },
       {
         id: "api-data",
-        title: "CRM Floricultura",
+        title: "CRM Floricultura - Banco de Dados",
         desc: "Clientes e dados Flask",
         icon: Database,
         color: "bg-emerald-500 text-white",

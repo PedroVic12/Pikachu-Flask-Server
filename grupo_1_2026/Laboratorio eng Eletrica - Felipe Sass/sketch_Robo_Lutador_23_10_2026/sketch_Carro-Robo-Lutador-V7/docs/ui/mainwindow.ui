@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect><x>0</x><y>0</y><width>1280</width><height>820</height></rect>
+  </property>
+  <property name="windowTitle">
+   <string>PyEDA Suite — Circuitos e Contadores</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">
+    QMainWindow, QWidget { background-color: #1e1e1e; color: #e0e0e0; }
+    QTabWidget::pane { border: 1px solid #3e3e42; }
+    QTabBar::tab { background: #252526; color: #d4d4d4; padding: 9px 18px; }
+    QTabBar::tab:selected { background: #007acc; color: white; }
+    QPushButton { background-color: #2d2d30; color: #fff; border: 1px solid #3e3e42; padding: 7px; border-radius: 4px; }
+    QPushButton:hover { background-color: #3e3e42; border-color: #007acc; }
+    QLabel, QComboBox, QDoubleSpinBox { color: #e0e0e0; }
+    QComboBox, QDoubleSpinBox, QPlainTextEdit { background-color: #252526; border: 1px solid #3e3e42; padding: 4px; }
+   </string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="centralLayout">
+    <item>
+     <widget class="QTabWidget" name="mainTabs">
+      <property name="currentIndex"><number>0</number></property>
+      <widget class="QWidget" name="analogTab">
+       <attribute name="title"><string>Circuitos analógicos</string></attribute>
+       <layout class="QVBoxLayout" name="analogTabLayout"/>
+      </widget>
+      <widget class="QWidget" name="jkTab">
+       <attribute name="title"><string>Contador síncrono FF JK</string></attribute>
+       <layout class="QVBoxLayout" name="jkTabLayout"/>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar"/>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
