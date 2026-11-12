@@ -1,551 +1,586 @@
+import io
+import math
 import sys
-from dataclasses import dataclass
-from PyQt6.QtWidgets import (
-    QApplication, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout,
-    QPushButton, QLabel, QPlainTextEdit, QTableWidget, QTableWidgetItem,
-    QTabWidget, QSlider, QGroupBox, QSplitter, QHeaderView, QMessageBox
-)
-from PyQt6.QtCore import Qt, QTimer, QPointF
-from PyQt6.QtGui import QPainter, QColor, QPen, QBrush, QFont
+from typing import Any, Literal
 
-# Matplotlib + Schemdraw para renderização das Tabelas e Circuitos Lógicos
-import matplotlib
-matplotlib.use("QtAgg")
-from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
-import matplotlib.pyplot as plt
-
+import numpy as np
 import schemdraw
-from schemdraw import logic
 import schemdraw.elements as elm
-from schemdraw.parsing import logicparse
+from pydantic import BaseModel, ConfigDict, Field, field_validator
+from PyQt6 import QtCore, QtGui, QtWidgets, uic
+from scipy.integrate import solve_ivp
+
+# ==============================================================================
+# 1. MODELOS Pydantic PARA SPICE / CIRCUITO
+# ==============================================================================
+
+
+class PySpiceComponentModel(BaseModel):
+    """Representa um componente de netlist SPICE com validação via Pydantic."""
+
+    model_config = ConfigDict(str_strip_whitespace=True, extra="forbid")
+
+    name: str = Field(..., min_length=1)
+    comp_type: Literal["V", "R", "C"]
+    value: float = Field(..., gt=0)
+    unit: str = "V"
+    node1: int = 1
+    node2: int = 0
+    waveform: str = "PULSE(0 5 0 1u 1u 10m 20m)"
+
+    @field_validator("name")
+    @classmethod
+    def validate_name(cls, value: str) -> str:
+        if not value:
+            raise ValueError("O nome do componente não pode ser vazio.")
+        return value
+
+    def as_spice_line(self) -> str:
+        if self.comp_type == "V":
+            return f"{self.name} {self.node1} {self.node2} {self.waveform}"
+        return f"{self.name} {self.node1} {self.node2} {self.value}"
+
+
+class PySpiceCircuitModel(BaseModel):
+    """Agrupa componentes e exporta um netlist SPICE."""
+
+    title: str = "Circuito RC gerado pela PyEDA Suite"
+    components: list[PySpiceComponentModel] = Field(default_factory=list)
+    transient: str = ".tran 0 50m 0 10u"
+
+    def build_netlist(self) -> list[str]:
+        lines = [
+            "* Netlist gerado automaticamente pela PyEDA Suite",
+            "* Compatível com LTspice / PSpice / Ngspice",
+            f"* {self.title}",
+        ]
+        lines.extend(component.as_spice_line() for component in self.components)
+        lines.append(self.transient)
+        lines.append(".end")
+        return lines
 
 
 # ==============================================================================
-# 1. STRUCTS DE DADOS (POO + DATACLASS)
+# 2. DEFINIÇÃO DA INTERFACE XML (PAGE.UI EMBUTIDA NO CÓDIGO)
 # ==============================================================================
-@dataclass
-class JKFlipFlopState:
-    """Struct que representa um único Flip-Flop JK com entrada assíncrona CLEAR."""
-    name: str
-    j: int = 1
-    k: int = 1
-    q: int = 0
-    q_bar: int = 1
-    clr: int = 0  # Clear assíncrono (1 = reseta para 000 imediatamente)
-
-    def apply_clear(self, clear_signal: int) -> None:
-        self.clr = clear_signal
-        if self.clr == 1:
-            self.q = 0
-            self.q_bar = 1
-
-    def clock_edge(self) -> None:
-        """Transição na borda do clock segundo a tabela característica do FF JK."""
-        if self.clr == 1:
-            self.q = 0
-        else:
-            if self.j == 0 and self.k == 0:
-                pass  # Mantém estado
-            elif self.j == 0 and self.k == 1:
-                self.q = 0  # Reset síncrono
-            elif self.j == 1 and self.k == 0:
-                self.q = 1  # Set síncrono
-            elif self.j == 1 and self.k == 1:
-                self.q ^= 1  # Comutação (Toggle)
-        self.q_bar = 1 - self.q
-
-
-@dataclass
-class CounterStateStruct:
-    """Struct global do contador de 3 bits."""
-    up_down: int = 1       # 1 = Crescente (UP), 0 = Decrescente (DOWN)
-    clear_async: int = 0   # 1 = Clear ativo (vai para 000)
-    clk_level: int = 0     # Nível atual do clock (para animação piscante)
-
-
-# ==============================================================================
-# 2. PARSER DE EQUAÇÕES BOOLEANAS PURO (SEM SYMPY)
-# ==============================================================================
-class PureBooleanEngine:
-    """
-    Avalia equações booleanas escritas no editor sem usar SymPy.
-    Aceita variáveis: M, Q0, Q1, Q2, NOT_M, NOT_Q0, NOT_Q1, NOT_Q2
-    e operadores lógicos: AND (&), OR (|), XOR (^), NOT (~).
-    """
-    DEFAULT_CODE = """# Equações de Excitação dos Flip-Flops JK (Modo Comutação no MSB)
-# Variáveis disponíveis: M (1=UP, 0=DOWN), Q0, Q1, Q2
-# Complementares: NOT_M, NOT_Q0, NOT_Q1, NOT_Q2
-
-# FF0 (LSB): Comuta em todos os pulsos
-J0 = 1
-K0 = 1
-
-# FF1: Comuta quando (M e Q0) ou (NOT_M e NOT_Q0)
-J1 = (M & Q0) | (NOT_M & NOT_Q0)
-K1 = (M & Q0) | (NOT_M & NOT_Q0)
-
-# FF2 (MSB em Comutação): Comuta no estouro de Q1 e Q0
-J2 = (M & Q1 & Q0) | (NOT_M & NOT_Q1 & NOT_Q0)
-K2 = (M & Q1 & Q0) | (NOT_M & NOT_Q1 & NOT_Q0)
+PAGE_UI_XML = """<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect><x>0</x><y>0</y><width>1280</width><height>800</height></rect>
+  </property>
+  <property name="windowTitle">
+   <string>PyEDA Suite - Falstad + SciPy + SPICE + Schemdraw + Arduino</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">
+    QMainWindow { background-color: #1e1e1e; color: #e0e0e0; }
+    QDockWidget { color: #ffffff; font-weight: bold; }
+    QPushButton { background-color: #2d2d30; color: #ffffff; border: 1px solid #3e3e42; padding: 6px; border-radius: 4px; }
+    QPushButton:hover { background-color: #3e3e42; border-color: #007acc; }
+    QLabel, QComboBox, QDoubleSpinBox { color: #e0e0e0; }
+    QComboBox, QDoubleSpinBox, QTextEdit { background-color: #252526; border: 1px solid #3e3e42; padding: 4px; }
+   </string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QSplitter" name="mainSplitter">
+      <property name="orientation"><enum>Qt::Vertical</enum></property>
+      <widget class="QGraphicsView" name="circuitView">
+       <property name="renderHints"><set>QPainter::Antialiasing</set></property>
+      </widget>
+      <widget class="QWidget" name="oscilloscopeContainer" native="true">
+       <property name="minimumSize"><size><width>0</width><height>230</height></size></property>
+       <layout class="QVBoxLayout" name="scopeLayout"/>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QDockWidget" name="dockPalette">
+   <property name="windowTitle"><string>Componentes &amp; Ferramentas</string></property>
+   <attribute name="dockWidgetArea"><number>1</number></attribute>
+   <widget class="QWidget" name="dockWidgetContents">
+    <layout class="QVBoxLayout" name="paletteLayout">
+     <item><widget class="QLabel" name="lblAdd"><property name="text"><string>Adicionar ao Canvas:</string></property></widget></item>
+     <item><widget class="QPushButton" name="btnAddSource"><property name="text"><string>+ Fonte / Pino Arduino</string></property></widget></item>
+     <item><widget class="QPushButton" name="btnAddResistor"><property name="text"><string>+ Resistor (R)</string></property></widget></item>
+     <item><widget class="QPushButton" name="btnAddCapacitor"><property name="text"><string>+ Capacitor (C)</string></property></widget></item>
+     <item><widget class="QPushButton" name="btnClear"><property name="text"><string>Limpar Canvas</string></property></widget></item>
+     <item><widget class="Line" name="line1"><property name="orientation"><enum>Qt::Horizontal</enum></property></widget></item>
+     <item><widget class="QLabel" name="lblSim"><property name="text"><string>Simulação Transiente (SciPy):</string></property></widget></item>
+     <item><widget class="QComboBox" name="comboWave">
+      <item><property name="text"><string>Onda Quadrada (Arduino PWM)</string></property></item>
+      <item><property name="text"><string>Onda Senoidal (AC)</string></property></item>
+      <item><property name="text"><string>Degrau DC (5V)</string></property></item>
+     </widget></item>
+     <item><widget class="QLabel" name="lblFreq"><property name="text"><string>Frequência (Hz):</string></property></widget></item>
+     <item><widget class="QDoubleSpinBox" name="spinFreq"><property name="minimum"><double>1.0</double></property><property name="maximum"><double>1000.0</double></property><property name="value"><double>50.0</double></property></widget></item>
+     <item><widget class="QPushButton" name="btnRunSim"><property name="text"><string>▶ Simular Transiente</string></property></widget></item>
+     <item><widget class="Line" name="line2"><property name="orientation"><enum>Qt::Horizontal</enum></property></widget></item>
+     <item><widget class="QLabel" name="lblExp"><property name="text"><string>Exportação &amp; SPICE:</string></property></widget></item>
+     <item><widget class="QPushButton" name="btnExportSchemdraw"><property name="text"><string>Gerar Schemdraw (.SVG)</string></property></widget></item>
+     <item><widget class="QPushButton" name="btnGenSpice"><property name="text"><string>Gerar Netlist LTspice</string></property></widget></item>
+     <item><widget class="QTextEdit" name="txtSpiceOutput"><property name="readOnly"><bool>true</bool></property><property name="placeholderText"><string>Netlist SPICE aparecerá aqui...</string></property></widget></item>
+     <item><spacer name="verticalSpacer"><property name="orientation"><enum>Qt::Vertical</enum></property><property name="sizeHint" stdset="0"><size><width>20</width><height>40</height></size></property></spacer></item>
+    </layout>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
 """
 
-    @staticmethod
-    def evaluate_equations(code_str: str, m: int, q2: int, q1: int, q0: int):
-        env = {
-            "M": int(bool(m)),
-            "Q0": int(bool(q0)),
-            "Q1": int(bool(q1)),
-            "Q2": int(bool(q2)),
-            "NOT_M": 1 - int(bool(m)),
-            "NOT_Q0": 1 - int(bool(q0)),
-            "NOT_Q1": 1 - int(bool(q1)),
-            "NOT_Q2": 1 - int(bool(q2)),
-        }
-        local_ns = {}
-        exec(code_str, {"__builtins__": {}}, env)
-        for key in ("J0", "K0", "J1", "K1", "J2", "K2"):
-            local_ns[key] = int(bool(env.get(key, 0)))
-        return local_ns
+
+# ==============================================================================
+# 3. MODELO LÓGICO E MOTOR TRANSIENTE (SCIPY + SCHEMDRAW + SPICE)
+# ==============================================================================
+class ComponentModel(BaseModel):
+    """Modelo lógico de cada componente eletrônico com validação dos dados."""
+
+    model_config = ConfigDict(str_strip_whitespace=True, extra="forbid")
+
+    comp_type: Literal["V", "R", "C"]
+    name: str = Field(..., min_length=1)
+    value: float = Field(..., gt=0)
+    unit: str = "V"
+
+    @field_validator("name")
+    @classmethod
+    def validate_name(cls, value: str) -> str:
+        if not value:
+            raise ValueError("O nome do componente não pode ser vazio.")
+        return value
+
+
+class TransientEngine:
+    """Motor matemático baseado em SciPy para análise no domínio do tempo."""
+
+    def __init__(self):
+        self.t = np.linspace(0, 0.05, 1000)
+        self.v_in = np.zeros_like(self.t)
+        self.v_out = np.zeros_like(self.t)
+        self.current = np.zeros_like(self.t)
+
+    def get_input_voltage(self, t: float, wave_type: str, freq: float, amp: float = 5.0) -> float:
+        if "Quadrada" in wave_type:
+            return amp if math.sin(2 * math.pi * freq * t) >= 0 else 0.0
+        if "Senoidal" in wave_type:
+            return amp * math.sin(2 * math.pi * freq * t)
+        return amp if t >= 0.002 else 0.0
+
+    def solve_rc_transient(self, R: float, C: float, wave_type: str, freq: float):
+        """Resolve a EDO do circuito RC: dVc/dt = (Vin(t) - Vc) / (R * C)"""
+        R, C, freq = float(R), float(C), float(freq)
+        if not all(math.isfinite(value) for value in (R, C, freq)):
+            raise ValueError("R, C e frequência devem ser valores finitos.")
+        if R <= 0 or C <= 0 or freq <= 0:
+            raise ValueError("R, C e frequência devem ser maiores que zero.")
+        R = max(R, 1.0)
+        C = max(C, 1e-9)
+        tau = R * C
+        t_span = (0.0, 3.0 / freq)
+        t_eval = np.linspace(t_span[0], t_span[1], 600)
+
+        def ode_system(_t, y):
+            vin = self.get_input_voltage(_t, wave_type, freq)
+            dvdt = (vin - y[0]) / tau
+            return [dvdt]
+
+        sol = solve_ivp(ode_system, t_span, [0.0], t_eval=t_eval, method="RK45")
+        if not sol.success or sol.y.shape[1] != len(t_eval):
+            raise RuntimeError(f"Falha na simulação transiente: {sol.message}")
+        self.t = sol.t
+        self.v_in = np.array([self.get_input_voltage(ti, wave_type, freq) for ti in self.t])
+        self.v_out = sol.y[0]
+        self.current = (self.v_in - self.v_out) / R
+        return self.t, self.v_in, self.v_out, self.current
 
 
 # ==============================================================================
-# 3. CANVAS INTERATIVO (DIAGRAMA FUNCIONAL JK + MÁQUINA DE ESTADOS PISCANTE)
+# 4. COMPONENTES VISUAIS INTERATIVOS (CANVAS ESTILO FALSTAD)
 # ==============================================================================
-class InteractiveDiagramWidget(QWidget):
-    """Desenha os 3 FFs JK com Clear assíncrono, LEDs e a FSM piscando."""
+class ElectronicGraphicsItem(QtWidgets.QGraphicsItem):
+    """Componente arrastável no QGraphicsScene com terminais clicáveis."""
 
-    def __init__(self, state: CounterStateStruct, ffs: list[JKFlipFlopState]):
+    GRID_SIZE = 20
+
+    def __init__(self, model: ComponentModel, x: float, y: float, on_terminal_click):
         super().__init__()
-        self.state = state
-        self.ffs = ffs
-        self.setMinimumSize(680, 480)
+        self.model = model
+        self.on_terminal_click = on_terminal_click
+        self.setPos(x, y)
+        self.setFlags(
+            QtWidgets.QGraphicsItem.GraphicsItemFlag.ItemIsMovable
+            | QtWidgets.QGraphicsItem.GraphicsItemFlag.ItemIsSelectable
+            | QtWidgets.QGraphicsItem.GraphicsItemFlag.ItemSendsGeometryChanges
+        )
+        self.term1_offset = QtCore.QPointF(-40, 0)
+        self.term2_offset = QtCore.QPointF(40, 0)
+
+    def boundingRect(self) -> QtCore.QRectF:
+        return QtCore.QRectF(-50, -30, 100, 60)
+
+    def itemChange(self, change, value):
+        if change == QtWidgets.QGraphicsItem.GraphicsItemChange.ItemPositionChange:
+            x = round(value.x() / self.GRID_SIZE) * self.GRID_SIZE
+            y = round(value.y() / self.GRID_SIZE) * self.GRID_SIZE
+            return QtCore.QPointF(x, y)
+        return super().itemChange(change, value)
+
+    def get_terminal_scene_pos(self, index: int) -> QtCore.QPointF:
+        return self.mapToScene(self.term1_offset if index == 1 else self.term2_offset)
+
+    def mousePressEvent(self, event):
+        pos = event.pos()
+        if (pos - self.term1_offset).manhattanLength() < 12:
+            self.on_terminal_click(self, 1)
+            return
+        if (pos - self.term2_offset).manhattanLength() < 12:
+            self.on_terminal_click(self, 2)
+            return
+        super().mousePressEvent(event)
+
+    def mouseDoubleClickEvent(self, event):
+        val, ok = QtWidgets.QInputDialog.getDouble(
+            None,
+            f"Editar {self.model.name}",
+            f"Valor ({self.model.unit}):",
+            float(self.model.value),
+            0.000001,
+            1e9,
+            6,
+        )
+        if ok:
+            self.model.value = val
+            self.update()
+
+    def paint(self, painter: QtGui.QPainter, option, widget=None):
+        pen_color = QtGui.QColor("#00aaff") if self.isSelected() else QtGui.QColor("#00ff88")
+        painter.setPen(QtGui.QPen(pen_color, 2))
+
+        painter.drawLine(-40, 0, -20, 0)
+        painter.drawLine(20, 0, 40, 0)
+
+        if self.model.comp_type == "R":
+            pts = [
+                QtCore.QPointF(-20, 0),
+                QtCore.QPointF(-15, -10),
+                QtCore.QPointF(-5, 10),
+                QtCore.QPointF(5, -10),
+                QtCore.QPointF(15, 10),
+                QtCore.QPointF(20, 0),
+            ]
+            painter.drawPolyline(QtGui.QPolygonF(pts))
+        elif self.model.comp_type == "C":
+            painter.drawLine(-5, -15, -5, 15)
+            painter.drawLine(5, -15, 5, 15)
+            painter.drawLine(-20, 0, -5, 0)
+            painter.drawLine(5, 0, 20, 0)
+        elif self.model.comp_type == "V":
+            painter.drawEllipse(-18, -18, 36, 36)
+            painter.drawText(QtCore.QRectF(-18, -18, 36, 36), QtCore.Qt.AlignmentFlag.AlignCenter, "PWM")
+
+        painter.setBrush(QtGui.QBrush(QtGui.QColor("#ff4444")))
+        painter.setPen(QtCore.Qt.PenStyle.NoPen)
+        painter.drawEllipse(self.term1_offset, 4, 4)
+        painter.drawEllipse(self.term2_offset, 4, 4)
+
+        painter.setPen(QtGui.QColor("#ffffff"))
+        painter.setFont(QtGui.QFont("Consolas", 8))
+        label = f"{self.model.name}: {self.model.value:g}{self.model.unit}"
+        painter.drawText(QtCore.QRectF(-50, -28, 100, 15), QtCore.Qt.AlignmentFlag.AlignCenter, label)
+
+
+class AnimatedWireItem(QtWidgets.QGraphicsLineItem):
+    """Fio conector com animação de partículas de corrente estilo Falstad."""
+
+    def __init__(self, item1, term1, item2, term2):
+        super().__init__()
+        self.item1, self.term1 = item1, term1
+        self.item2, self.term2 = item2, term2
+        self.phase = 0.0
+        self.setPen(QtGui.QPen(QtGui.QColor("#888888"), 2))
+        self.update_positions()
+
+    def update_positions(self):
+        p1 = self.item1.get_terminal_scene_pos(self.term1)
+        p2 = self.item2.get_terminal_scene_pos(self.term2)
+        self.setLine(QtCore.QLineF(p1, p2))
+
+    def advance_animation(self, current_val: float):
+        self.update_positions()
+        self.phase = (self.phase + current_val * 15.0) % 1.0
+        self.update()
+
+    def paint(self, painter: QtGui.QPainter, option, widget=None):
+        super().paint(painter, option, widget)
+        line = self.line()
+        if line.length() == 0:
+            return
+
+        painter.setBrush(QtGui.QBrush(QtGui.QColor("#ffdd00")))
+        painter.setPen(QtCore.Qt.PenStyle.NoPen)
+        num_dots = max(1, int(line.length() // 25))
+        for i in range(num_dots):
+            t = (i / num_dots + self.phase) % 1.0
+            pt = line.pointAt(t)
+            painter.drawEllipse(pt, 3.0, 3.0)
+
+
+# ==============================================================================
+# 5. WIDGET DE OSCILOSCÓPIO NATIVO (ALTA PERFORMANCE)
+# ==============================================================================
+class OscilloscopeWidget(QtWidgets.QWidget):
+    """Osciloscópio digital para visualizar formas de onda do SciPy."""
+
+    def __init__(self):
+        super().__init__()
+        self.t = np.array([])
+        self.v_in = np.array([])
+        self.v_out = np.array([])
+        self.cursor_idx = 0
+
+    def set_data(self, t, v_in, v_out):
+        self.t = np.asarray(t, dtype=float)
+        self.v_in = np.asarray(v_in, dtype=float)
+        self.v_out = np.asarray(v_out, dtype=float)
+        if not (len(self.t) == len(self.v_in) == len(self.v_out)):
+            self.t = self.v_in = self.v_out = np.array([])
+        self.cursor_idx = 0
+        self.update()
+
+    def step_cursor(self):
+        if len(self.t) > 0:
+            self.cursor_idx = (self.cursor_idx + 2) % len(self.t)
+            self.update()
 
     def paintEvent(self, event):
-        painter = QPainter(self)
-        painter.setRenderHint(QPainter.RenderHint.Antialiasing)
+        painter = QtGui.QPainter(self)
+        painter.setRenderHint(QtGui.QPainter.RenderHint.Antialiasing)
+        w, h = max(self.width(), 1), max(self.height(), 1)
 
-        # Fundo escuro estilo EDA / Osciloscópio Digital
-        painter.fillRect(self.rect(), QColor("#12161f"))
+        painter.fillRect(0, 0, w, h, QtGui.QColor("#111618"))
+        painter.setPen(QtGui.QPen(QtGui.QColor("#223035"), 1))
+        for x in range(0, w, 40):
+            painter.drawLine(x, 0, x, h)
+        for y in range(0, h, 30):
+            painter.drawLine(0, y, w, y)
 
-        # Cores dinâmicas para Nível Alto (1 - Piscando/Brilhante) e Baixo (0)
-        c_high = QColor("#00ff88")
-        c_low = QColor("#3a4659")
-        c_clk = QColor("#ffcc00") if self.state.clk_level else QColor("#4a3f15")
-        c_clr = QColor("#ff4444") if self.state.clear_async else QColor("#4a2020")
+        if len(self.t) < 2:
+            painter.setPen(QtGui.QColor("#888888"))
+            painter.drawText(20, 30, "Osciloscópio aguardando simulação...")
+            return
 
-        # ----------------------------------------------------------------------
-        # A. DESENHO DOS 3 FLIP-FLOPS JK (FF0, FF1, FF2 - MSB)
-        # ----------------------------------------------------------------------
-        painter.setFont(QFont("Monospace", 10, QFont.Weight.Bold))
-        painter.setPen(QColor("#ffffff"))
-        painter.drawText(20, 25, f"DIAGRAMA FUNCIONAL: 3x FLIP-FLOP JK (Apenas CLEAR Assíncrono | Modo: {'CRESCENTE [UP=1]' if self.state.up_down else 'DECRESCENTE [DOWN=0]'})")
+        v_max = max(np.max(np.abs(self.v_in)), 5.5)
+        mid_y = h / 2.0
+        scale_y = (h * 0.4) / v_max
 
-        ff_y = 65
-        ff_w, ff_h = 135, 140
-        spacing = 210
+        def draw_trace(data, color_hex):
+            painter.setPen(QtGui.QPen(QtGui.QColor(color_hex), 2))
+            path = QtGui.QPainterPath()
+            for i, val in enumerate(data):
+                px = (i / (len(data) - 1)) * w
+                py = mid_y - (val * scale_y)
+                if i == 0:
+                    path.moveTo(px, py)
+                else:
+                    path.lineTo(px, py)
+            painter.drawPath(path)
 
-        for idx, ff in enumerate(self.ffs):
-            fx = 40 + idx * spacing
+        draw_trace(self.v_in, "#00e5ff")
+        draw_trace(self.v_out, "#ffaa00")
 
-            # Caixa do Flip-Flop JK
-            border_color = c_high if ff.q == 1 else QColor("#5c7080")
-            painter.setPen(QPen(border_color, 2.5))
-            painter.setBrush(QBrush(QColor("#1c2430")))
-            painter.drawRoundedRect(fx, ff_y, ff_w, ff_h, 8, 8)
+        self.cursor_idx = min(max(self.cursor_idx, 0), len(self.t) - 1)
+        cx = (self.cursor_idx / (len(self.t) - 1)) * w
+        painter.setPen(QtGui.QPen(QtGui.QColor("#ff3366"), 1, QtCore.Qt.PenStyle.DashLine))
+        painter.drawLine(int(cx), 0, int(cx), h)
 
-            # Título do FF
-            role = "LSB" if idx == 0 else ("MSB (Comutação)" if idx == 2 else "Bit 1")
-            painter.setPen(QColor("#a0c4ff"))
-            painter.drawText(fx + 10, ff_y - 8, f"{ff.name} ({role})")
-
-            # Pinos J e K (Esquerda)
-            painter.setPen(QPen(c_high if ff.j else c_low, 2.5))
-            painter.drawLine(fx - 25, ff_y + 30, fx, ff_y + 30)
-            painter.drawText(fx + 8, ff_y + 35, f"J{idx}={ff.j}")
-
-            painter.setPen(QPen(c_high if ff.k else c_low, 2.5))
-            painter.drawLine(fx - 25, ff_y + 110, fx, ff_y + 110)
-            painter.drawText(fx + 8, ff_y + 115, f"K{idx}={ff.k}")
-
-            # Pino de Clock (Meio Esquerda)
-            painter.setPen(QPen(c_clk, 2.5))
-            painter.drawLine(fx - 25, ff_y + 70, fx, ff_y + 70)
-            painter.drawText(fx + 8, ff_y + 75, ">CLK")
-
-            # Saídas Q e ~Q (Direita)
-            painter.setPen(QPen(c_high if ff.q else c_low, 3))
-            painter.drawLine(fx + ff_w, ff_y + 35, fx + ff_w + 25, ff_y + 35)
-            painter.drawText(fx + ff_w - 42, ff_y + 40, f"Q{idx}={ff.q}")
-
-            painter.setPen(QPen(c_high if ff.q_bar else c_low, 2))
-            painter.drawLine(fx + ff_w, ff_y + 105, fx + ff_w + 25, ff_y + 105)
-            painter.drawText(fx + ff_w - 48, ff_y + 110, f"~Q{idx}={ff.q_bar}")
-
-            # Pino Assíncrono exclusivo CLEAR na base
-            painter.setPen(QPen(c_clr, 2.5))
-            painter.drawLine(fx + ff_w // 2, ff_y + ff_h, fx + ff_w // 2, ff_y + ff_h + 25)
-            painter.drawText(fx + ff_w // 2 - 18, ff_y + ff_h - 8, "CLR")
-
-            # LED Indicador Digital Acima de cada FF
-            led_center = QPointF(fx + ff_w - 20, ff_y - 22)
-            if ff.q == 1:
-                painter.setBrush(QBrush(QColor("#00ff66")))
-                painter.setPen(QPen(QColor("#ffffff"), 2))
-            else:
-                painter.setBrush(QBrush(QColor("#1e2d24")))
-                painter.setPen(QPen(QColor("#3a4659"), 1.5))
-            painter.drawEllipse(led_center, 11, 11)
-
-        # Barramento Comum de CLEAR Assíncrono
-        painter.setPen(QPen(c_clr, 2.5, Qt.PenStyle.DashLine))
-        painter.drawLine(40 + ff_w // 2, ff_y + ff_h + 25, 40 + 2 * spacing + ff_w // 2, ff_y + ff_h + 25)
-        painter.drawText(40, ff_y + ff_h + 42, f"BARRAMENTO CLEAR ASSÍNCRONO (ATIVO = {self.state.clear_async})")
-
-        # ----------------------------------------------------------------------
-        # B. MÁQUINA DE ESTADOS FINITOS (FSM) INTERATIVA PISCANTE
-        # ----------------------------------------------------------------------
-        fsm_cy = 365
-        painter.setPen(QColor("#ffffff"))
-        painter.drawText(20, 275, "MÁQUINA DE ESTADOS (FSM): 000 ↔ 111 (Pisca em Verde no Estado Atual)")
-
-        current_val = (self.ffs[2].q << 2) | (self.ffs[1].q << 1) | self.ffs[0].q
-        next_val = (current_val + 1) % 8 if self.state.up_down == 1 else (current_val - 1) % 8
-        if self.state.clear_async == 1:
-            next_val = 0
-
-        node_spacing = 78
-        start_x = 55
-
-        for s in range(8):
-            nx = start_x + s * node_spacing
-            ny = fsm_cy
-            is_current = (s == current_val)
-            is_next = (s == next_val)
-
-            # Efeito piscante sincronizado com o Clock no estado ativo
-            if is_current:
-                fill = QColor("#00ff88") if self.state.clk_level else QColor("#00b862")
-                pen = QPen(QColor("#ffffff"), 3)
-                txt_color = QColor("#000000")
-            elif is_next:
-                fill = QColor("#2b3a55")
-                pen = QPen(QColor("#ffcc00"), 2, Qt.PenStyle.DotLine)
-                txt_color = QColor("#ffcc00")
-            else:
-                fill = QColor("#1c2430")
-                pen = QPen(QColor("#4a5568"), 1.5)
-                txt_color = QColor("#a0aec0")
-
-            painter.setBrush(QBrush(fill))
-            painter.setPen(pen)
-            painter.drawEllipse(QPointF(nx, ny), 26, 26)
-
-            painter.setPen(txt_color)
-            painter.setFont(QFont("Monospace", 10, QFont.Weight.Bold))
-            painter.drawText(nx - 14, ny - 2, f"{s:03b}")
-            painter.setFont(QFont("Monospace", 8))
-            painter.drawText(nx - 10, ny + 14, f"({s})")
-
-        # Indicador textual do estado e transição
-        painter.setPen(QColor("#00ff88"))
-        painter.setFont(QFont("Monospace", 11, QFont.Weight.Bold))
-        painter.drawText(
-            20, 445,
-            f"ESTADO ATUAL (Q2 Q1 Q0): {current_val:03b} (Dec: {current_val})   |   "
-            f"PRÓXIMO ESTADO: {next_val:03b} (Dec: {next_val})"
-        )
+        painter.setFont(QtGui.QFont("Consolas", 9))
+        painter.setPen(QtGui.QColor("#00e5ff"))
+        painter.drawText(15, 20, f"CH1 (Arduino/Vin): {self.v_in[self.cursor_idx]:.2f} V")
+        painter.setPen(QtGui.QColor("#ffaa00"))
+        painter.drawText(220, 20, f"CH2 (Saída Vout): {self.v_out[self.cursor_idx]:.2f} V")
 
 
 # ==============================================================================
-# 4. RENDERIZADOR SCHEMDRAW (TABELA-VERDADE + CIRCUITO LÓGICO JK)
+# 6. JANELA PRINCIPAL (INTEGRAÇÃO DE TODOS OS MÓDULOS)
 # ==============================================================================
-class SchemdrawCanvas(FigureCanvas):
-    """Renderiza a Tabela-Verdade e os Flip-Flops JK usando schemdraw.logic."""
+class MainApp(QtWidgets.QMainWindow):
+    circuitView: QtWidgets.QGraphicsView
 
-    def __init__(self):
-        self.fig, (self.ax_circuit, self.ax_table) = plt.subplots(1, 2, figsize=(11, 5), facecolor="#f8f9fa")
-        super().__init__(self.fig)
-        self.draw_schemdraw_views()
-
-    def draw_schemdraw_views(self):
-        self.ax_circuit.clear()
-        self.ax_table.clear()
-
-        # 1. Desenha o Esquema Lógico da Equação de Comutação do MSB (J2 = K2) via logicparse
-        with schemdraw.Drawing(canvas=self.ax_circuit, show=False) as d:
-            d.config(unit=0.6, fontsize=10)
-            logicparse(
-                "(M and Q1 and Q0) or ((not M) and (not Q1) and (not Q0))",
-                outlabel=r"$J_2 = K_2 \text{ (MSB)}$"
-            )
-        self.ax_circuit.set_title("Schemdraw Logic: Excitação do MSB em Comutação (J2 = K2)", fontweight="bold")
-        self.ax_circuit.axis("off")
-
-        # 2. Desenha a Tabela-Verdade Completa no schemdraw.logic.Table
-        md_table = (
-            " M | Q2 Q1 Q0 | Q2+ Q1+ Q0+ | J2 K2 | J1 K1 | J0 K0 \n"
-            "---|----------|-------------|-------|-------|-------\n"
-            " 1 |  0  0  0 |   0   0   1 |  0  0 |  0  0 |  1  1 \n"
-            " 1 |  0  0  1 |   0   1   0 |  0  0 |  1  1 |  1  1 \n"
-            " 1 |  0  1  0 |   0   1   1 |  0  0 |  0  0 |  1  1 \n"
-            " 1 |  0  1  1 |   1   0   0 |  1  1 |  1  1 |  1  1 \n"
-            " 1 |  1  0  0 |   1   0   1 |  0  0 |  0  0 |  1  1 \n"
-            " 1 |  1  1  1 |   0   0   0 |  1  1 |  1  1 |  1  1 \n"
-            " 0 |  0  0  0 |   1   1   1 |  1  1 |  1  1 |  1  1 \n"
-            " 0 |  1  1  1 |   1   1   0 |  0  0 |  0  0 |  1  1 \n"
-            " 0 |  1  0  0 |   0   1   1 |  1  1 |  1  1 |  1  1 "
-        )
-        with schemdraw.Drawing(canvas=self.ax_table, show=False) as d_tab:
-            d_tab.config(fontsize=8.5)
-            d_tab += logic.Table(md_table, colfmt="c|c|c||c|c|c")
-        self.ax_table.set_title("Schemdraw logic.Table: Tabela de Excitação JK (Comutação)", fontweight="bold")
-        self.ax_table.axis("off")
-
-        self.fig.tight_layout()
-        self.draw()
-
-
-# ==============================================================================
-# 5. JANELA PRINCIPAL PYQT6 (EDITOR PYTHON + TABELAS + SIMULADOR INTERATIVO)
-# ==============================================================================
-class JKCounterMainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("Simulador PyQt6 - Contador 3-Bits Flip-Flop JK (Comutação MSB + Schemdraw)")
-        self.resize(1320, 820)
+        ui_stream = io.StringIO(PAGE_UI_XML)
+        uic.loadUi(ui_stream, self)
 
-        # Inicializa Structs do Estado e dos 3 Flip-Flops JK
-        self.state = CounterStateStruct()
-        self.ffs = [
-            JKFlipFlopState(name="FF0"),
-            JKFlipFlopState(name="FF1"),
-            JKFlipFlopState(name="FF2"),
-        ]
+        self.scene = QtWidgets.QGraphicsScene(0, 0, 1000, 600)
+        self.scene.setBackgroundBrush(QtGui.QBrush(QtGui.QColor("#181818")))
+        self.circuitView.setScene(self.scene)
+        self.draw_grid()
 
-        # Timer para o Clock piscante automático
-        self.timer = QTimer(self)
-        self.timer.timeout.connect(self.step_clock_phase)
-        self.timer_interval_ms = 500
+        self.scope = OscilloscopeWidget()
+        self.scopeLayout.addWidget(self.scope)
 
-        self._build_ui()
-        self.recalculate_jk_inputs()
-        self.populate_truth_tables()
+        self.engine = TransientEngine()
+        self.components = []
+        self.wires = []
+        self.pending_terminal = None
+        self.comp_counter = {"V": 1, "R": 1, "C": 1}
 
-    def _build_ui(self):
-        central = QWidget()
-        self.setCentralWidget(central)
-        main_layout = QVBoxLayout(central)
+        self.anim_timer = QtCore.QTimer(self)
+        self.anim_timer.timeout.connect(self.on_animation_tick)
+        self.anim_timer.start(33)
 
-        # Barra de Controle Superior
-        ctrl_group = QGroupBox("Controles de Operação em Tempo Real (Sem Reiniciar na Troca de Sentido)")
-        ctrl_layout = QHBoxLayout(ctrl_group)
+        self.btnAddSource.clicked.connect(lambda: self.add_component("V", 5.0, "V"))
+        self.btnAddResistor.clicked.connect(lambda: self.add_component("R", 1000.0, "Ω"))
+        self.btnAddCapacitor.clicked.connect(lambda: self.add_component("C", 0.00001, "F"))
+        self.btnClear.clicked.connect(self.clear_canvas)
+        self.btnRunSim.clicked.connect(self.run_simulation)
+        self.btnExportSchemdraw.clicked.connect(self.export_schemdraw)
+        self.btnGenSpice.clicked.connect(self.generate_spice_netlist)
 
-        self.btn_clock_auto = QPushButton("▶ Iniciar Clock Automático")
-        self.btn_clock_auto.setCheckable(True)
-        self.btn_clock_auto.clicked.connect(self.toggle_auto_clock)
+        self.load_default_circuit()
 
-        self.btn_step = QPushButton("⚡ Pulso Manual de Clock")
-        self.btn_step.clicked.connect(self.manual_clock_pulse)
+    def draw_grid(self):
+        pen = QtGui.QPen(QtGui.QColor("#252525"), 1)
+        for x in range(0, 1000, 20):
+            self.scene.addLine(x, 0, x, 600, pen)
+        for y in range(0, 600, 20):
+            self.scene.addLine(0, y, 1000, y, pen)
 
-        self.btn_mode = QPushButton("Sentido Atual: CRESCENTE (UP = 1)")
-        self.btn_mode.setStyleSheet("background-color: #1b4332; color: white; font-weight: bold; padding: 6px;")
-        self.btn_mode.clicked.connect(self.toggle_direction)
+    def add_component(self, comp_type: str, default_val: float, unit: str, x=200, y=200):
+        idx = self.comp_counter[comp_type]
+        self.comp_counter[comp_type] += 1
+        model = ComponentModel(comp_type=comp_type, name=f"{comp_type}{idx}", value=default_val, unit=unit)
+        item = ElectronicGraphicsItem(model, x, y, self.handle_terminal_click)
+        self.scene.addItem(item)
+        self.components.append(item)
+        return item
 
-        self.btn_clear = QPushButton("🔴 Acionar CLEAR Assíncrono (000)")
-        self.btn_clear.setCheckable(True)
-        self.btn_clear.setStyleSheet("background-color: #641220; color: white; font-weight: bold; padding: 6px;")
-        self.btn_clear.clicked.connect(self.toggle_clear_async)
+    def handle_terminal_click(self, item: ElectronicGraphicsItem, term_idx: int):
+        if self.pending_terminal is None:
+            self.pending_terminal = (item, term_idx)
+            self.statusBar().showMessage("Clique em outro terminal para conectar o fio...")
+            return
 
-        lbl_speed = QLabel("Velocidade do Clock:")
-        self.slider_speed = QSlider(Qt.Orientation.Horizontal)
-        self.slider_speed.setRange(100, 1200)
-        self.slider_speed.setValue(500)
-        self.slider_speed.valueChanged.connect(self.change_speed)
+        item1, term1 = self.pending_terminal
+        if item1 != item:
+            wire = AnimatedWireItem(item1, term1, item, term_idx)
+            self.scene.addItem(wire)
+            self.wires.append(wire)
+        self.pending_terminal = None
+        self.statusBar().clearMessage()
 
-        ctrl_layout.addWidget(self.btn_clock_auto)
-        ctrl_layout.addWidget(self.btn_step)
-        ctrl_layout.addWidget(self.btn_mode)
-        ctrl_layout.addWidget(self.btn_clear)
-        ctrl_layout.addWidget(lbl_speed)
-        ctrl_layout.addWidget(self.slider_speed)
-        main_layout.addWidget(ctrl_group)
+    def load_default_circuit(self):
+        v1 = self.add_component("V", 5.0, "V", 160, 200)
+        r1 = self.add_component("R", 1000.0, "Ω", 320, 200)
+        c1 = self.add_component("C", 0.00001, "F", 480, 200)
 
-        # Divisor Central: Esquerda (Editor Python de Equações) | Direita (Abas de Simulação)
-        splitter = QSplitter(Qt.Orientation.Horizontal)
+        w1 = AnimatedWireItem(v1, 2, r1, 1)
+        w2 = AnimatedWireItem(r1, 2, c1, 1)
+        self.scene.addItem(w1)
+        self.scene.addItem(w2)
+        self.wires.extend([w1, w2])
+        self.run_simulation()
 
-        # Painel Esquerdo: Editor Python de Equações Sem SymPy
-        editor_widget = QWidget()
-        ed_layout = QVBoxLayout(editor_widget)
-        ed_label = QLabel("<b>Editor Python de Equações Booleanas (Sem SymPy):</b>")
-        self.code_editor = QPlainTextEdit()
-        self.code_editor.setFont(QFont("Monospace", 10))
-        self.code_editor.setPlainText(PureBooleanEngine.DEFAULT_CODE)
+    def clear_canvas(self):
+        self.scene.clear()
+        self.draw_grid()
+        self.components.clear()
+        self.wires.clear()
+        self.pending_terminal = None
+        self.comp_counter = {"V": 1, "R": 1, "C": 1}
 
-        btn_apply_code = QPushButton("✔ Compilar Equações e Atualizar Tabelas-Verdade")
-        btn_apply_code.setStyleSheet("background-color: #005f73; color: white; font-weight: bold; padding: 8px;")
-        btn_apply_code.clicked.connect(self.apply_custom_equations)
-
-        ed_layout.addWidget(ed_label)
-        ed_layout.addWidget(self.code_editor)
-        ed_layout.addWidget(btn_apply_code)
-        splitter.addWidget(editor_widget)
-
-        # Painel Direito: Abas (Diagrama Piscante | Schemdraw | Tabela-Verdade Completa 16 Estados)
-        self.tabs = QTabWidget()
-
-        # Aba 1: Diagrama Funcional + FSM Piscante
-        self.diagram_widget = InteractiveDiagramWidget(self.state, self.ffs)
-        self.tabs.addTab(self.diagram_widget, "1. Diagrama Funcional JK & Máquina de Estados (Ao Vivo)")
-
-        # Aba 2: Schemdraw (Circuito Lógico + logic.Table)
-        self.schemdraw_canvas = SchemdrawCanvas()
-        self.tabs.addTab(self.schemdraw_canvas, "2. Circuito Lógico e Tabela (schemdraw.logic)")
-
-        # Aba 3: Todas as Tabelas-Verdade Interativas (Destaca a linha atual ao vivo)
-        self.table_widget = QTableWidget(16, 12)
-        headers = [
-            "M (UP/DOWN)", "Q2 (MSB)", "Q1", "Q0 (LSB)",
-            "Q2+ (Próx)", "Q1+ (Próx)", "Q0+ (Próx)",
-            "J2 = K2 (MSB)", "J1 = K1", "J0 = K0", "CLEAR Assínc.", "Estado Decimal"
-        ]
-        self.table_widget.setHorizontalHeaderLabels(headers)
-        self.table_widget.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
-        self.tabs.addTab(self.table_widget, "3. Tabela-Verdade Completa (16 Transições + Destaque Dinâmico)")
-
-        splitter.addWidget(self.tabs)
-        splitter.setSizes([430, 890])
-        main_layout.addWidget(splitter)
-
-    # ==========================================================================
-    # LÓGICA DE SIMULAÇÃO E ATUALIZAÇÃO
-    # ==========================================================================
-    def recalculate_jk_inputs(self):
-        """Avalia as equações do editor Python para definir J0..K2 sem SymPy."""
+    def run_simulation(self):
+        r_val = next((float(c.model.value) for c in self.components if c.model.comp_type == "R"), 1000.0)
+        c_val = next((float(c.model.value) for c in self.components if c.model.comp_type == "C"), 1e-5)
+        wave = self.comboWave.currentText()
+        freq = self.spinFreq.value()
         try:
-            res = PureBooleanEngine.evaluate_equations(
-                self.code_editor.toPlainText(),
-                self.state.up_down,
-                self.ffs[2].q,
-                self.ffs[1].q,
-                self.ffs[0].q
-            )
-            self.ffs[0].j, self.ffs[0].k = res["J0"], res["K0"]
-            self.ffs[1].j, self.ffs[1].k = res["J1"], res["K1"]
-            self.ffs[2].j, self.ffs[2].k = res["J2"], res["K2"]
-        except Exception as e:
-            self.timer.stop()
-            self.btn_clock_auto.setChecked(False)
-            QMessageBox.critical(self, "Erro de Sintaxe nas Equações", f"Verifique a equação no editor:\n{e}")
+            t, vin, vout, _ = self.engine.solve_rc_transient(r_val, c_val, wave, freq)
+        except (ValueError, RuntimeError) as exc:
+            QtWidgets.QMessageBox.warning(self, "Erro de simulação", str(exc))
+            return
+        self.scope.set_data(t, vin, vout)
+        self.statusBar().showMessage(f"Simulação SciPy concluída: R={r_val}Ω, C={c_val}F, Freq={freq}Hz")
 
-        self.highlight_active_truth_table_row()
-        self.diagram_widget.update()
+    def on_animation_tick(self):
+        if len(self.engine.current) == 0:
+            return
+        idx = self.scope.cursor_idx
+        current_now = self.engine.current[idx]
+        for wire in self.wires:
+            wire.advance_animation(current_now)
+        self.scope.step_cursor()
 
-    def step_clock_phase(self):
-        """Alterna o nível do clock (0 -> 1 -> 0) para fazer o diagrama piscar."""
-        self.state.clk_level ^= 1
-        if self.state.clk_level == 1:  # Borda de subida atualiza os Flip-Flops JK
-            for ff in self.ffs:
-                ff.clock_edge()
-            self.recalculate_jk_inputs()
-        else:
-            self.diagram_widget.update()
+    def generate_spice_netlist(self):
+        components = []
+        node = 1
+        for c in self.components:
+            model = c.model
+            if model.comp_type == "V":
+                components.append(
+                    PySpiceComponentModel(
+                        name=model.name,
+                        comp_type="V",
+                        value=float(model.value),
+                        unit=model.unit,
+                        node1=node,
+                        node2=0,
+                        waveform="PULSE(0 5 0 1u 1u 10m 20m)",
+                    )
+                )
+            elif model.comp_type == "R":
+                components.append(
+                    PySpiceComponentModel(
+                        name=model.name,
+                        comp_type="R",
+                        value=float(model.value),
+                        unit=model.unit,
+                        node1=node,
+                        node2=node + 1,
+                    )
+                )
+                node += 1
+            elif model.comp_type == "C":
+                components.append(
+                    PySpiceComponentModel(
+                        name=model.name,
+                        comp_type="C",
+                        value=float(model.value),
+                        unit=model.unit,
+                        node1=node,
+                        node2=0,
+                    )
+                )
 
-    def manual_clock_pulse(self):
-        """Executa um pulso completo de clock manualmente."""
-        self.state.clk_level = 1
-        for ff in self.ffs:
-            ff.clock_edge()
-        self.recalculate_jk_inputs()
-        QTimer.singleShot(180, self._reset_clk_visual)
+        circuit = PySpiceCircuitModel(
+            title="Circuito gerado pela PyEDA Suite",
+            components=components,
+        )
+        self.txtSpiceOutput.setPlainText("\n".join(circuit.build_netlist()))
 
-    def _reset_clk_visual(self):
-        self.state.clk_level = 0
-        self.diagram_widget.update()
-
-    def toggle_auto_clock(self, checked: bool):
-        if checked:
-            self.btn_clock_auto.setText("⏸ Pausar Clock Automático")
-            self.timer.start(self.timer_interval_ms)
-        else:
-            self.btn_clock_auto.setText("▶ Iniciar Clock Automático")
-            self.timer.stop()
-
-    def toggle_direction(self):
-        """Altera o sentido UP/DOWN em tempo de execução sem resetar os FFs."""
-        self.state.up_down ^= 1
-        if self.state.up_down == 1:
-            self.btn_mode.setText("Sentido Atual: CRESCENTE (UP = 1)")
-            self.btn_mode.setStyleSheet("background-color: #1b4332; color: white; font-weight: bold; padding: 6px;")
-        else:
-            self.btn_mode.setText("Sentido Atual: DECRESCENTE (DOWN = 0)")
-            self.btn_mode.setStyleSheet("background-color: #3c096c; color: white; font-weight: bold; padding: 6px;")
-        self.recalculate_jk_inputs()
-
-    def toggle_clear_async(self, checked: bool):
-        """Ativa/desativa a entrada assíncrona CLEAR."""
-        self.state.clear_async = 1 if checked else 0
-        for ff in self.ffs:
-            ff.apply_clear(self.state.clear_async)
-        self.recalculate_jk_inputs()
-
-    def change_speed(self, val: int):
-        self.timer_interval_ms = max(80, 1300 - val)
-        if self.timer.isActive():
-            self.timer.start(self.timer_interval_ms)
-
-    def apply_custom_equations(self):
-        self.recalculate_jk_inputs()
-        self.populate_truth_tables()
-
-    def populate_truth_tables(self):
-        """Gera todas as 16 linhas da tabela-verdade a partir do código do editor."""
-        code = self.code_editor.toPlainText()
-        row_idx = 0
-        for m in (1, 0):
-            for val in range(8):
-                q2, q1, q0 = (val >> 2) & 1, (val >> 1) & 1, val & 1
-                res = PureBooleanEngine.evaluate_equations(code, m, q2, q1, q0)
-
-                # Calcula próximo estado simulando a comutação JK
-                q0_next = q0 ^ res["J0"] if (res["J0"] and res["K0"]) else q0
-                q1_next = q1 ^ res["J1"] if (res["J1"] and res["K1"]) else q1
-                q2_next = q2 ^ res["J2"] if (res["J2"] and res["K2"]) else q2
-                next_val = (q2_next << 2) | (q1_next << 1) | q0_next
-
-                row_data = [
-                    f"{m} ({'UP' if m else 'DOWN'})",
-                    str(q2), str(q1), str(q0),
-                    str(q2_next), str(q1_next), str(q0_next),
-                    f"{res['J2']} / {res['K2']}",
-                    f"{res['J1']} / {res['K1']}",
-                    f"{res['J0']} / {res['K0']}",
-                    "0 (Inativo)",
-                    f"{val} → {next_val}"
-                ]
-                for col, text in enumerate(row_data):
-                    item = QTableWidgetItem(text)
-                    item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
-                    self.table_widget.setItem(row_idx, col, item)
-                row_idx += 1
-        self.highlight_active_truth_table_row()
-
-    def highlight_active_truth_table_row(self):
-        """Pisca/destaca na tabela-verdade a linha correspondente ao estado atual."""
-        current_val = (self.ffs[2].q << 2) | (self.ffs[1].q << 1) | (self.ffs[0].q)
-        active_row = (0 if self.state.up_down == 1 else 8) + current_val
-
-        for r in range(self.table_widget.rowCount()):
-            bg = QColor("#00ff88") if r == active_row else QColor("#ffffff")
-            fg = QColor("#000000")
-            for c in range(self.table_widget.columnCount()):
-                item = self.table_widget.item(r, c)
-                if item:
-                    item.setBackground(bg)
-                    item.setForeground(fg)
+    def export_schemdraw(self):
+        filename = "esquematico_exportado.svg"
+        with schemdraw.Drawing(file=filename, show=False) as d:
+            for c in self.components:
+                m = c.model
+                if m.comp_type == "V":
+                    d += elm.SourcePulse().up().label(f"{m.name}\n{m.value}V")
+                elif m.comp_type == "R":
+                    d += elm.Resistor().right().label(f"{m.name}\n{m.value}Ω")
+                elif m.comp_type == "C":
+                    d += elm.Capacitor().down().label(f"{m.name}\n{m.value}F")
+            d += elm.Ground()
+        QtWidgets.QMessageBox.information(self, "Schemdraw", f"Esquemático vetorial salvo em:\n{filename}")
 
 
 if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    window = JKCounterMainWindow()
+    app = QtWidgets.QApplication(sys.argv)
+    window = MainApp()
     window.show()
     sys.exit(app.exec())
