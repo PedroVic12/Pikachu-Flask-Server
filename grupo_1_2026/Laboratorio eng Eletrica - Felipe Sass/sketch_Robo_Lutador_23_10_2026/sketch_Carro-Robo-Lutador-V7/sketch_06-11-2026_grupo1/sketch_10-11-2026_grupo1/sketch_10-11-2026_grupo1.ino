@@ -33,13 +33,13 @@ constexpr uint8_t IN4_DIR = 5;
 // Configuração de PWM dos motores DC
 constexpr int PWM_MAX = 255;
 constexpr int PWM_RE = 255; // Ré em potencia máxima
-constexpr int PWM_GIRO = 225;
+constexpr int PWM_GIRO = 170;
 constexpr int PWM_AVANCO_AGRESSIVO = 255;
 
 // com 50% de Ciclo Duty
-constexpr int PWM_BUSCA = 127;
-constexpr int PWM_ARCO_INTERNO = 127;
-constexpr int PWM_ARCO_EXTERNO = 127;
+constexpr int PWM_BUSCA = 170;
+constexpr int PWM_ARCO_INTERNO = 170;
+constexpr int PWM_ARCO_EXTERNO = 170;
 
 // intervalos de tempo para se locomover
 constexpr unsigned long TEMPO_RE = 700; // tem que manter baixo ( tempo < 500)
@@ -548,5 +548,5 @@ void loop()
 // 6) alteração no sensor ultrassonico
 // 7) algoritimo do loop sempre for agressivo se for o oponente
 
-// preparação e teste sno dia 12/11/2026
+// preparação e teste no dia 12/11/2026
 
