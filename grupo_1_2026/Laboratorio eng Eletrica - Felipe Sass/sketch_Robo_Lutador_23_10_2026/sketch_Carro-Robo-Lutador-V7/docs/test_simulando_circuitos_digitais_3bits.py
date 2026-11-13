@@ -16,8 +16,13 @@ circuit_app = importlib.util.module_from_spec(SPEC)
 sys.modules[SPEC.name] = circuit_app
 SPEC.loader.exec_module(circuit_app)
 
-from PyQt6 import QtWidgets
+from PyQt6 import QtSvgWidgets, QtWidgets
 from app import MainWindow
+from pages.sequential_logic import (
+    analyze_sequential_circuit,
+    default_jk_expressions,
+    render_logic_expression_svg,
+)
 
 
 @pytest.fixture(scope="module")
@@ -67,6 +72,58 @@ def test_jk_counter_counts_up_and_down_with_wraparound():
     counter = circuit_app.JKCounterModel(bit_count=4, direction="DOWN")
     assert [counter.clock() for _ in range(5)] == ["1111", "1110", "1101", "1100", "1011"]
     assert all(ff.q_bar == 1 - ff.q for ff in counter.flip_flops)
+    counter.set_state(3)
+    assert counter.clock_with_inputs([1, 0, 1, 0], [1, 0, 1, 0]) == "0110"
+
+
+def test_three_bit_example_truth_table_matches_synchronous_up_counter():
+    expressions = default_jk_expressions(3, "UP")
+    assert expressions == {
+        "J0": "1",
+        "K0": "1",
+        "J1": "Q0",
+        "K1": "Q0",
+        "J2": "Q0 & Q1",
+        "K2": "Q0 & Q1",
+    }
+    rows = analyze_sequential_circuit(3, expressions)
+    assert [row.next_state for row in rows] == [1, 2, 3, 4, 5, 6, 7, 0]
+    assert [row.j_values for row in rows] == [
+        (1, 0, 0), (1, 1, 0), (1, 0, 0), (1, 1, 1),
+        (1, 0, 0), (1, 1, 0), (1, 0, 0), (1, 1, 1),
+    ]
+
+
+def test_user_defined_boolean_functions_and_rejects_non_boolean_syntax():
+    expressions = {
+        "J0": "1", "K0": "1",
+        "J1": "~Q0", "K1": "Q0",
+        "J2": "Q1 | Q0", "K2": "Q1 ^ Q0",
+    }
+    rows = analyze_sequential_circuit(3, expressions)
+    assert len(rows) == 8
+    assert rows[0].next_state == 3
+    assert rows[1].next_state == 4
+    expressions["J1"] = "__import__('os').system('echo unsafe')"
+    with pytest.raises(ValueError):
+        analyze_sequential_circuit(3, expressions)
+    expressions["J1"] = "Q3"
+    with pytest.raises(ValueError, match="indisponível"):
+        analyze_sequential_circuit(3, expressions)
+
+
+def test_schemdraw_parser_logic_functions_and_symbols():
+    expressions = {
+        "J0": "Q0 NAND Q1",
+        "K0": "¬Q2",
+        "J1": "Q0 ⊕ Q1",
+        "K1": "Q0 ∧ Q1",
+        "J2": "Q0 NOR Q1",
+        "K2": "Q0 XNOR Q1",
+    }
+    rows = analyze_sequential_circuit(3, expressions)
+    assert rows[0].next_state == 5
+    assert render_logic_expression_svg("Q0 NAND Q1", "J0").startswith(b"<svg")
 
 
 def test_invalid_project_values_and_wire_references_are_rejected():
@@ -145,6 +202,26 @@ def test_main_app_has_distinct_analog_and_jk_screens(_qt_app):
     assert window.jk_page.jkTruthTable.rowCount() == 8
     assert "FF0:" in window.jk_page.lblEquations.text()
     assert len(window.jk_page.scene.items()) > 4
+    assert window.jk_page.jkTablesTabs.count() == 8
+    assert window.jk_page.simulationResult.rowCount() == 0
+    window.jk_page.initialStateSpin.setValue(0)
+    window.jk_page.clockCountSpin.setValue(16)
+    window.jk_page.simulate_sequence()
+    assert window.jk_page.counter.bits == "0000"
+    assert window.jk_page.simulationResult.rowCount() == 17
+    assert len(window.jk_page.findChildren(QtSvgWidgets.QSvgWidget)) >= 15
+    window.jk_page.comboBits.setCurrentIndex(0)
+    for key, expression in {
+        "J0": "0", "K0": "1",
+        "J1": "1", "K1": "1",
+        "J2": "0", "K2": "1",
+    }.items():
+        window.jk_page._expression_edits[key].setText(expression)
+    window.jk_page.initialStateSpin.setValue(0)
+    window.jk_page.clockCountSpin.setValue(1)
+    window.jk_page.simulate_sequence()
+    assert window.jk_page.counter.bits == "010"
+    assert window.jk_page.simulationResult.item(1, 3).text() == "010"
     window.set_active_page(1)
     assert window.mainStack.currentIndex() == 1
     window.close()

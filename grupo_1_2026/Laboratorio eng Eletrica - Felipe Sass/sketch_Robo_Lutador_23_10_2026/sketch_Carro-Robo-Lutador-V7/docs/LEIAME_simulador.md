@@ -40,10 +40,13 @@ que recolhe em telas estreitas e dois espaços de trabalho:
   terminais para conectá-los. A chave manual preserva o estado entre as etapas:
   feche-a para carregar o capacitor/indutor e abra-a para acompanhar a descarga.
   O osciloscópio anima tensão e corrente. `R` gira itens e `F5` simula.
-- **Contador síncrono FF JK:** mostra os flip-flops e oferece equações booleanas
-  simplificadas com SymPy, a tabela-verdade JK e a tabela de transições de todos
-  os estados para os contadores de 3 ou 4 bits. `Espaço` aplica uma borda de
-  subida; o botão Reset é assíncrono.
+- **Contador síncrono FF JK:** as abas separam o simulador, as portas
+  Schemdraw, tabelas-verdade, mapas de Karnaugh e diagrama de estados. Configure
+  as funções booleanas de cada entrada J/K para exemplos de 3 ou 4 bits; a
+  tabela enumera todos os estados e calcula Q(t+1) pela equação característica
+  do flip-flop JK. `Espaço` aplica uma borda de subida; o botão Reset é
+  assíncrono. O exemplo padrão de 3 bits implementa o contador síncrono
+  crescente: J0=K0=1, J1=K1=Q0 e J2=K2=Q1·Q0.
 
 O circuito SPICE é construído como um objeto `PySpice.Spice.Netlist.Circuit`;
 o netlist gerado pode ser salvo ou aberto em outro simulador. A análise

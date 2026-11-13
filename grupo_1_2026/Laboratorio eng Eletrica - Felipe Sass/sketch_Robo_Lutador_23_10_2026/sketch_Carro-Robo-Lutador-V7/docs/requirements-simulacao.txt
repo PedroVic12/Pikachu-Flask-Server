@@ -1,6 +1,7 @@
 numpy
 scipy
 schemdraw
+pyparsing
 pydantic>=2,<3
 PyQt6
 PySpice>=1.5
