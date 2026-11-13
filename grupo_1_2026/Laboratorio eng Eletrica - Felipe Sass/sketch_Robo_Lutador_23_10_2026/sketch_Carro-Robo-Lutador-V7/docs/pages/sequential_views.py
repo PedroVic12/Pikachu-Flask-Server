@@ -2,8 +2,32 @@ import math
 
 from PyQt6 import QtCore, QtGui, QtSvgWidgets, QtWidgets
 
+from pages.jk_counter_model import JKCounterModel
 from pages.sequential_logic import SequentialTruthRow
-from simulando_circuitos_digitais_3bits import JKCounterModel
+
+
+class FittedGraphicsView(QtWidgets.QGraphicsView):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setRenderHints(
+            QtGui.QPainter.RenderHint.Antialiasing
+            | QtGui.QPainter.RenderHint.TextAntialiasing
+        )
+        self.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.setFrameShape(QtWidgets.QFrame.Shape.NoFrame)
+        self.setTransformationAnchor(
+            QtWidgets.QGraphicsView.ViewportAnchor.AnchorViewCenter
+        )
+        self.setResizeAnchor(QtWidgets.QGraphicsView.ViewportAnchor.AnchorViewCenter)
+
+    def resizeEvent(self, event):
+        super().resizeEvent(event)
+        scene = self.scene()
+        if scene is not None and not scene.sceneRect().isEmpty():
+            self.fitInView(
+                scene.sceneRect(),
+                QtCore.Qt.AspectRatioMode.KeepAspectRatio,
+            )
 
 
 class SvgGallery(QtWidgets.QScrollArea):
@@ -14,6 +38,8 @@ class SvgGallery(QtWidgets.QScrollArea):
         self.grid = QtWidgets.QGridLayout(self.content)
         self.grid.setColumnStretch(0, 1)
         self.grid.setColumnStretch(1, 1)
+        self.cards: list[QtWidgets.QWidget] = []
+        self.full_width: set[int] = set()
         self.setWidget(self.content)
 
     def show_diagrams(
@@ -22,7 +48,7 @@ class SvgGallery(QtWidgets.QScrollArea):
         full_width: set[int] | None = None,
     ):
         self._clear()
-        full_width = full_width or set()
+        self.full_width = full_width or set()
         for index, (title, svg) in enumerate(diagrams):
             card = QtWidgets.QFrame()
             card.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
@@ -39,10 +65,8 @@ class SvgGallery(QtWidgets.QScrollArea):
             )
             layout.addWidget(heading)
             layout.addWidget(image, 1)
-            if index in full_width:
-                self.grid.addWidget(card, index, 0, 1, 2)
-            else:
-                self.grid.addWidget(card, index // 2, index % 2)
+            self.cards.append(card)
+        self._arrange_cards()
 
     def _clear(self):
         while self.grid.count():
@@ -50,6 +74,31 @@ class SvgGallery(QtWidgets.QScrollArea):
             widget = item.widget()
             if widget is not None:
                 widget.deleteLater()
+        self.cards.clear()
+
+    def resizeEvent(self, event):
+        super().resizeEvent(event)
+        self._arrange_cards()
+
+    def _arrange_cards(self):
+        if not self.cards:
+            return
+        while self.grid.count():
+            self.grid.takeAt(0)
+        columns = 1 if self.viewport().width() < 620 else 2
+        row = 0
+        column = 0
+        for index, card in enumerate(self.cards):
+            if columns == 1 or index in self.full_width:
+                self.grid.addWidget(card, row, 0, 1, columns)
+                row += 1
+                column = 0
+            else:
+                self.grid.addWidget(card, row, column)
+                column += 1
+                if column == columns:
+                    row += 1
+                    column = 0
 
 
 def draw_counter_diagram(
@@ -73,14 +122,25 @@ def draw_counter_diagram(
         active = bit in highlighted_bits
         scene.addRect(
             QtCore.QRectF(x, top, box_width, box_height),
-            QtGui.QPen(QtGui.QColor("#f9e2af" if active else "#89b4fa"), 3 if active else 2),
+            QtGui.QPen(
+                QtGui.QColor("#f9e2af" if active else "#89b4fa"), 3 if active else 2
+            ),
             QtGui.QBrush(QtGui.QColor("#24483d" if flip_flop.q else "#20252a")),
         )
         _add_text(scene, x + 12, top + 12, f"FF JK — Q{bit}", 13, True)
         _add_text(scene, x + 12, top + 48, f"J{bit} = {expressions[f'J{bit}']}", 11)
         _add_text(scene, x + 12, top + 72, f"K{bit} = {expressions[f'K{bit}']}", 11)
-        _add_text(scene, x + 12, top + 108, f"J/K atuais: {flip_flop.j}/{flip_flop.k}", 11)
-        _add_text(scene, x + 12, top + 140, f"Q={flip_flop.q}   Q̅={flip_flop.q_bar}", 13, True)
+        _add_text(
+            scene, x + 12, top + 108, f"J/K atuais: {flip_flop.j}/{flip_flop.k}", 11
+        )
+        _add_text(
+            scene,
+            x + 12,
+            top + 140,
+            f"Q={flip_flop.q}   Q̅={flip_flop.q_bar}",
+            13,
+            True,
+        )
 
     clock_y = top + box_height + 48
     for column in range(bit_count):
@@ -134,8 +194,10 @@ def draw_state_diagram(
     node_radius = 28
     positions = {
         state: QtCore.QPointF(
-            center.x() + radius * math.cos(-math.pi / 2 + 2 * math.pi * state / state_count),
-            center.y() + radius * math.sin(-math.pi / 2 + 2 * math.pi * state / state_count),
+            center.x()
+            + radius * math.cos(-math.pi / 2 + 2 * math.pi * state / state_count),
+            center.y()
+            + radius * math.sin(-math.pi / 2 + 2 * math.pi * state / state_count),
         )
         for state in range(state_count)
     }
@@ -156,10 +218,18 @@ def draw_state_diagram(
         tip = line_end
         arrow = [
             tip,
-            tip - QtCore.QPointF(10 * math.cos(angle - math.pi / 6), 10 * math.sin(angle - math.pi / 6)),
-            tip - QtCore.QPointF(10 * math.cos(angle + math.pi / 6), 10 * math.sin(angle + math.pi / 6)),
+            tip
+            - QtCore.QPointF(
+                10 * math.cos(angle - math.pi / 6), 10 * math.sin(angle - math.pi / 6)
+            ),
+            tip
+            - QtCore.QPointF(
+                10 * math.cos(angle + math.pi / 6), 10 * math.sin(angle + math.pi / 6)
+            ),
         ]
-        scene.addPolygon(QtGui.QPolygonF(arrow), pen, QtGui.QBrush(QtGui.QColor("#89b4fa")))
+        scene.addPolygon(
+            QtGui.QPolygonF(arrow), pen, QtGui.QBrush(QtGui.QColor("#89b4fa"))
+        )
 
     for state, position in positions.items():
         is_current = state == current_state
@@ -168,10 +238,20 @@ def draw_state_diagram(
             position.y() - node_radius,
             node_radius * 2,
             node_radius * 2,
-            QtGui.QPen(QtGui.QColor("#f9e2af" if is_current else "#89b4fa"), 3 if is_current else 2),
+            QtGui.QPen(
+                QtGui.QColor("#f9e2af" if is_current else "#89b4fa"),
+                3 if is_current else 2,
+            ),
             QtGui.QBrush(QtGui.QColor("#24483d" if is_current else "#20252a")),
         )
-        _add_text(scene, position.x() - 18, position.y() - 11, format(state, f"0{bit_count}b"), 11, True)
+        _add_text(
+            scene,
+            position.x() - 18,
+            position.y() - 11,
+            format(state, f"0{bit_count}b"),
+            11,
+            True,
+        )
     scene.setSceneRect(0, 0, 840, 620)
     view.fitInView(scene.sceneRect(), QtCore.Qt.AspectRatioMode.KeepAspectRatio)
 
@@ -215,7 +295,9 @@ class TimingDiagram(QtWidgets.QWidget):
             painter.setPen(QtGui.QColor("#a9bad1"))
             painter.drawText(8, int(y + 5), name)
             painter.setPen(QtGui.QPen(QtGui.QColor("#34445c"), 1))
-            painter.drawLine(QtCore.QPointF(left, y + 10), QtCore.QPointF(right, y + 10))
+            painter.drawLine(
+                QtCore.QPointF(left, y + 10), QtCore.QPointF(right, y + 10)
+            )
             color = self.TRACE_COLORS[index % len(self.TRACE_COLORS)]
             painter.setPen(QtGui.QPen(QtGui.QColor(color), 2))
             for sample in range(samples):
@@ -225,18 +307,27 @@ class TimingDiagram(QtWidgets.QWidget):
                     high = (sample % 2) == 0
                     middle = y + (4 if high else 18)
                     other = y + (18 if high else 4)
-                    painter.drawLine(QtCore.QPointF(x0, middle), QtCore.QPointF(x1, middle))
+                    painter.drawLine(
+                        QtCore.QPointF(x0, middle), QtCore.QPointF(x1, middle)
+                    )
                     if sample + 1 < samples:
-                        painter.drawLine(QtCore.QPointF(x1, middle), QtCore.QPointF(x1, other))
+                        painter.drawLine(
+                            QtCore.QPointF(x1, middle), QtCore.QPointF(x1, other)
+                        )
                 else:
                     value = (states[sample] >> bit) & 1
                     level = y + (4 if value else 18)
-                    painter.drawLine(QtCore.QPointF(x0, level), QtCore.QPointF(x1, level))
+                    painter.drawLine(
+                        QtCore.QPointF(x0, level), QtCore.QPointF(x1, level)
+                    )
                     if sample + 1 < samples:
                         next_value = (states[sample + 1] >> bit) & 1
                         if next_value != value:
                             next_level = y + (4 if next_value else 18)
-                            painter.drawLine(QtCore.QPointF(x1, level), QtCore.QPointF(x1, next_level))
+                            painter.drawLine(
+                                QtCore.QPointF(x1, level),
+                                QtCore.QPointF(x1, next_level),
+                            )
         painter.setPen(QtGui.QColor("#8795a9"))
         tick_step = max(1, samples // 12)
         for sample in range(0, samples, tick_step):

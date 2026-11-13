@@ -23,9 +23,9 @@
      <property name="leftMargin"><number>12</number></property><property name="topMargin"><number>10</number></property><property name="rightMargin"><number>12</number></property><property name="bottomMargin"><number>10</number></property>
      <item><layout class="QHBoxLayout" name="counterSettings">
       <item><widget class="QLabel" name="lblBits"><property name="text"><string>Bits</string></property></widget></item>
-      <item><widget class="QComboBox" name="comboBits"><property name="minimumWidth"><number>155</number></property><item><property name="text"><string>3 bits — módulo 8</string></property></item><item><property name="text"><string>4 bits — módulo 16</string></property></item></widget></item>
+      <item><widget class="QComboBox" name="comboBits"><property name="minimumWidth"><number>0</number></property><item><property name="text"><string>3 bits — módulo 8</string></property></item><item><property name="text"><string>4 bits — módulo 16</string></property></item></widget></item>
       <item><widget class="QLabel" name="lblDirection"><property name="text"><string>Contagem</string></property></widget></item>
-      <item><widget class="QComboBox" name="comboDirection"><property name="minimumWidth"><number>130</number></property><item><property name="text"><string>Crescente</string></property></item><item><property name="text"><string>Decrescente</string></property></item></widget></item>
+      <item><widget class="QComboBox" name="comboDirection"><property name="minimumWidth"><number>0</number></property><item><property name="text"><string>Crescente</string></property></item><item><property name="text"><string>Decrescente</string></property></item></widget></item>
       <item><spacer name="settingsSpacer"><property name="orientation"><enum>Qt::Horizontal</enum></property><property name="sizeHint" stdset="0"><size><width>30</width><height>20</height></size></property></spacer></item>
      </layout></item>
      <item><layout class="QHBoxLayout" name="counterActions">
@@ -36,8 +36,9 @@
     </layout>
    </widget></item>
    <item><widget class="QSplitter" name="counterSplitter">
-    <property name="orientation"><enum>Qt::Vertical</enum></property>
-    <widget class="QGraphicsView" name="flipFlopView"><property name="minimumSize"><size><width>0</width><height>270</height></size></property><property name="renderHints"><set>QPainter::Antialiasing</set></property></widget>
+    <property name="orientation"><enum>Qt::Horizontal</enum></property>
+    <property name="childrenCollapsible"><bool>false</bool></property>
+    <widget class="QGraphicsView" name="flipFlopView"><property name="minimumSize"><size><width>0</width><height>230</height></size></property><property name="renderHints"><set>QPainter::Antialiasing</set></property></widget>
     <widget class="QTabWidget" name="jkTablesTabs">
      <property name="minimumSize"><size><width>0</width><height>230</height></size></property>
      <widget class="QWidget" name="equationTab">

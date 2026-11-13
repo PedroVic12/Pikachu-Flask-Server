@@ -40,13 +40,22 @@ que recolhe em telas estreitas e dois espaços de trabalho:
   terminais para conectá-los. A chave manual preserva o estado entre as etapas:
   feche-a para carregar o capacitor/indutor e abra-a para acompanhar a descarga.
   O osciloscópio anima tensão e corrente. `R` gira itens e `F5` simula.
-- **Contador síncrono FF JK:** as abas separam o simulador, as portas
-  Schemdraw, tabelas-verdade, mapas de Karnaugh e diagrama de estados. Configure
-  as funções booleanas de cada entrada J/K para exemplos de 3 ou 4 bits; a
-  tabela enumera todos os estados e calcula Q(t+1) pela equação característica
-  do flip-flop JK. `Espaço` aplica uma borda de subida; o botão Reset é
-  assíncrono. O exemplo padrão de 3 bits implementa o contador síncrono
-  crescente: J0=K0=1, J1=K1=Q0 e J2=K2=Q1·Q0.
+- **Contador síncrono FF JK:** em telas largas, o canvas fica à esquerda e as
+  análises à direita; em telas estreitas, o divisor empilha as áreas. Escolha
+  3/4 bits e contagem crescente/decrescente para gerar as equações binárias, ou
+  edite J/K por flip-flop para montar outra máquina de estados. As abas mostram
+  portas Schemdraw, tabelas-verdade, mapas de Karnaugh, estados e formas de
+  onda. `Espaço` aplica uma borda de subida; o botão Reset é assíncrono. O
+  exemplo padrão de 3 bits usa J0=K0=1, J1=K1=Q0 e J2=K2=Q1·Q0.
+
+O contador mantém o flip-flop e o modelo de estado em
+`pages/jk_counter_model.py`, a análise booleana em
+`pages/sequential_logic.py`, os desenhos Schemdraw em
+`pages/sequential_schematics.py`, os componentes gráficos em
+`pages/sequential_views.py` e a integração da tela em
+`pages/jk_counter_page.py`. Os diagramas SVG são reutilizados por cache quando
+as expressões não mudam; os módulos de lógica e interface não importam o editor
+analógico.
 
 O circuito SPICE é construído como um objeto `PySpice.Spice.Netlist.Circuit`;
 o netlist gerado pode ser salvo ou aberto em outro simulador. A análise

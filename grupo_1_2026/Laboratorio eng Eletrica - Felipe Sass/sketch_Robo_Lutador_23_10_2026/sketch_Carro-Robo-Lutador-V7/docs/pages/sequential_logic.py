@@ -1,11 +1,6 @@
 import re
 from dataclasses import dataclass
 
-import schemdraw
-from schemdraw import logic
-from schemdraw.parsing import logicparse
-
-
 _TOKEN_PATTERN = re.compile(
     r"Q[0-3]|[01]|AND|NAND|OR|NOR|XOR|XNOR|NOT|[&∧+|∨^⊕⊻~!¬()]",
     re.IGNORECASE,
@@ -35,6 +30,14 @@ class SequentialTruthRow:
     next_state: int
 
 
+BooleanExpression = (
+    int
+    | str
+    | tuple[str, "BooleanExpression"]
+    | tuple[str, "BooleanExpression", "BooleanExpression"]
+)
+
+
 class _BooleanExpressionParser:
     def __init__(self, expression: str):
         self.expression = expression
@@ -52,7 +55,7 @@ class _BooleanExpressionParser:
             cursor = match.end()
         self.position = 0
 
-    def parse(self):
+    def parse(self) -> BooleanExpression:
         if not self.tokens:
             raise ValueError("A expressão booleana não pode estar vazia.")
         node = self._parse_or()
@@ -60,34 +63,34 @@ class _BooleanExpressionParser:
             raise ValueError(f"Expressão booleana inválida: {self.expression!r}.")
         return node
 
-    def _parse_or(self):
+    def _parse_or(self) -> BooleanExpression:
         node = self._parse_xor()
         while self._peek() in ("OR", "NOR"):
             operator = self._consume()
             node = (operator, node, self._parse_xor())
         return node
 
-    def _parse_xor(self):
+    def _parse_xor(self) -> BooleanExpression:
         node = self._parse_and()
         while self._peek() in ("XOR", "XNOR"):
             operator = self._consume()
             node = (operator, node, self._parse_and())
         return node
 
-    def _parse_and(self):
+    def _parse_and(self) -> BooleanExpression:
         node = self._parse_unary()
         while self._peek() in ("AND", "NAND"):
             operator = self._consume()
             node = (operator, node, self._parse_unary())
         return node
 
-    def _parse_unary(self):
+    def _parse_unary(self) -> BooleanExpression:
         if self._peek() == "NOT":
             self._consume()
             return ("NOT", self._parse_unary())
         return self._parse_primary()
 
-    def _parse_primary(self):
+    def _parse_primary(self) -> BooleanExpression:
         token = self._consume()
         if token == "(":
             node = self._parse_or()
@@ -131,16 +134,19 @@ def default_jk_expressions(bit_count: int, direction: str) -> dict[str, str]:
     return expressions
 
 
-def parse_boolean_expression(expression: str):
+def parse_boolean_expression(expression: str) -> BooleanExpression:
     return _BooleanExpressionParser(expression).parse()
 
 
-def _evaluate_node(node, values: dict[str, int]) -> bool:
+def _evaluate_node(
+    node: BooleanExpression,
+    values: dict[str, int],
+) -> bool:
     if isinstance(node, str):
         return bool(values[node])
     if isinstance(node, int):
         return bool(node)
-    if len(node) == 2:
+    if node[0] == "NOT":
         return not _evaluate_node(node[1], values)
     operator, left_node, right_node = node
     left = _evaluate_node(left_node, values)
@@ -155,7 +161,9 @@ def _evaluate_node(node, values: dict[str, int]) -> bool:
         return not (left or right)
     if operator == "XOR":
         return left != right
-    return left == right
+    if operator == "XNOR":
+        return left == right
+    raise RuntimeError(f"Operador lógico desconhecido: {operator}.")
 
 
 def analyze_sequential_circuit(
@@ -164,6 +172,11 @@ def analyze_sequential_circuit(
     if bit_count not in (3, 4):
         raise ValueError("O circuito deve ter 3 ou 4 bits.")
 
+    expected_inputs = {
+        f"{kind}{bit}" for bit in range(bit_count) for kind in ("J", "K")
+    }
+    if set(expressions) != expected_inputs:
+        raise ValueError("Informe exatamente uma expressão J e K para cada flip-flop.")
     parsed = {
         f"{kind}{bit}": parse_boolean_expression(expressions[f"{kind}{bit}"])
         for bit in range(bit_count)
@@ -175,9 +188,7 @@ def analyze_sequential_circuit(
         for node in expression_variables(expression)
     }
     unavailable = sorted(
-        variable
-        for variable in used_variables
-        if int(variable[1:]) >= bit_count
+        variable for variable in used_variables if int(variable[1:]) >= bit_count
     )
     if unavailable:
         raise ValueError(
@@ -189,12 +200,10 @@ def analyze_sequential_circuit(
         current_bits = tuple((state >> bit) & 1 for bit in range(bit_count))
         values = {f"Q{bit}": value for bit, value in enumerate(current_bits)}
         j_values = tuple(
-            int(_evaluate_node(parsed[f"J{bit}"], values))
-            for bit in range(bit_count)
+            int(_evaluate_node(parsed[f"J{bit}"], values)) for bit in range(bit_count)
         )
         k_values = tuple(
-            int(_evaluate_node(parsed[f"K{bit}"], values))
-            for bit in range(bit_count)
+            int(_evaluate_node(parsed[f"K{bit}"], values)) for bit in range(bit_count)
         )
         next_bits = tuple(
             int((j and not q) or (not k and q))
@@ -214,60 +223,9 @@ def analyze_sequential_circuit(
     return rows
 
 
-def expression_variables(node) -> set[str]:
+def expression_variables(node: BooleanExpression) -> set[str]:
     if isinstance(node, str):
         return {node}
     if isinstance(node, int):
         return set()
     return set().union(*(expression_variables(child) for child in node[1:]))
-
-
-def expression_for_logicparse(expression: str) -> str:
-    parsed = parse_boolean_expression(expression)
-
-    def render(node) -> str:
-        if isinstance(node, str):
-            return node
-        if isinstance(node, int):
-            return str(node)
-        if len(node) == 2:
-            return f"not ({render(node[1])})"
-        operator, left, right = node
-        if operator in ("NAND", "NOR", "XNOR"):
-            regular_operator = {"NAND": "and", "NOR": "or", "XNOR": "xor"}[operator]
-            return f"not (({render(left)}) {regular_operator} ({render(right)}))"
-        regular_operator = {"AND": "and", "OR": "or", "XOR": "xor"}[operator]
-        return f"({render(left)} {regular_operator} {render(right)})"
-
-    return render(parsed)
-
-
-def render_logic_expression_svg(expression: str, output_label: str) -> bytes:
-    parser_expression = expression_for_logicparse(expression)
-    if parser_expression in ("0", "1"):
-        parser_expression = (
-            "(Q0 and not Q0)" if parser_expression == "0" else "(Q0 or not Q0)"
-        )
-    drawing = logicparse(
-        parser_expression,
-        outlabel=output_label,
-        gateH=0.8,
-        gateW=1.1,
-    )
-    drawing.draw(show=False, canvas="svg")
-    return drawing.get_imagedata("svg")
-
-
-def render_schemdraw_table_svg(markdown_table: str, column_format: str) -> bytes:
-    drawing = schemdraw.Drawing(show=False, canvas="svg")
-    drawing += logic.Table(markdown_table, colfmt=column_format)
-    return drawing.get_imagedata("svg")
-
-
-def render_kmap_svg(
-    bit_count: int, truth_values: list[tuple[str, str]]
-) -> bytes:
-    names = "ABCD"[-bit_count:]
-    drawing = schemdraw.Drawing(show=False, canvas="svg")
-    drawing += logic.Kmap(names=names, truthtable=truth_values)
-    return drawing.get_imagedata("svg")

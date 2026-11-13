@@ -1,12 +1,14 @@
+from functools import lru_cache
+
 import schemdraw
 from schemdraw import logic
 from schemdraw.parsing import logicparse
 
 from pages.sequential_logic import (
+    BooleanExpression,
     SequentialTruthRow,
     parse_boolean_expression,
 )
-
 
 _LOGIC_OPERATORS = {
     "AND": "and",
@@ -16,13 +18,12 @@ _LOGIC_OPERATORS = {
     "XOR": "xor",
     "XNOR": "xnor",
 }
-_NEGATED_OPERATORS = {"NAND": "and", "NOR": "or", "XNOR": "xor"}
 
 
 def _schemdraw_expression(expression: str) -> str:
     tree = parse_boolean_expression(expression)
 
-    def render(node) -> str:
+    def render(node: BooleanExpression) -> str:
         if isinstance(node, str):
             return node
         if isinstance(node, int):
@@ -30,13 +31,12 @@ def _schemdraw_expression(expression: str) -> str:
         if len(node) == 2:
             return f"not ({render(node[1])})"
         operator, left, right = node
-        if operator in ("NAND", "NOR", "XNOR"):
-            return f"not (({render(left)}) {_NEGATED_OPERATORS[operator]} ({render(right)}))"
         return f"({render(left)} {_LOGIC_OPERATORS[operator]} {render(right)})"
 
     return render(tree)
 
 
+@lru_cache(maxsize=64)
 def render_logic_svg(expression: str, output_label: str) -> bytes:
     parser_expression = _schemdraw_expression(expression)
     if parser_expression in ("0", "1"):
@@ -53,6 +53,7 @@ def render_logic_svg(expression: str, output_label: str) -> bytes:
     return drawing.get_imagedata("svg")
 
 
+@lru_cache(maxsize=16)
 def render_table_svg(markdown_table: str, column_format: str) -> bytes:
     drawing = schemdraw.Drawing(show=False, canvas="svg")
     drawing += logic.Table(markdown_table, colfmt=column_format)
@@ -64,12 +65,30 @@ def render_kmap_svg(
     truth_values: list[tuple[str, str]],
     groups: dict[str, dict[str, str]] | None = None,
 ) -> bytes:
+    return _render_kmap_svg(
+        bit_count,
+        tuple(truth_values),
+        tuple(
+            sorted(
+                (key, tuple(sorted(value.items())))
+                for key, value in (groups or {}).items()
+            )
+        ),
+    )
+
+
+@lru_cache(maxsize=64)
+def _render_kmap_svg(
+    bit_count: int,
+    truth_values: tuple[tuple[str, str], ...],
+    groups: tuple[tuple[str, tuple[tuple[str, str], ...]], ...],
+) -> bytes:
     names = "DCBA"[-bit_count:]
     drawing = schemdraw.Drawing(show=False, canvas="svg")
     drawing += logic.Kmap(
         names=names,
         truthtable=truth_values,
-        groups=groups or {},
+        groups={key: dict(style) for key, style in groups},
     )
     return drawing.get_imagedata("svg")
 
