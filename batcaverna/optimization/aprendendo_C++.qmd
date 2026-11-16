@@ -26,8 +26,21 @@
 
 ```cpp
 
+#include <iostream>
+
+int main(){
+    std::cout << " Eu amo a Vivi Gomes S2"; << std:endl;
+    std:: << "Eu amo fazer dates com pizza com ela"; << std:endl;
+    return 0
+}
 
 ```
+
+## Tipos de Variáveis
+
+- Como melhorar o desempenho de memoria?
+- Tem como armazenar em cache?
+
 
 ---
 
