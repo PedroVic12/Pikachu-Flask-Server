@@ -1,6 +1,7 @@
 
 # Anotações sobre C++ do livro (C++ How to Program, 8th Edition) de Deitel & Deitel
 
+## Sunmário
 
 - Olá mundo
 - variáveis
@@ -10,6 +11,25 @@
 - Gerenciamento de memorias
 - POO
 
+## Por que aprender C++?
+
+- Middle Level of Human Language
+- Low level with Memoria RAM
+- Hardware
+- Qt6 aplications
+- Codigo compilado com gcc no linux
+- sudo pacman -S --needed base-level mingw-w64-x86_64-toolchain
+
+## C++ tutorial for Beginners
+
+### Hello World
+
+```cpp
+
+
+```
+
+---
 
 
 ## Introdução a Classes, Objetos e Strings - pag 103
