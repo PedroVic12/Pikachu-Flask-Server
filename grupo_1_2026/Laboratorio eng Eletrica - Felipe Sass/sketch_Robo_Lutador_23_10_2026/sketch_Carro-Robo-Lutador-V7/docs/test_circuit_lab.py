@@ -1,4 +1,5 @@
 import math
+import shutil
 import sys
 from pathlib import Path
 
@@ -7,7 +8,17 @@ import pytest
 
 sys.path.insert(0, str(Path(__file__).parent))
 
-from circuit_lab import JKCounter, simulate_series_circuit
+from circuit_lab import (
+    JKCounter,
+    SeriesCircuitConfig,
+    analyze_combinational_circuit,
+    draw_karnaugh_map,
+    draw_logic_circuit,
+    draw_series_circuit,
+    simulate_config,
+    simulate_series_circuit,
+    symbolic_transfer_function,
+)
 
 
 def closest(result, time):
@@ -33,9 +44,7 @@ def test_rc_step_matches_analytic_charge_and_discharge():
     assert result.capacitor_voltage[at_switch] == pytest.approx(
         expected_charge, rel=2e-5
     )
-    assert result.capacitor_voltage[-1] == pytest.approx(
-        expected_discharge, rel=2e-5
-    )
+    assert result.capacitor_voltage[-1] == pytest.approx(expected_discharge, rel=2e-5)
     assert result.source_voltage[at_switch] == 0
     assert result.capacitor_energy[-1] < result.capacitor_energy[at_switch]
 
@@ -84,9 +93,7 @@ def test_rlc_results_are_finite_and_satisfy_kirchhoffs_voltage_law():
         )
     )
     total_voltage = (
-        result.resistor_voltage
-        + result.inductor_voltage
-        + result.capacitor_voltage
+        result.resistor_voltage + result.inductor_voltage + result.capacitor_voltage
     )
     np.testing.assert_allclose(total_voltage, result.source_voltage, atol=1e-9)
 
@@ -153,3 +160,67 @@ def test_circuit_inputs_are_validated(kwargs):
     circuit = defaults.pop("circuit")
     with pytest.raises(ValueError):
         simulate_series_circuit(circuit, **defaults)
+
+
+def test_configured_circuit_runs_and_exposes_symbolic_transfer_function():
+    config = SeriesCircuitConfig(
+        circuit="RC",
+        resistance=1000,
+        capacitance=100e-6,
+        duration=0.2,
+        samples=301,
+    )
+    result = simulate_config(config, backend="scipy")
+    symbolic = symbolic_transfer_function(config)
+
+    assert result.time[-1] == pytest.approx(config.duration)
+    assert result.capacitor_voltage[-1] == pytest.approx(
+        5 * (1 - math.exp(-2)), rel=2e-5
+    )
+    assert str(symbolic) == "1/(C*R*s + 1)"
+    assert draw_series_circuit(config).startswith(b"<svg")
+
+
+def test_combinational_truth_table_simplification_and_karnaugh_diagrams():
+    analysis = analyze_combinational_circuit(
+        ("A", "B"),
+        {"Y": "A XOR B"},
+    )
+
+    assert [row.outputs for row in analysis.truth_table] == [(0,), (1,), (1,), (0,)]
+    function = analysis.functions[0]
+    assert function.minterms == (1, 2)
+    assert function.karnaugh_map.values == ((0, 1), (1, 0))
+    assert draw_logic_circuit(analysis, "Y").startswith(b"<svg")
+    assert draw_karnaugh_map(analysis, "Y").startswith(b"<svg")
+
+
+def test_combinational_parser_rejects_code_and_unknown_inputs():
+    with pytest.raises(ValueError):
+        analyze_combinational_circuit(
+            ("A",),
+            {"Y": "__import__('os').system('echo unsafe')"},
+        )
+    with pytest.raises(ValueError, match="Unknown input"):
+        analyze_combinational_circuit(("A",), {"Y": "B"})
+
+
+@pytest.mark.skipif(
+    shutil.which("ngspice") is None, reason="NgSpice executable unavailable"
+)
+def test_pyspice_backend_runs_transient_simulation():
+    config = SeriesCircuitConfig(
+        circuit="RC",
+        resistance=1000,
+        capacitance=100e-6,
+        duration=0.2,
+        samples=301,
+    )
+
+    result = simulate_config(config)
+
+    assert result.time[-1] == pytest.approx(config.duration)
+    assert np.isfinite(result.capacitor_voltage).all()
+    assert result.capacitor_voltage[-1] == pytest.approx(
+        5 * (1 - math.exp(-2)), rel=0.03
+    )

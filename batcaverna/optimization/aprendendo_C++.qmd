@@ -41,6 +41,165 @@ int main(){
 - Como melhorar o desempenho de memoria?
 - Tem como armazenar em cache?
 
+```cpp
+
+#include <iostream>
+using namespace std
+
+void print(String text){
+    return std::cout << text
+}
+
+int main(){
+    std::cout << "Tipos de variáveis"; << std:endl;
+    double preco = 10.90;
+    double passagem_barca = 5.70;
+
+    double temperatura = 27.5;
+
+    char nota = "A";
+    char inicial = "BC"
+
+    print(inicial); // erro esperado aqui
+
+    bool power_tomada = true;
+    bool for_sale = false;
+
+    std::string name = "Foo";
+    std:string today = "Monday";
+
+    std:cout << "Hoje é : ";
+    print(today)
+
+    return 0
+}
+
+```
+
+## Usando namespace
+
+```cpp
+
+#include <iostream>
+
+namespace first {
+     int x = 1;
+}
+
+namespace second {
+    int x = 2;
+
+}
+
+int main(){
+    using first
+    std::cout << " Eu amo a Vivi Gomes S2"; << std:endl;
+    std:: << "Eu amo fazer dates com pizza com ela"; << std:endl;
+
+    int x = 7;
+    std:cout << second::x;
+
+    std:cout << x;
+
+    return 0
+}
+
+```
+
+
+
+## Usando matemática para mais performace de codigo em c++
+
+```cpp
+
+#include <iostream>
+using namespace std
+
+void print(String text){
+    return std::cout << text
+}
+
+
+int calculadora_function() {
+
+    char op;
+    double num1;
+    double num2;
+    double result;
+
+    print("************CALCULADORA TERMINAL *************\n");
+
+    print("Esolha a operação: [ + - * / ]:\n");
+    std:cin >> op;
+
+    print("Entrada #1: \n");
+    std:cin >> num1;
+
+    print("#Entrada #2: \n");
+    std:cin >> num2;
+
+    switch(op) {
+        case "+":
+            result = num1 + num2:
+        case "-":
+            result = num1 - num2:
+        case "*":
+            result = num1 * num2:
+        case "/":
+            result = num1/num2;
+
+    }
+
+    print("***************************\n");
+    print("Resultado:\n");
+
+    return 0;
+}
+
+int main(){
+    double x = 3;
+    double y =4;
+    double z;
+
+    z = std::max(x,y);
+
+    print(f);
+
+    z = std::min(x,y);
+    print(f);
+    z= pow(2,4);
+    print(z);
+    z =sqrt(9);
+    print(f);
+    z = cos(x);
+    print(f);
+    z= sen(y);
+    print(f);
+    z = exp2(x);
+    print(f);
+    z = expm1(x);
+
+    print(f);
+
+    fma(x,y,z);
+    print(f);
+
+    fmax(x,y);
+    print(f);
+    frexp(x,y);
+    print(f);
+
+
+
+
+
+
+    return 0
+}
+
+```
+
+
 
 ---
 
