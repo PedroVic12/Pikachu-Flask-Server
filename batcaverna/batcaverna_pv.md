@@ -2,18 +2,19 @@
 
 ---
 
-📅 Data: *12/11/2026** - *Quinta Feira*
+📅 Data: *16/11/2026** - *Quinta Feira*
 
 *Segunda Feira* = Root Chakra + Academia
 
 - [x] treinamentos
 - [x] Meta de estudos uff
-- [ ] Meta de programação github - 40h
+- [x] Meta de programação github - 40h
 - [x] Beber dois litros de agua
 - [ ] Meditação e Santo terço do dia
+- [x] Terapia da Vivi
+
 
 *Terça Feira* = Throat Chakra + Circuitos CC e CD + Terapia
-*Segunda Feira* = Root Chakra + Academia
 
 - [x] treinamentos
 - [x] Meta de estudos uff
@@ -24,17 +25,17 @@
 *Quarta Feira* = Heart Chakra + Homeoffice + Artigo TCC
 
 - [ ] treinamentos
-- [x] Meta de estudos uff
-- [x] Meta de programação github - 40h
-- [x] Beber dois litros de agua
+- [ ] Meta de estudos uff
+- [ ] Meta de programação github - 40h
+- [ ] Beber dois litros de agua
 - [ ] Meditação e Santo terço do dia
 
 *Quinta Feira* = Third Eye Chakra + Circuitos CC e CD + Karate
 
 - [ ] treinamentos
-- [x] Meta de estudos uff
+- [ ] Meta de estudos uff
 - [ ] Meta de programação github - 40h
-- [x] Beber dois litros de agua
+- [ ] Beber dois litros de agua
 - [ ] Meditação e Santo terço do dia
 
 *Sexta Feira* = Solar Chakra + Dia de Oxalá + Dia que Jesus Cristo sacrificou sua vida
@@ -47,7 +48,18 @@
 
 *Sabado* = Folga + Rotina + Futebol + Jogos
 
+- [ ] Coding
+- [ ] Scrum Planner 
+- [ ] Games 
+
+
 *Domingo* = Dia de Missa e Familia
+
+- [ ] Família 
+
+- [ ] Niterói 
+
+- [ ] Fluminense 
 
 ---
 
@@ -65,6 +77,7 @@
 ### Trabalho 2023-2024: Estagio: Camorim Serviços Marítimos de Engenharia Elétrica
 
 - Uso de Visão computacional com Python para manipulação e extração de informações em Documentos PDF e notas fiscais de compras com OCR e Regex.
+
 - Automações e Análise de dados com Python.
 - Desenvolvimentos de Web Apps para gestão e manutenção usando Flutter e IA generativa
 - Planos de manutenção Corretiva, Preventiva e Diagnóstica
