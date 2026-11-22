@@ -1297,3 +1297,35 @@ flowchart TD
 ```
 
 O botao de pausa (`READY_CODE`) e usado durante a operacao. O botao de inicio (`START_CODE`) retoma uma pausa. A parada definitiva (`STOP_CODE`) para os motores e mantem o programa bloqueado ate reiniciar o Arduino.
+
+
+## 3) CONCLUSÕES
+
+É a síntese de toda a reflexão, a superação dos conflitos conceituais e das contradições detectadas durante a análise do problema.
+É opcional apresentar os desdobramentos relativos à importância, síntese, projeção, repercussão, encaminhamento e outros.
+
+REFERÊNCIAS BIBLIOGRÁFICAS
+
+Para fins de referenciação bibliográfica, entende-se por documento considerado no todo a integralidade da obra, ou seja, do livro, tese, dissertação, TCC, etc.
+
+Corresponde a uma lista alfabeticamente ordenada de documentos citados no texto.
+
+a)LIVRO:
+
+Último SOBRENOME, Prenome e demais Sobrenomes do(s) autor(es). Título: subtítulo. Número da edição, a partir da segunda. Local de publicação: Editora, ano de publicação. Número total de páginas ou, quando mais de um, número de volumes. (Coleção e/ou Série).
+
+Exemplo – Entrada por pessoa física:
+
+MÁTTAR NETO, João Augusto. Metodologia científica na era da informática. São Paulo: Saraiva, 2002. 261 p.
+
+Exemplo – Por até três autores:
+
+CERVO, Amado Luiz; BERVIAN, Pedro Aleixo. Metodologia científica: para uso dos estudantes universitários. 5. ed. São Paulo: Prentice Hall, 2002. 242 p.
+
+Exemplo – Por mais de três autores:
+
+FRANÇA, Junia Lessa et al. Manual para normalização de publicações técnico-científicas. 5. ed. rev. Belo Horizonte: Ed. UFMG, 2001. 211 p. (Coleção Aprender).
+
+Exemplo – Entrada por pessoa jurídica:
+
+UNIVERSIDADE DE SÃO PAULO. Serviço de Documentação Odontológica. S.D.O.: serviços prestados aos usuários. São Paulo, 1993. 13 p.
