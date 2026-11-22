@@ -58,7 +58,7 @@ REFERÊNCIAS BIBLIOGRÁFICAS 7
 APÊNDICE A – Título do apêndice A 11
 ANEXO A – Título do anexo A 12
 
-1INTRODUÇÃO
+1) INTRODUÇÃO
 
 Tem o objetivo de situar o leitor no estado da questão, colocá-lo a par da relevância do problema e do método de abordagem.
 
@@ -70,7 +70,7 @@ ESTRUTURA DO TRABALHO
 
 Destacar como o trabalho foi desenvolvido, indicando as divisões realizadas e a abordagem que cada capítulo apresenta.
 
-2DESENVOLVIMENTO
+2) DESENVOLVIMENTO
 
 O desenvolvimento tem por finalidade expor e demonstrar, é a fundamentação lógica do trabalho. Propõe o que vai provar, em seguida explica, discute e demonstra, as proposições se sucedem dentro de um encadeamento que persegue a etapa final, a conclusão.
 O desenvolvimento divide-se em seções e subseções que variam em função da abordagem do tema e do método.
@@ -136,7 +136,7 @@ Para facilitar a leitura, devem ser destacadas no texto. Exemplo: [...] conforme
 P= P0∗ VV02 (1)
 Q=Qo∗VVo2 (2)
 
-3CONCLUSÕES
+3) CONCLUSÕES
 
 É a síntese de toda a reflexão, a superação dos conflitos conceituais e das contradições detectadas durante a análise do problema.
 É opcional apresentar os desdobramentos relativos à importância, síntese, projeção, repercussão, encaminhamento e outros.

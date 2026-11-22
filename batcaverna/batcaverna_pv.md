@@ -2,7 +2,7 @@
 
 ---
 
-📅 Data: *16/11/2026** - *Quinta Feira*
+📅 Data: *23/11/2026** - *Segunda Feira*
 
 *Segunda Feira* = Root Chakra + Academia
 

@@ -1,13 +1,70 @@
 ---
 title: "Laboratório de Eng. Elétrica"
 author: "Grupo 1"
-date: 2026-11-17
+date: 2026-11-2s7
 format:
   html:
     toc: true
     theme: dark
     code-fold: true
 ---
+
+Pag 1 - CAPA
+Pag 2 - ContraCapa
+Pag 3 - Nome de colaboradores
+Pag 4 - RESUMO
+
+## RESUMO
+
+Está documentação descreve o projeto de um Carro Robô desenvolvido em C++ usando Arduino Nano com sensores para lutar dentro de uma arena de Sumô. O genero de trabalho é de engenheria elétrica aplicada a Computação usando conceitos básicos de Eletrônica e Programação em desafios até ter o projeto final. Neste documento é utilizado figuras, exemplos de código e fluxogramas.
+
+Palavras-Chave: Engenharia, Programação, Carros Autonomo
+
+
+## LISTA DE FIGURAS
+
+Observação: a Lista de Figuras deve ser aplicada nos casos em que existam Figuras no desenvolvimento do TCC, caso contrário, esta parte deve ser retirada.
+
+Figura 1 – Descrição da Figura 1. 4
+
+## LISTA DE TABELAS
+
+Observação: a Lista de Tabelas deve ser aplicada nos casos em que existam Tabelas no desenvolvimento do TCC, caso contrário, esta parte deve ser retirada.
+
+Tabela 1 – Descrição da Tabela 1. 4
+
+
+## SUMÁRIO
+
+1 INTRODUÇÃO 1
+1.1 OBJETIVOS 1
+1.2 ESTRUTURA DO TRABALHO 1
+2 DESENVOLVIMENTO 2
+2.1 EXEMPLOS 2
+2.1.1 EXEMPLO DE CITAÇÕES 2
+2.1.2 EXEMPLO DE FIGURA E TABELA 4
+2.1.3 EXEMPLO DE EQUAÇÕES E FÓRMULAS 4
+3 CONCLUSÕES 6
+REFERÊNCIAS BIBLIOGRÁFICAS 7
+APÊNDICE A – Título do apêndice A 11
+ANEXO A – Título do anexo A 12
+
+## 1) INTRODUÇÃO
+
+Tem o objetivo de situar o leitor no estado da questão, colocá-lo a par da relevância do problema e do método de abordagem.
+
+## OBJETIVOS
+
+Destacar os objetivos que são abordados no TCC.
+
+## ESTRUTURA DO TRABALHO
+
+Destacar como o trabalho foi desenvolvido, indicando as divisões realizadas e a abordagem que cada capítulo apresenta.
+
+## 2) DESENVOLVIMENTO
+
+O desenvolvimento tem por finalidade expor e demonstrar, é a fundamentação lógica do trabalho. Propõe o que vai provar, em seguida explica, discute e demonstra, as proposições se sucedem dentro de um encadeamento que persegue a etapa final, a conclusão.
+O desenvolvimento divide-se em seções e subseções que variam em função da abordagem do tema e do método.
 
 # Fase 0: Conceitos básicos e Fundamentos
 
