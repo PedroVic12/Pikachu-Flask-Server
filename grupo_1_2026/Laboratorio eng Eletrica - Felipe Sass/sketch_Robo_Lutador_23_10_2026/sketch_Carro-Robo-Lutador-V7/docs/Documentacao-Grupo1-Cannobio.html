@@ -1,0 +1,1968 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.11.9">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Grupo 1">
+
+<title>Laboratório de Eng. Elétrica</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="Documentacao-Grupo1-Cannobio_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Documentacao-Grupo1-Cannobio_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="Documentacao-Grupo1-Cannobio_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="Documentacao-Grupo1-Cannobio_files/libs/quarto-html/scrollable-regions/scrollable-regions.js" type="module"></script>
+<script src="Documentacao-Grupo1-Cannobio_files/libs/quarto-html/popper.min.js"></script>
+<script src="Documentacao-Grupo1-Cannobio_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Documentacao-Grupo1-Cannobio_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Documentacao-Grupo1-Cannobio_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Documentacao-Grupo1-Cannobio_files/libs/quarto-html/quarto-syntax-highlighting-63b5708e65d6cd79cd7618c58d0c21e7.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Documentacao-Grupo1-Cannobio_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Documentacao-Grupo1-Cannobio_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Documentacao-Grupo1-Cannobio_files/libs/bootstrap/bootstrap-943e08653f4bd8ac7ab9292bfc489267.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="quarto-light"><a id="quarto-skip-link" class="visually-hidden-focusable" href="#quarto-document-content">Skip to main content</a>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" aria-labelledby="toc-title" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#resumo" id="toc-resumo" class="nav-link active" data-scroll-target="#resumo">RESUMO</a></li>
+  <li><a href="#lista-de-figuras" id="toc-lista-de-figuras" class="nav-link" data-scroll-target="#lista-de-figuras">LISTA DE FIGURAS</a></li>
+  <li><a href="#lista-de-tabelas" id="toc-lista-de-tabelas" class="nav-link" data-scroll-target="#lista-de-tabelas">LISTA DE TABELAS</a></li>
+  <li><a href="#sumário" id="toc-sumário" class="nav-link" data-scroll-target="#sumário">SUMÁRIO</a></li>
+  <li><a href="#introdução" id="toc-introdução" class="nav-link" data-scroll-target="#introdução">1) INTRODUÇÃO</a></li>
+  <li><a href="#objetivos" id="toc-objetivos" class="nav-link" data-scroll-target="#objetivos">OBJETIVOS</a></li>
+  <li><a href="#estrutura-do-trabalho" id="toc-estrutura-do-trabalho" class="nav-link" data-scroll-target="#estrutura-do-trabalho">ESTRUTURA DO TRABALHO</a></li>
+  <li><a href="#desenvolvimento" id="toc-desenvolvimento" class="nav-link" data-scroll-target="#desenvolvimento">2) DESENVOLVIMENTO</a></li>
+  <li><a href="#fase-0-conceitos-básicos-e-fundamentos" id="toc-fase-0-conceitos-básicos-e-fundamentos" class="nav-link" data-scroll-target="#fase-0-conceitos-básicos-e-fundamentos">Fase 0: Conceitos básicos e Fundamentos</a></li>
+  <li><a href="#fase-1-introdução-à-robótica-e-programação-em-c" id="toc-fase-1-introdução-à-robótica-e-programação-em-c" class="nav-link" data-scroll-target="#fase-1-introdução-à-robótica-e-programação-em-c">Fase 1: Introdução à Robótica e programação em C++</a>
+  <ul class="collapse">
+  <li><a href="#componentes-que-serão-utilizados" id="toc-componentes-que-serão-utilizados" class="nav-link" data-scroll-target="#componentes-que-serão-utilizados">Componentes que serão utilizados</a></li>
+  </ul></li>
+  <li><a href="#arquitetura-geral" id="toc-arquitetura-geral" class="nav-link" data-scroll-target="#arquitetura-geral">Arquitetura geral</a>
+  <ul class="collapse">
+  <li><a href="#arduino-nano-l298n" id="toc-arduino-nano-l298n" class="nav-link" data-scroll-target="#arduino-nano-l298n">2. Arduino Nano → L298N</a>
+  <ul class="collapse">
+  <li><a href="#motores" id="toc-motores" class="nav-link" data-scroll-target="#motores">Motores</a></li>
+  </ul></li>
+  <li><a href="#alimentação-do-arduino-nano" id="toc-alimentação-do-arduino-nano" class="nav-link" data-scroll-target="#alimentação-do-arduino-nano">3. Alimentação do Arduino Nano</a></li>
+  </ul></li>
+  <li><a href="#missões-27-08-2026" id="toc-missões-27-08-2026" class="nav-link" data-scroll-target="#missões-27-08-2026">Missões (27-08-2026)</a>
+  <ul class="collapse">
+  <li><a href="#gravação-de-código---ok" id="toc-gravação-de-código---ok" class="nav-link" data-scroll-target="#gravação-de-código---ok">1 Gravação de Código - OK</a>
+  <ul class="collapse">
+  <li><a href="#obs-1-programação-em-c" id="toc-obs-1-programação-em-c" class="nav-link" data-scroll-target="#obs-1-programação-em-c">OBS 1: Programação em C++</a></li>
+  <li><a href="#obs-2-programação-orientada-a-objetos" id="toc-obs-2-programação-orientada-a-objetos" class="nav-link" data-scroll-target="#obs-2-programação-orientada-a-objetos">OBS 2: Programação Orientada a objetos</a></li>
+  </ul></li>
+  <li><a href="#x-2-comunicação-serial" id="toc-x-2-comunicação-serial" class="nav-link" data-scroll-target="#x-2-comunicação-serial">- [x] 2 Comunicação Serial</a>
+  <ul class="collapse">
+  <li><a href="#obs-comunicação-python-e-julia-e-python-e-arduino" id="toc-obs-comunicação-python-e-julia-e-python-e-arduino" class="nav-link" data-scroll-target="#obs-comunicação-python-e-julia-e-python-e-arduino">OBS: Comunicação Python e Julia e Python e Arduino</a></li>
+  </ul></li>
+  <li><a href="#x-3-sensor-ultrassônico" id="toc-x-3-sensor-ultrassônico" class="nav-link" data-scroll-target="#x-3-sensor-ultrassônico">- [x] 3 Sensor Ultrassônico</a>
+  <ul class="collapse">
+  <li><a href="#forma-procedural" id="toc-forma-procedural" class="nav-link" data-scroll-target="#forma-procedural">Forma procedural</a></li>
+  </ul></li>
+  <li><a href="#x-4-driver-e-motores" id="toc-x-4-driver-e-motores" class="nav-link" data-scroll-target="#x-4-driver-e-motores">- [x] 4 Driver e Motores</a></li>
+  </ul></li>
+  <li><a href="#missões-testes-de-batalaha-e-algoritimos-com-funções-funcioaniss" id="toc-missões-testes-de-batalaha-e-algoritimos-com-funções-funcioaniss" class="nav-link" data-scroll-target="#missões-testes-de-batalaha-e-algoritimos-com-funções-funcioaniss">Missões, Testes de batalaha e algoritimos com funções funcioaniss</a>
+  <ul class="collapse">
+  <li><a href="#x-desafio-1-modo-radar" id="toc-x-desafio-1-modo-radar" class="nav-link" data-scroll-target="#x-desafio-1-modo-radar">- [x] DESAFIO 1 (Modo Radar)</a></li>
+  <li><a href="#x-6-sensor-de-refletância" id="toc-x-6-sensor-de-refletância" class="nav-link" data-scroll-target="#x-6-sensor-de-refletância">- [x] 6 Sensor de Refletância</a></li>
+  <li><a href="#x-7-desafio-2-vai-e-volta-11092026" id="toc-x-7-desafio-2-vai-e-volta-11092026" class="nav-link" data-scroll-target="#x-7-desafio-2-vai-e-volta-11092026">- [x] 7 DESAFIO 2 (Vai e Volta) 11/09/2026</a></li>
+  <li><a href="#x-8-controle-remoto" id="toc-x-8-controle-remoto" class="nav-link" data-scroll-target="#x-8-controle-remoto">- [x] 8 Controle Remoto</a></li>
+  <li><a href="#x-9-desafio-3-robo-sumô-básico" id="toc-x-9-desafio-3-robo-sumô-básico" class="nav-link" data-scroll-target="#x-9-desafio-3-robo-sumô-básico">- [x] 9 DESAFIO 3 (Robo Sumô Básico)</a></li>
+  <li><a href="#x-10-sensores-laterais" id="toc-x-10-sensores-laterais" class="nav-link" data-scroll-target="#x-10-sensores-laterais">- [x] 10 Sensores Laterais</a></li>
+  <li><a href="#x-estratégias-no-controle-remoto-para-o-robo-sumô-básico" id="toc-x-estratégias-no-controle-remoto-para-o-robo-sumô-básico" class="nav-link" data-scroll-target="#x-estratégias-no-controle-remoto-para-o-robo-sumô-básico">-[x] Estratégias no controle remoto para o Robo Sumô Básico</a></li>
+  <li><a href="#x-simulação-de-combate-em-lua-ou-em-html-com-threejs" id="toc-x-simulação-de-combate-em-lua-ou-em-html-com-threejs" class="nav-link" data-scroll-target="#x-simulação-de-combate-em-lua-ou-em-html-com-threejs">-[x] Simulação de combate em Lua ou em HTML com ThreeJS</a></li>
+  <li><a href="#x-fluxogramas-modelagem-de-dados-snippet-de-código-prontos-de-exemplos" id="toc-x-fluxogramas-modelagem-de-dados-snippet-de-código-prontos-de-exemplos" class="nav-link" data-scroll-target="#x-fluxogramas-modelagem-de-dados-snippet-de-código-prontos-de-exemplos">-[x] Fluxogramas + Modelagem de Dados + Snippet de Código prontos de exemplos</a></li>
+  </ul></li>
+  <li><a href="#documentacao-grupo-1" id="toc-documentacao-grupo-1" class="nav-link" data-scroll-target="#documentacao-grupo-1">Documentacao Grupo 1</a>
+  <ul class="collapse">
+  <li><a href="#modelo-dos-sketches" id="toc-modelo-dos-sketches" class="nav-link" data-scroll-target="#modelo-dos-sketches">Modelo dos sketches</a>
+  <ul class="collapse">
+  <li><a href="#sketch_carro-robo-lutador-v7.ino" id="toc-sketch_carro-robo-lutador-v7.ino" class="nav-link" data-scroll-target="#sketch_carro-robo-lutador-v7.ino"><code>sketch_Carro-Robo-Lutador-V7.ino</code></a></li>
+  <li><a href="#estrutura-1" id="toc-estrutura-1" class="nav-link" data-scroll-target="#estrutura-1">Estrutura</a></li>
+  <li><a href="#sketch_23-10-2026_grupo1.ino" id="toc-sketch_23-10-2026_grupo1.ino" class="nav-link" data-scroll-target="#sketch_23-10-2026_grupo1.ino"><code>sketch_23-10-2026_grupo1.ino</code></a></li>
+  </ul></li>
+  <li><a href="#componentes-auxiliares" id="toc-componentes-auxiliares" class="nav-link" data-scroll-target="#componentes-auxiliares">Componentes auxiliares</a>
+  <ul class="collapse">
+  <li><a href="#logger.h" id="toc-logger.h" class="nav-link" data-scroll-target="#logger.h"><code>Logger.h</code></a></li>
+  <li><a href="#headers.h" id="toc-headers.h" class="nav-link" data-scroll-target="#headers.h"><code>headers.h</code></a></li>
+  <li><a href="#headers.cpp" id="toc-headers.cpp" class="nav-link" data-scroll-target="#headers.cpp"><code>headers.cpp</code></a></li>
+  </ul></li>
+  <li><a href="#diferencas-entre-os-sketches" id="toc-diferencas-entre-os-sketches" class="nav-link" data-scroll-target="#diferencas-entre-os-sketches">Diferencas entre os sketches</a></li>
+  <li><a href="#como-as-funcoes-dos-sketches-trabalham" id="toc-como-as-funcoes-dos-sketches-trabalham" class="nav-link" data-scroll-target="#como-as-funcoes-dos-sketches-trabalham">Como as funcoes dos sketches trabalham</a>
+  <ul class="collapse">
+  <li><a href="#pinos-e-sensores-usados-pelos-sketches" id="toc-pinos-e-sensores-usados-pelos-sketches" class="nav-link" data-scroll-target="#pinos-e-sensores-usados-pelos-sketches">Pinos e sensores usados pelos sketches</a></li>
+  <li><a href="#comandos-do-controle" id="toc-comandos-do-controle" class="nav-link" data-scroll-target="#comandos-do-controle">Comandos do controle</a></li>
+  </ul></li>
+  <li><a href="#sequencia-de-inicializacao-comum" id="toc-sequencia-de-inicializacao-comum" class="nav-link" data-scroll-target="#sequencia-de-inicializacao-comum">Sequencia de inicializacao comum</a></li>
+  <li><a href="#conclusões" id="toc-conclusões" class="nav-link" data-scroll-target="#conclusões">3) CONCLUSÕES</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content" tabindex="-1">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Laboratório de Eng. Elétrica</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Grupo 1 </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">Invalid Date</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Pag 1 - CAPA Pag 2 - ContraCapa Pag 3 - Nome de colaboradores Pag 4 - RESUMO</p>
+<section id="resumo" class="level2">
+<h2 class="anchored" data-anchor-id="resumo">RESUMO</h2>
+<p>Está documentação descreve o projeto de um Carro Robô desenvolvido em C++ usando Arduino Nano com sensores para lutar dentro de uma arena de Sumô. O genero de trabalho é de engenheria elétrica aplicada a Computação usando conceitos básicos de Eletrônica e Programação em desafios até ter o projeto final. Neste documento é utilizado figuras, exemplos de código e fluxogramas.</p>
+<p>Palavras-Chave: Engenharia, Programação, Carros Autonomo</p>
+</section>
+<section id="lista-de-figuras" class="level2">
+<h2 class="anchored" data-anchor-id="lista-de-figuras">LISTA DE FIGURAS</h2>
+<p>Observação: a Lista de Figuras deve ser aplicada nos casos em que existam Figuras no desenvolvimento do TCC, caso contrário, esta parte deve ser retirada.</p>
+<p>Figura 1 – Descrição da Figura 1. 4</p>
+</section>
+<section id="lista-de-tabelas" class="level2">
+<h2 class="anchored" data-anchor-id="lista-de-tabelas">LISTA DE TABELAS</h2>
+<p>Observação: a Lista de Tabelas deve ser aplicada nos casos em que existam Tabelas no desenvolvimento do TCC, caso contrário, esta parte deve ser retirada.</p>
+<p>Tabela 1 – Descrição da Tabela 1. 4</p>
+</section>
+<section id="sumário" class="level2">
+<h2 class="anchored" data-anchor-id="sumário">SUMÁRIO</h2>
+<p>1 INTRODUÇÃO 1 1.1 OBJETIVOS 1 1.2 ESTRUTURA DO TRABALHO 1 2 DESENVOLVIMENTO 2 2.1 EXEMPLOS 2 2.1.1 EXEMPLO DE CITAÇÕES 2 2.1.2 EXEMPLO DE FIGURA E TABELA 4 2.1.3 EXEMPLO DE EQUAÇÕES E FÓRMULAS 4 3 CONCLUSÕES 6 REFERÊNCIAS BIBLIOGRÁFICAS 7 APÊNDICE A – Título do apêndice A 11 ANEXO A – Título do anexo A 12</p>
+</section>
+<section id="introdução" class="level2">
+<h2 class="anchored" data-anchor-id="introdução">1) INTRODUÇÃO</h2>
+<p>Tem o objetivo de situar o leitor no estado da questão, colocá-lo a par da relevância do problema e do método de abordagem.</p>
+</section>
+<section id="objetivos" class="level2">
+<h2 class="anchored" data-anchor-id="objetivos">OBJETIVOS</h2>
+<p>Destacar os objetivos que são abordados no TCC.</p>
+</section>
+<section id="estrutura-do-trabalho" class="level2">
+<h2 class="anchored" data-anchor-id="estrutura-do-trabalho">ESTRUTURA DO TRABALHO</h2>
+<p>Destacar como o trabalho foi desenvolvido, indicando as divisões realizadas e a abordagem que cada capítulo apresenta.</p>
+</section>
+<section id="desenvolvimento" class="level2">
+<h2 class="anchored" data-anchor-id="desenvolvimento">2) DESENVOLVIMENTO</h2>
+<p>O desenvolvimento tem por finalidade expor e demonstrar, é a fundamentação lógica do trabalho. Propõe o que vai provar, em seguida explica, discute e demonstra, as proposições se sucedem dentro de um encadeamento que persegue a etapa final, a conclusão. O desenvolvimento divide-se em seções e subseções que variam em função da abordagem do tema e do método.</p>
+</section>
+<section id="fase-0-conceitos-básicos-e-fundamentos" class="level1">
+<h1>Fase 0: Conceitos básicos e Fundamentos</h1>
+<ul class="task-list">
+<li><label><input type="checkbox" checked="">Introdução</label></li>
+<li><label><input type="checkbox" checked="">Circuito LED com bateria de 5v</label></li>
+<li><label><input type="checkbox" checked="">Circuito Blink (Hello World no Arduino IDE)</label></li>
+<li><label><input type="checkbox" checked="">Semáforo</label></li>
+<li><label><input type="checkbox" checked="">Comunicação Serial</label></li>
+<li><label><input type="checkbox" checked="">Conversão “A/D”</label></li>
+<li><label><input type="checkbox" checked="">PWM-Pulse Width Modulation</label></li>
+<li><label><input type="checkbox" checked="">Botão Interruptor (Pull Up e Pull Down)</label></li>
+<li><label><input type="checkbox" checked="">LED RGB</label></li>
+</ul>
+</section>
+<section id="fase-1-introdução-à-robótica-e-programação-em-c" class="level1">
+<h1>Fase 1: Introdução à Robótica e programação em C++</h1>
+<section id="componentes-que-serão-utilizados" class="level3">
+<h3 class="anchored" data-anchor-id="componentes-que-serão-utilizados">Componentes que serão utilizados</h3>
+<ul>
+<li>Arduino Nano</li>
+<li>Placa de Expansão para Arduino Nano</li>
+<li>Sensor Ultrassônico - HC-SR04</li>
+<li>Sensor de Refletância QRE - Analógico</li>
+<li>Módulo Receptor Infravermelho IR VS1838B KY-022</li>
+<li>Motor DC 3-6V com Caixa de Redução de Aço</li>
+<li>Mini Ponte H Dupla L298N</li>
+<li>Pack de 2 Baterias (2S) Li-Ion 18650 7,4 com Placa BMS.</li>
+</ul>
+<blockquote class="blockquote">
+<p><strong>IMPORTANTE</strong>: Mencionem a função do BMS. VL53L0X Sensor de Distância Laser.</p>
+</blockquote>
+</section>
+</section>
+<section id="arquitetura-geral" class="level1">
+<h1>Arquitetura geral</h1>
+<pre class="text"><code>                 PACK 2S Li-Ion
+                   7,4 V nominal
+                       │
+                 ┌─────┴─────┐
+                 │           │
+                 ▼           ▼
+             L298N        Buck 5 V
+           alimentação      │
+             motores        │
+                 │          ▼
+              Motores     Arduino Nano
+                             │
+                ┌─────────────┼─────────────┐
+                │             │             │
+                ▼             ▼             ▼
+             HC-SR04        QRE          KY-022
+           ultrassônico    reflexão       IR</code></pre>
+<p>Todos os GND precisam estar em comum.</p>
+<hr>
+<section id="arduino-nano-l298n" class="level2">
+<h2 class="anchored" data-anchor-id="arduino-nano-l298n">2. Arduino Nano → L298N</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Arduino Nano</th>
+<th>L298N</th>
+<th>Função</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>D5</td>
+<td>ENA</td>
+<td>PWM Motor A</td>
+</tr>
+<tr class="even">
+<td>D7</td>
+<td>IN1</td>
+<td>Direção A</td>
+</tr>
+<tr class="odd">
+<td>D8</td>
+<td>IN2</td>
+<td>Direção A</td>
+</tr>
+<tr class="even">
+<td>D6</td>
+<td>ENB</td>
+<td>PWM Motor B</td>
+</tr>
+<tr class="odd">
+<td>D9</td>
+<td>IN3</td>
+<td>Direção B</td>
+</tr>
+<tr class="even">
+<td>D10</td>
+<td>IN4</td>
+<td>Direção B</td>
+</tr>
+<tr class="odd">
+<td>GND</td>
+<td>GND</td>
+<td>Ground</td>
+</tr>
+</tbody>
+</table>
+<section id="motores" class="level3">
+<h3 class="anchored" data-anchor-id="motores">Motores</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>L298N</th>
+<th>Motor</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>OUT1</td>
+<td>Motor A fio 1</td>
+</tr>
+<tr class="even">
+<td>OUT2</td>
+<td>Motor A fio 2</td>
+</tr>
+<tr class="odd">
+<td>OUT3</td>
+<td>Motor B fio 1</td>
+</tr>
+<tr class="even">
+<td>OUT4</td>
+<td>Motor B fio 2</td>
+</tr>
+</tbody>
+</table>
+<p>Se um motor estiver girando invertido, inverta a polaridade dos fios daquele motor.</p>
+<hr>
+</section>
+</section>
+<section id="alimentação-do-arduino-nano" class="level2">
+<h2 class="anchored" data-anchor-id="alimentação-do-arduino-nano">3. Alimentação do Arduino Nano</h2>
+<pre class="text"><code>Bateria 7,4 V ──► Buck 5 V ──┬──► Nano 5V
+                             └──► Sensores 5V</code></pre>
+<p>Entrada e Saída:</p>
+<pre class="text"><code>Buck 5V  ─────► Nano 5V
+Buck GND ─────► Nano GND</code></pre>
+<p>E o GND continua comum ao aterramento:</p>
+<pre class="text"><code>Nano GND ──┬── L298N GND
+           ├── HC-SR04 GND
+           ├── QRE GND
+           └── KY-022 GND</code></pre>
+<p>Os sinais PWM e sensores têm a mesma referência elétrica.</p>
+<hr>
+</section>
+</section>
+<section id="missões-27-08-2026" class="level1">
+<h1>Missões (27-08-2026)</h1>
+<section id="gravação-de-código---ok" class="level2">
+<h2 class="anchored" data-anchor-id="gravação-de-código---ok">1 Gravação de Código - OK</h2>
+<p>Procurem o exemplo Blink, disponível na IDE do Arduino, e façam a gravação do código no Arduino Nano.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">// The setup function runs once when you press reset or power the board</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> setup<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Initialize digital pin LED_BUILTIN as an output.</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  pinMode<span class="op">(</span>LED_BUILTIN<span class="op">,</span> OUTPUT<span class="op">);</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">// The loop function runs over and over again forever</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  digitalWrite<span class="op">(</span>LED_BUILTIN<span class="op">,</span> HIGH<span class="op">);</span> <span class="co">// Change state of the LED by setting the pin to the HIGH voltage level</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  delay<span class="op">(</span><span class="dv">1000</span><span class="op">);</span>                      <span class="co">// Wait for a second</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  digitalWrite<span class="op">(</span>LED_BUILTIN<span class="op">,</span> LOW<span class="op">);</span>  <span class="co">// Change state of the LED by setting the pin to the LOW voltage level</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  delay<span class="op">(</span><span class="dv">1000</span><span class="op">);</span>                      <span class="co">// Wait for a second</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="obs-1-programação-em-c" class="level3">
+<h3 class="anchored" data-anchor-id="obs-1-programação-em-c">OBS 1: Programação em C++</h3>
+</section>
+<section id="obs-2-programação-orientada-a-objetos" class="level3">
+<h3 class="anchored" data-anchor-id="obs-2-programação-orientada-a-objetos">OBS 2: Programação Orientada a objetos</h3>
+<hr>
+</section>
+</section>
+<section id="x-2-comunicação-serial" class="level2">
+<h2 class="anchored" data-anchor-id="x-2-comunicação-serial">- [x] 2 Comunicação Serial</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> setup<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>begin<span class="op">(</span><span class="dv">9600</span><span class="op">);</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>println<span class="op">(</span><span class="st">"Hello world!"</span><span class="op">);</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  delay<span class="op">(</span><span class="dv">1000</span><span class="op">);</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="obs-comunicação-python-e-julia-e-python-e-arduino" class="level3">
+<h3 class="anchored" data-anchor-id="obs-comunicação-python-e-julia-e-python-e-arduino">OBS: Comunicação Python e Julia e Python e Arduino</h3>
+</section>
+</section>
+<section id="x-3-sensor-ultrassônico" class="level2">
+<h2 class="anchored" data-anchor-id="x-3-sensor-ultrassônico">- [x] 3 Sensor Ultrassônico</h2>
+<p>Façam um código que envie pelo terminal serial a distância lida pelo sensor ultrassônico a cada 1s. Mostrem para um professor que conseguiram cumprir a missão e expliquem o funcionamento do código.</p>
+<section id="forma-procedural" class="level3">
+<h3 class="anchored" data-anchor-id="forma-procedural">Forma procedural</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#define trig </span><span class="dv">2</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#define echo </span><span class="dv">3</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> setup<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>begin<span class="op">(</span><span class="dv">9600</span><span class="op">);</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Configurando os pinos digitais</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  pinMode<span class="op">(</span>trig<span class="op">,</span> OUTPUT<span class="op">);</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  pinMode<span class="op">(</span>echo<span class="op">,</span> INPUT<span class="op">);</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  <span class="dt">long</span> duracao<span class="op">;</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  <span class="dt">float</span> distancia<span class="op">;</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Gerando o pulso da Onda Digital do sensor ultrassônico</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>  digitalWrite<span class="op">(</span>trig<span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>  delayMicroseconds<span class="op">(</span><span class="dv">2</span><span class="op">);</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>  digitalWrite<span class="op">(</span>trig<span class="op">,</span> HIGH<span class="op">);</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>  delayMicroseconds<span class="op">(</span><span class="dv">10</span><span class="op">);</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>  digitalWrite<span class="op">(</span>trig<span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Medindo o tempo de retorno</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>  duracao <span class="op">=</span> pulseIn<span class="op">(</span>echo<span class="op">,</span> HIGH<span class="op">);</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Calcula a distância em cm</span></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>  <span class="dt">float</span> vel_som <span class="op">=</span> <span class="fl">0.0343</span><span class="op">;</span></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>  distancia <span class="op">=</span> duracao <span class="op">*</span> vel_som <span class="op">/</span> <span class="dv">2</span><span class="op">;</span></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>print<span class="op">(</span><span class="st">"Distancia: "</span><span class="op">);</span></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>print<span class="op">(</span>distancia<span class="op">);</span></span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>println<span class="op">(</span><span class="st">" cm"</span><span class="op">);</span></span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>  delay<span class="op">(</span><span class="dv">1000</span><span class="op">);</span></span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+</section>
+<section id="x-4-driver-e-motores" class="level2">
+<h2 class="anchored" data-anchor-id="x-4-driver-e-motores">- [x] 4 Driver e Motores</h2>
+<p><img src="images/paste-2.png" class="img-fluid"></p>
+<p>código que controle o funcionamento dos motores</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/paste-1.png" class="img-fluid figure-img"></p>
+<figcaption>Fluxograma Motor</figcaption>
+</figure>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">// variáveis</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#define trig </span><span class="dv">10</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#define echo </span><span class="dv">9</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> setup<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>begin<span class="op">(</span><span class="dv">9600</span><span class="op">);</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Configurando os pinos digitais</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  pinMode<span class="op">(</span>trig<span class="op">,</span> OUTPUT<span class="op">);</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  pinMode<span class="op">(</span>echo<span class="op">,</span> INPUT<span class="op">);</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> configSensorUltraSonico<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>  <span class="dt">long</span> duracao<span class="op">;</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>  <span class="dt">float</span> distancia<span class="op">;</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Gerando o pulso da Onda Digital do sensor ultrasonico </span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>  digitalWrite<span class="op">(</span>trig<span class="op">,</span> HIGH<span class="op">);</span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>  delayMicroseconds<span class="op">(</span><span class="dv">10</span><span class="op">);</span></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>  digitalWrite<span class="op">(</span>trig<span class="op">,</span>LOW<span class="op">);</span></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>  <span class="co">// medindo o tempo de retorno</span></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>  duracao <span class="op">=</span> pulseIn<span class="op">(</span>echo<span class="op">,</span> HIGH<span class="op">);</span> </span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>  <span class="co">// calcula a distancia em cm</span></span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>  <span class="dt">float</span> vel_som <span class="op">=</span> <span class="fl">0.0343</span><span class="op">;</span></span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>  distancia <span class="op">=</span> duracao <span class="op">*</span> vel_som <span class="op">/</span> <span class="dv">2</span><span class="op">;</span></span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="op">(</span>distancia <span class="op">&lt;=</span> <span class="dv">20</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>    Serial<span class="op">.</span>println<span class="op">(</span><span class="st">"</span><span class="sc">\n\n</span><span class="st">PERIGO!"</span><span class="op">);</span></span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span> </span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>print<span class="op">(</span><span class="st">"</span><span class="sc">\n</span><span class="st">Distancia: "</span><span class="op">);</span></span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>print<span class="op">(</span>distancia<span class="op">);</span></span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>print<span class="op">(</span><span class="st">" [cm]"</span><span class="op">);</span></span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a>  delay<span class="op">(</span><span class="dv">1000</span><span class="op">);</span></span>
+<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a><span class="co">/*</span></span>
+<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a><span class="co"> * Arduino Nano + L298N</span></span>
+<span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a><span class="co"> * 2 motores DC</span></span>
+<span id="cb8-46"><a href="#cb8-46" aria-hidden="true" tabindex="-1"></a><span class="co"> */</span></span>
+<span id="cb8-47"><a href="#cb8-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-48"><a href="#cb8-48" aria-hidden="true" tabindex="-1"></a><span class="co">// Motor esquerdo</span></span>
+<span id="cb8-49"><a href="#cb8-49" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">int</span> IN1_MOTOR_ESQUERDO <span class="op">=</span> <span class="dv">10</span><span class="op">;</span></span>
+<span id="cb8-50"><a href="#cb8-50" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">int</span> IN2_MOTOR_ESQUERDO <span class="op">=</span> <span class="dv">9</span><span class="op">;</span></span>
+<span id="cb8-51"><a href="#cb8-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-52"><a href="#cb8-52" aria-hidden="true" tabindex="-1"></a><span class="co">// Motor direito</span></span>
+<span id="cb8-53"><a href="#cb8-53" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">int</span> IN3_MOTOR_DIREITO <span class="op">=</span> <span class="dv">6</span><span class="op">;</span></span>
+<span id="cb8-54"><a href="#cb8-54" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">int</span> IN4_MOTOR_DIREITO <span class="op">=</span> <span class="dv">5</span><span class="op">;</span></span>
+<span id="cb8-55"><a href="#cb8-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-56"><a href="#cb8-56" aria-hidden="true" tabindex="-1"></a><span class="co">// Variáveis e Configurações</span></span>
+<span id="cb8-57"><a href="#cb8-57" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">int</span> PWM_max <span class="op">=</span> <span class="dv">255</span><span class="op">;</span></span>
+<span id="cb8-58"><a href="#cb8-58" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">int</span> PWM_50 <span class="op">=</span> <span class="dv">128</span><span class="op">;</span></span>
+<span id="cb8-59"><a href="#cb8-59" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">unsigned</span> <span class="dt">long</span> TEMPO_ESPERA <span class="op">=</span> <span class="dv">5000</span><span class="op">;</span> <span class="co">// 5 segundos</span></span>
+<span id="cb8-60"><a href="#cb8-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-61"><a href="#cb8-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-62"><a href="#cb8-62" aria-hidden="true" tabindex="-1"></a><span class="co">// ======================================================</span></span>
+<span id="cb8-63"><a href="#cb8-63" aria-hidden="true" tabindex="-1"></a><span class="co">// MOTOR ESQUERDO E DIREITO - FRENTE</span></span>
+<span id="cb8-64"><a href="#cb8-64" aria-hidden="true" tabindex="-1"></a><span class="co">// ======================================================</span></span>
+<span id="cb8-65"><a href="#cb8-65" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> moverFrente<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb8-66"><a href="#cb8-66" aria-hidden="true" tabindex="-1"></a>  digitalWrite<span class="op">(</span>IN1_MOTOR_ESQUERDO<span class="op">,</span> HIGH<span class="op">);</span></span>
+<span id="cb8-67"><a href="#cb8-67" aria-hidden="true" tabindex="-1"></a>  digitalWrite<span class="op">(</span>IN2_MOTOR_ESQUERDO<span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb8-68"><a href="#cb8-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-69"><a href="#cb8-69" aria-hidden="true" tabindex="-1"></a>  digitalWrite<span class="op">(</span>IN3_MOTOR_DIREITO<span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb8-70"><a href="#cb8-70" aria-hidden="true" tabindex="-1"></a>  digitalWrite<span class="op">(</span>IN4_MOTOR_DIREITO<span class="op">,</span> HIGH<span class="op">);</span></span>
+<span id="cb8-71"><a href="#cb8-71" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb8-72"><a href="#cb8-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-73"><a href="#cb8-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-74"><a href="#cb8-74" aria-hidden="true" tabindex="-1"></a><span class="co">// MOTORES - RÉ</span></span>
+<span id="cb8-75"><a href="#cb8-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-76"><a href="#cb8-76" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> moverRe<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb8-77"><a href="#cb8-77" aria-hidden="true" tabindex="-1"></a>  digitalWrite<span class="op">(</span>IN1_MOTOR_ESQUERDO<span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb8-78"><a href="#cb8-78" aria-hidden="true" tabindex="-1"></a>  digitalWrite<span class="op">(</span>IN2_MOTOR_ESQUERDO<span class="op">,</span> HIGH<span class="op">);</span></span>
+<span id="cb8-79"><a href="#cb8-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-80"><a href="#cb8-80" aria-hidden="true" tabindex="-1"></a>  digitalWrite<span class="op">(</span>IN3_MOTOR_DIREITO<span class="op">,</span> HIGH<span class="op">);</span></span>
+<span id="cb8-81"><a href="#cb8-81" aria-hidden="true" tabindex="-1"></a>  digitalWrite<span class="op">(</span>IN4_MOTOR_DIREITO<span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb8-82"><a href="#cb8-82" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb8-83"><a href="#cb8-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-84"><a href="#cb8-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-85"><a href="#cb8-85" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> pararMotores<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb8-86"><a href="#cb8-86" aria-hidden="true" tabindex="-1"></a>  digitalWrite<span class="op">(</span>IN1_MOTOR_ESQUERDO<span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb8-87"><a href="#cb8-87" aria-hidden="true" tabindex="-1"></a>  digitalWrite<span class="op">(</span>IN2_MOTOR_ESQUERDO<span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb8-88"><a href="#cb8-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-89"><a href="#cb8-89" aria-hidden="true" tabindex="-1"></a>  digitalWrite<span class="op">(</span>IN3_MOTOR_DIREITO<span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb8-90"><a href="#cb8-90" aria-hidden="true" tabindex="-1"></a>  digitalWrite<span class="op">(</span>IN4_MOTOR_DIREITO<span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb8-91"><a href="#cb8-91" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb8-92"><a href="#cb8-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-93"><a href="#cb8-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-94"><a href="#cb8-94" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> girarSentidoHorario<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb8-95"><a href="#cb8-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-96"><a href="#cb8-96" aria-hidden="true" tabindex="-1"></a>  <span class="co">//const int valor = 255 / 2; // entrada analogica variando entre 0 e 255</span></span>
+<span id="cb8-97"><a href="#cb8-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-98"><a href="#cb8-98" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Motor esquerdo → frente</span></span>
+<span id="cb8-99"><a href="#cb8-99" aria-hidden="true" tabindex="-1"></a>  analogWrite<span class="op">(</span>IN1_MOTOR_ESQUERDO<span class="op">,</span> <span class="dv">0</span><span class="op">);</span></span>
+<span id="cb8-100"><a href="#cb8-100" aria-hidden="true" tabindex="-1"></a>  analogWrite<span class="op">(</span>IN2_MOTOR_ESQUERDO<span class="op">,</span> <span class="dv">128</span><span class="op">);</span></span>
+<span id="cb8-101"><a href="#cb8-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-102"><a href="#cb8-102" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Motor direito → ré</span></span>
+<span id="cb8-103"><a href="#cb8-103" aria-hidden="true" tabindex="-1"></a>  analogWrite<span class="op">(</span>IN3_MOTOR_DIREITO<span class="op">,</span> <span class="dv">0</span><span class="op">);</span></span>
+<span id="cb8-104"><a href="#cb8-104" aria-hidden="true" tabindex="-1"></a>  analogWrite<span class="op">(</span>IN4_MOTOR_DIREITO<span class="op">,</span> <span class="dv">128</span><span class="op">);</span></span>
+<span id="cb8-105"><a href="#cb8-105" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb8-106"><a href="#cb8-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-107"><a href="#cb8-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-108"><a href="#cb8-108" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> setup<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb8-109"><a href="#cb8-109" aria-hidden="true" tabindex="-1"></a>  pinMode<span class="op">(</span>IN1_MOTOR_ESQUERDO<span class="op">,</span> OUTPUT<span class="op">);</span></span>
+<span id="cb8-110"><a href="#cb8-110" aria-hidden="true" tabindex="-1"></a>  pinMode<span class="op">(</span>IN2_MOTOR_ESQUERDO<span class="op">,</span> OUTPUT<span class="op">);</span></span>
+<span id="cb8-111"><a href="#cb8-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-112"><a href="#cb8-112" aria-hidden="true" tabindex="-1"></a>  pinMode<span class="op">(</span>IN3_MOTOR_DIREITO<span class="op">,</span> OUTPUT<span class="op">);</span></span>
+<span id="cb8-113"><a href="#cb8-113" aria-hidden="true" tabindex="-1"></a>  pinMode<span class="op">(</span>IN4_MOTOR_DIREITO<span class="op">,</span> OUTPUT<span class="op">);</span></span>
+<span id="cb8-114"><a href="#cb8-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-115"><a href="#cb8-115" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Começa parado</span></span>
+<span id="cb8-116"><a href="#cb8-116" aria-hidden="true" tabindex="-1"></a>  pararMotores<span class="op">();</span></span>
+<span id="cb8-117"><a href="#cb8-117" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb8-118"><a href="#cb8-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-119"><a href="#cb8-119" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb8-120"><a href="#cb8-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-121"><a href="#cb8-121" aria-hidden="true" tabindex="-1"></a>  <span class="co">// 1. ANDAR PARA FRENTE - POTÊNCIA MÁXIMA</span></span>
+<span id="cb8-122"><a href="#cb8-122" aria-hidden="true" tabindex="-1"></a>  moverFrente<span class="op">(</span>PWM_max<span class="op">);</span></span>
+<span id="cb8-123"><a href="#cb8-123" aria-hidden="true" tabindex="-1"></a>  delay<span class="op">(</span>TEMPO_ESPERA<span class="op">);</span></span>
+<span id="cb8-124"><a href="#cb8-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-125"><a href="#cb8-125" aria-hidden="true" tabindex="-1"></a>  <span class="co">// 2. Parar e esperar 5 segundos</span></span>
+<span id="cb8-126"><a href="#cb8-126" aria-hidden="true" tabindex="-1"></a>  pararMotores<span class="op">();</span></span>
+<span id="cb8-127"><a href="#cb8-127" aria-hidden="true" tabindex="-1"></a>  delay<span class="op">(</span>TEMPO_ESPERA<span class="op">);</span></span>
+<span id="cb8-128"><a href="#cb8-128" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-129"><a href="#cb8-129" aria-hidden="true" tabindex="-1"></a>  <span class="co">// 3. RÉ - POTÊNCIA MÁXIMA</span></span>
+<span id="cb8-130"><a href="#cb8-130" aria-hidden="true" tabindex="-1"></a>  moverRe<span class="op">(</span>PWM_max<span class="op">);</span></span>
+<span id="cb8-131"><a href="#cb8-131" aria-hidden="true" tabindex="-1"></a>  delay<span class="op">(</span>TEMPO_ESPERA<span class="op">);</span></span>
+<span id="cb8-132"><a href="#cb8-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-133"><a href="#cb8-133" aria-hidden="true" tabindex="-1"></a>  <span class="co">// 4. Parar e esperar 5 segundos</span></span>
+<span id="cb8-134"><a href="#cb8-134" aria-hidden="true" tabindex="-1"></a>  pararMotores<span class="op">();</span></span>
+<span id="cb8-135"><a href="#cb8-135" aria-hidden="true" tabindex="-1"></a>  delay<span class="op">(</span>TEMPO_ESPERA<span class="op">);</span></span>
+<span id="cb8-136"><a href="#cb8-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-137"><a href="#cb8-137" aria-hidden="true" tabindex="-1"></a>  <span class="co">// 5. GIRAR NO SENTIDO HORÁRIO (PWM = 50%)</span></span>
+<span id="cb8-138"><a href="#cb8-138" aria-hidden="true" tabindex="-1"></a>  girarSentidoHorario<span class="op">(</span>PWM_50<span class="op">);</span></span>
+<span id="cb8-139"><a href="#cb8-139" aria-hidden="true" tabindex="-1"></a>  delay<span class="op">(</span>TEMPO_ESPERA<span class="op">);</span></span>
+<span id="cb8-140"><a href="#cb8-140" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+<hr>
+</section>
+</section>
+<section id="missões-testes-de-batalaha-e-algoritimos-com-funções-funcioaniss" class="level1">
+<h1>Missões, Testes de batalaha e algoritimos com funções funcioaniss</h1>
+<section id="x-desafio-1-modo-radar" class="level2">
+<h2 class="anchored" data-anchor-id="x-desafio-1-modo-radar">- [x] DESAFIO 1 (Modo Radar)</h2>
+<p><img src="images/paste-3.png" class="img-fluid"></p>
+<hr>
+</section>
+<section id="x-6-sensor-de-refletância" class="level2">
+<h2 class="anchored" data-anchor-id="x-6-sensor-de-refletância">- [x] 6 Sensor de Refletância</h2>
+<section id="código-que-interprete-o-sinal-de-saída-do-sensor-de-refletância-indicando-quanto-o-robô-está-na-parte-preta-da-arena-e-quando-o-mesmo-se-encontra-em-cima-da-borda-branca.-envie-o-resultado-da-conversão-ad-número-de-0-à-1023-e-o-resultado-da-análise-preto-ou-branco-pela-porta-serial-atualizando-a-informação-a-cada-1s.-exemplo-fictício-do-texto-a-ser-enviado-pelo-terminal-serial-512-preto." class="level4">
+<h4 class="anchored" data-anchor-id="código-que-interprete-o-sinal-de-saída-do-sensor-de-refletância-indicando-quanto-o-robô-está-na-parte-preta-da-arena-e-quando-o-mesmo-se-encontra-em-cima-da-borda-branca.-envie-o-resultado-da-conversão-ad-número-de-0-à-1023-e-o-resultado-da-análise-preto-ou-branco-pela-porta-serial-atualizando-a-informação-a-cada-1s.-exemplo-fictício-do-texto-a-ser-enviado-pelo-terminal-serial-512-preto.">Código que interprete o sinal de saída do sensor de refletância, indicando quanto o robô está na parte preta da arena e quando o mesmo se encontra em cima da borda branca. Envie o resultado da conversão AD (número de 0 à 1023) e o resultado da análise (PRETO ou BRANCO) pela porta serial, atualizando a informação a cada 1s. Exemplo fictício do texto a ser enviado pelo terminal serial: “512 / PRETO”.</h4>
+<pre class="{cpp}"><code>
+// PINOS DO SENSOR
+#define SENSOR A0
+
+// Limite para diferenciar preto e branco
+#define LIMITE 512
+
+// MOTOR ESQUERDO
+#define ENA 5
+#define IN1 7
+#define IN2 8
+
+// MOTOR DIREITO
+#define ENB 6
+#define IN3 9
+#define IN4 10
+
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(SENSOR, INPUT);
+  pinMode(ENA, OUTPUT);
+  pinMode(IN1, OUTPUT);
+  pinMode(IN2, OUTPUT);
+  pinMode(ENB, OUTPUT);
+  pinMode(IN3, OUTPUT);
+  pinMode(IN4, OUTPUT);
+}
+
+// CONTROLE DOS MOTORES
+void parar() {
+  analogWrite(ENA, 0);
+  analogWrite(ENB, 0);
+}
+
+void andarFrente(int velocidade) {
+  digitalWrite(IN1, HIGH);
+  digitalWrite(IN2, LOW);
+  digitalWrite(IN3, HIGH);
+  digitalWrite(IN4, LOW);
+  analogWrite(ENA, velocidade);
+  analogWrite(ENB, velocidade);
+}
+void andarTras(int velocidade) {
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, HIGH);
+  digitalWrite(IN3, LOW);
+  digitalWrite(IN4, HIGH);
+  analogWrite(ENA, velocidade);
+  analogWrite(ENB, velocidade);
+}
+void girar180() {
+  // Um motor para frente e o outro para trás
+  digitalWrite(IN1, HIGH);
+  digitalWrite(IN2, LOW);
+  digitalWrite(IN3, LOW);
+  digitalWrite(IN4, HIGH);
+  analogWrite(ENA, 255);
+  analogWrite(ENB, 255);
+
+  // Ajustar esse tempo de acordo com o robô
+  delay(700);
+  parar();
+}
+
+
+void loop() {
+  // 1. Andar para trás de 10 a 20 cm
+  andarTras(180);
+  
+  // Ajustar o tempo conforme a velocidade do robô
+  delay(800);
+  parar();
+  delay(200);
+  
+  // 2. Ler o sensor de refletância
+  int valorAD = analogRead(SENSOR);
+  Serial.print(valorAD);
+  Serial.print(" / ");
+  
+  // 3. Verificar se está na borda branca
+  if (valorAD &gt;= LIMITE) {
+    Serial.println("BRANCO");
+    // 4. Se estiver no branco, girar aproximadamente 180°
+    girar180();
+  } 
+  
+  else {
+    Serial.println("PRETO");
+    
+    // 5. Se estiver no preto, andar para frente
+    andarFrente(255);
+    // Continua andando para frente
+    delay(1000);
+    parar();
+  }
+}
+</code></pre>
+<hr>
+</section>
+</section>
+<section id="x-7-desafio-2-vai-e-volta-11092026" class="level2">
+<h2 class="anchored" data-anchor-id="x-7-desafio-2-vai-e-volta-11092026">- [x] 7 DESAFIO 2 (Vai e Volta) 11/09/2026</h2>
+<p><img src="images/paste-4.png" class="img-fluid"></p>
+<p>/<em> </em> INÍCIO * -&gt; Configuração Inicial * -&gt; Interpretar sinal do sensor de reflectância * -&gt; O robô está na borda branca? * SIM -&gt; Andar para trás (10 a 20 cm) -&gt; Girar ~180° -&gt; volta a interpretar o sensor * NÃO -&gt; Andar para frente com potência máxima -&gt; volta a interpretar o sensor */</p>
+<p>// —————- Pinos —————-</p>
+<p>// Sensor de refletância (detecta a borda branca do ringue) #define SENSOR_LINHA A0</p>
+<p>// Motor esquerdo const int IN1_MOTOR_ESQUERDO = 10; const int IN2_MOTOR_ESQUERDO = 9;</p>
+<p>// Motor direito const int IN3_MOTOR_DIREITO = 6; const int IN4_MOTOR_DIREITO = 5;</p>
+<p>// —————- Configurações —————-</p>
+<p>const int PWM_MAX = 255; // potência máxima (frente) const int PWM_RE = 180; // potência da ré const int PWM_GIRO = 180; // potência do giro</p>
+<p>// Tempos (ms) usados para estimar deslocamento/ângulo, já que não há encoder. // Calibrar na prática de acordo com o robô real. const unsigned long TEMPO_RE = 400; // tempo para andar de ~10 a 20 cm para trás const unsigned long TEMPO_GIRO = 650; // tempo para girar ~180°</p>
+<p>// Sensor de refletância: calibrar LIMIAR conforme leitura real de PRETO x BRANCO const int LIMIAR = 700;</p>
+<p>int valorAD; bool naBordaBranca;</p>
+<p>// ====================================================== // LEITURA DO SENSOR DE REFLETÂNCIA // Atualiza valorAD e naBordaBranca, e envia pela Serial: // “valorAD / PRETO” ou “valorAD / BRANCO” // ====================================================== void lerSensorLinha() { valorAD = analogRead(SENSOR_LINHA);</p>
+<p>// ajuste o sinal “&gt;” ou “&lt;” conforme a calibração do seu sensor naBordaBranca = (valorAD &lt;= LIMIAR); // BRANCO = borda do ringue</p>
+<p>Serial.print(valorAD); Serial.print(” / “); Serial.println(naBordaBranca ?”BRANCO” : “PRETO”); }</p>
+<p>// ====================================================== // ANDAR PARA FRENTE COM POTÊNCIA MÁXIMA // ====================================================== void andarFrenteMaxima() { analogWrite(IN1_MOTOR_ESQUERDO, PWM_MAX); analogWrite(IN2_MOTOR_ESQUERDO, 0);</p>
+<p>analogWrite(IN3_MOTOR_DIREITO, 0); analogWrite(IN4_MOTOR_DIREITO, PWM_MAX); }</p>
+<p>// ====================================================== // ANDAR PARA TRÁS (de 10 cm a 20 cm) // ====================================================== void andarParaTras() { analogWrite(IN1_MOTOR_ESQUERDO, 0); analogWrite(IN2_MOTOR_ESQUERDO, PWM_RE);</p>
+<p>analogWrite(IN3_MOTOR_DIREITO, PWM_RE); analogWrite(IN4_MOTOR_DIREITO, 0);</p>
+<p>delay(TEMPO_RE); //pararMotores(); }</p>
+<p>// ====================================================== // GIRAR ≈ 180° // ====================================================== void girar180() { // Motor esquerdo -&gt; frente analogWrite(IN1_MOTOR_ESQUERDO, PWM_GIRO); analogWrite(IN2_MOTOR_ESQUERDO, 0);</p>
+<p>// Motor direito -&gt; ré (giro no próprio eixo) analogWrite(IN3_MOTOR_DIREITO, PWM_GIRO); analogWrite(IN4_MOTOR_DIREITO, 0);</p>
+<p>delay(TEMPO_GIRO); //pararMotores(); }</p>
+<p>void setup() { Serial.begin(9600);</p>
+<p>pinMode(SENSOR_LINHA, INPUT);</p>
+<p>pinMode(IN1_MOTOR_ESQUERDO, OUTPUT); pinMode(IN2_MOTOR_ESQUERDO, OUTPUT); pinMode(IN3_MOTOR_DIREITO, OUTPUT); pinMode(IN4_MOTOR_DIREITO, OUTPUT);</p>
+<p>// Configuração Inicial: começa parado //pararMotores(); }</p>
+<p>void loop() { // ———- Interpretar o sinal de saída do sensor de reflectância ———- lerSensorLinha();</p>
+<p>// ———- O robô está na borda branca? ———- if (naBordaBranca) { // SIM andarParaTras(); girar180(); } else { // NÃO andarFrenteMaxima(); } }</p>
+<hr>
+</section>
+<section id="x-8-controle-remoto" class="level2">
+<h2 class="anchored" data-anchor-id="x-8-controle-remoto">- [x] 8 Controle Remoto</h2>
+<p>O código exemplo pode ser testado no Tinkercad (ver imagem em anexo). No entanto, as linhas 6, 7 e 8 precisam ser modificadas, visto que o modelo de controle utilizado no Tinkercad é diferente do que usamos em sala. Recomendamos que tentem adiantar esta tarefa em casa, pois ela é a mais difícil até o momento.</p>
+<p><img src="images/paste-5.png" class="img-fluid"></p>
+<p><img src="images/paste-6.png" class="img-fluid"></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;IRremote.hpp&gt;</span><span class="pp">  </span><span class="co">// Adcionando a biblioteca IRremote</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#define IR_RECEIVE_PIN </span><span class="dv">11</span><span class="pp">  </span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="pp">#define READY_CODE </span><span class="bn">0x80</span><span class="pp">  </span><span class="co">// Código da Tecla 1 do controle da Sony</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="pp">#define START_CODE </span><span class="bn">0x81</span><span class="pp">  </span><span class="co">// Código da Tecla 2 do controle da Sony</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="pp">#define STOP_CODE </span><span class="bn">0x82</span><span class="pp">   </span><span class="co">// Código da Tecla 3 do controle da Sony</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="co">// -------------------- Motor esquerdo --------------------</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="pp">#define IN1_MOTOR_ESQUERDO </span><span class="dv">10</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="pp">#define IN2_MOTOR_ESQUERDO </span><span class="dv">9</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="co">// -------------------- Motor direito --------------------</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="pp">#define IN3_MOTOR_DIREITO </span><span class="dv">6</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="pp">#define IN4_MOTOR_DIREITO </span><span class="dv">5</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a><span class="co">// -------------------- Sensor ultrassônico --------------------</span></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a><span class="pp">#define TRIG_PIN </span>A4</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a><span class="pp">#define ECHO_PIN </span>A3</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a><span class="co">// -------------------- Sensor de linha --------------------</span></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a><span class="pp">#define SENSOR_LINHA </span>A0</span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a><span class="co">// ============================================================</span></span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a><span class="co">//                 CONFIGURAÇÕES DO ROBÔ</span></span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a><span class="co">// ============================================================</span></span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a><span class="pp">#define DISTANCIA_LIMITE </span><span class="dv">20</span></span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a><span class="pp">#define PWM_MAX </span><span class="dv">255</span></span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a><span class="pp">#define PWM_RE  </span><span class="dv">180</span></span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a><span class="pp">#define PWM_GIRO </span><span class="dv">180</span></span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a><span class="pp">#define TEMPO_RE </span><span class="dv">400</span></span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a><span class="pp">#define TEMPO_GIRO </span><span class="dv">650</span></span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a><span class="pp">#define LIMIAR_LINHA </span><span class="dv">700</span></span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a><span class="co">// Sensor refletancia</span></span>
+<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> valorAD<span class="op">;</span></span>
+<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a><span class="dt">bool</span> naBordaBranca<span class="op">;</span></span>
+<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a><span class="dt">bool</span> btn_pressed <span class="op">=</span> <span class="kw">false</span><span class="op">;</span></span>
+<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a><span class="co">// Sensor de refletância: calibrar LIMIAR conforme leitura real de PRETO x BRANCO</span></span>
+<span id="cb10-43"><a href="#cb10-43" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">int</span> LIMIAR <span class="op">=</span> <span class="dv">700</span><span class="op">;</span></span>
+<span id="cb10-44"><a href="#cb10-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-45"><a href="#cb10-45" aria-hidden="true" tabindex="-1"></a><span class="co">// ======================================================</span></span>
+<span id="cb10-46"><a href="#cb10-46" aria-hidden="true" tabindex="-1"></a><span class="co">// LEITURA DO SENSOR DE REFLETÂNCIA</span></span>
+<span id="cb10-47"><a href="#cb10-47" aria-hidden="true" tabindex="-1"></a><span class="co">// Atualiza valorAD e naBordaBranca, e envia pela Serial:</span></span>
+<span id="cb10-48"><a href="#cb10-48" aria-hidden="true" tabindex="-1"></a><span class="co">// "valorAD / PRETO" ou "valorAD / BRANCO"</span></span>
+<span id="cb10-49"><a href="#cb10-49" aria-hidden="true" tabindex="-1"></a><span class="co">// ======================================================</span></span>
+<span id="cb10-50"><a href="#cb10-50" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> lerSensorLinha<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb10-51"><a href="#cb10-51" aria-hidden="true" tabindex="-1"></a>  valorAD <span class="op">=</span> analogRead<span class="op">(</span>SENSOR_LINHA<span class="op">);</span></span>
+<span id="cb10-52"><a href="#cb10-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-53"><a href="#cb10-53" aria-hidden="true" tabindex="-1"></a>  <span class="co">// ajuste o sinal "&gt;" ou "&lt;" conforme a calibração do seu sensor</span></span>
+<span id="cb10-54"><a href="#cb10-54" aria-hidden="true" tabindex="-1"></a>  naBordaBranca <span class="op">=</span> <span class="op">(</span>valorAD <span class="op">&lt;=</span> LIMIAR<span class="op">);</span> <span class="co">// BRANCO = borda do ringue</span></span>
+<span id="cb10-55"><a href="#cb10-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-56"><a href="#cb10-56" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>print<span class="op">(</span>valorAD<span class="op">);</span></span>
+<span id="cb10-57"><a href="#cb10-57" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>print<span class="op">(</span><span class="st">" / "</span><span class="op">);</span></span>
+<span id="cb10-58"><a href="#cb10-58" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>println<span class="op">(</span>naBordaBranca <span class="op">?</span> <span class="st">"BRANCO"</span> <span class="op">:</span> <span class="st">"PRETO"</span><span class="op">);</span></span>
+<span id="cb10-59"><a href="#cb10-59" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb10-60"><a href="#cb10-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-61"><a href="#cb10-61" aria-hidden="true" tabindex="-1"></a><span class="co">// ANDAR PARA FRENTE COM POTÊNCIA MÁXIMA</span></span>
+<span id="cb10-62"><a href="#cb10-62" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> andarFrenteMaxima<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb10-63"><a href="#cb10-63" aria-hidden="true" tabindex="-1"></a>  analogWrite<span class="op">(</span>IN1_MOTOR_ESQUERDO<span class="op">,</span> PWM_MAX<span class="op">);</span></span>
+<span id="cb10-64"><a href="#cb10-64" aria-hidden="true" tabindex="-1"></a>  analogWrite<span class="op">(</span>IN2_MOTOR_ESQUERDO<span class="op">,</span> <span class="dv">0</span><span class="op">);</span></span>
+<span id="cb10-65"><a href="#cb10-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-66"><a href="#cb10-66" aria-hidden="true" tabindex="-1"></a>  analogWrite<span class="op">(</span>IN3_MOTOR_DIREITO<span class="op">,</span> <span class="dv">0</span><span class="op">);</span></span>
+<span id="cb10-67"><a href="#cb10-67" aria-hidden="true" tabindex="-1"></a>  analogWrite<span class="op">(</span>IN4_MOTOR_DIREITO<span class="op">,</span> PWM_MAX<span class="op">);</span></span>
+<span id="cb10-68"><a href="#cb10-68" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb10-69"><a href="#cb10-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-70"><a href="#cb10-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-71"><a href="#cb10-71" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> MOTORS_CONFIG<span class="op">(</span><span class="dt">void</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb10-72"><a href="#cb10-72" aria-hidden="true" tabindex="-1"></a>  pinMode<span class="op">(</span>IN1_MOTOR_ESQUERDO<span class="op">,</span> OUTPUT<span class="op">);</span></span>
+<span id="cb10-73"><a href="#cb10-73" aria-hidden="true" tabindex="-1"></a>  pinMode<span class="op">(</span>IN2_MOTOR_ESQUERDO<span class="op">,</span> OUTPUT<span class="op">);</span></span>
+<span id="cb10-74"><a href="#cb10-74" aria-hidden="true" tabindex="-1"></a>  pinMode<span class="op">(</span>IN3_MOTOR_DIREITO<span class="op">,</span> OUTPUT<span class="op">);</span></span>
+<span id="cb10-75"><a href="#cb10-75" aria-hidden="true" tabindex="-1"></a>  pinMode<span class="op">(</span>IN4_MOTOR_DIREITO<span class="op">,</span> OUTPUT<span class="op">);</span></span>
+<span id="cb10-76"><a href="#cb10-76" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb10-77"><a href="#cb10-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-78"><a href="#cb10-78" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> girar180<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb10-79"><a href="#cb10-79" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Motor esquerdo -&gt; frente</span></span>
+<span id="cb10-80"><a href="#cb10-80" aria-hidden="true" tabindex="-1"></a>  analogWrite<span class="op">(</span>IN1_MOTOR_ESQUERDO<span class="op">,</span> PWM_GIRO<span class="op">);</span></span>
+<span id="cb10-81"><a href="#cb10-81" aria-hidden="true" tabindex="-1"></a>  analogWrite<span class="op">(</span>IN2_MOTOR_ESQUERDO<span class="op">,</span> <span class="dv">0</span><span class="op">);</span></span>
+<span id="cb10-82"><a href="#cb10-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-83"><a href="#cb10-83" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Motor direito -&gt; ré (giro no próprio eixo)</span></span>
+<span id="cb10-84"><a href="#cb10-84" aria-hidden="true" tabindex="-1"></a>  analogWrite<span class="op">(</span>IN3_MOTOR_DIREITO<span class="op">,</span> PWM_GIRO<span class="op">);</span></span>
+<span id="cb10-85"><a href="#cb10-85" aria-hidden="true" tabindex="-1"></a>  analogWrite<span class="op">(</span>IN4_MOTOR_DIREITO<span class="op">,</span> <span class="dv">0</span><span class="op">);</span></span>
+<span id="cb10-86"><a href="#cb10-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-87"><a href="#cb10-87" aria-hidden="true" tabindex="-1"></a>  delay<span class="op">(</span>TEMPO_GIRO<span class="op">);</span></span>
+<span id="cb10-88"><a href="#cb10-88" aria-hidden="true" tabindex="-1"></a>  <span class="co">//pararMotores();</span></span>
+<span id="cb10-89"><a href="#cb10-89" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb10-90"><a href="#cb10-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-91"><a href="#cb10-91" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> PARAR<span class="op">(</span><span class="dt">void</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb10-92"><a href="#cb10-92" aria-hidden="true" tabindex="-1"></a>  digitalWrite<span class="op">(</span>IN1_MOTOR_ESQUERDO<span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb10-93"><a href="#cb10-93" aria-hidden="true" tabindex="-1"></a>  digitalWrite<span class="op">(</span>IN2_MOTOR_ESQUERDO<span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb10-94"><a href="#cb10-94" aria-hidden="true" tabindex="-1"></a>  digitalWrite<span class="op">(</span>IN3_MOTOR_DIREITO<span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb10-95"><a href="#cb10-95" aria-hidden="true" tabindex="-1"></a>  digitalWrite<span class="op">(</span>IN4_MOTOR_DIREITO<span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb10-96"><a href="#cb10-96" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb10-97"><a href="#cb10-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-98"><a href="#cb10-98" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> FRENTE<span class="op">(</span><span class="dt">void</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb10-99"><a href="#cb10-99" aria-hidden="true" tabindex="-1"></a>  digitalWrite<span class="op">(</span>IN1_MOTOR_ESQUERDO<span class="op">,</span> HIGH<span class="op">);</span></span>
+<span id="cb10-100"><a href="#cb10-100" aria-hidden="true" tabindex="-1"></a>  digitalWrite<span class="op">(</span>IN2_MOTOR_ESQUERDO<span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb10-101"><a href="#cb10-101" aria-hidden="true" tabindex="-1"></a>  digitalWrite<span class="op">(</span>IN3_MOTOR_DIREITO<span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb10-102"><a href="#cb10-102" aria-hidden="true" tabindex="-1"></a>  digitalWrite<span class="op">(</span>IN4_MOTOR_DIREITO<span class="op">,</span> HIGH<span class="op">);</span></span>
+<span id="cb10-103"><a href="#cb10-103" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb10-104"><a href="#cb10-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-105"><a href="#cb10-105" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> RE<span class="op">(</span><span class="dt">void</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb10-106"><a href="#cb10-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-107"><a href="#cb10-107" aria-hidden="true" tabindex="-1"></a>  digitalWrite<span class="op">(</span>IN1_MOTOR_ESQUERDO<span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb10-108"><a href="#cb10-108" aria-hidden="true" tabindex="-1"></a>  digitalWrite<span class="op">(</span>IN2_MOTOR_ESQUERDO<span class="op">,</span> HIGH<span class="op">);</span></span>
+<span id="cb10-109"><a href="#cb10-109" aria-hidden="true" tabindex="-1"></a>  digitalWrite<span class="op">(</span>IN3_MOTOR_DIREITO<span class="op">,</span> HIGH<span class="op">);</span></span>
+<span id="cb10-110"><a href="#cb10-110" aria-hidden="true" tabindex="-1"></a>  digitalWrite<span class="op">(</span>IN4_MOTOR_DIREITO<span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb10-111"><a href="#cb10-111" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb10-112"><a href="#cb10-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-113"><a href="#cb10-113" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> RE_COM_POT_MAX<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb10-114"><a href="#cb10-114" aria-hidden="true" tabindex="-1"></a>  analogWrite<span class="op">(</span>IN1_MOTOR_ESQUERDO<span class="op">,</span> <span class="dv">0</span><span class="op">);</span></span>
+<span id="cb10-115"><a href="#cb10-115" aria-hidden="true" tabindex="-1"></a>  analogWrite<span class="op">(</span>IN2_MOTOR_ESQUERDO<span class="op">,</span> PWM_RE<span class="op">);</span></span>
+<span id="cb10-116"><a href="#cb10-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-117"><a href="#cb10-117" aria-hidden="true" tabindex="-1"></a>  analogWrite<span class="op">(</span>IN3_MOTOR_DIREITO<span class="op">,</span> PWM_RE<span class="op">);</span></span>
+<span id="cb10-118"><a href="#cb10-118" aria-hidden="true" tabindex="-1"></a>  analogWrite<span class="op">(</span>IN4_MOTOR_DIREITO<span class="op">,</span> <span class="dv">0</span><span class="op">);</span></span>
+<span id="cb10-119"><a href="#cb10-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-120"><a href="#cb10-120" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb10-121"><a href="#cb10-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-122"><a href="#cb10-122" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> andarParaTras<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb10-123"><a href="#cb10-123" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>println<span class="op">(</span><span class="st">"Andando de 10 até 20cm"</span><span class="op">);</span></span>
+<span id="cb10-124"><a href="#cb10-124" aria-hidden="true" tabindex="-1"></a>  analogWrite<span class="op">(</span>IN1_MOTOR_ESQUERDO<span class="op">,</span> <span class="dv">0</span><span class="op">);</span></span>
+<span id="cb10-125"><a href="#cb10-125" aria-hidden="true" tabindex="-1"></a>  analogWrite<span class="op">(</span>IN2_MOTOR_ESQUERDO<span class="op">,</span> HIGH<span class="op">);</span></span>
+<span id="cb10-126"><a href="#cb10-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-127"><a href="#cb10-127" aria-hidden="true" tabindex="-1"></a>  analogWrite<span class="op">(</span>IN3_MOTOR_DIREITO<span class="op">,</span> HIGH<span class="op">);</span></span>
+<span id="cb10-128"><a href="#cb10-128" aria-hidden="true" tabindex="-1"></a>  analogWrite<span class="op">(</span>IN4_MOTOR_DIREITO<span class="op">,</span> <span class="dv">0</span><span class="op">);</span></span>
+<span id="cb10-129"><a href="#cb10-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-130"><a href="#cb10-130" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb10-131"><a href="#cb10-131" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb10-132"><a href="#cb10-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-133"><a href="#cb10-133" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> sensorUltrassonicoConfig<span class="op">(</span><span class="dt">int</span> trigPin<span class="op">,</span> <span class="dt">int</span> echoPin<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb10-134"><a href="#cb10-134" aria-hidden="true" tabindex="-1"></a>  pinMode<span class="op">(</span>trigPin<span class="op">,</span>OUTPUT<span class="op">);</span></span>
+<span id="cb10-135"><a href="#cb10-135" aria-hidden="true" tabindex="-1"></a>  pinMode<span class="op">(</span>echoPin<span class="op">,</span> INPUT<span class="op">);</span></span>
+<span id="cb10-136"><a href="#cb10-136" aria-hidden="true" tabindex="-1"></a>  digitalWrite<span class="op">(</span>trigPin<span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb10-137"><a href="#cb10-137" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb10-138"><a href="#cb10-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-139"><a href="#cb10-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-140"><a href="#cb10-140" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> on_event_button3<span class="op">(){</span></span>
+<span id="cb10-141"><a href="#cb10-141" aria-hidden="true" tabindex="-1"></a>     <span class="co">// reinicializa o receptor no botão 3</span></span>
+<span id="cb10-142"><a href="#cb10-142" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>IrReceiver<span class="op">.</span>decodedIRData<span class="op">.</span>decodedRawData <span class="op">==</span> STOP_CODE<span class="op">)</span> <span class="op">{</span>  </span>
+<span id="cb10-143"><a href="#cb10-143" aria-hidden="true" tabindex="-1"></a>      PARAR<span class="op">();</span></span>
+<span id="cb10-144"><a href="#cb10-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-145"><a href="#cb10-145" aria-hidden="true" tabindex="-1"></a>      <span class="co">// gambiarra do professor para parar dentro do loop</span></span>
+<span id="cb10-146"><a href="#cb10-146" aria-hidden="true" tabindex="-1"></a>      <span class="cf">while</span> <span class="op">(</span><span class="dv">1</span><span class="op">);</span></span>
+<span id="cb10-147"><a href="#cb10-147" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb10-148"><a href="#cb10-148" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb10-149"><a href="#cb10-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-150"><a href="#cb10-150" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> on_event_button1<span class="op">(){</span></span>
+<span id="cb10-151"><a href="#cb10-151" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>IrReceiver<span class="op">.</span>decodedIRData<span class="op">.</span>decodedRawData <span class="op">==</span> READY_CODE<span class="op">)</span> <span class="op">{</span>  </span>
+<span id="cb10-152"><a href="#cb10-152" aria-hidden="true" tabindex="-1"></a>      PARAR<span class="op">();</span></span>
+<span id="cb10-153"><a href="#cb10-153" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb10-154"><a href="#cb10-154" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb10-155"><a href="#cb10-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-156"><a href="#cb10-156" aria-hidden="true" tabindex="-1"></a><span class="dt">float</span> medirDistancia<span class="op">(</span><span class="dt">int</span> trigPin<span class="op">,</span> <span class="dt">int</span> echoPin<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb10-157"><a href="#cb10-157" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-158"><a href="#cb10-158" aria-hidden="true" tabindex="-1"></a>  <span class="dt">long</span> duracao<span class="op">;</span></span>
+<span id="cb10-159"><a href="#cb10-159" aria-hidden="true" tabindex="-1"></a>  <span class="dt">float</span> distancia<span class="op">;</span></span>
+<span id="cb10-160"><a href="#cb10-160" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Gerando o pulso da Onda Digital do sensor ultrasonico</span></span>
+<span id="cb10-161"><a href="#cb10-161" aria-hidden="true" tabindex="-1"></a>  digitalWrite<span class="op">(</span>trigPin<span class="op">,</span> HIGH<span class="op">);</span></span>
+<span id="cb10-162"><a href="#cb10-162" aria-hidden="true" tabindex="-1"></a>  delayMicroseconds<span class="op">(</span><span class="dv">10</span><span class="op">);</span></span>
+<span id="cb10-163"><a href="#cb10-163" aria-hidden="true" tabindex="-1"></a>  digitalWrite<span class="op">(</span>trigPin<span class="op">,</span>LOW<span class="op">);</span></span>
+<span id="cb10-164"><a href="#cb10-164" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-165"><a href="#cb10-165" aria-hidden="true" tabindex="-1"></a>  <span class="co">// medindo o tempo de retorno</span></span>
+<span id="cb10-166"><a href="#cb10-166" aria-hidden="true" tabindex="-1"></a>  duracao <span class="op">=</span> pulseIn<span class="op">(</span>echoPin<span class="op">,</span> HIGH<span class="op">);</span> </span>
+<span id="cb10-167"><a href="#cb10-167" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-168"><a href="#cb10-168" aria-hidden="true" tabindex="-1"></a>  <span class="co">// calcula a distancia em cm/s</span></span>
+<span id="cb10-169"><a href="#cb10-169" aria-hidden="true" tabindex="-1"></a>  <span class="dt">float</span> vel_som <span class="op">=</span> <span class="fl">0.0343</span><span class="op">;</span></span>
+<span id="cb10-170"><a href="#cb10-170" aria-hidden="true" tabindex="-1"></a>  distancia <span class="op">=</span> duracao <span class="op">*</span> vel_som <span class="op">/</span> <span class="dv">2</span><span class="op">;</span></span>
+<span id="cb10-171"><a href="#cb10-171" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-172"><a href="#cb10-172" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>print<span class="op">(</span><span class="st">"</span><span class="sc">\n</span><span class="st">Distancia: "</span><span class="op">);</span></span>
+<span id="cb10-173"><a href="#cb10-173" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>print<span class="op">(</span>distancia<span class="op">);</span></span>
+<span id="cb10-174"><a href="#cb10-174" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>print<span class="op">(</span><span class="st">" cm"</span><span class="op">);</span></span>
+<span id="cb10-175"><a href="#cb10-175" aria-hidden="true" tabindex="-1"></a>  <span class="co">//delay(1000);</span></span>
+<span id="cb10-176"><a href="#cb10-176" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-177"><a href="#cb10-177" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="op">(</span>distancia <span class="op">&lt;</span> <span class="dv">40</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb10-178"><a href="#cb10-178" aria-hidden="true" tabindex="-1"></a>     FRENTE<span class="op">();</span></span>
+<span id="cb10-179"><a href="#cb10-179" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb10-180"><a href="#cb10-180" aria-hidden="true" tabindex="-1"></a>    girar180<span class="op">();</span> <span class="co">// </span><span class="al">TODO</span><span class="co"> -&gt; sinais PWM com ciclo de 50% (uma roda para frente e  a outra para trás)</span></span>
+<span id="cb10-181"><a href="#cb10-181" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-182"><a href="#cb10-182" aria-hidden="true" tabindex="-1"></a>    on_event_button3<span class="op">();</span></span>
+<span id="cb10-183"><a href="#cb10-183" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-184"><a href="#cb10-184" aria-hidden="true" tabindex="-1"></a> <span class="op">}</span></span>
+<span id="cb10-185"><a href="#cb10-185" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb10-186"><a href="#cb10-186" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-187"><a href="#cb10-187" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-188"><a href="#cb10-188" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-189"><a href="#cb10-189" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-190"><a href="#cb10-190" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> configInicial<span class="op">(){</span></span>
+<span id="cb10-191"><a href="#cb10-191" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>begin<span class="op">(</span><span class="dv">9600</span><span class="op">);</span>                </span>
+<span id="cb10-192"><a href="#cb10-192" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-193"><a href="#cb10-193" aria-hidden="true" tabindex="-1"></a>  <span class="co">// receptor infravermelho</span></span>
+<span id="cb10-194"><a href="#cb10-194" aria-hidden="true" tabindex="-1"></a>  IrReceiver<span class="op">.</span>begin<span class="op">(</span>IR_RECEIVE_PIN<span class="op">);</span>  </span>
+<span id="cb10-195"><a href="#cb10-195" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-196"><a href="#cb10-196" aria-hidden="true" tabindex="-1"></a>  <span class="co">// sensor ultrassonico</span></span>
+<span id="cb10-197"><a href="#cb10-197" aria-hidden="true" tabindex="-1"></a>  sensorUltrassonicoConfig<span class="op">(</span>TRIG_PIN<span class="op">,</span> ECHO_PIN<span class="op">);</span></span>
+<span id="cb10-198"><a href="#cb10-198" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-199"><a href="#cb10-199" aria-hidden="true" tabindex="-1"></a>  <span class="co">// motores</span></span>
+<span id="cb10-200"><a href="#cb10-200" aria-hidden="true" tabindex="-1"></a>  MOTORS_CONFIG<span class="op">();</span></span>
+<span id="cb10-201"><a href="#cb10-201" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-202"><a href="#cb10-202" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Sensor de refletancia</span></span>
+<span id="cb10-203"><a href="#cb10-203" aria-hidden="true" tabindex="-1"></a>  pinMode<span class="op">(</span>SENSOR_LINHA<span class="op">,</span> INPUT<span class="op">);</span></span>
+<span id="cb10-204"><a href="#cb10-204" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-205"><a href="#cb10-205" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb10-206"><a href="#cb10-206" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-207"><a href="#cb10-207" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-208"><a href="#cb10-208" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> onBordaBrancaEvent<span class="op">(){</span></span>
+<span id="cb10-209"><a href="#cb10-209" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-210"><a href="#cb10-210" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb10-211"><a href="#cb10-211" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-212"><a href="#cb10-212" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-213"><a href="#cb10-213" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> setup<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb10-214"><a href="#cb10-214" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-215"><a href="#cb10-215" aria-hidden="true" tabindex="-1"></a>  configInicial<span class="op">();</span></span>
+<span id="cb10-216"><a href="#cb10-216" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-217"><a href="#cb10-217" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-218"><a href="#cb10-218" aria-hidden="true" tabindex="-1"></a>  <span class="co">// evento de receber dados preso no botão 2</span></span>
+<span id="cb10-219"><a href="#cb10-219" aria-hidden="true" tabindex="-1"></a>  <span class="cf">while</span> <span class="op">(</span>IrReceiver<span class="op">.</span>decodedIRData<span class="op">.</span>decodedRawData <span class="op">!=</span> START_CODE<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb10-220"><a href="#cb10-220" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>IrReceiver<span class="op">.</span>decode<span class="op">())</span> <span class="op">{</span>  <span class="co">// se algum código for recebido</span></span>
+<span id="cb10-221"><a href="#cb10-221" aria-hidden="true" tabindex="-1"></a>      IrReceiver<span class="op">.</span>resume<span class="op">();</span>      <span class="co">// reinicializa o receptor</span></span>
+<span id="cb10-222"><a href="#cb10-222" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-223"><a href="#cb10-223" aria-hidden="true" tabindex="-1"></a>      btn_pressed <span class="op">=</span> <span class="kw">true</span><span class="op">;</span></span>
+<span id="cb10-224"><a href="#cb10-224" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-225"><a href="#cb10-225" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb10-226"><a href="#cb10-226" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb10-227"><a href="#cb10-227" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-228"><a href="#cb10-228" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb10-229"><a href="#cb10-229" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-230"><a href="#cb10-230" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb10-231"><a href="#cb10-231" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-232"><a href="#cb10-232" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Decodificação dos dados do controle remoto</span></span>
+<span id="cb10-233"><a href="#cb10-233" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="op">(</span>IrReceiver<span class="op">.</span>decode<span class="op">())</span> <span class="op">{</span>                                     </span>
+<span id="cb10-234"><a href="#cb10-234" aria-hidden="true" tabindex="-1"></a>    IrReceiver<span class="op">.</span>resume<span class="op">();</span>      </span>
+<span id="cb10-235"><a href="#cb10-235" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb10-236"><a href="#cb10-236" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-237"><a href="#cb10-237" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="op">(</span>btn_pressed<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb10-238"><a href="#cb10-238" aria-hidden="true" tabindex="-1"></a>      <span class="co">// ---------- O robô está na borda branca? ----------</span></span>
+<span id="cb10-239"><a href="#cb10-239" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>naBordaBranca<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb10-240"><a href="#cb10-240" aria-hidden="true" tabindex="-1"></a>      <span class="co">// SIM</span></span>
+<span id="cb10-241"><a href="#cb10-241" aria-hidden="true" tabindex="-1"></a>      andarParaTras<span class="op">();</span></span>
+<span id="cb10-242"><a href="#cb10-242" aria-hidden="true" tabindex="-1"></a>      girar180<span class="op">();</span></span>
+<span id="cb10-243"><a href="#cb10-243" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb10-244"><a href="#cb10-244" aria-hidden="true" tabindex="-1"></a>      <span class="co">// NÃO</span></span>
+<span id="cb10-245"><a href="#cb10-245" aria-hidden="true" tabindex="-1"></a>      medirDistancia<span class="op">(</span>TRIG_PIN<span class="op">,</span> ECHO_PIN<span class="op">);</span></span>
+<span id="cb10-246"><a href="#cb10-246" aria-hidden="true" tabindex="-1"></a>      andarFrenteMaxima<span class="op">();</span></span>
+<span id="cb10-247"><a href="#cb10-247" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb10-248"><a href="#cb10-248" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb10-249"><a href="#cb10-249" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-250"><a href="#cb10-250" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb10-251"><a href="#cb10-251" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-252"><a href="#cb10-252" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-253"><a href="#cb10-253" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+<section id="x-9-desafio-3-robo-sumô-básico" class="level2">
+<h2 class="anchored" data-anchor-id="x-9-desafio-3-robo-sumô-básico">- [x] 9 DESAFIO 3 (Robo Sumô Básico)</h2>
+<p>Façam um código que controle o funcionamento dos motores de acordo com o fluxograma anexado nesta atividade. Mostrem para um professor que conseguiram cumprir a missão e expliquem o funcionamento do código. Após o professor anotar na planilha de acompanhamento (Checklist) que a tarefa foi cumprida, 1 integrante de cada equipe (apenas 1) deve fazer a entrega do arquivo do Arduino (*.ino) no Google Classroom. O aluno que entregar a atividade deve indicar (nos comentários) os nomes dos colegas que participaram ativamente do desenvolvimento da tarefa. DICA: Esta missão utiliza conceitos aprendidos nas missões anteriores. Consultem os seus códigos.</p>
+<p><img src="images/paste-7.png" class="img-fluid"></p>
+<hr>
+</section>
+<section id="x-10-sensores-laterais" class="level2">
+<h2 class="anchored" data-anchor-id="x-10-sensores-laterais">- [x] 10 Sensores Laterais</h2>
+<ol type="1">
+<li><p>Parabéns! Você chegou na última missão da FASE 2 e desbloqueou um item, o sensor de distância laser VL53L0X. Este sensor se comunica com microcontrolador através do protocolo de comunicação I2C. Portanto, antes de iniciar a missão você precisa entender o que é isso. Assista ao vídeo “O que é I2C ? - Explorando o Arduino - Aula 10”, disponível no link: https://www.youtube.com/watch?v=3cPDAQvu6ng</p></li>
+<li><p>Agora que você entende o protocolo I2C é hora de testar o sensor. Estude e teste o código apresentado no artigo “DISTANCE MEASUREMENT WITH VL53LOX”, disponível no link: https://arduinoproyek.wordpress.com/distance-measurement-with-vl53lox/</p></li>
+<li><p>O robô que está sendo desenvolvido para a competição utiliza 2 sensores VL53L0X. A complexidade aumenta um pouco, então recomendamos que você leia o artigo “Usando Múltiplos Sensores de Distância Laser VL53L0X”, disponível em: https://blog.smartkits.com.br/usando-multiplos-sensores-de-distancia-laser-vl53l0x/</p></li>
+<li><p>Agora sim, você está pronto para iniciar a missão: Façam um código que envie pelo terminal serial a distância lida pelos 2 sensores a cada 1s. Mostrem para um professor que conseguiram cumprir a missão e expliquem o funcionamento do código. Após o professor anotar na planilha de acompanhamento (Checklist) que a tarefa foi cumprida, 1 integrante de cada equipe (apenas 1) deve fazer a entrega do arquivo do Arduino (*.ino) no Google Classroom. O aluno que entregar a atividade deve indicar (nos comentários) os nomes dos colegas que participaram ativamente do desenvolvimento da tarefa.</p></li>
+</ol>
+<p><img src="images/paste-8.png" class="img-fluid"></p>
+</section>
+<section id="x-estratégias-no-controle-remoto-para-o-robo-sumô-básico" class="level2">
+<h2 class="anchored" data-anchor-id="x-estratégias-no-controle-remoto-para-o-robo-sumô-básico">-[x] Estratégias no controle remoto para o Robo Sumô Básico</h2>
+</section>
+<section id="x-simulação-de-combate-em-lua-ou-em-html-com-threejs" class="level2">
+<h2 class="anchored" data-anchor-id="x-simulação-de-combate-em-lua-ou-em-html-com-threejs">-[x] Simulação de combate em Lua ou em HTML com ThreeJS</h2>
+</section>
+<section id="x-fluxogramas-modelagem-de-dados-snippet-de-código-prontos-de-exemplos" class="level2">
+<h2 class="anchored" data-anchor-id="x-fluxogramas-modelagem-de-dados-snippet-de-código-prontos-de-exemplos">-[x] Fluxogramas + Modelagem de Dados + Snippet de Código prontos de exemplos</h2>
+</section>
+</section>
+<section id="documentacao-grupo-1" class="level1">
+<h1>Documentacao Grupo 1</h1>
+<hr>
+<p>Este documento descreve os arquivos encontrados nesta pasta. Os diagramas usam Mermaid; para visualiza-los, abra este arquivo em um visualizador compativel, como o preview de Markdown do VS Code.</p>
+<section id="modelo-dos-sketches" class="level2">
+<h2 class="anchored" data-anchor-id="modelo-dos-sketches">Modelo dos sketches</h2>
+<p>Os arquivos <code>.ino</code> nao declaram classes proprias. Para nao inventar classes que nao existem, os diagramas abaixo mostram os grupos de funcoes e o estado global de cada arquivo.</p>
+<section id="sketch_carro-robo-lutador-v7.ino" class="level3">
+<h3 class="anchored" data-anchor-id="sketch_carro-robo-lutador-v7.ino"><code>sketch_Carro-Robo-Lutador-V7.ino</code></h3>
+<section id="estrutura" class="level4">
+<h4 class="anchored" data-anchor-id="estrutura">Estrutura</h4>
+<pre class="mermaid"><code>flowchart TB
+    subgraph Estado["Estado global"]
+        estrategia["Estrategia"]
+        fase["FaseBorda"]
+        pausa["pausado / sentidoBusca / tempos"]
+        lasers["Sensor1 / Sensor2 (VL53L0X)"]
+    end
+    subgraph Controle["Controle e motores"]
+        controle["lerControle"]
+        comandos["aguardarInicio / processarControles"]
+        motores["configurarMotor / definirMotores"]
+        movimento["parar / andarFrente / andarTras / girarHorario / girarAntiHorario"]
+    end
+    subgraph Sensores["Sensores e inicializacao"]
+        borda["bordaBrancaDetectada"]
+        ultrassom["medirDistanciaCm"]
+        laser["lerDistanciaLaserCm"]
+        init["configurarSensoresLaser / configurarPinos / piscarLedInicializacao"]
+    end
+    subgraph Logica["Comportamento"]
+        recuperacao["processarRecuperacaoBorda"]
+        busca["selecionarEstrategia / executarBusca"]
+        inicial["setup"]
+        ciclo["loop"]
+    end
+    inicial --&gt; init --&gt; comandos
+    ciclo --&gt; comandos
+    ciclo --&gt; recuperacao
+    ciclo --&gt; ultrassom
+    ciclo --&gt; laser
+    recuperacao --&gt; borda
+    ciclo --&gt; busca
+    comandos --&gt; controle
+    comandos --&gt; estrategia
+    recuperacao --&gt; fase
+    busca --&gt; estrategia
+    busca --&gt; movimento
+    recuperacao --&gt; movimento
+    ultrassom --&gt; movimento
+    laser --&gt; lasers
+    movimento --&gt; motores
+    pausa --&gt; comandos</code></pre>
+</section>
+<section id="fluxo-de-loop" class="level4">
+<h4 class="anchored" data-anchor-id="fluxo-de-loop">Fluxo de <code>loop()</code></h4>
+<pre class="mermaid"><code>flowchart TD
+    A["Inicio de loop()"] --&gt; B{"processarControles() indica pausa?"}
+    B -- Sim --&gt; Z["retorna; motores parados"]
+    B -- Nao --&gt; C{"processarRecuperacaoBorda() em andamento ou borda detectada?"}
+    C -- Sim --&gt; Z
+    C -- Nao --&gt; D["Medir ultrassom frontal e Sensor1/Sensor2"]
+    D --&gt; E{"Ultrassom &lt; 40 cm&lt;br/&gt;OU ambos lasers validos &lt; 25 cm?"}
+    E -- Sim --&gt; F["Avancar com PWM_MAX"]
+    E -- Nao --&gt; G{"Sensor1 valido &lt; 25 cm?"}
+    G -- Sim --&gt; H["Girar anti-horario"]
+    G -- Nao --&gt; I{"Sensor2 valido &lt; 25 cm?"}
+    I -- Sim --&gt; J["Girar horario"]
+    I -- Nao --&gt; K["executarBusca()"]
+    F --&gt; Z
+    H --&gt; Z
+    J --&gt; Z
+    K --&gt; Z</code></pre>
+<p><strong>Leitura do ciclo:</strong> a parada/pausa tem prioridade; em seguida vem a recuperacao da borda. So depois o robo le as distancias e decide entre atacar, apontar para um sensor que detectou o alvo ou executar a estrategia de busca.</p>
+<p><code>sketch_Carro_Robo_POO-stable.ino</code></p>
+</section>
+</section>
+<section id="estrutura-1" class="level3">
+<h3 class="anchored" data-anchor-id="estrutura-1">Estrutura</h3>
+<p>O desenho de responsabilidades e igual ao da variante V7: estado global e sensores alimentam as rotinas procedurais de controle, leitura, recuperacao e busca. Este sketch tambem nao declara classes.</p>
+<pre class="mermaid"><code>flowchart LR
+    estado["Estrategia / FaseBorda / pausado"] --&gt; ciclo["setup() / loop()"]
+    ir["IRremote"] --&gt; controle["lerControle / processarControles / aguardarInicio"]
+    sensores["QRE + ultrassom + 2 VL53L0X"] --&gt; leitura["bordaBrancaDetectada / medirDistanciaCm / lerDistanciaLaserCm"]
+    leitura --&gt; decisao["processarRecuperacaoBorda / executarBusca / decisao de ataque"]
+    controle --&gt; decisao
+    decisao --&gt; movimentos["parar / frente / tras / giros"]
+    movimentos --&gt; ponte["analogWrite nos pinos da ponte H"]
+    ciclo --&gt; controle
+    ciclo --&gt; leitura</code></pre>
+<section id="fluxo-de-loop-1" class="level4">
+<h4 class="anchored" data-anchor-id="fluxo-de-loop-1">Fluxo de <code>loop()</code></h4>
+<pre class="mermaid"><code>flowchart TD
+    A["Inicio de loop()"] --&gt; B{"processarControles() indica pausa?"}
+    B -- Sim --&gt; Z["retorna; motores parados"]
+    B -- Nao --&gt; C{"processarRecuperacaoBorda() em andamento ou borda detectada?"}
+    C -- Sim --&gt; Z
+    C -- Nao --&gt; D["Medir ultrassom frontal e Sensor1/Sensor2"]
+    D --&gt; E{"Ultrassom &lt; 40 cm&lt;br/&gt;OU ambos lasers validos &lt; 25 cm?"}
+    E -- Sim --&gt; F["Avancar com PWM_MAX"]
+    E -- Nao --&gt; G{"Sensor1 valido &lt; 25 cm?"}
+    G -- Sim --&gt; H["Girar anti-horario"]
+    G -- Nao --&gt; I{"Sensor2 valido &lt; 25 cm?"}
+    I -- Sim --&gt; J["Girar horario"]
+    I -- Nao --&gt; K["executarBusca()"]
+    F --&gt; Z
+    H --&gt; Z
+    J --&gt; Z
+    K --&gt; Z</code></pre>
+<p><strong>Leitura do ciclo:</strong> mesma ordem e mesma condicao de ataque com os lasers da V7. As diferencas de parametros em relacao a V7 estao resumidas na tabela de variantes.</p>
+</section>
+</section>
+<section id="sketch_23-10-2026_grupo1.ino" class="level3">
+<h3 class="anchored" data-anchor-id="sketch_23-10-2026_grupo1.ino"><code>sketch_23-10-2026_grupo1.ino</code></h3>
+<section id="estrutura-2" class="level4">
+<h4 class="anchored" data-anchor-id="estrutura-2">Estrutura</h4>
+<p>Este sketch tambem e procedural. A diferenca de comportamento mais visivel esta no tratamento das deteccoes laser no fluxo de combate.</p>
+<pre class="mermaid"><code>flowchart LR
+    estado["Estrategia / FaseBorda / pausado"] --&gt; ciclo["setup() / loop()"]
+    ir["IRremote"] --&gt; controle["lerControle / processarControles / aguardarInicio"]
+    sensores["QRE + ultrassom + 2 VL53L0X"] --&gt; leitura["bordaBrancaDetectada / medirDistanciaCm / lerDistanciaLaserCm"]
+    leitura --&gt; decisao["processarRecuperacaoBorda / executarBusca / decisao de combate"]
+    controle --&gt; decisao
+    decisao --&gt; movimentos["parar / frente / tras / giros"]
+    movimentos --&gt; ponte["analogWrite nos pinos da ponte H"]
+    ciclo --&gt; controle
+    ciclo --&gt; leitura</code></pre>
+</section>
+<section id="fluxo-de-loop-2" class="level4">
+<h4 class="anchored" data-anchor-id="fluxo-de-loop-2">Fluxo de <code>loop()</code></h4>
+<pre class="mermaid"><code>flowchart TD
+    A["Inicio de loop()"] --&gt; B{"processarControles() indica pausa?"}
+    B -- Sim --&gt; Z["retorna; motores parados"]
+    B -- Nao --&gt; C{"processarRecuperacaoBorda() em andamento ou borda detectada?"}
+    C -- Sim --&gt; Z
+    C -- Nao --&gt; D["Medir ultrassom frontal e Sensor1/Sensor2"]
+    D --&gt; E{"Ultrassom valido e &lt; 40 cm?"}
+    E -- Sim --&gt; F["Avancar com PWM_MAX"]
+    E -- Nao --&gt; G{"Sensor1 valido e &lt; 25 cm?"}
+    G -- Sim --&gt; H["Girar anti-horario"]
+    G -- Nao --&gt; I{"Sensor2 valido e &lt; 25 cm?"}
+    I -- Sim --&gt; J["Girar horario"]
+    I -- Nao --&gt; K["executarBusca()"]
+    F --&gt; Z
+    H --&gt; Z
+    J --&gt; Z
+    K --&gt; Z</code></pre>
+<p><strong>Leitura do ciclo:</strong> diferente das outras duas variantes, cada laser pode causar um giro imediatamente; a regra nao exige que os dois lasers detectem o alvo ao mesmo tempo para o ataque frontal.</p>
+</section>
+</section>
+</section>
+<section id="componentes-auxiliares" class="level2">
+<h2 class="anchored" data-anchor-id="componentes-auxiliares">Componentes auxiliares</h2>
+<section id="logger.h" class="level3">
+<h3 class="anchored" data-anchor-id="logger.h"><code>Logger.h</code></h3>
+<p>Este e o unico arquivo da pasta que declara uma classe. <code>Logger</code> escreve mensagens formatadas em <code>Serial</code> e filtra por nivel minimo.</p>
+<pre class="mermaid"><code>classDiagram
+    class Logger {
+        -bool ativado
+        -LogLevel nivelMinimo
+        -imprimirPrefix(LogLevel)
+        +Logger(bool, LogLevel)
+        +iniciar(long)
+        +setAtivado(bool)
+        +setNivelMinimo(LogLevel)
+        +info(String)
+        +debug(String)
+        +warn(String)
+        +error(String)
+        +logSensor(String, float, String)
+    }
+    class LogLevel {
+        &lt;&lt;enumeration&gt;&gt;
+        LOG_DEBUG
+        LOG_INFO
+        LOG_WARN
+        LOG_ERROR
+    }
+    Logger --&gt; LogLevel
+    Logger ..&gt; Serial : escreve
+    Logger ..&gt; millis : timestamp</code></pre>
+<p><strong>Fluxo interno:</strong> cada metodo de log verifica se o logger esta habilitado e se o nivel da mensagem passa pelo filtro. Se passar, imprime prefixo com tempo e nivel, seguido da mensagem. <code>iniciar()</code> configura a Serial e envia uma mensagem inicial.</p>
+</section>
+<section id="headers.h" class="level3">
+<h3 class="anchored" data-anchor-id="headers.h"><code>headers.h</code></h3>
+<p>Este cabecalho declara configuracoes e tipos; nao contem um fluxo de execucao nem uma classe.</p>
+<pre class="mermaid"><code>classDiagram
+    class PinosMotor {
+        +int in1
+        +int in2
+        +int in3
+        +int in4
+    }
+    class ConfigPWM {
+        +int maxPotencia
+        +int re
+        +int giro
+    }
+    class EstadoSensor {
+        +int valorQRE
+        +bool naBordaBranca
+        +float distanciaCm
+    }
+    class robotState {
+        &lt;&lt;enumeration&gt;&gt;
+        ESTADO_PARADO
+        ESTADO_PREPARAR
+        ESTADO_BUSCAR
+        ESTADO_ATACAR
+        ESTADO_ESQUIVAR_BORDA
+        ESTADO_PARADO_DEFINITIVO
+    }</code></pre>
+<p>O arquivo tambem define codigos infravermelhos, pinos, limiar QRE e distancia de atencao. Esses valores sao declarados com nomes diferentes dos usados nos sketches; nao ha inclusao de <code>headers.h</code> nos tres <code>.ino</code> documentados.</p>
+</section>
+<section id="headers.cpp" class="level3">
+<h3 class="anchored" data-anchor-id="headers.cpp"><code>headers.cpp</code></h3>
+<p>Define os objetos globais de configuracao padrao declarados pelos tipos de <code>headers.h</code>.</p>
+<pre class="mermaid"><code>flowchart LR
+    h["headers.h&lt;br/&gt;PinosMotor / ConfigPWM"] --&gt; cpp["headers.cpp"]
+    cpp --&gt; pinos["pinosMotoresPadrao&lt;br/&gt;10, 9, 6, 5"]
+    cpp --&gt; pwm["configPwmPadrao&lt;br/&gt;255, 200, 190"]</code></pre>
+<p>Nao existe <code>loop()</code> ou fluxo ciclico neste arquivo: ele apenas inicializa os dados globais.</p>
+</section>
+</section>
+<section id="diferencas-entre-os-sketches" class="level2">
+<h2 class="anchored" data-anchor-id="diferencas-entre-os-sketches">Diferencas entre os sketches</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 26%">
+<col style="width: 26%">
+<col style="width: 26%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Aspecto</th>
+<th style="text-align: right;">V7</th>
+<th style="text-align: right;">POO-stable</th>
+<th style="text-align: right;">grupo1</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>PWM_AVANCO_AGRESSIVO</code></td>
+<td style="text-align: right;">255</td>
+<td style="text-align: right;">200</td>
+<td style="text-align: right;">200</td>
+</tr>
+<tr class="even">
+<td><code>TEMPO_GIRO</code> da recuperacao de borda</td>
+<td style="text-align: right;">900 ms</td>
+<td style="text-align: right;">500 ms</td>
+<td style="text-align: right;">500 ms</td>
+</tr>
+<tr class="odd">
+<td>Intervalos das buscas 8 / 9</td>
+<td style="text-align: right;">2000 / 2000 ms</td>
+<td style="text-align: right;">500 / 300 ms</td>
+<td style="text-align: right;">500 / 300 ms</td>
+</tr>
+<tr class="even">
+<td>Timeout configurado nos sensores laser</td>
+<td style="text-align: right;">50 ms</td>
+<td style="text-align: right;">50 ms</td>
+<td style="text-align: right;">100 ms</td>
+</tr>
+<tr class="odd">
+<td>Condicao para ataque com laser</td>
+<td style="text-align: right;">Sensor1 <strong>e</strong> Sensor2; avanca</td>
+<td style="text-align: right;">Sensor1 <strong>e</strong> Sensor2; avanca</td>
+<td style="text-align: right;">Sensor1 ou Sensor2 individualmente; gira para o alvo</td>
+</tr>
+<tr class="even">
+<td>Codigos das estrategias 8 / 9</td>
+<td style="text-align: right;"><code>0x88</code> / <code>0x87</code></td>
+<td style="text-align: right;"><code>0x87</code> / <code>0x88</code></td>
+<td style="text-align: right;"><code>0x87</code> / <code>0x88</code></td>
+</tr>
+</tbody>
+</table>
+<p>Em todos os tres, o limiar de ataque do ultrassom e 40 cm, o limiar laser e 25 cm, e uma linha branca e detectada quando a leitura analogica e menor que 700 (<code>BRANCO_E_MAIOR = false</code>). Confirme os valores com o hardware antes de alterar os limiares.</p>
+</section>
+<section id="como-as-funcoes-dos-sketches-trabalham" class="level2">
+<h2 class="anchored" data-anchor-id="como-as-funcoes-dos-sketches-trabalham">Como as funcoes dos sketches trabalham</h2>
+<p>As funcoes abaixo existem, com pequenas diferencas de parametros, nos tres arquivos <code>.ino</code>.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Funcao</th>
+<th>O que faz</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>lerControle()</code></td>
+<td>Consulta o receptor IR. Sem dado novo, retorna <code>0</code>; com dado, retorna o codigo recebido e libera a recepcao seguinte.</td>
+</tr>
+<tr class="even">
+<td><code>configurarMotor()</code> / <code>definirMotores()</code></td>
+<td>Convertem potencia com sinal em PWM e aplicam a potencia aos dois lados da ponte H. <code>0</code> desliga o motor; a potencia e limitada a <code>-255..255</code>.</td>
+</tr>
+<tr class="odd">
+<td><code>parar()</code>, <code>andarFrente()</code>, <code>andarTras()</code>, <code>girarHorario()</code>, <code>girarAntiHorario()</code></td>
+<td>Atalhos de movimento que definem a potencia dos motores esquerdo e direito.</td>
+</tr>
+<tr class="even">
+<td><code>bordaBrancaDetectada()</code></td>
+<td>Le o sensor analogico da linha e compara o resultado com <code>LIMIAR_LINHA</code>.</td>
+</tr>
+<tr class="odd">
+<td><code>medirDistanciaCm()</code></td>
+<td>Dispara o ultrassom e calcula a distancia pelo tempo do eco. Retorna <code>999</code> quando <code>pulseIn</code> expira, valor tratado como sem alvo pelo limite de 40 cm.</td>
+</tr>
+<tr class="even">
+<td><code>lerDistanciaLaserCm()</code></td>
+<td>Le um sensor VL53L0X em milimetros, converte para centimetros e retorna <code>0</code> em timeout ou leitura invalida.</td>
+</tr>
+<tr class="odd">
+<td><code>configurarSensoresLaser()</code></td>
+<td>Inicializa o barramento I2C e ativa os sensores um por vez pelos pinos XSHUT, atribuindo enderecos distintos.</td>
+</tr>
+<tr class="even">
+<td><code>configurarPinos()</code></td>
+<td>Define os modos dos pinos, deixa o TRIG baixo, para os motores e inicia os sensores laser.</td>
+</tr>
+<tr class="odd">
+<td><code>pararDefinitivamente()</code></td>
+<td>Para os motores e entra em repeticao infinita; somente reiniciar a placa permite continuar.</td>
+</tr>
+<tr class="even">
+<td><code>selecionarEstrategia()</code> / <code>executarBusca()</code></td>
+<td>Escolhem o modo de busca. A estrategia 7 avanca; as estrategias 8/9 alternam giros, iniciando em sentidos opostos.</td>
+</tr>
+<tr class="odd">
+<td><code>processarControles()</code></td>
+<td>Trata parada, pausa e retomada antes de qualquer leitura de alvo no ciclo.</td>
+</tr>
+<tr class="even">
+<td><code>processarRecuperacaoBorda()</code></td>
+<td>Ao detectar a borda, recua por <code>TEMPO_RE</code>; depois gira no sentido horario por <code>TEMPO_GIRO</code> e retorna a fase normal. Durante essas fases, impede a decisao normal de combate.</td>
+</tr>
+<tr class="odd">
+<td><code>piscarLedInicializacao()</code></td>
+<td>Pisca o LED integrado tres vezes antes de aguardar o comando para iniciar.</td>
+</tr>
+</tbody>
+</table>
+<section id="pinos-e-sensores-usados-pelos-sketches" class="level3">
+<h3 class="anchored" data-anchor-id="pinos-e-sensores-usados-pelos-sketches">Pinos e sensores usados pelos sketches</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Componente</th>
+<th>Pino/endereco</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Receptor infravermelho</td>
+<td>D11</td>
+</tr>
+<tr class="even">
+<td>Sensor de linha</td>
+<td>A0</td>
+</tr>
+<tr class="odd">
+<td>Ultrassom TRIG / ECHO</td>
+<td>A2 / A3</td>
+</tr>
+<tr class="even">
+<td>XSHUT dos sensores laser</td>
+<td>D7 / D8</td>
+</tr>
+<tr class="odd">
+<td>Enderecos I2C dos sensores laser</td>
+<td>42 / 43</td>
+</tr>
+<tr class="even">
+<td>Motor esquerdo, frente / re</td>
+<td>D10 / D9</td>
+</tr>
+<tr class="odd">
+<td>Motor direito, frente / re</td>
+<td>D5 / D6</td>
+</tr>
+</tbody>
+</table>
+<p>Os enderecos I2C sao configurados como valores decimais no codigo. <code>headers.h</code> define um pino TRIG diferente (A4), mas esse cabecalho nao e usado pelos sketches descritos; confira qual conjunto de arquivos esta carregado antes de fazer a ligacao.</p>
+</section>
+<section id="comandos-do-controle" class="level3">
+<h3 class="anchored" data-anchor-id="comandos-do-controle">Comandos do controle</h3>
+<p>Nos sketches, <code>0x80</code> pausa, <code>0x81</code> inicia ou retoma e <code>0x82</code> para definitivamente. Os codigos <code>0x86</code>, <code>0x87</code> e <code>0x88</code> selecionam as estrategias 7, 8 e 9; consulte a tabela de diferencas, pois a associacao entre estrategia 8/9 e os dois ultimos codigos varia entre V7 e as outras variantes.</p>
+</section>
+</section>
+<section id="sequencia-de-inicializacao-comum" class="level2">
+<h2 class="anchored" data-anchor-id="sequencia-de-inicializacao-comum">Sequencia de inicializacao comum</h2>
+<pre class="mermaid"><code>flowchart TD
+    A["setup()"] --&gt; B["Iniciar Serial e receptor IR"]
+    B --&gt; C["Configurar pinos e parar motores"]
+    C --&gt; D{"Sensores laser iniciaram?"}
+    D -- Nao --&gt; E["Parar motores e travar em espera"]
+    D -- Sim --&gt; F["Piscar LED 3 vezes"]
+    F --&gt; G["Aguardar estrategia 7, 8 ou 9"]
+    G --&gt; H{"STOP?"}
+    H -- Sim --&gt; I["Parada definitiva ate reiniciar Arduino"]
+    H -- Nao --&gt; J{"START com estrategia selecionada?"}
+    J -- Nao --&gt; G
+    J -- Sim --&gt; K["setup() termina; loop() comeca"]</code></pre>
+<p>O botao de pausa (<code>READY_CODE</code>) e usado durante a operacao. O botao de inicio (<code>START_CODE</code>) retoma uma pausa. A parada definitiva (<code>STOP_CODE</code>) para os motores e mantem o programa bloqueado ate reiniciar o Arduino.</p>
+</section>
+<section id="conclusões" class="level2">
+<h2 class="anchored" data-anchor-id="conclusões">3) CONCLUSÕES</h2>
+<p>É a síntese de toda a reflexão, a superação dos conflitos conceituais e das contradições detectadas durante a análise do problema. É opcional apresentar os desdobramentos relativos à importância, síntese, projeção, repercussão, encaminhamento e outros.</p>
+<p>REFERÊNCIAS BIBLIOGRÁFICAS</p>
+<p>Para fins de referenciação bibliográfica, entende-se por documento considerado no todo a integralidade da obra, ou seja, do livro, tese, dissertação, TCC, etc.</p>
+<p>Corresponde a uma lista alfabeticamente ordenada de documentos citados no texto.</p>
+<p>a)LIVRO:</p>
+<p>Último SOBRENOME, Prenome e demais Sobrenomes do(s) autor(es). Título: subtítulo. Número da edição, a partir da segunda. Local de publicação: Editora, ano de publicação. Número total de páginas ou, quando mais de um, número de volumes. (Coleção e/ou Série).</p>
+<p>Exemplo – Entrada por pessoa física:</p>
+<p>MÁTTAR NETO, João Augusto. Metodologia científica na era da informática. São Paulo: Saraiva, 2002. 261 p.</p>
+<p>Exemplo – Por até três autores:</p>
+<p>CERVO, Amado Luiz; BERVIAN, Pedro Aleixo. Metodologia científica: para uso dos estudantes universitários. 5. ed.&nbsp;São Paulo: Prentice Hall, 2002. 242 p.</p>
+<p>Exemplo – Por mais de três autores:</p>
+<p>FRANÇA, Junia Lessa et al.&nbsp;Manual para normalização de publicações técnico-científicas. 5. ed.&nbsp;rev. Belo Horizonte: Ed. UFMG, 2001. 211 p.&nbsp;(Coleção Aprender).</p>
+<p>Exemplo – Entrada por pessoa jurídica:</p>
+<p>UNIVERSIDADE DE SÃO PAULO. Serviço de Documentação Odontológica. S.D.O.: serviços prestados aos usuários. São Paulo, 1993. 13 p.</p>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+      window.quartoDecorateExternalLinks = function (root) {
+     var links = (root || window.document).querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+          if (!link.classList.contains('no-external-icon')) {
+          }
+        }
+      }
+      };
+      window.quartoDecorateExternalLinks(window.document);
+    // Esc closes the popup (WCAG 1.4.13) and focus leaving both trigger and
+    // popup closes it (WCAG 2.4.11); tippy handles neither for interactive popups.
+    const hideOnEscAndFocusOut = {
+      name: 'hideOnEscAndFocusOut',
+      defaultValue: true,
+      fn(instance) {
+        const dismiss = () => {
+          // A show scheduled by the trigger delay would otherwise reopen it
+          instance.clearDelayTimeouts();
+          instance.hide();
+        };
+        const onKeyDown = (event) => {
+          if (event.key !== 'Escape') {
+            return;
+          }
+          // Keep Esc from also reaching page handlers (e.g. reveal.js overview),
+          // except an open reveal.js slide menu, which Esc should close too.
+          // The menu handles keys only when its keyboard option is on.
+          const menuHandlesEsc = window.Reveal?.getPlugin?.('menu')?.isOpen() &&
+            window.Reveal.getConfig().menu?.keyboard !== false;
+          if (!menuHandlesEsc) {
+            event.stopPropagation();
+          }
+          if (instance.popper.contains(window.document.activeElement)) {
+            // Disabled while refocusing so the focus trigger does not reopen it
+            instance.disable();
+            instance.reference.focus();
+            instance.enable();
+          }
+          dismiss();
+        };
+        const onFocusOut = (event) => {
+          const target = event.relatedTarget;
+          if (target && !instance.reference.contains(target) &&
+              !instance.popper.contains(target)) {
+            dismiss();
+          }
+        };
+        // On the trigger too: a click trigger (code-annotations: select) has no
+        // blur handling. Attached for the instance's lifetime so leaving the
+        // trigger also cancels a show still pending on the trigger delay.
+        instance.reference.addEventListener('focusout', onFocusOut);
+        return {
+          onShow() {
+            window.document.addEventListener('keydown', onKeyDown, true);
+            instance.popper.addEventListener('focusout', onFocusOut);
+          },
+          onHide() {
+            window.document.removeEventListener('keydown', onKeyDown, true);
+            instance.popper.removeEventListener('focusout', onFocusOut);
+          },
+          onDestroy() {
+            instance.reference.removeEventListener('focusout', onFocusOut);
+          },
+        };
+      },
+    };
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+        plugins: [hideOnEscAndFocusOut],
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          // Each band is positioned against its own containing block, which is
+          // not the offsetParent of the lines, so place it from client rects.
+          const placeBand = (band, firstEl, lastEl, codeBlock) => {
+            const container = band.offsetParent;
+            if (container === null) {
+              return;
+            }
+            const containerRect = container.getBoundingClientRect();
+            // Reveal.js scales slides with a transform, so convert client
+            // pixels back to the CSS pixels of the container.
+            const scale = containerRect.height / container.offsetHeight || 1;
+            const firstRect = firstEl.getBoundingClientRect();
+            const lastRect = lastEl.getBoundingClientRect();
+            const top = (firstRect.top - containerRect.top) / scale - container.clientTop + container.scrollTop;
+            const height = (lastRect.bottom - firstRect.top) / scale;
+            band.style.top = top - 2 + "px";
+            band.style.height = height + 4 + "px";
+            if (codeBlock) {
+              // Without the copy button wrapper, the containing block is wider
+              // than the code block, so span the code block explicitly.
+              const blockRect = codeBlock.getBoundingClientRect();
+              band.style.left = (blockRect.left - containerRect.left) / scale - container.clientLeft + container.scrollLeft + "px";
+              band.style.width = blockRect.width / scale + "px";
+            }
+          };
+          if (lineIds.length > 0) {
+            const el = window.document.getElementById(lineIds[0]);
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const parent = el.parentElement.parentElement;
+            // cook up a div (if necessary) and position it
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            placeBand(div, el, lastEl, parent.closest("div.sourceCode") || parent);
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            placeBand(gutterDiv, el, lastEl);
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+  <script type="application/javascript">
+  window.quartoScrollableRegionsLabels = {"code":"Scrollable code","output":"Scrollable output"};
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
