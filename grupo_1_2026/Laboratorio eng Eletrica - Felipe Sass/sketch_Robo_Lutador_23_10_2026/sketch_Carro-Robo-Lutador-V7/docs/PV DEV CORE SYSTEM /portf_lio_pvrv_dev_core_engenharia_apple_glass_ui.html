@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PVRV Dev Core | Apple Glass UI, SymPy LaTeX & Engenharia UFF (2022.2 - 2027.2)</title>
+    
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Fontes Google (Inter + JetBrains Mono + Playfair) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- KaTeX para renderizar LaTeX em tempo real -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+
+    <!-- Three.js via CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+    <!-- React & ReactDOM via CDN -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    
+    <!-- Babel para JSX no navegador -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Inter"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        :root {
+            --bg-color: #070b14;
+            --text-color: #e6edf3;
+            --primary-title-color: #58a6ff;
+            --card-bg-color: rgba(22, 27, 34, 0.55);
+            --border-color: rgba(255, 255, 255, 0.14);
+            --accent-glow: rgba(88, 166, 255, 0.28);
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+
+        /* Apple iOS 18 / visionOS Glassmorphism Containers */
+        .apple-glass {
+            background: linear-gradient(
+                135deg,
+                rgba(255, 255, 255, 0.10) 0%,
+                rgba(255, 255, 255, 0.03) 100%
+            );
+            backdrop-filter: blur(24px) saturate(190%);
+            -webkit-backdrop-filter: blur(24px) saturate(190%);
+            border: 1px solid var(--border-color);
+            box-shadow: 
+                0 20px 45px -15px rgba(0, 0, 0, 0.65),
+                inset 0 1px 1px 0 rgba(255, 255, 255, 0.25),
+                0 0 25px -5px var(--accent-glow);
+        }
+
+        .apple-glass-pill {
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .section-title {
+            color: var(--primary-title-color);
+        }
+
+        /* Customização do KaTeX para responsividade mobile */
+        .katex-display {
+            margin: 0.5em 0 !important;
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding: 0.25rem 0;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #050811;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(to bottom, #38bdf8, #6366f1, #10b981);
+            border-radius: 9999px;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased selection:bg-cyan-500 selection:text-black">
+
+    <!-- Canvas 3D do Three.js (Rede Elétrica & Átomos Científicos) -->
+    <canvas id="bg-canvas" class="fixed inset-0 w-full h-full pointer-events-none z-0"></canvas>
+
+    <!-- Container Raiz do React -->
+    <div id="root" class="relative z-10"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useRef, useMemo } = React;
+
+        // ============================================================================
+        // 1. ARQUITETURA ORIENTADA A OBJETOS (POO)
+        // ============================================================================
+
+        /**
+         * Classe SymPyLatexEngine
+         * Converte expressões Python SymPy em código LaTeX puro e renderiza via KaTeX.
+         */
+        class SymPyLatexEngine {
+            constructor() {
+                this.symbolMap = [
+                    { regex: /Integral\(([^,]+),\s*\(([^,]+),\s*([^,]+),\s*([^)]+)\)\)/g, replace: '\\int_{$3}^{$4} $1 \\, d$2' },
+                    { regex: /Integral\(([^,]+),\s*([^)]+)\)/g, replace: '\\int $1 \\, d$2' },
+                    { regex: /Derivative\(([^,]+),\s*([^,]+),\s*2\)/g, replace: '\\frac{\\partial^2 $1}{\\partial $2^2}' },
+                    { regex: /Derivative\(([^,]+),\s*([^)]+)\)/g, replace: '\\frac{d $1}{d $2}' },
+                    { regex: /Sum\(([^,]+),\s*\(([^,]+),\s*([^,]+),\s*([^)]+)\)\)/g, replace: '\\sum_{$2=$3}^{$4} $1' },
+                    { regex: /Eq\(([^,]+),\s*([^)]+)\)/g, replace: '$1 = $2' },
+                    { regex: /sqrt\(([^)]+)\)/g, replace: '\\sqrt{$1}' },
+                    { regex: /exp\(([^)]+)\)/g, replace: 'e^{$1}' },
+                    { regex: /\boo\b/g, replace: '\\infty' },
+                    { regex: /\bpi\b/g, replace: '\\pi' },
+                    { regex: /\balpha\b/g, replace: '\\alpha' },
+                    { regex: /\bbeta\b/g, replace: '\\beta' },
+                    { regex: /\bgamma\b/g, replace: '\\gamma' },
+                    { regex: /\bdelta\b/g, replace: '\\delta' },
+                    { regex: /\bDelta\b/g, replace: '\\Delta' },
+                    { regex: /\btheta\b/g, replace: '\\theta' },
+                    { regex: /\blambda\b/g, replace: '\\lambda' },
+                    { regex: /\bomega\b/g, replace: '\\omega' },
+                    { regex: /\bOmega\b/g, replace: '\\Omega' },
+                    { regex: /\bsigma\b/g, replace: '\\sigma' },
+                    { regex: /\bPhi\b/g, replace: '\\Phi' },
+                    { regex: /\bPsi\b/g, replace: '\\Psi' },
+                    { regex: /\bmu_0\b/g, replace: '\\mu_0' },
+                    { regex: /\bepsilon_0\b/g, replace: '\\varepsilon_0' },
+                    { regex: /\bhbar\b/g, replace: '\\hbar' },
+                    { regex: /\bNabla\b/g, replace: '\\nabla' },
+                    { regex: /\bsin\(/g, replace: '\\sin(' },
+                    { regex: /\bcos\(/g, replace: '\\cos(' },
+                    { regex: /\*\*([a-zA-Z0-9_+-]+)/g, replace: '^{$1}' },
+                    { regex: /\*/g, replace: ' \\cdot ' }
+                ];
+            }
+
+            // Converte string SymPy para LaTeX se não houver override manual
+            toLatex(sympyExpr, presetLatex = null) {
+                if (presetLatex) return presetLatex;
+                let latex = sympyExpr.trim();
+                this.symbolMap.forEach(rule => {
+                    latex = latex.replace(rule.regex, rule.replace);
+                });
+                return latex;
+            }
+        }
+
+        /**
+         * Classe AcademicPredictor2027
+         * Calcula em tempo real o progresso desde 2022.2 até a formatura prevista em 2027.2 (UFF).
+         */
+        class AcademicPredictor2027 {
+            constructor() {
+                // Agosto de 2022 (2022.2) até Dezembro de 2027 (2027.2) -> 11 semestres (5.5 anos)
+                this.entryDate = new Date(2022, 7, 15, 8, 0, 0); // 15/08/2022
+                this.graduationDate = new Date(2027, 11, 15, 20, 0, 0); // 15/12/2027
+            }
+
+            getCountdownToGraduation() {
+                const now = new Date();
+                const totalDuration = this.graduationDate - this.entryDate;
+                const elapsed = now - this.entryDate;
+                const remaining = Math.max(0, this.graduationDate - now);
+
+                const percentage = Math.min(100, Math.max(0, (elapsed / totalDuration) * 100)).toFixed(2);
+
+                const days = Math.floor(remaining / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((remaining / (1000 * 60 * 60)) % 24);
+                const minutes = Math.floor((remaining / 1000 / 60) % 60);
+                const seconds = Math.floor((remaining / 1000) % 60);
+
+                return {
+                    days: String(days).padStart(3, '0'),
+                    hours: String(hours).padStart(2, '0'),
+                    minutes: String(minutes).padStart(2, '0'),
+                    seconds: String(seconds).padStart(2, '0'),
+                    percentage
+                };
+            }
+
+            // Calcula a previsão de CR, carga horária e índice de domínio técnico até 2027.2
+            predictGraduationMetrics(semestersList) {
+                let totalSubjects = 0;
+                let completedSubjects = 0;
+                let weightedGradeSum = 0;
+                let gradedCount = 0;
+
+                semestersList.forEach(sem => {
+                    sem.subjects.forEach(sub => {
+                        totalSubjects++;
+                        if (sub.status === 'CONCLUÍDO') {
+                            completedSubjects++;
+                        }
+                        if (sub.grade) {
+                            weightedGradeSum += Number(sub.grade);
+                            gradedCount++;
+                        }
+                    });
+                });
+
+                const currentCR = gradedCount > 0 ? (weightedGradeSum / gradedCount) : 8.4;
+                // Modelo de regressão/tendência para 2027.2 considerando estágio ONS + iniciação científica
+                const predictedCR2027 = Math.min(9.8, (currentCR * 0.75 + 2.25)).toFixed(2);
+                const completionRate = totalSubjects > 0 ? Math.round((completedSubjects / totalSubjects) * 100) : 0;
+
+                return {
+                    totalSubjects,
+                    completedSubjects,
+                    completionRate,
+                    currentCR: currentCR.toFixed(2),
+                    predictedCR2027,
+                    estimatedHours: totalSubjects * 68
+                };
+            }
+        }
+
+        /**
+         * Classe CyberGridUniverse3D
+         * Motor Three.js POO que desenha nós de sistemas elétricos de potência (SEP) e partículas quânticas.
+         */
+        class CyberGridUniverse3D {
+            constructor(canvasId) {
+                this.canvas = document.getElementById(canvasId);
+                if (!this.canvas || !window.THREE) return;
+
+                this.scene = new THREE.Scene();
+                this.camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+                this.camera.position.z = 40;
+
+                this.renderer = new THREE.WebGLRenderer({
+                    canvas: this.canvas,
+                    alpha: true,
+                    antialias: true
+                });
+                this.renderer.setSize(window.innerWidth, window.innerHeight);
+                this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+                this.mouseX = 0;
+                this.mouseY = 0;
+                this.scrollY = 0;
+                this.polyhedrons = [];
+
+                this.initLights();
+                this.createDataField();
+                this.createMathPolyhedrons();
+                this.bindEvents();
+                this.animate();
+            }
+
+            initLights() {
+                const ambient = new THREE.AmbientLight(0x38bdf8, 0.8);
+                this.scene.add(ambient);
+
+                const p1 = new THREE.PointLight(0x38bdf8, 2.5, 120);
+                p1.position.set(20, 25, 25);
+                this.scene.add(p1);
+
+                const p2 = new THREE.PointLight(0xa855f7, 2.2, 120);
+                p2.position.set(-25, -20, 15);
+                this.scene.add(p2);
+            }
+
+            createDataField() {
+                const geom = new THREE.BufferGeometry();
+                const count = 850;
+                const pos = new Float32Array(count * 3);
+                const col = new Float32Array(count * 3);
+
+                const palette = [
+                    new THREE.Color('#38bdf8'), // Cyan SEP
+                    new THREE.Color('#10b981'), // Emerald Tricolor
+                    new THREE.Color('#a855f7'), // Julia Purple
+                    new THREE.Color('#f59e0b')  // ONS Solar Gold
+                ];
+
+                for (let i = 0; i < count * 3; i += 3) {
+                    pos[i] = (Math.random() - 0.5) * 140;
+                    pos[i + 1] = (Math.random() - 0.5) * 160;
+                    pos[i + 2] = (Math.random() - 0.5) * 90;
+
+                    const c = palette[Math.floor(Math.random() * palette.length)];
+                    col[i] = c.r;
+                    col[i + 1] = c.g;
+                    col[i + 2] = c.b;
+                }
+
+                geom.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+                geom.setAttribute('color', new THREE.BufferAttribute(col, 3));
+
+                const mat = new THREE.PointsMaterial({
+                    size: 0.45,
+                    vertexColors: true,
+                    transparent: true,
+                    opacity: 0.75
+                });
+
+                this.particles = new THREE.Points(geom, mat);
+                this.scene.add(this.particles);
+            }
+
+            createMathPolyhedrons() {
+                const geom = new THREE.IcosahedronGeometry(1.6, 0);
+                const mat = new THREE.MeshStandardMaterial({
+                    color: 0x38bdf8,
+                    wireframe: true,
+                    metalness: 0.8,
+                    roughness: 0.2
+                });
+
+                for (let i = 0; i < 12; i++) {
+                    const mesh = new THREE.Mesh(geom, mat);
+                    mesh.position.set(
+                        (Math.random() - 0.5) * 65,
+                        (Math.random() - 0.5) * 75,
+                        (Math.random() - 0.5) * 30 - 8
+                    );
+                    const scale = Math.random() * 0.9 + 0.4;
+                    mesh.scale.set(scale, scale, scale);
+
+                    this.polyhedrons.push({
+                        mesh,
+                        rx: (Math.random() - 0.5) * 0.015,
+                        ry: (Math.random() - 0.5) * 0.018,
+                        offset: Math.random() * Math.PI * 2
+                    });
+
+                    this.scene.add(mesh);
+                }
+            }
+
+            bindEvents() {
+                window.addEventListener('resize', () => {
+                    this.camera.aspect = window.innerWidth / window.innerHeight;
+                    this.camera.updateProjectionMatrix();
+                    this.renderer.setSize(window.innerWidth, window.innerHeight);
+                });
+
+                window.addEventListener('mousemove', (e) => {
+                    this.mouseX = (e.clientX / window.innerWidth - 0.5) * 5;
+                    this.mouseY = (e.clientY / window.innerHeight - 0.5) * 5;
+                });
+
+                window.addEventListener('scroll', () => {
+                    this.scrollY = window.scrollY;
+                }, { passive: true });
+            }
+
+            animate() {
+                requestAnimationFrame(() => this.animate());
+                const t = performance.now() * 0.001;
+
+                if (this.particles) {
+                    this.particles.rotation.y = t * 0.03 + this.scrollY * 0.0002;
+                    this.particles.rotation.x = this.scrollY * 0.00015;
+                }
+
+                this.polyhedrons.forEach(p => {
+                    p.mesh.rotation.x += p.rx;
+                    p.mesh.rotation.y += p.ry;
+                    p.mesh.position.y += Math.sin(t * 1.5 + p.offset) * 0.012;
+                });
+
+                this.camera.position.x += (this.mouseX - this.camera.position.x) * 0.05;
+                this.camera.position.y += (-this.mouseY - (this.scrollY * 0.004) - this.camera.position.y) * 0.05;
+                this.camera.lookAt(0, -(this.scrollY * 0.004), 0);
+
+                this.renderer.render(this.scene, this.camera);
+            }
+        }
+
+        // Instâncias Globais POO
+        const sympyEngine = new SymPyLatexEngine();
+        const academicOracle = new AcademicPredictor2027();
+
+        // ============================================================================
+        // 2. DADOS DO PORTFÓLIO, CIÊNCIA, HISTÓRIA DO BRASIL (1500-1889) E UFF (2022.2-2027.2)
+        // ============================================================================
+
+        const colorPalettes = {
+            neutral: {
+                name: 'Apple Dark / Cyberpunk',
+                values: {
+                    '--bg-color': '#070b14',
+                    '--text-color': '#e6edf3',
+                    '--primary-title-color': '#58a6ff',
+                    '--card-bg-color': 'rgba(22, 27, 34, 0.55)',
+                    '--border-color': 'rgba(255, 255, 255, 0.15)',
+                    '--accent-glow': 'rgba(88, 166, 255, 0.25)'
+                }
+            },
+            solar: {
+                name: 'Solar & ONS Gold',
+                values: {
+                    '--bg-color': '#18130d',
+                    '--text-color': '#fef08a',
+                    '--primary-title-color': '#f59e0b',
+                    '--card-bg-color': 'rgba(41, 37, 36, 0.60)',
+                    '--border-color': 'rgba(245, 158, 11, 0.30)',
+                    '--accent-glow': 'rgba(245, 158, 11, 0.30)'
+                }
+            },
+            oceanic: {
+                name: 'Oceano Hydro SEP',
+                values: {
+                    '--bg-color': '#041821',
+                    '--text-color': '#e0f2fe',
+                    '--primary-title-color': '#38bdf8',
+                    '--card-bg-color': 'rgba(11, 46, 60, 0.60)',
+                    '--border-color': 'rgba(56, 189, 248, 0.30)',
+                    '--accent-glow': 'rgba(56, 189, 248, 0.30)'
+                }
+            },
+            tricolor: {
+                name: 'Tricolor Fluminense / Neon',
+                values: {
+                    '--bg-color': '#091926',
+                    '--text-color': '#ffffff',
+                    '--primary-title-color': '#10b981',
+                    '--card-bg-color': 'rgba(139, 22, 56, 0.25)',
+                    '--border-color': 'rgba(16, 185, 129, 0.35)',
+                    '--accent-glow': 'rgba(16, 185, 129, 0.35)'
+                }
+            }
+        };
+
+        const techStackData = {
+            python: {
+                name: 'Python (SymPy, FastAPI & PandaPower)',
+                color: '#38bdf8',
+                bgColor: 'rgba(56, 189, 248, 0.3)',
+                difficulty: 'Avançado',
+                description: '<strong>Pilar do Backend, Simulação simbólica (SymPy) e SEP:</strong> Usado para APIs (FastAPI, Flask), manipulação algébrica simbólica com SymPy, processamento Pandas e análise de contingências elétricas (PandaPower / AnaREDE).',
+                scores: { performance: 78, webBackend: 96, desktop: 55, embedded: 30 }
+            },
+            julia: {
+                name: 'Julia Lang (Cálculo Científico)',
+                color: '#a855f7',
+                bgColor: 'rgba(168, 85, 247, 0.3)',
+                difficulty: 'Avançado',
+                description: '<strong>Cálculo Científico de Alta Performance:</strong> Ideal para simulações elétricas complexas, fluxo de potência não-linear e álgebra matricial esparsa.',
+                scores: { performance: 95, webBackend: 45, desktop: 30, embedded: 15 }
+            },
+            javascript: {
+                name: 'JS/TS (Next.js 16 & React)',
+                color: '#facc15',
+                bgColor: 'rgba(250, 204, 21, 0.3)',
+                difficulty: 'Avançado',
+                description: '<strong>Frontend Apple Glass UI & Reativo:</strong> Desenvolvimento de SPAs e SSR com Next.js 16, animações 3D Three.js, KaTeX e Tailwind CSS mobile-first.',
+                scores: { performance: 82, webBackend: 88, desktop: 50, embedded: 15 }
+            },
+            cpp: {
+                name: 'C++ (Drogon Server & ESP32 IoT)',
+                color: '#f43f5e',
+                bgColor: 'rgba(244, 63, 94, 0.3)',
+                difficulty: 'Avançado',
+                description: '<strong>Performance Extrema e Baixo Nível:</strong> APIs ultrarrápidas com Drogon, algoritmos numéricos e firmware embarcado para Arduino e ESP32 com WebSockets.',
+                scores: { performance: 99, webBackend: 85, desktop: 70, embedded: 96 }
+            },
+            pyqt6: {
+                name: 'PyQt6 / PySide6 Desktop',
+                color: '#c084fc',
+                bgColor: 'rgba(192, 132, 252, 0.3)',
+                difficulty: 'Avançado',
+                description: '<strong>Interfaces Nativas Desktop:</strong> Painéis de controle MUST/ONS, ferramentas de automação e GUIs ricas integrando Python e Qt6.',
+                scores: { performance: 74, webBackend: 15, desktop: 96, embedded: 15 }
+            },
+            rust: {
+                name: 'Rust (Tauri Backend)',
+                color: '#fb923c',
+                bgColor: 'rgba(251, 146, 60, 0.3)',
+                difficulty: 'Avançado',
+                description: '<strong>Segurança de Memória e Velocidade:</strong> Backend seguro para aplicações desktop Tauri, combinando velocidade nativa com segurança de concorrência.',
+                scores: { performance: 97, webBackend: 75, desktop: 90, embedded: 88 }
+            }
+        };
+
+        // LINHA DO TEMPO UNIFICADA: EQUAÇÕES DA CIÊNCIA + FASES DO GOVERNO BRASILEIRO (1500-1889) + NASCIMENTO & INGRESSO UFF
+        const HISTORICAL_SCIENCE_TIMELINE = [
+            {
+                id: 'br-1500',
+                category: 'BRASIL_GOV',
+                year: '1500 – 1530',
+                badge: '🇵🇹 1ª Fase: Período Pré-Colonial',
+                title: 'Chegada de Cabral, Escambo & Navegação Astronômica',
+                description: 'Expedições guarda-costas, exploração do pau-brasil por escambo e uso intensivo da trigonometria esférica para navegação oceânica no Atlântico Sul.',
+                sympyCode: "Eq(cos(c), cos(a)*cos(b) + sin(a)*sin(b)*cos(C))",
+                latexOverride: "\\cos(c) = \\cos(a)\\cos(b) + \\sin(a)\\sin(b)\\cos(C)",
+                secretNote: "A Lei dos Cossenos Esféricos permitiu às caravelas determinarem latitudes e rotas marítimas precisas em 1500.",
+                themeGradient: "from-emerald-900 via-teal-900 to-slate-950",
+                icon: "⛵🧭"
+            },
+            {
+                id: 'br-1530',
+                category: 'BRASIL_GOV',
+                year: '1530 – 1548',
+                badge: '📜 2ª Fase: Capitanias Hereditárias',
+                title: 'Descentralização Administrativa & Cartografia Real',
+                description: 'Divisão da América Portuguesa em 15 faixas lineares entregues aos capitães-donatários através das Cartas de Doação e Foral.',
+                sympyCode: "Eq(A_faixa, Integral(L_costa * cos(phi), (phi, phi_1, phi_2)))",
+                latexOverride: "A_{\\text{capitania}} = \\int_{\\phi_1}^{\\phi_2} R^2 \\cos(\\phi)\\,\\Delta\\lambda\\,d\\phi",
+                secretNote: "O Tratado de Tordesilhas e as linhas das Capitanias exigiram os primeiros levantamentos geodésicos coloniais.",
+                themeGradient: "from-amber-900 via-yellow-950 to-slate-950",
+                icon: "🗺️👑"
+            },
+            {
+                id: 'br-1549',
+                category: 'BRASIL_GOV',
+                year: '1549 – 1808',
+                badge: '🏛️ 3ª Fase: Governo-Geral & Vice-Reino (Colônia)',
+                title: 'Centralização em Salvador/Rio & Revolução Newtoniana (1687)',
+                description: 'De Tomé de Souza ao Marquês de Pombal e o Ciclo do Ouro, enquanto na ciência Isaac Newton publicava os Principia Mathematica unificando a mecânica e o cálculo.',
+                sympyCode: "Eq(F, m * Derivative(x(t), t, 2))",
+                latexOverride: "\\vec{F} = m \\frac{d^2\\vec{r}}{dt^2} = G \\frac{M m}{r^2}\\hat{r}",
+                secretNote: "Enquanto o Brasil vivia o apogeu da engenharia militar colonial e mineração, o Cálculo Diferencial transformava a física.",
+                themeGradient: "from-blue-900 via-indigo-950 to-slate-950",
+                icon: "⚖️🍎"
+            },
+            {
+                id: 'sci-1748',
+                category: 'CIENCIA',
+                year: '1748 – 1822',
+                badge: '♾️ Equações da Ciência: Euler & Fourier',
+                title: 'Identidade de Euler & Séries Harmônicas de Fourier',
+                description: 'A ponte perfeita entre exponenciais complexas e oscilações senoidais — a base absoluta da análise fasorial em Engenharia Elétrica e Sistemas de Potência.',
+                sympyCode: "Eq(exp(I*pi) + 1, 0)  # e F(omega) = Integral(f(t)*exp(-I*omega*t), (t, -oo, oo))",
+                latexOverride: "e^{j\\theta} = \\cos(\\theta) + j\\sin(\\theta) \\quad \\Longleftrightarrow \\quad \\hat{f}(\\omega) = \\int_{-\\infty}^{\\infty} f(t)e^{-j\\omega t}\\,dt",
+                secretNote: "Sem a fórmula de Euler de 1748, não existiriam fasores, impedância complexa Z = R + jX nem análise harmônica no ONS!",
+                themeGradient: "from-purple-900 via-fuchsia-950 to-slate-950",
+                icon: "📐🌊"
+            },
+            {
+                id: 'br-1808',
+                category: 'BRASIL_GOV',
+                year: '1808 – 1822',
+                badge: '👑 4ª Fase: Período Joanino & Reino Unido (1815)',
+                title: 'Vinda da Família Real, Abertura dos Portos & Academias Científicas',
+                description: 'Transferência da corte de D. João VI para o Rio de Janeiro, elevação do Brasil a Reino Unido de Portugal, Brasil e Algarves e criação da Real Academia Militar (berço da Engenharia no Brasil).',
+                sympyCode: "Eq(Nabla**2 * V, -rho / epsilon_0)",
+                latexOverride: "\\nabla^2 \\Phi = -\\frac{\\rho}{\\varepsilon_0} \\quad (\\text{Equação de Poisson, 1813})",
+                secretNote: "Em 1810 nascia no Rio de Janeiro o ensino formal de Cálculo e Engenharia no Brasil com a Real Academia Militar.",
+                themeGradient: "from-cyan-900 via-blue-950 to-slate-950",
+                icon: "🚢🏛️"
+            },
+            {
+                id: 'br-1822',
+                category: 'BRASIL_GOV',
+                year: '1822 – 1831',
+                badge: '⚔️ 5ª Fase: Império do Brasil — Primeiro Reinado',
+                title: 'Independência (D. Pedro I), Constituição de 1824 & Lei de Ohm/Ampère',
+                description: 'Proclamação da Independência, implementação do Poder Moderador na Constituição de 1824, em paralelo à descoberta da Lei de Ohm (1827) e Lei de Ampère (1826).',
+                sympyCode: "Eq(V, R * I)  # e Integral(B, dl) = mu_0 * I_enc",
+                latexOverride: "V = R \\cdot I \\quad \\land \\quad \\oint_C \\vec{B}\\cdot d\\vec{\\ell} = \\mu_0 I_{\\text{enc}}",
+                secretNote: "Na mesma década em que o Brasil se tornava um Império independente, Georg Simon Ohm e André-Marie Ampère fundavam a Eletrotécnica.",
+                themeGradient: "from-yellow-800 via-emerald-950 to-slate-950",
+                icon: "🇧🇷⚡"
+            },
+            {
+                id: 'br-1831',
+                category: 'BRASIL_GOV',
+                year: '1831 – 1840',
+                badge: '⚖️ 6ª Fase: Império do Brasil — Período Regencial',
+                title: 'Regências Trinas e Unas, Ato Adicional & Indução de Faraday (1831)',
+                description: 'Abdicação de D. Pedro I, governos regenciais (Feijó, Araújo Lima), revoltas provinciais e, no mesmo ano de 1831, Michael Faraday descobre a Indução Eletromagnética.',
+                sympyCode: "Eq(fem, -Derivative(Phi_B(t), t))",
+                latexOverride: "\\mathcal{E} = -\\frac{d\\Phi_B}{dt} = -\\oint_S \\frac{\\partial \\vec{B}}{\\partial t}\\cdot d\\vec{A}",
+                secretNote: "A descoberta de Faraday em 1831 é o princípio exato de todos os geradores síncronos e transformadores do Sistema Interligado Nacional!",
+                themeGradient: "from-rose-900 via-red-950 to-slate-950",
+                icon: "🧲📜"
+            },
+            {
+                id: 'br-1840',
+                category: 'BRASIL_GOV',
+                year: '1840 – 1889',
+                badge: '🚂 7ª Fase: Segundo Reinado (D. Pedro II) & Equações de Maxwell',
+                title: 'Modernização, Telégrafos, Ferrovias & Unificação Eletromagnética (1865)',
+                description: 'Golpe da Maioridade, apogeu do Segundo Reinado com D. Pedro II (entusiasta da ciência e amigo de Graham Bell e Pasteur), abolição da escravatura (1888) e unificação das 4 Equações de Maxwell.',
+                sympyCode: "Eq(Nabla x H, J + Derivative(D, t))",
+                latexOverride: "\\nabla \\times \\vec{H} = \\vec{J} + \\frac{\\partial \\vec{D}}{\\partial t}, \\quad \\nabla \\times \\vec{E} = -\\frac{\\partial \\vec{B}}{\\partial t}",
+                secretNote: "D. Pedro II trouxe as primeiras linhas telegráficas e iluminação elétrica ao Brasil poucos anos após Maxwell publicar suas equações.",
+                themeGradient: "from-indigo-900 via-purple-950 to-slate-950",
+                icon: "👑📡"
+            },
+            {
+                id: 'br-1889',
+                category: 'BRASIL_GOV',
+                year: '15 de Novembro de 1889',
+                badge: '🎖️ 8ª Fase: Proclamação da República & Corrente Alternada (Tesla)',
+                title: 'Queda da Monarquia, Governo Provisório de Deodoro & Sistemas Trifásicos',
+                description: 'Proclamação da República Federativa no Campo de Santana (RJ), iniciando o período republicano enquanto Nikola Tesla patenteava o motor de indução e o sistema polifásico de potência.',
+                sympyCode: "Eq(S_3phi, sqrt(3) * V_L * I_L * exp(I*phi))",
+                latexOverride: "\\dot{S}_{3\\phi} = P + jQ = \\sqrt{3}\\,V_L I_L \\angle \\varphi",
+                secretNote: "O fim do Império em 1889 coincide exatamente com a vitória da Corrente Alternada Trifásica que hoje move todas as hidrelétricas brasileiras.",
+                themeGradient: "from-emerald-800 via-cyan-950 to-slate-950",
+                icon: "🏛️⚙️"
+            },
+            {
+                id: 'sci-1905',
+                category: 'CIENCIA',
+                year: '1905 – 1926',
+                badge: '⚛️ Revolução Relativística & Quântica',
+                title: 'Einstein, Schrödinger & Semicondutores Modernos',
+                description: 'A equivalência massa-energia relativística e a Equação de Onda de Schrödinger, permitindo o surgimento do transistor, dos microprocessadores e da computação moderna.',
+                sympyCode: "Eq(I * hbar * Derivative(Psi(r,t), t), -hbar**2/(2*m)*Nabla**2*Psi(r,t) + V*Psi(r,t))",
+                latexOverride: "i\\hbar\\frac{\\partial \\Psi}{\\partial t} = \\left(-\\frac{\\hbar^2}{2m}\\nabla^2 + V(\\vec{r},t)\\right)\\Psi \\quad \\land \\quad E = \\gamma mc^2",
+                secretNote: "Toda a física de estado sólido dos microcontroladores ESP32, Arduino e processadores modernos nasce da equação de Schrödinger.",
+                themeGradient: "from-fuchsia-900 via-purple-950 to-slate-950",
+                icon: "🌌⚛️"
+            },
+            {
+                id: 'life-birth',
+                category: 'PESSOAL',
+                year: 'Marco Pessoal & Geração Digital',
+                badge: '👶✨ Meu Nascimento & Início da Jornada',
+                title: 'Nascimento de um Futuro Engenheiro Eletricista & Desenvolvedor Fullstack',
+                description: 'O ponto inicial(t = 0) da minha trajetória de vida, curiosidade científica, paixão por matemática, computação de alto desempenho e sistemas de energia.',
+                sympyCode: "Eq(L_vida(t), Integral(Conhecimento(tau) * Paixao(tau), (tau, t_nasc, t)))",
+                latexOverride: "\\mathcal{L}_{\\text{vida}}(t) = \\int_{t_{\\text{nasc}}}^{t} \\left( \\text{Ciência}(\\tau) + \\text{Código}(\\tau) \\right) e^{\\alpha \\tau}\\,d\\tau",
+                secretNote: "Você pode editar a data exata do seu nascimento logo abaixo no simulador para calcular seus segundos de vida e equações!",
+                themeGradient: "from-cyan-800 via-blue-900 to-indigo-950",
+                icon: "🚀🧬"
+            },
+            {
+                id: 'uff-2022',
+                category: 'PESSOAL',
+                year: '2022.2 — Ingresso na UFF',
+                badge: '🎓 Engenharia Elétrica UFF (2022.2 → 2027.2)',
+                title: 'Início na Universidade Federal Fluminense & Rumo a 2027.2',
+                description: 'Ingresso em Engenharia Elétrica na UFF em 2022.2, unindo Cálculo, Física, Circuitos Elétricos, Sistemas de Potência (ONS) e Engenharia de Software.',
+                sympyCode: "Eq(P_k + I*Q_k, V_k * Sum(conj(Y_km) * conj(V_m), (m, 1, N)))",
+                latexOverride: "P_k - jQ_k = V_k^* \\sum_{m=1}^{N} Y_{km} V_m \\quad (\\text{Fluxo de Potência SEP})",
+                secretNote: "Role até a seção seguinte para usar o Previsor Interativo 2022.2 → 2027.2 e cadastrar todas as suas matérias e equações SymPy!",
+                themeGradient: "from-blue-800 via-emerald-900 to-slate-950",
+                icon: "⚡🎓"
+            }
+        ];
+
+        // GRADE DE PREVISÃO ACADÊMICA DE ENGENHARIA ELÉTRICA (2022.2 ATÉ 2027.2) COM EQUAÇÕES SYMPY
+        const INITIAL_ACADEMIC_SEMESTERS = [
+            {
+                semester: "2022.2",
+                periodTitle: "1º Período • Fundamentos Matemáticos & Programação",
+                status: "CONCLUÍDO",
+                subjects: [
+                    {
+                        id: "s-222-1",
+                        name: "Cálculo I (Limites, Derivadas e Integrais)",
+                        status: "CONCLUÍDO",
+                        grade: 8.5,
+                        sympy: "Eq(Integral(f(x), (x, a, b)), F(b) - F(a))",
+                        latex: "\\int_{a}^{b} f'(x)\\,dx = f(b) - f(a)"
+                    },
+                    {
+                        id: "s-222-2",
+                        name: "Geometria Analítica e Álgebra Vetorial",
+                        status: "CONCLUÍDO",
+                        grade: 9.0,
+                        sympy: "Eq(u . v, norm(u)*norm(v)*cos(theta))",
+                        latex: "\\vec{u}\\cdot\\vec{v} = \\|\\vec{u}\\|\\|\\vec{v}\\|\\cos(\\theta)"
+                    },
+                    {
+                        id: "s-222-3",
+                        name: "Programação de Computadores (Python / C)",
+                        status: "CONCLUÍDO",
+                        grade: 9.8,
+                        sympy: "Eq(T(n), O(n * log(n)))",
+                        latex: "T(n) = \\mathcal{O}(n \\log n)"
+                    }
+                ]
+            },
+            {
+                semester: "2023.1",
+                periodTitle: "2º Período • Física Clássica & Álgebra Linear",
+                status: "CONCLUÍDO",
+                subjects: [
+                    {
+                        id: "s-231-1",
+                        name: "Cálculo II (EDO & Funções de Várias Variáveis)",
+                        status: "CONCLUÍDO",
+                        grade: 8.2,
+                        sympy: "Eq(Nabla_f, Derivative(f, x)*i + Derivative(f, y)*j)",
+                        latex: "\\nabla f(x,y) = \\frac{\\partial f}{\\partial x}\\hat{i} + \\frac{\\partial f}{\\partial y}\\hat{j}"
+                    },
+                    {
+                        id: "s-231-2",
+                        name: "Álgebra Linear (Autovalores e Diagonalização)",
+                        status: "CONCLUÍDO",
+                        grade: 8.8,
+                        sympy: "Eq(det(A - lambda*I), 0)",
+                        latex: "\\det(\\mathbf{A} - \\lambda \\mathbf{I}) = 0"
+                    },
+                    {
+                        id: "s-231-3",
+                        name: "Física I (Mecânica e Conservação de Energia)",
+                        status: "CONCLUÍDO",
+                        grade: 8.5,
+                        sympy: "Eq(W, Integral(F . dr, (r, r_1, r_2)))",
+                        latex: "W = \\int_{\\vec{r}_1}^{\\vec{r}_2} \\vec{F}\\cdot d\\vec{r} = \\Delta K"
+                    }
+                ]
+            },
+            {
+                semester: "2023.2",
+                periodTitle: "3º Período • Cálculo Vetorial & Ondas",
+                status: "CONCLUÍDO",
+                subjects: [
+                    {
+                        id: "s-232-1",
+                        name: "Cálculo III (Teoremas de Green, Gauss e Stokes)",
+                        status: "CONCLUÍDO",
+                        grade: 8.4,
+                        sympy: "Eq(Integral(Nabla x F, dS), Integral(F, dr))",
+                        latex: "\\iint_S (\\nabla \\times \\vec{F})\\cdot d\\vec{S} = \\oint_{\\partial S} \\vec{F}\\cdot d\\vec{r}"
+                    },
+                    {
+                        id: "s-232-2",
+                        name: "Física II (Termodinâmica e Oscilações)",
+                        status: "CONCLUÍDO",
+                        grade: 8.6,
+                        sympy: "Eq(Derivative(x, t, 2) + 2*zeta*omega_n*Derivative(x, t) + omega_n**2*x, 0)",
+                        latex: "\\ddot{x} + 2\\zeta\\omega_n\\dot{x} + \\omega_n^2 x = 0"
+                    }
+                ]
+            },
+            {
+                semester: "2024.1",
+                periodTitle: "4º Período • Eletromagnetismo & Métodos Numéricos",
+                status: "CONCLUÍDO",
+                subjects: [
+                    {
+                        id: "s-241-1",
+                        name: "Física III (Eletricidade e Magnetismo)",
+                        status: "CONCLUÍDO",
+                        grade: 9.0,
+                        sympy: "Eq(Integral(E, dA), Q_int / epsilon_0)",
+                        latex: "\\oiint_S \\vec{E}\\cdot d\\vec{A} = \\frac{Q_{\\text{int}}}{\\varepsilon_0}"
+                    },
+                    {
+                        id: "s-241-2",
+                        name: "Métodos Numéricos (Newton-Raphson & Runge-Kutta)",
+                        status: "CONCLUÍDO",
+                        grade: 9.4,
+                        sympy: "Eq(x_(k+1), x_k - J(x_k)**(-1) * F(x_k))",
+                        latex: "\\mathbf{x}^{(k+1)} = \\mathbf{x}^{(k)} - \\left[\\mathbf{J}(\\mathbf{x}^{(k)})\\right]^{-1}\\mathbf{F}(\\mathbf{x}^{(k)})"
+                    }
+                ]
+            },
+            {
+                semester: "2024.2",
+                periodTitle: "5º Período • Circuitos Elétricos I & Sinais e Sistemas",
+                status: "CONCLUÍDO",
+                subjects: [
+                    {
+                        id: "s-242-1",
+                        name: "Circuitos Elétricos I (Domínio do Tempo e Laplace)",
+                        status: "CONCLUÍDO",
+                        grade: 9.1,
+                        sympy: "Eq(H(s), V_o(s)/V_i(s))",
+                        latex: "H(s) = \\frac{V_{\\text{out}}(s)}{V_{\\text{in}}(s)} = \\frac{1}{LCs^2 + RCs + 1}"
+                    },
+                    {
+                        id: "s-242-2",
+                        name: "Sinais e Sistemas (Convolução e Transformada de Laplace/Fourier)",
+                        status: "CONCLUÍDO",
+                        grade: 8.9,
+                        sympy: "Eq(y(t), Integral(x(tau)*h(t - tau), (tau, -oo, oo)))",
+                        latex: "y(t) = (x * h)(t) = \\int_{-\\infty}^{\\infty} x(\\tau)h(t-\\tau)\\,d\\tau"
+                    }
+                ]
+            },
+            {
+                semester: "2025.1",
+                periodTitle: "6º Período • Circuitos Trifásicos, Eletrônica & Eletromag Avançado",
+                status: "CONCLUÍDO",
+                subjects: [
+                    {
+                        id: "s-251-1",
+                        name: "Circuitos Elétricos II (Trifásicos e Componentes Simétricas)",
+                        status: "CONCLUÍDO",
+                        grade: 9.2,
+                        sympy: "Eq(V_012, A**(-1) * V_abc)",
+                        latex: "\\begin{bmatrix} V_0 \\\\ V_1 \\\\ V_2 \\end{bmatrix} = \\frac{1}{3}\\begin{bmatrix} 1 & 1 & 1 \\\\ 1 & a & a^2 \\\\ 1 & a^2 & a \\end{bmatrix}\\begin{bmatrix} V_a \\\\ V_b \\\\ V_c \\end{bmatrix}"
+                    },
+                    {
+                        id: "s-251-2",
+                        name: "Teoria Eletromagnética (Ondas Guiadas e Linhas de Transmissão)",
+                        status: "CONCLUÍDO",
+                        grade: 8.7,
+                        sympy: "Eq(Z_0, sqrt((R + I*omega*L)/(G + I*omega*C)))",
+                        latex: "Z_0 = \\sqrt{\\frac{R + j\\omega L}{G + j\\omega C}}, \\quad \\gamma = \\alpha + j\\beta"
+                    }
+                ]
+            },
+            {
+                semester: "2025.2",
+                periodTitle: "7º Período • Conversão de Energia, Controle & Estágio ONS",
+                status: "CONCLUÍDO",
+                subjects: [
+                    {
+                        id: "s-252-1",
+                        name: "Conversão Eletromecânica de Energia & Máquinas Elétricas",
+                        status: "CONCLUÍDO",
+                        grade: 9.0,
+                        sympy: "Eq(T_em, (1/2) * i**2 * Derivative(L(theta), theta))",
+                        latex: "T_{\\text{em}} = \\frac{\\partial W'_c(i,\\theta)}{\\partial \\theta} = \\frac{1}{2}i^2\\frac{dL(\\theta)}{d\\theta}"
+                    },
+                    {
+                        id: "s-252-2",
+                        name: "Sistemas de Controle Clássico (Lugar das Raízes, Bode e Nyquist)",
+                        status: "CONCLUÍDO",
+                        grade: 9.3,
+                        sympy: "Eq(G_cl(s), (K*G(s))/(1 + K*G(s)*H(s)))",
+                        latex: "T(s) = \\frac{C(s)G(s)}{1 + C(s)G(s)H(s)}, \\quad u(t) = K_p e(t) + K_i\\int e\\,dt + K_d\\frac{de}{dt}"
+                    }
+                ]
+            },
+            {
+                semester: "2026.1",
+                periodTitle: "8º Período • Sistemas de Potência I (SEP) & Processamento Digital de Sinais",
+                status: "CONCLUÍDO",
+                subjects: [
+                    {
+                        id: "s-261-1",
+                        name: "Sistemas Elétricos de Potência I (Modelagem PU e Fluxo de Carga)",
+                        status: "CONCLUÍDO",
+                        grade: 9.5,
+                        sympy: "Eq(P_i, Sum(V_i*V_k*(G_ik*cos(theta_ik) + B_ik*sin(theta_ik)), (k, 1, N)))",
+                        latex: "P_i = \\sum_{k=1}^{N} |V_i||V_k|\\left(G_{ik}\\cos\\theta_{ik} + B_{ik}\\sin\\theta_{ik}\\right)"
+                    },
+                    {
+                        id: "s-261-2",
+                        name: "Processamento Digital de Sinais (Transformada Z e Filtros Digitais)",
+                        status: "CONCLUÍDO",
+                        grade: 9.1,
+                        sympy: "Eq(X(z), Sum(x[n] * z**(-n), (n, -oo, oo)))",
+                        latex: "X(z) = \\sum_{n=-\\infty}^{\\infty} x[n]z^{-n}, \\quad X[k] = \\sum_{n=0}^{N-1} x[n]e^{-j\\frac{2\\pi}{N}kn}"
+                    }
+                ]
+            },
+            {
+                semester: "2026.2",
+                periodTitle: "9º Período (ATUAL) • Análise de Contingências SEP, Eletrônica de Potência & IoT",
+                status: "EM ANDAMENTO",
+                subjects: [
+                    {
+                        id: "s-262-1",
+                        name: "Sistemas Elétricos de Potência II (Estabilidade Transitória e Curto-Circuito)",
+                        status: "EM ANDAMENTO",
+                        grade: 9.4,
+                        sympy: "Eq((2*H)/(omega_s) * Derivative(delta, t, 2), P_m - P_max*sin(delta))",
+                        latex: "\\frac{2H}{\\omega_s}\\frac{d^2\\delta}{dt^2} = P_m - P_{e,\\max}\\sin(\\delta) \\quad (\\text{Equação de Oscilação})"
+                    },
+                    {
+                        id: "s-262-2",
+                        name: "Eletrônica de Potência (Inversores PWM e Conversores CC-CC)",
+                        status: "EM ANDAMENTO",
+                        grade: 9.0,
+                        sympy: "Eq(V_o, V_in / (1 - D))",
+                        latex: "V_{\\text{out}} = \\frac{V_{\\text{in}}}{1 - D} \\quad (\\text{Conversor Boost})"
+                    },
+                    {
+                        id: "s-262-3",
+                        name: "Microcontroladores e IoT (ESP32, FreeRTOS & WebSockets)",
+                        status: "EM ANDAMENTO",
+                        grade: 9.7,
+                        sympy: "Eq(SNR_dB, 6.02 * N_bits + 1.76)",
+                        latex: "\\text{SNR}_{\\text{ADC}} = 6.02\\,N_{\\text{bits}} + 1.76\\text{ dB}"
+                    }
+                ]
+            },
+            {
+                semester: "2027.1",
+                periodTitle: "10º Período (PREVISÃO) • Proteção de SEP, Smart Grids & Otimização Energética",
+                status: "PREVISTO",
+                subjects: [
+                    {
+                        id: "s-271-1",
+                        name: "Proteção de Sistemas Elétricos (Relés de Distância ANSI 21/50/51/87)",
+                        status: "PREVISTO",
+                        grade: 9.5,
+                        sympy: "Eq(Z_medido, V_rele / (I_rele + k_0 * I_0))",
+                        latex: "Z_{\\text{relé}} = \\frac{\\dot{V}_{\\phi}}{\\dot{I}_{\\phi} + k_0 \\dot{I}_0}, \\quad t(I) = \\text{TMS}\\left[\\frac{\\beta}{(I/I_p)^\\alpha - 1}\\right]"
+                    },
+                    {
+                        id: "s-271-2",
+                        name: "Fluxo de Potência Ótimo (OPF) & Planejamento Energético (PDE/ONS)",
+                        status: "PREVISTO",
+                        grade: 9.6,
+                        sympy: "Eq(min_C, Sum(a_i + b_i*P_Gi + c_i*P_Gi**2, (i, 1, N_G)))",
+                        latex: "\\min_{P_G} \\sum_{i=1}^{N_G} \\left(a_i + b_i P_{Gi} + c_i P_{Gi}^2\\right) \\quad \\text{s.a. } \\mathbf{g}(\\mathbf{x}) = 0,\\; \\mathbf{h}(\\mathbf{x}) \\le 0"
+                    }
+                ]
+            },
+            {
+                semester: "2027.2",
+                periodTitle: "11º Período (FORMATURA 🎓) • TCC com IA/PandaPower & Transmissão HVDC",
+                status: "PREVISTO",
+                subjects: [
+                    {
+                        id: "s-272-1",
+                        name: "Trabalho de Conclusão de Curso (IA e Simulação de Contingências no SIN/ONS)",
+                        status: "PREVISTO",
+                        grade: 10.0,
+                        sympy: "Eq(theta_(t+1), theta_t - eta * Nabla_L(theta_t))",
+                        latex: "\\boldsymbol{\\theta}_{t+1} = \\boldsymbol{\\theta}_t - \\eta \\nabla_{\\boldsymbol{\\theta}}\\mathcal{L}\\left(\\hat{\\mathbf{V}}(\\boldsymbol{\\theta}), \\mathbf{V}_{\\text{SIN}}\\right)"
+                    },
+                    {
+                        id: "s-272-2",
+                        name: "Transmissão em Alta Tensão CC (HVDC) e Fontes Renováveis",
+                        status: "PREVISTO",
+                        grade: 9.6,
+                        sympy: "Eq(V_d, (3*sqrt(2)/pi)*V_LL*cos(alpha) - (3*X_c/pi)*I_d)",
+                        latex: "V_d = \\frac{3\\sqrt{2}}{\\pi}V_{LL}\\cos(\\alpha) - \\frac{3X_c}{\\pi}I_d"
+                    }
+                ]
+            }
+        ];
+
+        const INITIAL_ROTEIRO = {
+            "Tarefas Gerais": {
+                status: "EM ANDAMENTO",
+                tasks: [
+                    { id: "tg-1", text: "3 dashboards Streamlit - Asimov", completed: true },
+                    { id: "tg-2", text: "Dashboard Desktop MUST - Refatoração Template", completed: true },
+                    { id: "tg-3", text: "Estudos de ASP com Python", completed: true },
+                    { id: "tg-4", text: "Bots e RPA com Python", completed: true },
+                    { id: "tg-5", text: "Estudos de IA, ML, DL, Chatbots, N8N, AI agentes", completed: true }
+                ]
+            },
+            "Estágio ONS": {
+                status: "CONCLUÍDO",
+                tasks: [
+                    { id: "ons-1", text: "Relatório + Reunião Semanal", completed: true },
+                    { id: "ons-2", text: "Dashboard MUST com PyPDF2 e camelot", completed: true },
+                    { id: "ons-3", text: "Simulação Deck e Correção VD/VE (AnaREDE/AnaTEM)", completed: true },
+                    { id: "ons-4", text: "Análise de Contingências com PandaPower e AnaREDE", completed: true },
+                    { id: "ons-5", text: "Atividades Mensal PLC - VA, VB e politica energetica", completed: true }
+                ]
+            },
+            "Eng. Elétrica UFF 2025/2026": {
+                status: "EM ANDAMENTO",
+                tasks: [
+                    { id: "uff-1", text: "Matemática aplicada, Provas Antigas", completed: true },
+                    { id: "uff-2", text: "Circuitos digitais e elétricos com Arduino e ESP32", completed: false },
+                    { id: "uff-3", text: "Jedi Cyberpunk - Python com Métodos Numericos", completed: false },
+                    { id: "uff-4", text: "Modelagem de Circuitos Elétricos com Laplace, Z e Fourier", completed: false },
+                    { id: "uff-5", text: "IoT e Arduino com WebSockets e HTML/JS", completed: false },
+                    { id: "uff-6", text: "Processamento Digital de Sinais (PDS)", completed: false }
+                ]
+            },
+            "Projetos GitHub": {
+                status: "A FAZER",
+                tasks: [
+                    { id: "git-1", text: "Backend: Charizard (Drogon), Pikachu (Flask), Raichu (FastAPI)", completed: true },
+                    { id: "git-2", text: "Frontend: HTML, React, Flutter, Astro, PySide6, Streamlit", completed: true },
+                    { id: "git-3", text: "Electrical-System-Simulator (SEP)", completed: true },
+                    { id: "git-4", text: "meu-react-app-template (Gohan, Quizz, Habits)", completed: true },
+                    { id: "git-5", text: "my-flutter-getx-app (Kyogre, SCRUM, Todo)", completed: true },
+                    { id: "git-6", text: "Calistenia App + Goku IA trainer", completed: true }
+                ]
+            }
+        };
+
+        // ============================================================================
+        // 3. COMPONENTES VISUAIS: LATEX RENDERER, GRÁFICO RADAR SVG & IMAGENS 4:3
+        // ============================================================================
+
+        const LatexRenderer = ({ sympyExpr, latexOverride, displayMode = true }) => {
+            const containerRef = useRef(null);
+
+            useEffect(() => {
+                if (containerRef.current && window.katex) {
+                    const finalLatex = sympyEngine.toLatex(sympyExpr || "", latexOverride);
+                    try {
+                        window.katex.render(finalLatex, containerRef.current, {
+                            displayMode,
+                            throwOnError: false
+                        });
+                    } catch (err) {
+                        containerRef.current.textContent = finalLatex;
+                    }
+                }
+            }, [sympyExpr, latexOverride, displayMode]);
+
+            return <div ref={containerRef} className="text-cyan-200 overflow-x-auto py-1" />;
+        };
+
+        // Moldura 4:3 estilo Apple visionOS com Equação Renderizada dentro e efeito Parallax
+        const Frame4x3AppleGlass = ({ item, scrollY, index }) => {
+            const parallaxOffset = Math.max(-28, Math.min(28, (scrollY - (index * 360)) * 0.06));
+
+            return (
+                <div 
+                    style={{ transform: `translateY(${parallaxOffset}px)` }}
+                    className={`relative w-full aspect-[4/3] rounded-3xl overflow-hidden bg-gradient-to-br ${item.themeGradient} border border-white/20 shadow-2xl p-5 flex flex-col justify-between group transition-transform duration-200 ease-out`}
+                >
+                    {/* Barra de Janela Estilo macOS / visionOS */}
+                    <div className="flex items-center justify-between z-10">
+                        <div className="flex items-center gap-1.5">
+                            <span className="w-3 h-3 rounded-full bg-rose-500/90"></span>
+                            <span className="w-3 h-3 rounded-full bg-amber-400/90"></span>
+                            <span className="w-3 h-3 rounded-full bg-emerald-500/90"></span>
+                            <span className="ml-2 text-[11px] font-mono text-white/70">sympy_kernel.py — 4:3</span>
+                        </div>
+                        <span className="px-2.5 py-0.
