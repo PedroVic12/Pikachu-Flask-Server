@@ -1,8 +1,16 @@
-## 🦇 BatCaverna PV - Centro de Comando 2026
+# 🦇 BatCaverna PV - Centro de Comando 2026
 
 ---
 
-📅 Data: *23/11/2026** - *Segunda Feira*
+## Mapas Mentais
+
+npm i mind-elixir -S
+
+https://github.com/SSShooter/mind-elixir-core
+
+---
+
+## 📅 Data: **25/11/2026** - Quarta Feira
 
 *Segunda Feira* = Root Chakra + Academia
 
