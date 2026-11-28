@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador 3D Robô Sumô 1x1 - IA Autônoma + Arduino Serial</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: #090d16;
+            color: #f8fafc;
+            font-family: 'Inter', sans-serif;
+            user-select: none;
+        }
+        canvas {
+            display: block;
+            width: 100vw;
+            height: 100vh;
+            cursor: grab;
+        }
+        canvas:active {
+            cursor: grabbing;
+        }
+        .mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        /* Custom scrollbar para painel compacto em telas menores */
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+    </style>
+</head>
+<body>
+
+    <!-- HUD Principal (Esquerda) -->
+    <div id="hud" class="fixed top-4 left-4 w-80 max-w-[calc(100vw-2rem)] max-h-[calc(100vh-2rem)] overflow-y-auto bg-slate-900/90 backdrop-blur-md border border-slate-700/80 border-l-4 border-l-sky-400 rounded-xl p-4 shadow-2xl z-10">
+        <div class="flex items-center justify-between mb-3">
+            <h2 class="text-base font-extrabold text-sky-400 tracking-tight flex items-center gap-2">
+                <span>⚡</span> Sumô 3D (HIL + IA)
+            </h2>
+            <span id="badgeModo" class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
+                IA AUTÔNOMA
+            </span>
+        </div>
+
+        <!-- Botão Conectar Arduino -->
+        <button id="btnConnect" class="w-full bg-sky-600 hover:bg-sky-500 active:scale-[0.99] text-white font-semibold text-xs py-2.5 px-3 rounded-lg border border-sky-400/50 shadow-lg shadow-sky-900/30 transition mb-3 flex items-center justify-center gap-2">
+            <span>🔌</span> Conectar Arduino Uno (USB)
+        </button>
+
+        <!-- Seletor de Estratégias -->
+        <div class="mb-2">
+            <div class="text-[11px] uppercase tracking-wider text-slate-400 font-semibold mb-1.5">Estratégia do Robô Azul</div>
+            <div class="grid grid-cols-3 gap-1.5">
+                <button onclick="selecionarEstrategia('7')" id="btnEst7" class="est-btn bg-sky-500/20 border-sky-400 text-sky-200 border text-xs font-semibold py-1.5 px-2 rounded-lg transition hover:bg-sky-500/30">
+                    7: Ataque
+                </button>
+                <button onclick="selecionarEstrategia('8')" id="btnEst8" class="est-btn bg-slate-800 border-slate-600 text-slate-300 border text-xs font-semibold py-1.5 px-2 rounded-lg transition hover:bg-slate-700">
+                    8: Horário
+                </button>
+                <button onclick="selecionarEstrategia('9')" id="btnEst9" class="est-btn bg-slate-800 border-slate-600 text-slate-300 border text-xs font-semibold py-1.5 px-2 rounded-lg transition hover:bg-slate-700">
+                    9: Anti-Hor.
+                </button>
+            </div>
+        </div>
+
+        <!-- Controles da Partida -->
+        <div class="grid grid-cols-3 gap-1.5 mb-3">
+            <button onclick="iniciarLuta()" class="bg-emerald-600/20 hover:bg-emerald-600/40 border border-emerald-500/60 text-emerald-300 text-xs font-bold py-2 px-2 rounded-lg transition">
+                ▶ Lutar (2)
+            </button>
+            <button onclick="pausarLuta()" class="bg-amber-600/20 hover:bg-amber-600/40 border border-amber-500/60 text-amber-300 text-xs font-bold py-2 px-2 rounded-lg transition">
+                ⏸ Pausar (1)
+            </button>
+            <button onclick="resetarRound()" class="bg-slate-800 hover:bg-slate-700 border border-slate-600 text-slate-200 text-xs font-semibold py-2 px-2 rounded-lg transition">
+                🔄 Reset
+            </button>
+        </div>
+
+        <!-- Telemetria em Tempo Real -->
+        <div class="bg-slate-950/70 rounded-lg p-2.5 border border-slate-800 space-y-1.5 text-xs">
+            <div class="flex justify-between">
+                <span class="text-slate-400">Fonte de Controle:</span>
+                <span id="stSerial" class="mono text-emerald-400 font-bold">Simulador IA</span>
+            </div>
+            <div class="flex justify-between">
+                <span class="text-slate-400">Estado / Ação:</span>
+                <span id="stAcao" class="mono text-amber-300 font-bold">AGUARDANDO</span>
+            </div>
+            <div class="flex justify-between">
+                <span class="text-slate-400">PWM (Esq / Dir):</span>
+                <span id="stPwm" class="mono text-sky-300 font-bold">0 / 0</span>
+            </div>
+            <div class="flex justify-between">
+                <span class="text-slate-400">Sensores (F/E/D):</span>
+                <span id="stSensores" class="mono text-slate-200 font-bold">999 / 999 / 999</span>
+            </div>
+        </div>
+
+        <!-- Instruções -->
+        <div class="mt-3 pt-2.5 border-t border-slate-800 text-[11px] text-slate-400 leading-relaxed space-y-1">
+            <p>🎮 <strong class="text-rose-400">Seu Robô (Vermelho):</strong> Use <kbd class="bg-slate-800 px-1.5 py-0.5 rounded text-slate-200 border border-slate-700">↑ ↓ ← →</kbd> ou <kbd class="bg-slate-800 px-1.5 py-0.5 rounded text-slate-200 border border-slate-700">W A S D</kbd> para dirigir e empurrar.</p>
+            <p>🖱️ <strong class="text-slate-300">Câmera:</strong> Arraste o mouse para girar e use o scroll para zoom.</p>
+        </div>
+    </div>
+
+    <!-- Placar Superior Direito -->
+    <div class="fixed top-4 right-4 bg-slate-900/90 backdrop-blur-md border border-slate-700/80 rounded-xl px-4 py-2.5 shadow-xl z-10 flex items-center gap-4">
+        <div class="text-center">
+            <div class="text-[10px] font-bold uppercase tracking-wider text-sky-400">Robô Azul (IA/Uno)</div>
+            <div id="scoreAzul" class="mono text-2xl font-extrabold text-white">0</div>
+        </div>
+        <div class="text-slate-600 font-black text-sm">VS</div>
+        <div class="text-center">
+            <div class="text-[10px] font-bold uppercase tracking-wider text-rose-400">Você (Vermelho)</div>
+            <div id="scoreVermelho" class="mono text-2xl font-extrabold text-white">0</div>
+        </div>
+    </div>
+
+    <!-- Banner de Notificação / Vitória -->
+    <div id="bannerAviso" class="fixed top-24 left-1/2 -translate-x-1/2 pointer-events-none transition-all duration-300 opacity-0 scale-95 z-20">
+        <div id="bannerTexto" class="bg-slate-900/95 border-2 border-amber-400 text-amber-300 font-extrabold text-lg md:text-2xl px-6 py-3 rounded-2xl shadow-2xl tracking-wide text-center">
+            ROUND INICIADO!
+        </div>
+    </div>
+
+    <!-- Controles Touch / Mouse na parte inferior (para celular ou clique rápido) -->
+    <div class="fixed bottom-4 right-4 md:hidden z-10 grid grid-cols-3 gap-1.5 w-36 h-36 opacity-85">
+        <div></div>
+        <button id="touchUp" class="bg-slate-800/90 active:bg-rose-600 border border-slate-600 rounded-xl flex items-center justify-center text-xl">▲</button>
+        <div></div>
+        <button id="touchLeft" class="bg-slate-800/90 active:bg-rose-600 border border-slate-600 rounded-xl flex items-center justify-center text-xl">◀</button>
+        <button id="touchDown" class="bg-slate-800/90 active:bg-rose-600 border border-slate-600 rounded-xl flex items-center justify-center text-xl">▼</button>
+        <button id="touchRight" class="bg-slate-800/90 active:bg-rose-600 border border-slate-600 rounded-xl flex items-center justify-center text-xl">▶</button>
+    </div>
+
+<script>
+// ============================================================================
+// 1. CONFIGURAÇÃO DA CENA 3D (THREE.JS) E CONTROLE DE CÂMERA
+// ============================================================================
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x090d16);
+scene.fog = new THREE.FogExp2(0x090d16, 0.0022);
+
+const camera = new THREE.PerspectiveCamera(48, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+document.body.appendChild(renderer.domElement);
+
+// Controle orbital manual da câmera via mouse/touch
+let camAngleX = 0;
+let camAngleY = 0.78; // radianos de elevação
+let camRadius = 175;
+let isDragging = false;
+let prevMouseX = 0, prevMouseY = 0;
+
+function atualizarCamera() {
+    camera.position.x = camRadius * Math.sin(camAngleX) * Math.cos(camAngleY);
+    camera.position.y = camRadius * Math.sin(camAngleY);
+    camera.position.z = camRadius * Math.cos(camAngleX) * Math.cos(camAngleY);
+    camera.lookAt(0, 2, 0);
+}
+atualizarCamera();
+
+renderer.domElement.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    prevMouseX = e.clientX;
+    prevMouseY = e.clientY;
+});
+window.addEventListener('mouseup', () => isDragging = false);
+window.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    const dx = e.clientX - prevMouseX;
+    const dy = e.clientY - prevMouseY;
+    camAngleX -= dx * 0.007;
+    camAngleY = Math.max(0.2, Math.min(1.48, camAngleY + dy * 0.007));
+    prevMouseX = e.clientX;
+    prevMouseY = e.clientY;
+    atualizarCamera();
+});
+renderer.domElement.addEventListener('wheel', (e) => {
+    camRadius = Math.max(85, Math.min(280, camRadius + e.deltaY * 0.1));
+    atualizarCamera();
+}, { passive: true });
+
+window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+});
+
+// Iluminação aprimorada
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.55);
+scene.add(ambientLight);
+
+const dirLight = new THREE.DirectionalLight(0xffffff, 0.95);
+dirLight.position.set(60, 140, 80);
+dirLight.castShadow = true;
+dirLight.shadow.mapSize.width = 1024;
+dirLight.shadow.mapSize.height = 1024;
+scene.add(dirLight);
+
+const rimLight = new THREE.DirectionalLight(0x38bdf8, 0.35);
+rimLight.position.set(-80, 60, -80);
+scene.add(rimLight);
+
+// Grade de piso decorativa abaixo do Dohyo
+const gridHelper = new THREE.GridHelper(360, 36, 0x1e293b, 0x0f172a);
+gridHelper.position.y = -6;
+scene.add(gridHelper);
+
+// ============================================================================
+// 2. ARENA DOHYO (OFICIAL: 154cm diâmetro -> Raio = 77cm)
+// ============================================================================
+const RAIO_ARENA = 77;
+const RAIO_BORDA_BRANCA = 72; // Tawara (borda branca de 5cm)
+
+// Base elevada do Dohyo
+const geoTatame = new THREE.CylinderGeometry(RAIO_BORDA_BRANCA, RAIO_BORDA_BRANCA, 4, 64);
+const matTatame = new THREE.MeshStandardMaterial({ color: 0x161e2e, roughness: 0.75, metalness: 0.1 });
+const tatame = new THREE.Mesh(geoTatame, matTatame);
+tatame.position.y = -2;
+tatame.receiveShadow = true;
+scene.add(tatame);
+
+// Anel lateral externo
+const geoLateral = new THREE.CylinderGeometry(RAIO_ARENA, RAIO_ARENA, 3.9, 64);
+const matLateral = new THREE.MeshStandardMaterial({ color: 0x334155, roughness: 0.6 });
+const lateral = new THREE.Mesh(geoLateral, matLateral);
+lateral.position.y = -2.05;
+lateral.receiveShadow = true;
+scene.add(lateral);
+
+// Faixa branca da borda (Tawara)
+const geoBorda = new THREE.RingGeometry(RAIO_BORDA_BRANCA, RAIO_ARENA, 64);
+const matBorda = new THREE.MeshBasicMaterial({ color: 0xf8fafc, side: THREE.DoubleSide });
+const bordaBranca = new THREE.Mesh(geoBorda, matBorda);
+bordaBranca.rotation.x = -Math.PI / 2;
+bordaBranca.position.y = 0.03;
+scene.add(bordaBranca);
+
+// Linhas centrais de partida (Shikiri-sen)
+function criarLinhaInicio(xOffset) {
+    const geo = new THREE.PlaneGeometry(2, 20);
+    const mat = new THREE.MeshBasicMaterial({ color: 0x94a3b8, side: THREE.DoubleSide });
+    const mesh = new THREE.Mesh(geo, mat);
+    mesh.rotation.x = -Math.PI / 2;
+    mesh.position.set(xOffset, 0.04, 0);
+    scene.add(mesh);
+}
+criarLinhaInicio(-12);
+criarLinhaInicio(12);
+
+// ============================================================================
+// 3. CONSTRUÇÃO DOS ROBÔS 3D (AZUL AUTÔNOMO VS VERMELHO JOGADOR)
+// ============================================================================
+const RAIO_COLISAO = 10.5; // Raio físico aproximado de cada robô
+
+// --- ROBÔ 1: AZUL (ARDUINO UNO / IA AUTÔNOMA) ---
+const roboGrupo = new THREE.Group();
+
+const corpoRobo = new THREE.Mesh(
+    new THREE.BoxGeometry(16, 7.5, 17),
+    new THREE.MeshStandardMaterial({ color: 0x0284c7, metalness: 0.35, roughness: 0.4 })
+);
+corpoRobo.position.y = 4.2;
+corpoRobo.castShadow = true;
+roboGrupo.add(corpoRobo);
+
+// Rampa frontal (Pá de ataque)
+const rampa = new THREE.Mesh(
+    new THREE.BoxGeometry(16.4, 2.2, 4.5),
+    new THREE.MeshStandardMaterial({ color: 0xfacc15, metalness: 0.4, roughness: 0.3 })
+);
+rampa.position.set(0, 1.3, -9.8);
+rampa.rotation.x = 0.18;
+rampa.castShadow = true;
+roboGrupo.add(rampa);
+
+// Rodas visuais do robô azul
+const geoRoda = new THREE.CylinderGeometry(3.2, 3.2, 2, 16);
+const matRoda = new THREE.MeshStandardMaterial({ color: 0x0f172a, roughness: 0.9 });
+[[-8.6, 3.2, 3], [8.6, 3.2, 3], [-8.6, 3.2, -3], [8.6, 3.2, -3]].forEach(pos => {
+    const roda = new THREE.Mesh(geoRoda, matRoda);
+    roda.rotation.z = Math.PI / 2;
+    roda.position.set(...pos);
+    roboGrupo.add(roda);
+});
+
+// Feixes visuais dos 3 sensores (Frontal 45cm, Laser Esq 28cm, Laser Dir 28cm)
+function criarLinhaSensor(comprimento, anguloY, cor) {
+    const geo = new THREE.BufferGeometry().setFromPoints([
+        new THREE.Vector3(0, 4.5, -8.5),
+        new THREE.Vector3(-Math.sin(anguloY) * comprimento, 4.5, -8.5 - Math.cos(anguloY) * comprimento)
+    ]);
+    const mat = new THREE.LineBasicMaterial({ color: cor, transparent: true, opacity: 0.75 });
+    return new THREE.Line(geo, mat);
+}
+const feixeFrontal = criarLinhaSensor(45, 0, 0x22c55e);
+const feixeEsq = criarLinhaSensor(28, Math.PI / 5, 0x38bdf8);
+const feixeDir = criarLinhaSensor(28, -Math.PI / 5, 0x38bdf8);
+roboGrupo.add(feixeFrontal, feixeEsq, feixeDir);
+scene.add(roboGrupo);
+
+// --- ROBÔ 2: VERMELHO (ADVERSÁRIO CONTROLADO POR VOCÊ) ---
+const inimigoGrupo = new THREE.Group();
+
+const corpoInimigo = new THREE.Mesh(
+    new THREE.BoxGeometry(16.5, 7.5, 17),
+    new THREE.MeshStandardMaterial({ color: 0xe11d48, metalness: 0.35, roughness: 0.4 })
+);
+corpoInimigo.position.y = 4.2;
+corpoInimigo.castShadow = true;
+inimigoGrupo.add(corpoInimigo);
+
+// Rampa frontal do robô vermelho
+const rampaInimigo = new THREE.Mesh(
+    new THREE.BoxGeometry(16.8, 2.2, 4.5),
+    new THREE.MeshStandardMaterial({ color: 0xf8fafc, metalness: 0.3, roughness: 0.3 })
+);
+rampaInimigo.position.set(0, 1.3, -9.8);
+rampaInimigo.rotation.x = 0.18;
+rampaInimigo.castShadow = true;
+inimigoGrupo.add(rampaInimigo);
+
+// Rodas do robô vermelho
+[[-8.8, 3.2, 3], [8.8, 3.2, 3], [-8.8, 3.2, -3], [8.8, 3.2, -3]].forEach(pos => {
+    const roda = new THREE.Mesh(geoRoda, matRoda);
+    roda.rotation.z = Math.PI / 2;
+    roda.position.set(...pos);
+    inimigoGrupo.add(roda);
+});
+
+scene.add(inimigoGrupo);
+
+// ============================================================================
+// 4. COMUNICAÇÃO WEB SERIAL (ARDUINO UNO FÍSICO) + CÉREBRO IA AUTÔNOMO
+// ============================================================================
+let port, writer, reader;
+let arduinoConectado = false;
+
+let pwmEsq = 0, pwmDir = 0;
+let acaoAtual = "AGUARDANDO";
+let lutaAtiva = false;
+let estrategiaAtual = '7'; // '7' = Agressivo, '8' = Busca Horária, '9' = Busca Anti-Horária
+
+// Variáveis de estado da IA interna (emula o loop() do Arduino Uno)
+let iaTimerFugaBorda = 0;
+let iaGiroFugaDir = 1;
+let iaUltimoLadoVisto = 1; // 1 = direita, -1 = esquerda
+
+function mostrarBanner(texto, corBorda = "border-amber-400", corTexto = "text-amber-300", duracao = 1800) {
+    const banner = document.getElementById('bannerAviso');
+    const txt = document.getElementById('bannerTexto');
+    txt.innerText = texto;
+    txt.className = `bg-slate-900/95 border-2 ${corBorda} ${corTexto} font-extrabold text-lg md:text-2xl px-6 py-3 rounded-2xl shadow-2xl tracking-wide text-center`;
+    banner.classList.remove('opacity-0', 'scale-95');
+    banner.classList.add('opacity-100', 'scale-100');
+
+    clearTimeout(banner._timeout);
+    if (duracao > 0) {
+        banner._timeout = setTimeout(() => {
+            banner.classList.remove('opacity-100', 'scale-100');
+            banner.classList.add('opacity-0', 'scale-95');
+        }, duracao);
+    }
+}
+
+document.getElementById('btnConnect').addEventListener('click', async () => {
+    if (!("serial" in navigator)) {
+        mostrarBanner("Use Chrome, Edge ou Brave para USB Serial!", "border-rose-500", "text-rose-300", 3000);
+        return;
+    }
+    try {
+        port = await navigator.serial.requestPort();
+        await port.open({ baudRate: 9600 });
+        arduinoConectado = true;
+
+        document.getElementById('stSerial').innerText = "Arduino USB (9600)";
+        document.getElementById('stSerial').className = "mono text-sky-400 font-bold";
+        document.getElementById('badgeModo').innerText = "HARDWARE ARDUINO";
+        document.getElementById('badgeModo').className = "text-[11px] font-bold px-2 py-0.5 rounded-full bg-sky-500/20 text-sky-300 border border-sky-500/40";
+        document.getElementById('btnConnect').innerText = "✅ Arduino Uno Conectado";
+
+        const encoder = new TextEncoderStream();
+        encoder.readable.pipeTo(port.writable);
+        writer = encoder.writable.getWriter();
+
+        lerLoopSerial();
+        mostrarBanner("ARDUINO UNO CONECTADO!", "border-sky-400", "text-sky-300", 2000);
+    } catch (e) {
+        console.error(e);
+        mostrarBanner("Conexão cancelada ou porta ocupada.", "border-rose-500", "text-rose-300", 2000);
+    }
+});
+
+async function enviarComandoSerial(texto) {
+    if (writer && arduinoConectado) {
+        try {
+            await writer.write(texto + "\n");
+        } catch (err) {
+            console.error("Erro escrita serial:", err);
+        }
+    }
+}
+
+async function lerLoopSerial() {
+    const decoder = new TextDecoderStream();
+    port.readable.pipeTo(decoder.writable);
+    reader = decoder.readable.getReader();
+    let buffer = "";
+
+    try {
+        while (true) {
+            const { value, done } = await reader.read();
+            if (done) break;
+            buffer += value;
+            let linhas = buffer.split("\n");
+            buffer = linhas.pop();
+
+            for (let l of linhas) {
+                l = l.trim();
+                if (l.startsWith("TELEM:")) {
+                    const partes = l.substring(6).split(",");
+                    if (partes.length >= 6) {
+                        pwmEsq = parseInt(partes[0]) || 0;
+                        pwmDir = parseInt(partes[1]) || 0;
+                        acaoAtual = partes[5];
+                    }
+                }
+            }
+        }
+    } catch (e) {
+        console.warn("Leitura serial encerrada:", e);
+        arduinoConectado = false;
+    }
+}
+
+// Funções de Controle da Interface (funcionam tanto para IA quanto para Arduino!)
+function selecionarEstrategia(est) {
+    estrategiaAtual = est;
+    document.querySelectorAll('.est-btn').forEach(b => {
+        b.className = "est-btn bg-slate-800 border-slate-600 text-slate-300 border text-xs font-semibold py-1.5 px-2 rounded-lg transition hover:bg-slate-700";
+    });
+    const activeBtn = document.getElementById('btnEst' + est);
+    if (activeBtn) {
+        activeBtn.className = "est-btn bg-sky-500/20 border-sky-400 text-sky-200 border text-xs font-semibold py-1.5 px-2 rounded-lg transition hover:bg-sky-500/30";
+    }
+    enviarComandoSerial(est);
+}
+
+function iniciarLuta() {
+    lutaAtiva = true;
+    enviarComandoSerial('2');
+    mostrarBanner("HAJIME! LUTA INICIADA!", "border-emerald-400", "text-emerald-300", 1500);
+}
+
+function pausarLuta() {
+    lutaAtiva = false;
+    pwmEsq = 0;
+    pwmDir = 0;
+    acaoAtual = "PAUSADO";
+    enviarComandoSerial('1');
+    mostrarBanner("LUTA PAUSADA", "border-amber-400", "text-amber-300", 1200);
+}
+
+/**
+ * Cérebro Autônomo Simulado (Emula fielmente o código do Arduino Uno quando não há placa USB)
+ */
+function executarLogicaArduinoVirtual(distFrente, distEsq, distDir, pisouNaBorda, dt) {
+    if (!lutaAtiva) {
+        pwmEsq = 0;
+        pwmDir = 0;
+        acaoAtual = "PAUSADO";
+        return;
+    }
+
+    // 1. PRIORIDADE MÁXIMA: Sensor de Linha / Borda Branca (Tawara)
+    if (pisouNaBorda === 1 && iaTimerFugaBorda <= 0) {
+        iaTimerFugaBorda = 0.55; // 550ms de manobra de fuga (ré + giro)
+        iaGiroFugaDir = (Math.random() > 0.5) ? 1 : -1;
+    }
+
+    if (iaTimerFugaBorda > 0) {
+        iaTimerFugaBorda -= dt;
+        if (iaTimerFugaBorda > 0.25) {
+            // Dá ré forte para não cair
+            pwmEsq = -230;
+            pwmDir = -230;
+            acaoAtual = "BORDA: RE";
+        } else {
+            // Gira para o centro da arena
+            pwmEsq = 200 * iaGiroFugaDir;
+            pwmDir = -200 * iaGiroFugaDir;
+            acaoAtual = "BORDA: GIRO";
+        }
+        return;
+    }
+
+    // 2. ATAQUE FRONTAL: Oponente detectado na frente!
+    if (distFrente <= 45) {
+        // Ajuste fino se um dos sensores laterais também estiver vendo
+        if (distEsq < 25 && distDir > 25) {
+            pwmEsq = 210;
+            pwmDir = 255;
+            acaoAtual = "ATAQUE ESQ";
+        } else if (distDir < 25 && distEsq > 25) {
+            pwmEsq = 255;
+            pwmDir = 210;
+            acaoAtual = "ATAQUE DIR";
+        } else {
+            pwmEsq = 255;
+            pwmDir = 255;
+            acaoAtual = "ATAQUE FULL!";
+        }
+        return;
+    }
+
+    // 3. SENSORES LATERAIS: Vira rápido para alinhar a rampa frontal
+    if (distEsq <= 28) {
+        iaUltimoLadoVisto = -1;
+        pwmEsq = -190;
+        pwmDir = 210;
+        acaoAtual = "ALINHA ESQ";
+        return;
+    }
+
+    if (distDir <= 28) {
+        iaUltimoLadoVisto = 1;
+        pwmEsq = 210;
+        pwmDir = -190;
+        acaoAtual = "ALINHA DIR";
+        return;
+    }
+
+    // 4. BUSCA PELO OPONENTE (Baseada na Estratégia 7, 8 ou 9 selecionada)
+    if (estrategiaAtual === '7') {
+        // Estratégia 7: Avanço agressivo em arco buscando o último lado visto
+        if (iaUltimoLadoVisto === 1) {
+            pwmEsq = 175;
+            pwmDir = 115;
+        } else {
+            pwmEsq = 115;
+            pwmDir = 175;
+        }
+        acaoAtual = "BUSCA AGRESSIVA";
+    } else if (estrategiaAtual === '8') {
+        // Estratégia 8: Radar Horário no próprio eixo
+        pwmEsq = 145;
+        pwmDir = -145;
+        acaoAtual = "RADAR HORARIO";
+    } else if (estrategiaAtual === '9') {
+        // Estratégia 9: Radar Anti-Horário no próprio eixo
+        pwmEsq = -145;
+        pwmDir = 145;
+        acaoAtual = "RADAR ANTI-HOR";
+    }
+}
+
+// ============================================================================
+// 5. CONTROLES DO JOGADOR (ROBÔ VERMELHO) E FÍSICA DE COLISÃO
+// ============================================================================
+const teclas = {};
+window.addEventListener('keydown', e => {
+    teclas[e.key.toLowerCase()] = true;
+    teclas[e.key] = true;
+
+    // Atalhos rápidos no teclado
+    if (e.key === '2') iniciarLuta();
+    if (e.key === '1') pausarLuta();
+    if (e.key === '7' || e.key === '8' || e.key === '9') selecionarEstrategia(e.key);
+});
+window.addEventListener('keyup', e => {
+    teclas[e.key.toLowerCase()] = false;
+    teclas[e.key] = false;
+});
+
+// Suporte Touch na tela
+function bindTouch(id, keyName) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.addEventListener('touchstart', (e) => { e.preventDefault(); teclas[keyName] = true; });
+    el.addEventListener('touchend', (e) => { e.preventDefault(); teclas[keyName] = false; });
+}
+bindTouch('touchUp', 'ArrowUp');
+bindTouch('touchDown', 'ArrowDown');
+bindTouch('touchLeft', 'ArrowLeft');
+bindTouch('touchRight', 'ArrowRight');
+
+// Placar e estado do round
+let pontosAzul = 0;
+let pontosVermelho = 0;
+let roundFinalizado = false;
+
+function resetarRound(autoIniciar = false) {
+    // Posiciona frente a frente nos lados opostos do centro
+    roboGrupo.position.set(0, 0, 26);
+    roboGrupo.rotation.y = 0; // Olhando para -Z
+
+    inimigoGrupo.position.set(0, 0, -26);
+    inimigoGrupo.rotation.y = Math.PI; // Olhando para +Z
+
+    iaTimerFugaBorda = 0;
+    roundFinalizado = false;
+
+    if (autoIniciar) {
+        lutaAtiva = true;
+        enviarComandoSerial('2');
+    } else {
+        lutaAtiva = false;
+        pwmEsq = 0;
+        pwmDir = 0;
+        acaoAtual = "PRONTO";
+        enviarComandoSerial('1');
+    }
+}
+resetarRound(false);
+
+// ============================================================================
+// 6. RAYCAST MATEMÁTICO DOS SENSORES ULTRASSÔNICOS / LASER
+// ============================================================================
+function calcularDistanciaSensor(anguloOffset, alcanceMax) {
+    const anguloGlobal = roboGrupo.rotation.y + anguloOffset;
+    const dirX = -Math.sin(anguloGlobal);
+    const dirZ = -Math.cos(anguloGlobal);
+
+    const origemX = roboGrupo.position.x + dirX * 8.5;
+    const origemZ = roboGrupo.position.z + dirZ * 8.5;
+
+    const dx = inimigoGrupo.position.x - origemX;
+    const dz = inimigoGrupo.position.z - origemZ;
+
+    const proj = dx * dirX + dz * dirZ;
+    if (proj > 0 && proj <= alcanceMax + RAIO_COLISAO) {
+        const perpDistSq = (dx * dx + dz * dz) - (proj * proj);
+        if (perpDistSq <= RAIO_COLISAO * RAIO_COLISAO) {
+            return Math.max(1, Math.round(proj - RAIO_COLISAO));
+        }
+    }
+    return 999;
+}
+
+// ============================================================================
+// 7. LOOP PRINCIPAL DE SIMULAÇÃO E FÍSICA
+// ============================================================================
+let ultimoTempo = 0;
+let ultimoEnvioSensores = 0;
+
+function animate(tempo) {
+    requestAnimationFrame(animate);
+
+    const dt = Math.min((tempo - ultimoTempo) / 1000, 0.05) || 0.016;
+    ultimoTempo = tempo;
+
+    // 1. Mede sensores do Robô Azul
+    const distFrente = calcularDistanciaSensor(0, 45);
+    const distEsq = calcularDistanciaSensor(Math.PI / 5, 28);
+    const distDir = calcularDistanciaSensor(-Math.PI / 5, 28);
+
+    // Atualiza cor dos feixes visuais quando detectam o inimigo
+    feixeFrontal.material.color.setHex(distFrente <= 45 ? 0xfacc15 : 0x22c55e);
+    feixeEsq.material.color.setHex(distEsq <= 28 ? 0xfacc15 : 0x38bdf8);
+    feixeDir.material.color.setHex(distDir <= 28 ? 0xfacc15 : 0x38bdf8);
+
+    const raioAtualAzul = Math.hypot(roboGrupo.position.x, roboGrupo.position.z);
+    const pisouNaBorda = raioAtualAzul >= (RAIO_BORDA_BRANCA - 7.5) ? 1 : 0;
+
+    // 2. Decide os PWMs (Via Arduino Serial se conectado, ou via IA Autônoma se offline)
+    if (arduinoConectado) {
+        if (writer && tempo - ultimoEnvioSensores > 80) {
+            ultimoEnvioSensores = tempo;
+            enviarComandoSerial(`S,${distFrente},${distEsq},${distDir},${pisouNaBorda}`);
+        }
+    } else {
+        executarLogicaArduinoVirtual(distFrente, distEsq, distDir, pisouNaBorda, dt);
+    }
+
+    // 3. Cinemática Diferencial do Robô Azul (IA / Arduino)
+    const velMax = 0.72;
+    const vEsq = (pwmEsq / 255.0) * velMax;
+    const vDir = (pwmDir / 255.0) * velMax;
+    const vLinearAzul = (vEsq + vDir) / 2.0;
+    const vAngularAzul = (vEsq - vDir) / 14.0;
+
+    roboGrupo.rotation.y -= vAngularAzul;
+    const vxAzul = -Math.sin(roboGrupo.rotation.y) * vLinearAzul;
+    const vzAzul = -Math.cos(roboGrupo.rotation.y) * vLinearAzul;
+    roboGrupo.position.x += vxAzul;
+    roboGrupo.position.z += vzAzul;
+
+    // 4. Cinemática Diferencial do Robô Vermelho (Você no teclado!)
+    // Controle tipo tanque/carro intuitivo: Cima/Baixo acelera, Esquerda/Direita vira
+    let acelJogador = 0;
+    let giroJogador = 0;
+
+    if (teclas['ArrowUp'] || teclas['w']) acelJogador += 1;
+    if (teclas['ArrowDown'] || teclas['s']) acelJogador -= 0.85;
+    if (teclas['ArrowLeft'] || teclas['a']) giroJogador += 1;
+    if (teclas['ArrowRight'] || teclas['d']) giroJogador -= 1;
+
+    // Se apertar qualquer tecla de movimento e o jogo estiver parado (antes de iniciar), inicia automaticamente!
+    if ((acelJogador !== 0 || giroJogador !== 0) && !lutaAtiva && !roundFinalizado) {
+        iniciarLuta();
+    }
+
+    inimigoGrupo.rotation.y += giroJogador * 0.055;
+    const vLinearJog = acelJogador * 0.68;
+    const vxJog = -Math.sin(inimigoGrupo.rotation.y) * vLinearJog;
+    const vzJog = -Math.cos(inimigoGrupo.rotation.y) * vLinearJog;
+    inimigoGrupo.position.x += vxJog;
+    inimigoGrupo.position.z += vzJog;
+
+    // 5. Física de Colisão e Empurrão (Sumô Realista!)
+    const dx = inimigoGrupo.position.x - roboGrupo.position.x;
+    const dz = inimigoGrupo.position.z - roboGrupo.position.z;
+    const distCentros = Math.hypot(dx, dz);
+    const minDist = RAIO_COLISAO * 2;
+
+    if (distCentros < minDist && distCentros > 0.001) {
+        const overlap = minDist - distCentros;
+        const nx = dx / distCentros; // Normal apontando do Azul para o Vermelho
+        const nz = dz / distCentros;
+
+        // Calcula quem está atacando mais de frente e com mais velocidade
+        const forcaAzul = Math.max(0, (vxAzul * nx + vzAzul * nz)) + 0.15;
+        const forcaJog = Math.max(0, (-vxJog * nx - vzJog * nz)) + 0.15;
+        const totalForca = forcaAzul + forcaJog;
+
+        // Quem tem mais impulso empurra mais o outro
+        const ratioEmpurraoVermelho = forcaAzul / totalForca;
+        const ratioEmpurraoAzul = forcaJog / totalForca;
+
+        inimigoGrupo.position.x += nx * overlap * ratioEmpurraoVermelho * 1.15;
+        inimigoGrupo.position.z += nz * overlap * ratioEmpurraoVermelho * 1.15;
+
+        roboGrupo.position.x -= nx * overlap * ratioEmpurraoAzul * 1.15;
+        roboGrupo.position.z -= nz * overlap * ratioEmpurraoAzul * 1.15;
+    }
+
+    // 6. Verificação de Vitória / Queda do Dohyo
+    if (!roundFinalizado) {
+        const distCentroAzul = Math.hypot(roboGrupo.position.x, roboGrupo.position.z);
+        const distCentroVermelho = Math.hypot(inimigoGrupo.position.x, inimigoGrupo.position.z);
+
+        if (distCentroVermelho > RAIO_ARENA + 3) {
+            roundFinalizado = true;
+            lutaAtiva = false;
+            pontosAzul++;
+            document.getElementById('scoreAzul').innerText = pontosAzul;
+            mostrarBanner("🏆 PONTO DO ROBÔ AZUL (IA)!", "border-sky-400", "text-sky-300", 2200);
+            setTimeout(() => resetarRound(true), 2300);
+        } else if (distCentroAzul > RAIO_ARENA + 3) {
+            roundFinalizado = true;
+            lutaAtiva = false;
+            pontosVermelho++;
+            document.getElementById('scoreVermelho').innerText = pontosVermelho;
+            mostrarBanner("🔥 PONTO SEU (ROBÔ VERMELHO)!", "border-rose-400", "text-rose-300", 2200);
+            setTimeout(() => resetarRound(true), 2300);
+        }
+    }
+
+    // Efeito visual de queda se sair da borda
+    const dAzul = Math.hypot(roboGrupo.position.x, roboGrupo.position.z);
+    roboGrupo.position.y = dAzul > RAIO_ARENA ? Math.max(-15, roboGrupo.position.y - 0.8) : 0;
+
+    const dVerm = Math.hypot(inimigoGrupo.position.x, inimigoGrupo.position.z);
+    inimigoGrupo.position.y = dVerm > RAIO_ARENA ? Math.max(-15, inimigoGrupo.position.y - 0.8) : 0;
+
+    // 7. Atualiza HUD
+    document.getElementById('stAcao').innerText = acaoAtual;
+    document.getElementById('stPwm').innerText = `${pwmEsq} / ${pwmDir}`;
+    document.getElementById('stSensores').innerText = `${distFrente} / ${distEsq} / ${distDir} ${pisouNaBorda ? '⚠️' : ''}`;
+
+    renderer.render(scene, camera);
+}
+
+window.onload = function () {
+    animate(0);
+};
+</script>
+</body>
+</html>
